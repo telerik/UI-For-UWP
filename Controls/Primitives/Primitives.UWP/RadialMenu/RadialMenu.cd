@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <Members>
+      <Method Name="ApplyTemplateCore" Hidden="true" />
+      <Method Name="CalculateRingsAspectRatio" Hidden="true" />
+      <Method Name="Close" Hidden="true" />
+      <Field Name="commandService" Hidden="true" />
+      <Field Name="contentMenuBackgroundStyleCache" Hidden="true" />
+      <Field Name="ContentMenuBackgroundStyleProperty" Hidden="true" />
+      <Method Name="DestroyLayer" Hidden="true" />
+      <Method Name="GetNextLevelStartAngle" Hidden="true" />
+      <Method Name="GetPositionPoint" Hidden="true" />
+      <Method Name="HandleOnBackButtonPressed" Hidden="true" />
+      <Field Name="hitTestService" Hidden="true" />
+      <Method Name="InitializeLayer" Hidden="true" />
+      <Field Name="innerNavigationRadiusCache" Hidden="true" />
+      <Field Name="InnerNavigationRadiusFactorProperty" Hidden="true" />
+      <Field Name="innerRadiusCache" Hidden="true" />
+      <Field Name="InnerRadiusFactorProperty" Hidden="true" />
+      <Field Name="IsOpenProperty" Hidden="true" />
+      <Field Name="menuButton" Hidden="true" />
+      <Field Name="model" Hidden="true" />
+      <Field Name="navigationMenuBackgroundStyleCache" Hidden="true" />
+      <Field Name="NavigationMenuBackgroundStyleProperty" Hidden="true" />
+      <Method Name="OnContentMenuStylePropertyChanged" Hidden="true" />
+      <Method Name="OnInnerNavigationRadiusFactorPropertyChanged" Hidden="true" />
+      <Method Name="OnInnerRadiusFactorPropertyChanged" Hidden="true" />
+      <Method Name="OnIsOpenChanged" Hidden="true" />
+      <Method Name="OnMainButtonPressed" Hidden="true" />
+      <Method Name="OnNavigationMenuStylePropertyChanged" Hidden="true" />
+      <Method Name="OnOuterRadiusFactorPropertyChanged" Hidden="true" />
+      <Method Name="OnPointerExited" Hidden="true" />
+      <Method Name="OnPointerMoved" Hidden="true" />
+      <Method Name="OnPointerTapped" Hidden="true" />
+      <Method Name="OnRadRadialMenuSizeChanged" Hidden="true" />
+      <Method Name="OnStartAnglePropertyChanged" Hidden="true" />
+      <Method Name="OnTapped" Hidden="true" />
+      <Method Name="OnTemplateApplied" Hidden="true" />
+      <Method Name="Open" Hidden="true" />
+      <Field Name="openRequested" Hidden="true" />
+      <Field Name="outerRadiusCache" Hidden="true" />
+      <Field Name="OuterRadiusFactorProperty" Hidden="true" />
+      <Field Name="panel" Hidden="true" />
+      <Method Name="RadRadialMenu" Hidden="true" />
+      <Method Name="RaiseCloseMenuCommand" Hidden="true" />
+      <Method Name="RaiseNavigateCommand" Hidden="true" />
+      <Method Name="RaiseOpenMenuCommand" Hidden="true" />
+      <Method Name="RaisePositionCommand" Hidden="true" />
+      <Field Name="startAngleCache" Hidden="true" />
+      <Field Name="StartAngleProperty" Hidden="true" />
+      <Field Name="targetElement" Hidden="true" />
+      <Field Name="visualstateService" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>4EgAQhACQJABKIEAYQQABwEgoBCEUqUAgAIQQ8DKgAI=</HashCode>
+      <FileName>RadialMenu\View\RadRadialMenu.Commands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.RadialMenuItem">
+    <Position X="3.25" Y="0.5" Width="2.25" />
+    <Members>
+      <Property Name="CanNavigate" Hidden="true" />
+      <Field Name="childItems" Hidden="true" />
+      <Method Name="Command_CanExecuteChanged" Hidden="true" />
+      <Field Name="CommandProperty" Hidden="true" />
+      <Field Name="contentSectorBackgroundCache" Hidden="true" />
+      <Field Name="ContentSectorBackgroundProperty" Hidden="true" />
+      <Field Name="DeselectableProperty" Hidden="true" />
+      <Method Name="ExecuteCommand" Hidden="true" />
+      <Field Name="GroupNameProperty" Hidden="true" />
+      <Property Name="HasChildren" Hidden="true" />
+      <Field Name="HeaderProperty" Hidden="true" />
+      <Field Name="IconContentProperty" Hidden="true" />
+      <Property Name="Index" Hidden="true" />
+      <Field Name="IsEnabledProperty" Hidden="true" />
+      <Field Name="IsSelectedProperty" Hidden="true" />
+      <Method Name="OnCommandChanged" Hidden="true" />
+      <Method Name="OnContentSectorBackgroundPropertyChanged" Hidden="true" />
+      <Method Name="OnIsEnabledChanged" Hidden="true" />
+      <Method Name="OnIsSelectedChanged" Hidden="true" />
+      <Field Name="owner" Hidden="true" />
+      <Property Name="Owner" Hidden="true" />
+      <Field Name="SelectableProperty" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>JIAoAUCAABgAkAUAEAHQRAAAwAIAAIAAJAEIAEAAAAE=</HashCode>
+      <FileName>RadialMenu\Model\Items\RadialMenuItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.Menu.Commands.RadialMenuUserCommand">
+    <Position X="6.5" Y="0.5" Width="2.25" />
+    <Members>
+      <Field Name="commandCache" Hidden="true" />
+      <Field Name="CommandProperty" Hidden="true" />
+      <Field Name="enableDefaultCommandCache" Hidden="true" />
+      <Field Name="EnableDefaultCommandProperty" Hidden="true" />
+      <Method Name="OnCommandChanged" Hidden="true" />
+      <Method Name="OnEnableDefaultCommandChanged" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAIgAAAAAAAAAUAAEAABAEAAAAAAEAAABAAAAQAAAA=</HashCode>
+      <FileName>RadialMenu\Services\Commands\RadialMenuUserCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.Menu.CommandService">
+    <Position X="9" Y="0.5" Width="2" />
+    <Members>
+      <Method Name="CommandService" Hidden="true" />
+      <Method Name="CreateKnownCommand" Hidden="true" />
+      <Method Name="InitKnownCommands" Hidden="true" />
+      <Property Name="UserCommands" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAABAAAAAAAAIBAAAAIAACAAAAAAAAA=</HashCode>
+      <FileName>RadialMenu\Services\CommandService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.RadialMenuTriggerBehavior">
+    <Position X="3.25" Y="5" Width="2.25" />
+    <Members>
+      <Method Name="OnElement_GotFocus" Hidden="true" />
+      <Method Name="OnElement_PointerEntered" Hidden="true" />
+      <Method Name="OnTarget_PointerPressed" Hidden="true" />
+      <Method Name="Owner_LayoutUpdated" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IgIAAQAAEAAAAAAAAAAAAAgAAAAQAAAAAAAQAACSABA=</HashCode>
+      <FileName>RadialMenu\View\Triggers\RadialMenuTriggerBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.Menu.NavigationItemButton">
+    <Position X="10.75" Y="5" Width="2" />
+    <Members>
+      <Method Name="ApplyTemplateCore" Hidden="true" />
+      <Method Name="ArrangeArrowGlyph" Hidden="true" />
+      <Field Name="arrowGlyph" Hidden="true" />
+      <Method Name="ComposeVisualStateName" Hidden="true" />
+      <Field Name="ContentGlyphProperty" Hidden="true" />
+      <Method Name="GetArcPoint" Hidden="true" />
+      <Method Name="GetNavigationButtonArc" Hidden="true" />
+      <Field Name="isPointerOver" Hidden="true" />
+      <Field Name="itemPath" Hidden="true" />
+      <Field Name="model" Hidden="true" />
+      <Property Name="Model" Hidden="true" />
+      <Method Name="NavigationItemButton" Hidden="true" />
+      <Method Name="OnPointerEntered" Hidden="true" />
+      <Method Name="OnPointerExited" Hidden="true" />
+      <Method Name="OnTemplateApplied" Hidden="true" />
+      <Method Name="ResetVisualState" Hidden="true" />
+      <Field Name="startAngle" Hidden="true" />
+      <Property Name="StartAngle" Hidden="true" />
+      <Method Name="UpdateVisualsState" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAARAAAAAAAABAAAAAAAAAAQAAEAIBkgAgQBpAIAAI=</HashCode>
+      <FileName>RadialMenu\View\Controls\NavigationItemButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.Menu.DecorationItemButton">
+    <Position X="10.75" Y="6.5" Width="2" />
+    <Members>
+      <Method Name="ApplyTemplateCore" Hidden="true" />
+      <Field Name="arrowGlyph" Hidden="true" />
+      <Field Name="arrowThicknessFactorCache" Hidden="true" />
+      <Field Name="ArrowThicknessFactorProperty" Hidden="true" />
+      <Method Name="ComposeVisualStateName" Hidden="true" />
+      <Method Name="DecorationItemButton" Hidden="true" />
+      <Method Name="GetArcPoint" Hidden="true" />
+      <Field Name="isPointerOver" Hidden="true" />
+      <Property Name="IsPointerOver" Hidden="true" />
+      <Field Name="layoutSlot" Hidden="true" />
+      <Property Name="LayoutSlot" Hidden="true" />
+      <Method Name="OnArrowThicknessFactorPropertyChanged" Hidden="true" />
+      <Method Name="OnTemplateApplied" Hidden="true" />
+      <Method Name="OnThicknessFactorPropertyChanged" Hidden="true" />
+      <Field Name="pointerOverPath" Hidden="true" />
+      <Method Name="RenderArc" Hidden="true" />
+      <Method Name="RenderArrow" Hidden="true" />
+      <Field Name="segment" Hidden="true" />
+      <Property Name="Segment" Hidden="true" />
+      <Field Name="selectedPath" Hidden="true" />
+      <Field Name="thicknessFactorCache" Hidden="true" />
+      <Field Name="ThicknessFactorProperty" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+      <Method Name="UpdateGeometry" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AESAgQnAEAAABRAAAAEAAABAQAABAAAEAAAYBgAAAAw=</HashCode>
+      <FileName>RadialMenu\View\Controls\DecorationItemButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.Menu.MenuSelectionChangedEventArgs">
+    <Position X="0.5" Y="5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RadialMenu\View\MenuSelectionChangedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.RadRadialContextMenu">
+    <Position X="5.75" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAgAAgAAAAAAABAAAAAQAAAAAAAgAAA=</HashCode>
+      <FileName>RadialMenu\View\RadRadialContextMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.Menu.RadialMenuItemControl">
+    <Position X="8.5" Y="5.25" Width="2" />
+    <Members>
+      <Method Name="ComposeVisualStateName" Hidden="true" />
+      <Field Name="isPointerOver" Hidden="true" />
+      <Property Name="IsPointerOver" Hidden="true" />
+      <Property Name="Loading" Hidden="true" />
+      <Field Name="LoadingProperty" Hidden="true" />
+      <Method Name="OnLoadingChanged" Hidden="true" />
+      <Field Name="Segment" Hidden="true" />
+      <Method Name="Update" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>JAQAAAAAAAAQAAAAEAEQAIAAAAAABAAEAAAABAAAAAQ=</HashCode>
+      <FileName>RadialMenu\View\Controls\RadialMenuItemControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Telerik.UI.Xaml.Controls.Primitives.Menu.RadialMenuButton">
+    <Position X="8.5" Y="4" Width="2" />
+    <Members>
+      <Field Name="displayBackContent" Hidden="true" />
+      <Property Name="DisplayBackContent" Hidden="true" />
+      <Method Name="RadialMenuButton" Hidden="true" />
+      <Method Name="TransformToBackButton" Hidden="true" />
+      <Method Name="TransformToNormal" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>RadialMenu\View\Controls\RadialMenuButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Telerik.UI.Xaml.Controls.Primitives.Menu.Commands.CommandId">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAIAAgAAAAAAAAAAAAAAAAAAAAAACAABA=</HashCode>
+      <FileName>RadialMenu\Services\Commands\CommandId.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Telerik.UI.Xaml.Controls.Primitives.RadialMenuAttachTriggers">
+    <Position X="5.75" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAgAAAAAAAAAAAAAAAAAAIAAAAAQEAAAA=</HashCode>
+      <FileName>RadialMenu\View\Triggers\RadialMenuAttachTriggers.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

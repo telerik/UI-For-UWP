@@ -56,180 +56,64 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Primitives.Windows\Pagination\PaginationButton.cs">
-      <Link>Pagination\PaginationButton.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\Pagination\PaginationControlDisplayMode.cs">
-      <Link>Pagination\PaginationControlDisplayMode.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\Pagination\PaginationControlNavigationMode.cs">
-      <Link>Pagination\PaginationControlNavigationMode.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\Pagination\PaginationIndexLabelControl.cs">
-      <Link>Pagination\PaginationIndexLabelControl.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\Pagination\PaginationItemIndicator.cs">
-      <Link>Pagination\PaginationItemIndicator.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\Pagination\PaginationListControl.cs">
-      <Link>Pagination\PaginationListControl.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\Pagination\PaginationListControlItem.cs">
-      <Link>Pagination\PaginationListControlItem.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\Pagination\RadPaginationControl.cs">
-      <Link>Pagination\RadPaginationControl.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Common\CoordinatesUtils.cs">
-      <Link>RadialMenu\Common\CoordinatesUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Common\RadialLayoutSlot.cs">
-      <Link>RadialMenu\Common\RadialLayoutSlot.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Common\RadPolarPoint.cs">
-      <Link>RadialMenu\Common\RadPolarPoint.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\FixedSegmentLayout.cs">
-      <Link>RadialMenu\Model\FixedSegmentLayout.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\Items\MenuItemCollection.cs">
-      <Link>RadialMenu\Model\Items\MenuItemCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\Items\RadialMenuItem.cs">
-      <Link>RadialMenu\Model\Items\RadialMenuItem.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\Items\RadialNavigateItem.cs">
-      <Link>RadialMenu\Model\Items\RadialNavigateItem.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\Items\RadialSegment.cs">
-      <Link>RadialMenu\Model\Items\RadialSegment.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\Layout.cs">
-      <Link>RadialMenu\Model\Layout.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\MenuViewState.cs">
-      <Link>RadialMenu\Model\MenuViewState.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\RadialMenuModel.cs">
-      <Link>RadialMenu\Model\RadialMenuModel.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\RadialMenuModel.Selection.cs">
-      <Link>RadialMenu\Model\RadialMenuModel.Selection.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\Rings\NavidateItemRingModel.cs">
-      <Link>RadialMenu\Model\Rings\NavidateItemRingModel.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\Rings\RingModel.cs">
-      <Link>RadialMenu\Model\Rings\RingModel.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Model\Rings\RingModelBase.cs">
-      <Link>RadialMenu\Model\Rings\RingModelBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\CommandService.cs">
-      <Link>RadialMenu\Services\CommandService.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\Commands\CloseMenuCommand.cs">
-      <Link>RadialMenu\Services\NewFolder1\CloseMenuCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\Commands\CommandId.cs">
-      <Link>RadialMenu\Services\NewFolder1\CommandId.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\Commands\NavigateCommand.cs">
-      <Link>RadialMenu\Services\NewFolder1\NavigateCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\Commands\NavigateContext.cs">
-      <Link>RadialMenu\Services\NewFolder1\NavigateContext.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\Commands\OpenMenuCommand.cs">
-      <Link>RadialMenu\Services\NewFolder1\OpenMenuCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\Commands\RadialMenuCommand.cs">
-      <Link>RadialMenu\Services\NewFolder1\RadialMenuCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\Commands\RadialMenuItemContext.cs">
-      <Link>RadialMenu\Services\NewFolder1\RadialMenuItemContext.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\Commands\RadialMenuUserCommand.cs">
-      <Link>RadialMenu\Services\NewFolder1\RadialMenuUserCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\HitTestService.cs">
-      <Link>RadialMenu\Services\HitTestService.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\IHitTestArea.cs">
-      <Link>RadialMenu\Services\IHitTestArea.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\Services\VisualStateService.cs">
-      <Link>RadialMenu\Services\VisualStateService.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Controls\DecorationItemButton.cs">
-      <Link>RadialMenu\View\NewFolder1\DecorationItemButton.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Controls\NavigationItemButton.cs">
-      <Link>RadialMenu\View\NewFolder1\NavigationItemButton.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Controls\RadialMenuButton.cs">
-      <Link>RadialMenu\View\NewFolder1\RadialMenuButton.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Controls\RadialMenuItemControl.cs">
-      <Link>RadialMenu\View\NewFolder1\RadialMenuItemControl.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Controls\RadialPanel.cs">
-      <Link>RadialMenu\View\NewFolder1\RadialPanel.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Controls\Tooltip\MenuToolTip.cs">
-      <Link>RadialMenu\View\Controls\Tooltip\MenuToolTip.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Layers\Animations.cs">
-      <Link>RadialMenu\View\NewFolder1\Animations.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Layers\BackgroundSectorItemLayer.cs">
-      <Link>RadialMenu\View\NewFolder1\BackgroundSectorItemLayer.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Layers\ElementLayerBase.cs">
-      <Link>RadialMenu\View\NewFolder1\ElementLayerBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Layers\ItemVisualStateLayer.cs">
-      <Link>RadialMenu\View\NewFolder1\ItemVisualStateLayer.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Layers\LayerBase.cs">
-      <Link>RadialMenu\View\NewFolder1\LayerBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Layers\MenuItemLayer.cs">
-      <Link>RadialMenu\View\NewFolder1\MenuItemLayer.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Layers\NavigateItemLayer.cs">
-      <Link>RadialMenu\View\NewFolder1\NavigateItemLayer.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Layers\NavigationLayerAnimations.cs">
-      <Link>RadialMenu\View\NewFolder1\NavigationLayerAnimations.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Layers\ZIndices.cs">
-      <Link>RadialMenu\View\NewFolder1\ZIndices.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\MenuSelectionChangedEventArgs.cs">
-      <Link>RadialMenu\View\MenuSelectionChangedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\PopupService.cs">
-      <Link>RadialMenu\View\PopupService.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\RadRadialContextMenu.cs">
-      <Link>RadialMenu\View\RadRadialContextMenu.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\RadRadialMenu.Commands.cs">
-      <Link>RadialMenu\View\RadRadialMenu.Commands.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\RadRadialMenu.cs">
-      <Link>RadialMenu\View\RadRadialMenu.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\RadRadialMenu.Manipulation.cs">
-      <Link>RadialMenu\View\RadRadialMenu.Manipulation.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Triggers\RadialMenuAttachTriggers.cs">
-      <Link>RadialMenu\View\NewFolder1\RadialMenuAttachTriggers.cs</Link>
-    </Compile>
-    <Compile Include="..\Primitives.Windows\RadialMenu\View\Triggers\RadialMenuTriggerBehavior.cs">
-      <Link>RadialMenu\View\NewFolder1\RadialMenuTriggerBehavior.cs</Link>
-    </Compile>
+    <Compile Include="Pagination\PaginationButton.cs" />
+    <Compile Include="Pagination\PaginationControlDisplayMode.cs" />
+    <Compile Include="Pagination\PaginationControlNavigationMode.cs" />
+    <Compile Include="Pagination\PaginationIndexLabelControl.cs" />
+    <Compile Include="Pagination\PaginationItemIndicator.cs" />
+    <Compile Include="Pagination\PaginationListControl.cs" />
+    <Compile Include="Pagination\PaginationListControlItem.cs" />
+    <Compile Include="Pagination\RadPaginationControl.cs" />
+    <Compile Include="RadialMenu\Common\CoordinatesUtils.cs" />
+    <Compile Include="RadialMenu\Common\RadialLayoutSlot.cs" />
+    <Compile Include="RadialMenu\Common\RadPolarPoint.cs" />
+    <Compile Include="RadialMenu\Model\FixedSegmentLayout.cs" />
+    <Compile Include="RadialMenu\Model\Items\MenuItemCollection.cs" />
+    <Compile Include="RadialMenu\Model\Items\RadialMenuItem.cs" />
+    <Compile Include="RadialMenu\Model\Items\RadialNavigateItem.cs" />
+    <Compile Include="RadialMenu\Model\Items\RadialSegment.cs" />
+    <Compile Include="RadialMenu\Model\Layout.cs" />
+    <Compile Include="RadialMenu\Model\MenuViewState.cs" />
+    <Compile Include="RadialMenu\Model\RadialMenuModel.cs" />
+    <Compile Include="RadialMenu\Model\RadialMenuModel.Selection.cs" />
+    <Compile Include="RadialMenu\Model\Rings\NavidateItemRingModel.cs" />
+    <Compile Include="RadialMenu\Model\Rings\RingModel.cs" />
+    <Compile Include="RadialMenu\Model\Rings\RingModelBase.cs" />
+    <Compile Include="RadialMenu\Services\CommandService.cs" />
+    <Compile Include="RadialMenu\Services\Commands\CloseMenuCommand.cs" />
+    <Compile Include="RadialMenu\Services\Commands\CommandId.cs" />
+    <Compile Include="RadialMenu\Services\Commands\NavigateCommand.cs" />
+    <Compile Include="RadialMenu\Services\Commands\NavigateContext.cs" />
+    <Compile Include="RadialMenu\Services\Commands\OpenMenuCommand.cs" />
+    <Compile Include="RadialMenu\Services\Commands\RadialMenuCommand.cs" />
+    <Compile Include="RadialMenu\Services\Commands\RadialMenuItemContext.cs" />
+    <Compile Include="RadialMenu\Services\Commands\RadialMenuUserCommand.cs" />
+    <Compile Include="RadialMenu\Services\HitTestService.cs" />
+    <Compile Include="RadialMenu\Services\IHitTestArea.cs" />
+    <Compile Include="RadialMenu\Services\VisualStateService.cs" />
+    <Compile Include="RadialMenu\View\Controls\DecorationItemButton.cs" />
+    <Compile Include="RadialMenu\View\Controls\NavigationItemButton.cs" />
+    <Compile Include="RadialMenu\View\Controls\RadialMenuButton.cs" />
+    <Compile Include="RadialMenu\View\Controls\RadialMenuItemControl.cs" />
+    <Compile Include="RadialMenu\View\Controls\RadialPanel.cs" />
+    <Compile Include="RadialMenu\View\Controls\Tooltip\MenuToolTip.cs" />
+    <Compile Include="RadialMenu\View\Layers\Animations.cs" />
+    <Compile Include="RadialMenu\View\Layers\BackgroundSectorItemLayer.cs" />
+    <Compile Include="RadialMenu\View\Layers\ElementLayerBase.cs" />
+    <Compile Include="RadialMenu\View\Layers\ItemVisualStateLayer.cs" />
+    <Compile Include="RadialMenu\View\Layers\LayerBase.cs" />
+    <Compile Include="RadialMenu\View\Layers\MenuItemLayer.cs" />
+    <Compile Include="RadialMenu\View\Layers\NavigateItemLayer.cs" />
+    <Compile Include="RadialMenu\View\Layers\NavigationLayerAnimations.cs" />
+    <Compile Include="RadialMenu\View\Layers\ZIndices.cs" />
+    <Compile Include="RadialMenu\View\MenuSelectionChangedEventArgs.cs" />
+    <Compile Include="RadialMenu\View\PopupService.cs" />
+    <Compile Include="RadialMenu\View\RadRadialContextMenu.cs" />
+    <Compile Include="RadialMenu\View\RadRadialMenu.Commands.cs" />
+    <Compile Include="RadialMenu\View\RadRadialMenu.cs" />
+    <Compile Include="RadialMenu\View\RadRadialMenu.Manipulation.cs" />
+    <Compile Include="RadialMenu\View\Triggers\RadialMenuAttachTriggers.cs" />
+    <Compile Include="RadialMenu\View\Triggers\RadialMenuTriggerBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

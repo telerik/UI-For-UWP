@@ -18,6 +18,7 @@ project.lock.json
 !UWPControls.sln
 !UWPMap.sln
 
+Binaries/*
 Build/*
 Controls/.nuget/*
 Controls/Core/*
