@@ -52,12 +52,8 @@
     <AssemblyOriginatorKeyFile>..\..\..\BuildTools\Win8PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Input.Windows\RangeSlider\RadRangeSlider.cs">
-      <Link>RangeSlider\RadRangeSlider.cs</Link>
-    </Compile>
-    <Compile Include="..\Input.Windows\RangeSlider\RangeSliderPanel.cs">
-      <Link>RangeSlider\RangeSliderPanel.cs</Link>
-    </Compile>
+    <Compile Include="RangeSlider\RadRangeSlider.cs" />
+    <Compile Include="RangeSlider\RangeSliderPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
