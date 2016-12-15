@@ -1,0 +1,14 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:telerik="using:Telerik.UI.Xaml.Controls"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Grid">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+        </ResourceDictionary>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Themes/Resources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

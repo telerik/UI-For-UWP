@@ -1,0 +1,9 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="TelerikHubTileBackgroundBrush" 
+                     Color="{Binding Source={StaticResource TelerikSelectedBrush}, Converter={StaticResource BrushToColorConverter}}"/>
+    <SolidColorBrush x:Key="TelerikHubTileBorderBrush" Color="#38FFFFFF"/>
+
+</ResourceDictionary>

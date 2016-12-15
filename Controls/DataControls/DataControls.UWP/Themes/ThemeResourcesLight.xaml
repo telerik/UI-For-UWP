@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls">
+
+    <SolidColorBrush x:Key="TelerikSecondaryForegroundBrush" Color="#99FFFFFF"/>
+    <SolidColorBrush x:Key="TelerikSelectedBrush" Color="#FF006AC1" />
+    <SolidColorBrush x:Key="TelerikHighlightBrush" Color="#FF006AC1" />
+
+    <!--Currency-->
+    <SolidColorBrush x:Key="TelerikListViewCurrentBackgroundBrush" Color="#FFF2F2F2"/>
+    <SolidColorBrush x:Key="TelerikListViewCurrentBorderBrush" Color="#FFCCCCCC"/>
+
+    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+
+</ResourceDictionary>

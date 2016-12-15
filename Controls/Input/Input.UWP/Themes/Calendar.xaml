@@ -1,0 +1,393 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:localCalendar="using:Telerik.UI.Xaml.Controls.Input.Calendar"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:theming="using:Telerik.UI.Xaml.Controls">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesDark.xaml"/>
+                <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesLight.xaml"/>
+                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+    
+    <Style TargetType="localCalendar:AppointmentControl">      
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Foreground" Value="Pink" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ContentPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate> 
+                   <TextBlock Text="{Binding DetailText}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="CalendarHeaderButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarHeaderButtonPointerPressedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarHeaderButtonDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="PointerFocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <TextBlock x:Name="ContentPresenter" Text="{TemplateBinding Content}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="Center" Margin="{TemplateBinding Padding}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CalendarLeftArrowButtonStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarPreviousNextButtonForegroundBrush}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="Transparent"  >
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ArrowGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarPreviousNextButtonPointerPressedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ArrowGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarPreviousNextButtonDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="PointerFocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <TextBlock x:Name="ArrowGlyph" Text="&#xE010;" Margin="15" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CalendarRightArrowButtonStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarPreviousNextButtonForegroundBrush}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="Transparent" >
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ArrowGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarPreviousNextButtonPointerOverForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ArrowGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarPreviousNextButtonPointerPressedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ArrowGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarPreviousNextButtonDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="PointerFocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <TextBlock x:Name="ArrowGlyph" Text="&#xE011;" Margin="15"  />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localCalendar:CalendarNavigationControl">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarHeaderButtonForegroundBrush}" />
+        <Setter Property="FontFamily" Value="Segoe UI Light"/>
+        <Setter Property="FontWeight" Value="Light"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Padding" Value="15 0" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localCalendar:CalendarNavigationControl">
+                    <Border BorderBrush="{ThemeResource TelerikCalendarGridLinesBrush}" Background="{ThemeResource TelerikCalendarNavigationControlBackgroundBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="navigateToPreviousViewButton" Visibility="{TemplateBinding NavigationArrowsVisibility}" 
+                                    Style="{StaticResource CalendarLeftArrowButtonStyle}" Grid.Column="0" MinWidth="50" />
+                            <Button x:Name="navigateToViewLevelButton"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    FontWeight="{TemplateBinding FontWeight}" 
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontStyle="{TemplateBinding FontStyle}"
+                                    Style="{StaticResource CalendarHeaderButtonStyle}" Grid.Column="1" Margin="{TemplateBinding Padding}"
+                                    Content="{TemplateBinding Header}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            <Button x:Name="navigateToNextViewButton" Visibility="{TemplateBinding NavigationArrowsVisibility}" 
+                                    Style="{StaticResource CalendarRightArrowButtonStyle}"  Grid.Column="2" MinWidth="50" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localCalendar:CalendarHoldClueControl">
+        <Setter Property="Background" Value="{ThemeResource TelerikCalendarHoldClueControlBackgroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localCalendar:CalendarHoldClueControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Rectangle Grid.Row="1" Width="3" Fill="{TemplateBinding Background}" />
+                        <Ellipse Grid.RowSpan="2" Width="{TemplateBinding Width}" Height="{TemplateBinding Width}" Margin="0,10,0,0" 
+                                 Fill="{TemplateBinding Background}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:RadCalendar">
+        <Setter Property="MinHeight" Value="200" />
+        <Setter Property="MinWidth" Value="200" />
+        <Setter Property="GridLinesBrush" Value="{ThemeResource TelerikCalendarGridLinesBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikCalendarGridLinesBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="DayNameCellStyle">
+            <Setter.Value>
+                <local:CalendarCellStyle>
+                    <local:CalendarCellStyle.ContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="7,4,4,4" />
+                            <Setter Property="FontSize" Value="13.333" />
+                            <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarDayNamesForegroundBrush}" />
+                            <Setter Property="TextAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Bottom" />
+                        </Style>
+                    </local:CalendarCellStyle.ContentStyle>
+                </local:CalendarCellStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="WeekNumberCellStyle">
+            <Setter.Value>
+                <local:CalendarCellStyle>
+                    <local:CalendarCellStyle.ContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="7,0,4,4" />
+                            <Setter Property="FontSize" Value="13.333" />
+                            <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarDayNamesForegroundBrush}" />
+                            <Setter Property="TextAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Bottom" />
+                        </Style>
+                    </local:CalendarCellStyle.ContentStyle>
+                </local:CalendarCellStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="PointerOverCellStyle">
+            <Setter.Value>
+                <local:CalendarCellStyle>
+                    <local:CalendarCellStyle.DecorationStyle>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="{ThemeResource TelerikCalendarPointerOverBackgroundBrush}" />
+                            <Setter Property="BorderBrush" Value="{ThemeResource TelerikCalendarPointerOverBorderBrush}"/>
+                        </Style>
+                    </local:CalendarCellStyle.DecorationStyle>
+                </local:CalendarCellStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HighlightedCellStyle">
+            <Setter.Value>
+                <local:CalendarCellStyle>
+                    <local:CalendarCellStyle.DecorationStyle>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderBrush" Value="{ThemeResource TelerikCalendarHighlightedCellBorderBrush}" />
+                        </Style>
+                    </local:CalendarCellStyle.DecorationStyle>
+                </local:CalendarCellStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CurrentCellStyle">
+            <Setter.Value>
+                <local:CalendarCellStyle>
+                    <local:CalendarCellStyle.DecorationStyle>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderBrush" Value="{ThemeResource TelerikCalendarCurrentCellBorderBrush}" />
+                        </Style>
+                    </local:CalendarCellStyle.DecorationStyle>
+                </local:CalendarCellStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="NormalCellStyle">
+            <Setter.Value>
+                <local:CalendarCellStyle>
+                    <local:CalendarCellStyle.ContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarNormalCellForegroundBrush}" />
+                            <Setter Property="FontSize" Value="13.333" />
+                            <Setter Property="VerticalAlignment" Value="Bottom" />
+                            <Setter Property="Margin" Value="6,0,0,4" />
+                        </Style>
+                    </local:CalendarCellStyle.ContentStyle>
+                </local:CalendarCellStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="AnotherViewCellStyle">
+            <Setter.Value>
+                <local:CalendarCellStyle>
+                    <local:CalendarCellStyle.ContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarAnotherViewCellForegroundBrush}" />
+                            <Setter Property="FontSize" Value="13.333" />
+                            <Setter Property="VerticalAlignment" Value="Bottom" />
+                            <Setter Property="Margin" Value="6,0,0,4" />
+                        </Style>
+                    </local:CalendarCellStyle.ContentStyle>
+                </local:CalendarCellStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BlackoutCellStyle">
+            <Setter.Value>
+                <local:CalendarCellStyle>
+                    <local:CalendarCellStyle.ContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarBlackoutCellForegroundBrush}" />
+                            <Setter Property="FontSize" Value="13.333" />
+                            <Setter Property="VerticalAlignment" Value="Bottom" />
+                            <Setter Property="Margin" Value="6,0,0,4" />
+                        </Style>
+                    </local:CalendarCellStyle.ContentStyle>
+                    <local:CalendarCellStyle.DecorationStyle>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="{ThemeResource TelerikCalendarBlackoutCellBackgroundBrush}" />
+                        </Style>
+                    </local:CalendarCellStyle.DecorationStyle>
+                </local:CalendarCellStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="SelectedCellStyle">
+            <Setter.Value>
+                <local:CalendarCellStyle>
+                    <local:CalendarCellStyle.ContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarSelectedCellForegroundBrush}" />
+                            <Setter Property="FontSize" Value="13.333" />
+                            <Setter Property="VerticalAlignment" Value="Bottom" />
+                            <Setter Property="Margin" Value="6,0,0,4" />
+                        </Style>
+                    </local:CalendarCellStyle.ContentStyle>
+                    <local:CalendarCellStyle.DecorationStyle>
+                        <Style TargetType="Border">
+                            <Setter Property="BorderBrush" Value="{ThemeResource TelerikCalendarSelectedCellBorderBrush}" />
+                            <Setter Property="Background" Value="{ThemeResource TelerikCalendarSelectedCellBackgroundBrush}" />
+                        </Style>
+                    </local:CalendarCellStyle.DecorationStyle>
+                </local:CalendarCellStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadCalendar">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <localCalendar:CalendarNavigationControl NavigationArrowsVisibility="{TemplateBinding NavigationArrowsVisibility}" x:Name="navigationControl" />
+
+                            <localCalendar:CalendarViewHost x:Name="PART_CalendarViewHost" Grid.Row="1" Background="{TemplateBinding Background}" 
+                                    RenderTransformOrigin="0.5,0.5">
+                                <Canvas.RenderTransform>
+                                    <ScaleTransform />
+                                </Canvas.RenderTransform>
+                            </localCalendar:CalendarViewHost>
+
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+</ResourceDictionary>

@@ -1,0 +1,226 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Map"
+    xmlns:localPrimitives="using:Telerik.UI.Xaml.Controls.Map.Primitives"
+        xmlns:theming="using:Telerik.UI.Xaml.Controls"
+    xmlns:telerikDrawing="using:Telerik.UI.Drawing">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Map.UWP/Themes/ThemeResourcesDark.xaml"/>
+                <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Map.UWP/Themes/ThemeResourcesLight.xaml"/>
+                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <Style TargetType="local:RadMap">
+        <Setter Property="Background" Value="{ThemeResource TelerikMapBackgroundBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikMapBorderBrush}"/>
+        <!--Set MinWidth/Height since the Map does not have a DesiredSize-->
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="MinHeight" Value="100"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadMap">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}">
+                        <Grid x:Name="PART_LayoutRoot" Margin="{TemplateBinding Padding}">
+                            <telerikDrawing:D2DCanvas x:Name="PART_D2DSurface" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <Canvas x:Name="PART_RenderSurface" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <Canvas x:Name="PART_AdornerLayer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:MapShapeLayer">
+        <Setter Property="ShapeLabelStyle">
+            <Setter.Value>
+                <telerikDrawing:D2DTextStyle FontName="Segoe UI" FontWeight="Bold" FontSize="14">
+                    <telerikDrawing:D2DTextStyle.Foreground>
+                        <telerikDrawing:D2DSolidColorBrush Color="{StaticResource TelerikMapShapeForegroundColor}"/>
+                    </telerikDrawing:D2DTextStyle.Foreground>
+                </telerikDrawing:D2DTextStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ShapeStyle">
+            <Setter.Value>
+                <telerikDrawing:D2DShapeStyle>
+                    <telerikDrawing:D2DShapeStyle.Fill>
+                        <telerikDrawing:D2DSolidColorBrush Color="{StaticResource TelerikMapShapeFillColor}"/>
+                    </telerikDrawing:D2DShapeStyle.Fill>
+                    <telerikDrawing:D2DShapeStyle.Stroke>
+                        <telerikDrawing:D2DSolidColorBrush Color="{StaticResource TelerikMapShapeStrokeColor}" />
+                    </telerikDrawing:D2DShapeStyle.Stroke>
+                </telerikDrawing:D2DShapeStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ShapePointerOverStyle">
+            <Setter.Value>
+                <telerikDrawing:D2DShapeStyle>
+                    <telerikDrawing:D2DShapeStyle.Fill>
+                        <telerikDrawing:D2DSolidColorBrush Color="{StaticResource TelerikMapShapePointerOverFillColor}"/>
+                    </telerikDrawing:D2DShapeStyle.Fill>
+                    <telerikDrawing:D2DShapeStyle.Stroke>
+                        <telerikDrawing:D2DSolidColorBrush Color="{StaticResource TelerikMapShapePointerOverStrokeColor}" />
+                    </telerikDrawing:D2DShapeStyle.Stroke>
+                    <telerikDrawing:D2DShapeStyle.Foreground>
+                        <telerikDrawing:D2DSolidColorBrush Color="{StaticResource TelerikMapShapePointerOverForegroundColor}"/>
+                    </telerikDrawing:D2DShapeStyle.Foreground>
+                </telerikDrawing:D2DShapeStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ShapeSelectedStyle">
+            <Setter.Value>
+                <telerikDrawing:D2DShapeStyle>
+                    <telerikDrawing:D2DShapeStyle.Fill>
+                        <telerikDrawing:D2DSolidColorBrush Color="{StaticResource TelerikMapShapeSelectedFillColor}"/>
+                    </telerikDrawing:D2DShapeStyle.Fill>
+                    <telerikDrawing:D2DShapeStyle.Stroke>
+                        <telerikDrawing:D2DSolidColorBrush Color="{StaticResource TelerikMapShapeSelectedStrokeColor}" />
+                    </telerikDrawing:D2DShapeStyle.Stroke>
+                    <telerikDrawing:D2DShapeStyle.Foreground>
+                        <telerikDrawing:D2DSolidColorBrush Color="{StaticResource TelerikMapShapeSelectedForegroundColor}"/>
+                    </telerikDrawing:D2DShapeStyle.Foreground>
+                </telerikDrawing:D2DShapeStyle>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MapShapeLayer">
+                    <!--TODO: Dummy control to enable OnApplyTemplate routine-->
+                    <Canvas x:Name="PART_RenderSurface" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:MapUserLayer">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MapUserLayer">
+                    <Canvas x:Name="PART_RenderSurface" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="ToolTipGlyphTextBox">
+        <Setter Property="FontFamily" Value="Global User Interface"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Width" Value="10"/>
+        <Setter Property="Height" Value="11"/>
+    </Style>
+
+    <Style TargetType="localPrimitives:MapToolTip">
+        <Setter Property="Background" Value="{ThemeResource TelerikMapToolTipBackground}" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikMapToolTipForeground}" />
+        <Setter Property="Padding" Value="9 7 9 6"/>
+        <Setter Property="FontSize" Value="14.667" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <PopupThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:MapToolTip">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="BottomRightAligned">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BottomLeftGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BottomRightGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="TopLeftAligned">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BottomLeftGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="TopLeftGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="TopRightAligned">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="BottomLeftGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="TopRightGlyph">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="&#x25E3;" x:Name="TopLeftGlyph" Visibility="Collapsed"
+                                   Foreground="{TemplateBinding Background}" 
+                                   HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                   Style="{StaticResource ToolTipGlyphTextBox}" Margin="-1 3 0 0"/>
+                        <TextBlock Text="&#x25E2;" x:Name="TopRightGlyph" Visibility="Collapsed"
+                                   Foreground="{TemplateBinding Background}" 
+                                   HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                   Style="{StaticResource ToolTipGlyphTextBox}" Margin="0 -3 0 0"/>
+
+                        <Rectangle Fill="{TemplateBinding Background}" Grid.Row="1"/>
+                        <ContentPresenter Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" Grid.Row="1"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                        <TextBlock Text="&#x25E4;" x:Name="BottomLeftGlyph" Grid.Row="2"
+                                   Foreground="{TemplateBinding Background}"
+                                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Style="{StaticResource ToolTipGlyphTextBox}" Margin="-1 -3 0 0"/>
+                        <TextBlock Text="&#x25E5;" x:Name="BottomRightGlyph" Visibility="Collapsed"
+                                   Foreground="{TemplateBinding Background}" Grid.Row="2"
+                                   HorizontalAlignment="Right" VerticalAlignment="Top"
+                                   Style="{StaticResource ToolTipGlyphTextBox}" Margin="0 -3 0 0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DisplayContent}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

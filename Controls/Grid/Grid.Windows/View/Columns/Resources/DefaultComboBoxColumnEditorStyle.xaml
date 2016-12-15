@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources">
+
+    <Style TargetType="ComboBox" x:Key="DefaultColumnEditorStyle">
+        <Setter Property="Margin" Value="2,0,2,2"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="MinWidth" Value="100"/>
+    </Style>
+
+</ResourceDictionary>

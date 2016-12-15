@@ -1,0 +1,100 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls">
+
+    <SolidColorBrush x:Key="TelerikSecondaryForegroundBrush" Color="{StaticResource TelerikSecondaryForegroundColor}"/>
+    <SolidColorBrush x:Key="TelerikWhiteBrush" Color="{StaticResource TelerikWhiteColor}"/>
+    <SolidColorBrush x:Key="TelerikBlackBrush" Color="{StaticResource TelerikBlackColor}"/>
+
+    <SolidColorBrush x:Key="TelerikHubTileBackgroundBrush" Color="{StaticResource TelerikSelectedColor}"/>
+    <SolidColorBrush x:Key="TelerikHubTileForegroundBrush" Color="{StaticResource TelerikWhiteColor}"/>
+    <SolidColorBrush x:Key="TelerikHubTileBorderBrush" Color="#B4EEEEEE"/>
+
+    <SolidColorBrush x:Key="TelerikPaginationForegroundBrush" Color="#FF212121"/>
+    <SolidColorBrush x:Key="TelerikPaginationButtonForegroundBrush" Color="#FF212121"/>
+    <SolidColorBrush x:Key="TelerikPaginationButtonBackgroundBrush" Color="#B2B5B5B5"/>
+    <SolidColorBrush x:Key="TelerikPaginationButtonBorderBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TelerikPaginationButtonPointerOverBackgroundBrush" Color="#75B5B5B5"/>
+    <SolidColorBrush x:Key="TelerikPaginationButtonPressedBackgroundBrush" Color="#FF000000"/>
+    <SolidColorBrush x:Key="TelerikPaginationButtonPressedForegroundBrush" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="TelerikPaginationItemBackgroundBrush" Color="#66000000"/>
+    <SolidColorBrush x:Key="TelerikPaginationSelectedItemBackgroundBrush" Color="{StaticResource TelerikSelectedColor}"/>
+
+    <SolidColorBrush x:Key="TelerikPaginationDisabledForegroundBrush" Color="#7C000000"/>
+    <SolidColorBrush x:Key="TelerikPaginationButtonDisabledForegroundBrush" Color="#7C000000"/>
+    <SolidColorBrush x:Key="TelerikPaginationButtonDisabledBackgroundBrush" Color="#66C9C9C9"/>
+    <SolidColorBrush x:Key="TelerikPaginationButtonDisabledBorderBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TelerikPaginationItemDisabledBackgroundBrush" Color="#66C9C9C9"/>
+    <SolidColorBrush x:Key="TelerikPaginationSelectedItemDisabledBackgroundBrush" Color="#7C212121"/>
+
+    <SolidColorBrush x:Key="TelerikScalePrimitiveLineFillBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TelerikScalePrimitiveForegroundBrush" Color="{StaticResource TelerikBlackColor}"/>
+    <SolidColorBrush x:Key="TelerikScalePrimitiveTickFillBrush" Color="#30000000"/>
+
+    <SolidColorBrush x:Key="TelerikRangeSliderPrimitiveSelectionThumbBackgroundBrush" Color="{StaticResource TelerikBlackColor}"/>
+    <SolidColorBrush x:Key="TelerikRangeSliderPrimitiveSelectionThumbDisabledBackgroundBrush" Color="#59000000"/>
+    <SolidColorBrush x:Key="TelerikRangeSliderPrimitiveSelectionMiddleThumbBackgroundBrush" Color="#FF006AC1"/>
+    <SolidColorBrush x:Key="TelerikRangeSliderPrimitiveSelectionMiddleThumbDisabledBackgroundBrush" Color="#3D000000"/>
+    <SolidColorBrush x:Key="TelerikRangeSliderPrimitiveSelectionMiddleThumbPressedBackgroundBrush" Color="#FF1A87E0"/>
+
+    <SolidColorBrush x:Key="TelerikRangeSliderPrimitiveTrackBackgroundBrush" Color="#30000000"/>
+    <SolidColorBrush x:Key="TelerikRangeSliderPrimitiveTrackDisabledBackgroundBrush" Color="#19000000"/>
+    <SolidColorBrush x:Key="TelerikRangeSliderPrimitiveTrackPointerOverBackgroundBrush" Color="#26000000"/>
+    <SolidColorBrush x:Key="TelerikRangeSliderPrimitiveTrackPressedBackgroundBrush" Color="#1C000000"/>
+
+    <SolidColorBrush x:Key="TelerikRangeToolTipBorderBrush" Color="#FF808080"/>
+    <SolidColorBrush x:Key="TelerikRangeToolTipRangeForegroundBrush" Color="Gray"/>
+    <SolidColorBrush x:Key="TelerikRangeToolTipForegroundBrush" Color="{StaticResource TelerikBlackColor}"/>
+    <SolidColorBrush x:Key="TelerikRangeToolTipBackgroundBrush" Color="{StaticResource TelerikWhiteColor}"/>
+
+    <SolidColorBrush x:Key="TelerikRadialMenuButtonBackgroundBrush" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuButtonForegroundBrush" Color="#FF000000"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuButtonBorderBrush" Color="#FF000000"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuButtonPointerOverBackgroundBrush" Color="#FFCDCDCD"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuButtonPressedBackgroundBrush" Color="#FF000000"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuButtonPressedForegroundBrush" Color="#FFFFFFFF"/>
+
+    <SolidColorBrush x:Key="TelerikRadialDisabledMenuButtonBackgroundBrush" Color="#FFCDCDCD"/>
+    <SolidColorBrush x:Key="TelerikRadialDisabledMenuButtonForegroundBrush" Color="#FF8C8C8C"/>
+
+    <SolidColorBrush x:Key="TelerikRadialMenuContentMenuBackgroundBrush" Color="{StaticResource TelerikWhiteColor}"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuContentMenuBorderBrush" Color="#DE000000"/>
+
+    <SolidColorBrush x:Key="TelerikRadialMenuNavigationMenuBackgroundBrush" Color="#FFEAEAEA"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuNavigationMenuBorderBrush" Color="{StaticResource TelerikBlackColor}"/>
+
+    <SolidColorBrush x:Key="TelerikRadialMenuIconForegroundBrush" Color="#FF000000"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuIconPointerOverForegroundBrush" Color="#FF006AC1"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuIconSelectedForegroundBrush" Color="#FF006AC1"/>
+
+    <SolidColorBrush x:Key="TelerikRadialMenuHeaderForegroundBrush" Color="#CC000000"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuHeaderPointerOverForegroundBrush" Color="#CC006AC1"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuHeaderSelectedForegroundBrush" Color="#CC006AC1"/>
+
+    <SolidColorBrush x:Key="TelerikRadialMenuNavigationButtonForegroundBrush" Color="{StaticResource TelerikWhiteColor}"/>
+
+    <SolidColorBrush x:Key="TelerikRadialMenuNavigationButtonBackgroundBrush" Color="#FF006AC1"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuNavigationButtonBorderBrush" Color="{StaticResource TelerikWhiteColor}"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuNavigationButtonPointerOverBackgroundBrush" Color="#FF000000"/>
+
+    <SolidColorBrush x:Key="TelerikRadialMenuStateItemButtonPointerOverBackgroundBrush" Color="#FF114571"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuStateItemButtonSelectedBackgroundBrush" Color="#FF114571"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuStateItemButtonSelectedPointerOverBackgroundBrush" Color="#FF289EFF"/>
+
+    <SolidColorBrush x:Key="TelerikRadialMenuToolTipForegroundBrush" Color="#FF808080"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuToolTipBackgroundBrush" Color="{StaticResource TelerikWhiteColor}"/>
+    <SolidColorBrush x:Key="TelerikRadialMenuToolTipBorderBrush" Color="#FF808080"/>
+
+    <SolidColorBrush x:Key="TelerikBusyIndicatorForegroundBrush" Color="{StaticResource TelerikSelectedColor}"/>
+
+    <SolidColorBrush x:Key="TelerikAnimatedIndicatorForegroundBrush" Color="Black" />
+
+    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsLight.xaml"/>
+        <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

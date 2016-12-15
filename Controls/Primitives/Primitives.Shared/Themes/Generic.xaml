@@ -1,0 +1,1279 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:localCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
+    xmlns:localScale="using:Telerik.UI.Xaml.Controls.Primitives.Scale"
+    xmlns:localHubTile="using:Telerik.UI.Xaml.Controls.Primitives.HubTile"
+    xmlns:localRangeSlider="using:Telerik.UI.Xaml.Controls.Primitives.RangeSlider"
+    xmlns:localRadialMenu="using:Telerik.UI.Xaml.Controls.Primitives.Menu"
+    xmlns:telerikPrimitivesBusyIndicator="using:Telerik.UI.Xaml.Controls.Primitives.BusyIndicator"
+    xmlns:primitivesLoopingList="using:Telerik.UI.Xaml.Controls.Primitives.LoopingList"
+    xmlns:sideDrawer="using:Telerik.UI.Xaml.Controls.Primitives.SideDrawer"
+    xmlns:theming="using:Telerik.UI.Xaml.Controls"
+    xmlns:core="using:Telerik.Core">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives/Themes/Resources.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives/Themes/SharedResources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <core:BoolToVisibilityConverter x:Key="VisibilityConverter" />
+
+    <!--PanAndZoomImage start-->
+
+    <Style TargetType="local:RadPanAndZoomImage">
+        <Setter Property="CacheMode" Value="BitmapCache"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadPanAndZoomImage">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid ManipulationMode="None" x:Name="PART_ManipulationPanel" Background="#000000">
+                            <Image x:Name="PART_Image" ManipulationMode="None" 
+                                   Source="{TemplateBinding Source}"  
+                                   Margin="{TemplateBinding ImageMargin}"
+                                   Stretch="{TemplateBinding ImageStretch}"
+                                   CacheMode="{TemplateBinding CacheMode}"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!--TODO-->
+        <!--<Setter Property="BusyIndicatorStyle">
+        <Setter.Value>
+        <Style TargetType="local:RadBusyIndicator">
+        <Setter Property="InitialDelay" Value="00:00:0.3"/>
+        <Setter Property="AnimationStyle" Value="AnimationStyle7"/>
+        </Style>
+        </Setter.Value>
+        </Setter>-->
+    </Style>
+
+    <!--PanAndZoomImage end-->
+
+    <!--ExpanderControl start-->
+    <Style TargetType="local:RadExpanderControl">
+        <Setter Property="MinHeight" Value="48" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="AnimatedIndicatorContent" Value="&#xE0A1;" />
+        <Setter Property="AnimatedIndicatorContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock FontFamily="Segoe UI Symbol"
+                               Foreground="{ThemeResource TelerikAnimatedIndicatorForegroundBrush}" FontSize="30" Margin="10,0,10,0"
+                               Text="{Binding}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadExpanderControl">
+                    <Border
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        x:Name="PART_LayoutRoot"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Background="{TemplateBinding Background}"
+                        Margin="{TemplateBinding Padding}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ExpandedStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="Collapsed" To="Expanded">
+                                        <Storyboard>
+                                            <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="AnimatedIndicatorRotate"
+                                                Storyboard.TargetProperty="Angle"
+                                                To="180">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                x:Name="PART_ExpandAnimation"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="PART_ExpandableContentHolder"
+                                                Storyboard.TargetProperty="Height">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="PART_ExpandableContentHolder"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="1">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="PART_ExpandableContentTranslate"
+                                                Storyboard.TargetProperty="Y"
+                                                To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition From="Expanded" To="Collapsed">
+                                        <Storyboard>
+                                            <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="AnimatedIndicatorRotate"
+                                                Storyboard.TargetProperty="Angle"
+                                                To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="PART_ExpandableContentHolder"
+                                                Storyboard.TargetProperty="Height"
+                                                To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="PART_ExpandableContentHolder"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="0">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="PART_ExpandableContentTranslate"
+                                                Storyboard.TargetProperty="Y"
+                                                To="-100">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <CubicEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Collapsed">
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="AnimatedIndicatorRotate"
+                                                Storyboard.TargetProperty="Angle"
+                                                To="0">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation
+                                            EnableDependentAnimation="True"
+                                            Duration="0"
+                                            Storyboard.TargetName="PART_ExpandableContentHolder"
+                                            Storyboard.TargetProperty="Height"
+                                            To="0"/>
+                                        <DoubleAnimation      
+                                            EnableDependentAnimation="True"
+                                            Duration="0"
+                                            Storyboard.TargetName="PART_ExpandableContentHolder"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="0"/>
+                                        <DoubleAnimation 
+                                            EnableDependentAnimation="True"
+                                            Duration="0"
+                                            Storyboard.TargetName="PART_ExpandableContentTranslate"
+                                            Storyboard.TargetProperty="Y"
+                                            To="-100"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Expanded">
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                                EnableDependentAnimation="True"
+                                                Duration="0:0:0.250"
+                                                Storyboard.TargetName="AnimatedIndicatorRotate"
+                                                Storyboard.TargetProperty="Angle"
+                                                To="180">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation 
+                                            EnableDependentAnimation="True"
+                                            Duration="0"
+                                            Storyboard.TargetName="PART_ExpandableContentHolder"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"/>
+                                        <DoubleAnimation 
+                                            EnableDependentAnimation="True"
+                                            Duration="0"
+                                            Storyboard.TargetName="PART_ExpandableContentTranslate"
+                                            Storyboard.TargetProperty="Y"
+                                            To="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" x:Name="PART_ExpanderHeaderLayoutRoot" Background="{TemplateBinding HeaderBackground}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter
+                                    Grid.Column="0"
+                                    x:Name="PART_MainContentPresenter"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <ContentPresenter
+                                    Visibility="{Binding IsExpandable, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource VisibilityConverter}}"
+                                    Content="{TemplateBinding AnimatedIndicatorContent}"
+                                    ContentTemplate="{TemplateBinding AnimatedIndicatorContentTemplate}"
+                                    Style="{TemplateBinding AnimatedIndicatorStyle}"
+                                    Grid.Column="1"
+                                    x:Name="PART_AnimatedIndicator"
+                                    RenderTransformOrigin="0.5, 0.5">
+                                    <ContentPresenter.RenderTransform>
+                                        <RotateTransform x:Name="AnimatedIndicatorRotate"/>
+                                    </ContentPresenter.RenderTransform>
+                                </ContentPresenter>
+                            </Grid>
+                            <Canvas
+                                Grid.ColumnSpan="2"
+                                Grid.Row="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                x:Name="PART_ExpandableContentHolder"
+                                Height="0"
+                                Width="0">
+                                <ContentPresenter
+                                    Visibility="Collapsed"
+                                    x:Name="PART_ExpandableContentPresenter"
+                                    Content="{TemplateBinding ExpandableContent}"
+                                    ContentTemplate="{TemplateBinding ExpandableContentTemplate}">
+                                    <ContentPresenter.RenderTransform>
+                                        <TranslateTransform x:Name="PART_ExpandableContentTranslate"/>
+                                    </ContentPresenter.RenderTransform>
+                                </ContentPresenter>
+                            </Canvas>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--ExpanderControl end-->
+
+    <!-- LoopingList start -->
+
+    <Style TargetType="primitivesLoopingList:LoopingListItem" x:Key="LoopingListItemStyle">
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="FontSize" Value="26.667" />
+        <Setter Property="FontFamily" Value="Segoe UI Semilight" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <ControlTemplate TargetType="primitivesLoopingList:LoopingListItem" x:Key="LoopingListItemControlTemplate">
+        <Grid x:Name="root" >
+
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition GeneratedDuration="0:0:0.1"/>
+                    </VisualStateGroup.Transitions>
+
+                    <VisualState x:Name="Collapsed">
+                        <Storyboard>
+                            <DoubleAnimation To="0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="root" Duration="0"/>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="Expanded">
+                        <Storyboard Duration="0">
+                            <DoubleAnimation To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="root" Duration="0"/>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="Selected">
+                        <Storyboard Duration="0">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="fill" Storyboard.TargetProperty="Fill">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikLoopingItemSelectedBackgroundBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="Foreground">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikLoopingItemSelectedForegroundBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+
+                    <VisualState x:Name="Disabled">
+                        <Storyboard Duration="0">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="fill" Storyboard.TargetProperty="Fill">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikLoopingItemDisabledBackgroundBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="Foreground">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikLoopingItemDisabledForegroundBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+
+                <VisualStateGroup x:Name="FocusedStates">
+                    <VisualState x:Name="NotFocused"/>
+                    <VisualState x:Name="Focused">
+                        <Storyboard Duration="0">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="focusRect" Storyboard.TargetProperty="Visibility">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <Rectangle x:Name="fill" Fill="{TemplateBinding Background}"  Margin="1"/>
+            <ContentControl x:Name="contentPresenter" Content="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" IsTabStop="False" FontFamily="{TemplateBinding FontFamily}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"  VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            Foreground="{TemplateBinding Foreground}"  Margin="1">
+            </ContentControl>
+            <Rectangle Stroke="{TemplateBinding Foreground}"  StrokeDashOffset=".5"
+                       StrokeThickness="1" StrokeDashArray="1 1" x:Name="focusRect" Visibility="Collapsed"/>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="primitivesLoopingList:LoopingListItem" BasedOn="{StaticResource LoopingListItemStyle}">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikLoopingItemBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikLoopingItemForegroundBrush}" />
+        <Setter Property="Template" Value="{StaticResource LoopingListItemControlTemplate}" />
+    </Style>
+
+    <Style TargetType="primitivesLoopingList:RadLoopingList" x:Key="LoopingListStyle">
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid>
+                        <ContentControl Content="{Binding Item}" Margin="5 0 0 -3"  Padding="0" />
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="primitivesLoopingList:RadLoopingList" BasedOn="{StaticResource LoopingListStyle}">
+        <Setter Property="IsTabStop" Value="True"/>
+        <Setter Property="IsCentered" Value="True"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="primitivesLoopingList:RadLoopingList">
+                    <Border Background="{TemplateBinding Background}">
+                        <primitivesLoopingList:LoopingPanel x:Name="PART_Panel"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- LoopingList end -->
+
+    <!-- SideDrawer start -->
+
+    <Style TargetType="sideDrawer:DrawerButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="Content" Value="&#x2630;" />
+        <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="FontSize" Value="18.4"/>
+        <Setter Property="Padding" Value="9.5,0"/>
+        <Setter Property="MinHeight" Value="57.5"/>
+        <Setter Property="MinWidth" Value="109"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sideDrawer:DrawerButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="contentPresenter" Foreground="{TemplateBinding Foreground}"
+                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                               Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:RadSideDrawer">
+        <Setter Property="MinHeight" Value="100" />
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadSideDrawer">
+                    <Canvas x:Name="PART_SideDrawer">
+                        <local:SideOutPanel x:Name="PART_MainContent" Background="{TemplateBinding Background}" ManipulationMode="All">
+                            <ContentPresenter Content="{TemplateBinding MainContent}" ContentTemplate="{TemplateBinding MainContentTemplate}" 
+                                              Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <sideDrawer:DrawerButton x:Name="PART_SideDrawerButton"  Style="{TemplateBinding DrawerButtonStyle}"
+                                VerticalAlignment="{TemplateBinding DrawerButtonVerticalAlignment}"
+                                HorizontalAlignment="{TemplateBinding DrawerButtonHorizontalAlignment}"/>
+                        </local:SideOutPanel>
+
+                        <Grid Background="Transparent" x:Name="PART_Drawer" ManipulationMode="All">
+                            <ContentPresenter  Content="{TemplateBinding DrawerContent}" 
+                                               ContentTemplate="{TemplateBinding DrawerContentTemplate}" />
+                        </Grid>
+
+                    </Canvas>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- SideDrawer end -->
+
+    <!-- HubTile start -->
+
+    <Style x:Key="BaseHubTileStyle" TargetType="local:HubTileBase">
+        <Setter Property="Background" Value="{ThemeResource TelerikHubTileBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikHubTileForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikHubTileBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Width" Value="171"/>
+        <Setter Property="Height" Value="171"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Padding" Value="16,16,16,6"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
+    <Style TargetType="local:RadCustomHubTile" BasedOn="{StaticResource BaseHubTileStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadCustomHubTile">
+                    <Grid x:Name="PART_LayoutRoot">
+                        <localHubTile:FlipControl BackContent="{TemplateBinding BackContent}" 
+                                                  BackContentTemplate="{TemplateBinding BackContentTemplate}" 
+                                                  x:Name="PART_FlipControl"
+                                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                                  Background="{TemplateBinding Background}"
+                                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                                  IsFlipped="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                            <localHubTile:FlipControl.FrontContent>
+                                <Grid>
+                                    <ContentPresenter Content="{TemplateBinding FrontContent}" ContentTemplate="{TemplateBinding FrontContentTemplate}" 
+                                                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+                                                      Content="{TemplateBinding Title}" ContentTemplate="{TemplateBinding TitleTemplate}"
+                                                      Margin="{TemplateBinding Padding}"/>
+                                </Grid>
+                            </localHubTile:FlipControl.FrontContent>
+                        </localHubTile:FlipControl>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:RadHubTile" BasedOn="{StaticResource BaseHubTileStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadHubTile">
+                    <Grid x:Name="PART_LayoutRoot">
+                        <localHubTile:FlipControl BackContent="{TemplateBinding BackContent}" 
+                                                  BackContentTemplate="{TemplateBinding BackContentTemplate}" 
+                                                  x:Name="PART_FlipControl"
+                                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                                  Background="{TemplateBinding Background}"
+                                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                                  IsFlipped="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                            <localHubTile:FlipControl.FrontContent>
+                                <Grid>
+                                    <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Top" Margin="{TemplateBinding Padding}"
+                                                      Content="{TemplateBinding Message}" ContentTemplate="{TemplateBinding MessageTemplate}"/>
+
+                                    <Image Source="{TemplateBinding ImageSource}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                    <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{TemplateBinding Padding}"
+                                                      Content="{TemplateBinding Title}" ContentTemplate="{TemplateBinding TitleTemplate}"/>
+                                    <ContentControl x:Name="PART_Notification" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{TemplateBinding Padding}"
+                                                    FontWeight="Bold" Content="{TemplateBinding Notification}" ContentTemplate="{TemplateBinding NotificationTemplate}"/>
+                                </Grid>
+                            </localHubTile:FlipControl.FrontContent>
+                        </localHubTile:FlipControl>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <localHubTile:OrientationToPathDataConverter x:Key="OrientationToPathDataConverter"/>
+
+    <Style TargetType="local:RadHexHubTile" BasedOn="{StaticResource BaseHubTileStyle}">
+        <Setter Property="Length" Value="171"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="IsFrozen" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadHexHubTile">
+                    <Grid x:Name="PART_LayoutRoot">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="NotFlipped" To="Flipped">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="Projection" Duration="0:0:0.8" From="0" To="180"/>
+
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackContent" BeginTime="0:0:0.4" Duration="0:0:0" From="0" To="1"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Title"       BeginTime="0:0:0.4" Duration="0:0:0" From="1" To="0" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ImagePath"   BeginTime="0:0:0.4" Duration="0:0:0" From="1" To="0"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+
+                                    <VisualTransition From="Flipped" To="NotFlipped">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="Projection" Duration="0:0:0.8" From="180" To="0"/>
+
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackContent" BeginTime="0:0:0.4" Duration="0:0:0" From="1" To="0"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Title"       BeginTime="0:0:0.4" Duration="0:0:0" From="0" To="1" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ImagePath"   BeginTime="0:0:0.4" Duration="0:0:0" From="0" To="1"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="NotFlipped">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="Projection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ImagePath">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Title">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackContent">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Flipped">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="Projection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="180"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ImagePath">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Title">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackContent">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid>
+                            <Path Data="{Binding Orientation, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource OrientationToPathDataConverter}}"
+                                  Stretch="Fill"
+                                  Fill="{TemplateBinding Background}"/>
+
+                            <Path x:Name="ImagePath" Data="{Binding Orientation, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource OrientationToPathDataConverter}}"
+                                  Stretch="Fill">
+                                <Path.Fill>
+                                    <ImageBrush ImageSource="{Binding ImageSource, RelativeSource={RelativeSource TemplatedParent}}"
+                                                Stretch="UniformToFill"/>
+                                </Path.Fill>
+                            </Path>
+
+                            <ContentPresenter x:Name="Title" Content="{TemplateBinding Title}"
+                                              ContentTemplate="{TemplateBinding TitleTemplate}"
+                                              Margin="{TemplateBinding Padding}" 
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+
+                            <ContentPresenter x:Name="BackContent" Content="{TemplateBinding BackContent}"
+                                              ContentTemplate="{TemplateBinding BackContentTemplate}"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                <ContentPresenter.RenderTransform>
+                                    <MatrixTransform Matrix="1, 0, 0, -1, 0, 0" />
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+
+                            <Path Data="{Binding Orientation, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource OrientationToPathDataConverter}}"
+                                  Stretch="Fill"
+                                  Stroke="{TemplateBinding BorderBrush}"
+                                  StrokeThickness="{TemplateBinding StrokeThickness}" />
+
+                            <Grid.Projection>
+                                <PlaneProjection x:Name="Projection"/>
+                            </Grid.Projection>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localHubTile:CustomMosaicTilePart">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localHubTile:CustomMosaicTilePart">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="Front" To="Back">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection"
+                                                             Duration="0:0:0.4" From="0" To="90"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection"
+                                                             Duration="0:0:0.4" BeginTime="0:0:0.4" From="-90" To="0"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+
+                                    <VisualTransition From="Back" To="Front">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection"
+                                                             Duration="0:0:0.4" BeginTime="0:0:0.4" From="-90" To="0"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection"
+                                                             Duration="0:0:0.4" From="0" To="90" FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+
+                                <VisualState x:Name="Front">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="-90"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Back">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="90"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <ContentPresenter x:Name="BackPresenter">
+                            <ContentPresenter.Content>
+                                <Canvas x:Name="PART_BackCanvas">
+                                    <Image Stretch="UniformToFill" Source="{TemplateBinding BackContent}"/>
+                                </Canvas>
+                            </ContentPresenter.Content>
+                            <ContentPresenter.Projection>
+                                <PlaneProjection x:Name="BackProjection" RotationX="-90"/>
+                            </ContentPresenter.Projection>
+                        </ContentPresenter>
+
+                        <ContentPresenter x:Name="FrontPresenter">
+                            <ContentPresenter.Content>
+                                <Canvas x:Name="PART_FrontCanvas">
+                                    <Image Stretch="UniformToFill" Source="{TemplateBinding FrontContent}"/>
+                                </Canvas>
+                            </ContentPresenter.Content>
+                            <ContentPresenter.Projection>
+                                <PlaneProjection x:Name="FrontProjection"/>
+                            </ContentPresenter.Projection>
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:RadCycleHubTile" BasedOn="{StaticResource BaseHubTileStyle}">
+        <Setter Property="Width" Value="352"/>
+        <Setter Property="UpdateInterval" Value="0:0:10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadCycleHubTile">
+                    <Grid>
+                        <localHubTile:FlipControl BackContent="{TemplateBinding BackContent}" 
+                                                  BackContentTemplate="{TemplateBinding BackContentTemplate}" 
+                                                  x:Name="PART_FlipControl"
+                                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                                  Background="{TemplateBinding Background}"
+                                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                                  IsFlipped="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                            <localHubTile:FlipControl.FrontContent>
+                                <Grid>
+                                    <Canvas x:Name="PART_LayoutRoot">
+                                        <StackPanel x:Name="PART_Panel" Orientation="{TemplateBinding Orientation}">
+                                            <Canvas Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+                                                <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" x:Name="PART_FirstContent">
+                                                    <ContentPresenter x:Name="PART_FirstItem" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ContentTemplate="{TemplateBinding ItemTemplate}"/>
+                                                </Grid>
+                                            </Canvas>
+
+                                            <Canvas Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+                                                <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                                    <ContentPresenter x:Name="PART_SecondItem" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ContentTemplate="{TemplateBinding ItemTemplate}"/>
+                                                </Grid>
+                                            </Canvas>
+                                        </StackPanel>
+                                    </Canvas>
+
+                                    <ContentPresenter Content="{TemplateBinding Title}" ContentTemplate="{TemplateBinding TitleTemplate}"
+                                                      VerticalAlignment="Bottom" HorizontalAlignment="Stretch"  Margin="{TemplateBinding Padding}"/>
+                                </Grid>
+                            </localHubTile:FlipControl.FrontContent>
+                        </localHubTile:FlipControl>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:RadMosaicHubTile" BasedOn="{StaticResource BaseHubTileStyle}">
+        <Setter Property="UpdateInterval" Value="0:0:1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadMosaicHubTile">
+                    <Grid x:Name="PART_LayoutRoot">
+                        <localHubTile:FlipControl BackContent="{TemplateBinding BackContent}" 
+                                                  BackContentTemplate="{TemplateBinding BackContentTemplate}" 
+                                                  x:Name="PART_FlipControl"
+                                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                                  Background="{TemplateBinding Background}"
+                                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                                  IsFlipped="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                            <localHubTile:FlipControl.FrontContent>
+                                <Grid>
+                                    <Grid x:Name="PART_MosaicTileContainer">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <localHubTile:CustomMosaicTilePart Style="{TemplateBinding TileStyle}"/>
+                                        <localHubTile:CustomMosaicTilePart Style="{TemplateBinding TileStyle}" Grid.Column="1"/>
+                                        <localHubTile:CustomMosaicTilePart Style="{TemplateBinding TileStyle}" Grid.Column="2"/>
+
+                                        <localHubTile:CustomMosaicTilePart Style="{TemplateBinding TileStyle}" Grid.Row="1"/>
+                                        <localHubTile:CustomMosaicTilePart Style="{TemplateBinding TileStyle}" Grid.Row="1" Grid.Column="1"/>
+                                        <localHubTile:CustomMosaicTilePart Style="{TemplateBinding TileStyle}" Grid.Row="1" Grid.Column="2"/>
+
+                                        <localHubTile:CustomMosaicTilePart Style="{TemplateBinding TileStyle}" Grid.Row="2"/>
+                                        <localHubTile:CustomMosaicTilePart Style="{TemplateBinding TileStyle}" Grid.Row="2" Grid.Column="1"/>
+                                        <localHubTile:CustomMosaicTilePart Style="{TemplateBinding TileStyle}" Grid.Row="2" Grid.Column="2"/>
+                                    </Grid>
+
+                                    <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="{TemplateBinding Padding}"
+                                                      Content="{TemplateBinding Title}" ContentTemplate="{TemplateBinding TitleTemplate}"/>
+                                </Grid>
+                            </localHubTile:FlipControl.FrontContent>
+                        </localHubTile:FlipControl>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localHubTile:MosaicTilePart" x:Key="DefaultMosaicTileStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localHubTile:MosaicTilePart">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="Front" To="Back">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection"
+                                                             Duration="0:0:0.4" From="0" To="90" FillBehavior="HoldEnd"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection"
+                                                             Duration="0:0:0.4" BeginTime="0:0:0.4" From="-90" To="0" FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+
+                                    <VisualTransition From="Back" To="Front">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection"
+                                                             Duration="0:0:0.4" BeginTime="0:0:0.4" From="-90" To="0"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection"
+                                                             Duration="0:0:0.4" From="0" To="90" FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+
+                                <VisualState x:Name="Front">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="-90"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Back">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="90"/>
+                                        </DoubleAnimationUsingKeyFrames>
+
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <ContentPresenter x:Name="BackPresenter" Content="{TemplateBinding BackContent}" ContentTemplate="{TemplateBinding BackContentTemplate}">
+                            <ContentPresenter.Projection>
+                                <PlaneProjection x:Name="BackProjection" RotationX="-90"/>
+                            </ContentPresenter.Projection>
+                        </ContentPresenter>
+
+                        <ContentPresenter x:Name="FrontPresenter" Content="{TemplateBinding FrontContent}" ContentTemplate="{TemplateBinding BackContentTemplate}">
+                            <ContentPresenter.Projection>
+                                <PlaneProjection x:Name="FrontProjection"/>
+                            </ContentPresenter.Projection>
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localHubTile:MosaicTilePart" BasedOn="{StaticResource DefaultMosaicTileStyle}"/>
+
+    <Style TargetType="local:RadPictureRotatorHubTile" BasedOn="{StaticResource BaseHubTileStyle}">
+        <Setter Property="Width" Value="352"/>
+        <Setter Property="UpdateInterval" Value="0:0:10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadPictureRotatorHubTile">
+                    <Grid>
+                        <localHubTile:FlipControl BackContent="{TemplateBinding BackContent}" 
+                                                  BackContentTemplate="{TemplateBinding BackContentTemplate}" 
+                                                  x:Name="PART_FlipControl"
+                                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                                  Background="{TemplateBinding Background}"
+                                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                                  IsFlipped="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                            <localHubTile:FlipControl.FrontContent>
+                                <Grid>
+                                    <Canvas x:Name="PART_LayoutRoot">
+                                        <StackPanel x:Name="PART_Panel">
+                                            <Canvas Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+                                                <Grid Width="{TemplateBinding Width}" x:Name="PART_FirstContent">
+                                                    <Image x:Name="PART_FirstImage" Stretch="UniformToFill" VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Canvas>
+
+                                            <Canvas Height="{TemplateBinding Height}" Width="{TemplateBinding Width}">
+                                                <Grid Width="{TemplateBinding Width}">
+                                                    <Image x:Name="PART_SecondImage" Stretch="UniformToFill" VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Canvas>
+                                        </StackPanel>
+                                    </Canvas>
+
+                                    <ContentPresenter Content="{TemplateBinding Title}" ContentTemplate="{TemplateBinding TitleTemplate}"
+                                                      VerticalAlignment="Bottom" HorizontalAlignment="Stretch"  Margin="{TemplateBinding Padding}"/>
+                                </Grid>
+                            </localHubTile:FlipControl.FrontContent>
+                        </localHubTile:FlipControl>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <localHubTile:DoubleScaleConverter x:Key="PositiveHalfConverter" Scale="0.5"/>
+    <localHubTile:DoubleScaleConverter x:Key="NegativeConverter" Scale="-1"/>
+    <localHubTile:DoubleScaleConverter x:Key="NegativeHalfConverter" Scale="-0.5"/>
+
+    <Style TargetType="local:RadSlideHubTile" BasedOn="{StaticResource BaseHubTileStyle}">
+        <Setter Property="UpdateInterval" Value="0:0:5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadSlideHubTile">
+                    <Grid x:Name="PART_LayoutRoot">
+                        <localHubTile:FlipControl BackContent="{TemplateBinding BackContent}" 
+                                                  BackContentTemplate="{TemplateBinding BackContentTemplate}" 
+                                                  Background="{TemplateBinding Background}"
+                                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                                  x:Name="PART_FlipControl"
+                                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                                  IsFlipped="{Binding IsFlipped, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                            <localHubTile:FlipControl.FrontContent>
+                                <Grid>
+                                    <localHubTile:SlideControl ExpandedState="{Binding ExpandedState, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="PART_SlideControl"
+                                                               Height="{TemplateBinding Height}"
+                                                               TopContent="{TemplateBinding TopContent}" TopContentTemplate="{TemplateBinding TopContentTemplate}"
+                                                               BottomContent="{TemplateBinding BottomContent}" BottomContentTemplate="{TemplateBinding BottomContentTemplate}"/>
+                                    <ContentPresenter Content="{TemplateBinding Title}" ContentTemplate="{TemplateBinding TitleTemplate}"
+                                                      VerticalAlignment="Bottom" HorizontalAlignment="Stretch"  Margin="{TemplateBinding Padding}"/>
+                                </Grid>
+                            </localHubTile:FlipControl.FrontContent>
+                        </localHubTile:FlipControl>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localHubTile:SlideControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localHubTile:SlideControl">
+                    <Grid x:Name="LayoutRoot">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.7"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="SemiExpanded">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TopContentTransform" Storyboard.TargetProperty="(TranslateTransform.Y)">
+                                            <DiscreteDoubleKeyFrame Value="{Binding Path=Height, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NegativeHalfConverter}}" KeyTime="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="BottomContentTransform" Storyboard.TargetProperty="(TranslateTransform.Y)">
+                                            <DiscreteDoubleKeyFrame Value="{Binding Path=Height, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource PositiveHalfConverter}}" KeyTime="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Expanded">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TopContentTransform" Storyboard.TargetProperty="(TranslateTransform.Y)">
+                                            <DiscreteDoubleKeyFrame Value="0" KeyTime="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="BottomContentTransform" Storyboard.TargetProperty="(TranslateTransform.Y)">
+                                            <DiscreteDoubleKeyFrame Value="{Binding Height, RelativeSource={RelativeSource TemplatedParent}}" KeyTime="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter Content="{TemplateBinding TopContent}" ContentTemplate="{TemplateBinding TopContentTemplate}" 
+                                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ContentPresenter.RenderTransform>
+                                <TranslateTransform x:Name="TopContentTransform" Y="{Binding Height, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NegativeConverter}}"/>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+                        <ContentPresenter Content="{TemplateBinding BottomContent}" ContentTemplate="{TemplateBinding BottomContentTemplate}" 
+                                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ContentPresenter.RenderTransform>
+                                <TranslateTransform x:Name="BottomContentTransform"/>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localHubTile:FlipControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localHubTile:FlipControl">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="NotFlipped" To="Flipped">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection" Duration="0:0:0.4" From="0" To="90"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection" Duration="0:0:0.4" BeginTime="0:0:0.4" From="-90" To="0"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackContentPanel" Duration="0:0:0" From="0" To="1"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+
+                                    <VisualTransition From="Flipped" To="NotFlipped">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection" Duration="0:0:0.4" BeginTime="0:0:0.4" From="-90" To="0"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection" Duration="0:0:0.4" From="0" To="90"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackContentPanel" Duration="0:0:0" From="1" To="0" BeginTime="0:0:0.4"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+
+                                <VisualState x:Name="NotFlipped">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="-90"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackContentPanel">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Flipped">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="FrontProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="90"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="RotationX" Storyboard.TargetName="BackProjection">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="BackContentPanel">
+                                            <DiscreteDoubleKeyFrame KeyTime="0" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding FrontContent}" ContentTemplate="{TemplateBinding FrontContentTemplate}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <Grid.Projection>
+                                <PlaneProjection x:Name="FrontProjection"/>
+                            </Grid.Projection>
+                        </Grid>
+                        <Grid Background="{TemplateBinding Background}" x:Name="BackContentPanel">
+                            <ContentPresenter Content="{TemplateBinding BackContent}" ContentTemplate="{TemplateBinding BackContentTemplate}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                            <Grid.Projection>
+                                <PlaneProjection x:Name="BackProjection"/>
+                            </Grid.Projection>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- HubTile end -->
+
+    <Style TargetType="localCommon:InlineButton">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="IconStyle">
+            <Setter.Value>
+                <Style TargetType="Image">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template" Value="{StaticResource InlineButtonControlTemplate}"/>
+    </Style>
+
+    <Style TargetType="local:RadLegendControl">
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikSecondaryForegroundBrush}" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapGrid MaximumRowsOrColumns="3"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Margin="0 0 2 2" Width="10" Height="10" Fill="{Binding Fill}" Stroke="{Binding Stroke}" StrokeThickness="1"/>
+                        <TextBlock Margin="2" Text="{Binding Title}" />
+                    </StackPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadLegendControl">
+                    <Border Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}" Padding="{TemplateBinding Padding}">
+                        <ItemsControl x:Name="PART_LegendPresenter" 
+                                      ItemsPanel="{TemplateBinding ItemsPanel}" 
+                                      ItemTemplate="{TemplateBinding ItemTemplate}"  
+                                      Margin="10" 
+                                      VerticalAlignment="{TemplateBinding VerticalAlignment}" 
+                                      HorizontalAlignment="{TemplateBinding HorizontalAlignment}" 
+                                      ItemsSource="{Binding}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:ValidationControl">
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikBlackBrush}" />
+        <Setter Property="BorderThickness" Value="4" />
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikBlackBrush}" />
+        <Setter Property="Background" Value="{ThemeResource TelerikWhiteBrush}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ValidationControl">
+                    <Popup x:Name="PART_ErrorMessages" IsOpen="False">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" MinHeight="10"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Path Grid.RowSpan="2" Data="M0,15 L40,15 L40,5 L4.125,5 L0,0 L0,15" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="{TemplateBinding Background}" Stretch="Fill" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}"/>
+                            <ItemsControl VerticalAlignment="Center" Margin="{TemplateBinding Padding}" Grid.Row="1" Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}" ItemsSource="{Binding Errors, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        </Grid>
+
+                    </Popup>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:RadBusyIndicator">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikBusyIndicatorForegroundBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="Padding" Value="0, 10, 0, 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadBusyIndicator">
+                    <Border
+                        x:Name="PART_LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="NotRunning" To="Running">
+                                        <Storyboard>
+                                            <Storyboard>
+                                                <DoubleAnimation From="0" To="1" Duration="0:0:0.5" Storyboard.TargetName="PART_LayoutRoot" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition From="Running" To="NotRunning">
+                                        <Storyboard>
+                                            <Storyboard>
+                                                <DoubleAnimation From="1" To="0" Duration="0:0:0.5" Storyboard.TargetName="PART_LayoutRoot" Storyboard.TargetProperty="Opacity"/>
+                                            </Storyboard>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="NotRunning">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LayoutRoot" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteDoubleKeyFrame KeyTime="0"  Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_LayoutRoot" Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="False"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Running">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_LayoutRoot" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteDoubleKeyFrame KeyTime="0"  Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_LayoutRoot" Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="True"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <telerikPrimitivesBusyIndicator:BusyIndicatorAnimation 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                x:Name="PART_Animation"
+                                VerticalAlignment="Center"
+                                Style="{TemplateBinding IndicatorAnimationStyle}"
+                                IsActive="{TemplateBinding IsActive}"
+                                Foreground="{TemplateBinding Foreground}"  />
+                            <ContentPresenter
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                            x:Name="PART_InfoContent"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

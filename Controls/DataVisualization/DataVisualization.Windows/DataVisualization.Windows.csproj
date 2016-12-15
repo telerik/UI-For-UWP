@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="..\..\..\Build\Imports\ImportsAtStart.targets" />
+  <PropertyGroup>
+    <PlatformFolder Condition=" '$(Platform)' != 'AnyCPU' ">$(Platform)</PlatformFolder>
+    <OutputPath>bin\$(PlatformFolder)\$(Configuration)\</OutputPath>
+    <Framework>$(FrameworkWin81)</Framework>
+    <DocumentationFile Condition=" '$(Configuration)' == 'Release' OR '$(Configuration)' == 'ReleaseTrial' ">$(OutputPath)\Telerik.UI.Xaml.DataVisualization.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B4784D9-07CD-45E7-946F-DF38182E95A4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Telerik.UI.Xaml.Controls.DataVisualization</RootNamespace>
+    <AssemblyName>Telerik.UI.Xaml.DataVisualization</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <SynthesizeLinkMetadata>true</SynthesizeLinkMetadata>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>DataVisualization.Windows_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseTrial|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP;TRIAL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BulletGraph\AdditionalMeasuresCollection.cs" />
+    <Compile Include="BulletGraph\BulletGraphComparativeMeasure.cs" />
+    <Compile Include="BulletGraph\BulletGraphMeasureBase.cs" />
+    <Compile Include="BulletGraph\BulletGraphQualitativeRangeCollection.cs" />
+    <Compile Include="BulletGraph\RadBulletGraph.cs" />
+    <Compile Include="BulletGraph\ValueToVisibilityConverter.cs" />
+    <Compile Include="BulletGraph\VisibilityExtensions.cs" />
+    <Compile Include="Gauges\BarIndicatorSegment.cs" />
+    <Compile Include="Gauges\CalculateAngleContext.cs" />
+    <Compile Include="Gauges\GaugeColorValueRange.cs" />
+    <Compile Include="Gauges\GaugePanel.cs" />
+    <Compile Include="Gauges\GaugeRangeType.cs" />
+    <Compile Include="Gauges\GaugeValueToBrushConverter.cs" />
+    <Compile Include="Gauges\GaugeValueToStringConverter.cs" />
+    <Compile Include="Gauges\Indicators\ArrowGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\BarGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\GaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\GaugeIndicatorCollection.cs" />
+    <Compile Include="Gauges\Indicators\IndicatorSegmentCollection.cs" />
+    <Compile Include="Gauges\Indicators\LinearBarGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\MarkerGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\NeedleGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\RadialBarGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\RadialGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\SegmentedGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\SegmentedLinearGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\SegmentedRadialGaugeIndicator.cs" />
+    <Compile Include="Gauges\IndicatorValueChangedEventArgs.cs" />
+    <Compile Include="Gauges\LinearGaugePanel.cs" />
+    <Compile Include="Gauges\RadGauge.cs" />
+    <Compile Include="Gauges\RadialGaugePanel.cs" />
+    <Compile Include="Gauges\RadLinearGauge.cs" />
+    <Compile Include="Gauges\RadRadialGauge.cs" />
+    <Compile Include="Gauges\TickType.cs" />
+    <Compile Include="Gauges\UpdateArcContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ThemeResourcesDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Themes\ThemeResourcesLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{3da8b09a-f687-4009-b9cf-35fe1122efea}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Primitives\Primitives.Windows\Primitives.Windows.csproj">
+      <Project>{905e0ea2-8f87-4c42-a126-426bc3e6e4bb}</Project>
+      <Name>Primitives.Windows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadBulletGraph.Icon.png" />
+    <EmbeddedResource Include="ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadLinearGauge.Icon.png" />
+    <EmbeddedResource Include="ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadRadialGauge.Icon.png" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <DocumentationFile>bin\\Release\\Telerik.UI.Xaml.DataVisualization.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\..\..\Build\Imports\WinCore Managed Ruleset.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseTrial|x64'">
+    <OutputPath>bin\x64\ReleaseTrial\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE;NETFX_CORE;WINDOWS_APP;TRIAL</DefineConstants>
+    <DocumentationFile>bin\\ReleaseTrial\\Telerik.UI.Xaml.DataVisualization.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\..\..\Build\Imports\WinCore Managed Ruleset.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <DocumentationFile>bin\\Release\\Telerik.UI.Xaml.DataVisualization.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\..\..\Build\Imports\WinCore Managed Ruleset.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseTrial|x86'">
+    <OutputPath>bin\x86\ReleaseTrial\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE;NETFX_CORE;WINDOWS_APP;TRIAL</DefineConstants>
+    <DocumentationFile>bin\\ReleaseTrial\\Telerik.UI.Xaml.DataVisualization.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\..\..\Build\Imports\WinCore Managed Ruleset.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="..\DataVisualization.Shared\DataVisualization.Shared.projitems" Label="Shared" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\..\..\Build\Imports\ImportsAtEnd.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

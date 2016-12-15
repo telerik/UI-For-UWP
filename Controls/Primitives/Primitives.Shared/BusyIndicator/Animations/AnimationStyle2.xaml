@@ -1,0 +1,209 @@
+﻿<Style 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:telerikPrimitivesBusyIndicator="using:Telerik.UI.Xaml.Controls.Primitives.BusyIndicator"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  x:Key="AnimationStyle2" TargetType="telerikPrimitivesBusyIndicator:BusyIndicatorAnimation">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="telerikPrimitivesBusyIndicator:BusyIndicatorAnimation">
+                <Grid VerticalAlignment="Center" x:Name="PART_LayoutRoot">
+                    <Grid.Resources>
+                        <Storyboard x:Name="PART_Animation" RepeatBehavior="Forever">
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_0">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_1">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.86"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.86"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames  EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_2">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.72"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.72"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_3">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.58"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.58"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_4">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.44"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.44"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_5">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_6">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_7">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_8">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_9">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_10">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_11">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_12">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_13">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_14">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_15">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_16">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_17">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_18">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_19">
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.3"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_20">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.44"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.44"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_21">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.58"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.58"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_22">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.72"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.72"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_23">
+                                <EasingDoubleKeyFrame KeyTime="0" Value="0.86"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="0.3"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1"/>
+                                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0.86"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </Grid.Resources>
+                    <Canvas Height="40" UseLayoutRounding="False" Width="40">
+                        <Path x:Name="_0" 
+                  Data="F1M22,2C22,3.104,21.104,4,20,4C18.896,4,18,3.104,18,2C18,0.896,18.896,0,20,0C21.104,0,22,0.896,22,2" 
+                  Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="18" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="0" Width="4"/>
+                        <Path x:Name="_1" Data="F1M26.5908,3.1313C26.3048,4.1983,25.2078,4.8313,24.1408,4.5453C23.0738,4.2593,22.4418,3.1633,22.7268,2.0963C23.0138,1.0293,24.1098,0.396300000000003,25.1768,0.681300000000003C26.2428,0.967300000000003,26.8768,2.0643,26.5908,3.1313"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="22.658" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="0.613" Width="4.001"/>
+                        <Path x:Name="_2" Data="F1M30.7324,5.4116C30.1794,6.3686,28.9574,6.6956,28.0004,6.1436C27.0434,5.5916,26.7154,4.3686,27.2674,3.4116C27.8204,2.4546,29.0434,2.1276,30.0004,2.6796C30.9574,3.2316,31.2844,4.4546,30.7324,5.4116"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="26.999" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="2.411" Width="4.001"/>
+                        <Path x:Name="_3" Data="F1M31.3145,5.8579C30.5335,6.6389,30.5335,7.9049,31.3145,8.6869C32.0945,9.4669,33.3615,9.4669,34.1425,8.6869C34.9235,7.9049,34.9235,6.6389,34.1425,5.8579C33.3615,5.0769,32.0945,5.0769,31.3145,5.8579"
+                  Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="30.729" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="5.272" Width="3.999"/>
+                        <Path x:Name="_4" Data="F1M36.5889,12.7319C35.6329,13.2839,34.4079,12.9569,33.8569,11.9999C33.3049,11.0439,33.6329,9.8199,34.5889,9.2679C35.5449,8.7159,36.7689,9.0439,37.3199,9.9999C37.8729,10.9569,37.5449,12.1799,36.5889,12.7319"
+                  Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="33.589" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="9" Width="4"/>
+                        <Path x:Name="_5" Data="F1M36.8691,13.4097C35.8021,13.6957,35.1691,14.7917,35.4551,15.8597C35.7401,16.9257,36.8381,17.5587,37.9041,17.2737C38.9711,16.9877,39.6041,15.8907,39.3181,14.8237C39.0331,13.7577,37.9351,13.1237,36.8691,13.4097"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="35.386" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="13.341" Width="4"/>
+                        <Path x:Name="_6" Data="F1M38,18C36.896,18,36,18.896,36,20C36,21.104,36.896,22,38,22C39.104,22,40,21.104,40,20C40,18.896,39.104,18,38,18"
+                  Fill="{TemplateBinding Foreground}"
+                  Height="4" Canvas.Left="36" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="18" Width="4"/>
+                        <Path x:Name="_7" Data="F1M37.9043,22.7266C36.8383,22.4416,35.7403,23.0746,35.4553,24.1416C35.1693,25.2076,35.8023,26.3046,36.8693,26.5906C37.9353,26.8766,39.0333,26.2446,39.3183,25.1756C39.6043,24.1096,38.9703,23.0136,37.9043,22.7266"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="35.387" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="22.658" Width="4"/>
+                        <Path x:Name="_8" Data="F1M36.5879,27.2676C35.6319,26.7156,34.4079,27.0426,33.8569,27.9996C33.3049,28.9566,33.6319,30.1796,34.5879,30.7326C35.5449,31.2846,36.7679,30.9566,37.3199,29.9996C37.8729,29.0426,37.5449,27.8206,36.5879,27.2676"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="33.589" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="26.999" Width="4"/>
+                        <Path x:Name="_9" Data="F1M34.1426,31.3145C33.3616,30.5335,32.0946,30.5335,31.3146,31.3145C30.5336,32.0945,30.5336,33.3615,31.3146,34.1425C32.0946,34.9235,33.3616,34.9235,34.1426,34.1425C34.9236,33.3615,34.9236,32.0945,34.1426,31.3145" 
+                  Fill="{TemplateBinding Foreground}" Height="3.999" Canvas.Left="30.729" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="30.729" Width="3.999"/>
+                        <Path x:Name="_10" Data="F1M30.7324,34.5879C30.1794,33.6319,28.9574,33.3049,28.0004,33.8569C27.0444,34.4079,26.7154,35.6319,27.2674,36.5879C27.8204,37.5449,29.0444,37.8729,30.0004,37.3199C30.9574,36.7689,31.2854,35.5449,30.7324,34.5879"
+                  Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="27" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="33.589" Width="4.001"/>
+                        <Path x:Name="_11" Data="F1M26.5898,36.8691C26.3048,35.8031,25.2078,35.1691,24.1408,35.4551C23.0738,35.7401,22.4418,36.8381,22.7268,37.9041C23.0128,38.9711,24.1098,39.6041,25.1758,39.3181C26.2428,39.0331,26.8768,37.9351,26.5898,36.8691"
+                  Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="22.658" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="35.386" Width="4"/>
+                        <Path x:Name="_12" Data="F1M22,38C22,36.896,21.104,36,20,36C18.896,36,18,36.896,18,38C18,39.104,18.896,40,20,40C21.104,40,22,39.104,22,38"
+                  Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="18" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="36" Width="4"/>
+                        <Path x:Name="_13" Data="F1M17.2729,37.9043C17.5589,36.8383,16.9259,35.7403,15.8589,35.4553C14.7929,35.1693,13.6949,35.8023,13.4099,36.8693C13.1239,37.9353,13.7569,39.0333,14.8239,39.3183C15.8909,39.6053,16.9879,38.9713,17.2729,37.9043"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="13.341" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="35.387" Width="4"/>
+                        <Path x:Name="_14" Data="F1M12.7319,36.5879C13.2839,35.6319,12.9569,34.4079,11.9999,33.8569C11.0439,33.3049,9.8199,33.6319,9.2679,34.5879C8.7159,35.5449,9.0439,36.7679,9.9999,37.3199C10.9569,37.8729,12.1799,37.5449,12.7319,36.5879"
+                  Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="9" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="33.589" Width="4"/>
+                        <Path x:Name="_15" Data="F1M5.8579,31.3145C6.6389,30.5335,7.9049,30.5335,8.6869,31.3145C9.4669,32.0945,9.4669,33.3615,8.6869,34.1425C7.9049,34.9235,6.6389,34.9235,5.8579,34.1425C5.0769,33.3615,5.0769,32.0945,5.8579,31.3145"
+                  Fill="{TemplateBinding Foreground}" Height="3.999" Canvas.Left="5.272" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="30.729" Width="4"/>
+                        <Path x:Name="_16" Data="F1M5.4116,30.7324C6.3686,30.1794,6.6966,28.9574,6.1436,28.0004C5.5916,27.0434,4.3686,26.7154,3.4116,27.2674C2.4546,27.8204,2.1276,29.0434,2.6796,30.0004C3.2316,30.9574,4.4546,31.2844,5.4116,30.7324"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="2.411" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="26.999" Width="4.001"/>
+                        <Path x:Name="_17" Data="F1M2.0957,22.7266C3.1627,22.4416,4.2597,23.0746,4.5447,24.1416C4.8307,25.2076,4.1977,26.3046,3.1307,26.5906C2.0637,26.8766,0.9677,26.2446,0.6817,25.1756C0.3957,24.1096,1.0287,23.0126,2.0957,22.7266"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="0.613" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="22.658" Width="4"/>
+                        <Path x:Name="_18" Data="F1M2,18C3.104,18,4,18.896,4,20C4,21.104,3.104,22,2,22C0.896,22,0,21.104,0,20C0,18.896,0.896,18,2,18"
+                  Fill="{TemplateBinding Foreground}"
+                  Height="4" Canvas.Left="0" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="18" Width="4"/>
+                        <Path x:Name="_19" Data="F1M3.1309,13.4097C4.1979,13.6957,4.8309,14.7917,4.5459,15.8597C4.2599,16.9257,3.1629,17.5587,2.0959,17.2737C1.0289,16.9877,0.3959,15.8907,0.6819,14.8237C0.9679,13.7577,2.0649,13.1237,3.1309,13.4097"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="0.613" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="13.341" Width="4.001"/>
+                        <Path x:Name="_20" Data="F1M5.4116,9.2681C6.3686,9.8201,6.6956,11.0431,6.1436,12.0001C5.5916,12.9561,4.3686,13.2841,3.4116,12.7321C2.4546,12.1801,2.1266,10.9561,2.6796,10.0001C3.2316,9.0431,4.4546,8.7161,5.4116,9.2681"
+                  Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="2.411" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="9" Width="4.001"/>
+                        <Path x:Name="_21" Data="F1M8.6865,5.8579C9.4675,6.6389,9.4675,7.9049,8.6865,8.6869C7.9055,9.4669,6.6395,9.4669,5.8575,8.6869C5.0775,7.9049,5.0775,6.6389,5.8575,5.8579C6.6395,5.0769,7.9055,5.0769,8.6865,5.8579"
+                  Fill="{TemplateBinding Foreground}" Height="4" Canvas.Left="5.273" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="5.272" Width="4"/>
+                        <Path x:Name="_22" Data="F1M12.7324,3.4116C13.2844,4.3686,12.9564,5.5916,12.0004,6.1436C11.0444,6.6956,9.8204,6.3686,9.2684,5.4116C8.7154,4.4546,9.0444,3.2316,10.0004,2.6796C10.9564,2.1276,12.1804,2.4546,12.7324,3.4116"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="9" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="2.411" Width="4.001"/>
+                        <Path x:Name="_23" Data="F1M17.2729,2.0957C17.5589,3.1627,16.9259,4.2597,15.8589,4.5457C14.7919,4.8307,13.6949,4.1987,13.4089,3.1317C13.1239,2.0647,13.7569,0.967700000000001,14.8239,0.681700000000001C15.8909,0.395700000000001,16.9869,1.0297,17.2729,2.0957"
+                  Fill="{TemplateBinding Foreground}" Height="4.001" Canvas.Left="13.341" Opacity="0.30000299215316772" Stretch="Fill" Canvas.Top="0.613" Width="4.001"/>
+                    </Canvas>
+                </Grid>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+

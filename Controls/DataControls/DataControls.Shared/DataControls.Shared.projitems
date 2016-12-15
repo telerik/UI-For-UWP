@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="SharedProjectFile_SccProperties">
+    <SharedProjectFile_ProjectGuid>{cf6cbebe-2687-461a-9c38-10a7a45c0da5}</SharedProjectFile_ProjectGuid>
+    <SharedProjectFile_SccProjectName>SAK</SharedProjectFile_SccProjectName>
+    <SharedProjectFile_SccAuxPath>SAK</SharedProjectFile_SccAuxPath>
+    <SharedProjectFile_SccLocalPath>SAK</SharedProjectFile_SccLocalPath>
+    <SharedProjectFile_SccProvider>SAK</SharedProjectFile_SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>59c318f4-ee80-48c9-9d52-65191c4b826a</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Telerik.UI.Xaml.Controls.Data</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ContainerGeneration\GeneratedItemModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ContainerGeneration\IAnimated.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ContainerGeneration\IArrangeChild.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ContainerGeneration\IGeneratedContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ContainerGeneration\ItemGeneratorBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ContainerGeneration\ItemModelGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ContainerGeneration\IUIContainerGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Controls\DataControlBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Controls\TemplateProviderControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\DataCurrencyService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\DelegateUpdate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Enums\EmptyContentDisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Enums\HeaderFooterDisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\IListSourceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\PullToRefresh\IPullToRefreshListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\PullToRefresh\OffsetToAngleConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\PullToRefresh\OffsetToOpacityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\PullToRefresh\PullToRefreshGestureRecognizer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\PullToRefresh\SwipeEaseFunction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\CheckBoxesSupport\CheckedItemsCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\CheckBoxesSupport\CheckedItemsCollectionOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\CheckBoxesSupport\IsCheckModeActiveChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\CheckBoxesSupport\IsCheckModeActiveChangingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\CheckBoxesSupport\ItemCheckBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\CheckBoxesSupport\ItemCheckedStateChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\CheckBoxesSupport\ItemCheckedStateChangingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\CheckBoxesSupport\RadDataBoundListBox.CheckBoxes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\CheckBoxesSupport\RadDataBoundListBox.CheckBoxes.WP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\Controls\PullToRefreshIndicatorControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\DataBoundListBoxListSourceItemFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\IncrementalLoadingIndicatorItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\ItemReorderSupport\ItemReorderControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\ItemReorderSupport\ItemReorderStateChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\ItemReorderSupport\RadDataBoundListBox.ItemReorder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\ListBoxItemTapEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\ListFooterIndicatorItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\ListHeaderIndicatorItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\RadDataBoundListBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\RadDataBoundListBox.PullToRefresh.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\RadDataBoundListBoxItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\RadDataBoundListBoxItem.WP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataBoundListBox\SelectionChangingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataControlsLocalizationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Model\DataFormModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Model\IDataFormView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Model\CommitMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Model\ValidationMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Services\CommandId.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Services\CommandService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Services\CommitCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Services\DataFormCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Services\ITransactionService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Services\Layout\DataFormLayoutDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Services\Layout\StackDataFormLayoutDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Services\TransactionService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\Services\ValidateCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Converters\EditorIconVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Converters\EnumToItemsSourceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Converters\EnumToIndexConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Converters\IsEnabledEditorConvetrer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\EditorFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\BooleanEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\DFDateTimePickerButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\DFNumericTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\ITypeEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\CustomEditorBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\SegmentedControlCustomEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\SliderCustomEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\ToggleSwitchCustomEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\DateEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorGeneration\EntityEditorGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorGeneration\IEntityPropertyEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorIconDisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EntityPropertyControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EnumEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\ErrorsControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\LabelControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\ListEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\NumericEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\PositiveMessageControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\TimeEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\StringEditor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\RadDataForm.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\ContainerGeneration\HexViewItemUIContainerGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\HexPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\HexViewItemTapEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\ImageConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\Layout\Definitions\AngledHexLayoutDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\Layout\Definitions\FlatLooseHexLayoutDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\Layout\Definitions\FlatTightHexLayoutDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\Layout\Definitions\HexLayoutDefinitionBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\Layout\Strategies\AngledHexLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\Layout\Strategies\FlatLooseHexLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\Layout\Strategies\FlatTightHexLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\Layout\Strategies\HexLayoutStrategyBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HexView\RadHexView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\AddRemoveLayoutResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\BaseLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\CompactLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\ExpandCollapseEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\GroupInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\ItemInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\LayoutDoubleUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\LayoutInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\LayoutRenderInfoState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\OutlineLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\RenderInfo\GeneratedLengthContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\RenderInfo\IGenerateLayoutLength.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\RenderInfo\IndexStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\RenderInfo\IRenderInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\RenderInfo\IRenderInfoState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\RenderInfo\StackedGeneratedLengthContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\RenderInfo\StaggeredRenderInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\StackedCompactLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\StaggeredLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\Strategies\IncrementalLoadingStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\Strategies\ItemsLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\Strategies\LayoutStrategyBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\Strategies\LayoutStrategyComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\Strategies\PlaceholderStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\Strategies\SlotStrategyExecutionOrders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\Strategies\StackedItemsLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\Strategies\StaggeredItemsLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\Strategies\StaggeredLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\TabularGroupInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Layout\WrapLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\BaseLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\ContainerGeneration\EmptyContentGeneratedModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\ContainerGeneration\FooterGeneratedModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\ContainerGeneration\HeaderGeneratedModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\ContainerGeneration\ItemGenerationContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\GridLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\IListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\IOrientedParentView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\ISupportItemAnimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\LayoutController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\LayoutController.HeaderFooter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\LayoutController.ItemAnimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\ListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\StackLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\UpdateFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\WrapLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\CheckBoxPosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\FrozenGroupsPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ItemCheckBoxControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ListViewEmptyContentControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\RadListViewItem.IDragDropElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Converters\OrientationToRotateDegreesConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Layers\CheckBoxListViewLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\LayoutDefinitions\GridLayoutDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\LayoutDefinitions\StaggeredLayoutDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\ListViewGroupHeaderDisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.ItemCheckBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ChildrenListViewPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ChildrenListViewPanel.DragDrop.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\GroupHeaderContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ListViewAutoDataLoadingControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ListViewCurrencyControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ListViewGroupHeader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ListViewLoadDataControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ListViewLoadDataControlBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ListViewRootPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\PullToRefreshIndicator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\RadListViewItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ListViewItemUIContainerGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ListViewPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\RadListViewItem.Reorder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Converters\OrientationToSizeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Converters\OrientationToVerticalAlignmentConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Converters\OrientationToHorizontalAlignmentConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.Currency.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Layers\CurrencyListViewLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Layers\EmptyContentListViewLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Layers\HeaderFooterListViewLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Layers\ListViewLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Layers\OverlayAdornerListViewLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Layers\ScrollableAdornerListViewLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\PullToRefreshScrollMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.ItemAnimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Converters\OrientationToScrollModeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\LayoutDefinitions\LayoutDefinitionBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\ListViewBusyOverlayControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\LayoutDefinitions\StackLayoutDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\LayoutDefinitions\WrapLayoutDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.Manipulation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.PullToRefreshService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.Reorder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.Selection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.SwipeAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Reorder\ListViewReorderMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Reorder\ReorderListViewItemHitTestStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Reorder\ReorderOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\AnimationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\CheckBoxSelection\CheckBoxContainerGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\CheckBoxSelection\CheckBoxGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\CheckBoxSelection\CheckModeActiveChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\CheckBoxSelection\IItemCheckBoxService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\CheckBoxSelection\ListViewItemCheckBoxService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\CommandId.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\CommandService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\DragAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemActionTapCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemActionTapContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemReorderCompleteCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemReorderCompleteContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemDragStartingCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemDragStartingContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemSwipeContextBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemSwipingContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemSwipingCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemSwipeActionCompleteCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemSwipeActionCompleteContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemTapCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ItemTapContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ListViewCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\ListViewUserCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\LoadMoreDataCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\LoadMoreDataContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Commands\RefreshRequestedCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\DragDrop\ListViewDragBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\DragDrop\ListViewItemHittestStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\ListViewAnimationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\ListViewCurrencyService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\ListViewUpdateService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\ListViewVisualStateService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Selection\ListViewSelectionChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Selection\ListViewSelectionMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Selection\ListViewSelectionService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Services\Selection\SelectedItemCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\BringIntoViewOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\Enumerations\AsyncBalanceMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\Enumerations\BalanceOperationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\Enumerations\ItemAnimationMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\Enumerations\ItemState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\Events\ItemAnimationEndedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\Events\ItemStateChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\Events\UpdateDataItemEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\RadVirtualizingDataControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\RadVirtualizingDataControl.ItemAnimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\RadVirtualizingDataControlItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\ScrollOffsetContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\ScrollUpdateService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\SingleItemAnimationContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VirtualizingDataControl.Scrolling.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VirtualizingDataControl.UIVirtualization.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VirtualizingDataControlCollection.Updates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\CollectionChangeItemReorderMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\DynamicGridVirtualizationStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\DynamicGridVirtualizationStrategyDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\StackVirtualizationStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\StackVirtualizationStrategyDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\VirtualizationStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\VirtualizationStrategyDefinition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\WrapLineAlignment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\WrapVirtualizationStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VirtualizingDataControl\VStrategies\WrapVirtualizationStrategyDefinition.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\Model\ListViewModel.Data.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Resources\Neutral.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Data.RadDataBoundListBox.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Data.RadDataForm.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Data.RadListView.Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Data.RadHexView.Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)ListView\Resources\reorder-handle-dark.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)ListView\Resources\reorder-handle-light.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <IsCoreAssembly>true</IsCoreAssembly>
+    <IsSubFolderAssembly>true</IsSubFolderAssembly>
+    <PlatformFolder>$(Platform)</PlatformFolder>
+    <OutputPath>bin\$(PlatformFolder)\$(Configuration)\</OutputPath>
+    <BinariesOutDir>..\..\..\Binaries$(UWPSuffix)</BinariesOutDir>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{453EDD2C-5B29-4D4E-B4DA-578D0BDCA06F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Telerik.Data</RootNamespace>
+    <AssemblyName>Telerik.Data</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>$(OutputPath)\Telerik.Data.XML</DocumentationFile>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\ReadOnlyListVT.cs" />
+    <Compile Include="Data\Attributes\DisplayAttribute.cs" />
+    <Compile Include="Data\Attributes\IgnoreAttribute.cs" />
+    <Compile Include="Data\Attributes\PropertyValueOptionsAttribute.cs" />
+    <Compile Include="Data\Attributes\ReadOnlyAttribute.cs" />
+    <Compile Include="Data\Attributes\RequiredAttribute.cs" />
+    <Compile Include="Data\Attributes\ValueOptionsPropertyNameAttribute.cs" />
+    <Compile Include="Data\Attributes\ValueRangeAttribute.cs" />
+    <Compile Include="Data\DataChangeFlags.cs" />
+    <Compile Include="Data\Descriptors\Aggregates\AggregateDescriptorBase.cs" />
+    <Compile Include="Data\Descriptors\Aggregates\DataEngineMapping\DelegateAggregateDescription.cs" />
+    <Compile Include="Data\Descriptors\Aggregates\DataEngineMapping\UserAggregateFunction.cs" />
+    <Compile Include="Data\Descriptors\Aggregates\DataEngineMapping\UserAggregateValue.cs" />
+    <Compile Include="Data\Descriptors\Aggregates\DelegateAggregateDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Aggregates\IAggregateFunction.cs" />
+    <Compile Include="Data\Descriptors\Aggregates\KnownFunction.cs" />
+    <Compile Include="Data\Descriptors\Aggregates\PropertyAggregateDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Collections\AggregateDescriptorCollection.cs" />
+    <Compile Include="Data\Descriptors\Collections\DataDescriptorCollection.cs" />
+    <Compile Include="Data\Descriptors\Collections\FilterDescriptorCollection.cs" />
+    <Compile Include="Data\Descriptors\Collections\GroupDescriptorCollection.cs" />
+    <Compile Include="Data\Descriptors\Collections\SortDescriptorCollection.cs" />
+    <Compile Include="Data\Descriptors\DataDescriptor.cs" />
+    <Compile Include="Data\Descriptors\DelegateMemberAccess.cs" />
+    <Compile Include="Data\Descriptors\Filtering\BooleanFilterDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Filtering\CompositeFilterDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Filtering\DataEngineMapping\DelegateFilterDescription.cs" />
+    <Compile Include="Data\Descriptors\Filtering\DataGridNestedPropertyTextFilterDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Filtering\DateTimeFilterDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Filtering\DateTimePart.cs" />
+    <Compile Include="Data\Descriptors\Filtering\DelegateFilterDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Filtering\FilterDescriptorBase.cs" />
+    <Compile Include="Data\Descriptors\Filtering\LogicalOperator.cs" />
+    <Compile Include="Data\Descriptors\Filtering\NumericalFilterDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Filtering\NumericalOperator.cs" />
+    <Compile Include="Data\Descriptors\Filtering\PropertyFilterDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Filtering\TextFilterDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Filtering\TextOperator.cs" />
+    <Compile Include="Data\Descriptors\Grouping\CollectionViewGroupDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Grouping\DataEngineMapping\DelegateGroupDescription.cs" />
+    <Compile Include="Data\Descriptors\Grouping\DataEngineMapping\DelegateGroupFilter.cs" />
+    <Compile Include="Data\Descriptors\Grouping\DelegateGroupDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Grouping\GroupDescriptorBase.cs" />
+    <Compile Include="Data\Descriptors\Grouping\PropertyGroupDescriptor.cs" />
+    <Compile Include="Data\Descriptors\IDataDescriptorPeer.cs" />
+    <Compile Include="Data\Descriptors\IDataDescriptorsHost.cs" />
+    <Compile Include="Data\Descriptors\IKeyLookup.cs" />
+    <Compile Include="Data\Descriptors\IPropertyDescriptor.cs" />
+    <Compile Include="Data\Descriptors\NestedPropertyKeyLookup.cs" />
+    <Compile Include="Data\Descriptors\OrderedDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Sorting\DataEngineMapping\DelegateSortDescription.cs" />
+    <Compile Include="Data\Descriptors\Sorting\DelegateSortDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Sorting\PropertySortDescriptor.cs" />
+    <Compile Include="Data\Descriptors\Sorting\SortDescriptorBase.cs" />
+    <Compile Include="Data\Engine\DataProviders\IDataStatusListener.cs" />
+    <Compile Include="Data\Engine\DataSouceView\CollectionViewDataSourceView.cs" />
+    <Compile Include="Data\Engine\DataSouceView\IDataSourceCurrency.cs" />
+    <Compile Include="Data\Engine\EntityProviders\Entity.cs" />
+    <Compile Include="Data\Engine\EntityProviders\EntityChangedEventArgs.cs" />
+    <Compile Include="Data\Engine\EntityProviders\EntityProperty.cs" />
+    <Compile Include="Data\Engine\EntityProviders\EntityPropertyCollection.cs" />
+    <Compile Include="Data\Engine\EntityProviders\EntityProvider.cs" />
+    <Compile Include="Data\Engine\EntityProviders\INumericalRange.cs" />
+    <Compile Include="Data\Engine\EntityProviders\IPropertyConverter.cs" />
+    <Compile Include="Data\Engine\EntityProviders\ISupportEntityValidation.cs" />
+    <Compile Include="Data\Engine\EntityProviders\IValueOptionsProvider.cs" />
+    <Compile Include="Data\Engine\EntityProviders\NumericalRange.cs" />
+    <Compile Include="Data\Engine\EntityProviders\PropertyIteratorMode.cs" />
+    <Compile Include="Data\Engine\EntityProviders\RuntimeEntityProvider.cs" />
+    <Compile Include="Data\Engine\EntityProviders\RuntimeEntityProperty.cs" />
+    <Compile Include="Data\Engine\Groups\Descriptions\CollectionViewGroupDescription.cs" />
+    <Compile Include="Data\Engine\IncrementalLoading\PlaceholderInfoType.cs" />
+    <Compile Include="Data\Engine\DataProviders\ViewChangingEventArgs.cs" />
+    <Compile Include="Data\IncrementalLoading\BatchLoadingEventArgs.cs" />
+    <Compile Include="Data\IncrementalLoading\BatchLoadingMode.cs" />
+    <Compile Include="Data\IncrementalLoading\BatchLoadingProvider.cs" />
+    <Compile Include="Data\IncrementalLoading\BatchLoadingStatus.cs" />
+    <Compile Include="Data\IncrementalLoading\IBatchLoadingProvider.cs" />
+    <Compile Include="Data\IncrementalLoading\ManualBatchLoadingProvider.cs" />
+    <Compile Include="Data\ListSource\CurrencyManagementMode.cs" />
+    <Compile Include="Data\ListSource\CurrentItemChangingEventArgs.cs" />
+    <Compile Include="Data\ListSource\DataGroup.cs" />
+    <Compile Include="Data\Group\DataGroup.cs" />
+    <Compile Include="Data\Group\DataGroupFactory.cs" />
+    <Compile Include="Data\ListSource\DataSourceGroup.cs" />
+    <Compile Include="Data\ListSource\DataSourceItem.cs" />
+    <Compile Include="Data\ListSource\DataSourceItemFactory.cs" />
+    <Compile Include="Data\ListSource\ICurrencyManager.cs" />
+    <Compile Include="Data\Group\IDataGroup.cs" />
+    <Compile Include="Data\ListSource\IDataSourceGroup.cs" />
+    <Compile Include="Data\ListSource\IDataSourceItem.cs" />
+    <Compile Include="Data\ListSource\IDataSourceItemFactory.cs" />
+    <Compile Include="Data\IncrementalLoading\IIncrementalBatchLoading.cs" />
+    <Compile Include="Data\IncrementalLoading\IncrementalLoadingCollection.cs" />
+    <Compile Include="Data\IPropertyInfo.cs" />
+    <Compile Include="Data\ISupportCurrentItem.cs" />
+    <Compile Include="Data\ListSource\RadListSource.cs" />
+    <Compile Include="Data\ListSource\RadListSource.Currency.cs" />
+    <Compile Include="Data\ListSource\RadListSource.DataCursor.cs" />
+    <Compile Include="Data\RuntimePropertyInfo.cs" />
+    <Compile Include="Data\Engine\Aggregates\AggregateError.cs" />
+    <Compile Include="Data\Engine\Aggregates\AggregateValue.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\AggregateDescriptionBase.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\AggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\AggregateFunctions.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\AverageAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\CountAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\IAggregateDescription.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\MaxAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\MinAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\NumericFormatAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\ProductAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\PropertyAggregateDescription.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\PropertyAggregateDescriptionBase.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\StatisticalFormatAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\StdDevAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\StdDevPAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\SumAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\VarAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\Descriptions\VarPAggregateFunction.cs" />
+    <Compile Include="Data\Engine\Aggregates\StringFormatSelector.cs" />
+    <Compile Include="Data\Engine\Aggregates\Totals\RunningTotalsIn.cs" />
+    <Compile Include="Data\Engine\Aggregates\Totals\RunningTotalSubGroupVariation.cs" />
+    <Compile Include="Data\Engine\Aggregates\Totals\SiblingTotalsFormat.cs" />
+    <Compile Include="Data\Engine\Aggregates\Totals\SingleTotalFormat.cs" />
+    <Compile Include="Data\Engine\Aggregates\Totals\TotalFormat.cs" />
+    <Compile Include="Data\Engine\Aggregates\Totals\TotalValue.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\AverageAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\ConstantValueAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\CountAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\MaxAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\MinAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\ProductAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\StdDevAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\StdDevPAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\SumAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\UnsupportedTypeAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\VarAggregate.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\VarianceAggregateBase.cs" />
+    <Compile Include="Data\Engine\Aggregates\Values\VarPAggregate.cs" />
+    <Compile Include="Data\Engine\Clonable.cs" />
+    <Compile Include="Data\Engine\DataAxis.cs" />
+    <Compile Include="Data\Engine\DataProviders\DataProviderBase.cs" />
+    <Compile Include="Data\Engine\DataProviders\DataProviderBase.IDataProvider.cs" />
+    <Compile Include="Data\Engine\DataProviders\DataProviderCompletedEventArgs.cs" />
+    <Compile Include="Data\Engine\DataProviders\DataProviderStatus.cs" />
+    <Compile Include="Data\Engine\DataProviders\DataProviderStatusChangedEventArgs.cs" />
+    <Compile Include="Data\Engine\DataProviders\DataSettings.cs" />
+    <Compile Include="Data\Engine\DataProviders\IDataProvider.cs" />
+    <Compile Include="Data\Engine\DataProviders\IDataSettings.cs" />
+    <Compile Include="Data\Engine\DataProviders\IExternalItemsSource.cs" />
+    <Compile Include="Data\Engine\DataProviders\LocalDataSourceProvider.cs" />
+    <Compile Include="Data\Engine\DataProviders\ViewChangedEventArgs.cs" />
+    <Compile Include="Data\Engine\DataSouceView\DataSourceViewFacotry.cs" />
+    <Compile Include="Data\Engine\DataSouceView\EnumerableDataSourceView.cs" />
+    <Compile Include="Data\Engine\DataSouceView\IDataSourceView.cs" />
+    <Compile Include="Data\Engine\DescriptionBase.cs" />
+    <Compile Include="Data\Engine\Fields\ContainerNode.cs" />
+    <Compile Include="Data\Engine\Fields\ContainerNodeCollectionHelper.cs" />
+    <Compile Include="Data\Engine\Fields\ContainerNodeRole.cs" />
+    <Compile Include="Data\Engine\Fields\Descriptions\DynamicObjectFieldInfo.cs" />
+    <Compile Include="Data\Engine\Fields\Descriptions\ExpandoObjectFieldInfo.cs" />
+    <Compile Include="Data\Engine\Fields\Descriptions\FieldInfoHelper.cs" />
+    <Compile Include="Data\Engine\Fields\Descriptions\FieldRole.cs" />
+    <Compile Include="Data\Engine\Fields\Descriptions\IDataFieldInfo.cs" />
+    <Compile Include="Data\Engine\Fields\Descriptions\IFieldInfoExtractor.cs" />
+    <Compile Include="Data\Engine\Fields\Descriptions\IMemberAccess.cs" />
+    <Compile Include="Data\Engine\Fields\Descriptions\PropertyInfoFieldInfo.cs" />
+    <Compile Include="Data\Engine\Fields\FieldInfoNode.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\DynamicObjectFieldInfoDescriptionsProvider.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\EmptyFieldInfoData.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\EnumerableFieldDescriptionsInfoProvider.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\ExpandoObjectFieldDescriptionsInfoProvider.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\FieldDescriptionProviderBase.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\FieldDescriptionProviderState.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\FieldInfoData.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\GetDescriptionsDataCompletedEventArgs.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\IFieldDescriptionProvider.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\IFieldInfoData.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\LocalDataSourceFieldDescriptionsProvider.cs" />
+    <Compile Include="Data\Engine\Fields\Providers\LocalFieldDescriptionsProviderBase.cs" />
+    <Compile Include="Data\Engine\Filtering\Condition.cs" />
+    <Compile Include="Data\Engine\GlobalSuppressions.cs" />
+    <Compile Include="Data\Engine\Groups\Descriptions\GroupDescription.cs" />
+    <Compile Include="Data\Engine\Groups\Descriptions\GroupDescriptionBase.cs" />
+    <Compile Include="Data\Engine\Groups\Descriptions\IDescriptionBase.cs" />
+    <Compile Include="Data\Engine\Groups\Descriptions\IGroupDescription.cs" />
+    <Compile Include="Data\Engine\Groups\Descriptions\PropertyGroupDescription.cs" />
+    <Compile Include="Data\Engine\Groups\Descriptions\PropertyGroupDescriptionBase.cs" />
+    <Compile Include="Data\Engine\Groups\Filtering\GroupFilter.cs" />
+    <Compile Include="Data\Engine\Groups\Filtering\SiblingGroupsFilter.cs" />
+    <Compile Include="Data\Engine\Groups\Filtering\SingleGroupFilter.cs" />
+    <Compile Include="Data\Engine\Groups\Sorting\DescendingSort.cs" />
+    <Compile Include="Data\Engine\Groups\Sorting\GrandTotalComparer.cs" />
+    <Compile Include="Data\Engine\Groups\Sorting\GroupComparer.cs" />
+    <Compile Include="Data\Engine\Groups\Sorting\GroupComparerDecorator.cs" />
+    <Compile Include="Data\Engine\Groups\Sorting\GroupNameComparer.cs" />
+    <Compile Include="Data\Engine\Groups\Sorting\SortOrder.cs" />
+    <Compile Include="Data\Engine\Helpers\BindingExpressionHelper.cs" />
+    <Compile Include="Data\Engine\Helpers\IndexToValueTable.cs" />
+    <Compile Include="Data\Engine\HierarchyAdapter\GroupHierarchyAdapter.cs" />
+    <Compile Include="Data\Engine\HierarchyAdapter\IHierarchyAdapter.cs" />
+    <Compile Include="Data\Engine\HierarchyAdapter\TotalsPosition.cs" />
+    <Compile Include="Data\Engine\IncrementalLoading\PlaceholderInfo.cs" />
+    <Compile Include="Data\Engine\ISupportInitialize.cs" />
+    <Compile Include="Data\Engine\IValueProvider.cs" />
+    <Compile Include="Data\Engine\OperationExecutionStrategy.cs" />
+    <Compile Include="Data\Engine\OperationRequestInfo.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\AddRemoveResult.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\Coordinate.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\DataEngine.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\DataEngine.Parallel.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\DataEngineCompletedEventArgs.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\DataEngineStatus.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\Group.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\GroupType.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\IAggregateResultProvider.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\IDataEngine.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\IDataResults.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\IGroup.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\IGroupFactory.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\NullValue.cs" />
+    <Compile Include="Data\Engine\PivotGrouping\ParallelState.cs" />
+    <Compile Include="Data\Engine\ReportFilter\FilterDescription.cs" />
+    <Compile Include="Data\Engine\ReportFilter\IFilter.cs" />
+    <Compile Include="Data\Engine\ReportFilter\PropertyFilterDescription.cs" />
+    <Compile Include="Data\Engine\ReportFilter\PropertyFilterDescriptionBase.cs" />
+    <Compile Include="Data\Engine\SettingsEventArgs.cs" />
+    <Compile Include="Data\Engine\SettingsNode.cs" />
+    <Compile Include="Data\Engine\SettingsNodeCollection.cs" />
+    <Compile Include="Data\Engine\Sorting\ParallelAlgorithms.cs" />
+    <Compile Include="Data\Engine\Sorting\PropertySortDescription.cs" />
+    <Compile Include="Data\Engine\Sorting\SortDescription.cs" />
+    <Compile Include="Data\Engine\Sorting\SortFieldComparer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\BuildTools\Win8PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Runtime.WindowsRuntime.UI.Xaml">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Runtime.WindowsRuntime.UI.Xaml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.UWP\Core.UWP.csproj">
+      <Project>{1652093C-B541-48C9-BCB6-BBE7CE7C7FFE}</Project>
+      <Name>Core.UWP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\default.rd.xml">
+      <Link>Properties\default.rd.xml</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <PropertyGroup>
+    <IsPortableAssembly>true</IsPortableAssembly>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

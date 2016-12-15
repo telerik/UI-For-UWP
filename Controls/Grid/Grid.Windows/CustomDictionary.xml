@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Dictionary>
+  <Words>
+    <Recognized>
+      <Word>telerik</Word>
+    </Recognized>
+    <Recognized>
+      <Word>Telerik's</Word>
+    </Recognized>
+    <Recognized>
+      <Word>Kpi</Word>
+    </Recognized>
+    <Recognized>
+      <Word>Unapplies</Word>
+    </Recognized>
+    <Recognized>
+      <Word>Flyout</Word>
+    </Recognized>
+    <Recognized>
+      <Word>cloneable</Word>
+    </Recognized>
+  </Words>
+</Dictionary>

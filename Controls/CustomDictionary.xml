@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Dictionary>
+  <Words>
+    <Recognized>
+      <Word>telerik</Word>
+      <Word>Telerik</Word>
+      <Word>suspendable</Word>
+      <Word>Suspendable</Word>
+      <Word>Clockwise</Word>
+      <Word>ClockwiseCounter</Word>
+      <Word>Counter</Word>
+      <Word>EndPoints</Word>
+      <Word>core</Word>
+      <Word>Core</Word>
+      <Word>databound</Word>
+      <Word>ohlc</Word>
+      <Word>deg</Word>
+      <Word>Deg</Word>
+      <Word>trix</Word>
+      <Word>Macd</Word>
+      <Word>Macdh</Word>
+      <Word>untyped</Word>
+      <Word>Untyped</Word>
+      <Word>rect</Word>
+      <Word>subtree</Word>
+    </Recognized>
+    <DiscreteExceptions>
+      <Term>Telerik</Term>
+      <Term>Untyped</Term>
+      <Term>MultiLine</Term>
+      <Term>PlotLine</Term>
+      <Term>X</Term>
+      <Term>Y</Term>
+      <Term>TrackBall</Term>
+      <Term>UpStroke</Term>
+      <Term>Macdh</Term>
+      <Term>Macd</Term>
+      <Term>End</Term>
+      <Term>Deg</Term>
+      <Term>Points</Term>
+      <Term>Counter</Term>
+      <Term>Clockwise</Term>
+      <Term>Suspendable</Term>
+    </DiscreteExceptions>
+  </Words>
+</Dictionary>

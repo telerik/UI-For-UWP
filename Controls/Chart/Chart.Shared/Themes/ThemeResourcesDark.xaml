@@ -1,0 +1,43 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Chart.Themes"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls">
+
+    <!-- Axis -->
+    
+    <SolidColorBrush x:Key="TelerikChartAxisBorderBrush" Color="#59FFFFFF" />
+    <SolidColorBrush x:Key="TelerikChartAxisLabelsForegroundBrush" Color="{StaticResource TelerikDisabledColor}"/>
+    <SolidColorBrush x:Key="TelerikChartAxisTitleForegroundBrush" Color="{StaticResource TelerikSecondaryForegroundColor}"/>
+    
+    <!-- Grid -->
+    
+    <SolidColorBrush x:Key="TelerikChartGridLineBorderBrush" Color="#1EFFFFFF" />
+    <SolidColorBrush x:Key="TelerikChartStripeBackgroundBrush" Color="#11CACACA" />
+    
+    <!-- Annotations -->
+    
+    <SolidColorBrush x:Key="TelerikChartGridLineAnnotationBorderBrush" Color="#CCFFFFFF" />
+    <SolidColorBrush x:Key="TelerikChartPlotBandAnnotationBackgroundBrush" Color="#4C000000" />
+    <SolidColorBrush x:Key="TelerikChartMarkedZoneAnnotationBackgroundBrush" Color="#4C000000" />
+    
+    <!-- TrackBall -->
+
+    <SolidColorBrush x:Key="TelerikChartTrackBallLineBorderBrush" Color="#DEFFFFFF" />
+    
+    <SolidColorBrush x:Key="TelerikChartTrackBallInfoBackgroundBrush" Color="#DEFFFFFF" />
+    <SolidColorBrush x:Key="TelerikChartTrackBallInfoForegroundBrush" Color="#FF1D1D1D" />
+
+    <SolidColorBrush x:Key="TelerikChartToolTipForegroundBrush" Color="{StaticResource TelerikBlackColor}"/>
+    <SolidColorBrush x:Key="TelerikChartToolTipBackgroundBrush" Color="{StaticResource TelerikWhiteColor}"/>
+
+    <SolidColorBrush x:Key="TelerikChartPolarChartGridStripeBrush" Color="#66FFFFFF" Opacity="0.15"/>
+
+    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives/Themes/ThemeColorsDark.xaml"/>
+        <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

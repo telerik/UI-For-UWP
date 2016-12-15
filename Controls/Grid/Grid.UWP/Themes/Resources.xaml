@@ -1,0 +1,2291 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:localPrimitives="using:Telerik.UI.Xaml.Controls.Grid.Primitives"
+    xmlns:localView="using:Telerik.UI.Xaml.Controls.Grid.View"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:primitivesCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
+    xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:dataControls ="using:Telerik.UI.Xaml.Controls.Data"
+    xmlns:core="using:Telerik.Core"
+    >
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Themes/ThemeResourcesDark.xaml"/>
+                <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Themes/ThemeResourcesLight.xaml"/>
+                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/SharedResources.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <localView:GroupPositionToAlignmentConverter x:Key="PositionToAlignmentConverter" />
+    <core:BoolToVisibilityConverter x:Key="VisibilityConverter" />
+    <localView:DataOperationsButtonTextConverter x:Key="DataOperationsButtonTextConverter" />
+    <localView:BorderThicknessToMarginConverter x:Key="BorderThicknessToMarginConverter" />
+    <localView:DataOperationsButtonOpacityConverter x:Key="DataOperationsButtonOpacityConverter" />
+
+    <Style TargetType="localPrimitives:DataGridFilteringFlyoutExpandButton">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="MinHeight" Value="28"/>
+        <Setter Property="BorderThickness" Value="0 2 0 0"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFilterFlyoutExpandButtonBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridFilterFlyoutExpandButtonBorderBrush}"/>
+        <Setter Property="PointerOverBackgroundBrush" Value="{ThemeResource TelerikGridFilterFlyoutExpandButtonPointerOverBackgroundBrush}"/>
+        <Setter Property="PointerOverBorderBrush" Value="{ThemeResource TelerikGridFilterFlyoutExpandButtonPointerOverBorderBrush}"/>
+        <Setter Property="PressedBackgroundBrush" Value="{ThemeResource TelerikGridFilterFlyoutExpandButtonPressedBackgroundBrush}"/>
+        <Setter Property="PressedBorderBrush" Value="{ThemeResource TelerikGridFilterFlyoutExpandButtonPressedBorderBrush}"/>
+        <Setter Property="Template" Value="{StaticResource InlineButtonControlTemplate}"/>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridFilteringFlyoutApplyFilterButton" BasedOn="{StaticResource GridServiceButtonStyle}">
+        <Setter Property="MinHeight" Value="32"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="0,16,0,0"/>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridFilteringFlyoutClearFilterButton">
+        <Setter Property="BorderThickness" Value="2 2 0 0"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFilterFlyoutClearButtonBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridFilterFlyoutClearButtonForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridFilterFlyoutClearButtonBorderBrush}"/>
+
+        <Setter Property="PointerOverBackgroundBrush" Value="{ThemeResource TelerikGridFilterFlyoutClearButtonPointerOverBackgroundBrush}"/>
+        <Setter Property="PointerOverForegroundBrush" Value="{ThemeResource TelerikGridFilterFlyoutClearButtonPointerOverForegroundBrush}"/>
+        <Setter Property="PointerOverBorderBrush" Value="{ThemeResource TelerikGridFilterFlyoutClearButtonPointerOverBorderBrush}"/>
+
+        <Setter Property="PressedBackgroundBrush" Value="{ThemeResource TelerikGridFilterFlyoutClearButtonPressedBackgroundBrush}"/>
+        <Setter Property="PressedForegroundBrush" Value="{ThemeResource TelerikGridFilterFlyoutClearButtonPressedForegroundBrush}"/>
+        <Setter Property="PressedBorderBrush" Value="{ThemeResource TelerikGridFilterFlyoutClearButtonPressedBorderBrush}"/>
+
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="MinHeight" Value="28"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Template" Value="{StaticResource InlineButtonControlTemplate}"/>
+        <Setter Property="local:GridLocalizationManager.Key" Value="ClearFilter"/>
+        <Setter Property="local:GridLocalizationManager.PropertyName" Value="Content"/>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridFlyoutHeaderCancelButton">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFlyoutHeaderCancelButtonBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridFlyoutHeaderCancelButtonForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridFlyoutHeaderCancelButtonBorderBrush}"/>
+        <Setter Property="PointerOverBackgroundBrush" Value="{ThemeResource TelerikGridFlyoutHeaderCancelButtonPointerOverBackgroundBrush}"/>
+        <Setter Property="PointerOverForegroundBrush" Value="{ThemeResource TelerikGridFlyoutHeaderCancelButtonPointerOverForegroundBrush}"/>
+        <Setter Property="PointerOverBorderBrush" Value="{ThemeResource TelerikGridFlyoutHeaderCancelButtonPointerOverBorderBrush}"/>
+        <Setter Property="PressedBackgroundBrush" Value="{ThemeResource TelerikGridFlyoutHeaderCancelButtonPressedBackgroundBrush}"/>
+        <Setter Property="PressedForegroundBrush" Value="{ThemeResource TelerikGridFlyoutHeaderCancelButtonPressedForegroundBrush}"/>
+        <Setter Property="PressedBorderBrush" Value="{ThemeResource TelerikGridFlyoutHeaderCancelButtonPressedBorderBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template" Value="{StaticResource InlineButtonControlTemplate}"/>
+        <Setter Property="local:GridLocalizationManager.Key" Value="Cancel"/>
+        <Setter Property="local:GridLocalizationManager.PropertyName" Value="Content"/>
+    </Style>
+
+    <Style TargetType="localPrimitives:ColumnHeaderDataOperationsButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridColumnDataOperationsButtonForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnDataOperationsButtonPointerOverForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Icon">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnDataOperationsButtonPointerOverForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnDataOperationsButtonPressedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Icon">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnDataOperationsButtonPressedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="RootGrid">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledTransparentBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+                            <Grid Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Margin="0,0,5,0" FontFamily="Segoe MDL2 Assets" VerticalAlignment="Center" x:Name="Icon" Text="{Binding IconText, RelativeSource={RelativeSource Mode=TemplatedParent}}" Foreground="{TemplateBinding Foreground}" />
+                                <ContentPresenter Grid.Column="1" x:Name="ContentPresenter" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" />
+                            </Grid>
+                        </Border>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridDataOperationsControl">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridColumnDataOperationsControlBackgroundBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridDataOperationsControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="3" />
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="{ThemeResource TelerikGridColumnDataOperationsControlBorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid Background="{TemplateBinding Background}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <localPrimitives:ColumnHeaderDataOperationsButton Padding="0,7,0,7" Margin="20,9,0,9" IconText="&#xE71C;"
+                                                                                  Opacity="{Binding CanFilter, Converter={StaticResource DataOperationsButtonOpacityConverter}}"
+                                                                                  local:GridLocalizationManager.Key="DataOperationsButtonFilter"
+                                                                                  local:GridLocalizationManager.PropertyName="Content"
+                                                                                  Command="{Binding Command}" CommandParameter="Filter" />
+                                <localPrimitives:ColumnHeaderDataOperationsButton Padding="0,7,0,7" Margin="20,9,0,9" IconText="&#xE8CB;"
+                                                                                  Opacity="{Binding CanSort, Converter={StaticResource DataOperationsButtonOpacityConverter}}"
+                                                                                  local:GridLocalizationManager.Key="DataOperationsButtonSort"
+                                                                                  local:GridLocalizationManager.PropertyName="Content" 
+                                                                                  Command="{Binding Command}" CommandParameter="Sort" Grid.Column="1" />
+                                <localPrimitives:ColumnHeaderDataOperationsButton Padding="0,7,0,7" Margin="20,9,20,9" IconText="&#xE8C4;"
+                                                                                  Opacity="{Binding CanGroup, Converter={StaticResource DataOperationsButtonOpacityConverter}}"
+                                                                                  Content="{Binding Command.IsGrouped, Converter={StaticResource DataOperationsButtonTextConverter}}"
+                                                                                  Command="{Binding Command}" CommandParameter="Group" Grid.Column="2" />
+                            </Grid>
+                        </Border>
+
+                        <Border Opacity="{ThemeResource TelerikGridColumnDataOperationsControlOuterBorderOpacity}" Grid.Row="1" Background="{ThemeResource TelerikGridColumnDataOperationsControlOuterBorderBrush}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridContentFlyout">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridContentFlyout">
+                    <Border x:Name="PART_Content"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="primitivesCommon:InlineButton" x:Key="GridServiceButtonStyle">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridServiceButtonForegroundBrush}"/>
+        <Setter Property="PointerOverBackgroundBrush" Value="{ThemeResource TelerikGridServiceButtonPointerOverBackgroundBrush}"/>
+        <Setter Property="PointerOverForegroundBrush" Value="{ThemeResource TelerikGridServiceButtonForegroundBrush}"/>
+        <Setter Property="PressedBackgroundBrush" Value="{ThemeResource TelerikGridServiceButtonPressedBackgroundBrush}"/>
+        <Setter Property="PressedForegroundBrush" Value="{ThemeResource TelerikGridServiceButtonPressedForegroundBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Template" Value="{StaticResource InlineButtonControlTemplate}"/>
+    </Style>
+
+    <Style TargetType="localPrimitives:RotatedContainer">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:RotatedContainer">
+                    <ContentPresenter Content="{TemplateBinding Child}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridCellFlyoutControl">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridCellFlyoutControlBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridCellFlyoutControlBorderBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="OuterBorderBrush" Value="{ThemeResource TelerikGridCellFlyoutControlOuterBorderBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridCellFlyoutControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Child="{TemplateBinding Child}" />
+                        <Border Opacity="{ThemeResource TelerikGridCellFlyoutControlOuterBorderOpacity}" Grid.Row="1" Height="3" Background="{TemplateBinding OuterBorderBrush}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:FormEditorSaveButton" BasedOn="{StaticResource GridServiceButtonStyle}">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikGridExternalEditorSaveButtonBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridExternalEditorSaveButtonForegroundBrush}"/>
+        <Setter Property="PointerOverBackgroundBrush" Value="{ThemeResource TelerikGridExternalEditorSaveButtonPointerOverBackgroundBrush}"/>
+        <Setter Property="PointerOverForegroundBrush" Value="{ThemeResource TelerikGridExternalEditorSaveButtonPointerOverForegroundBrush}"/>
+        <Setter Property="PressedBackgroundBrush" Value="{ThemeResource TelerikGridExternalEditorSaveButtonPressedBackgroundBrush}"/>
+        <Setter Property="PressedForegroundBrush" Value="{ThemeResource TelerikGridExternalEditorSaveButtonPressedForegroundBrush}"/>
+        <Setter Property="MinHeight" Value="32"/>
+        <Setter Property="Margin" Value="16"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template" Value="{StaticResource InlineButtonControlTemplate}"/>
+        <Setter Property="local:GridLocalizationManager.Key" Value="Save"/>
+        <Setter Property="local:GridLocalizationManager.PropertyName" Value="Content"/>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridFormEditor">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridExternalEditorBackgroundBrush}" />
+        <Setter Property="Padding" Value="16,8,16,8" />
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridFlyoutBorderBrush}"/>
+        <Setter Property="HeaderStyle">
+            <Setter.Value>
+                <Style TargetType="localPrimitives:FlyoutHeaderControl">
+                    <Setter Property="Content" Value="EDIT"/>
+                    <Setter Property="ContentStyle">
+                        <Setter.Value>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Icon" Value="&#xE104;"/>
+                    <Setter Property="IconStyle">
+                        <Setter.Value>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="FontFamily" Value="{ThemeResource SymbolThemeFontFamily}"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="Margin" Value="0,0,5,0"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridFormEditor">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ShadowBorder">
+                                <VisualState x:Name="LeftBorder">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="2,0,0,0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowElement" Storyboard.TargetProperty="(Grid.Column)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="RightBorder">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0,0,2,0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowElement" Storyboard.TargetProperty="(Grid.Column)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="2"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="1" x:Name="BorderElement" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <localPrimitives:FlyoutHeaderControl Command="{TemplateBinding CancelCommand}" Style="{TemplateBinding HeaderStyle}"/>
+                                <ScrollViewer Margin="{TemplateBinding Padding}" Grid.Row="1"
+                                                  VerticalScrollBarVisibility="Auto"
+                                                  VerticalScrollMode="Auto"
+                                                  HorizontalScrollBarVisibility="Hidden"
+                                                  HorizontalScrollMode="Disabled">
+                                    <dataControls:RadDataForm VerticalAlignment="Top" BorderThickness="0"
+                                                                      Style="{TemplateBinding DataFormStyle}" x:Name="PART_DataForm" 
+                                                                      Item="{TemplateBinding Item}" CommitMode="Manual" />
+                                </ScrollViewer>
+                                <localPrimitives:FormEditorSaveButton Command="{TemplateBinding SaveCommand}" Grid.Row="2" />
+                            </Grid>
+                        </Border>
+                        <Rectangle Width="3" x:Name="ShadowElement" Fill="{ThemeResource TelerikGridShadowBrush}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:RadDataGrid">
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridForegroundBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikGridBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2,0,2,2"/>
+        <Setter Property="GridLinesBrush" Value="{ThemeResource TelerikGridBorderBrush}"/>
+        <Setter Property="AlternateRowBackground" Value="{ThemeResource TelerikGridAlternateRowBackgroundBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="MinHeight" Value="100"/>
+        <Setter Property="HideFlyoutOnBackButtonPressed" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadDataGrid">
+
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <localPrimitives:DataGridRootPanel x:Name="PART_TableRoot">
+                            <ScrollViewer x:Name="PART_ScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" 
+                                          HorizontalScrollMode="Auto" VerticalScrollMode="Auto" ZoomMode="Disabled" IsTabStop="False">
+                                <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                                    <Canvas x:Name="PART_DecorationsHost"/>
+                                    <localPrimitives:DataGridCellsPanel x:Name="PART_CellsHost" Background="#00000000" />
+                                    <Canvas x:Name="PART_ScrollableAdornerHost"/>
+
+                                </Grid>
+                                <ScrollViewer.TopHeader>
+                                    <localPrimitives:DataGridColumnHeaderPanel x:Name="PART_ColumnHeadersHost" ManipulationMode="All" Background="{TemplateBinding Background}"/>
+                                </ScrollViewer.TopHeader>
+                                <ScrollViewer.TopLeftHeader>
+                                    <Canvas x:Name="PART_FrozenColumnHeadersHost" Background="{TemplateBinding Background}"/>
+                                </ScrollViewer.TopLeftHeader>
+                                <ScrollViewer.LeftHeader>
+                                    <Grid>
+                                        <Canvas x:Name="PART_FrozenDecorationsHost" Background="{TemplateBinding Background}"/>
+                                        <Canvas x:Name="PART_FrozenColumnsHost" Background="#00000000"/>
+                                        <Canvas x:Name="PART_GroupHeadersHost"/>
+                                    </Grid>
+                                </ScrollViewer.LeftHeader>
+                            </ScrollViewer>
+
+                            <localPrimitives:FrozenGroupsPanel x:Name="PART_HeadersHost" />
+                            <localPrimitives:DataGridServicePanel Position="{TemplateBinding GroupPanelPosition}" x:Name="PART_ServicePanel" IsTabStop="False"/>
+                            <localPrimitives:DataGridColumnReorderServicePanel x:Name="PART_ColumnReorderServicePanel" Margin="{Binding BorderThickness, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BorderThicknessToMarginConverter}}" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed"/>
+                            <Canvas x:Name="PART_AdornerHost" IsHitTestVisible="False"/>
+                            <localPrimitives:DataGridContentFlyout x:Name="PART_GridFlyout" />
+                        </localPrimitives:DataGridRootPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridServicePanel">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridServiceColumnBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridServiceColumnForegroundBrush}"/>
+        <Setter Property="Padding" Value="6"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="-2,0,-2,-2"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridServicePanel">
+                    <Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="NormalGrouped">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ExpandCollapseGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GlyphRotateTransform" Storyboard.TargetProperty="Angle">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="180"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHintGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHereText" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Expanded">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ExpandCollapseGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GlyphRotateTransform" Storyboard.TargetProperty="Angle">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHintGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHereText" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridFlyoutBorderBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Fill" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnFlyoutBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="DragHinting">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ExpandCollapseGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Fill" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHintGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHereText" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHintGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHereText" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="DropPossible">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ExpandCollapseGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Fill" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHintGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHereText" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHintGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHereText" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="2"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="Position">
+                                <VisualState x:Name="Left">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ExpandCollapseGlyph" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Center"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHintGlyph" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Center"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RotatedContainer" Storyboard.TargetProperty="RotationAngle">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="-90"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_GroupFlyoutContent" Storyboard.TargetProperty="MinWidth">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="210"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_GroupFlyoutContent" Storyboard.TargetProperty="Margin">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="-2,0,0,0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_GroupFlyoutContent" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0,2,2,2"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_GroupFlyout" Storyboard.TargetProperty="ChildTransitions">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <TransitionCollection>
+                                                        <PaneThemeTransition Edge="Left"/>
+                                                    </TransitionCollection>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Bottom">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ExpandCollapseGlyph" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Left"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DragHintGlyph" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Left"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RotatedContainer" Storyboard.TargetProperty="RotationAngle">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_GroupFlyoutContent" Storyboard.TargetProperty="MinHeight">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="210"/>
+                                        </ObjectAnimationUsingKeyFrames>-->
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_GroupFlyoutContent" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="2,2,2,0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_GroupFlyoutContent" Storyboard.TargetProperty="Margin">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_GroupFlyout" Storyboard.TargetProperty="ChildTransitions">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <TransitionCollection>
+                                                        <PaneThemeTransition Edge="Bottom"/>
+                                                    </TransitionCollection>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Background="{TemplateBinding Background}" x:Name="Fill">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="1"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Margin="{TemplateBinding Padding}">
+                                    <Image Source="{ThemeResource TelerikGridFilterFlyoutExpanderIcon}" Stretch="None"
+                                               RenderTransformOrigin="0.5,0.5" x:Name="ExpandCollapseGlyph" VerticalAlignment="Top" Visibility="Collapsed">
+                                        <Image.RenderTransform>
+                                            <RotateTransform Angle="180" x:Name="GlyphRotateTransform"/>
+                                        </Image.RenderTransform>
+                                    </Image>
+                                    <TextBlock x:Name="DragHintGlyph" FontFamily="{ThemeResource SymbolThemeFontFamily}" Text="&#xE169;"
+                                             VerticalAlignment="Top" Visibility="Collapsed"/>
+                                    <localPrimitives:RotatedContainer  HorizontalAlignment="Center" x:Name="RotatedContainer">
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="DragHereText"/>
+                                    </localPrimitives:RotatedContainer>
+                                </Grid>
+                                <Rectangle x:Name="InnerShadow" Fill="{ThemeResource TelerikGridInnerShadowBrush}" 
+                                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
+                            </Grid>
+                            <Rectangle x:Name="OuterShadow" Fill="{ThemeResource TelerikGridShadowBrush}" 
+                                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
+                            <Border x:Name="Border" BorderThickness="2,2,0,2" Visibility="Collapsed" Grid.ColumnSpan="2"/>
+                            <Popup x:Name="PART_GroupFlyout" IsLightDismissEnabled="True">
+                                <localPrimitives:DataGridServicePanelGroupingFlyout VerticalAlignment="{Binding Position, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource PositionToAlignmentConverter}}" x:Name="PART_GroupFlyoutContent"/>
+                            </Popup>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridColumnReorderServicePanel">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridServiceColumnForegroundBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="MinWidth" Value="40" />
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridColumnReorderServicePanel">
+                    <Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="NormalPointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OpenMouseOverImage" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Background="{TemplateBinding Background}" x:Name="Fill" Margin="{TemplateBinding Padding}">
+                            <Image x:Name="OpenImage" Source="{ThemeResource TelerikGridColumnChooserOpen}" Height="42" Width="42" VerticalAlignment="Center"   />
+                            <Image x:Name="OpenMouseOverImage" IsHitTestVisible="False" Source="{ThemeResource TelerikGridColumnChooserOpenMouseOver}" Visibility="Collapsed" Height="42" Width="42" VerticalAlignment="Center"   />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridServicePanelGroupingFlyout">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFlyoutBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridFlyoutForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridFlyoutBorderBrush}"/>
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridServicePanelGroupingFlyout">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" >
+                            <localPrimitives:DataGridFlyoutPanel VerticalAlignment="{TemplateBinding VerticalAlignment}" x:Name="PART_HeadersContainer" Margin="{TemplateBinding Padding}" />
+                        </Border>
+                        <Canvas x:Name="PART_AdornerHost" IsHitTestVisible="False"/>
+                        <Rectangle Fill="{ThemeResource TelerikGridShadowBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridColumnsFlyout">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFlyoutBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridFlyoutForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridFlyoutBorderBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="HeaderStyle">
+            <Setter.Value>
+                <Style TargetType="localPrimitives:FlyoutHeaderControl">
+                    <Setter Property="local:GridLocalizationManager.Key" Value="ColumnChooserHeader"/>
+                    <Setter Property="local:GridLocalizationManager.PropertyName" Value="Content"/>
+                    <Setter Property="ContentStyle">
+                        <Setter.Value>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="IconStyle">
+                        <Setter.Value>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="ButtonStyle">
+                        <Setter.Value>
+                            <Style TargetType="localPrimitives:DataGridFlyoutHeaderCancelButton">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridColumnsFlyout">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="NormalPointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CloseMouseOverButton" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ShadowBorder">
+                                <VisualState x:Name="BottomBorder">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0,0,0,2"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowElement" Storyboard.TargetProperty="(Grid.Row)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="1"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowElement" Storyboard.TargetProperty="(Grid.Column)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="1"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowElement" Storyboard.TargetProperty="Height">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="3"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="LeftBorder">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="2,0,0,0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowElement" Storyboard.TargetProperty="(Grid.Row)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowElement" Storyboard.TargetProperty="(Grid.Column)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ShadowElement" Storyboard.TargetProperty="Width">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="3"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="1" Grid.Row="0" x:Name="BorderElement" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <localPrimitives:FlyoutHeaderControl Style="{TemplateBinding HeaderStyle}"/>
+                                <Image x:Name="PART_CloseButton" Source="{ThemeResource TelerikGridColumnChooserClose}" Height="42" Width="42" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.RowSpan="2" />
+                                <Image x:Name="CloseMouseOverButton" IsHitTestVisible="False" Source="{ThemeResource TelerikGridColumnChooserCloseMouseOver}" Visibility="Collapsed" Height="42" Width="42" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top"  />
+                                <localPrimitives:DataGridFlyoutPanel VerticalAlignment="{TemplateBinding VerticalAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" x:Name="PART_HeadersContainer"/>
+                            </Grid>
+                        </Border>
+                        <Canvas x:Name="PART_AdornerHost" IsHitTestVisible="False"/>
+
+                        <Rectangle x:Name="ShadowElement" Fill="{ThemeResource TelerikGridShadowBrush}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <localView:SortOrderToGlyphConverter x:Key="SortOrderConverter"/>
+
+    <Style TargetType="localPrimitives:DataGridFlyoutGroupHeader">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFlyoutGroupHeaderBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridFlyoutGroupHeaderForegroundBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="MinWidth" Value="126"/>
+        <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridFlyoutGroupHeader">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" Margin="{TemplateBinding Padding}" x:Name="PART_DescriptorContent">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                                <Image Source="{ThemeResource TelerikGridReorderHandle}" Height="16" Width="16" VerticalAlignment="Center"  />
+                                <ContentControl Margin="10,0,0,0" VerticalAlignment="Center" Content="{Binding DisplayContent}"/>
+                                <TextBlock Text="{Binding SortOrder, Converter={StaticResource SortOrderConverter}}" 
+                                            FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="10" Margin="6,0,4,2" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <primitivesCommon:InlineButton Style="{StaticResource GridServiceButtonStyle}" 
+                                                       x:Name="PART_CloseButton" Content="&#xe711;" FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                                       Width="40" Height="40" Margin="2,0,0,0" Grid.Column="1" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="9" Text="&#xEB0F;"
+                                   Opacity="{TemplateBinding BottomGlyphOpacity}" Margin="11,2,0,2"
+                                   Foreground="{ThemeResource TelerikGridFlyoutGroupForegroundBrush}"/>
+                        <Rectangle Margin="-2" StrokeThickness="2" Stroke="{TemplateBinding Foreground}" Grid.ColumnSpan="2"
+                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{TemplateBinding OuterBorderVisibility}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridFlyoutColumnHeader">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFlyoutGroupHeaderBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridFlyoutGroupHeaderForegroundBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="MinWidth" Value="126"/>
+        <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridFlyoutColumnHeader">
+                    <Grid HorizontalAlignment="Stretch" Margin="{TemplateBinding Padding}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"  x:Name="PART_DescriptorContent">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                                <Image Source="{ThemeResource TelerikGridReorderHandle}" Stretch="None"
+                                       MinHeight="16" MinWidth="16" VerticalAlignment="Center" />
+                                <ContentControl FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}"
+                                                Margin="10,0" VerticalAlignment="Center" Content="{Binding Header}"/>
+                            </StackPanel>
+                        </Border>
+                        <CheckBox x:Name="PART_SelectCheckBox" Margin="2 0 0 0" Grid.Column="1" IsChecked="{Binding IsVisible}"
+                                  Style="{StaticResource checkBoxStyle}" />
+                        <Rectangle Margin="-2" StrokeThickness="2" Stroke="{TemplateBinding Foreground}" Grid.ColumnSpan="2"
+                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{TemplateBinding OuterBorderVisibility}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridGroupHeader">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridGroupHeaderBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridGroupHeaderForegroundBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Group.Key}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridGroupHeader">
+                    <Grid Background="{TemplateBinding Background}" Margin="{TemplateBinding Padding}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ExpandStates">
+                                <VisualState x:Name="Expanded" />
+                                <VisualState x:Name="Collapsed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CollapseIcon" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ExpandIcon" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="1"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <!--A placeholder for the IndentWidth property-->
+                            <Rectangle Width="{TemplateBinding IndentWidth}"/>
+                            <Grid Grid.Column="1" 
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Margin="4,0,4,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock FontFamily="{ThemeResource SymbolThemeFontFamily}" 
+                                           Foreground="{ThemeResource TelerikGridGroupHeaderArrowForegroundBrush}"
+                                           Text="&#xE0A0;" x:Name="CollapseIcon" Margin="6,0,0,6"/>
+                                    <TextBlock FontFamily="{ThemeResource SymbolThemeFontFamily}" 
+                                           Foreground="{ThemeResource TelerikGridGroupHeaderArrowForegroundBrush}"
+                                           Text="&#xE0A1;" x:Name="ExpandIcon"  Margin="6,0,0,6" Opacity="0"/>
+                                </Grid>
+                                <ContentPresenter x:Name="testControl" Grid.Column="1" Margin="6,0,0,3" Content="{TemplateBinding DataContext}"  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            </Grid>
+                        </Grid>
+                        <Rectangle Height="1" Fill="{ThemeResource TelerikGridInnerShadowBrush}" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="0,0,0,2"/>
+                        <Rectangle Height="2" Fill="{ThemeResource TelerikGridShadowBrush}" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <localView:SortDirectionToGlyphConverter x:Key="SortDirectionConverter"/>
+
+    <Style x:Key="ColumnHeaderResizeThumb" TargetType="Thumb">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource ThumbBorderThemeBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <TextBlock FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="&#xE784;" IsHitTestVisible="False" FontFamily="Segoe MDL2 Assets"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridColumnHeader">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridHeaderForegroundBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikGridHeaderBackgroundBrush}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="MinWidth" Value="6"/>
+        <Setter Property="MinHeight" Value="6"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridColumnHeader">
+                    <Grid x:Name="rootPanel" Background="{TemplateBinding Background}" HorizontalAlignment="Stretch">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Filtered">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FilteredHighlight" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectedStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="headerContent" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="rootPanel" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ResizeHandle" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{ThemeResource TelerikGridServiceColumnActiveForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Padding="{TemplateBinding Padding}"  HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <ContentPresenter x:Name="headerContent" Content="{TemplateBinding Content}" Margin="8"/>
+                                <TextBlock Text="{Binding SortDirection, Converter={StaticResource SortDirectionConverter}}"
+                                       FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="10"  Margin="2,0,4,2" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <primitivesCommon:InlineButton Style="{StaticResource GridServiceButtonStyle}"  x:Name="PART_FilterButton" HorizontalAlignment="Right" VerticalAlignment="Stretch"   
+                                                               Grid.Column="1" Padding="8,0,8,4" VerticalContentAlignment="Center"
+                                                               Background="Transparent" PointerOverBackgroundBrush="Transparent" PressedBackgroundBrush="Transparent" 
+                                                               PointerOverForegroundBrush="{ThemeResource TelerikGridHeaderPointerOverForegroundBrush}"
+                                                               Foreground="{TemplateBinding Foreground}" PressedForegroundBrush="{TemplateBinding Foreground}"
+                                                               Visibility="{TemplateBinding FilterGlyphVisibility}">
+                                <primitivesCommon:InlineButton.Content>
+                                    <TextBlock Text="&#xe71c;" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="12"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </primitivesCommon:InlineButton.Content>
+                            </primitivesCommon:InlineButton>
+                            <Thumb x:Name="PART_ResizeHandle" Style="{StaticResource ColumnHeaderResizeThumb}" Background="Transparent" Grid.Column="2" Visibility="{TemplateBinding ResizeHandleVisiblity}">
+                            </Thumb>
+                        </Grid>
+                        <Rectangle x:Name="FilteredHighlight" Height="2" Fill="{ThemeResource TelerikGridServiceButtonBackgroundBrush}" 
+                                   VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0,0,0,4" Visibility="Collapsed" Grid.ColumnSpan="3"/>
+                        <Rectangle Fill="{ThemeResource TelerikGridInnerShadowBrush}" Height="1" VerticalAlignment="Bottom" Margin="0,1,0,3" Grid.ColumnSpan="3"/>
+                        <Rectangle Fill="{ThemeResource TelerikGridShadowBrush}" Height="3" VerticalAlignment="Bottom" Margin="0,3,0,0" Grid.ColumnSpan="3"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="localPrimitives:DataGridColumnDragControl">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridServiceColumnActiveForegroundBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikGridServiceColumnActiveBackgroundBrush}"/>
+        <Setter Property="MinWidth" Value="6"/>
+        <Setter Property="MinHeight" Value="6"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridColumnDragControl">
+                    <Grid Background="{TemplateBinding Background}" Margin="{TemplateBinding Padding}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <ContentPresenter Content="{TemplateBinding Content}" Margin="8"/>
+                        </StackPanel>
+                        <TextBlock Margin="8" Text="&#xe71c;" Grid.Column="1" Visibility="{TemplateBinding FilterGlyphVisibility}"
+                                   FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="12" HorizontalAlignment="Right"/>
+                        <Rectangle Fill="{ThemeResource TelerikGridInnerShadowBrush}" Height="1" VerticalAlignment="Bottom" Margin="0,1,0,3" Grid.ColumnSpan="2"/>
+                        <Rectangle Fill="{ThemeResource TelerikGridShadowBrush}" Height="3" VerticalAlignment="Bottom" Margin="0,3,0,0" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:SelectionRegionBorderControl">
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridSelectedBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:SelectionRegionBorderControl">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        <!--TODO: This is the top-left gripper (selection handler) UI-->
+                        <!--<Border Width="16" Height="16" BorderBrush="#2D2D2D"  BorderThickness="2 2 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                        <Border x:Name="TopLeft_Thumb"  Width="14" Height="14"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="4 4 0 0" VerticalAlignment="Top" HorizontalAlignment="Left"/>-->
+
+                        <!--TODO: This is the bottom-right gripper (selection handler) UI-->
+                        <!--<Border Width="16" Height="16" BorderBrush="#2D2D2D"  BorderThickness="0 0 2 2" VerticalAlignment="Bottom" HorizontalAlignment="Right" />-->
+                        <!--<Border x:Name="BottomRight_Thumb"  Width="14" Height="14"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0 0 4 4" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>-->
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:SelectionRegionBackgroundControl">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridSelectedBackgroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:SelectionRegionBackgroundControl">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridHoverControl">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridPointerOverBackgroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridHoverControl">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridCurrencyControl">
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridCurrentCellBorderBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikGridCurrentCellBackgroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridCurrencyControl">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Margin="{TemplateBinding Padding}"
+                            BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridFilteringFlyout">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFlyoutBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridFlyoutBorderBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridFlyoutForegroundBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="MinWidth" Value="210"/>
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="HeaderStyle">
+            <Setter.Value>
+                <Style TargetType="localPrimitives:FlyoutHeaderControl">
+                    <Setter Property="local:GridLocalizationManager.Key" Value="FilterHeader"/>
+                    <Setter Property="local:GridLocalizationManager.PropertyName" Value="Content"/>
+                    <Setter Property="ContentStyle">
+                        <Setter.Value>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Icon" Value="&#xe71c;"/>
+                    <Setter Property="IconStyle">
+                        <Setter.Value>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="FontFamily" Value="{ThemeResource SymbolThemeFontFamily}"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="Margin" Value="0,0,5,0"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridFilteringFlyout">
+                    <Grid VerticalAlignment="Stretch">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="NormalExpandable" />
+                                <VisualState x:Name="NormalNotExpandable">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="expandCollapseButton" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Expanded">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_LogicalOperatorCombo" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SecondFilterPresenter" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GlyphRotateTransform" Storyboard.TargetProperty="Angle">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="180"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="DisplayMode">
+                                <VisualState x:Name="Inline">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="header" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_LogicalOperatorCombo" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Left"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="2,2,0,0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Stretch"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Flyout">
+                                    <Storyboard>
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="2,2,0,0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Stretch"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="FillExpanded">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_LogicalOperatorCombo" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Stretch"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Shadow" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Right"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="PointerOverBackgroundBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="PressedBackgroundBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="expandCollapseButton" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="FillCollapsed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_LogicalOperatorCombo" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Stretch"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="BorderThickness">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="HorizontalAlignment">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Stretch"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="PointerOverBackgroundBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="clearFilterButton" Storyboard.TargetProperty="PressedBackgroundBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Transparent"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="expandCollapseButton" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Canvas.ZIndex="100" HorizontalAlignment="Right" VerticalAlignment="Top" Width="{TemplateBinding FilterGlyphWidth}" Height="{TemplateBinding FilterGlyphHeight}"
+                                Background="{TemplateBinding Background}" BorderThickness="2,2,2,0" Margin="0,0,0,-2" BorderBrush="{TemplateBinding BorderBrush}">
+                            <primitivesCommon:InlineButton Style="{StaticResource GridServiceButtonStyle}" HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center" Padding="6,0,6,6" VerticalContentAlignment="Center"
+                                                           Background="Transparent" PointerOverBackgroundBrush="Transparent" 
+                                                           PressedBackgroundBrush="Transparent" Foreground="{ThemeResource TelerikGridHeaderPointerOverForegroundBrush}" 
+                                                           PressedForegroundBrush="{ThemeResource TelerikGridHeaderPointerOverForegroundBrush}"
+                                                           PointerOverForegroundBrush="{ThemeResource TelerikGridHeaderPointerOverForegroundBrush}"
+                                                           Command="{TemplateBinding CancelCommand}">
+                                <primitivesCommon:InlineButton.Content>
+                                    <TextBlock Text="&#xe71c;" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="12"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </primitivesCommon:InlineButton.Content>
+                            </primitivesCommon:InlineButton>
+                        </Border>
+
+                        <Border Grid.Row="1" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <localPrimitives:FlyoutHeaderControl Style="{TemplateBinding HeaderStyle}" x:Name="header"
+                                                                     Command="{TemplateBinding CancelCommand}"/>
+
+                                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled"
+                                              VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
+                                    <Grid Margin="{TemplateBinding Padding}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <ContentControl Content="{TemplateBinding FirstFilterControl}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        <localPrimitives:DataGridFilterComboBox x:Name="PART_LogicalOperatorCombo" Grid.Row="1" Visibility="Collapsed" Margin="0,16" MinWidth="100" HorizontalAlignment="Stretch"/>
+                                        <ContentControl Grid.Row="2" Content="{TemplateBinding SecondFilterControl}" x:Name="SecondFilterPresenter"
+                                                    Visibility="Collapsed" HorizontalContentAlignment="Stretch"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        <localPrimitives:DataGridFilteringFlyoutApplyFilterButton x:Name="filterButton" Grid.Row="3" Style="{TemplateBinding FilterButtonStyle}"
+                                                                       local:GridLocalizationManager.Key="FilterButton" local:GridLocalizationManager.PropertyName="Content"
+                                                                       Command="{TemplateBinding FilterCommand}"/>
+                                    </Grid>
+                                </ScrollViewer>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <localPrimitives:DataGridFilteringFlyoutExpandButton x:Name="expandCollapseButton" Style="{TemplateBinding ExpandCollapseButtonStyle}"
+                                                                                         Command="{TemplateBinding ExpandCommand}">
+                                        <localPrimitives:DataGridFilteringFlyoutExpandButton.Content>
+                                            <Image Source="{ThemeResource TelerikGridFilterFlyoutExpanderIcon}" Stretch="None" RenderTransformOrigin="0.5,0.5">
+                                                <Image.RenderTransform>
+                                                    <RotateTransform x:Name="GlyphRotateTransform"/>
+                                                </Image.RenderTransform>
+                                            </Image>
+                                        </localPrimitives:DataGridFilteringFlyoutExpandButton.Content>
+                                    </localPrimitives:DataGridFilteringFlyoutExpandButton>
+                                    <localPrimitives:DataGridFilteringFlyoutClearFilterButton x:Name="clearFilterButton" Grid.Column="1" Style="{TemplateBinding ClearFilterButtonStyle}"
+                                                                                              Command="{TemplateBinding ClearFilterCommand}">
+                                        <localPrimitives:DataGridFilteringFlyoutClearFilterButton.ContentTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="&#xe711;" FontFamily="{ThemeResource SymbolThemeFontFamily}" VerticalAlignment="Center"
+                                                               FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}" Margin="0,0,4,0"
+                                                               Foreground="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                    <TextBlock Grid.Column="1" VerticalAlignment="Center"
+                                                               Text="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
+                                                               Foreground="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}"
+                                                               FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </localPrimitives:DataGridFilteringFlyoutClearFilterButton.ContentTemplate>
+                                    </localPrimitives:DataGridFilteringFlyoutClearFilterButton>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <Rectangle Grid.Row="2" Height="3" HorizontalAlignment="Stretch" Fill="{ThemeResource TelerikGridShadowBrush}" x:Name="PART_Shadow"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:FlyoutHeaderControl">
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="MinHeight" Value="32"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridFilterFlyoutHeaderBorderBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFilterFlyoutHeaderBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridFilterFlyoutHeaderForegroundBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:FlyoutHeaderControl">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter Content="{TemplateBinding Icon}" Style="{TemplateBinding IconStyle}" Foreground="{TemplateBinding Foreground}"/>
+                            <ContentPresenter Content="{TemplateBinding Content}" Style="{TemplateBinding ContentStyle}" Grid.Column="1"
+                                              Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}"/>
+                            <localPrimitives:DataGridFlyoutHeaderCancelButton Command="{TemplateBinding Command}" Style="{TemplateBinding ButtonStyle}" Grid.Column="2"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridNumericalFilterControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridNumericalFilterControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <localPrimitives:DataGridFilterComboBox x:Name="PART_OperatorCombo" HorizontalAlignment="Stretch"/>
+                        <input:RadNumericBox x:Name="PART_ValueBox" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,16,0,0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="TextFilterCaseButtonStyle">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Padding" Value="6,4,6,5" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonPointerOverBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonPointerOverBorderBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonPointerOverForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonPressedBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonPressedBorderBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonPressedForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonCheckedBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonCheckedBorderBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonCheckedForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="CheckedPointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonCheckedPointerOverBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonCheckedPointerOverBorderBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonCheckedPointerOverForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="CheckedPressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonCheckedPressedBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonCheckedPressedBorderBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridFilterFlyoutTextCaseButtonCheckedPressedForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridTextFilterControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridTextFilterControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <localPrimitives:DataGridFilterComboBox x:Name="PART_OperatorCombo" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
+                        <TextBox IsTextPredictionEnabled="False" x:Name="PART_ValueBox" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,16,0,0"/>
+                        <ToggleButton x:Name="PART_CaseButton" Grid.Row="1" Grid.Column="1" Content="aA" 
+                                      Margin="2,16,0,0" Style="{StaticResource TextFilterCaseButtonStyle}" 
+                                      IsChecked="{TemplateBinding IsCaseSensitive}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridNestedPropertyTextFilterControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridNestedPropertyTextFilterControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <localPrimitives:DataGridFilterComboBox x:Name="PART_OperatorCombo" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
+                        <TextBox IsTextPredictionEnabled="False" x:Name="PART_ValueBox" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,16,0,0"/>
+                        <ToggleButton x:Name="PART_CaseButton" Grid.Row="1" Grid.Column="1" Content="aA" 
+                                      Margin="2,16,0,0" Style="{StaticResource TextFilterCaseButtonStyle}" 
+                                      IsChecked="{TemplateBinding IsCaseSensitive}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridDateFilterControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridDateFilterControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <localPrimitives:DataGridFilterComboBox x:Name="PART_OperatorCombo" HorizontalAlignment="Stretch"/>
+                        <input:RadDatePicker x:Name="PART_DatePicker" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,16,0,0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridTimeFilterControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridTimeFilterControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <localPrimitives:DataGridFilterComboBox x:Name="PART_OperatorCombo" HorizontalAlignment="Stretch"/>
+                        <input:RadTimePicker x:Name="PART_TimePicker" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,16,0,0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridBooleanFilterControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridBooleanFilterControl">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton x:Name="PART_TrueButton"/>
+                        <RadioButton x:Name="PART_FalseButton" Grid.Column="1"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridFilterComboBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TabNavigation" Value="Local" />
+        <Setter Property="Padding" Value="8,10" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridFilterComboBoxItem">
+                    <Border x:Name="LayoutRoot"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ComboBoxItemPointerOverBackgroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ComboBoxItemPointerOverForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="PressedBackground"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="1"
+                                                         Duration="0" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ComboBoxItemPressedForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="InnerGrid"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridSelectedBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="InnerGrid"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridSelectedBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedPointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="InnerGrid"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridSelectedBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ComboBoxItemSelectedForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedPressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="InnerGrid"
+                                                                       Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridSelectedBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                                                       Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ComboBoxItemPressedForegroundThemeBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="InnerGrid"
+                              Background="Transparent">
+                            <Rectangle x:Name="PressedBackground"
+                                       Fill="{ThemeResource ComboBoxItemPressedBackgroundThemeBrush}"
+                                       Opacity="0" />
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTransitions="{TemplateBinding ContentTransitions}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Margin="{TemplateBinding Padding}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridEditRow">
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridSelectedBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="0 2 0 2"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikGridSelectedBackgroundBrush}"/>
+        <Setter Property="MinWidth" Value="50"/>
+        <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="CancelButtonStyle">
+            <Setter.Value>
+                <Style TargetType="primitivesCommon:InlineButton" BasedOn="{StaticResource GridServiceButtonStyle}">
+                    <Setter Property="Width" Value="40"/>
+                    <Setter Property="Height" Value="40"/>
+                    <Setter Property="FontFamily" Value="{ThemeResource SymbolThemeFontFamily}"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Content" Value="&#xe711;"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridEditRow">
+                    <Border Background="{TemplateBinding Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="loadMoreDataProgressStyle" TargetType="ProgressBar">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource ProgressBarBackgroundThemeBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource ProgressBarBorderThemeBrush}"/>
+        <Setter Property="BorderThickness" Value="{ThemeResource ProgressBarBorderThemeThickness}"/>
+        <Setter Property="Maximum" Value="100"/>
+        <Setter Property="MinHeight" Value="{ThemeResource ProgressBarThemeMinHeight}"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="Indeterminate">
+                                        <Storyboard>
+                                            <FadeInThemeAnimation TargetName="EllipseGrid"/>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Determinate"/>
+                                <VisualState x:Name="Updating"/>
+                                <VisualState x:Name="Indeterminate">
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation Duration="0:0:3.917" From="{Binding TemplateSettings.ContainerAnimationStartPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}" To="{Binding TemplateSettings.ContainerAnimationEndPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="EllipseGrid"/>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="E1">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:1" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:3" Value="{Binding TemplateSettings.EllipseAnimationEndPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="E2">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.167" Value="0"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:1.167" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2.167" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:3.167" Value="{Binding TemplateSettings.EllipseAnimationEndPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="E3">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.333" Value="0"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:1.333" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2.333" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:3.333" Value="{Binding TemplateSettings.EllipseAnimationEndPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="E4">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:1.5" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:3.5" Value="{Binding TemplateSettings.EllipseAnimationEndPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="E5">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.667" Value="0"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:1.667" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2.667" Value="{Binding TemplateSettings.EllipseAnimationWellPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                            <SplineDoubleKeyFrame KeySpline="0.4,0,0.6,1" KeyTime="0:0:3.667" Value="{Binding TemplateSettings.EllipseAnimationEndPosition, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="B1">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="-50"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3" Value="100"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="B2">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="-50"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.667" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2.167" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.167" Value="100"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="B3">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="-50"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.833" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2.333" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.333" Value="100"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="B4">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="-50"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="100"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="B5">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="-50"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:1.167" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:2.667" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.667" Value="100"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="EllipseGrid"/>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="E1">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="E2">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="E3">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="E4">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="E5">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="E1">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="E2">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.167" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.167" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.167" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.167" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="E3">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.333" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.333" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.333" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.333" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="E4">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="E5">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.667" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.667" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.667" Value="1"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:3.667" Value="0"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Error">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ProgressBarIndicator">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="EllipseGrid" Opacity="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RenderTransform>
+                                <TranslateTransform/>
+                            </Grid.RenderTransform>
+                            <Border x:Name="B1" Grid.Column="8" RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <TranslateTransform/>
+                                </Border.RenderTransform>
+                                <Ellipse x:Name="E1" Fill="{TemplateBinding Foreground}" Height="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}" RenderTransformOrigin="0.5,0.5" Width="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                    <Ellipse.RenderTransform>
+                                        <TranslateTransform/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                            </Border>
+                            <Rectangle Grid.Column="7" Width="{Binding TemplateSettings.EllipseOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            <Border x:Name="B2" Grid.Column="6" RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <TranslateTransform/>
+                                </Border.RenderTransform>
+                                <Ellipse x:Name="E2" Fill="{TemplateBinding Foreground}" Height="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}" RenderTransformOrigin="0.5,0.5" Width="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                    <Ellipse.RenderTransform>
+                                        <TranslateTransform/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                            </Border>
+                            <Rectangle Grid.Column="5" Width="{Binding TemplateSettings.EllipseOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            <Border x:Name="B3" Grid.Column="4" RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <TranslateTransform/>
+                                </Border.RenderTransform>
+                                <Ellipse x:Name="E3" Fill="{TemplateBinding Foreground}" Height="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}" RenderTransformOrigin="0.5,0.5" Width="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                    <Ellipse.RenderTransform>
+                                        <TranslateTransform/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                            </Border>
+                            <Rectangle Grid.Column="3" Width="{Binding TemplateSettings.EllipseOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            <Border x:Name="B4" Grid.Column="2" RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <TranslateTransform/>
+                                </Border.RenderTransform>
+                                <Ellipse x:Name="E4" Fill="{TemplateBinding Foreground}" Height="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}" RenderTransformOrigin="0.5,0.5" Width="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                    <Ellipse.RenderTransform>
+                                        <TranslateTransform/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                            </Border>
+                            <Rectangle Grid.Column="1" Width="{Binding TemplateSettings.EllipseOffset, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                            <Border x:Name="B5" Grid.Column="0" RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <TranslateTransform/>
+                                </Border.RenderTransform>
+                                <Ellipse x:Name="E5" Fill="{TemplateBinding Foreground}" Height="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}" RenderTransformOrigin="0.5,0.5" Width="{Binding TemplateSettings.EllipseDiameter, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                    <Ellipse.RenderTransform>
+                                        <TranslateTransform/>
+                                    </Ellipse.RenderTransform>
+                                </Ellipse>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="dataGridBusyRingStyle" TargetType="ProgressRing">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="MinHeight" Value="50"/>
+        <Setter Property="MinWidth" Value="50"/>
+        <Setter Property="IsTabStop" Value="False"/>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridLoadDataControl">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridSelectedBackgroundBrush}"/>
+        <Setter Property="MinWidth" Value="50"/>
+        <Setter Property="MinHeight" Value="20"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridLoadDataControl">
+                    <Border Background="{TemplateBinding Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Loading">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_LoadButton"
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="loadingProgressBar"
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="loadingProgressBar"
+                                                                       Storyboard.TargetProperty="IsIndeterminate">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <primitivesCommon:InlineButton x:Name="PART_LoadButton" HorizontalAlignment="Stretch">
+                                <primitivesCommon:InlineButton.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontFamily="{ThemeResource SymbolThemeFontFamily}" Text="&#xE0BA;" FontSize="18" RenderTransformOrigin="0.5,0.5" >
+                                            <TextBlock.RenderTransform>
+                                                <RotateTransform Angle="-90"/>
+                                            </TextBlock.RenderTransform>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding LoadMoreRowsText, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="5 0 0 0"/>
+                                    </StackPanel>
+                                </primitivesCommon:InlineButton.Content>
+                                <primitivesCommon:InlineButton.Style>
+                                    <Style TargetType="primitivesCommon:InlineButton">
+
+                                        <Setter Property="Background" Value="{ThemeResource TelerikGridLoadMoreDataButtonBackgroundBrush}"/>
+                                        <Setter Property="Foreground" Value="{ThemeResource TelerikGridLoadMoreDataButtonForegroundBrush}"/>
+                                        <Setter Property="BorderBrush" Value="{ThemeResource TelerikGridLoadMoreDataButtonBorderBrush}"/>
+                                        <Setter Property="BorderThickness" Value="0 4 0 0"/>
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                                        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                                        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                                        <Setter Property="Height" Value="44"/>
+                                        <Setter Property="Margin" Value="0 1 0 0"/>
+                                        <Setter Property="Padding" Value="0 0 0 4"/>
+                                        <Setter Property="PointerOverBackgroundBrush" Value="{ThemeResource TelerikGridLoadMoreDataButtonPointerOverBackgroundBrush}"/>
+                                        <Setter Property="PointerOverBorderBrush" Value="{ThemeResource TelerikGridLoadMoreDataButtonPointerOverBackgroundBrush}"/>
+                                        <Setter Property="PointerOverForegroundBrush" Value="{ThemeResource TelerikGridLoadMoreDataButtonForegroundBrush}"/>
+                                        <Setter Property="PressedBackgroundBrush" Value="{ThemeResource TelerikGridLoadMoreDataButtonPressedBackgroundBrush}"/>
+                                        <Setter Property="PressedBorderBrush" Value="{ThemeResource TelerikGridLoadMoreDataButtonPressedBackgroundBrush}"/>
+                                        <Setter Property="PressedForegroundBrush" Value="{ThemeResource TelerikGridLoadMoreDataButtonPressedForegroundBrush}"/>
+                                        <Setter Property="DisabledBorderBrush" Value="{ThemeResource TelerikGridLoadMoreDataButtonPointerOverBackgroundBrush}"/>
+                                        <Setter Property="DisabledForegroundBrush" Value="{ThemeResource TelerikGridLoadMoreDataButtonPressedForegroundBrush}"/>
+                                    </Style>
+                                </primitivesCommon:InlineButton.Style>
+                            </primitivesCommon:InlineButton>
+                            <ProgressBar x:Name="loadingProgressBar" Visibility="Collapsed" Style="{StaticResource loadMoreDataProgressStyle}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridAutoDataLoadingControl">
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="0 0 0 2"/>
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridAutoDataLoadingControl">
+                    <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Loading">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="loadingProgressBar"
+                                                                       Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="loadingProgressBar"
+                                                                       Storyboard.TargetProperty="IsIndeterminate">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ProgressBar x:Name="loadingProgressBar" Opacity="0" Style="{StaticResource loadMoreDataProgressStyle}" Padding="{TemplateBinding Margin}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPrimitives:DataGridBusyOverlayControl">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridOverlayBackgroundBrush}"/>
+        <Setter Property="MinWidth" Value="50"/>
+        <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridBusyOverlayControl">
+                    <Border x:Name="rootBorder">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Busy">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="overlayBorder"
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="progressRing"
+                                                                       Storyboard.TargetProperty="IsActive">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border Background="{TemplateBinding Background}" x:Name="overlayBorder" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ProgressRing x:Name="progressRing" IsActive="False" Style="{StaticResource dataGridBusyRingStyle}"/>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="CheckBox" x:Key="checkBoxStyle">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxForegroundBrush}"/>
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="MinWidth" Value="40" />
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            Background="{TemplateBinding Background}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            x:Name="Background">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CombinedStates">
+                                <VisualState x:Name="UncheckedNormal" />
+                                <VisualState x:Name="UncheckedPointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxPointerOverBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyphBorder" Storyboard.TargetProperty="Stroke">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxPointerOverForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="UncheckedPressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxPressedBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyphBorder" Storyboard.TargetProperty="Stroke">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxPressedForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="CheckedNormal">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyphBorder" Storyboard.TargetProperty="Stroke">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="CheckGlyph"
+											 Storyboard.TargetProperty="Opacity"
+											 To="1"
+											 Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="CheckedPointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPointerOverBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyphBorder" Storyboard.TargetProperty="Stroke">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPointerOverForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPointerOverForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="CheckGlyph"
+											 Storyboard.TargetProperty="Opacity"
+											 To="1"
+											 Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="CheckedPressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Background" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPressedBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyphBorder" Storyboard.TargetProperty="Stroke">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPressedForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPressedForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimation Storyboard.TargetName="CheckGlyph"
+											 Storyboard.TargetProperty="Opacity"
+											 To="1"
+											 Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                              Margin="{TemplateBinding Padding}">
+                            <Rectangle x:Name="CheckGlyphBorder"
+								  Stroke="{TemplateBinding Foreground}"
+								  StrokeThickness="1"
+								  UseLayoutRounding="False"
+								  Height="16"
+								  Width="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <FontIcon x:Name="CheckGlyph"
+								  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+								  Glyph="&#xE001;"
+								  FontSize="15"
+								  Foreground="{TemplateBinding Foreground}"
+								  Opacity="0"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

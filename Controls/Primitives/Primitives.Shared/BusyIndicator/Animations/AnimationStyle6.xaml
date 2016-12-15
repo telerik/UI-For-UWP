@@ -1,0 +1,31 @@
+﻿<Style
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:telerikPrimitivesBusyIndicator="using:Telerik.UI.Xaml.Controls.Primitives.BusyIndicator"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  x:Key="AnimationStyle6" TargetType="telerikPrimitivesBusyIndicator:BusyIndicatorAnimation">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="telerikPrimitivesBusyIndicator:BusyIndicatorAnimation">
+                <Canvas  x:Name="PART_LayoutRoot" RenderTransformOrigin="0.5, 0.5" Height="28.017" Width="28.017" >
+                    <Canvas.Resources>
+                        <Storyboard x:Key="PART_Animation" RepeatBehavior="Forever">
+                            <DoubleAnimation EnableDependentAnimation="True" Duration="0:0:1" To="360" Storyboard.TargetProperty="Angle" Storyboard.TargetName="Root_rotate"/>
+                        </Storyboard>
+                    </Canvas.Resources>
+                    <Canvas.RenderTransform>
+                        <RotateTransform x:Name="Root_rotate"/>
+                    </Canvas.RenderTransform>
+                    <Path
+                  Data="F1M27.2998,15.5C27.2978,12.404,26.0078,9.35,23.8088,7.191C21.6258,5.015,18.5688,3.769,15.4998,3.8C12.4298,3.802,9.4018,5.08,7.2618,7.262C5.1038,9.431,3.8688,12.447,3.8998,15.51C3.8708,18.533,5.1038,21.578,7.2628,23.737C9.4058,25.919,12.4228,27.197,15.5078,27.199C18.5608,27.23,21.6288,25.984,23.8088,23.809C26.0078,21.648,27.2968,18.601,27.3008,15.495z M27.6988,15.505C27.7158,17.092,27.4258,18.699,26.8848,20.215C26.3418,21.734,25.5568,23.205,24.4638,24.464C22.3378,27.031,19.1998,28.943,15.4508,29.408L14.8608,29.479L14.1268,29.514C13.6538,29.523,13.1928,29.515,12.7208,29.481C11.7848,29.408,10.8348,29.261,9.9158,28.979C8.0868,28.414,6.2908,27.514,4.7998,26.2C3.3228,24.887,2.0368,23.279,1.1938,21.428C0.780800000000003,20.501,0.431800000000003,19.535,0.2288,18.533C0.125800000000002,18.034,0.0478000000000023,17.53,-0.0101999999999975,17.023L-0.0741999999999976,16.262L-0.0891999999999982,15.881L-0.0961999999999996,15.69L-0.0971999999999973,15.408L-0.0741999999999976,14.82L-0.00819999999999865,13.984C0.0508000000000024,13.463,0.128800000000002,12.97,0.232800000000001,12.467C0.4468,11.469,0.7868,10.501,1.2018,9.576C2.0588,7.731,3.3318,6.122,4.8098,4.81C6.3088,3.508,8.0938,2.601,9.9238,2.039C11.7698,1.501,13.6898,1.383,15.4998,1.609C19.1478,2.071,22.3528,3.976,24.4608,6.54C25.5548,7.797,26.3378,9.268,26.8828,10.785C27.4258,12.304,27.7158,13.902,27.6998,15.5z"
+                  Fill="{TemplateBinding Foreground}"
+                  Height="28.017"
+                  Canvas.Left="0"
+                  Stretch="Fill"
+                  Canvas.Top="0"
+                  Width="28.017"/>
+                </Canvas>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+

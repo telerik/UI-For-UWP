@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <PlatformFolder>$(Platform)</PlatformFolder>
+    <OutputPath>bin\$(PlatformFolder)\$(Configuration)\</OutputPath>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{53D05634-F960-4526-8008-F082A598A0E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Telerik.UI.Xaml.Controls.DataVisualization</RootNamespace>
+    <AssemblyName>Telerik.UI.Xaml.DataVisualization.UWP</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>$(OutputPath)\Telerik.UI.Xaml.DataVisualization.XML</DocumentationFile>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\DataVisualization.Windows\BulletGraph\AdditionalMeasuresCollection.cs">
+      <Link>Bulletgraph\AdditionalMeasuresCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\BulletGraph\BulletGraphComparativeMeasure.cs">
+      <Link>Bulletgraph\BulletGraphComparativeMeasure.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\BulletGraph\BulletGraphMeasureBase.cs">
+      <Link>Bulletgraph\BulletGraphMeasureBase.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\BulletGraph\BulletGraphQualitativeRangeCollection.cs">
+      <Link>Bulletgraph\BulletGraphQualitativeRangeCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\BulletGraph\RadBulletGraph.cs">
+      <Link>Bulletgraph\RadBulletGraph.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\BulletGraph\ValueToVisibilityConverter.cs">
+      <Link>Bulletgraph\ValueToVisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\BulletGraph\VisibilityExtensions.cs">
+      <Link>Bulletgraph\VisibilityExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\BarIndicatorSegment.cs">
+      <Link>Gauges\BarIndicatorSegment.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\CalculateAngleContext.cs">
+      <Link>Gauges\CalculateAngleContext.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\GaugeColorValueRange.cs">
+      <Link>Gauges\GaugeColorValueRange.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\GaugePanel.cs">
+      <Link>Gauges\GaugePanel.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\GaugeRangeType.cs">
+      <Link>Gauges\GaugeRangeType.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\GaugeValueToBrushConverter.cs">
+      <Link>Gauges\GaugeValueToBrushConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\GaugeValueToStringConverter.cs">
+      <Link>Gauges\GaugeValueToStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\ArrowGaugeIndicator.cs">
+      <Link>Gauges\Indicators\ArrowGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\BarGaugeIndicator.cs">
+      <Link>Gauges\Indicators\BarGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\GaugeIndicator.cs">
+      <Link>Gauges\Indicators\GaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\GaugeIndicatorCollection.cs">
+      <Link>Gauges\Indicators\GaugeIndicatorCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\IndicatorSegmentCollection.cs">
+      <Link>Gauges\Indicators\IndicatorSegmentCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\LinearBarGaugeIndicator.cs">
+      <Link>Gauges\Indicators\LinearBarGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\MarkerGaugeIndicator.cs">
+      <Link>Gauges\Indicators\MarkerGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\NeedleGaugeIndicator.cs">
+      <Link>Gauges\Indicators\NeedleGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\RadialBarGaugeIndicator.cs">
+      <Link>Gauges\Indicators\RadialBarGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\RadialGaugeIndicator.cs">
+      <Link>Gauges\Indicators\RadialGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\SegmentedGaugeIndicator.cs">
+      <Link>Gauges\Indicators\SegmentedGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\SegmentedLinearGaugeIndicator.cs">
+      <Link>Gauges\Indicators\SegmentedLinearGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\SegmentedRadialGaugeIndicator.cs">
+      <Link>Gauges\Indicators\SegmentedRadialGaugeIndicator.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\IndicatorValueChangedEventArgs.cs">
+      <Link>Gauges\IndicatorValueChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\LinearGaugePanel.cs">
+      <Link>Gauges\LinearGaugePanel.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\RadGauge.cs">
+      <Link>Gauges\RadGauge.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\RadialGaugePanel.cs">
+      <Link>Gauges\RadialGaugePanel.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\RadLinearGauge.cs">
+      <Link>Gauges\RadLinearGauge.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\RadRadialGauge.cs">
+      <Link>Gauges\RadRadialGauge.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\TickType.cs">
+      <Link>Gauges\TickType.cs</Link>
+    </Compile>
+    <Compile Include="..\DataVisualization.Windows\Gauges\UpdateArcContext.cs">
+      <Link>Gauges\UpdateArcContext.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Resources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeResourcesDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeResourcesLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\BuildTools\Win8PublicKey.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\DataVisualization.Windows\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadBulletGraph.Icon.png">
+      <Link>Shared\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadBulletGraph.Icon.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DataVisualization.Windows\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadLinearGauge.Icon.png">
+      <Link>Shared\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadLinearGauge.Icon.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DataVisualization.Windows\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadRadialGauge.Icon.png">
+      <Link>Shared\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadRadialGauge.Icon.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core.UWP\Core.UWP.csproj">
+      <Project>{1652093c-b541-48c9-bcb6-bbe7ce7c7ffe}</Project>
+      <Name>Core.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Primitives\Primitives.UWP\Primitives.UWP.csproj">
+      <Project>{bf14f352-f1b9-4cde-854b-0339259a4cfd}</Project>
+      <Name>Primitives.UWP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+ 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

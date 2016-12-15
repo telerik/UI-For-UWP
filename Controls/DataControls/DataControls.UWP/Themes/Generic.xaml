@@ -1,0 +1,904 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Data"
+    xmlns:localHexView="using:Telerik.UI.Xaml.Controls.Data.HexView"
+    xmlns:listViewPrimitives="using:Telerik.UI.Xaml.Controls.Data.ListView.Primitives"
+    xmlns:telerikPrimitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:telerikPrimitivesBusyIndicator="using:Telerik.UI.Xaml.Controls.Primitives.BusyIndicator"
+    xmlns:listView="using:Telerik.UI.Xaml.Controls.Data.ListView"
+    xmlns:telerikCore="using:Telerik.Core"
+    xmlns:busyIndicator="using:Telerik.UI.Xaml.Controls.Primitives.BusyIndicator"
+    xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:dataForm="using:Telerik.UI.Xaml.Controls.Data.DataForm"
+    xmlns:inputTextBox="using:Telerik.UI.Xaml.Controls.Input.NumericBox"
+    xmlns:primitivesCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
+    xmlns:localDateTime="using:Telerik.UI.Xaml.Controls.Input.DateTimePickers"
+    xmlns:theming="using:Telerik.UI.Xaml.Controls">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesDark.xaml"/>
+                <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesLight.xaml"/>
+                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/DataForm.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ListBox.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/Resources.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/Calendar.xaml"/>
+        <!--<ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input/Themes/Generic.xaml"/>-->
+    </ResourceDictionary.MergedDictionaries>
+
+    <listView:OrientationToRotateDegreesConverter x:Key="orientationToRotateDegreesConverter" />
+    <telerikCore:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    
+    <Style TargetType="listView:ItemCheckBoxControl">
+        <Setter Property="MinWidth" Value="29" />
+        <Setter Property="MinHeight" Value="27" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="CheckBoxPosition" Value="BeforeItem" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="listView:ItemCheckBoxControl">
+                    <ContentControl HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                        <CheckBox x:Name="PART_CheckBox" Style="{TemplateBinding CheckBoxStyle}" />
+                    </ContentControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--NUMERIC EDITOR START-->
+    <Style TargetType="dataForm:DFNumericTextBox">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikNumericBoxForegroundBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikNumericBoxBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikNumericBoxBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="InputScope" Value="Number"/>
+        <Setter Property="MinWidth" Value="{StaticResource TextControlThemeMinWidth}"/>
+        <Setter Property="MinHeight" Value="{StaticResource TextControlThemeMinHeight}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+        <Setter Property="Padding" Value="5,3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="dataForm:DFNumericTextBox">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BorderElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikNumericBoxDisabledBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikNumericBoxDisabledBorderBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikNumericBoxDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BorderElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikNumericBoxPointerOverBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikNumericBoxPointerOverBorderBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BorderElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikNumericBoxFocusedBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikNumericBoxFocusedBorderBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ButtonStates">
+                                <VisualState x:Name="ButtonVisible">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DeleteButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ButtonCollapsed"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="BorderElement" Background="{TemplateBinding Background}" Grid.ColumnSpan="4" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <SymbolIcon Visibility="{Binding IconDisplayMode, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IconVisibilityConverter}, ConverterParameter=Label}" Style="{TemplateBinding LabelIconStyle}" />
+                        <ScrollViewer x:Name="ContentElement" Grid.Column="1"
+                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                          IsTabStop="False"
+                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                          IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                          Margin="{TemplateBinding BorderThickness}"
+                          Padding="{TemplateBinding Padding}"
+                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                          ZoomMode="Disabled"/>
+
+                        <ContentPresenter Grid.Column="2" Visibility="{Binding HasErrors, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource HasErrorsToVisibilityConverter}, ConverterParameter=false}">
+                            <SymbolIcon Style="{TemplateBinding ErrorIconStyle}" Visibility="{Binding IconDisplayMode, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IconVisibilityConverter}, ConverterParameter=Error}" />
+                        </ContentPresenter>
+                        <primitivesCommon:InlineButton x:Name="DeleteButton" Grid.Column="3" FontSize="{TemplateBinding FontSize}" IsTabStop="False"
+                                           Style="{StaticResource DeleteButtonStyle}" Visibility="Collapsed" VerticalAlignment="Stretch" Margin="2"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:NumericEditor">
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="100"/>
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+        <Setter Property="MinWidth" Value="180"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikNumericBoxBorderBrush}" />
+        <Setter Property="DecreaseButtonStyle" Value="{StaticResource NumericButtonDecreaseStyle}"/>
+        <Setter Property="IncreaseButtonStyle" Value="{StaticResource NumericButtonIncreaseStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:NumericEditor">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="WatermarkHidden"/>
+                                <VisualState x:Name="WatermarkVisible">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="Watermark">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ContentControl Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" Style="{TemplateBinding HeaderStyle}" IsTabStop="False"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <dataForm:DFNumericTextBox ErrorIconStyle="{TemplateBinding ErrorIconStyle}" HasErrors="{TemplateBinding HasErrors}" IconDisplayMode="{TemplateBinding IconDisplayMode}" LabelIconStyle="{TemplateBinding LabelIconStyle}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" x:Name="PART_TextBox" IsReadOnly="{Binding IsEditable, Converter={StaticResource EditableConverter}, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <primitivesCommon:InlineButton x:Name="PART_DecreaseButton" IsRepeatingEnabled="True" Visibility="{TemplateBinding ButtonsVisibility}"
+                                             Grid.Column="1" Style="{TemplateBinding DecreaseButtonStyle}"/>
+                            <primitivesCommon:InlineButton x:Name="PART_IncreaseButton" IsRepeatingEnabled="True"  Visibility="{TemplateBinding ButtonsVisibility}"
+                                             Grid.Column="2" Style="{TemplateBinding IncreaseButtonStyle}"/>
+                        </Grid>
+                        <ContentControl x:Name="Watermark" Visibility="Collapsed" IsTabStop="False" IsHitTestVisible="False" Content="{TemplateBinding Watermark}" ContentTemplate="{TemplateBinding WatermarkTemplate}"
+                            Foreground="{ThemeResource TelerikNumericBoxWatermarkForegroundBrush}" Padding="4,0,0,2" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HeaderStyle">
+            <Setter.Value>
+                <Style TargetType="ContentControl">
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Margin" Value="0 0 0 4"/>
+                    <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+                    <Setter Property="Foreground" Value="{ThemeResource TelerikNumericBoxHeaderForegroundBrush}"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--NUMERIC EDITOR END-->
+
+    <Style TargetType="local:ErrorsControl">
+        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ErrorsControl">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentControl ContentTemplate="{TemplateBinding ContentTemplate}" Visibility="{Binding IsValid, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
+                            <ItemsControl Foreground="{TemplateBinding Foreground}" ItemsSource="{Binding Errors}" />
+                        </ContentControl>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:PositiveMessageControl">
+        <Setter Property="Foreground" Value="Green"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PositiveMessageControl">
+                    <ContentControl Content="{Binding PositiveMessage}" ContentTemplate="{TemplateBinding ContentTemplate}" Visibility="{Binding DisplayPositiveMessage, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:LabelControl">
+        <Setter Property="Margin" Value="5,5,5,5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:LabelControl">
+                    <ContentControl ContentTemplate="{TemplateBinding ContentTemplate}">
+                        <TextBlock Text="{Binding Label}" FontSize="15" />
+                    </ContentControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="local:EntityPropertyControl">
+        <Setter Property="Margin" Value="0 5 0 5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Margin="{TemplateBinding Margin}" x:Name="PART_Content">
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="local:RadDataForm">
+        <Setter Property="MinHeight" Value="150"/>
+        <Setter Property="MinWidth" Value="150"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="LayoutDefinition">
+            <Setter.Value>
+                <dataForm:StackDataFormLayoutDefinition/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Margin="{TemplateBinding Margin}" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentControl HorizontalContentAlignment="Stretch" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" x:Name="PART_ChildrensPanelPresenter"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- HexView start -->
+
+    <Style TargetType="local:RadHexView">
+        <Setter Property="MinUpdateInterval" Value="0:0:6"/>
+        <Setter Property="MaxUpdateInterval" Value="0:0:12"/>
+        <Setter Property="UpdateIntervalStep" Value="3"/>
+        <Setter Property="LayoutDefinition">
+            <Setter.Value>
+                <localHexView:FlatTightHexLayoutDefinition/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadHexView">
+                    <Border Background="{TemplateBinding Background}">
+                        <ScrollViewer x:Name="PART_ScrollViewer"
+                                      ZoomMode="Disabled"
+                                      VerticalScrollMode="Auto"
+                                      HorizontalScrollMode="Auto"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Auto">
+                            <local:HexPanel x:Name="PART_ChildrenPanel"/>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- HexView end -->
+
+    <!-- ListView start -->
+
+    <listView:OrientationToScrollModeConverter x:Key="OrientationToScrollModeConverter"/>
+    <listView:OrientationToHorizontalAlignmentConverter x:Key="orientationToHorizontalAlignmentConverter" />
+    <listView:OrientationToVerticalAlignmentConverter x:Key="orientationToVerticalAlignmentConverter" />
+    <listView:OrientationToSizeConverter x:Key="orientationToSizeConverter" />
+
+    <Style TargetType="local:RadListView">
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="MinHeight" Value="100"/>
+        <Setter Property="LayoutDefinition">
+            <Setter.Value>
+                <listView:StackLayoutDefinition/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadListView">
+                    <Border x:Name="LayoutRoot" 
+                        Background="{TemplateBinding Background}" 
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}">
+                        <listView:ListViewRootPanel x:Name="PART_ListViewRootPanel">
+                            <ScrollViewer x:Name="PART_ScrollViewer" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                  HorizontalScrollBarVisibility="Auto"
+                                                  VerticalScrollBarVisibility="Auto"
+                                                  ZoomMode="Disabled"
+                                                  HorizontalScrollMode="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Orientation, 
+                                                             Converter={StaticResource OrientationToScrollModeConverter}, ConverterParameter=Horizontal}"
+                                                  VerticalScrollMode="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Orientation, 
+                                                             Converter={StaticResource OrientationToScrollModeConverter}, ConverterParameter=Vertical}">
+                                <ScrollViewer.TopLeftHeader>
+                                    <listViewPrimitives:FrozenGroupsPanel x:Name="PART_FrozenGroupHeadersHost" />
+                                </ScrollViewer.TopLeftHeader>
+                                <Grid x:Name="PART_RootScrollablePanel" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <listView:ListViewPanel x:Name="PART_ScrollableContent" Background="Transparent">
+                                        <Canvas x:Name="PART_AnimatingChildrenPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                            <listView:ChildrenListViewPanel x:Name="PART_ChildrenPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent">
+                                                <listView:PullToRefreshIndicator Canvas.ZIndex="1000" x:Name="PART_PullToRefreshIndicator"/>
+                                                <ContentControl x:Name="PART_SwipeActionContent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{TemplateBinding SwipeActionContent}" Canvas.ZIndex="5" Margin="5" Padding="5" />
+
+                                            </listView:ChildrenListViewPanel>
+                                        </Canvas>
+                                    </listView:ListViewPanel>
+                                    <Canvas x:Name="PART_ScrollableAdornerHost"/>
+                                </Grid>
+                            </ScrollViewer>
+                            <Canvas x:Name="PART_AdornerHost" IsHitTestVisible="False"/>
+                        </listView:ListViewRootPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="telerikPrimitives:RadBusyIndicator" x:Key="PullToRefreshBusyIndicatorStyle">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="Width" Value="65"/>
+        <Setter Property="Height" Value="65"/>
+        <Setter Property="IndicatorAnimationStyle">
+            <Setter.Value>
+                <Style TargetType="busyIndicator:BusyIndicatorAnimation">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="telerikPrimitivesBusyIndicator:BusyIndicatorAnimation">
+                                <Canvas x:Name="PART_LayoutRoot" RenderTransformOrigin="0.5, 0.5" Width="36" Height="36">
+                                    <Canvas.Resources>
+                                        <Storyboard x:Key="PART_Animation" RepeatBehavior="Forever">
+                                            <DoubleAnimation EnableDependentAnimation="True" Duration="0:0:0.6" To="360" Storyboard.TargetProperty="Angle" Storyboard.TargetName="Root_rotate"/>
+                                        </Storyboard>
+                                    </Canvas.Resources>
+                                    <Canvas.RenderTransform>
+                                        <RotateTransform x:Name="Root_rotate"/>
+                                    </Canvas.RenderTransform>
+                                    <Path Data="M0.125,0 C10.06,0 18.125,8.06 18.125,18 18.125,19.24 18,20.45 17.76,21.6 L17.7,21.75 17.6,21.75 13.8,21.1 13.8,21.08 C14,20 14.125,19 14.125,18 14.125,10.3 7.86,4 0.125,4 L0,4 0,0 z" 
+                    Fill="{TemplateBinding Foreground}" Height="21.75" Stretch="Fill" Width="18.125" Canvas.Left="17.855"  RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <RotateTransform Angle="0"/>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                    <Path Data="M0.125,0 C10.06,0 18.125,8.06 18.125,18 18.125,19.24 18,20.45 17.76,21.6 L17.7,21.75 17.6,21.75 13.8,21.1 13.8,21.08 C14,20 14.125,19 14.125,18 14.125,10.3 7.86,4 0.125,4 L0,4 0,0 z" 
+                    Fill="{TemplateBinding Foreground}" Height="21.75" Opacity="0.75" Stretch="Fill" Width="18.125" RenderTransformOrigin="0.5,0.5" Canvas.Left="10.664" Canvas.Top="18.375">
+                                        <Path.RenderTransform>
+                                            <RotateTransform Angle="120"/>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                    <Path Data="M0.125,0 C10.06,0 18.125,8.06 18.125,18 18.125,19.24 18,20.45 17.76,21.6 L17.7,21.75 17.6,21.75 13.8,21.1 13.8,21.08 C14,20 14.125,19 14.125,18 14.125,10.3 7.86,4 0.125,4 L0,4 0,0 z" 
+                    Fill="{TemplateBinding Foreground}" Opacity="0.5" Height="21.75" Stretch="Fill" Width="18.125" RenderTransformOrigin="0.5,0.5" Canvas.Top="2.959" Canvas.Left="-1.665">
+                                        <Path.RenderTransform>
+                                            <RotateTransform Angle="-120"/>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                </Canvas>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="telerikPrimitives:RadBusyIndicator">
+                    <Border
+                        x:Name="PART_LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="NotRunning">
+                                    <Storyboard>
+
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_LayoutRoot" Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="False"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Running">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_LayoutRoot" Storyboard.TargetProperty="IsHitTestVisible">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="True"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <telerikPrimitivesBusyIndicator:BusyIndicatorAnimation 
+                                x:Name="PART_Animation"
+                                VerticalAlignment="Center"
+                                Style="{TemplateBinding IndicatorAnimationStyle}"
+                                IsActive="{TemplateBinding IsActive}"
+                                Foreground="{TemplateBinding Foreground}"  />
+                            <ContentPresenter Visibility="Collapsed"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                            x:Name="PART_InfoContent"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <listView:OffsetToOpacityConverter x:Key="opacityConverter"/>
+    <listView:OffsetToAngleConverter x:Key="angleConverter"/>
+
+    <Style TargetType="listView:PullToRefreshIndicator">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="70"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="listView:PullToRefreshIndicator">
+                    <Border 
+                        RenderTransformOrigin="0,0"
+                        x:Name="PART_LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}">
+                        <Border.RenderTransform>
+                            <CompositeTransform x:Name="Transform" />
+
+                        </Border.RenderTransform>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="DefaultStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BusyIndicator" Storyboard.TargetProperty="IsActive">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="False">
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Refreshing">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BusyIndicator" Storyboard.TargetProperty="IsActive">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="True">
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="OrientationStates">
+                                <VisualState x:Name="Vertical">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Transform" Storyboard.TargetProperty="Rotation">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Horizontal">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Transform" Storyboard.TargetProperty="Rotation">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="-90"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Transform" Storyboard.TargetProperty="TranslateX">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="-70"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="AppearanceStates">
+                                <VisualState x:Name="ContentAndIndicator">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundElement" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="IndicatorOnly">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundElement" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="NormalLayout" Margin="12,0" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse x:Name="BackgroundElement" Height="{TemplateBinding Height}" Width="{TemplateBinding Height}" Fill="#FFB6B6B6" StrokeThickness="2" Stroke="#996B6B6B"/>
+                            <telerikPrimitives:RadBusyIndicator Style="{StaticResource PullToRefreshBusyIndicatorStyle}" Margin="2" Opacity="{Binding CurrentPullOffset, Converter={StaticResource opacityConverter}, ConverterParameter=180, RelativeSource={RelativeSource TemplatedParent}}"
+                                ContentPosition="Right"
+                                Foreground="{StaticResource AppBarItemForegroundThemeBrush}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Stretch"
+                                VerticalContentAlignment="Top"
+                                Content="{x:Null}" RenderTransformOrigin="0.5,0.5"
+                                x:Name="BusyIndicator">
+                                <telerikPrimitives:RadBusyIndicator.RenderTransform>
+                                    <RotateTransform  Angle="{Binding CurrentPullOffset, Converter={StaticResource angleConverter}, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                </telerikPrimitives:RadBusyIndicator.RenderTransform>
+
+                            </telerikPrimitives:RadBusyIndicator>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="listView:RadListViewItem">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="4" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="MinHeight" Value="55"/>
+        <Setter Property="MinWidth" Value="55"/>
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Canvas.ZIndex" Value="10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="listView:RadListViewItem">
+                    <Border x:Name="grid" Background="Transparent" Padding="{TemplateBinding Margin}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <!--<VisualState x:Name="PointerOver">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="BorderBrush">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TelerikHighlightBrush}" />
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>-->
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="grid" Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0.5" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectedState">
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckBox" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="borderSelected" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unselected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CheckBox" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="borderSelected" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ReorderState">
+                                <VisualState x:Name="ReorderEnabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ReorderHandle" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ReorderDisabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ReorderHandle" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentControl x:Name="PART_Content" FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}" Margin="{TemplateBinding Padding}" 
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                            VerticalAlignment="{TemplateBinding VerticalAlignment}" 
+                                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}" 
+                                            Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                            <Border x:Name="border"  
+                                    IsHitTestVisible="False"
+                                    VerticalAlignment="Stretch" 
+                                    HorizontalAlignment="Stretch" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    Background="{x:Null}"/>
+                            <Border x:Name="borderSelected" Visibility="Collapsed" 
+                                    IsHitTestVisible="False"
+                                    VerticalAlignment="Stretch" 
+                                    HorizontalAlignment="Stretch" 
+                                    BorderBrush="{StaticResource TelerikSelectedBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    Background="{x:Null}"/>
+                            <Grid x:Name="CheckBox" IsHitTestVisible="False" Visibility="Collapsed" Width="35" Height="35" Margin="4"
+                                  VerticalAlignment="Top" HorizontalAlignment="Right">
+                                <Path x:Name="CheckBackground"
+                                    IsHitTestVisible="False"
+                                    Stretch="Fill"
+                                    Fill="{StaticResource TelerikSelectedBrush}"
+                                    Data="M0,0 L86.1743,0 L86.1743,86.1743 z"
+                                    StrokeLineJoin="Round" StrokeThickness="0">
+                                </Path>
+                                <Path x:Name="CheckMark"
+                                    IsHitTestVisible="False"
+                                    Stretch="Fill"
+                                    Fill="White" Margin="16,0,0,17"
+                                    Data="M0,119 L31,92 L119,185 L267,0 L300,24 L122,250 z"
+                                    StrokeLineJoin="Round" StrokeThickness="0"/>
+                            </Grid>
+                            <Border Background="Transparent" 
+									HorizontalAlignment="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent}, 
+																  Converter={StaticResource orientationToHorizontalAlignmentConverter}, 
+																  ConverterParameter=First}"
+									VerticalAlignment="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent}, 
+																  Converter={StaticResource orientationToVerticalAlignmentConverter}, 
+																  ConverterParameter=First}"
+									Height="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent},
+													 Converter={StaticResource orientationToSizeConverter},
+													 ConverterParameter=Height}" 
+									Width="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent},
+													 Converter={StaticResource orientationToSizeConverter},
+													 ConverterParameter=Width}" 
+                                    x:Name="PART_FirstHandle"/>
+                            <Border Background="Transparent" 
+									HorizontalAlignment="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent}, 
+																  Converter={StaticResource orientationToHorizontalAlignmentConverter}, 
+																  ConverterParameter=Second}"
+									VerticalAlignment="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent}, 
+																  Converter={StaticResource orientationToVerticalAlignmentConverter}, 
+																  ConverterParameter=Second}"
+									Height="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent},
+													 Converter={StaticResource orientationToSizeConverter},
+													 ConverterParameter=Height}" 
+									Width="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent},
+													 Converter={StaticResource orientationToSizeConverter},
+													 ConverterParameter=Width}" 
+                                    x:Name="PART_SecondHandle"/>
+                            <BitmapIcon  x:Name="PART_ReorderHandle" UriSource="{Binding HandleIconPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                    ManipulationMode="None" Width="48" Height="48"  HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <BitmapIcon.RenderTransform>
+                                    <RotateTransform CenterX="0.5" CenterY="0.5" Angle="{Binding Orientation, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource orientationToRotateDegreesConverter}}" />
+                                </BitmapIcon.RenderTransform>
+                            </BitmapIcon>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="listViewPrimitives:ListViewGroupHeader">
+        <Setter Property="Background" Value="{StaticResource TelerikHighlightBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="MinHeight" Value="40" />
+        <Setter Property="Padding" Value="10 0" />
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Group.Key}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="listViewPrimitives:ListViewGroupHeader">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter x:Name="testControl" Margin="{TemplateBinding Padding}"
+                                              Content="{TemplateBinding DataContext}"  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="listViewPrimitives:ListViewCurrencyControl">
+        <Setter Property="BorderBrush" Value="{StaticResource TelerikListViewCurrentBorderBrush}"/>
+        <Setter Property="Background" Value="{StaticResource TelerikListViewCurrentBackgroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="listViewPrimitives:ListViewCurrencyControl">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" Margin="{TemplateBinding Padding}"
+                            BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="listView:ListViewAutoDataLoadingControl">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="listView:ListViewAutoDataLoadingControl">
+                    <Border HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Loading">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="loadingProgressBar"
+                                                                       Storyboard.TargetProperty="Opacity">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="loadingProgressBar"
+                                                                       Storyboard.TargetProperty="IsIndeterminate">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ProgressBar x:Name="loadingProgressBar" Opacity="0" Padding="{TemplateBinding Margin}"
+                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="listView:ListViewLoadDataControl">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="listView:ListViewLoadDataControl">
+                    <Border Background="{TemplateBinding Background}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}" 
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Loading">
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                            <ContentControl x:Name="PART_Content" DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                <ContentControl.Content>
+                                    <Grid>
+                                        <Button Visibility="{Binding IsLoadingData, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" Command="{Binding LoadDataUICommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock FontFamily="Segoe UI Symbol" Text="&#xE0BA;" FontSize="18" RenderTransformOrigin="0.5,0.5" >
+                                                        <TextBlock.RenderTransform>
+                                                            <RotateTransform Angle="-90"/>
+                                                        </TextBlock.RenderTransform>
+                                                    </TextBlock>
+                                                    <TextBlock Text="{Binding LoadMoreItemsText}" Margin="5 0 0 0"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+                                        <ProgressBar IsIndeterminate="{Binding IsLoadingData}"  Visibility="{Binding IsLoadingData, Converter={StaticResource BoolToVisibilityConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    </Grid>
+                                </ContentControl.Content>
+                            </ContentControl>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="listView:ListViewBusyOverlayControl">
+        <Setter Property="Background" Value="#55555555"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="listView:ListViewBusyOverlayControl">
+                    <Border x:Name="rootBorder"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Busy">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="overlayBorder"
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="progressRing"
+                                                                       Storyboard.TargetProperty="IsActive">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border Background="{TemplateBinding Background}" x:Name="overlayBorder" Visibility="Collapsed"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ProgressRing x:Name="progressRing" IsActive="False"/>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ListView end -->
+
+</ResourceDictionary>

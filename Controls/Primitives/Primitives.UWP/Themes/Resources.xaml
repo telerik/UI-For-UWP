@@ -1,0 +1,1058 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:localPagination="using:Telerik.UI.Xaml.Controls.Primitives.Pagination"
+    xmlns:theming="using:Telerik.UI.Xaml.Controls"
+    xmlns:localScale="using:Telerik.UI.Xaml.Controls.Primitives.Scale"
+    xmlns:localRangeSlider="using:Telerik.UI.Xaml.Controls.Primitives.RangeSlider"
+    xmlns:localRadialMenu="using:Telerik.UI.Xaml.Controls.Primitives.Menu"
+    >
+    
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeResourcesDark.xaml"/>
+                <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeResourcesLight.xaml"/>
+                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+
+    <!-- Start Pagination -->
+
+    <Style TargetType="localPagination:PaginationListControl">
+        <Setter Property="MinHeight" Value="10"/>
+        <Setter Property="MinWidth" Value="30"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="TabNavigation" Value="Once"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Enabled"/>
+        <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="True"/>
+        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled"/>
+        <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True"/>
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+        <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True"/>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate TargetType="localPagination:PaginationListControl">
+                    <Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <ScrollViewer x:Name="ScrollViewer" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" Padding="{TemplateBinding Padding}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:RadPaginationControl">
+        <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="MinWidth" Value="80"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikPaginationForegroundBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadPaginationControl">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Margin="{TemplateBinding Padding}">
+                        <Grid Background="{TemplateBinding Background}" x:Name="PART_LayoutRoot">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <localPagination:PaginationButton x:Name="PART_LeftArrow"
+                                              ContentTemplate="{TemplateBinding LeftArrowTemplate}" 
+                                              VerticalAlignment="Stretch" IsEnabled="{TemplateBinding IsEnabled}"/>
+
+                            <localPagination:PaginationListControl Grid.Column="1" x:Name="PART_ThumbnailList" ItemTemplate="{TemplateBinding ListItemTemplate}" IsEnabled="{TemplateBinding IsEnabled}" Margin="5 0 5 0" VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+                            <localPagination:PaginationButton Grid.Column="2" x:Name="PART_RightArrow" IsEnabled="{TemplateBinding IsEnabled}" ContentTemplate="{TemplateBinding RightArrowTemplate}"
+                                              VerticalAlignment="Stretch"/>
+                            <localPagination:PaginationIndexLabelControl VerticalAlignment="Center" Grid.Column="3" Foreground="{TemplateBinding Foreground}" IsEnabled="{TemplateBinding IsEnabled}" Margin="10 0 0 0" x:Name="PART_IndexLabelControl"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="LeftArrowTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="&#xE012;"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RightArrowTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="&#xE013;"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPagination:PaginationListControlItem">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikPaginationItemBackgroundBrush}"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="MinWidth" Value="20"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPagination:PaginationListControlItem">
+                    <Grid x:Name="OuterGrid" VerticalAlignment="Stretch" Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="OuterBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationItemDisabledBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ItemIndicator">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationItemDisabledBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected"/>
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="OuterBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationSelectedItemBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ItemIndicator">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationSelectedItemBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedPointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="OuterBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationSelectedItemBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ItemIndicator">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationSelectedItemBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="OuterBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationSelectedItemBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ItemIndicator">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationSelectedItemBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedDisabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="OuterBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationSelectedItemDisabledBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ItemIndicator">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationSelectedItemDisabledBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="DataBoundStates">
+                                <VisualState x:Name="BoundToItem"/>
+                                <VisualState x:Name="Unbound">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ItemIndicator">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="OuterBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="OuterBorder" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="ContentContainer" 
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}" 
+                                      Content="{TemplateBinding Content}" 
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                        </Border>
+                        <localPagination:PaginationItemIndicator x:Name="ItemIndicator" Visibility="Collapsed" Background="{TemplateBinding Background}" Width="20" Height="5" Margin="2 0 2 0"  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPagination:PaginationIndexLabelControl" >
+        <Setter Property="MinWidth" Value="60"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPagination:PaginationIndexLabelControl">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Margin="{TemplateBinding Padding}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="CurrentValueTextBlock">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="SeparatorTextBlock">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ItemCountTextBlock">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="CurrentValueTextBlock" Text="{TemplateBinding CurrentIndexDisplayValue}" 
+                                       FontSize="{ThemeResource ControlContentThemeFontSize}" 
+                                       VerticalAlignment="Bottom" Foreground="{TemplateBinding Foreground}"/>
+                            <TextBlock x:Name="SeparatorTextBlock" Text="{TemplateBinding Separator}" 
+                                       FontSize="{ThemeResource ControlContentThemeFontSize}"  
+                                       VerticalAlignment="Bottom" Foreground="{TemplateBinding Foreground}"/>
+                            <TextBlock x:Name="ItemCountTextBlock" Text="{TemplateBinding ItemCountDisplayValue}" 
+                                       FontSize="{ThemeResource ControlContentThemeFontSize}" 
+                                       VerticalAlignment="Bottom" Foreground="{TemplateBinding Foreground}"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPagination:PaginationButton">
+        <Setter Property="Background" Value="{ThemeResource TelerikPaginationButtonBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikPaginationButtonForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikPaginationButtonBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+        <Setter Property="Padding" Value="0 0 0 6"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="MinWidth" Value="40"/>
+        <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock VerticalAlignment="Top" Text="{Binding}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationButtonPointerOverBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationButtonPressedBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationButtonPressedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationButtonDisabledBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationButtonDisabledBorderBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikPaginationButtonDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="PointerFocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                        <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localPagination:PaginationItemIndicator">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Margin" Value="2 0 2 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPagination:PaginationItemIndicator">
+                    <Rectangle Fill="{TemplateBinding Background}" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Margin="{TemplateBinding Margin}"  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- End Pagination -->
+    
+    <!-- Start Range Slider -->
+
+    <Style TargetType="local:ScalePrimitive">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="LineStyle">
+            <Setter.Value>
+                <Style TargetType="Rectangle">
+                    <Setter Property="Fill" Value="{ThemeResource TelerikScalePrimitiveLineFillBrush}"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="StrokeThickness" Value="1"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="LabelStyle">
+            <Setter.Value>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="{ThemeResource TelerikScalePrimitiveForegroundBrush}"/>
+                    <Setter Property="Margin" Value="8"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TickStyle">
+            <Setter.Value>
+                <Style TargetType="Rectangle">
+                    <Setter Property="Fill" Value="{ThemeResource TelerikScalePrimitiveTickFillBrush}" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ScalePrimitive">
+                    <localScale:ScalePanel x:Name="PART_Panel">
+                        <Rectangle x:Name="PART_Line" Style="{TemplateBinding LineStyle}"/>
+                    </localScale:ScalePanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SelectionThumbStyle" TargetType="Thumb">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="11" />
+        <Setter Property="Height" Value="11" />
+        <Setter Property="Background" Value="{ThemeResource TelerikRangeSliderPrimitiveSelectionThumbBackgroundBrush}"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRangeSliderPrimitiveSelectionThumbDisabledBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="Focused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SelectionMiddleThumbStyle" TargetType="Thumb">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Height" Value="11" />
+        <Setter Property="Background" Value="{ThemeResource TelerikRangeSliderPrimitiveSelectionMiddleThumbBackgroundBrush}"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRangeSliderPrimitiveSelectionMiddleThumbDisabledBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRangeSliderPrimitiveSelectionMiddleThumbPressedBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRangeSliderPrimitiveSelectionMiddleThumbBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="Focused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localRangeSlider:RangeToolTip">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikRangeToolTipForegroundBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikRangeToolTipBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikRangeToolTipBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <PopupThemeTransition/>
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localRangeSlider:RangeToolTip">
+                    <Border Background="{TemplateBinding Background}" Margin="15" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Margin="3,0" FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Left" Foreground="{TemplateBinding Foreground}">
+                                <Run Text="{Binding StartValue}"/>
+                                <Run Text="-"/>
+                                <Run Text="{Binding EndValue}"/>
+                            </TextBlock>
+                            <TextBlock Text="{Binding Range}" Foreground="{ThemeResource TelerikRangeToolTipRangeForegroundBrush}" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localRangeSlider:RangeTrackPrimitive">
+        <Setter Property="Background" Value="{ThemeResource TelerikRangeSliderPrimitiveTrackBackgroundBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Height" Value="11" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localRangeSlider:RangeTrackPrimitive">
+                    <Rectangle Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:RangeSliderPrimitive">
+        <Setter Property="SelectionStartThumbStyle" Value="{StaticResource SelectionThumbStyle}"/>
+        <Setter Property="SelectionEndThumbStyle" Value="{StaticResource SelectionThumbStyle}"/>
+        <Setter Property="SelectionMiddleThumbStyle" Value="{StaticResource SelectionMiddleThumbStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RangeSliderPrimitive">
+                    <Grid x:Name="PART_SliderPrimitivePanel">
+                        <localRangeSlider:ThumbsPanel x:Name="PART_ThumbsPanel">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="TrackBar">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRangeSliderPrimitiveTrackDisabledBackgroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="TrackBar">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRangeSliderPrimitiveTrackPointerOverBackgroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <localRangeSlider:RangeTrackPrimitive x:Name="PART_TrackBar"/>
+                            <Thumb x:Name="PART_SelectionStartThumb" Style="{TemplateBinding SelectionStartThumbStyle}"  />
+                            <Thumb x:Name="PART_SelectionMiddleThumb" Style="{TemplateBinding SelectionMiddleThumbStyle}"/>
+                            <Thumb x:Name="PART_SelectionEndThumb" Style="{TemplateBinding SelectionEndThumbStyle}"/>
+                        </localRangeSlider:ThumbsPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- End Range Slider -->
+    
+    <!-- Start Radial Menu -->
+
+    <Style TargetType="localRadialMenu:RadialMenuButton">
+        <Setter Property="Content" Value="&#xE115;"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikRadialMenuButtonBorderBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikRadialMenuButtonBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikRadialMenuButtonForegroundBrush}"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Height" Value="45"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localRadialMenu:RadialMenuButton">
+                    <Grid x:Name="RootGrid">
+                        <Grid>
+                            <Border  x:Name="BackgroundGlyph" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" 
+                                     BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="360" 
+                                     Background="{TemplateBinding Background}">
+                            </Border>
+                            <ContentPresenter x:Name="NormalGlyph" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="{TemplateBinding FontSize}" Content="{TemplateBinding Content}" 
+                                       Foreground="{TemplateBinding Foreground}" Margin="0,-1,0,0"/>
+                            <TextBlock x:Name="BackGlyph" HorizontalAlignment="Center" Margin="0,-3,0,0"  VerticalAlignment="Center" FontSize="{TemplateBinding FontSize}" Text="&#xE0C4;" 
+                                       Visibility="Collapsed" Foreground="{TemplateBinding Foreground}"/>
+                        </Grid>
+                        <Rectangle
+                            x:Name="FocusVisualWhite"
+                            IsHitTestVisible="False"
+                            Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}"
+                            StrokeEndLineCap="Square"
+                            StrokeDashArray="1,1"
+                            Opacity="0"
+                            StrokeDashOffset="1.5"/>
+                        <Rectangle
+                            x:Name="FocusVisualBlack"
+                            IsHitTestVisible="False"
+                            Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}"
+                            StrokeEndLineCap="Square"
+                            StrokeDashArray="1,1"
+                            Opacity="0"
+                            StrokeDashOffset="0.5"/>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuButtonPressedBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuButtonPressedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuButtonPressedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuButtonPointerOverBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialDisabledMenuButtonBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialDisabledMenuButtonForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackGlyph" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialDisabledMenuButtonForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FocusVisualWhite"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"
+                                            Duration="0"/>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FocusVisualBlack"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"
+                                            Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="NavigationStates">
+                                <VisualState x:Name="Back">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Home"/>
+                                <!--<Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackGlyph" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>-->
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localRadialMenu:NavigationItemButton">
+        <Setter Property="Background" Value="{ThemeResource TelerikRadialMenuNavigationButtonBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikRadialMenuNavigationButtonBorderBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikRadialMenuNavigationButtonForegroundBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ContentGlyph" Value="&#xE0E4;"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localRadialMenu:NavigationItemButton">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_PathElement" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuNavigationButtonPointerOverBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_PathElement" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialDisabledMenuButtonBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <TextBlock IsHitTestVisible="False" x:Name="PART_ArrowGlyph" Foreground="{TemplateBinding Foreground}" Text="{TemplateBinding ContentGlyph}" FontFamily="Segoe UI Symbol" 
+                                      FontWeight="Bold" FontSize="15" Canvas.ZIndex="102"/>
+                        <Path x:Name="PART_PathElement" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}"  Canvas.ZIndex="100"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localRadialMenu:DecorationItemButton">
+        <Setter Property="Background" Value="{ThemeResource TelerikRadialMenuStateItemButtonPointerOverBackgroundBrush}"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localRadialMenu:DecorationItemButton">
+                    <Canvas>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_PointerOverPathElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ArrowElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected"/>
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_SelectedPathElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ArrowElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_SelectedPathElement" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuStateItemButtonSelectedBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ArrowElement" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuStateItemButtonSelectedBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedPointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_SelectedPathElement" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuStateItemButtonSelectedPointerOverBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ArrowElement" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuStateItemButtonSelectedPointerOverBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_SelectedPathElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ArrowElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_PointerOverPathElement" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Path x:Name="PART_ArrowElement" Canvas.ZIndex="100" Fill="{TemplateBinding Background}" StrokeThickness="0" Visibility="Collapsed"/>
+                        <Path x:Name="PART_PointerOverPathElement" Fill="{TemplateBinding Background}" StrokeThickness="0"  Canvas.ZIndex="100" Visibility="Collapsed"/>
+                        <Path x:Name="PART_SelectedPathElement" Fill="{TemplateBinding Background}" StrokeThickness="0"  Canvas.ZIndex="100" Visibility="Collapsed"/>
+                    </Canvas>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Rectangle" x:Key="ContentMenuStyle">
+        <Setter Property="Fill" Value="{ThemeResource TelerikRadialMenuContentMenuBackgroundBrush}"/>
+        <Setter Property="Stroke" Value="{ThemeResource TelerikRadialMenuContentMenuBorderBrush}"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+    </Style>
+
+    <Style TargetType="Rectangle" x:Key="NavigationMenuStyle">
+        <Setter Property="Fill" Value="{ThemeResource TelerikRadialMenuNavigationMenuBackgroundBrush}"/>
+        <Setter Property="Stroke" Value="{ThemeResource TelerikRadialMenuNavigationMenuBorderBrush}"/>
+        <Setter Property="StrokeThickness" Value="2"/>
+    </Style>
+
+    <Style TargetType="local:RadRadialMenu">
+        <Setter Property="NavigationMenuBackgroundStyle" Value="{StaticResource NavigationMenuStyle}"/>
+        <Setter Property="ContentMenuBackgroundStyle" Value="{StaticResource ContentMenuStyle}"/>
+        <Setter Property="MinWidth" Value="265"/>
+        <Setter Property="MinHeight" Value="265"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadRadialMenu">
+                    <localRadialMenu:RadialPanel x:Name="PART_Panel">
+                        <localRadialMenu:RadialMenuButton x:Name="PART_Button" />
+                    </localRadialMenu:RadialPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localRadialMenu:MenuToolTip">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Foreground" Value="{ThemeResource TelerikRadialMenuToolTipForegroundBrush}"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikRadialMenuToolTipBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikRadialMenuToolTipBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="FontWeight" Value="ExtraLight"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <PopupThemeTransition/>
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localRadialMenu:MenuToolTip">
+                    <Border Background="{TemplateBinding Background}" Margin="10" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Center">
+                        <ContentControl Margin="5" FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Left" Foreground="{TemplateBinding Foreground}" Content="{TemplateBinding Content}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="localRadialMenu:RadialMenuItemControl">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikRadialMenuHeaderForegroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localRadialMenu:RadialMenuItemControl">
+                    <StackPanel>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="Loading" GeneratedDuration="0:0:0.3" To="*">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="HeaderPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="HeaderPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="5">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IconPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="IconPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="12">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="IconPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{ThemeResource TelerikRadialMenuIconForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition From="Loading" GeneratedDuration="0:0:0.3" To="Selected">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="IconPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuIconSelectedForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="HeaderPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuHeaderSelectedForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="HeaderPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="HeaderPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="5">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IconPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="IconPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="10">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition From="Loading" GeneratedDuration="0:0:0.3" To="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="IconPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialDisabledMenuButtonForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="HeaderPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialDisabledMenuButtonForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="HeaderPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="HeaderPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="5">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="IconPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="IconPresenter">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="10">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                                                    <EasingDoubleKeyFrame.EasingFunction>
+                                                        <ExponentialEase EasingMode="EaseIn"/>
+                                                    </EasingDoubleKeyFrame.EasingFunction>
+                                                </EasingDoubleKeyFrame>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="IconPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuIconPointerOverForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="HeaderPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuHeaderPointerOverForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Loading">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="IconPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuIconForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="IconPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="HeaderPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="IconPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="10"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="IconPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuIconSelectedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="HeaderPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialMenuHeaderSelectedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="IconPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialDisabledMenuButtonForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="HeaderPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikRadialDisabledMenuButtonForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter VerticalAlignment="Bottom" Foreground="{ThemeResource TelerikRadialMenuIconForegroundBrush}" UseLayoutRounding="True" x:Name="IconPresenter" FontFamily="Segoe UI Symbol" FontSize="20" HorizontalAlignment="Center" Content="{TemplateBinding IconContent}">
+                            <ContentPresenter.RenderTransform>
+                                <CompositeTransform/>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+                        <ContentPresenter VerticalAlignment="Bottom" Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}" x:Name="HeaderPresenter" HorizontalAlignment="Center" Content="{TemplateBinding Header}">
+                            <ContentPresenter.RenderTransform>
+                                <CompositeTransform/>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- End Radial Menu -->
+
+</ResourceDictionary>

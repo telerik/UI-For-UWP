@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <IsCoreAssembly>true</IsCoreAssembly>
+    <IsSubFolderAssembly>true</IsSubFolderAssembly>
+    <PlatformFolder>$(Platform)</PlatformFolder>
+    <OutputPath>bin\$(Configuration)\$(PlatformFolder)\</OutputPath>
+    <BinariesOutDir>..\..\..\Binaries$(UWPSuffix)</BinariesOutDir>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1652093C-B541-48C9-BCB6-BBE7CE7C7FFE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Telerik.Core</RootNamespace>
+    <AssemblyName>Telerik.Core</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>$(OutputPath)\Telerik.Core.XML</DocumentationFile>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\BuildTools\Win8PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animation\AnimationContext.cs" />
+    <Compile Include="Animation\AnimationEndedEventArgs.cs" />
+    <Compile Include="Animation\AnimationExtensions.cs" />
+    <Compile Include="Animation\AnimationFillBehavior.cs" />
+    <Compile Include="Animation\AnimationGroup.cs" />
+    <Compile Include="Animation\RadAnimationManager.cs" />
+    <Compile Include="Animation\AnimationSelector.cs" />
+    <Compile Include="Animation\AnimationSelectorBase.cs" />
+    <Compile Include="Animation\Animations\RadContinuumAnimation.cs" />
+    <Compile Include="Animation\Animations\EmptyAnimation.cs" />
+    <Compile Include="Animation\Animations\FadeAnimation.cs" />
+    <Compile Include="Animation\Animations\Helpers\ElementScreenShotInfo.cs" />
+    <Compile Include="Animation\Animations\MoveAndFadeAnimation.cs" />
+    <Compile Include="Animation\Animations\MoveAnimation.cs" />
+    <Compile Include="Animation\Animations\MoveAnimationBase.cs" />
+    <Compile Include="Animation\Animations\MoveAnimationPointMode.cs" />
+    <Compile Include="Animation\Animations\MoveDirection.cs" />
+    <Compile Include="Animation\Animations\MoveXAnimation.cs" />
+    <Compile Include="Animation\Animations\MoveYAnimation.cs" />
+    <Compile Include="Animation\Animations\PlaneProjectionAnimation.cs" />
+    <Compile Include="Animation\Animations\RadTileAnimation.cs" />
+    <Compile Include="Animation\Animations\ResizeAnimation.cs" />
+    <Compile Include="Animation\Animations\ResizeHeightAnimation.cs" />
+    <Compile Include="Animation\Animations\ResizeWidthAnimation.cs" />
+    <Compile Include="Animation\Animations\ScaleAndFadeAnimation.cs" />
+    <Compile Include="Animation\Animations\ScaleAndMoveAnimation.cs" />
+    <Compile Include="Animation\Animations\ScaleAnimation.cs" />
+    <Compile Include="Animation\Animations\ScaleMoveAndFadeAnimation.cs" />
+    <Compile Include="Animation\Animations\ScaleMoveAndRotateAnimation.cs" />
+    <Compile Include="Animation\Animations\ScaleXAnimation.cs" />
+    <Compile Include="Animation\Animations\ScaleYAnimation.cs" />
+    <Compile Include="Animation\Animations\SlideAnimation.cs" />
+    <Compile Include="Animation\Animations\SlideContinuumAnimation.cs" />
+    <Compile Include="Animation\Easings.cs" />
+    <Compile Include="Animation\IInOutAnimation.cs" />
+    <Compile Include="Animation\InOutAnimationMode.cs" />
+    <Compile Include="Animation\MotionParameters.cs" />
+    <Compile Include="Animation\PlayAnimationInfo.cs" />
+    <Compile Include="Animation\RadAnimation.cs" />
+    <Compile Include="Animation\SequentialMode.cs" />
+    <Compile Include="Appointments\AppointmentSource.cs" />
+    <Compile Include="Appointments\DateTimeAppointment.cs" />
+    <Compile Include="Appointments\IAppointment.cs" />
+    <Compile Include="BindingExpressionHelper.cs" />
+    <Compile Include="CommonExtensions.cs" />
+    <Compile Include="CommonStrings.cs" />
+    <Compile Include="Common\BaseCommand.cs" />
+    <Compile Include="Common\BitStateChangedEventArgs.cs" />
+    <Compile Include="Common\BitVector32.cs" />
+    <Compile Include="Common\DisposableObject.cs" />
+    <Compile Include="Common\ElementTreeHelper.cs" />
+    <Compile Include="Common\ExportHelper.cs" />
+    <Compile Include="Common\HslColor.cs" />
+    <Compile Include="Common\IAsyncDataErrorInfo.cs" />
+    <Compile Include="Common\ICloneable.cs" />
+    <Compile Include="Common\IItemsContainer.cs" />
+    <Compile Include="Common\ItemPropertyChangedEventArgs.cs" />
+    <Compile Include="Common\NotifyCurrentItemChangedEventArgs.cs" />
+    <Compile Include="Common\Pair.cs" />
+    <Compile Include="Common\Range.cs" />
+    <Compile Include="Common\SkipAutoGenerateAttribute.cs" />
+    <Compile Include="Common\StreamHelper.cs" />
+    <Compile Include="Common\SuspendableObject.cs" />
+    <Compile Include="Common\ValidateViewModelBase.cs" />
+    <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Convertes\BoolToVisibilityConverter.cs" />
+    <Compile Include="Convertes\IFormatSelector.cs" />
+    <Compile Include="Convertes\NumericConverter.cs" />
+    <Compile Include="Convertes\StringToUpperConverter.cs" />
+    <Compile Include="Data\PropertyValueLookup.cs" />
+    <Compile Include="Data\ValueLookup.cs" />
+    <Compile Include="DynamicHelper.cs" />
+    <Compile Include="ElementTree\Element.cs" />
+    <Compile Include="ElementTree\ElementCollection.cs" />
+    <Compile Include="ElementTree\Events\RadPropertyEventArgs.cs" />
+    <Compile Include="ElementTree\FastPropertyStore.cs" />
+    <Compile Include="ElementTree\IElementPresenter.cs" />
+    <Compile Include="ElementTree\IView.cs" />
+    <Compile Include="ElementTree\Messaging\Message.cs" />
+    <Compile Include="ElementTree\Messaging\MessageDispatchMode.cs" />
+    <Compile Include="ElementTree\Messaging\MessageDispatchPhase.cs" />
+    <Compile Include="ElementTree\ModifyChildrenResult.cs" />
+    <Compile Include="ElementTree\Node.cs" />
+    <Compile Include="ElementTree\NodeCollection.cs" />
+    <Compile Include="ElementTree\NodeState.cs" />
+    <Compile Include="ElementTree\PropertyBagObject.cs" />
+    <Compile Include="ElementTree\PropertyKeys.cs" />
+    <Compile Include="ElementTree\RootElement.cs" />
+    <Compile Include="ElementTree\TreeTraversalMode.cs" />
+    <Compile Include="Localization\LocalizationManager.cs" />
+    <Compile Include="Localization\StringResourceLoader.cs" />
+    <Compile Include="Math\RadCircle.cs" />
+    <Compile Include="Math\RadLine.cs" />
+    <Compile Include="Math\RadMath.cs" />
+    <Compile Include="Math\RadPoint.cs" />
+    <Compile Include="Math\RadRect.cs" />
+    <Compile Include="Math\RadSize.cs" />
+    <Compile Include="Math\RadThickness.cs" />
+    <Compile Include="Math\ValueRange.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflection\ReflectionHelper.cs" />
+    <Compile Include="WeakEvents\KnownEvents.cs" />
+    <Compile Include="WeakEvents\WeakEventHandler.cs" />
+    <Compile Include="WeakEvents\WeakEventHandlerList.cs" />
+    <Compile Include="WeakEvents\WeakEventListener.cs" />
+    <Compile Include="WeakEvents\WeakReferenceList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Runtime.WindowsRuntime.UI.Xaml">
+      <HintPath>$(WINDIR)\Microsoft.NET\Framework64\v4.0.30319\System.Runtime.WindowsRuntime.UI.Xaml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\default.rd.xml">
+      <Link>Properties\default.rd.xml</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+</Project>

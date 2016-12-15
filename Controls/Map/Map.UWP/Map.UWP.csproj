@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <PlatformFolder>$(Platform)</PlatformFolder>
+    <OutputPath>bin\$(PlatformFolder)\$(Configuration)\</OutputPath>
+    <DocumentationFile Condition=" '$(Configuration)' == 'Release' OR '$(Configuration)' == 'ReleaseTrial' ">$(OutputPath)\Telerik.UI.Xaml.Map.UWP.XML</DocumentationFile>
+    <ControlName>Map</ControlName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{36887B1C-71B7-4619-8F19-14A3F60D55DE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Telerik.UI.Xaml.Controls.Map</RootNamespace>
+    <AssemblyName>Telerik.UI.Xaml.Map.UWP</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseTrial|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;TRIAL</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseTrial|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;TRIAL</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseTrial|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;TRIAL</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviors\MapBehavior.cs" />
+    <Compile Include="Behaviors\MapBehaviorCollection.cs" />
+    <Compile Include="Behaviors\MapShapePointerOverBehavior.cs" />
+    <Compile Include="Behaviors\PanAndZoom\MapDoubleTapAction.cs" />
+    <Compile Include="Behaviors\PanAndZoom\MapPanAndZoomBehavior.cs" />
+    <Compile Include="Behaviors\PanAndZoom\MapZoomMode.cs" />
+    <Compile Include="Behaviors\Selection\MapShapeSelectionBehavior.cs" />
+    <Compile Include="Behaviors\Selection\MapShapeSelectionMode.cs" />
+    <Compile Include="Behaviors\ToolTip\MapShapeToolTipBehavior.cs" />
+    <Compile Include="Behaviors\ToolTip\MapShapeToolTipContext.cs" />
+    <Compile Include="Behaviors\ToolTip\MapToolTip.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IShapeDataSource.cs" />
+    <Compile Include="ISpatialReference.cs" />
+    <Compile Include="ITransportResolver.cs" />
+    <Compile Include="Layers\Colorization\ChoroplethColorizer.cs" />
+    <Compile Include="Layers\Colorization\ChoroplethRangeDistribution.cs" />
+    <Compile Include="Layers\Colorization\ColorRange.cs" />
+    <Compile Include="Layers\Colorization\DesaturationColorizer.cs" />
+    <Compile Include="Layers\Colorization\LinearRangeDistribution.cs" />
+    <Compile Include="Layers\Colorization\LogarithmicRangeDistribution.cs" />
+    <Compile Include="Layers\Colorization\MapShapeColorizer.cs" />
+    <Compile Include="Layers\Colorization\PaletteColorizer.cs" />
+    <Compile Include="Layers\IMapDataItem.cs" />
+    <Compile Include="Layers\MapDataItem.cs" />
+    <Compile Include="Layers\MapLayer.cs" />
+    <Compile Include="Layers\MapLayerCollection.cs" />
+    <Compile Include="Layers\MapShapeLabelLayoutContext.cs" />
+    <Compile Include="Layers\MapShapeLabelLayoutStrategy.cs" />
+    <Compile Include="Layers\MapShapeLayer.cs" />
+    <Compile Include="Layers\MapShapeStyleContext.cs" />
+    <Compile Include="Layers\MapShapeStyleSelector.cs" />
+    <Compile Include="Layers\MapUserLayer.cs" />
+    <Compile Include="LocalTransportResolver.cs" />
+    <Compile Include="MercatorProjection.cs" />
+    <Compile Include="RadMap.cs" />
+    <Compile Include="RadMap.Manipulation.cs" />
+    <Compile Include="RadMap.Services.cs" />
+    <Compile Include="Services\Commands\CommandId.cs" />
+    <Compile Include="Services\Commands\MapCommand.cs" />
+    <Compile Include="Services\Commands\MapCommandService.cs" />
+    <Compile Include="Services\Commands\MapUserCommand.cs" />
+    <Compile Include="Services\Commands\ShapeLayerSourceChangedCommand.cs" />
+    <Compile Include="Services\Commands\ShapeSelectionChangedCommand.cs" />
+    <Compile Include="Services\Commands\ViewChangedCommand.cs" />
+    <Compile Include="Services\Commands\ViewChangedContext.cs" />
+    <Compile Include="ShapefileDataSource.cs" />
+    <Compile Include="SpatialReference.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ToolboxIcons\Telerik.UI.Xaml.Controls.Map.RadMap.Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeResourcesDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeResourcesLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Drawing.UWP\DrawingUWP\DrawingUWP.vcxproj">
+      <Project>{b17fe684-064e-496d-8557-d2ae4fb16f01}</Project>
+      <Name>Telerik.UI.Drawing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core.UWP\Core.UWP.csproj">
+      <Project>{1652093c-b541-48c9-bcb6-bbe7ce7c7ffe}</Project>
+      <Name>Core.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Map.Utils\Map.Utils.UWP\Map.Utils.UWP.csproj">
+      <Project>{6fcb8023-63cd-4f58-897e-364aee0005c9}</Project>
+      <Name>Map.Utils.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Primitives\Primitives.UWP\Primitives.UWP.csproj">
+      <Project>{bf14f352-f1b9-4cde-854b-0339259a4cfd}</Project>
+      <Name>Primitives.UWP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\BuildTools\Win8PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

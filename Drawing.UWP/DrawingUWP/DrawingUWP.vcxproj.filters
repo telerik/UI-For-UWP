@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>ad1d59aa-e334-4202-a804-4544c420ab89</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="D2DBrush.cpp" />
+    <ClCompile Include="D2DCanvas.cpp" />
+    <ClCompile Include="D2DGeometryShape.cpp" />
+    <ClCompile Include="D2DLine.cpp" />
+    <ClCompile Include="D2DMultiPolygon.cpp" />
+    <ClCompile Include="D2DPolyline.cpp" />
+    <ClCompile Include="D2DRectangle.cpp" />
+    <ClCompile Include="D2DRenderContext.cpp" />
+    <ClCompile Include="D2DResource.cpp" />
+    <ClCompile Include="D2DShape.cpp" />
+    <ClCompile Include="D2DShapeContainer.cpp" />
+    <ClCompile Include="D2DShapeLayer.cpp" />
+    <ClCompile Include="D2DShapeStyle.cpp" />
+    <ClCompile Include="D2DSolidColorBrush.cpp" />
+    <ClCompile Include="D2DTextBlock.cpp" />
+    <ClCompile Include="D2DTextStyle.cpp" />
+    <ClCompile Include="D3DResources.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="D2DBrush.h" />
+    <ClInclude Include="D2DCanvas.h" />
+    <ClInclude Include="D2DGeometryShape.h" />
+    <ClInclude Include="D2DLine.h" />
+    <ClInclude Include="D2DMultiPolygon.h" />
+    <ClInclude Include="D2DPolyline.h" />
+    <ClInclude Include="D2DRectangle.h" />
+    <ClInclude Include="D2DRenderContext.h" />
+    <ClInclude Include="D2DResource.h" />
+    <ClInclude Include="D2DShape.h" />
+    <ClInclude Include="D2DShapeContainer.h" />
+    <ClInclude Include="D2DShapeLayer.h" />
+    <ClInclude Include="D2DShapeStyle.h" />
+    <ClInclude Include="D2DSolidColorBrush.h" />
+    <ClInclude Include="D2DTextBlock.h" />
+    <ClInclude Include="D2DTextStyle.h" />
+    <ClInclude Include="D3DResources.h" />
+    <ClInclude Include="Enumerations.h" />
+    <ClInclude Include="Extensions.h" />
+  </ItemGroup>
+</Project>

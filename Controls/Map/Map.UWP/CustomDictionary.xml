@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Dictionary>
+  <Words>
+    <Recognized>
+      <Word>telerik</Word>
+    </Recognized>
+    <Recognized>
+      <Word>choropleth</Word>
+    </Recognized>
+    <Recognized>
+      <Word>gcs</Word>
+    </Recognized>
+    <Recognized>
+      <Word>primem</Word>
+    </Recognized>
+    <Recognized>
+      <Word>shapefile</Word>
+    </Recognized>
+  </Words>
+</Dictionary>
