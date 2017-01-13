@@ -1,6 +1,6 @@
 # UI for Universal Windows Platform
 
-Telerik UI for Windows Universal is built to target UWP windows 10 application development and deliver a unique experience based on the [Microsoft UX guidelines for Windows Runtime apps](http://msdn.microsoft.com/en-us/library/windows/apps/hh465424.aspx).
+Telerik UI for Windows Universal is built to target UWP Windows 10 application development and deliver a unique experience based on the [Microsoft UX guidelines for Windows Runtime apps](http://msdn.microsoft.com/en-us/library/windows/apps/hh465424.aspx).
 
 * [RadAutoCompleteBox](http://docs.telerik.com/windows-universal/controls/radautocompletebox/autocompletebox-overview)
 * [RadBulletGraph](http://docs.telerik.com/windows-universal/controls/radbulletgraph/bulletgraph-overview)
