@@ -1,8 +1,8 @@
-# Contributing to UI for UWP
+# Contributing to UI for Universal Windows Platform
 
 ## Before You Start
 
-Anyone wishing to contribute to the UI for UWP project MUST read & sign the [Kendo UI Core Contribution License Agreement]([TODO link]). UI for UWP team cannot accept pull requests from users who have not signed the CLA first.
+Anyone wishing to contribute to the UI for Universal Windows Platform project MUST read & sign the [UI For Universal Windows Platform Contribution License Agreement](https://github.com/telerik/UI-For-UWP/blob/master/CLA.docs). The UI for UWP team cannot accept pull requests from users who have not signed the CLA first.
 
 ## Introduction
 
@@ -12,15 +12,16 @@ These guidelines are here to facilitate your contribution and streamline the pro
 
 1. Always update to the most recent master release; the bug may already be resolved.
 2. Search for similar issues in the issues list for this repo; it may already be an identified problem.
-4. If this is a bug or problem that is clear, simple, and is unlikely to require any discussion -- it is OK to open an issue on GitHub with a reproduction of the bug including workflows, screenshots, or links to examples. If you'd rather take matters into your own hands, fix the bug yourself (jump down to the "Code Fixes and Enhancements" section).
+3. Make sure you can reproduce your problem locally in an isolated project with no external dependencies.
+4. If this is a bug or problem that is clear, simple, and is unlikely to require any discussion -- it is OK to open an issue on GitHub with a reproduction of the bug including workflows, screenshots, links to examples. If you'd rather take matters into your own hands, fix the bug yourself (jump down to the "Code Fixes and Enhancements" section).
 
 ## Requesting New Features
 
-Do not submit a feature request on GitHub; all feature requests on GitHub will be closed. Instead, visit the [UI for UWP Feedback portal](https://feedback.telerik.com/Project/167/Feedback), and search this list for similar feature requests.
+Do not submit a feature request on GitHub; all feature requests on GitHub will be closed. Instead, visit the [UI for UWP Feedback portal](https://feedback.telerik.com/Project/167), and search this list for similar feature requests.
 
 ## Asking for Help
 
-The UI for UWP does *not* provide formal support for UI for UWP, except to those customers who have purchased a [commercial license for UI for UWP](http://www.telerik.com/universal-windows-platform-ui) or a support-only package from Telerik.com. Please do not create support requests for this project in the issues list for this repo, as these will be immediately closed and you'll be directed to post your question on a community forum.
+The UI for UWP team does *not* provide formal support for the product, except to those customers who have purchased a [commercial license for UI for UWP](http://www.telerik.com/universal-windows-platform-ui) or a support-only package from Telerik.com. Please do not create support requests for this project in the issues list for this repo, as these will be immediately closed and you'll be directed to post your question on a community forum.
 
 ## Code Fixes and Enhancements
 
@@ -47,6 +48,7 @@ If you don't use a topic branch, we may ask you to re-do your pull request on a 
 Always create a branch for your work from the "master" branch.
 This will facilitate easier pull request management for the continuous work that is done in the master branch.
 
+
 #### (optional) Squash your commits
 
 When you've completed your work on a topic branch, you may squash your work down into fewer commits to make the merge process easier. For information on squashing via an interactive rebase, see [the rebase documentation on GitHub](https://help.github.com/articles/interactive-rebase)
@@ -55,7 +57,7 @@ When you've completed your work on a topic branch, you may squash your work down
 
 See [Github's documentation for pull requests](https://help.github.com/articles/using-pull-requests).
 
-Pull requests are the preferred way to contribute to UI for UWP. Any time you can send us a pull request with the changes that you want, we will have an easier time seeing what you are trying to do. But a pull request in itself is not usually sufficient. There needs to be some context and purpose with it, and it should be done against specific branch.
+Pull requests are the preferred way to contribute to UI for UWP. Any time you can send us a pull request with the changes that you want, we will have an easier time seeing what you are trying to do. But a pull request itself is not usually sufficient. There needs to be some context and purpose with it, and it should be done against specific branch.
 
 ### Provide A Meaningful Description
 
@@ -76,7 +78,8 @@ Without at least the first 2 items in this list, we won't have any clue why you'
 All code contributed to this project should adhere to a consistent style, so please keep these in mind before you submit your Pull Requests:
 
 - Space indentation, size of 4
-[TODO]
-
+- Do use braces for one-line blocks (if, for, while, do)
+- Place braces, "else", "catch", and "finally" on new line
+- Qualify member access with this
 
 Beyond these, your best bet when in doubt is to follow The Stylecop and Code analisys enabled for the Project(remember to build in Release).
