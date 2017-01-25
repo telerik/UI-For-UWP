@@ -1,5 +1,0 @@
-UI for UWP
-Copyright © 2015-2017 Telerik AD.  All rights reserved.
-
-This product includes software developed at
-Telerik AD (http://www.telerik.com/).
