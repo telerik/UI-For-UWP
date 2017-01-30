@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="CopyBinaries" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="Config.UWP.proj"  />
+	<PropertyGroup>
+		<BuildDependsOn>
+			$(BuildDependsOn);
+			CopyBinaries;
+		</BuildDependsOn>
+	</PropertyGroup>
+
+
+  <Target Name="CopyBinaries">
+
+		<PropertyGroup>
+			<PlatformSubFolder Condition=" '$(Platform)' != 'AnyCPU' ">$(Platform)\</PlatformSubFolder>
+			<TargetPlatformSubFolder Condition=" '$(PlatformSubFolder)' == 'Win32\' ">x86\</TargetPlatformSubFolder>
+			<TargetPlatformSubFolder Condition=" '$(PlatformSubFolder)' != 'Win32\' ">$(PlatformSubFolder)</TargetPlatformSubFolder>
+			<BinariesSourceFolder>$(MSBuildProjectDirectory)\bin\$(PlatformSubFolder)$(Configuration)</BinariesSourceFolder>
+            <XBFSourceFolder>$(MSBuildProjectDirectory)\obj\$(PlatformSubFolder)\$(Configuration)\$(AssemblyName)\Themes</XBFSourceFolder>
+			<BinariesDestinationFolder>$(BinariesOutDir)\$(TargetPlatformSubFolder)</BinariesDestinationFolder>
+		</PropertyGroup>
+
+		<ItemGroup>
+			<Binaries Condition=" '$(ControlName)' == '' "
+                      Include="$(BinariesSourceFolder)\**\*"
+                      Exclude="$(BinariesSourceFolder)\**\*.tmp;
+							   $(BinariesSourceFolder)\**\*CodeAnalysisLog.xml;
+							   $(BinariesSourceFolder)\**\*.lastcodeanalysissucceeded;
+                 $(BinariesSourceFolder)\System.Runtime.WindowsRuntime.UI.Xaml.dll
+							   "/>
+			<Binaries Condition=" '$(ControlName)' != '' "
+                      Include="$(BinariesSourceFolder)\**\*$(ControlName)*\**\*;$(BinariesSourceFolder)\**\*$(ControlName)*"
+                      Exclude="$(BinariesSourceFolder)\**\*.tmp;
+			  				   $(BinariesSourceFolder)\**\*CodeAnalysisLog.xml;
+							   $(BinariesSourceFolder)\**\*.lastcodeanalysissucceeded
+							   "/>
+
+			<Binaries1 Condition=" '$(IsCoreAssembly)' != 'true'"
+							Include="@(Binaries)"
+							Exclude="$(BinariesSourceFolder)\**\Telerik.Core*.*;
+								     $(BinariesSourceFolder)\**\Telerik.Data*.*" />
+			<Binaries1 Condition=" '$(IsCoreAssembly)' == 'true'"
+							Include="@(Binaries)" />
+
+			<BinariesToCopy Condition=" '$(IsImageEditorTools)' == 'true' "
+							Include="@(Binaries1)"
+							Exclude="$(BinariesSourceFolder)\**\Telerik.UI.Xaml.Primitives*.*;
+									 $(BinariesSourceFolder)\**\Telerik.UI.Xaml.Input*.*;
+									 $(BinariesSourceFolder)\**\*lumia*.*" />
+			<BinariesToCopy Condition=" '$(IsImageEditorTools)' != 'true' "
+							Include="@(Binaries1)" />
+		</ItemGroup>
+
+    <ItemGroup>
+      <XBFFiles Include="$(XBFSourceFolder)\**\*.xbf" />
+    </ItemGroup>
+
+		<Message Text="DEBUG INFO: CopyBinaries from: &quot;$(BinariesSourceFolder)&quot; Configuration=$(Configuration) to: &quot;$(BinariesDestinationFolder)&quot;"   />
+		<Copy SourceFiles="@(BinariesToCopy)"
+              DestinationFolder="$(BinariesDestinationFolder)\%(RecursiveDir)"   />
+
+    <Message Text="DEBUG INFO: CopyXBF from: &quot;$(XBFSourceFolder)&quot; Configuration=$(Configuration) --- @(XBFFiles)"   />
+    <Copy SourceFiles="@(XBFFiles)"
+          DestinationFolder="$(BinariesDestinationFolder)\$(AssemblyName)\Themes\%(RecursiveDir)" />
+
+    </Target>
+
+</Project>
