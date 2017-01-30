@@ -77,9 +77,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Converters\EnumToIndexConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Converters\IsEnabledEditorConvetrer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\EditorFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\AutoCompleteEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\BooleanEditor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\DFDateTimePickerButton.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\DFNumericTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\DataFormAutoCompleteTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\DataFormDateTimePickerButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\DataFormNumericTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\DataFormTextBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\ITypeEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\CustomEditorBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\SegmentedControlCustomEditor.cs" />
@@ -168,6 +171,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ListView\View\LayoutDefinitions\GridLayoutDefinition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ListView\View\LayoutDefinitions\StaggeredLayoutDefinition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ListView\View\ListViewGroupHeaderDisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ListView\View\ListViewItemSwipeDirection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ListView\View\RadListView.ItemCheckBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ChildrenListViewPanel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ListView\View\Controls\ChildrenListViewPanel.DragDrop.cs" />

@@ -1,15 +1,26 @@
 ﻿using System;
-using System.Collections;
 using Telerik.UI.Xaml.Controls.Data.ListView;
 using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
 using Windows.Foundation;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
     public partial class RadListView
     {
+
+        public ListViewItemSwipeDirection ItemSwipeDirection
+        {
+            get { return (ListViewItemSwipeDirection)GetValue(ItemSwipeDirectionProperty); }
+            set { SetValue(ItemSwipeDirectionProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ItemSwipeDirection.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ItemSwipeDirectionProperty =
+            DependencyProperty.Register("ItemSwipeDirection", typeof(ListViewItemSwipeDirection), typeof(RadListView), new PropertyMetadata(ListViewItemSwipeDirection.All, OnItemSwipeDirectionChanged));
+
         private const double CheckBoxSelectionTouchTargetThreshold = 20;
 
         /// <summary>
@@ -83,6 +94,15 @@ namespace Telerik.UI.Xaml.Controls.Data
             if (item != null)
             {
                 this.commandService.ExecuteCommand(CommandId.ItemActionTap, new ItemActionTapContext(item, radListViewItem, offset));
+            }
+        }
+
+        private static void OnItemSwipeDirectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var listView = d as RadListView;
+            if (listView != null && listView.IsTemplateApplied)
+            {
+                listView.updateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
             }
         }
     }

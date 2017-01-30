@@ -454,8 +454,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         private void PopupClosed(object sender, object e)
         {
-            this.Hide(DataGridFlyoutId.All);
-           
             var handler = this.Closed;
             if (handler != null)
             {

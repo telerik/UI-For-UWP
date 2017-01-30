@@ -190,7 +190,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private bool shouldMarkText;
         private bool setProgrammaticFocus;
         private bool noResultsFound;
-
+        private bool textChangedWhileDropDownClosed = false;
         /// <summary>
         /// Initializes a new instance of the <see cref="RadAutoCompleteBox" /> class.
         /// </summary>
@@ -1205,7 +1205,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 return;
             }
-
+        
             if (autoCompleteBox.IsDropDownOpen)
             {
                 // NOTE: Implicit style for the popup child not applied on time unless we invoke this asynchronously. 
@@ -1247,6 +1247,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
+                autoCompleteBox.textChangedWhileDropDownClosed = false;
                 autoCompleteBox.suggestionsPopup.HorizontalOffset = 0;
                 autoCompleteBox.suggestionsPopup.VerticalOffset = 0;
 
@@ -1289,6 +1290,11 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void OnTextBoxTextChanged(object sender, TextChangedEventArgs args)
         {
+            if(!this.IsDropDownOpen)
+            {
+                this.textChangedWhileDropDownClosed = true;
+            }
+
             this.RefreshSuggestions();
 
             this.UpdateWatermarkVisibility();
@@ -1362,14 +1368,14 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.suggestionsProvider.Reset();
             }
         }
-
+         
         private void OnSuggestionsProviderPropertyChanged(object sender, PropertyChangedEventArgs args)
         {
             if (args.PropertyName == "FilteredItems")
             {
                 this.OnPropertyChanged(args);
 
-                if (!this.IsTemplateApplied || this.dropDownPlacementCache == AutoCompleteBoxPlacementMode.None || this.textChangedByPopupInteraction)
+                if (!this.IsTemplateApplied || this.dropDownPlacementCache == AutoCompleteBoxPlacementMode.None || this.textChangedByPopupInteraction || (!this.IsDropDownOpen && !this.textChangedWhileDropDownClosed))
                 {
                     return;
                 }
@@ -1378,11 +1384,11 @@ namespace Telerik.UI.Xaml.Controls.Input
 
                 if (this.suggestionsProvider.HasItems)
                 {
-                    if(this.IsDropDownOpen)
-                    {
-                        this.IsDropDownOpen = false;
-                    }
-                    this.IsDropDownOpen = true;
+                        if(this.IsDropDownOpen)
+                        {
+                            this.IsDropDownOpen = false;
+                        }
+                        this.IsDropDownOpen = true;
 
                     // NOTE: FilteredItems can be changed if popup is already open.
                     this.suggestionsControl.SelectOrScrollToFirstItem();

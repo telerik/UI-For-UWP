@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.ComponentModel;
 using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
 using Telerik.UI.Xaml.Controls.Data.ListView.View.Controls;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
-using Windows.Foundation;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView
 {
@@ -62,11 +57,34 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                     {
                         if (this.Owner.Orientation == Orientation.Horizontal)
                         {
-                            DragDrop.SetDragPositionMode(this, DragPositionMode.RailY);
+                            if(this.SwipeDirection == ListViewItemSwipeDirection.Forward)
+                            {
+                                DragDrop.SetDragPositionMode(this, DragPositionMode.RailYForward);
+                            }
+                            else if(this.SwipeDirection == ListViewItemSwipeDirection.Backwards)
+                            {
+                                DragDrop.SetDragPositionMode(this, DragPositionMode.RailYBackwards);
+                            }
+                            else if(this.SwipeDirection == ListViewItemSwipeDirection.All)
+                            {
+                                DragDrop.SetDragPositionMode(this, DragPositionMode.RailY);
+                            }
+                           
                         }
                         else
                         {
-                            DragDrop.SetDragPositionMode(this, DragPositionMode.RailX);
+                            if (this.SwipeDirection == ListViewItemSwipeDirection.Forward)
+                            {
+                                DragDrop.SetDragPositionMode(this, DragPositionMode.RailXForward);
+                            }
+                            else if (this.SwipeDirection == ListViewItemSwipeDirection.Backwards)
+                            {
+                                DragDrop.SetDragPositionMode(this, DragPositionMode.RailXBackwards);
+                            }
+                            else if (this.SwipeDirection == ListViewItemSwipeDirection.All)
+                            {
+                                DragDrop.SetDragPositionMode(this, DragPositionMode.RailX);
+                            }
                         }
 
                         isExecuted = this.ListView.commandService.ExecuteCommand(CommandId.ItemDragStarting, new ItemDragStartingContext(dataItem, DragAction.ItemAction, this));
@@ -169,11 +187,29 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 {
                     if (this.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical)
                     {
-                        return Math.Abs(this.dragX) > this.ListView.ItemSwipeThreshold;
+                        switch(this.SwipeDirection)
+                        {
+                            case ListViewItemSwipeDirection.Forward:
+                                return this.dragX > this.ListView.ItemSwipeThreshold;
+                            case ListViewItemSwipeDirection.Backwards:
+                                return this.dragX < 0 && Math.Abs(this.dragX) > this.ListView.ItemSwipeThreshold;
+                            case ListViewItemSwipeDirection.All:
+                            default:
+                                return Math.Abs(this.dragX) > this.ListView.ItemSwipeThreshold;
+                        }
                     }
                     else
                     {
-                        return Math.Abs(this.dragY) > this.ListView.ItemSwipeThreshold;
+                        switch (this.SwipeDirection)
+                        {
+                            case ListViewItemSwipeDirection.Forward:
+                                return this.dragY > this.ListView.ItemSwipeThreshold;
+                            case ListViewItemSwipeDirection.Backwards:
+                                return this.dragY < 0 && Math.Abs(this.dragY) > this.ListView.ItemSwipeThreshold;
+                            case ListViewItemSwipeDirection.All:
+                            default:
+                                return Math.Abs(this.dragY) > this.ListView.ItemSwipeThreshold;
+                        }
                     }
                 }
             }
@@ -232,8 +268,44 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             {
                 if (context.DragSuccessful)
                 {
-                    var offset = this.ListView.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? this.dragY : this.dragX;
 
+                    double offset = 0;
+                    var dragMode = DragDrop.GetDragPositionMode(this);
+
+                    if(this.ListView.Orientation == Orientation.Horizontal)
+                    {
+                        switch(dragMode)
+                        {
+                            case DragPositionMode.RailXForward:
+                                offset = Math.Max(0,this.dragY);
+                                break;
+                            case DragPositionMode.RailXBackwards:
+                                offset = Math.Min(0, dragY);
+                                break;
+                            case DragPositionMode.RailX:
+                                offset = this.dragY;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (dragMode)
+                        {
+                            case DragPositionMode.RailXForward:
+                                offset = Math.Max(0, this.dragX);
+                                break;
+                            case DragPositionMode.RailXBackwards:
+                                offset = Math.Min(0, dragX);
+                                break;
+                            case DragPositionMode.RailX:
+                                offset = this.dragX;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                     var swipeContext = new ItemSwipeActionCompleteContext(this.DataContext, this, offset);
 
                     bool isExecuted = this.ListView.commandService.ExecuteCommand(CommandId.ItemSwipeActionComplete, swipeContext);

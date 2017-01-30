@@ -62,7 +62,7 @@
     </Style>
 
     <!--NUMERIC EDITOR START-->
-    <Style TargetType="dataForm:DFNumericTextBox">
+    <Style TargetType="dataForm:DataFormNumericTextBox">
         <Setter Property="Foreground" Value="{ThemeResource TelerikNumericBoxForegroundBrush}"/>
         <Setter Property="Background" Value="{ThemeResource TelerikNumericBoxBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikNumericBoxBorderBrush}"/>
@@ -76,7 +76,7 @@
         <Setter Property="Padding" Value="5,3"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="dataForm:DFNumericTextBox">
+                <ControlTemplate TargetType="dataForm:DataFormNumericTextBox">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -202,7 +202,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <dataForm:DFNumericTextBox ErrorIconStyle="{TemplateBinding ErrorIconStyle}" HasErrors="{TemplateBinding HasErrors}" IconDisplayMode="{TemplateBinding IconDisplayMode}" LabelIconStyle="{TemplateBinding LabelIconStyle}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" x:Name="PART_TextBox" IsReadOnly="{Binding IsEditable, Converter={StaticResource EditableConverter}, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <dataForm:DataFormNumericTextBox ErrorIconStyle="{TemplateBinding ErrorIconStyle}" HasErrors="{TemplateBinding HasErrors}" IconDisplayMode="{TemplateBinding IconDisplayMode}" LabelIconStyle="{TemplateBinding LabelIconStyle}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" x:Name="PART_TextBox" IsReadOnly="{Binding IsEditable, Converter={StaticResource EditableConverter}, RelativeSource={RelativeSource TemplatedParent}}"/>
                             <primitivesCommon:InlineButton x:Name="PART_DecreaseButton" IsRepeatingEnabled="True" Visibility="{TemplateBinding ButtonsVisibility}"
                                              Grid.Column="1" Style="{TemplateBinding DecreaseButtonStyle}"/>
                             <primitivesCommon:InlineButton x:Name="PART_IncreaseButton" IsRepeatingEnabled="True"  Visibility="{TemplateBinding ButtonsVisibility}"
