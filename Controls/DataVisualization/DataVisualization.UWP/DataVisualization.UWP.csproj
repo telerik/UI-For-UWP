@@ -51,109 +51,109 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\DataVisualization.Windows\BulletGraph\AdditionalMeasuresCollection.cs">
+    <Compile Include="BulletGraph\AdditionalMeasuresCollection.cs">
       <Link>Bulletgraph\AdditionalMeasuresCollection.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\BulletGraph\BulletGraphComparativeMeasure.cs">
+    <Compile Include="BulletGraph\BulletGraphComparativeMeasure.cs">
       <Link>Bulletgraph\BulletGraphComparativeMeasure.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\BulletGraph\BulletGraphMeasureBase.cs">
+    <Compile Include="BulletGraph\BulletGraphMeasureBase.cs">
       <Link>Bulletgraph\BulletGraphMeasureBase.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\BulletGraph\BulletGraphQualitativeRangeCollection.cs">
+    <Compile Include="BulletGraph\BulletGraphQualitativeRangeCollection.cs">
       <Link>Bulletgraph\BulletGraphQualitativeRangeCollection.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\BulletGraph\RadBulletGraph.cs">
+    <Compile Include="BulletGraph\RadBulletGraph.cs">
       <Link>Bulletgraph\RadBulletGraph.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\BulletGraph\ValueToVisibilityConverter.cs">
+    <Compile Include="BulletGraph\ValueToVisibilityConverter.cs">
       <Link>Bulletgraph\ValueToVisibilityConverter.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\BulletGraph\VisibilityExtensions.cs">
+    <Compile Include="BulletGraph\VisibilityExtensions.cs">
       <Link>Bulletgraph\VisibilityExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\BarIndicatorSegment.cs">
+    <Compile Include="Gauges\BarIndicatorSegment.cs">
       <Link>Gauges\BarIndicatorSegment.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\CalculateAngleContext.cs">
+    <Compile Include="Gauges\CalculateAngleContext.cs">
       <Link>Gauges\CalculateAngleContext.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\GaugeColorValueRange.cs">
+    <Compile Include="Gauges\GaugeColorValueRange.cs">
       <Link>Gauges\GaugeColorValueRange.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\GaugePanel.cs">
+    <Compile Include="Gauges\GaugePanel.cs">
       <Link>Gauges\GaugePanel.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\GaugeRangeType.cs">
+    <Compile Include="Gauges\GaugeRangeType.cs">
       <Link>Gauges\GaugeRangeType.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\GaugeValueToBrushConverter.cs">
+    <Compile Include="Gauges\GaugeValueToBrushConverter.cs">
       <Link>Gauges\GaugeValueToBrushConverter.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\GaugeValueToStringConverter.cs">
+    <Compile Include="Gauges\GaugeValueToStringConverter.cs">
       <Link>Gauges\GaugeValueToStringConverter.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\ArrowGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\ArrowGaugeIndicator.cs">
       <Link>Gauges\Indicators\ArrowGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\BarGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\BarGaugeIndicator.cs">
       <Link>Gauges\Indicators\BarGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\GaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\GaugeIndicator.cs">
       <Link>Gauges\Indicators\GaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\GaugeIndicatorCollection.cs">
+    <Compile Include="Gauges\Indicators\GaugeIndicatorCollection.cs">
       <Link>Gauges\Indicators\GaugeIndicatorCollection.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\IndicatorSegmentCollection.cs">
+    <Compile Include="Gauges\Indicators\IndicatorSegmentCollection.cs">
       <Link>Gauges\Indicators\IndicatorSegmentCollection.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\LinearBarGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\LinearBarGaugeIndicator.cs">
       <Link>Gauges\Indicators\LinearBarGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\MarkerGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\MarkerGaugeIndicator.cs">
       <Link>Gauges\Indicators\MarkerGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\NeedleGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\NeedleGaugeIndicator.cs">
       <Link>Gauges\Indicators\NeedleGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\RadialBarGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\RadialBarGaugeIndicator.cs">
       <Link>Gauges\Indicators\RadialBarGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\RadialGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\RadialGaugeIndicator.cs">
       <Link>Gauges\Indicators\RadialGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\SegmentedGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\SegmentedGaugeIndicator.cs">
       <Link>Gauges\Indicators\SegmentedGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\SegmentedLinearGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\SegmentedLinearGaugeIndicator.cs">
       <Link>Gauges\Indicators\SegmentedLinearGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\Indicators\SegmentedRadialGaugeIndicator.cs">
+    <Compile Include="Gauges\Indicators\SegmentedRadialGaugeIndicator.cs">
       <Link>Gauges\Indicators\SegmentedRadialGaugeIndicator.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\IndicatorValueChangedEventArgs.cs">
+    <Compile Include="Gauges\IndicatorValueChangedEventArgs.cs">
       <Link>Gauges\IndicatorValueChangedEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\LinearGaugePanel.cs">
+    <Compile Include="Gauges\LinearGaugePanel.cs">
       <Link>Gauges\LinearGaugePanel.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\RadGauge.cs">
+    <Compile Include="Gauges\RadGauge.cs">
       <Link>Gauges\RadGauge.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\RadialGaugePanel.cs">
+    <Compile Include="Gauges\RadialGaugePanel.cs">
       <Link>Gauges\RadialGaugePanel.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\RadLinearGauge.cs">
+    <Compile Include="Gauges\RadLinearGauge.cs">
       <Link>Gauges\RadLinearGauge.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\RadRadialGauge.cs">
+    <Compile Include="Gauges\RadRadialGauge.cs">
       <Link>Gauges\RadRadialGauge.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\TickType.cs">
+    <Compile Include="Gauges\TickType.cs">
       <Link>Gauges\TickType.cs</Link>
     </Compile>
-    <Compile Include="..\DataVisualization.Windows\Gauges\UpdateArcContext.cs">
+    <Compile Include="Gauges\UpdateArcContext.cs">
       <Link>Gauges\UpdateArcContext.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -181,14 +181,11 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\DataVisualization.Windows\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadBulletGraph.Icon.png">
-      <Link>Shared\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadBulletGraph.Icon.png</Link>
+    <EmbeddedResource Include="ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadBulletGraph.Icon.png">
     </EmbeddedResource>
-    <EmbeddedResource Include="..\DataVisualization.Windows\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadLinearGauge.Icon.png">
-      <Link>Shared\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadLinearGauge.Icon.png</Link>
+    <EmbeddedResource Include="ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadLinearGauge.Icon.png">
     </EmbeddedResource>
-    <EmbeddedResource Include="..\DataVisualization.Windows\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadRadialGauge.Icon.png">
-      <Link>Shared\ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadRadialGauge.Icon.png</Link>
+    <EmbeddedResource Include="ToolboxIcons\Telerik.UI.Xaml.Controls.DataVisualization.RadRadialGauge.Icon.png">
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
