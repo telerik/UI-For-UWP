@@ -157,7 +157,232 @@
       <Name>Core.UWP</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\Primitives.Shared\Primitives.Shared.projitems" Label="Shared" />
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BusyIndicator\AnimationStyle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\BusyIndicatorAnimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\BusyIndicatorAnimationAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusyIndicator\ContentPosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusyIndicator\RadBusyIndicator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\AttachableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\AttachableObjectCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Controls\InlineButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Controls\RadContentControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Controls\RadControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Controls\RadHeaderedContentControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Controls\RadHeaderedControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\ContentToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\BooleanNotConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\StringCaseConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\StringCaseMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\DoubleArithmetics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\GridLinesVisibility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\INoDesiredSizeControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\InputBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ObjectSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\RadDependencyObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Scrolling Operations\ScrollIntoViewOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ServiceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Actions\ActionBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Actions\ActionService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Actions\AnimatationCompleteEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Actions\AnimationAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Actions\AnimationOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Actions\CompositeAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Actions\DelegateAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Commands\CommandCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Commands\CommandServiceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Commands\ControlCommandBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Updates\DelegateUpdate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Updates\IUpdateService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Updates\Update.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Services\Updates\UpdateServiceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Culture\CultureService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Culture\ICultureAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\CanvasDragSurface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\ContentControlDragVisualContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragCompleteContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragDrop.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\IDragDropOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragDropTrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragDropOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragHitTestStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragPositionMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragStartingContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragSurfaceBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragSurfaceRequestedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\DragVisualContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\IDragDropElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\IDragSurface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\Reorder\IReorderItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\Reorder\IReorderItemsHost.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DragDrop\Reorder\ReorderItemsCoordinator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\MissingTemplatePartException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\TemplateNotAppliedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExpanderControl\ExpandedStateChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExpanderControl\ExpandedStateChangingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExpanderControl\RadExpanderControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ElementTreeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\KeyboardHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ResourceHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\TreeTraversalMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\Converters\DoubleScaleConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\Converters\OrientationToPathDataConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\CustomMosaicTilePart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\Enums\HexOrientation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\Enums\MosaicFlipMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\Enums\SlideTileExpandedStates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\FlipControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\IHexViewListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\RadHexHubTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\HubTileBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\HubTileService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\IImageSourceProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\MosaicTilePart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\PictureHubTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\PictureNeededEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\RadCustomHubTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\RadCycleHubTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\RadHubTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\RadMosaicHubTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\RadPictureRotatorHubTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\RadSlideHubTile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HubTile\SlideControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageZoomMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InteractionEffects\InteractionEffectBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InteractionEffects\InteractionEffectManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InteractionEffects\TiltInteractionEffect\TiltInteractionEffect.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InteractionEffects\TiltInteractionEffect\TiltInteractionInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legend\ILegendInfoProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legend\LegendItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legend\LegendItemCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Legend\RadLegendControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoopingList\RadLoopingList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoopingList\LoopingListDataItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoopingList\LoopingListItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoopingList\LoopingListSelectionChangeReason.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoopingList\LoopingPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoopingList\LoopingPanelScrollState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoopingList\SnapPosition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoopingList\VisualStateUpdateParams.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PrimitivesLocalizationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeBaseControls\RangeControlBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeBaseControls\RangeInputBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeBaseControls\SliderBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeSliderPrimitive\RangeSliderPrimitive.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeSliderPrimitive\RangeSliderPrimitive.Manipulations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeSliderPrimitive\RangeSliderPrimitive.Model.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeSliderPrimitive\RangeSliderTrackTapMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeSliderPrimitive\RangeTrackPrimitive.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeSliderPrimitive\SelectionRange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeSliderPrimitive\ThumbsPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeSliderPrimitive\Tooltip\RangeToolTip.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeSliderPrimitive\Tooltip\ToolTipContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Engine\AxisLabelModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Engine\AxisModelLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Engine\AxisTickModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Engine\HorizontalAxisLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Engine\NumericalAxisModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Engine\ScaleElementPlacement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Engine\ScaleLayoutMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Engine\SnapsTo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Engine\VerticalAxisLayoutStrategy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Visualization\ScalePanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScalePrimitive\Visualization\ScalePrimitive.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\Commands\AnimationContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\Commands\CommandId.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\Commands\CommandService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\Commands\GenerateAnimationsCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\Commands\DrawerStateCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\Commands\SideDrawerCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\RadSideDrawer.AnimationGenerator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\RadSideDrawer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\RadSideDrawer.Manipulations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\DrawerManipulationMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\DrawerLocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\DrawerState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\DrawerTransition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\DrawerButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SideDrawer\SideOutPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Theming\UserThemeResourceLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Theming\UserThemeResources.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidatingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidationControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\AnimationStyle1.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\AnimationStyle2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\AnimationStyle6.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\AnimationStyle3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\AnimationStyle4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\AnimationStyle5.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\AnimationStyle7.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\AnimationStyle8.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)BusyIndicator\Animations\AnimationStyle9.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadBusyIndicator.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadCustomHubTile.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadDataBoundListBox.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadHubTile.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadMosaicHubTile.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadPictureRotatorHubTile.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadSlideHubTile.Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Common\Services\Currency\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Resources\Neutral.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadHexHubTile.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadLegendControl.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadSideDrawer.Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.LoopingList.RadLoopingList.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadExpanderControl.Icon.png" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
