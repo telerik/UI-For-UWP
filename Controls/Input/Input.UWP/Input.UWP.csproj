@@ -95,7 +95,141 @@
   <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
-  <Import Project="..\Input.Shared\Input.Shared.projitems" Label="Shared" />
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\AutoCompleteBoxFilterMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\AutoCompleteBoxPlacementMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\AutoCompleteTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\HighlightStyle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\Providers\ContainsTextSearchProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\Providers\FilterStep.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\Providers\ITextSearchProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\Providers\StartsWithTextSearchProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\Providers\TextSearchProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\Providers\WebServiceTextSearchProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\RadAutoCompleteBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\SuggestionItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\SuggestionItemsControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AutoCompleteBox\SuggestionItemTappedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\CalendarDateRangeCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\CalendarDayNameFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\CalendarDisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\CalendarMathHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarAppointmentInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarCellModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarCenturyViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarDateRange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarDecadeViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarGridLine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarHeaderCellModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarHeaderCellType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarInvalidateFlags.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarMonthViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\CalendarYearViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\Model\NodeExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\CurrentSelectionChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\AppointmentControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\AppointmentTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarAnimationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarCellStateContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarCellStateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarCellStyle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarCellStyleContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarDayNameCellStyleSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarCellStyleSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarDateToSingleDateRangeConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarHoldClueControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarLayoutContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarNavigationControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarViewHost.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\CalendarWeekNumberCellStyleSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Layers\CalendarDecorationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Layers\CalendarLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Layers\SharedUILayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Layers\XamlAppointmentLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Layers\XamlContentLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Layers\XamlContentLayerHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Layers\XamlDecorationLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Layers\XamlHeaderContentLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Layers\XamlVisualStateLayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\RadCalendar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\RadCalendar.Currency.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\RadCalendar.Manipulations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\CalendarDragInitializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\CalendarSelectionMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\CommandService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\CalendarCellTapContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\CalendarCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\CalendarUserCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\CalendarViewChangeContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\CellPointerOverCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\CellTapCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\CommandId.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\MoveToDateCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\MoveToLowerViewCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\MoveToNextViewCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\MoveToPreviousViewCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Commands\MoveToUpperViewCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\CurrencyService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\HitTestService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\InputService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Selection\SelectionService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Selection\SelectionService.Multiple.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Selection\SelectionService.Single.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\Selection\SelectOperation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Calendar\View\Services\VisualStateService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommandBarHelpers\CommandBarInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\FontWeightName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\FontWeightNameHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\CalendarExtentions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\CalendarValidator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DateTimeComponentType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DateTimeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DateTimeItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DateTimeList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DateTimeListItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DateTimePicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DateTimePicker.Selector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DateTimePickerButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DateTimePickerDisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\DisplayModeToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\RadDatePicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\RadTimePicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimePicker\StepBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InputLocalizationManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NumericBox\NumericTextBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NumericBox\RadNumericBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rating\RadRating.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rating\RadRatingItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rating\RatingDisplayPrecision.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rating\RatingSelectionMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rating\ValueChangedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rating\ValueChangingEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SegmentedControl\RadSegmentedControl.Selection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SegmentedControl\SegmentVisualState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SegmentedControl\SegmentAnimationContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SegmentedControl\SegmentedItemsControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SegmentedControl\SegmentedPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SegmentedControl\SegmentWidthMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SegmentedControl\Segment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SegmentedControl\RadSegmentedControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Resources\Neutral.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Input.RadAutoCompleteBox.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Input.RadCalendar.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Input.RadDatePicker.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Input.RadRating.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Input.RadTimePicker.Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Input.RadNumericBox.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Input.RadRangeSlider.Icon.png" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

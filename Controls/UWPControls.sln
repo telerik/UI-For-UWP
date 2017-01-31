@@ -25,8 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Input", "Input", "{9DEA169A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Input.UWP", "Input\Input.UWP\Input.UWP.csproj", "{5DB497CD-B469-42A8-AE39-41B8465710A6}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Input.Shared", "Input\Input.Shared\Input.Shared.shproj", "{D03BF251-9E74-4B6E-9A2E-1C01F7E1DCE0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataControls", "DataControls", "{FEE19EE0-392E-41B9-9D37-2D77826B5647}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataControls.UWP", "DataControls\DataControls.UWP\DataControls.UWP.csproj", "{02174A60-4907-449E-818C-A25A39C0B3DC}"
@@ -38,9 +36,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Primitives\Primitives.Shared\Primitives.Shared.projitems*{423e0b4f-e59a-4016-8806-546f49e1b1d1}*SharedItemsImports = 13
-		Input\Input.Shared\Input.Shared.projitems*{5db497cd-b469-42a8-ae39-41b8465710a6}*SharedItemsImports = 4
 		Primitives\Primitives.Shared\Primitives.Shared.projitems*{bf14f352-f1b9-4cde-854b-0339259a4cfd}*SharedItemsImports = 4
-		Input\Input.Shared\Input.Shared.projitems*{d03bf251-9e74-4b6e-9a2e-1c01f7e1dce0}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,7 +187,6 @@ Global
 		{B1A0D416-9566-45CC-AA38-41908D28CE56} = {AC00B3FD-1033-4E91-99ED-768191AF090C}
 		{53D05634-F960-4526-8008-F082A598A0E4} = {83874C89-FB6F-4CAA-B48C-E5985E0FC14A}
 		{5DB497CD-B469-42A8-AE39-41B8465710A6} = {9DEA169A-8E03-47A5-82C4-EB239B686252}
-		{D03BF251-9E74-4B6E-9A2E-1C01F7E1DCE0} = {9DEA169A-8E03-47A5-82C4-EB239B686252}
 		{02174A60-4907-449E-818C-A25A39C0B3DC} = {FEE19EE0-392E-41B9-9D37-2D77826B5647}
 		{23930C19-5A0F-4217-A80A-868505D629A4} = {B644D976-FFDC-4BD6-9DA2-76F25D04CDA7}
 	EndGlobalSection
