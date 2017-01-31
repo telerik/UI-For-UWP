@@ -17,8 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chart", "Chart", "{AC00B3FD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chart.UWP", "Chart\Chart.UWP\Chart.UWP.csproj", "{B1A0D416-9566-45CC-AA38-41908D28CE56}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Chart.Shared", "Chart\Chart.Shared\Chart.Shared.shproj", "{845FD902-E04C-45EB-8FBB-343E4A7AFD37}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataVisualization", "DataVisualization", "{83874C89-FB6F-4CAA-B48C-E5985E0FC14A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataVisualization.UWP", "DataVisualization\DataVisualization.UWP\DataVisualization.UWP.csproj", "{53D05634-F960-4526-8008-F082A598A0E4}"
@@ -33,20 +31,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataControls", "DataControl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataControls.UWP", "DataControls\DataControls.UWP\DataControls.UWP.csproj", "{02174A60-4907-449E-818C-A25A39C0B3DC}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataControls.Shared", "DataControls\DataControls.Shared\DataControls.Shared.shproj", "{59C318F4-EE80-48C9-9D52-65191C4B826A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grid", "Grid", "{B644D976-FFDC-4BD6-9DA2-76F25D04CDA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grid.UWP", "Grid\Grid.UWP\Grid.UWP.csproj", "{23930C19-5A0F-4217-A80A-868505D629A4}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		DataControls\DataControls.Shared\DataControls.Shared.projitems*{02174a60-4907-449e-818c-a25a39c0b3dc}*SharedItemsImports = 4
 		Primitives\Primitives.Shared\Primitives.Shared.projitems*{423e0b4f-e59a-4016-8806-546f49e1b1d1}*SharedItemsImports = 13
-		DataControls\DataControls.Shared\DataControls.Shared.projitems*{59c318f4-ee80-48c9-9d52-65191c4b826a}*SharedItemsImports = 13
 		Input\Input.Shared\Input.Shared.projitems*{5db497cd-b469-42a8-ae39-41b8465710a6}*SharedItemsImports = 4
-		Chart\Chart.Shared\Chart.Shared.projitems*{845fd902-e04c-45eb-8fbb-343e4a7afd37}*SharedItemsImports = 13
-		Chart\Chart.Shared\Chart.Shared.projitems*{b1a0d416-9566-45cc-aa38-41908d28ce56}*SharedItemsImports = 4
 		Primitives\Primitives.Shared\Primitives.Shared.projitems*{bf14f352-f1b9-4cde-854b-0339259a4cfd}*SharedItemsImports = 4
 		Input\Input.Shared\Input.Shared.projitems*{d03bf251-9e74-4b6e-9a2e-1c01f7e1dce0}*SharedItemsImports = 13
 	EndGlobalSection
@@ -197,12 +189,10 @@ Global
 		{423E0B4F-E59A-4016-8806-546F49E1B1D1} = {1535A007-5BC4-41B6-B9CA-FDC7AAFA75F9}
 		{BF14F352-F1B9-4CDE-854B-0339259A4CFD} = {1535A007-5BC4-41B6-B9CA-FDC7AAFA75F9}
 		{B1A0D416-9566-45CC-AA38-41908D28CE56} = {AC00B3FD-1033-4E91-99ED-768191AF090C}
-		{845FD902-E04C-45EB-8FBB-343E4A7AFD37} = {AC00B3FD-1033-4E91-99ED-768191AF090C}
 		{53D05634-F960-4526-8008-F082A598A0E4} = {83874C89-FB6F-4CAA-B48C-E5985E0FC14A}
 		{5DB497CD-B469-42A8-AE39-41B8465710A6} = {9DEA169A-8E03-47A5-82C4-EB239B686252}
 		{D03BF251-9E74-4B6E-9A2E-1C01F7E1DCE0} = {9DEA169A-8E03-47A5-82C4-EB239B686252}
 		{02174A60-4907-449E-818C-A25A39C0B3DC} = {FEE19EE0-392E-41B9-9D37-2D77826B5647}
-		{59C318F4-EE80-48C9-9D52-65191C4B826A} = {FEE19EE0-392E-41B9-9D37-2D77826B5647}
 		{23930C19-5A0F-4217-A80A-868505D629A4} = {B644D976-FFDC-4BD6-9DA2-76F25D04CDA7}
 	EndGlobalSection
 EndGlobal
