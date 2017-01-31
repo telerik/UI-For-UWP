@@ -314,6 +314,7 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\..\BuildTools\CopyBinaries.targets"  />
   <PropertyGroup>
     <IsPortableAssembly>true</IsPortableAssembly>
   </PropertyGroup>
