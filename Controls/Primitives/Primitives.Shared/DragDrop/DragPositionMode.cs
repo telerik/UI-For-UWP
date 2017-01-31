@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
 {
+    [Flags]
     internal enum DragPositionMode
     {
-        Free,
-        RailX,
-        RailY
+        Free = 1,
+        RailXForward = 2,
+        RailXBackwards = 4,
+        RailX = RailXForward | RailXBackwards,
+        RailYForward = 8,
+        RailYBackwards = 16,
+        RailY = RailYForward | RailYBackwards,
     }
 }

@@ -14,7 +14,8 @@
     xmlns:inputTextBox="using:Telerik.UI.Xaml.Controls.Input.NumericBox"
     xmlns:primitivesCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
     xmlns:localDateTime="using:Telerik.UI.Xaml.Controls.Input.DateTimePickers"
-    xmlns:theming="using:Telerik.UI.Xaml.Controls">
+    xmlns:theming="using:Telerik.UI.Xaml.Controls"
+    xmlns:localAutoComplete="using:Telerik.UI.Xaml.Controls.Input.AutoCompleteBox">
 
 
     <!--<ResourceDictionary.ThemeDictionaries>
@@ -44,14 +45,219 @@
     <dataForm:EditorIconVisibilityConverter x:Key="IconVisibilityConverter" />
     <telerikCore:BoolToVisibilityConverter x:Key="HasErrorsToVisibilityConverter" />
 
+<!--AUTOCOMPLETE EDITOR START-->
 
+    <Style TargetType="dataForm:DataFormAutoCompleteTextBox">
+        <Setter Property="IsTextPredictionEnabled" Value="False" />
+        <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}" />
+        <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+        <Setter Property="Padding" Value="5,3" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="dataForm:DataFormAutoCompleteTextBox">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BackgroundElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikAutoCompleteBoxDisabledBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikAutoCompleteBoxDisabledBorderBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikAutoCompleteBoxDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BackgroundElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikAutoCompleteBoxPointerOverBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikAutoCompleteBoxPointerOverBorderBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BackgroundElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikAutoCompleteBoxFocusedBackgroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="BorderElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikAutoCompleteBoxFocusedBorderBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ButtonStates">
+                                <VisualState x:Name="ButtonVisible">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DeleteButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ButtonCollapsed"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="BackgroundElement" Background="{TemplateBinding Background}" Grid.ColumnSpan="4" Margin="{TemplateBinding BorderThickness}"/>
+                        <Border x:Name="BorderElement" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="4"/>
+                        <ScrollViewer x:Name="ContentElement" Grid.Column="1"
+                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" 
+                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" 
+                          IsTabStop="False" 
+                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" 
+                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" 
+                          IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" 
+                          Margin="{TemplateBinding BorderThickness}" 
+                          Padding="{TemplateBinding Padding}" 
+                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" 
+                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                          ZoomMode="Disabled"/>
+                        <Button x:Name="DeleteButton" Grid.Column="3"
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    FontSize="{TemplateBinding FontSize}" 
+                    IsTabStop="False" 
+                    Style="{ThemeResource AutoCompleteDeleteButtonStyle}" 
+                    Visibility="Collapsed" 
+                    VerticalAlignment="Stretch" Margin="2"/>
+                        
+                    <SymbolIcon Style="{TemplateBinding LabelIconStyle}" Visibility="{Binding IconDisplayMode, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IconVisibilityConverter}, ConverterParameter=Label}" />
+                    <ContentPresenter Grid.Column="2" Visibility="{Binding HasErrors, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource HasErrorsToVisibilityConverter}, ConverterParameter=false}">
+                         <SymbolIcon Style="{TemplateBinding ErrorIconStyle}" Visibility="{Binding IconDisplayMode, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IconVisibilityConverter}, ConverterParameter=Error}" />
+                    </ContentPresenter>
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    
+    
+    <Style TargetType="local:AutoCompleteEditor" BasedOn="{StaticResource RadAutoCompleteBoxStyle}">
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="Padding" Value="{ThemeResource TextControlThemePadding}" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikAutoCompleteBoxForegroundBrush}" />
+        <Setter Property="Background" Value="{ThemeResource TelerikAutoCompleteBoxBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikAutoCompleteBoxBorderBrush}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="DropDownMaxHeight" Value="328" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="HeaderStyle">
+            <Setter.Value>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Foreground" Value="{ThemeResource TelerikAutoCompleteBoxHeaderForegroundBrush}" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:AutoCompleteEditor">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="WatermarkElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikAutoCompleteBoxWatermarkDisabledForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="WatermarkUnfocused" />
+                                <VisualState x:Name="WatermarkFocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="WatermarkElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <ContentControl Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        Style="{TemplateBinding HeaderStyle}" IsTabStop="False" IsHitTestVisible="False" />
+
+                        <dataForm:DataFormAutoCompleteTextBox x:Name="PART_TextBox" Grid.Row="1"
+                                                               Foreground="{TemplateBinding Foreground}"
+                                                               FontSize="{TemplateBinding FontSize}"
+                                                               FontFamily="{TemplateBinding FontFamily}"
+                                                               FontStyle="{TemplateBinding FontStyle}"
+                                                               FontWeight="{TemplateBinding FontWeight}"
+                                                               Background="{TemplateBinding Background}"
+                                                               BorderBrush="{TemplateBinding BorderBrush}"
+                                                               BorderThickness="{TemplateBinding BorderThickness}"
+                                                               Padding="{TemplateBinding Padding}"
+                                                               LabelIconStyle="{TemplateBinding LabelIconStyle}"
+                                                               ErrorIconStyle="{TemplateBinding ErrorIconStyle}"
+                                                               IconDisplayMode="{TemplateBinding IconDisplayMode}"
+                                                               HasErrors="{TemplateBinding HasErrors}"
+                                                               />
+                        <ContentControl x:Name="WatermarkElement" IsTabStop="False" IsHitTestVisible="False"
+                                        Content="{TemplateBinding Watermark}" ContentTemplate="{TemplateBinding WatermarkTemplate}"
+                                        FontWeight="Normal"
+                                        FontStyle="Normal"
+                                        Foreground="{ThemeResource TelerikAutoCompleteBoxWatermarkForegroundBrush}"
+                                        Background="{ThemeResource TextBoxBackgroundThemeBrush}"
+                                        BorderBrush="{ThemeResource TextBoxBorderThemeBrush}"
+                                        BorderThickness="{ThemeResource TextControlBorderThemeThickness}"
+                                        Padding="0,2"
+                                        Margin="{TemplateBinding Padding}"
+                                        Grid.Row="1" />
+
+                        <Popup x:Name="PART_Popup" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}">
+                            <Popup.Child>
+                                <Grid>
+                                    <localAutoComplete:SuggestionItemsControl x:Name="PART_SuggestionsControl"
+                                                                          DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
+                                                                          ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                                          ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" />
+                                    <ContentControl x:Name="PART_NoResultsControl" Visibility="Collapsed" ContentTemplate="{TemplateBinding NoResultsContentTemplate}"
+                                                    BorderBrush ="{ThemeResource TelerikAutoCompleteBoxSelectorItemBorderBrush}"
+                                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  />
+                                </Grid>
+                            </Popup.Child>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--AUTOCOMPLETE EDITOR END-->
     <!--DATE EDITOR START-->
-    <Style TargetType="dataForm:DFDateTimePickerButton" BasedOn="{StaticResource DateTimePickerButtonBaseStyle}">
+    <Style TargetType="dataForm:DataFormDateTimePickerButton" BasedOn="{StaticResource DateTimePickerButtonBaseStyle}">
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="dataForm:DFDateTimePickerButton">
+                <ControlTemplate TargetType="dataForm:DataFormDateTimePickerButton">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -172,7 +378,7 @@
                             Style="{TemplateBinding HeaderStyle}"
                             IsTabStop="False" FlowDirection="{TemplateBinding FlowDirection}"
                             Visibility="{Binding DisplayMode, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DisplayModeConverter}}"/>
-                        <dataForm:DFDateTimePickerButton x:Name="PART_PickerButton" Grid.Row="1"
+                        <dataForm:DataFormDateTimePickerButton x:Name="PART_PickerButton" Grid.Row="1"
                                                 ErrorIconStyle="{TemplateBinding ErrorIconStyle}"
                                                 HasErrors="{TemplateBinding HasErrors}"
                                                 IconDisplayMode="{TemplateBinding IconDisplayMode}"
@@ -245,7 +451,7 @@
                             IsTabStop="False"
                             FlowDirection="{TemplateBinding FlowDirection}"
                             Visibility="{Binding DisplayMode, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DisplayModeConverter}}"/>
-            <dataForm:DFDateTimePickerButton    LabelIconStyle="{TemplateBinding LabelIconStyle}" IconDisplayMode="{TemplateBinding IconDisplayMode}" x:Name="PART_PickerButton" Grid.Row="1" Background="{TemplateBinding Background}"
+            <dataForm:DataFormDateTimePickerButton    LabelIconStyle="{TemplateBinding LabelIconStyle}" IconDisplayMode="{TemplateBinding IconDisplayMode}" x:Name="PART_PickerButton" Grid.Row="1" Background="{TemplateBinding Background}"
                                                 BorderBrush="{TemplateBinding BorderBrush}" Foreground="{TemplateBinding Foreground}"
                                                 BorderThickness="{TemplateBinding BorderThickness}" FontFamily="{TemplateBinding FontFamily}"
                                                 FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}"

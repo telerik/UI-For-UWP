@@ -86,6 +86,17 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             }
         }
 
+        internal override void OnItemsSourceChanged()
+        {
+            base.OnItemsSourceChanged();
+
+            if (!string.IsNullOrEmpty(this.InputString))
+            {
+                this.BuildFilteredItems(true);
+                this.OnPropertyChanged("FilteredItems");
+            }
+        }
+
         private void BuildFilteredItems(bool clear)
         {
             string currentInput = this.InputString;

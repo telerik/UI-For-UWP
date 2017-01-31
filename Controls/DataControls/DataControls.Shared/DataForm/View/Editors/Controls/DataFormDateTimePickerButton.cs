@@ -6,7 +6,7 @@ using Telerik.UI.Xaml.Controls.Input.DateTimePickers;
 
 namespace Telerik.UI.Xaml.Controls.Data.DataForm
 {
-    public class DFDateTimePickerButton : DateTimePickerButton
+    public class DataFormDateTimePickerButton : DateTimePickerButton
     {
         public Style ErrorIconStyle
         {
@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
 
         // Using a DependencyProperty as the backing store for ErrorIconStyle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ErrorIconStyleProperty =
-            DependencyProperty.Register("ErrorIconStyle", typeof(Style), typeof(DFDateTimePickerButton), new PropertyMetadata(null));
+            DependencyProperty.Register("ErrorIconStyle", typeof(Style), typeof(DataFormDateTimePickerButton), new PropertyMetadata(null));
 
         public bool HasErrors
         {
@@ -26,7 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
 
         // Using a DependencyProperty as the backing store for HasErrors.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HasErrorsProperty =
-            DependencyProperty.Register("HasErrors", typeof(bool), typeof(DFDateTimePickerButton), new PropertyMetadata(false));   
+            DependencyProperty.Register("HasErrors", typeof(bool), typeof(DataFormDateTimePickerButton), new PropertyMetadata(false));   
         
         public EditorIconDisplayMode IconDisplayMode
         {
@@ -36,7 +36,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
 
         // Using a DependencyProperty as the backing store for IconDisplayMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IconDisplayModeProperty =
-            DependencyProperty.Register("IconDisplayMode", typeof(EditorIconDisplayMode), typeof(DFDateTimePickerButton), new PropertyMetadata(EditorIconDisplayMode.None));
+            DependencyProperty.Register("IconDisplayMode", typeof(EditorIconDisplayMode), typeof(DataFormDateTimePickerButton), new PropertyMetadata(EditorIconDisplayMode.None));
         
         public Style LabelIconStyle
         {
@@ -46,11 +46,11 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
 
         // Using a DependencyProperty as the backing store for LabelIconStyle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LabelIconStyleProperty =
-            DependencyProperty.Register("LabelIconStyle", typeof(Style), typeof(DFDateTimePickerButton), new PropertyMetadata(null));
+            DependencyProperty.Register("LabelIconStyle", typeof(Style), typeof(DataFormDateTimePickerButton), new PropertyMetadata(null));
 
-        public DFDateTimePickerButton()
+        public DataFormDateTimePickerButton()
         {
-            this.DefaultStyleKey = typeof(DFDateTimePickerButton);
+            this.DefaultStyleKey = typeof(DataFormDateTimePickerButton);
         }
     }
 }

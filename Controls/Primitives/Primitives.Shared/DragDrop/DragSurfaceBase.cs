@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
@@ -67,6 +63,22 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
                     break;
                 case DragPositionMode.RailY:
                     x = context.DragStartPosition.X;
+                    break;
+                case DragPositionMode.RailXForward:
+                    y = context.DragStartPosition.Y;
+                    x = Math.Max(0, x);
+                    break;
+                case DragPositionMode.RailXBackwards:
+                    y = context.DragStartPosition.Y;
+                    x = Math.Min(0, x);
+                    break;
+                case DragPositionMode.RailYForward:
+                    x = context.DragStartPosition.X;
+                    y = Math.Max(0, y);
+                    break;
+                case DragPositionMode.RailYBackwards:
+                    x = context.DragStartPosition.X;
+                    y = Math.Min(0, y);
                     break;
                 case DragPositionMode.Free:
                 default:

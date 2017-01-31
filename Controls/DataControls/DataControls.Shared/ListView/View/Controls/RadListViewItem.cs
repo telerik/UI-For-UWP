@@ -81,6 +81,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        public ListViewItemSwipeDirection SwipeDirection
+        {
+            get
+            {
+                return this.ListView.ItemSwipeDirection;
+            }
+        }
+
         /// <summary>
         /// Gets or sets the orientation of the control.
         /// </summary>
@@ -143,8 +151,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             if (this.firstHandle != null)
             {
                 this.firstHandle.ManipulationMode = ManipulationModes.None;
-                DragDrop.SetAllowDrag(this.firstHandle, true);
-                this.firstHandle.Visibility = this.IsActionOnSwipeEnabled ? Visibility.Visible : Visibility.Collapsed;
+                DragDrop.SetAllowDrag(this.firstHandle, true);              
             }
 
             this.secondHandle = this.GetTemplateChild("PART_SecondHandle") as Border;
@@ -152,8 +159,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             {
                 this.secondHandle.ManipulationMode = ManipulationModes.None;
                 DragDrop.SetAllowDrag(this.secondHandle, true);
-                this.secondHandle.Visibility = this.IsActionOnSwipeEnabled ? Visibility.Visible : Visibility.Collapsed;
             }
+
+            this.UpdateSwipeHandlesVisibility();
         }
 
         internal void PrepareDragVisual(DragAction action)
@@ -181,7 +189,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         internal void OnDragComplete(ItemSwipeActionCompleteContext context)
         {
-            if (DragDrop.GetDragPositionMode(this) == DragPositionMode.RailX)
+            var dragPos = DragDrop.GetDragPositionMode(this);
+
+            if (dragPos.HasFlag(DragPositionMode.RailXForward) || dragPos.HasFlag(DragPositionMode.RailXBackwards))
             {
                 Canvas.SetLeft(this, context.FinalDragOffset);
             }
@@ -340,26 +350,56 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             double width = this.ListView.swipeActionContentControl.ActualWidth;
             double height = this.ListView.swipeActionContentControl.ActualHeight;
 
+            var dragMode = DragDrop.GetDragPositionMode(this);
+
             if (offset > 0)
             {
                 if (this.ListView.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal)
                 {
-                    height = Math.Max(offset, 0);
+                    if(dragMode.HasFlag(DragPositionMode.RailYForward))
+                    {
+                        height = Math.Max(offset, 0);
+                    }
+                    else
+                    {
+                        height = 0;
+                    }
                 }
                 else
                 {
-                    width = Math.Max(offset, 0);
+                    if(dragMode.HasFlag(DragPositionMode.RailXForward))
+                    {
+                        width = Math.Max(offset, 0);
+                    } 
+                    else
+                    {
+                        width = 0;
+                    }
                 }
             }
             else
             {
                 if (this.ListView.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal)
                 {
-                    y = Math.Max(0, height + offset);
+                    if(dragMode.HasFlag(DragPositionMode.RailYBackwards))
+                    {
+                        y = Math.Max(0, height + offset);
+                    }
+                    else
+                    {
+                        y = height;
+                    }
                 }
                 else
                 {
-                    x = Math.Max(0, width + offset);
+                    if (dragMode.HasFlag(DragPositionMode.RailXBackwards))
+                    {
+                        x = Math.Max(0, width + offset);
+                    }
+                    else
+                    {
+                        x = width;
+                    }
                 }
             }
 
@@ -433,7 +473,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             ContentControl swipeActionContentControl = this.ListView.swipeActionContentControl;
             swipeActionContentControl.DataContext = this.DataContext;
 
-            if (dragMode == DragPositionMode.RailX)
+            if (dragMode.HasFlag(DragPositionMode.RailXForward) || dragMode.HasFlag(DragPositionMode.RailXBackwards))
             {
                 swipeActionContentControl.Width = this.ActualWidth;
                 swipeActionContentControl.Height = this.ActualHeight;
@@ -495,6 +535,18 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
             object destinationDataItem = enumerator.Current;
             return destinationDataItem;
+        }
+
+        private void UpdateSwipeHandlesVisibility()
+        {
+            if (this.firstHandle != null)
+            {
+                this.firstHandle.Visibility = (this.IsActionOnSwipeEnabled && (this.SwipeDirection == ListViewItemSwipeDirection.All || this.SwipeDirection == ListViewItemSwipeDirection.Forward)) ? Visibility.Visible : Visibility.Collapsed;
+            }
+            if (this.secondHandle != null)
+            {
+                this.secondHandle.Visibility = (this.IsActionOnSwipeEnabled && (this.SwipeDirection == ListViewItemSwipeDirection.All || this.SwipeDirection == ListViewItemSwipeDirection.Backwards)) ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         // This is needed because sometimes the contentpanel is not notified when the listviewitem has changed its size(Downsize animations).
