@@ -6,7 +6,7 @@
     <IsSubFolderAssembly>true</IsSubFolderAssembly>
     <PlatformFolder>$(Platform)</PlatformFolder>
     <OutputPath>bin\$(PlatformFolder)\$(Configuration)\</OutputPath>
-    <BinariesOutDir>..\..\..\Binaries$(UWPSuffix)</BinariesOutDir>
+    <BinariesOutDir>..\..\Binaries</BinariesOutDir>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
