@@ -37,6 +37,9 @@
                   $(BinariesSourceFolder)\**\Telerik.Geospatial.UWP.*;
 							   $(BinariesSourceFolder)\**\*.lastcodeanalysissucceeded
 							   "/>
+      <BinariesToCopy Condition=" '$(ControlName)' == 'Map' "
+                      Include="@(BinariesToCopy); 
+                      $(BinariesSourceFolder)\**\Telerik.UI.Xaml.Primitives.UWP\*.xr.xml"/>
 		</ItemGroup>
 
     <ItemGroup>
