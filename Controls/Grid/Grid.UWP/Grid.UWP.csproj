@@ -51,886 +51,886 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Grid.Windows\GridLocalizationManager.cs">
+    <Compile Include="GridLocalizationManager.cs">
       <Link>GridLocalizationManager.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Cells\GridCellEditorModel.cs">
+    <Compile Include="Model\Cells\GridCellEditorModel.cs">
       <Link>Model\Cells\GridCellEditorModel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Cells\GridCellModel.cs">
+    <Compile Include="Model\Cells\GridCellModel.cs">
       <Link>Model\Cells\GridCellModel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Cells\GridHeaderCellModel.cs">
+    <Compile Include="Model\Cells\GridHeaderCellModel.cs">
       <Link>Model\Cells\GridHeaderCellModel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Common\GridElement.cs">
+    <Compile Include="Model\Common\GridElement.cs">
       <Link>Model\Common\GridElement.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Common\GridNode.cs">
+    <Compile Include="Model\Common\GridNode.cs">
       <Link>Model\Common\GridNode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Common\IGridNode.cs">
+    <Compile Include="Model\Common\IGridNode.cs">
       <Link>Model\Common\IGridNode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Common\IItemInfoNode.cs">
+    <Compile Include="Model\Common\IItemInfoNode.cs">
       <Link>Model\Common\IItemInfoNode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Decorations\IDecorationPresenter.cs">
+    <Compile Include="Model\Decorations\IDecorationPresenter.cs">
       <Link>Model\Decorations\IDecorationPresenter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Decorations\LineDecorationModel.cs">
+    <Compile Include="Model\Decorations\LineDecorationModel.cs">
       <Link>Model\Decorations\LineDecorationModel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\GenerateDirection.cs">
+    <Compile Include="Model\GenerateDirection.cs">
       <Link>Model\GenerateDirection.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\GridModel.Columns.cs">
+    <Compile Include="Model\GridModel.Columns.cs">
       <Link>Model\GridModel.Columns.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\GridModel.cs">
+    <Compile Include="Model\GridModel.cs">
       <Link>Model\GridModel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\GridModel.Data.cs">
+    <Compile Include="Model\GridModel.Data.cs">
       <Link>Model\GridModel.Data.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\GridModel.Editing.cs">
+    <Compile Include="Model\GridModel.Editing.cs">
       <Link>Model\GridModel.Editing.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\GridModel.Layout.cs">
+    <Compile Include="Model\GridModel.Layout.cs">
       <Link>Model\GridModel.Layout.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\GridModel.Selection.cs">
+    <Compile Include="Model\GridModel.Selection.cs">
       <Link>Model\GridModel.Selection.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\GridModel.Table.cs">
+    <Compile Include="Model\GridModel.Table.cs">
       <Link>Model\GridModel.Table.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\IGridView.cs">
+    <Compile Include="Model\IGridView.cs">
       <Link>Model\IGridView.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\InvalidateMeasureFlags.cs">
+    <Compile Include="Model\InvalidateMeasureFlags.cs">
       <Link>Model\InvalidateMeasureFlags.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\AddRemoveLayoutResult.cs">
+    <Compile Include="Model\Layouts\AddRemoveLayoutResult.cs">
       <Link>Model\Layouts\AddRemoveLayoutResult.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\BaseLayout.cs">
+    <Compile Include="Model\Layouts\BaseLayout.cs">
       <Link>Model\Layouts\BaseLayout.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\CompactLayout.cs">
+    <Compile Include="Model\Layouts\CompactLayout.cs">
       <Link>Model\Layouts\CompactLayout.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\ExpandCollapseEventArgs.cs">
+    <Compile Include="Model\Layouts\ExpandCollapseEventArgs.cs">
       <Link>Model\Layouts\ExpandCollapseEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\GroupInfo.cs">
+    <Compile Include="Model\Layouts\GroupInfo.cs">
       <Link>Model\Layouts\GroupInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\ItemInfo.cs">
+    <Compile Include="Model\Layouts\ItemInfo.cs">
       <Link>Model\Layouts\ItemInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\LayoutInfo.cs">
+    <Compile Include="Model\Layouts\LayoutInfo.cs">
       <Link>Model\Layouts\LayoutInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\LayoutRenderInfoState.cs">
+    <Compile Include="Model\Layouts\LayoutRenderInfoState.cs">
       <Link>Model\Layouts\LayoutRenderInfoState.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\OutlineLayout.cs">
+    <Compile Include="Model\Layouts\OutlineLayout.cs">
       <Link>Model\Layouts\OutlineLayout.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\Strategies\ItemsLayoutStrategy.cs">
+    <Compile Include="Model\Layouts\Strategies\ItemsLayoutStrategy.cs">
       <Link>Model\Layouts\Strategies\ItemsLayoutStrategy.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\Strategies\LayoutStrategyBase.cs">
+    <Compile Include="Model\Layouts\Strategies\LayoutStrategyBase.cs">
       <Link>Model\Layouts\Strategies\LayoutStrategyBase.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\Strategies\LayoutStrategyComparer.cs">
+    <Compile Include="Model\Layouts\Strategies\LayoutStrategyComparer.cs">
       <Link>Model\Layouts\Strategies\LayoutStrategyComparer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\Strategies\PlaceholderStrategy.cs">
+    <Compile Include="Model\Layouts\Strategies\PlaceholderStrategy.cs">
       <Link>Model\Layouts\Strategies\PlaceholderStrategy.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Layouts\TabularGroupInfo.cs">
+    <Compile Include="Model\Layouts\TabularGroupInfo.cs">
       <Link>Model\Layouts\TabularGroupInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\RenderInfo\IndexStorage.cs">
+    <Compile Include="Model\RenderInfo\IndexStorage.cs">
       <Link>Model\RenderInfo\IndexStorage.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\RenderInfo\IRenderInfo.cs">
+    <Compile Include="Model\RenderInfo\IRenderInfo.cs">
       <Link>Model\RenderInfo\IRenderInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\RenderInfo\IRenderInfoState.cs">
+    <Compile Include="Model\RenderInfo\IRenderInfoState.cs">
       <Link>Model\RenderInfo\IRenderInfoState.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Rows\GridEditRowModel.cs">
+    <Compile Include="Model\Rows\GridEditRowModel.cs">
       <Link>Model\Rows\GridEditRowModel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Rows\GridRowModel.cs">
+    <Compile Include="Model\Rows\GridRowModel.cs">
       <Link>Model\Rows\GridRowModel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\Selection\SelectionRegionInfoComparer.cs">
+    <Compile Include="Model\Selection\SelectionRegionInfoComparer.cs">
       <Link>Model\Selection\SelectionRegionInfoComparer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\ArrangeDataForDecorations.cs">
+    <Compile Include="Model\TableModel\DisplayData\ArrangeDataForDecorations.cs">
       <Link>Model\TableModel\DisplayData\ArrangeDataForDecorations.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\CellEditorsController.cs">
+    <Compile Include="Model\TableModel\DisplayData\CellEditorsController.cs">
       <Link>Model\TableModel\DisplayData\CellEditorsController.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\CellsController.cs">
+    <Compile Include="Model\TableModel\DisplayData\CellsController.cs">
       <Link>Model\TableModel\DisplayData\CellsController.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\CellsController.SlotLength.cs">
+    <Compile Include="Model\TableModel\DisplayData\CellsController.SlotLength.cs">
       <Link>Model\TableModel\DisplayData\CellsController.SlotLength.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\DecorationPool.cs">
+    <Compile Include="Model\TableModel\DisplayData\DecorationPool.cs">
       <Link>Model\TableModel\DisplayData\DecorationPool.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\DecorationsController.cs">
+    <Compile Include="Model\TableModel\DisplayData\DecorationsController.cs">
       <Link>Model\TableModel\DisplayData\DecorationsController.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\DecorationType.cs">
+    <Compile Include="Model\TableModel\DisplayData\DecorationType.cs">
       <Link>Model\TableModel\DisplayData\DecorationType.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\EditRowPool.cs">
+    <Compile Include="Model\TableModel\DisplayData\EditRowPool.cs">
       <Link>Model\TableModel\DisplayData\EditRowPool.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\HeaderCellModelPool.cs">
+    <Compile Include="Model\TableModel\DisplayData\HeaderCellModelPool.cs">
       <Link>Model\TableModel\DisplayData\HeaderCellModelPool.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\INodePool.cs">
+    <Compile Include="Model\TableModel\DisplayData\INodePool.cs">
       <Link>Model\TableModel\DisplayData\INodePool.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\NodePool.cs">
+    <Compile Include="Model\TableModel\DisplayData\NodePool.cs">
       <Link>Model\TableModel\DisplayData\NodePool.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\RowModelPool.cs">
+    <Compile Include="Model\TableModel\DisplayData\RowModelPool.cs">
       <Link>Model\TableModel\DisplayData\RowModelPool.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\DisplayData\SelectionRegionController.cs">
+    <Compile Include="Model\TableModel\DisplayData\SelectionRegionController.cs">
       <Link>Model\TableModel\DisplayData\SelectionRegionController.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ITable.cs">
+    <Compile Include="Model\TableModel\ITable.cs">
       <Link>Model\TableModel\ITable.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\CellEditorModelGenerator.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\CellEditorModelGenerator.cs">
       <Link>Model\TableModel\NewFolder1\CellEditorModelGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Cell\CellContainerGenerator.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Cell\CellContainerGenerator.cs">
       <Link>Model\TableModel\ItemContainerGenerators\Cell\CellContainerGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Cell\CellGenerationContext.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Cell\CellGenerationContext.cs">
       <Link>Model\TableModel\ItemContainerGenerators\Cell\CellGenerationContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Column\ColumnContainerGenerator.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Column\ColumnContainerGenerator.cs">
       <Link>Model\TableModel\ItemContainerGenerators\Column\ColumnContainerGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Column\ColumnGenerationContext.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Column\ColumnGenerationContext.cs">
       <Link>Model\TableModel\ItemContainerGenerators\Column\ColumnGenerationContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Common\IContainerGenerator.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Common\IContainerGenerator.cs">
       <Link>Model\TableModel\ItemContainerGenerators\Common\IContainerGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Common\IGenerationContext.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Common\IGenerationContext.cs">
       <Link>Model\TableModel\ItemContainerGenerators\Common\IGenerationContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Common\IGeneratorsHost.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Common\IGeneratorsHost.cs">
       <Link>Model\TableModel\ItemContainerGenerators\Common\IGeneratorsHost.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Common\ItemContainerGenerator.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Common\ItemContainerGenerator.cs">
       <Link>Model\TableModel\ItemContainerGenerators\Common\ItemContainerGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Row\RowContainerGenerator.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Row\RowContainerGenerator.cs">
       <Link>Model\TableModel\NewFolder1\NewFolder1\RowContainerGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\ItemContainerGenerators\Row\RowGenerationContext.cs">
+    <Compile Include="Model\TableModel\ItemContainerGenerators\Row\RowGenerationContext.cs">
       <Link>Model\TableModel\NewFolder1\NewFolder1\RowGenerationContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\Model\TableModel\LayoutDoubleUtil.cs">
+    <Compile Include="Model\TableModel\LayoutDoubleUtil.cs">
       <Link>Model\TableModel\LayoutDoubleUtil.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\DataGridColumn.Cells.cs">
+    <Compile Include="View\Columns\DataGridColumn.Cells.cs">
       <Link>View\Columns\DataGridColumn.Cells.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\DataGridColumn.cs">
+    <Compile Include="View\Columns\DataGridColumn.cs">
       <Link>View\Columns\DataGridColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\DataGridColumnCollection.cs">
+    <Compile Include="View\Columns\DataGridColumnCollection.cs">
       <Link>View\Columns\DataGridColumnCollection.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\DataGridColumnResizeMode.cs">
+    <Compile Include="View\Columns\DataGridColumnResizeMode.cs">
       <Link>View\Columns\DataGridColumnResizeMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\DataGridColumnSizeMode.cs">
+    <Compile Include="View\Columns\DataGridColumnSizeMode.cs">
       <Link>View\Columns\DataGridColumnSizeMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\DataGridTemplateColumn.cs">
+    <Compile Include="View\Columns\DataGridTemplateColumn.cs">
       <Link>View\Columns\DataGridTemplateColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\DataGridUserColumnReorderMode.cs">
+    <Compile Include="View\Columns\DataGridUserColumnReorderMode.cs">
       <Link>View\Columns\DataGridUserColumnReorderMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\SortDirection.cs">
+    <Compile Include="View\Columns\SortDirection.cs">
       <Link>View\Columns\SortDirection.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\TypedColumns\DataGridBooleanColumn.cs">
+    <Compile Include="View\Columns\TypedColumns\DataGridBooleanColumn.cs">
       <Link>View\Columns\TypedColumns\DataGridBooleanColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\TypedColumns\DataGridComboBoxColumn.cs">
+    <Compile Include="View\Columns\TypedColumns\DataGridComboBoxColumn.cs">
       <Link>View\Columns\TypedColumns\DataGridComboBoxColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\TypedColumns\DataGridDateColumn.cs">
+    <Compile Include="View\Columns\TypedColumns\DataGridDateColumn.cs">
       <Link>View\Columns\TypedColumns\DataGridDateColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\TypedColumns\DataGridImageColumn.cs">
+    <Compile Include="View\Columns\TypedColumns\DataGridImageColumn.cs">
       <Link>View\Columns\TypedColumns\DataGridImageColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\TypedColumns\DataGridNumericalColumn.cs">
+    <Compile Include="View\Columns\TypedColumns\DataGridNumericalColumn.cs">
       <Link>View\Columns\TypedColumns\DataGridNumericalColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\TypedColumns\DataGridTextColumn.cs">
+    <Compile Include="View\Columns\TypedColumns\DataGridTextColumn.cs">
       <Link>View\Columns\TypedColumns\DataGridTextColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\TypedColumns\DataGridTimeColumn.cs">
+    <Compile Include="View\Columns\TypedColumns\DataGridTimeColumn.cs">
       <Link>View\Columns\TypedColumns\DataGridTimeColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\TypedColumns\DataGridTypedColumn.cs">
+    <Compile Include="View\Columns\TypedColumns\DataGridTypedColumn.cs">
       <Link>View\Columns\TypedColumns\DataGridTypedColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Columns\TypedColumns\INestedPropertyColumn.cs">
+    <Compile Include="View\Columns\TypedColumns\INestedPropertyColumn.cs">
       <Link>View\Columns\TypedColumns\INestedPropertyColumn.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\CommonExtensions.cs">
+    <Compile Include="View\CommonExtensions.cs">
       <Link>View\CommonExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\ContainerGenerators\XamlGridCellGenerator.cs">
+    <Compile Include="View\ContainerGenerators\XamlGridCellGenerator.cs">
       <Link>View\ContainerGenerators\XamlGridCellGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\ContainerGenerators\XamlGridEditCellGenerator.cs">
+    <Compile Include="View\ContainerGenerators\XamlGridEditCellGenerator.cs">
       <Link>View\ContainerGenerators\XamlGridEditCellGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\ContainerGenerators\XamlGridEditRowGenerator.cs">
+    <Compile Include="View\ContainerGenerators\XamlGridEditRowGenerator.cs">
       <Link>View\ContainerGenerators\XamlGridEditRowGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\ContainerGenerators\XamlGridHeaderCellGenerator.cs">
+    <Compile Include="View\ContainerGenerators\XamlGridHeaderCellGenerator.cs">
       <Link>View\ContainerGenerators\XamlGridHeaderCellGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\ContainerGenerators\XamlGridRowGenerator.cs">
+    <Compile Include="View\ContainerGenerators\XamlGridRowGenerator.cs">
       <Link>View\ContainerGenerators\XamlGridRowGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ColumnHeaders\ColumnDataOperationsMode.cs">
+    <Compile Include="View\Controls\ColumnHeaders\ColumnDataOperationsMode.cs">
       <Link>View\Controls\ColumnHeaders\ColumnDataOperationsMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ColumnHeaders\ColumnHeaderDataOperationsButton.cs">
+    <Compile Include="View\Controls\ColumnHeaders\ColumnHeaderDataOperationsButton.cs">
       <Link>View\Controls\ColumnHeaders\ColumnHeaderDataOperationsButton.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ColumnHeaders\ColumnHeaderHitTestStrategy.cs">
+    <Compile Include="View\Controls\ColumnHeaders\ColumnHeaderHitTestStrategy.cs">
       <Link>View\Controls\ColumnHeaders\ColumnHeaderHitTestStrategy.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ColumnHeaders\DataGridColumnDragControl.cs">
+    <Compile Include="View\Controls\ColumnHeaders\DataGridColumnDragControl.cs">
       <Link>View\Controls\ColumnHeaders\DataGridColumnDragControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ColumnHeaders\DataGridColumnHeader.cs">
+    <Compile Include="View\Controls\ColumnHeaders\DataGridColumnHeader.cs">
       <Link>View\Controls\ColumnHeaders\DataGridColumnHeader.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ColumnHeaders\DataGridColumnHeader.DragDrop.cs">
+    <Compile Include="View\Controls\ColumnHeaders\DataGridColumnHeader.DragDrop.cs">
       <Link>View\Controls\ColumnHeaders\DataGridColumnHeader.DragDrop.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ColumnHeaders\DataGridColumnHeaderDragOperation.cs">
+    <Compile Include="View\Controls\ColumnHeaders\DataGridColumnHeaderDragOperation.cs">
       <Link>View\Controls\ColumnHeaders\DataGridColumnHeaderDragOperation.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ColumnHeaders\DataGridColumnHeaderPanel.cs">
+    <Compile Include="View\Controls\ColumnHeaders\DataGridColumnHeaderPanel.cs">
       <Link>View\Controls\ColumnHeaders\DataGridColumnHeaderPanel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ColumnHeaders\DataGridColumnHeaderPanel.DragDrop.cs">
+    <Compile Include="View\Controls\ColumnHeaders\DataGridColumnHeaderPanel.DragDrop.cs">
       <Link>View\Controls\ColumnHeaders\DataGridColumnHeaderPanel.DragDrop.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Columns\DataGridCellFlyoutControl.cs">
+    <Compile Include="View\Controls\Columns\DataGridCellFlyoutControl.cs">
       <Link>View\Controls\Columns\DataGridCellFlyoutControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Columns\DataGridColumnReorderServicePanel.cs">
+    <Compile Include="View\Controls\Columns\DataGridColumnReorderServicePanel.cs">
       <Link>View\Controls\Columns\DataGridColumnReorderServicePanel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Columns\DataGridColumnsFlyout.cs">
+    <Compile Include="View\Controls\Columns\DataGridColumnsFlyout.cs">
       <Link>View\Controls\Columns\DataGridColumnsFlyout.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Columns\DataGridFlyoutColumnHeader.cs">
+    <Compile Include="View\Controls\Columns\DataGridFlyoutColumnHeader.cs">
       <Link>View\Controls\Columns\DataGridFlyoutColumnHeader.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Columns\DataGridFlyoutColumnHeader.DragDrop.cs">
+    <Compile Include="View\Controls\Columns\DataGridFlyoutColumnHeader.DragDrop.cs">
       <Link>View\Controls\Columns\DataGridFlyoutColumnHeader.DragDrop.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridCellsPanel.cs">
+    <Compile Include="View\Controls\DataGridCellsPanel.cs">
       <Link>View\Controls\DataGridCellsPanel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Columns\DataGridColumnsFlyout.DragDrop.cs">
+    <Compile Include="View\Controls\Columns\DataGridColumnsFlyout.DragDrop.cs">
       <Link>View\Controls\Columns\DataGridColumnsFlyout.DragDrop.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridContentFlyout.cs">
+    <Compile Include="View\Controls\DataGridContentFlyout.cs">
       <Link>View\Controls\DataGridContentFlyout.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridContentLayerPanel.cs">
+    <Compile Include="View\Controls\DataGridContentLayerPanel.cs">
       <Link>View\Controls\DataGridContentLayerPanel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridCurrencyControl.cs">
+    <Compile Include="View\Controls\DataGridCurrencyControl.cs">
       <Link>View\Controls\DataGridCurrencyControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridDataOperationsControl.cs">
+    <Compile Include="View\Controls\DataGridDataOperationsControl.cs">
       <Link>View\Controls\DataGridDataOperationsControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridFlyout.cs">
+    <Compile Include="View\Controls\DataGridFlyout.cs">
       <Link>View\Controls\DataGridFlyout.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridFlyout.DragDrop.cs">
+    <Compile Include="View\Controls\DataGridFlyout.DragDrop.cs">
       <Link>View\Controls\DataGridFlyout.DragDrop.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridFlyoutHeader.cs">
+    <Compile Include="View\Controls\DataGridFlyoutHeader.cs">
       <Link>View\Controls\DataGridFlyoutHeader.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridFlyoutHeader.DragDrop.cs">
+    <Compile Include="View\Controls\DataGridFlyoutHeader.DragDrop.cs">
       <Link>View\Controls\DataGridFlyoutHeader.DragDrop.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridFlyoutId.cs">
+    <Compile Include="View\Controls\DataGridFlyoutId.cs">
       <Link>View\Controls\DataGridFlyoutId.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridFlyoutPanel.cs">
+    <Compile Include="View\Controls\DataGridFlyoutPanel.cs">
       <Link>View\Controls\DataGridFlyoutPanel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridHeader.cs">
+    <Compile Include="View\Controls\DataGridHeader.cs">
       <Link>View\Controls\DataGridHeader.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridHoverControl.cs">
+    <Compile Include="View\Controls\DataGridHoverControl.cs">
       <Link>View\Controls\DataGridHoverControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\DataGridRootPanel.cs">
+    <Compile Include="View\Controls\DataGridRootPanel.cs">
       <Link>View\Controls\DataGridRootPanel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Editing\ComboBoxEditor.cs">
+    <Compile Include="View\Controls\Editing\ComboBoxEditor.cs">
       <Link>View\Controls\Editing\ComboBoxEditor.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Editing\DataGridEditRow.cs">
+    <Compile Include="View\Controls\Editing\DataGridEditRow.cs">
       <Link>View\Controls\Editing\DataGridEditRow.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Editing\DataGridFormEditor.cs">
+    <Compile Include="View\Controls\Editing\DataGridFormEditor.cs">
       <Link>View\Controls\Editing\DataGridFormEditor.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Editing\EditRowHostPanel.cs">
+    <Compile Include="View\Controls\Editing\EditRowHostPanel.cs">
       <Link>View\Controls\Editing\EditRowHostPanel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Editing\ExternalEditorActionCommand.cs">
+    <Compile Include="View\Controls\Editing\ExternalEditorActionCommand.cs">
       <Link>View\Controls\Editing\ExternalEditorActionCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Editing\ExternalEditorCommandId.cs">
+    <Compile Include="View\Controls\Editing\ExternalEditorCommandId.cs">
       <Link>View\Controls\Editing\ExternalEditorCommandId.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Editing\DataGridFormEntityProvider.cs">
+    <Compile Include="View\Controls\Editing\DataGridFormEntityProvider.cs">
       <Link>View\Controls\Editing\DataGridFormEntityProvider.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Editing\FormEditorSaveButton.cs">
+    <Compile Include="View\Controls\Editing\FormEditorSaveButton.cs">
       <Link>View\Controls\Editing\FormEditorSaveButton.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Editing\GridFormEntityProperty.cs">
+    <Compile Include="View\Controls\Editing\GridFormEntityProperty.cs">
       <Link>View\Controls\Editing\GridFormEntityProperty.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\Buttons\DataGridFilteringFlyoutApplyFilterButton.cs">
+    <Compile Include="View\Controls\Filtering\Buttons\DataGridFilteringFlyoutApplyFilterButton.cs">
       <Link>View\Controls\Filtering\Buttons\DataGridFilteringFlyoutApplyFilterButton.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\Buttons\DataGridFilteringFlyoutClearFilterButton.cs">
+    <Compile Include="View\Controls\Filtering\Buttons\DataGridFilteringFlyoutClearFilterButton.cs">
       <Link>View\Controls\Filtering\Buttons\DataGridFilteringFlyoutClearFilterButton.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\Buttons\DataGridFilteringFlyoutExpandButton.cs">
+    <Compile Include="View\Controls\Filtering\Buttons\DataGridFilteringFlyoutExpandButton.cs">
       <Link>View\Controls\Filtering\Buttons\DataGridFilteringFlyoutExpandButton.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\Buttons\DataGridFilteringFlyoutHeaderCancelButton.cs">
+    <Compile Include="View\Controls\Filtering\Buttons\DataGridFilteringFlyoutHeaderCancelButton.cs">
       <Link>View\Controls\Filtering\Buttons\DataGridFilteringFlyoutHeaderCancelButton.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridBooleanFilterControl.cs">
+    <Compile Include="View\Controls\Filtering\DataGridBooleanFilterControl.cs">
       <Link>View\Controls\Filtering\DataGridBooleanFilterControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridDateFilterControl.cs">
+    <Compile Include="View\Controls\Filtering\DataGridDateFilterControl.cs">
       <Link>View\Controls\Filtering\DataGridDateFilterControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridDateTimeFilterControl.cs">
+    <Compile Include="View\Controls\Filtering\DataGridDateTimeFilterControl.cs">
       <Link>View\Controls\Filtering\DataGridDateTimeFilterControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridFilterComboBox.cs">
+    <Compile Include="View\Controls\Filtering\DataGridFilterComboBox.cs">
       <Link>View\Controls\Filtering\DataGridFilterComboBox.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridFilterComboBoxItem.cs">
+    <Compile Include="View\Controls\Filtering\DataGridFilterComboBoxItem.cs">
       <Link>View\Controls\Filtering\DataGridFilterComboBoxItem.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridFilterControlBase.cs">
+    <Compile Include="View\Controls\Filtering\DataGridFilterControlBase.cs">
       <Link>View\Controls\Filtering\DataGridFilterControlBase.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridFilteringFlyout.cs">
+    <Compile Include="View\Controls\Filtering\DataGridFilteringFlyout.cs">
       <Link>View\Controls\Filtering\DataGridFilteringFlyout.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridNestedPropertyTextFilterControl.cs">
+    <Compile Include="View\Controls\Filtering\DataGridNestedPropertyTextFilterControl.cs">
       <Link>View\Controls\Filtering\DataGridNestedPropertyTextFilterControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridNumericalFilterControl.cs">
+    <Compile Include="View\Controls\Filtering\DataGridNumericalFilterControl.cs">
       <Link>View\Controls\Filtering\DataGridNumericalFilterControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridTextFilterControl.cs">
+    <Compile Include="View\Controls\Filtering\DataGridTextFilterControl.cs">
       <Link>View\Controls\Filtering\DataGridTextFilterControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridTimeFilterControl.cs">
+    <Compile Include="View\Controls\Filtering\DataGridTimeFilterControl.cs">
       <Link>View\Controls\Filtering\DataGridTimeFilterControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\DataGridTypedFilterControl.cs">
+    <Compile Include="View\Controls\Filtering\DataGridTypedFilterControl.cs">
       <Link>View\Controls\Filtering\DataGridTypedFilterControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\FilteringFlyoutDisplayMode.cs">
+    <Compile Include="View\Controls\Filtering\FilteringFlyoutDisplayMode.cs">
       <Link>View\Controls\Filtering\FilteringFlyoutDisplayMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\FlyoutHeaderControl.cs">
+    <Compile Include="View\Controls\Filtering\FlyoutHeaderControl.cs">
       <Link>View\Controls\Filtering\FlyoutHeaderControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Filtering\IFilterControl.cs">
+    <Compile Include="View\Controls\Filtering\IFilterControl.cs">
       <Link>View\Controls\Filtering\IFilterControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\FrozenGroupsPanel.cs">
+    <Compile Include="View\Controls\FrozenGroupsPanel.cs">
       <Link>View\Controls\FrozenGroupsPanel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Grouping\DataGridFlyoutGroupHeader.cs">
+    <Compile Include="View\Controls\Grouping\DataGridFlyoutGroupHeader.cs">
       <Link>View\Controls\Grouping\DataGridFlyoutGroupHeader.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Grouping\DataGridFlyoutGroupHeader.DragDrop.cs">
+    <Compile Include="View\Controls\Grouping\DataGridFlyoutGroupHeader.DragDrop.cs">
       <Link>View\Controls\Grouping\DataGridFlyoutGroupHeader.DragDrop.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Grouping\DataGridGroupHeader.cs">
+    <Compile Include="View\Controls\Grouping\DataGridGroupHeader.cs">
       <Link>View\Controls\Grouping\DataGridGroupHeader.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Grouping\DataGridServicePanelGroupingFlyout.cs">
+    <Compile Include="View\Controls\Grouping\DataGridServicePanelGroupingFlyout.cs">
       <Link>View\Controls\Grouping\DataGridServicePanelGroupingFlyout.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Grouping\DataGridServicePanelGroupingFlyout.DragDrop.cs">
+    <Compile Include="View\Controls\Grouping\DataGridServicePanelGroupingFlyout.DragDrop.cs">
       <Link>View\Controls\Grouping\DataGridServicePanelGroupingFlyout.DragDrop.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Grouping\GroupPanelPosition.cs">
+    <Compile Include="View\Controls\Grouping\GroupPanelPosition.cs">
       <Link>View\Controls\Grouping\GroupPanelPosition.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Loading\DataGridAutoDataLoadingControl.cs">
+    <Compile Include="View\Controls\Loading\DataGridAutoDataLoadingControl.cs">
       <Link>View\Controls\Loading\DataGridAutoDataLoadingControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Loading\DataGridBusyOverlayControl.cs">
+    <Compile Include="View\Controls\Loading\DataGridBusyOverlayControl.cs">
       <Link>View\Controls\Loading\DataGridBusyOverlayControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Loading\DataGridLoadDataControl.cs">
+    <Compile Include="View\Controls\Loading\DataGridLoadDataControl.cs">
       <Link>View\Controls\Loading\DataGridLoadDataControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Selection\SelectionRegionBackgroundControl.cs">
+    <Compile Include="View\Controls\Selection\SelectionRegionBackgroundControl.cs">
       <Link>View\Controls\Selection\SelectionRegionBackgroundControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\Selection\SelectionRegionBorderControl.cs">
+    <Compile Include="View\Controls\Selection\SelectionRegionBorderControl.cs">
       <Link>View\Controls\Selection\SelectionRegionBorderControl.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ServicePanel\DataGridServicePanel.cs">
+    <Compile Include="View\Controls\ServicePanel\DataGridServicePanel.cs">
       <Link>View\Controls\ServicePanel\DataGridServicePanel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ServicePanel\DataGridServicePanel.DragDrop.cs">
+    <Compile Include="View\Controls\ServicePanel\DataGridServicePanel.DragDrop.cs">
       <Link>View\Controls\ServicePanel\DataGridServicePanel.DragDrop.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ServicePanel\ReorderItemsDragOperation.cs">
+    <Compile Include="View\Controls\ServicePanel\ReorderItemsDragOperation.cs">
       <Link>View\Controls\ServicePanel\ReorderItemsDragOperation.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Controls\ServicePanel\RotatedContainer.cs">
+    <Compile Include="View\Controls\ServicePanel\RotatedContainer.cs">
       <Link>View\Controls\ServicePanel\RotatedContainer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Converters\BorderThicknessToMarginConverter.cs">
+    <Compile Include="View\Converters\BorderThicknessToMarginConverter.cs">
       <Link>View\Converters\BorderThicknessToMarginConverter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Converters\DataOperationsButtonOpacityConverter.cs">
+    <Compile Include="View\Converters\DataOperationsButtonOpacityConverter.cs">
       <Link>View\Converters\DataOperationsButtonOpacityConverter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Converters\DataOperationsButtonTextConverter.cs">
+    <Compile Include="View\Converters\DataOperationsButtonTextConverter.cs">
       <Link>View\Converters\DataOperationsButtonTextConverter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Converters\GroupPositionToAlignmentConverter.cs">
+    <Compile Include="View\Converters\GroupPositionToAlignmentConverter.cs">
       <Link>View\Converters\GroupPositionToAlignmentConverter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Converters\SortDirectionToGlyphConverter.cs">
+    <Compile Include="View\Converters\SortDirectionToGlyphConverter.cs">
       <Link>View\Converters\SortDirectionToGlyphConverter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Converters\SortOrderToGlyphConverter.cs">
+    <Compile Include="View\Converters\SortOrderToGlyphConverter.cs">
       <Link>View\Converters\SortOrderToGlyphConverter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\DataContexts\GroupHeaderContext.cs">
+    <Compile Include="View\DataContexts\GroupHeaderContext.cs">
       <Link>View\DataContexts\GroupHeaderContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\DataGridGroupHeaderDisplayMode.cs">
+    <Compile Include="View\DataGridGroupHeaderDisplayMode.cs">
       <Link>View\DataGridGroupHeaderDisplayMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\DataView\DataBindingCompleteEventArgs.cs">
+    <Compile Include="View\DataView\DataBindingCompleteEventArgs.cs">
       <Link>View\DataView\DataBindingCompleteEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\DataView\DataGridDataView.cs">
+    <Compile Include="View\DataView\DataGridDataView.cs">
       <Link>View\DataView\DataGridDataView.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\DataView\IDataView.cs">
+    <Compile Include="View\DataView\IDataView.cs">
       <Link>View\DataView\IDataView.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Descriptors\Filtering\DataGridUserFilterMode.cs">
+    <Compile Include="View\Descriptors\Filtering\DataGridUserFilterMode.cs">
       <Link>View\Descriptors\Filtering\DataGridUserFilterMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Descriptors\Grouping\DataEngineMapping\DelegateGroupDescription.cs">
+    <Compile Include="View\Descriptors\Grouping\DataEngineMapping\DelegateGroupDescription.cs">
       <Link>View\Descriptors\Grouping\DataEngineMapping\DelegateGroupDescription.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Descriptors\Grouping\DataEngineMapping\DelegateGroupFilter.cs">
+    <Compile Include="View\Descriptors\Grouping\DataEngineMapping\DelegateGroupFilter.cs">
       <Link>View\Descriptors\Grouping\DataEngineMapping\DelegateGroupFilter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Descriptors\Grouping\DataGridUserGroupMode.cs">
+    <Compile Include="View\Descriptors\Grouping\DataGridUserGroupMode.cs">
       <Link>View\Descriptors\Grouping\DataGridUserGroupMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Descriptors\Sorting\DataEngineMapping\DelegateSortDescription.cs">
+    <Compile Include="View\Descriptors\Sorting\DataEngineMapping\DelegateSortDescription.cs">
       <Link>View\Descriptors\Sorting\DataEngineMapping\DelegateSortDescription.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Descriptors\Sorting\DataGridUserSortMode.cs">
+    <Compile Include="View\Descriptors\Sorting\DataGridUserSortMode.cs">
       <Link>View\Descriptors\Sorting\DataGridUserSortMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\DragDrop\CanvasDragSurface.cs">
+    <Compile Include="View\DragDrop\CanvasDragSurface.cs">
       <Link>View\DragDrop\CanvasDragSurface.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\DragDrop\ContentControlDragVisualContext.cs">
+    <Compile Include="View\DragDrop\ContentControlDragVisualContext.cs">
       <Link>View\DragDrop\ContentControlDragVisualContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\DragDrop\DragSurfaceRequestedEventArgs.cs">
+    <Compile Include="View\DragDrop\DragSurfaceRequestedEventArgs.cs">
       <Link>View\DragDrop\DragSurfaceRequestedEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Impl\LineDecorationPresenter.cs">
+    <Compile Include="View\Impl\LineDecorationPresenter.cs">
       <Link>View\Impl\LineDecorationPresenter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Impl\SelectionDecorationPresenter.cs">
+    <Compile Include="View\Impl\SelectionDecorationPresenter.cs">
       <Link>View\Impl\SelectionDecorationPresenter.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\ContentLayer.cs">
+    <Compile Include="View\Layers\ContentLayer.cs">
       <Link>View\Layers\ContentLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\DataGridDragSurface.cs">
+    <Compile Include="View\Layers\DataGridDragSurface.cs">
       <Link>View\Layers\DataGridDragSurface.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\DataGridLayer.cs">
+    <Compile Include="View\Layers\DataGridLayer.cs">
       <Link>View\Layers\DataGridLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\DecorationLayer.cs">
+    <Compile Include="View\Layers\DecorationLayer.cs">
       <Link>View\Layers\DecorationLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\GridEditRowLayer.cs">
+    <Compile Include="View\Layers\GridEditRowLayer.cs">
       <Link>View\Layers\GridEditRowLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\SelectionLayer.cs">
+    <Compile Include="View\Layers\SelectionLayer.cs">
       <Link>View\Layers\SelectionLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\SharedUILayer.cs">
+    <Compile Include="View\Layers\SharedUILayer.cs">
       <Link>View\Layers\SharedUILayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\VisualStateLayer.cs">
+    <Compile Include="View\Layers\VisualStateLayer.cs">
       <Link>View\Layers\VisualStateLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\XamlContentLayer.cs">
+    <Compile Include="View\Layers\XamlContentLayer.cs">
       <Link>View\Layers\XamlContentLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\XamlDecorationLayer.cs">
+    <Compile Include="View\Layers\XamlDecorationLayer.cs">
       <Link>View\Layers\XamlDecorationLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\XamlDragAdornerLayer.cs">
+    <Compile Include="View\Layers\XamlDragAdornerLayer.cs">
       <Link>View\Layers\XamlDragAdornerLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\XamlOverlayAdornerLayer.cs">
+    <Compile Include="View\Layers\XamlOverlayAdornerLayer.cs">
       <Link>View\Layers\XamlOverlayAdornerLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\XamlScrollableAdornerLayer.cs">
+    <Compile Include="View\Layers\XamlScrollableAdornerLayer.cs">
       <Link>View\Layers\XamlScrollableAdornerLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\XamlSelectionLayer.cs">
+    <Compile Include="View\Layers\XamlSelectionLayer.cs">
       <Link>View\Layers\XamlSelectionLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\XamlVisualStateLayer.cs">
+    <Compile Include="View\Layers\XamlVisualStateLayer.cs">
       <Link>View\Layers\XamlVisualStateLayer.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Layers\ZIndexConstants.cs">
+    <Compile Include="View\Layers\ZIndexConstants.cs">
       <Link>View\Layers\ZIndexConstants.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Columns.cs">
+    <Compile Include="View\RadDataGrid.Columns.cs">
       <Link>View\RadDataGrid.Columns.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.ContainerGenerator.cs">
+    <Compile Include="View\RadDataGrid.ContainerGenerator.cs">
       <Link>View\RadDataGrid.ContainerGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.cs">
+    <Compile Include="View\RadDataGrid.cs">
       <Link>View\RadDataGrid.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Currency.cs">
+    <Compile Include="View\RadDataGrid.Currency.cs">
       <Link>View\RadDataGrid.Currency.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Data.cs">
+    <Compile Include="View\RadDataGrid.Data.cs">
       <Link>View\RadDataGrid.Data.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Decorations.cs">
+    <Compile Include="View\RadDataGrid.Decorations.cs">
       <Link>View\RadDataGrid.Decorations.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Editing.cs">
+    <Compile Include="View\RadDataGrid.Editing.cs">
       <Link>View\RadDataGrid.Editing.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Layers.cs">
+    <Compile Include="View\RadDataGrid.Layers.cs">
       <Link>View\RadDataGrid.Layers.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Manipulation.cs">
+    <Compile Include="View\RadDataGrid.Manipulation.cs">
       <Link>View\RadDataGrid.Manipulation.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Model.cs">
+    <Compile Include="View\RadDataGrid.Model.cs">
       <Link>View\RadDataGrid.Model.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Scrolling.cs">
+    <Compile Include="View\RadDataGrid.Scrolling.cs">
       <Link>View\RadDataGrid.Scrolling.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Selection.cs">
+    <Compile Include="View\RadDataGrid.Selection.cs">
       <Link>View\RadDataGrid.Selection.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\RadDataGrid.Updates.cs">
+    <Compile Include="View\RadDataGrid.Updates.cs">
       <Link>View\RadDataGrid.Updates.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CellDoubleTapCommand.cs">
+    <Compile Include="View\Services\Commands\CellDoubleTapCommand.cs">
       <Link>View\Services\Commands\CellDoubleTapCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CellFlyoutActionCommand.cs">
+    <Compile Include="View\Services\Commands\CellFlyoutActionCommand.cs">
       <Link>View\Services\Commands\CellFlyoutActionCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CellFlyoutActionContext.cs">
+    <Compile Include="View\Services\Commands\CellFlyoutActionContext.cs">
       <Link>View\Services\Commands\CellFlyoutActionContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CellFlyoutGesture.cs">
+    <Compile Include="View\Services\Commands\CellFlyoutGesture.cs">
       <Link>View\Services\Commands\CellFlyoutGesture.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CellHoldingCommand.cs">
+    <Compile Include="View\Services\Commands\CellHoldingCommand.cs">
       <Link>View\Services\Commands\CellHoldingCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CellHoldingContext.cs">
+    <Compile Include="View\Services\Commands\CellHoldingContext.cs">
       <Link>View\Services\Commands\CellHoldingContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CellPointerOverCommand.cs">
+    <Compile Include="View\Services\Commands\CellPointerOverCommand.cs">
       <Link>View\Services\Commands\CellPointerOverCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CellTapCommand.cs">
+    <Compile Include="View\Services\Commands\CellTapCommand.cs">
       <Link>View\Services\Commands\CellTapCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\ColumnHeaderTapContext.cs">
+    <Compile Include="View\Services\Commands\ColumnHeaderTapContext.cs">
       <Link>View\Services\Commands\ColumnHeaderTapContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\ColumnHeader\ActionContext.cs">
+    <Compile Include="View\Services\Commands\ColumnHeader\ActionContext.cs">
       <Link>View\Services\Commands\ColumnHeader\ActionContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\ColumnHeader\ColumnHeaderActionCommand.cs">
+    <Compile Include="View\Services\Commands\ColumnHeader\ColumnHeaderActionCommand.cs">
       <Link>View\Services\Commands\ColumnHeader\ColumnHeaderActionCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\ColumnHeader\ColumnHeaderActionContext.cs">
+    <Compile Include="View\Services\Commands\ColumnHeader\ColumnHeaderActionContext.cs">
       <Link>View\Services\Commands\ColumnHeader\ColumnHeaderActionContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\ColumnHeader\ColumnHeaderFlyoutCommand.cs">
+    <Compile Include="View\Services\Commands\ColumnHeader\ColumnHeaderFlyoutCommand.cs">
       <Link>View\Services\Commands\ColumnHeader\ColumnHeaderFlyoutCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\ColumnHeader\ColumnHeaderTapCommand.cs">
+    <Compile Include="View\Services\Commands\ColumnHeader\ColumnHeaderTapCommand.cs">
       <Link>View\Services\Commands\ColumnHeader\ColumnHeaderTapCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CommandId.cs">
+    <Compile Include="View\Services\Commands\CommandId.cs">
       <Link>View\Services\Commands\CommandId.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\CommandService.cs">
+    <Compile Include="View\Services\Commands\CommandService.cs">
       <Link>View\Services\Commands\CommandService.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\DataBindingCompleteCommand.cs">
+    <Compile Include="View\Services\Commands\DataBindingCompleteCommand.cs">
       <Link>View\Services\Commands\DataBindingCompleteCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\DataGridCommand.cs">
+    <Compile Include="View\Services\Commands\DataGridCommand.cs">
       <Link>View\Services\Commands\DataGridCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\DataGridFlyoutGroupHeaderTapAction.cs">
+    <Compile Include="View\Services\Commands\DataGridFlyoutGroupHeaderTapAction.cs">
       <Link>View\Services\Commands\DataGridFlyoutGroupHeaderTapAction.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\DataGridUserCommand.cs">
+    <Compile Include="View\Services\Commands\DataGridUserCommand.cs">
       <Link>View\Services\Commands\DataGridUserCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\Editing\BeginEditCommand.cs">
+    <Compile Include="View\Services\Commands\Editing\BeginEditCommand.cs">
       <Link>View\Services\Commands\Editing\BeginEditCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\Editing\CancelEditCommand.cs">
+    <Compile Include="View\Services\Commands\Editing\CancelEditCommand.cs">
       <Link>View\Services\Commands\Editing\CancelEditCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\Editing\CommitEditCommand.cs">
+    <Compile Include="View\Services\Commands\Editing\CommitEditCommand.cs">
       <Link>View\Services\Commands\Editing\CommitEditCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\Editing\Contexts\ActionTrigger.cs">
+    <Compile Include="View\Services\Commands\Editing\Contexts\ActionTrigger.cs">
       <Link>View\Services\Commands\Editing\Contexts\ActionTrigger.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\Editing\Contexts\EditContext.cs">
+    <Compile Include="View\Services\Commands\Editing\Contexts\EditContext.cs">
       <Link>View\Services\Commands\Editing\Contexts\EditContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\Editing\Contexts\ValidateCellContext.cs">
+    <Compile Include="View\Services\Commands\Editing\Contexts\ValidateCellContext.cs">
       <Link>View\Services\Commands\Editing\Contexts\ValidateCellContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\Editing\DataGridUserEditMode.cs">
+    <Compile Include="View\Services\Commands\Editing\DataGridUserEditMode.cs">
       <Link>View\Services\Commands\Editing\DataGridUserEditMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\Editing\ValidateCellCommand.cs">
+    <Compile Include="View\Services\Commands\Editing\ValidateCellCommand.cs">
       <Link>View\Services\Commands\Editing\ValidateCellCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\FilterButtonTapCommand.cs">
+    <Compile Include="View\Services\Commands\FilterButtonTapCommand.cs">
       <Link>View\Services\Commands\FilterButtonTapCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\FilterButtonTapContext.cs">
+    <Compile Include="View\Services\Commands\FilterButtonTapContext.cs">
       <Link>View\Services\Commands\FilterButtonTapContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\FilterRequestedCommand.cs">
+    <Compile Include="View\Services\Commands\FilterRequestedCommand.cs">
       <Link>View\Services\Commands\FilterRequestedCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\FilterRequestedContext.cs">
+    <Compile Include="View\Services\Commands\FilterRequestedContext.cs">
       <Link>View\Services\Commands\FilterRequestedContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\FlyoutGroupHeaderTapCommand.cs">
+    <Compile Include="View\Services\Commands\FlyoutGroupHeaderTapCommand.cs">
       <Link>View\Services\Commands\FlyoutGroupHeaderTapCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\FlyoutGroupHeaderTapContext.cs">
+    <Compile Include="View\Services\Commands\FlyoutGroupHeaderTapContext.cs">
       <Link>View\Services\Commands\FlyoutGroupHeaderTapContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\GenerateColumnCommand.cs">
+    <Compile Include="View\Services\Commands\GenerateColumnCommand.cs">
       <Link>View\Services\Commands\GenerateColumnCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\GenerateColumnContext.cs">
+    <Compile Include="View\Services\Commands\GenerateColumnContext.cs">
       <Link>View\Services\Commands\GenerateColumnContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\GroupHeaderTapCommand.cs">
+    <Compile Include="View\Services\Commands\GroupHeaderTapCommand.cs">
       <Link>View\Services\Commands\GroupHeaderTapCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\ICommandService.cs">
+    <Compile Include="View\Services\Commands\ICommandService.cs">
       <Link>View\Services\Commands\ICommandService.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\KeyDownCommand.cs">
+    <Compile Include="View\Services\Commands\KeyDownCommand.cs">
       <Link>View\Services\Commands\KeyDownCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\LoadMoreDataCommand.cs">
+    <Compile Include="View\Services\Commands\LoadMoreDataCommand.cs">
       <Link>View\Services\Commands\LoadMoreDataCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\LoadMoreDataContext.cs">
+    <Compile Include="View\Services\Commands\LoadMoreDataContext.cs">
       <Link>View\Services\Commands\LoadMoreDataContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\ToggleColumnVisibilityCommand.cs">
+    <Compile Include="View\Services\Commands\ToggleColumnVisibilityCommand.cs">
       <Link>View\Services\Commands\ToggleColumnVisibilityCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Commands\ToggleColumnVisibilityContext.cs">
+    <Compile Include="View\Services\Commands\ToggleColumnVisibilityContext.cs">
       <Link>View\Services\Commands\ToggleColumnVisibilityContext.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Currency\DataGridCurrencyService.cs">
+    <Compile Include="View\Services\Currency\DataGridCurrencyService.cs">
       <Link>View\Services\Currency\DataGridCurrencyService.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Currency\ICurrencyService.cs">
+    <Compile Include="View\Services\Currency\ICurrencyService.cs">
       <Link>View\Services\Currency\ICurrencyService.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\DragDrop\DataGridDragBehavior.cs">
+    <Compile Include="View\Services\DragDrop\DataGridDragBehavior.cs">
       <Link>View\Services\DragDrop\DataGridDragBehavior.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Editing\EditingService.cs">
+    <Compile Include="View\Services\Editing\EditingService.cs">
       <Link>View\Services\Editing\EditingService.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Editing\EditOperation.cs">
+    <Compile Include="View\Services\Editing\EditOperation.cs">
       <Link>View\Services\Editing\EditOperation.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Editing\ExternalEditorPosition.cs">
+    <Compile Include="View\Services\Editing\ExternalEditorPosition.cs">
       <Link>View\Services\Editing\ExternalEditorPosition.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Editing\IGridExternalEditor.cs">
+    <Compile Include="View\Services\Editing\IGridExternalEditor.cs">
       <Link>View\Services\Editing\IGridExternalEditor.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\HitTestService.cs">
+    <Compile Include="View\Services\HitTestService.cs">
       <Link>View\Services\HitTestService.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Selection\DataGridCellInfo.cs">
+    <Compile Include="View\Services\Selection\DataGridCellInfo.cs">
       <Link>View\Services\Selection\DataGridCellInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Selection\DataGridSelectionChangedEventArgs.cs">
+    <Compile Include="View\Services\Selection\DataGridSelectionChangedEventArgs.cs">
       <Link>View\Services\Selection\DataGridSelectionChangedEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Selection\DataGridSelectionMode.cs">
+    <Compile Include="View\Services\Selection\DataGridSelectionMode.cs">
       <Link>View\Services\Selection\DataGridSelectionMode.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Selection\DataGridSelectionUnit.cs">
+    <Compile Include="View\Services\Selection\DataGridSelectionUnit.cs">
       <Link>View\Services\Selection\DataGridSelectionUnit.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Selection\ISelectionService.cs">
+    <Compile Include="View\Services\Selection\ISelectionService.cs">
       <Link>View\Services\Selection\ISelectionService.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Selection\SelectedItemCollection.cs">
+    <Compile Include="View\Services\Selection\SelectedItemCollection.cs">
       <Link>View\Services\Selection\SelectedItemCollection.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Selection\SelectionRegionInfo.cs">
+    <Compile Include="View\Services\Selection\SelectionRegionInfo.cs">
       <Link>View\Services\Selection\SelectionRegionInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Selection\SelectionRegionModel.cs">
+    <Compile Include="View\Services\Selection\SelectionRegionModel.cs">
       <Link>View\Services\Selection\SelectionRegionModel.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Selection\SelectionService.cs">
+    <Compile Include="View\Services\Selection\SelectionService.cs">
       <Link>View\Services\Selection\SelectionService.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Updates\UpdateFlags.cs">
+    <Compile Include="View\Services\Updates\UpdateFlags.cs">
       <Link>View\Services\Updates\UpdateFlags.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\Updates\UpdateService.cs">
+    <Compile Include="View\Services\Updates\UpdateService.cs">
       <Link>View\Services\Updates\UpdateService.cs</Link>
     </Compile>
-    <Compile Include="..\Grid.Windows\View\Services\VisualStateService.cs">
+    <Compile Include="View\Services\VisualStateService.cs">
       <Link>View\Services\VisualStateService.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\RadDataGrid.Flyout.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="..\Grid.Windows\Resources\Neutral.resw">
+    <PRIResource Include="Resources\Neutral.resw">
       <Link>Resources\Neutral.resw</Link>
     </PRIResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Grid.Windows\View\Columns\Resources\DefaultBooleanColumnEditorStyle.xaml">
+    <EmbeddedResource Include="View\Columns\Resources\DefaultBooleanColumnEditorStyle.xaml">
       <Link>View\Columns\Resources\DefaultBooleanColumnEditorStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Grid.Windows\View\Columns\Resources\DefaultBooleanColumnStyle.xaml">
+    <EmbeddedResource Include="View\Columns\Resources\DefaultBooleanColumnStyle.xaml">
       <Link>View\Columns\Resources\DefaultBooleanColumnStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Grid.Windows\View\Columns\Resources\DefaultComboBoxColumnEditorStyle.xaml">
+    <EmbeddedResource Include="View\Columns\Resources\DefaultComboBoxColumnEditorStyle.xaml">
       <Link>View\Columns\Resources\DefaultComboBoxColumnEditorStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Grid.Windows\View\Columns\Resources\DefaultDateColumnEditorStyle.xaml">
+    <EmbeddedResource Include="View\Columns\Resources\DefaultDateColumnEditorStyle.xaml">
       <Link>View\Columns\Resources\DefaultDateColumnEditorStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Grid.Windows\View\Columns\Resources\DefaultNumericalColumnEditorStyle.xaml">
+    <EmbeddedResource Include="View\Columns\Resources\DefaultNumericalColumnEditorStyle.xaml">
       <Link>View\Columns\Resources\DefaultNumericalColumnEditorStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Grid.Windows\View\Columns\Resources\DefaultTextColumnEditorStyle.xaml">
+    <EmbeddedResource Include="View\Columns\Resources\DefaultTextColumnEditorStyle.xaml">
       <Link>View\Columns\Resources\DefaultTextColumnEditorStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Grid.Windows\View\Columns\Resources\DefaultTextColumnStyle.xaml">
+    <EmbeddedResource Include="View\Columns\Resources\DefaultTextColumnStyle.xaml">
       <Link>View\Columns\Resources\DefaultTextColumnStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Grid.Windows\View\Columns\Resources\DefaultTimeColumnEditorStyle.xaml">
+    <EmbeddedResource Include="View\Columns\Resources\DefaultTimeColumnEditorStyle.xaml">
       <Link>View\Columns\Resources\DefaultTimeColumnEditorStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Grid.Windows\View\Columns\Resources\DefaultTextColumnFlyoutContentStyle.xaml">
+    <EmbeddedResource Include="View\Columns\Resources\DefaultTextColumnFlyoutContentStyle.xaml">
       <Link>View\Columns\Resources\DefaultTextColumnFlyoutContentStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -953,7 +953,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Grid.Windows\ToolboxIcons\Telerik.UI.Xaml.Controls.Grid.RadDataGrid.Icon.png">
+    <EmbeddedResource Include="ToolboxIcons\Telerik.UI.Xaml.Controls.Grid.RadDataGrid.Icon.png">
       <Link>ToolboxIcons\Telerik.UI.Xaml.Controls.Grid.RadDataGrid.Icon.png</Link>
     </EmbeddedResource>
   </ItemGroup>
@@ -980,100 +980,100 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Grid.Windows\Assets\FilterFlyout\ic_arrow_down.png">
+    <Content Include="Assets\FilterFlyout\ic_arrow_down.png">
       <Link>Assets\FilterFlyout\ic_arrow_down.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\FilterFlyout\ic_arrow_down.scale-140.png">
+    <Content Include="Assets\FilterFlyout\ic_arrow_down.scale-140.png">
       <Link>Assets\FilterFlyout\ic_arrow_down.scale-140.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\FilterFlyout\ic_arrow_down.scale-180.png">
+    <Content Include="Assets\FilterFlyout\ic_arrow_down.scale-180.png">
       <Link>Assets\FilterFlyout\ic_arrow_down.scale-180.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\FilterFlyout\ic_arrow_down.scale-240.png">
+    <Content Include="Assets\FilterFlyout\ic_arrow_down.scale-240.png">
       <Link>Assets\FilterFlyout\ic_arrow_down.scale-240.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\FilterFlyout\ic_arrow_down_white.png">
+    <Content Include="Assets\FilterFlyout\ic_arrow_down_white.png">
       <Link>Assets\FilterFlyout\ic_arrow_down_white.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\FilterFlyout\ic_arrow_down_white.scale-140.png">
+    <Content Include="Assets\FilterFlyout\ic_arrow_down_white.scale-140.png">
       <Link>Assets\FilterFlyout\ic_arrow_down_white.scale-140.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\FilterFlyout\ic_arrow_down_white.scale-180.png">
+    <Content Include="Assets\FilterFlyout\ic_arrow_down_white.scale-180.png">
       <Link>Assets\FilterFlyout\ic_arrow_down_white.scale-180.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\FilterFlyout\ic_arrow_down_white.scale-240.png">
+    <Content Include="Assets\FilterFlyout\ic_arrow_down_white.scale-240.png">
       <Link>Assets\FilterFlyout\ic_arrow_down_white.scale-240.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\close_btn.png">
+    <Content Include="Assets\Reorder\close_btn.png">
       <Link>Assets\Reorder\close_btn.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\close_btn.scale-140.png">
+    <Content Include="Assets\Reorder\close_btn.scale-140.png">
       <Link>Assets\Reorder\close_btn.scale-140.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\close_btn.scale-180.png">
+    <Content Include="Assets\Reorder\close_btn.scale-180.png">
       <Link>Assets\Reorder\close_btn.scale-180.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\close_btn.scale-240.png">
+    <Content Include="Assets\Reorder\close_btn.scale-240.png">
       <Link>Assets\Reorder\close_btn.scale-240.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\close_btn_blue.png">
+    <Content Include="Assets\Reorder\close_btn_blue.png">
       <Link>Assets\Reorder\close_btn_blue.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\close_btn_blue.scale-140.png">
+    <Content Include="Assets\Reorder\close_btn_blue.scale-140.png">
       <Link>Assets\Reorder\close_btn_blue.scale-140.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\close_btn_blue.scale-180.png">
+    <Content Include="Assets\Reorder\close_btn_blue.scale-180.png">
       <Link>Assets\Reorder\close_btn_blue.scale-180.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\close_btn_blue.scale-240.png">
+    <Content Include="Assets\Reorder\close_btn_blue.scale-240.png">
       <Link>Assets\Reorder\close_btn_blue.scale-240.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\column_chooser_btn.png">
+    <Content Include="Assets\Reorder\column_chooser_btn.png">
       <Link>Assets\Reorder\column_chooser_btn.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\column_chooser_btn.scale-140.png">
+    <Content Include="Assets\Reorder\column_chooser_btn.scale-140.png">
       <Link>Assets\Reorder\column_chooser_btn.scale-140.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\column_chooser_btn.scale-180.png">
+    <Content Include="Assets\Reorder\column_chooser_btn.scale-180.png">
       <Link>Assets\Reorder\column_chooser_btn.scale-180.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\column_chooser_btn.scale-240.png">
+    <Content Include="Assets\Reorder\column_chooser_btn.scale-240.png">
       <Link>Assets\Reorder\column_chooser_btn.scale-240.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\column_chooser_btn_blue.png">
+    <Content Include="Assets\Reorder\column_chooser_btn_blue.png">
       <Link>Assets\Reorder\column_chooser_btn_blue.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\column_chooser_btn_blue.scale-140.png">
+    <Content Include="Assets\Reorder\column_chooser_btn_blue.scale-140.png">
       <Link>Assets\Reorder\column_chooser_btn_blue.scale-140.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\column_chooser_btn_blue.scale-180.png">
+    <Content Include="Assets\Reorder\column_chooser_btn_blue.scale-180.png">
       <Link>Assets\Reorder\column_chooser_btn_blue.scale-180.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\column_chooser_btn_blue.scale-240.png">
+    <Content Include="Assets\Reorder\column_chooser_btn_blue.scale-240.png">
       <Link>Assets\Reorder\column_chooser_btn_blue.scale-240.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\ic_reorder_dark.png">
+    <Content Include="Assets\Reorder\ic_reorder_dark.png">
       <Link>Assets\Reorder\ic_reorder_dark.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\ic_reorder_dark.scale-140.png">
+    <Content Include="Assets\Reorder\ic_reorder_dark.scale-140.png">
       <Link>Assets\Reorder\ic_reorder_dark.scale-140.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\ic_reorder_dark.scale-180.png">
+    <Content Include="Assets\Reorder\ic_reorder_dark.scale-180.png">
       <Link>Assets\Reorder\ic_reorder_dark.scale-180.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\ic_reorder_dark.scale-240.png">
+    <Content Include="Assets\Reorder\ic_reorder_dark.scale-240.png">
       <Link>Assets\Reorder\ic_reorder_dark.scale-240.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\ic_reorder_light.png">
+    <Content Include="Assets\Reorder\ic_reorder_light.png">
       <Link>Assets\Reorder\ic_reorder_light.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\ic_reorder_light.scale-140.png">
+    <Content Include="Assets\Reorder\ic_reorder_light.scale-140.png">
       <Link>Assets\Reorder\ic_reorder_light.scale-140.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\ic_reorder_light.scale-180.png">
+    <Content Include="Assets\Reorder\ic_reorder_light.scale-180.png">
       <Link>Assets\Reorder\ic_reorder_light.scale-180.png</Link>
     </Content>
-    <Content Include="..\Grid.Windows\Assets\Reorder\ic_reorder_light.scale-240.png">
+    <Content Include="Assets\Reorder\ic_reorder_light.scale-240.png">
       <Link>Assets\Reorder\ic_reorder_light.scale-240.png</Link>
     </Content>
   </ItemGroup>

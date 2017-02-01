@@ -14,9 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Primitives.UWP", "Primitives\Primitives.UWP\Primitives.UWP.csproj", "{BF14F352-F1B9-4CDE-854B-0339259A4CFD}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Primitives\Primitives.Shared\Primitives.Shared.projitems*{bf14f352-f1b9-4cde-854b-0339259a4cfd}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
