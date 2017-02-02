@@ -74,7 +74,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             }
         }
 
-        internal bool Loading
+        internal new bool Loading
         {
             get
             {

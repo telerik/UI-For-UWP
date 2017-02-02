@@ -369,7 +369,8 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 }
                 else
                 {
-                    this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    // Assinging to variable in order to avoid compiler warning. Variable will be ignored at compile time.
+                    var asyncAction = this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
                             this.SetInitialControlState(false);
                         });
@@ -462,7 +463,8 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 }
                 else
                 {
-                    this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    // Assinging to variable in order to avoid compiler warning. Variable will be ignored at compile time.
+                    var asyncAction = this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         action();
                     });

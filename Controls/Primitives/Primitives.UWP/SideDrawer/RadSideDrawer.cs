@@ -126,7 +126,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         private CommandService commandService;
         private bool isAnimationUpdateScheduled;
         private bool closeDrawer = true;
-        private bool initialPreparePending = true;
         private bool openInitially = false;
         private static double swipeAreaDefaultLength = 20d;
 

@@ -367,9 +367,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadSlideHubTile.Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Common\Services\Currency\" />
-  </ItemGroup>
-  <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Resources\Neutral.resw" />
   </ItemGroup>
   <ItemGroup>
