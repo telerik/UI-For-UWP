@@ -21,34 +21,25 @@
 		</PropertyGroup>
 
 		<ItemGroup>
-			<Binaries Condition=" '$(ControlName)' == '' "
+      <BinariesToCopy Condition=" '$(ControlName)' == '' "
                       Include="$(BinariesSourceFolder)\**\*"
                       Exclude="$(BinariesSourceFolder)\**\*.tmp;
 							   $(BinariesSourceFolder)\**\*CodeAnalysisLog.xml;
 							   $(BinariesSourceFolder)\**\*.lastcodeanalysissucceeded;
                  $(BinariesSourceFolder)\System.Runtime.WindowsRuntime.UI.Xaml.dll
 							   "/>
-			<Binaries Condition=" '$(ControlName)' != '' "
-                      Include="$(BinariesSourceFolder)\**\*$(ControlName)*\**\*;$(BinariesSourceFolder)\**\*$(ControlName)*"
+      <BinariesToCopy Condition=" '$(ControlName)' == 'Map' "
+                      Include="$(BinariesSourceFolder)\**\*"
                       Exclude="$(BinariesSourceFolder)\**\*.tmp;
-			  				   $(BinariesSourceFolder)\**\*CodeAnalysisLog.xml;
+			  				  $(BinariesSourceFolder)\**\*CodeAnalysisLog.xml;
+                  $(BinariesSourceFolder)\**\Telerik.Core.*;   
+                  $(BinariesSourceFolder)\**\Telerik.UI.Xaml.Primitives.UWP.*;
+                  $(BinariesSourceFolder)\**\Telerik.Geospatial.UWP.*;
 							   $(BinariesSourceFolder)\**\*.lastcodeanalysissucceeded
 							   "/>
-
-			<Binaries1 Condition=" '$(IsCoreAssembly)' != 'true'"
-							Include="@(Binaries)"
-							Exclude="$(BinariesSourceFolder)\**\Telerik.Core*.*;
-								     $(BinariesSourceFolder)\**\Telerik.Data*.*" />
-			<Binaries1 Condition=" '$(IsCoreAssembly)' == 'true'"
-							Include="@(Binaries)" />
-
-			<BinariesToCopy Condition=" '$(IsImageEditorTools)' == 'true' "
-							Include="@(Binaries1)"
-							Exclude="$(BinariesSourceFolder)\**\Telerik.UI.Xaml.Primitives*.*;
-									 $(BinariesSourceFolder)\**\Telerik.UI.Xaml.Input*.*;
-									 $(BinariesSourceFolder)\**\*lumia*.*" />
-			<BinariesToCopy Condition=" '$(IsImageEditorTools)' != 'true' "
-							Include="@(Binaries1)" />
+      <BinariesToCopy Condition=" '$(ControlName)' == 'Map' "
+                      Include="@(BinariesToCopy); 
+                      $(BinariesSourceFolder)\**\Telerik.UI.Xaml.Primitives.UWP\*.xr.xml"/>
 		</ItemGroup>
 
     <ItemGroup>
