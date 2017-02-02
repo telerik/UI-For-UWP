@@ -81,12 +81,12 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         internal Size ArrangeRestriction { get; set; }
 
-        bool IDragDropElement.CanStartDrag(DragDropTrigger trigger, object initializeContext = null)
+        bool IDragDropElement.CanStartDrag(DragDropTrigger trigger, object initializeContext)
         {
             return this.Owner.DragBehavior != null && this.Owner.DragBehavior.CanStartDrag(this.Column);
         }
 
-        DragStartingContext IDragDropElement.DragStarting(DragDropTrigger trigger, object initializeContext = null)
+        DragStartingContext IDragDropElement.DragStarting(DragDropTrigger trigger, object initializeContext)
         {
             this.Opacity = 0;
             DragStartingContext context = this.CreateDragContext();

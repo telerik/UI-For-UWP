@@ -13,17 +13,14 @@ namespace Telerik.UI.Xaml.Controls.Grid.View
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var position = (GroupPanelPosition)value;
-
-            if (position != null)
+            
+            if(position == GroupPanelPosition.Left)
             {
-                if(position == GroupPanelPosition.Left)
-                {
-                    return VerticalAlignment.Stretch;
-                }
-                if(position == GroupPanelPosition.Bottom)
-                {
-                    return VerticalAlignment.Bottom;
-                }
+                return VerticalAlignment.Stretch;
+            }
+            if(position == GroupPanelPosition.Bottom)
+            {
+                return VerticalAlignment.Bottom;
             }
 
             return value;

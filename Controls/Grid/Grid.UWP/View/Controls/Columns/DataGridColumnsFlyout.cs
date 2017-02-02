@@ -136,7 +136,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         }
 
         //TODO check this.
-        internal void ClearUI()
+        internal override void ClearUI()
         {
             if (this.Container != null)
             {
