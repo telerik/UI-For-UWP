@@ -66,6 +66,19 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             }
         }
 
+        internal bool NeedsUpdate
+        {
+            get
+            {
+                return needsUpdate;
+            }
+
+            set
+            {
+                needsUpdate = value;
+            }
+        }
+
         /// <summary>
         /// Called before the Tapped event occurs.
         /// </summary>

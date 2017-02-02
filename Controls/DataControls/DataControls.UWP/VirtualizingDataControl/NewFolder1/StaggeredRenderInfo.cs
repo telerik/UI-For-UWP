@@ -181,6 +181,11 @@ namespace Telerik.UI.Xaml.Controls.Data
 
                 return false;
             }
+
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
         }
     }
 }

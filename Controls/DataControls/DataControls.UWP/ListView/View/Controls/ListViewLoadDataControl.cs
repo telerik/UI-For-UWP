@@ -87,7 +87,11 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             this.LoadDataControl = owner;
         }
         public ListViewLoadDataControl LoadDataControl { get; set; }
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { }
+            remove { }
+        }
 
         public bool CanExecute(object parameter)
         {
