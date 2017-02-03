@@ -145,19 +145,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
-        internal Orientation OrientationCache
-        {
-            get
-            {
-                return orientationCache;
-            }
-
-            set
-            {
-                orientationCache = value;
-            }
-        }
-
         internal void InitializeDragHandles()
         {
             this.firstHandle = this.GetTemplateChild("PART_FirstHandle") as Border;

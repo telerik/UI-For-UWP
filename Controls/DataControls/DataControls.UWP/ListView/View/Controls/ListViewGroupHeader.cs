@@ -21,7 +21,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
 
         internal Size ArrangeSize;
         private Size lastDesiredSize = Size.Empty;
-        private bool needsUpdate = true;
         public Rect arrangeRect;
 
         /// <summary>
@@ -63,19 +62,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             get
             {
                 return this.arrangeRect;
-            }
-        }
-
-        internal bool NeedsUpdate
-        {
-            get
-            {
-                return needsUpdate;
-            }
-
-            set
-            {
-                needsUpdate = value;
             }
         }
 
@@ -155,7 +141,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             if (!ListViewModel.DoubleArithmetics.AreClose(e.PreviousSize, e.NewSize))
             {
                 (this.Owner as IListView).UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
-                this.needsUpdate = false;
             }
         }
 
