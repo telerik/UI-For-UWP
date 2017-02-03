@@ -81,5 +81,3 @@ All code contributed to this project should adhere to a consistent style, so ple
 - Do use braces for one-line blocks (if, for, while, do)
 - Place braces, "else", "catch", and "finally" on new line
 - Qualify member access with this
-
-Beyond these, your best bet when in doubt is to follow The Stylecop and Code analisys enabled for the Project(remember to build in Release).
