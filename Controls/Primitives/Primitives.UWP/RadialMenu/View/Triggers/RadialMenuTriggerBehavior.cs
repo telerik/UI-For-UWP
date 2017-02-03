@@ -21,7 +21,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="AttachTriggers"/> dependency property.
         /// </summary>
         private static readonly DependencyProperty AttachTriggersProperty =
-            DependencyProperty.Register("AttachTriggers", typeof(RadialMenuAttachTriggers), typeof(RadialMenuTriggerBehavior), new PropertyMetadata(RadialMenuAttachTriggers.PressedOrFocused));
+            DependencyProperty.Register(nameof(AttachTriggers), typeof(RadialMenuAttachTriggers), typeof(RadialMenuTriggerBehavior), new PropertyMetadata(RadialMenuAttachTriggers.PressedOrFocused));
 
         /// <summary>
         /// Gets or sets the attach triggers that will attach and display the menu.

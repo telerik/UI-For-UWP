@@ -22,7 +22,7 @@ namespace Telerik.Data.Core.Fields
         {
             if (source == null)
             {
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
             }
 
             this.source = source;

@@ -17,13 +17,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="SmallChange"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SmallChangeProperty =
-          DependencyProperty.Register("SmallChange", typeof(double), typeof(RangeInputBase), new PropertyMetadata(1d, OnSmallChangeChanged));
+          DependencyProperty.Register(nameof(SmallChange), typeof(double), typeof(RangeInputBase), new PropertyMetadata(1d, OnSmallChangeChanged));
 
         /// <summary>
         /// Identifies the <see cref="LargeChange"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LargeChangeProperty =
-            DependencyProperty.Register("LargeChange", typeof(double), typeof(RangeInputBase), new PropertyMetadata(10d, OnLargeChangeChanged));
+            DependencyProperty.Register(nameof(LargeChange), typeof(double), typeof(RangeInputBase), new PropertyMetadata(10d, OnLargeChangeChanged));
 
         /// <summary>
         /// Gets or sets the value to be added to or subtracted from the value.

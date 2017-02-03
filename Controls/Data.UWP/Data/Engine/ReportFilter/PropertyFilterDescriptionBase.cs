@@ -24,7 +24,7 @@ namespace Telerik.Data.Core
                 if (this.condition != value)
                 {
                     this.ChangeSettingsProperty(ref this.condition, value);
-                    this.OnPropertyChanged("Condition");
+                    this.OnPropertyChanged(nameof(Condition));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }

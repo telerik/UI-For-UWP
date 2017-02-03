@@ -19,14 +19,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="ExternalEditor"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty ExternalEditorProperty =
-            DependencyProperty.Register("ExternalEditor", typeof(IGridExternalEditor), typeof(RadDataGrid), new PropertyMetadata(new DataGridFormEditor()));
+            DependencyProperty.Register(nameof(ExternalEditor), typeof(IGridExternalEditor), typeof(RadDataGrid), new PropertyMetadata(new DataGridFormEditor()));
 
         
         /// <summary>
         /// Identifies the <see cref="UserEditMode"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty UserEditModeProperty =
-            DependencyProperty.Register("UserEditMode", typeof(DataGridUserEditMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserEditMode.None, OnUserEditModeChanged));
+            DependencyProperty.Register(nameof(UserEditMode), typeof(DataGridUserEditMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserEditMode.None, OnUserEditModeChanged));
 
         internal EditingService editService;
 

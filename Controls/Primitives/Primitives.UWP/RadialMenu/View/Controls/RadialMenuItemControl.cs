@@ -18,13 +18,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
         /// Identifies the <see cref="Header"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), typeof(RadialMenuItemControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RadialMenuItemControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="IconContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IconContentProperty =
-            DependencyProperty.Register("IconContent", typeof(object), typeof(RadialMenuItemControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(IconContent), typeof(object), typeof(RadialMenuItemControl), new PropertyMetadata(null));
 
         internal RadialSegment Segment;
 
@@ -32,7 +32,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
         /// Identifies the <see cref="Loading"/> dependency property.
         /// </summary>
         private static readonly DependencyProperty LoadingProperty =
-            DependencyProperty.Register("Loading", typeof(bool), typeof(RadialMenuItemControl), new PropertyMetadata(true, OnLoadingChanged));
+            DependencyProperty.Register(nameof(Loading), typeof(bool), typeof(RadialMenuItemControl), new PropertyMetadata(true, OnLoadingChanged));
 
         private bool isPointerOver;
 

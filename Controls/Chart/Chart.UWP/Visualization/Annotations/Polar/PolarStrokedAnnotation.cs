@@ -13,19 +13,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Stroke"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StrokeProperty =
-            DependencyProperty.Register("Stroke", typeof(Brush), typeof(PolarStrokedAnnotation), new PropertyMetadata(null, OnStrokePropertyChanged));
+            DependencyProperty.Register(nameof(Stroke), typeof(Brush), typeof(PolarStrokedAnnotation), new PropertyMetadata(null, OnStrokePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="StrokeThickness"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StrokeThicknessProperty =
-            DependencyProperty.Register("StrokeThickness", typeof(double), typeof(PolarStrokedAnnotation), new PropertyMetadata(0d, OnStrokeThicknessPropertyChanged));
+            DependencyProperty.Register(nameof(StrokeThickness), typeof(double), typeof(PolarStrokedAnnotation), new PropertyMetadata(0d, OnStrokeThicknessPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="StrokeDashArray"/> property.
         /// </summary>
         public static readonly DependencyProperty StrokeDashArrayProperty =
-            DependencyProperty.Register("StrokeDashArray", typeof(DoubleCollection), typeof(PolarStrokedAnnotation), new PropertyMetadata(null, OnStrokeDashArrayChanged));
+            DependencyProperty.Register(nameof(StrokeDashArray), typeof(DoubleCollection), typeof(PolarStrokedAnnotation), new PropertyMetadata(null, OnStrokeDashArrayChanged));
 
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> that specifies how the shape outline is painted.

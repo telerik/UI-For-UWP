@@ -17,7 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="BottomGlyphOpacity"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty BottomGlyphOpacityProperty =
-            DependencyProperty.Register("BottomGlyphOpacity", typeof(double), typeof(DataGridFlyoutGroupHeader), new PropertyMetadata(1));
+            DependencyProperty.Register(nameof(BottomGlyphOpacity), typeof(double), typeof(DataGridFlyoutGroupHeader), new PropertyMetadata(1));
         private Button closeButton;
 
         /// <summary>

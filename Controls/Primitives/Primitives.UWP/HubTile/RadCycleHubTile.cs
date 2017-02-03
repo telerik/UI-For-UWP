@@ -26,31 +26,31 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="ItemsSource"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(RadCycleHubTile), new PropertyMetadata(null, OnItemsSourceChanged));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(RadCycleHubTile), new PropertyMetadata(null, OnItemsSourceChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(RadCycleHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(RadCycleHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="CycleRandomly"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CycleRandomlyProperty =
-            DependencyProperty.Register("CycleRandomly", typeof(bool), typeof(RadCycleHubTile), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CycleRandomly), typeof(bool), typeof(RadCycleHubTile), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="Orientation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(RadCycleHubTile), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(RadCycleHubTile), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
 
         /// <summary>
         /// Identifies the <see cref="FlipUpdateIntervalsCount"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FlipUpdateIntervalsCountProperty =
-            DependencyProperty.Register("FlipUpdateIntervalsCount", typeof(int), typeof(RadCycleHubTile), new PropertyMetadata(5, null));
+            DependencyProperty.Register(nameof(FlipUpdateIntervalsCount), typeof(int), typeof(RadCycleHubTile), new PropertyMetadata(5, null));
 
         private static readonly Random RandomGenerator = new Random();
         private int index = -1;

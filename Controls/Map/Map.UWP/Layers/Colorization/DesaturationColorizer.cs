@@ -17,25 +17,25 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="RangeCount"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RangeCountProperty = 
-            DependencyProperty.Register("RangeCount", typeof(int), typeof(DesaturationColorizer), new PropertyMetadata(7, new PropertyChangedCallback(OnRangeCountPropertyChanged)));
+            DependencyProperty.Register(nameof(RangeCount), typeof(int), typeof(DesaturationColorizer), new PropertyMetadata(7, new PropertyChangedCallback(OnRangeCountPropertyChanged)));
 
         /// <summary>
         /// Identifies the <see cref="BaseColor"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty BaseColorProperty =
-            DependencyProperty.Register("BaseColor", typeof(Color), typeof(DesaturationColorizer), new PropertyMetadata(Colors.DarkOrange, new PropertyChangedCallback(OnBaseColorPropertyChanged)));
+            DependencyProperty.Register(nameof(BaseColor), typeof(Color), typeof(DesaturationColorizer), new PropertyMetadata(Colors.DarkOrange, new PropertyChangedCallback(OnBaseColorPropertyChanged)));
 
         /// <summary>
         /// Identifies the <see cref="From"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FromProperty =
-            DependencyProperty.Register("From", typeof(double), typeof(DesaturationColorizer), new PropertyMetadata(1d, new PropertyChangedCallback(OnFromPropertyChanged)));
+            DependencyProperty.Register(nameof(From), typeof(double), typeof(DesaturationColorizer), new PropertyMetadata(1d, new PropertyChangedCallback(OnFromPropertyChanged)));
 
         /// <summary>
         /// Identifies the <see cref="To"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ToProperty =
-            DependencyProperty.Register("To", typeof(double), typeof(DesaturationColorizer), new PropertyMetadata(0d, new PropertyChangedCallback(OnToPropertyChanged)));
+            DependencyProperty.Register(nameof(To), typeof(double), typeof(DesaturationColorizer), new PropertyMetadata(0d, new PropertyChangedCallback(OnToPropertyChanged)));
 
         private int rangeCountCache = 7;
         private Color baseColorCache = Colors.DarkOrange;
@@ -131,7 +131,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         {
             if (range == null)
             {
-                throw new ArgumentNullException("range");
+                throw new ArgumentNullException(nameof(range));
             }
 
             double ratio = 1d / (this.rangeCountCache - 1) * range.Index;

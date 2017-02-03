@@ -19,13 +19,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="ValueBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty ValueBindingProperty =
-            DependencyProperty.Register("ValueBinding", typeof(DataPointBinding), typeof(CategoricalSeriesBase), new PropertyMetadata(null, OnValueBindingChanged));
+            DependencyProperty.Register(nameof(ValueBinding), typeof(DataPointBinding), typeof(CategoricalSeriesBase), new PropertyMetadata(null, OnValueBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="CategoryBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty CategoryBindingProperty =
-            DependencyProperty.Register("CategoryBinding", typeof(DataPointBinding), typeof(CategoricalSeriesBase), new PropertyMetadata(null, OnCategoryBindingChanged));
+            DependencyProperty.Register(nameof(CategoryBinding), typeof(DataPointBinding), typeof(CategoricalSeriesBase), new PropertyMetadata(null, OnCategoryBindingChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoricalSeriesBase"/> class.

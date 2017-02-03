@@ -26,13 +26,13 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// Identifies the <see cref="IsSelected"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register("IsSelected", typeof(bool), typeof(RadListViewItem), new PropertyMetadata(false, OnIsSelectedChanged));
+            DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(RadListViewItem), new PropertyMetadata(false, OnIsSelectedChanged));
 
         /// <summary>
         /// Identifies the <see cref="Orientation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(RadListViewItem), new PropertyMetadata(Orientation.Vertical));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(RadListViewItem), new PropertyMetadata(Orientation.Vertical));
 
         private FrameworkElement reorderHandle;
         private bool needUpdate = true;

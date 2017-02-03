@@ -21,13 +21,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="XValueBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty XValueBindingProperty =
-            DependencyProperty.Register("XValueBinding", typeof(DataPointBinding), typeof(ScatterPointSeries), new PropertyMetadata(null, OnXValueBindingChanged));
+            DependencyProperty.Register(nameof(XValueBinding), typeof(DataPointBinding), typeof(ScatterPointSeries), new PropertyMetadata(null, OnXValueBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="YValueBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty YValueBindingProperty =
-            DependencyProperty.Register("YValueBinding", typeof(DataPointBinding), typeof(ScatterPointSeries), new PropertyMetadata(null, OnYValueBindingChanged));
+            DependencyProperty.Register(nameof(YValueBinding), typeof(DataPointBinding), typeof(ScatterPointSeries), new PropertyMetadata(null, OnYValueBindingChanged));
 
         private ScatterSeriesModel model;
 

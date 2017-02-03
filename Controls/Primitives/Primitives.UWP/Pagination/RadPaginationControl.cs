@@ -20,31 +20,31 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="ListItemTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ListItemTemplateProperty =
-            DependencyProperty.Register("ListItemTemplate", typeof(DataTemplate), typeof(RadPaginationControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ListItemTemplate), typeof(DataTemplate), typeof(RadPaginationControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="PageProvider"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PageProviderProperty =
-            DependencyProperty.Register("PageProvider", typeof(Selector), typeof(RadPaginationControl), new PropertyMetadata(null, OnPageProviderChanged));
+            DependencyProperty.Register(nameof(PageProvider), typeof(Selector), typeof(RadPaginationControl), new PropertyMetadata(null, OnPageProviderChanged));
 
         /// <summary>
         /// Identifies the <see cref="DisplayMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayModeProperty =
-            DependencyProperty.Register("DisplayMode", typeof(PaginationControlDisplayMode), typeof(RadPaginationControl), new PropertyMetadata(PaginationControlDisplayMode.All, OnDisplayModeChanged));
+            DependencyProperty.Register(nameof(DisplayMode), typeof(PaginationControlDisplayMode), typeof(RadPaginationControl), new PropertyMetadata(PaginationControlDisplayMode.All, OnDisplayModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="LeftArrowTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LeftArrowTemplateProperty =
-            DependencyProperty.Register("LeftArrowTemplate", typeof(DataTemplate), typeof(RadPaginationControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(LeftArrowTemplate), typeof(DataTemplate), typeof(RadPaginationControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="RightArrowTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RightArrowTemplateProperty =
-            DependencyProperty.Register("RightArrowTemplate", typeof(DataTemplate), typeof(RadPaginationControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(RightArrowTemplate), typeof(DataTemplate), typeof(RadPaginationControl), new PropertyMetadata(null));
 
         private const string LayoutRootName = "PART_LayoutRoot";
         private const string ThumbnailListName = "PART_ThumbnailList";

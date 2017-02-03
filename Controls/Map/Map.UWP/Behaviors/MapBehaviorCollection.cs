@@ -24,12 +24,12 @@ namespace Telerik.UI.Xaml.Controls.Map
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
 
             if (index < 0 || index > this.Count)
             {
-                throw new ArgumentOutOfRangeException("index");
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
 
             // attach the new behavior
@@ -61,7 +61,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
             this.VerifyIndex(index);
 
@@ -92,7 +92,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         {
             if (index < 0 || index >= this.Count)
             {
-                throw new ArgumentOutOfRangeException("index");
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
         }
     }

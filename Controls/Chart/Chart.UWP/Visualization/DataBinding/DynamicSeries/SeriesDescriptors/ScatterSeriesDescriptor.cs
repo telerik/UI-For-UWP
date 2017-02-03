@@ -12,13 +12,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="XValuePath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty XValuePathProperty =
-            DependencyProperty.Register("XValuePath", typeof(string), typeof(ScatterSeriesDescriptor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(XValuePath), typeof(string), typeof(ScatterSeriesDescriptor), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="YValuePath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty YValuePathProperty =
-            DependencyProperty.Register("YValuePath", typeof(string), typeof(ScatterSeriesDescriptor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(YValuePath), typeof(string), typeof(ScatterSeriesDescriptor), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets the default type of series that are to be created if no TypePath and no Style properties are specified.

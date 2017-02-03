@@ -13,13 +13,13 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="IsItemReorderEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsItemReorderEnabledProperty =
-            DependencyProperty.Register("IsItemReorderEnabled", typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnIsItemReorderEnabledChanged));
+            DependencyProperty.Register(nameof(IsItemReorderEnabled), typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnIsItemReorderEnabledChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemReorderControlStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemReorderControlStyleProperty =
-            DependencyProperty.Register("ItemReorderControlStyle", typeof(Style), typeof(RadDataBoundListBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemReorderControlStyle), typeof(Style), typeof(RadDataBoundListBox), new PropertyMetadata(null));
 
         internal DispatcherTimer holdTimer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
         internal bool isItemReorderEnabledCache = false;

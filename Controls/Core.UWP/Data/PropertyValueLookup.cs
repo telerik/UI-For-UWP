@@ -45,7 +45,7 @@ namespace Telerik.Core.Data
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("value");
+                    throw new ArgumentException(nameof(value));
                 }
 
                 if (this.propertyName == value)
@@ -56,7 +56,7 @@ namespace Telerik.Core.Data
                 this.getter = null;
                 this.callSite = null;
                 this.propertyName = value;
-                this.OnPropertyChanged("PropertyName");
+                this.OnPropertyChanged(nameof(PropertyName));
             }
         }
 
@@ -73,7 +73,7 @@ namespace Telerik.Core.Data
 
             if (dataItem == null)
             {
-                throw new ArgumentNullException("instance");
+                throw new ArgumentNullException(nameof(dataItem));
             }
 
             if (string.IsNullOrEmpty(this.propertyName))

@@ -33,8 +33,8 @@ namespace Telerik.Data.Core
                 if (this.aggregateFunction != value)
                 {
                     this.ChangeSettingsProperty(ref this.aggregateFunction, value);
-                    this.OnPropertyChanged("AggregateFunction");
-                    this.OnPropertyChanged("DisplayName");
+                    this.OnPropertyChanged(nameof(AggregateFunction));
+                    this.OnPropertyChanged(nameof(DisplayName));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }
@@ -56,7 +56,7 @@ namespace Telerik.Data.Core
                 if (this.stringFormat != value)
                 {
                     this.stringFormat = value;
-                    this.OnPropertyChanged("StringFormat");
+                    this.OnPropertyChanged(nameof(StringFormat));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }
@@ -80,7 +80,7 @@ namespace Telerik.Data.Core
                 if (this.stringFormatSelector != value)
                 {
                     this.stringFormatSelector = value;
-                    this.OnPropertyChanged("StringFormatSelector");
+                    this.OnPropertyChanged(nameof(StringFormatSelector));
                 }
             }
         }

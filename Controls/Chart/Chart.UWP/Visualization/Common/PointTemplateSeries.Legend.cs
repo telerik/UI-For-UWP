@@ -16,13 +16,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="LegendTitle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LegendTitleProperty =
-            DependencyProperty.Register("LegendTitle", typeof(string), typeof(PointTemplateSeries), new PropertyMetadata(null, OnLegendTitleChanged));
+            DependencyProperty.Register(nameof(LegendTitle), typeof(string), typeof(PointTemplateSeries), new PropertyMetadata(null, OnLegendTitleChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsVisibleInLegend"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsVisibleInLegendProperty =
-            DependencyProperty.Register("IsVisibleInLegend", typeof(bool), typeof(PointTemplateSeries), new PropertyMetadata(true, OnIsVisibleInLegendChanged));
+            DependencyProperty.Register(nameof(IsVisibleInLegend), typeof(bool), typeof(PointTemplateSeries), new PropertyMetadata(true, OnIsVisibleInLegendChanged));
 
         private List<LegendItem> legendItems = new List<LegendItem> { new LegendItem() };
 

@@ -14,7 +14,7 @@ namespace Telerik.Data.Core
         {
             if (array == null)
             {
-                throw new ArgumentNullException("array");
+                throw new ArgumentNullException(nameof(array));
             }
 
             Sort<T, object>(array, null, 0, array.Count, comparer);
@@ -32,7 +32,7 @@ namespace Telerik.Data.Core
         {
             if (keys == null)
             {
-                throw new ArgumentNullException("keys");
+                throw new ArgumentNullException(nameof(keys));
             }
 
             if ((index < 0) || (length < 0))
@@ -42,7 +42,7 @@ namespace Telerik.Data.Core
 
             if (((keys.Count - index) < length) || ((items != null) && (index > (items.Length - length))))
             {
-                throw new ArgumentException("index");
+                throw new ArgumentException(nameof(index));
             }
 
             // Run the core sort operation

@@ -14,19 +14,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="CategoryBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty CategoryBindingProperty =
-            DependencyProperty.Register("CategoryBinding", typeof(DataPointBinding), typeof(RangeSeriesBase), new PropertyMetadata(null, OnCategoryBindingChanged));
+            DependencyProperty.Register(nameof(CategoryBinding), typeof(DataPointBinding), typeof(RangeSeriesBase), new PropertyMetadata(null, OnCategoryBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="LowBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty LowBindingProperty =
-            DependencyProperty.Register("LowBinding", typeof(DataPointBinding), typeof(RangeSeriesBase), new PropertyMetadata(null, OnLowBindingChanged));
+            DependencyProperty.Register(nameof(LowBinding), typeof(DataPointBinding), typeof(RangeSeriesBase), new PropertyMetadata(null, OnLowBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="HighBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty HighBindingProperty =
-            DependencyProperty.Register("HighBinding", typeof(DataPointBinding), typeof(RangeSeriesBase), new PropertyMetadata(null, OnHighBindingChanged));
+            DependencyProperty.Register(nameof(HighBinding), typeof(DataPointBinding), typeof(RangeSeriesBase), new PropertyMetadata(null, OnHighBindingChanged));
 
         internal RangeSeriesModel model;
 

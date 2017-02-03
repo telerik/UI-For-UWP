@@ -16,22 +16,22 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         private RadDataForm dataForm;
 
         public static readonly DependencyProperty ItemProperty =
-            DependencyProperty.Register("Item", typeof(object), typeof(DataGridFormEditor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Item), typeof(object), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
         public static readonly DependencyProperty DataFormStyleProperty =
-            DependencyProperty.Register("DataFormStyle", typeof(Style), typeof(DataGridFormEditor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DataFormStyle), typeof(Style), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
         public static readonly DependencyProperty PositionProperty =
-            DependencyProperty.Register("Position", typeof(ExternalEditorPosition), typeof(DataGridFormEditor), new PropertyMetadata(ExternalEditorPosition.Right, OnPositionChanged));
+            DependencyProperty.Register(nameof(Position), typeof(ExternalEditorPosition), typeof(DataGridFormEditor), new PropertyMetadata(ExternalEditorPosition.Right, OnPositionChanged));
 
         public static readonly DependencyProperty HeaderStyleProperty =
-            DependencyProperty.Register("HeaderStyle", typeof(Style), typeof(DataGridFormEditor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HeaderStyle), typeof(Style), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
         public static readonly DependencyProperty CancelCommandProperty =
-           DependencyProperty.Register("CancelCommand", typeof(ICommand), typeof(DataGridFormEditor), new PropertyMetadata(null));
+           DependencyProperty.Register(nameof(CancelCommand), typeof(ICommand), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
         public static readonly DependencyProperty SaveCommandProperty =
-          DependencyProperty.Register("SaveCommand", typeof(ICommand), typeof(DataGridFormEditor), new PropertyMetadata(null));
+          DependencyProperty.Register(nameof(SaveCommand), typeof(ICommand), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
         public DataGridFormEditor()
         {

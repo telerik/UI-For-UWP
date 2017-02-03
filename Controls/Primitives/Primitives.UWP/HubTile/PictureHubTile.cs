@@ -18,13 +18,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the PicturesSource dependency property.
         /// </summary>
         public static readonly DependencyProperty PicturesSourceProperty =
-            DependencyProperty.Register("PicturesSource", typeof(IEnumerable), typeof(PictureHubTile), new PropertyMetadata(null, OnPicturesSourceChanged));
+            DependencyProperty.Register(nameof(PicturesSource), typeof(IEnumerable), typeof(PictureHubTile), new PropertyMetadata(null, OnPicturesSourceChanged));
 
         /// <summary>
         /// Identifies the <see cref="PictureSourceProvider"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PictureSourceProviderProperty =
-            DependencyProperty.Register("PictureSourceProvider", typeof(IImageSourceProvider), typeof(PictureHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PictureSourceProvider), typeof(IImageSourceProvider), typeof(PictureHubTile), new PropertyMetadata(null));
 
         private WeakEventHandler<NotifyCollectionChangedEventArgs> collectionChangedEventHandler;
         private IList picturesSourceAsList = new List<object>();

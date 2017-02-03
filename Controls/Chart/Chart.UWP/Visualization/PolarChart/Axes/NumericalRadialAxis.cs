@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="MajorStep"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MajorStepProperty = 
-            DependencyProperty.Register("MajorStep", typeof(double), typeof(NumericalRadialAxis), new PropertyMetadata(0d, OnMajorStepChanged));
+            DependencyProperty.Register(nameof(MajorStep), typeof(double), typeof(NumericalRadialAxis), new PropertyMetadata(0d, OnMajorStepChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericalRadialAxis" /> class.

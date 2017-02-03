@@ -21,73 +21,73 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="FirstFilterControl"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FirstFilterControlProperty =
-            DependencyProperty.Register("FirstFilterControl", typeof(IFilterControl), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(FirstFilterControl), typeof(IFilterControl), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="SecondFilterControl"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SecondFilterControlProperty =
-            DependencyProperty.Register("SecondFilterControl", typeof(IFilterControl), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SecondFilterControl), typeof(IFilterControl), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="IsExpanded"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsExpandedProperty =
-            DependencyProperty.Register("IsExpanded", typeof(bool), typeof(DataGridFilteringFlyout), new PropertyMetadata(false, OnIsExpandedChanged));
+            DependencyProperty.Register(nameof(IsExpanded), typeof(bool), typeof(DataGridFilteringFlyout), new PropertyMetadata(false, OnIsExpandedChanged));
 
         /// <summary>
         /// Identifies the <see cref="FilterGlyphWidth"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FilterGlyphWidthProperty =
-            DependencyProperty.Register("FilterGlyphWidth", typeof(double), typeof(DataGridFilteringFlyout), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(FilterGlyphWidth), typeof(double), typeof(DataGridFilteringFlyout), new PropertyMetadata(0d));
 
         /// <summary>
         /// Identifies the <see cref="FilterGlyphHeight"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FilterGlyphHeightProperty =
-            DependencyProperty.Register("FilterGlyphHeight", typeof(double), typeof(DataGridFilteringFlyout), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(FilterGlyphHeight), typeof(double), typeof(DataGridFilteringFlyout), new PropertyMetadata(0d));
 
         /// <summary>
         /// Identifies the <see cref="FilterButtonStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FilterButtonStyleProperty =
-            DependencyProperty.Register("FilterButtonStyle", typeof(Style), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(FilterButtonStyle), typeof(Style), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ClearFilterButtonStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ClearFilterButtonStyleProperty =
-            DependencyProperty.Register("ClearFilterButtonStyle", typeof(Style), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ClearFilterButtonStyle), typeof(Style), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ExpandCollapseButtonStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ExpandCollapseButtonStyleProperty =
-            DependencyProperty.Register("ExpandCollapseButtonStyle", typeof(Style), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ExpandCollapseButtonStyle), typeof(Style), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DisplayMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayModeProperty =
-            DependencyProperty.Register("DisplayMode", typeof(FilteringFlyoutDisplayMode), typeof(DataGridFilteringFlyout), new PropertyMetadata(FilteringFlyoutDisplayMode.Fill, OnDisplayModeChanged));
+            DependencyProperty.Register(nameof(DisplayMode), typeof(FilteringFlyoutDisplayMode), typeof(DataGridFilteringFlyout), new PropertyMetadata(FilteringFlyoutDisplayMode.Fill, OnDisplayModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="HeaderStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderStyleProperty =
-            DependencyProperty.Register("HeaderStyle", typeof(Style), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HeaderStyle), typeof(Style), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         public static readonly DependencyProperty FilterCommandProperty =
-            DependencyProperty.Register("FilterCommand", typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(FilterCommand), typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         public static readonly DependencyProperty ExpandCommandProperty =
-            DependencyProperty.Register("ExpandCommand", typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ExpandCommand), typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         public static readonly DependencyProperty CancelCommandProperty =
-            DependencyProperty.Register("CancelCommand", typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CancelCommand), typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         public static readonly DependencyProperty ClearFilterCommandProperty =
-            DependencyProperty.Register("ClearFilterCommand", typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ClearFilterCommand), typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
         private ComboBox logicalOperatorCombo;
         private RadDataGrid owner;

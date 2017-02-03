@@ -24,7 +24,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the ArrowTailRadius dependency property.
         /// </summary>
         public static readonly DependencyProperty ArrowTailRadiusProperty =
-            DependencyProperty.Register("ArrowTailRadius", typeof(double), typeof(ArrowGaugeIndicator), new PropertyMetadata(1.0d, OnArrowTailRadiusPropertyChanged));
+            DependencyProperty.Register(nameof(ArrowTailRadius), typeof(double), typeof(ArrowGaugeIndicator), new PropertyMetadata(1.0d, OnArrowTailRadiusPropertyChanged));
 
         private Panel layout;
         private Path path;

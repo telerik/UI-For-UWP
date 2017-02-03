@@ -11,13 +11,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="LongPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LongPeriodProperty = 
-            DependencyProperty.Register("LongPeriod", typeof(int), typeof(ShortLongPeriodIndicatorBase), new PropertyMetadata(0, OnLongPeriodChanged));
+            DependencyProperty.Register(nameof(LongPeriod), typeof(int), typeof(ShortLongPeriodIndicatorBase), new PropertyMetadata(0, OnLongPeriodChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShortPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShortPeriodProperty = 
-            DependencyProperty.Register("ShortPeriod", typeof(int), typeof(ShortLongPeriodIndicatorBase), new PropertyMetadata(0, OnShortPeriodChanged));
+            DependencyProperty.Register(nameof(ShortPeriod), typeof(int), typeof(ShortLongPeriodIndicatorBase), new PropertyMetadata(0, OnShortPeriodChanged));
 
         /// <summary>
         /// Gets or sets the indicator long period.

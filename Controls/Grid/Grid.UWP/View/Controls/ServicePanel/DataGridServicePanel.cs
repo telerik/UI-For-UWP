@@ -27,7 +27,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="Position"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty PositionProperty =
-            DependencyProperty.Register("Position", typeof(GroupPanelPosition), typeof(DataGridServicePanel), new PropertyMetadata(GroupPanelPosition.Left, OnPositionChanged));
+            DependencyProperty.Register(nameof(Position), typeof(GroupPanelPosition), typeof(DataGridServicePanel), new PropertyMetadata(GroupPanelPosition.Left, OnPositionChanged));
 
         private TextBlock verticalText;
         private Popup groupFlyout;

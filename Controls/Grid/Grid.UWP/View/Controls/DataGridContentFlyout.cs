@@ -15,29 +15,29 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="IsOpen"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(DataGridContentFlyout), new PropertyMetadata(false, OnIsOpenChanged));
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(DataGridContentFlyout), new PropertyMetadata(false, OnIsOpenChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsOpen"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty HorizontalOffsetProperty =
-            DependencyProperty.Register("HorizontalOffset", typeof(double), typeof(DataGridContentFlyout), new PropertyMetadata(0d, OnHorizontalOffsetChanged));
+            DependencyProperty.Register(nameof(HorizontalOffset), typeof(double), typeof(DataGridContentFlyout), new PropertyMetadata(0d, OnHorizontalOffsetChanged));
 
         /// <summary>
         /// Identifies the <see cref="VerticalOffset"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty VerticalOffsetProperty =
-            DependencyProperty.Register("VerticalOffset", typeof(double), typeof(DataGridContentFlyout), new PropertyMetadata(0d, OnVerticalOffsetChanged));
+            DependencyProperty.Register(nameof(VerticalOffset), typeof(double), typeof(DataGridContentFlyout), new PropertyMetadata(0d, OnVerticalOffsetChanged));
 
         /// <summary>
         /// Identifies the <see cref="Child"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty ChildProperty =
-            DependencyProperty.Register("Child", typeof(FrameworkElement), typeof(DataGridContentFlyout), new PropertyMetadata(null, OnChildChanged));
+            DependencyProperty.Register(nameof(Child), typeof(FrameworkElement), typeof(DataGridContentFlyout), new PropertyMetadata(null, OnChildChanged));
 
         // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
         internal static readonly DependencyProperty IdProperty = 
-            DependencyProperty.Register("Id", typeof(DataGridFlyoutId), typeof(DataGridContentFlyout), new PropertyMetadata(DataGridFlyoutId.All, OnIdChanged));
+            DependencyProperty.Register(nameof(Id), typeof(DataGridFlyoutId), typeof(DataGridContentFlyout), new PropertyMetadata(DataGridFlyoutId.All, OnIdChanged));
 
         private Popup popup = new Popup() { ChildTransitions = new TransitionCollection(), IsLightDismissEnabled = false };   
         private Border content;

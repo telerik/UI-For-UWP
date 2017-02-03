@@ -190,7 +190,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             if (column == null)
             {
-                throw new ArgumentNullException("column");
+                throw new ArgumentNullException(nameof(column));
             }
 
             var descriptor = column.GetGroupDescriptor();

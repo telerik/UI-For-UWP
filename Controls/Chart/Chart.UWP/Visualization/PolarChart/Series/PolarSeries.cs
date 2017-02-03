@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="ValueBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty ValueBindingProperty =
-            DependencyProperty.Register("ValueBinding", typeof(DataPointBinding), typeof(PolarSeries), new PropertyMetadata(null, PolarSeries.OnValueBindingChanged));
+            DependencyProperty.Register(nameof(ValueBinding), typeof(DataPointBinding), typeof(PolarSeries), new PropertyMetadata(null, PolarSeries.OnValueBindingChanged));
 
         private IPlotAreaElementModelWithAxes axisModel;
 

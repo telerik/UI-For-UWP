@@ -47,7 +47,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for RealizedItemsBufferScale. 
         public static readonly DependencyProperty RealizedItemsBufferScaleProperty =
-            DependencyProperty.Register("RealizedItemsBufferScale", typeof(double), typeof(RadListView), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
+            DependencyProperty.Register(nameof(RealizedItemsBufferScale), typeof(double), typeof(RadListView), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
 
         private static void OnRealizedItemsBufferScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -71,49 +71,49 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="IncrementalLoadingMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IncrementalLoadingModeProperty =
-            DependencyProperty.Register("IncrementalLoadingMode", typeof(BatchLoadingMode), typeof(RadListView), new PropertyMetadata(BatchLoadingMode.Auto, OnIncrementalLoadingModeChanged));
+            DependencyProperty.Register(nameof(IncrementalLoadingMode), typeof(BatchLoadingMode), typeof(RadListView), new PropertyMetadata(BatchLoadingMode.Auto, OnIncrementalLoadingModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsBusyIndicatorEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsBusyIndicatorEnabledProperty =
-            DependencyProperty.Register("IsBusyIndicatorEnabled", typeof(bool), typeof(RadListView), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsBusyIndicatorEnabled), typeof(bool), typeof(RadListView), new PropertyMetadata(false));
 
         /// <summary>
         /// Identifies the <see cref="Orientation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(RadListView), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(RadListView), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GroupHeaderTemplateProperty =
-            DependencyProperty.Register("GroupHeaderTemplate", typeof(DataTemplate), typeof(RadListView), new PropertyMetadata(null, OnGroupHeaderTemplateChanged));
+            DependencyProperty.Register(nameof(GroupHeaderTemplate), typeof(DataTemplate), typeof(RadListView), new PropertyMetadata(null, OnGroupHeaderTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderTemplateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GroupHeaderTemplateSelectorProperty =
-            DependencyProperty.Register("GroupHeaderTemplateSelector", typeof(DataTemplateSelector), typeof(RadListView), new PropertyMetadata(null, OnGroupHeaderTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(GroupHeaderTemplateSelector), typeof(DataTemplateSelector), typeof(RadListView), new PropertyMetadata(null, OnGroupHeaderTemplateSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GroupHeaderStyleProperty =
-            DependencyProperty.Register("GroupHeaderStyle", typeof(Style), typeof(RadListView), new PropertyMetadata(null, OnGroupHeaderStyleChanged));
+            DependencyProperty.Register(nameof(GroupHeaderStyle), typeof(Style), typeof(RadListView), new PropertyMetadata(null, OnGroupHeaderStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GroupHeaderStyleSelectorProperty =
-            DependencyProperty.Register("GroupHeaderStyleSelector", typeof(StyleSelector), typeof(RadListView), new PropertyMetadata(null, OnGroupHeaderStyleSelectorChanged));
+            DependencyProperty.Register(nameof(GroupHeaderStyleSelector), typeof(StyleSelector), typeof(RadListView), new PropertyMetadata(null, OnGroupHeaderStyleSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GroupHeaderDisplayModeProperty =
-            DependencyProperty.Register("GroupHeaderDisplayMode", typeof(ListViewGroupHeaderDisplayMode), typeof(RadListView), new PropertyMetadata(ListViewGroupHeaderDisplayMode.Frozen, OnGroupHeaderDisplayModeChanged));
+            DependencyProperty.Register(nameof(GroupHeaderDisplayMode), typeof(ListViewGroupHeaderDisplayMode), typeof(RadListView), new PropertyMetadata(ListViewGroupHeaderDisplayMode.Frozen, OnGroupHeaderDisplayModeChanged));
 
         /**/
 
@@ -121,67 +121,67 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="ItemStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemStyleProperty =
-            DependencyProperty.Register("ItemStyle", typeof(Style), typeof(RadListView), new PropertyMetadata(null, OnItemStyleChanged));
+            DependencyProperty.Register(nameof(ItemStyle), typeof(Style), typeof(RadListView), new PropertyMetadata(null, OnItemStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemStyleSelectorProperty =
-            DependencyProperty.Register("ItemStyleSelector", typeof(StyleSelector), typeof(RadListView), new PropertyMetadata(null, OnItemStyleSelectorChanged));
+            DependencyProperty.Register(nameof(ItemStyleSelector), typeof(StyleSelector), typeof(RadListView), new PropertyMetadata(null, OnItemStyleSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemTemplateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateSelectorProperty =
-            DependencyProperty.Register("ItemTemplateSelector", typeof(DataTemplateSelector), typeof(RadListView), new PropertyMetadata(null, OnItemTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(ItemTemplateSelector), typeof(DataTemplateSelector), typeof(RadListView), new PropertyMetadata(null, OnItemTemplateSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(RadListView), new PropertyMetadata(null, OnItemTemplateChanged));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(RadListView), new PropertyMetadata(null, OnItemTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="EmptyContentDisplayMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EmptyContentDisplayModeProperty =
-            DependencyProperty.Register("EmptyContentDisplayMode", typeof(EmptyContentDisplayMode), typeof(RadListView), new PropertyMetadata(EmptyContentDisplayMode.Always, OnEmptyContentDisplayModeChanged));
+            DependencyProperty.Register(nameof(EmptyContentDisplayMode), typeof(EmptyContentDisplayMode), typeof(RadListView), new PropertyMetadata(EmptyContentDisplayMode.Always, OnEmptyContentDisplayModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="EmptyContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EmptyContentProperty =
-            DependencyProperty.Register("EmptyContent", typeof(object), typeof(RadListView), new PropertyMetadata("No data", OnEmptyContentChanged));
+            DependencyProperty.Register(nameof(EmptyContent), typeof(object), typeof(RadListView), new PropertyMetadata("No data", OnEmptyContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="ListHeader"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ListHeaderProperty =
-            DependencyProperty.Register("ListHeader", typeof(object), typeof(RadListView), new PropertyMetadata(null, OnListHeaderChanged));
+            DependencyProperty.Register(nameof(ListHeader), typeof(object), typeof(RadListView), new PropertyMetadata(null, OnListHeaderChanged));
 
         /// <summary>
         /// Identifies the <see cref="ListFooter"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ListFooterProperty =
-            DependencyProperty.Register("ListFooter", typeof(object), typeof(RadListView), new PropertyMetadata(null, OnListFooterChanged));
+            DependencyProperty.Register(nameof(ListFooter), typeof(object), typeof(RadListView), new PropertyMetadata(null, OnListFooterChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSource"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(object), typeof(RadListView), new PropertyMetadata(null, OnItemsSourceChanged));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(RadListView), new PropertyMetadata(null, OnItemsSourceChanged));
 
         /// <summary>
         /// Identifies the <see cref="LayoutDefinition"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LayoutDefinitionProperty =
-            DependencyProperty.Register("LayoutDefinition", typeof(LayoutDefinitionBase), typeof(RadListView), new PropertyMetadata(null, OnLayoutDefinitionChanged));
+            DependencyProperty.Register(nameof(LayoutDefinition), typeof(LayoutDefinitionBase), typeof(RadListView), new PropertyMetadata(null, OnLayoutDefinitionChanged));
 
         /// <summary>
         /// Identifies the <see cref="IncrementalLoadingBufferItemsCount"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IncrementalLoadingBufferItemsCountProperty =
-            DependencyProperty.Register("IncrementalLoadingBufferItemsCount", typeof(int), typeof(RadListView), new PropertyMetadata(10, IncrementalLoadingBufferItemsCountChanged));
+            DependencyProperty.Register(nameof(IncrementalLoadingBufferItemsCount), typeof(int), typeof(RadListView), new PropertyMetadata(10, IncrementalLoadingBufferItemsCountChanged));
 
         internal RadListViewItem swipedItem;
         internal bool isActionContentDisplayed;

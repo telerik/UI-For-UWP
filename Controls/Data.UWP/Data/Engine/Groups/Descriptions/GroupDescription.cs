@@ -43,7 +43,7 @@ namespace Telerik.Data.Core
                 if (this.showGroupsWithNoData != value)
                 {
                     this.showGroupsWithNoData = value;
-                    this.OnPropertyChanged("ShowGroupsWithNoData");
+                    this.OnPropertyChanged(nameof(ShowGroupsWithNoData));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }
@@ -64,7 +64,7 @@ namespace Telerik.Data.Core
                 if (this.groupFilter != value)
                 {
                     this.ChangeSettingsProperty(ref this.groupFilter, value);
-                    this.OnPropertyChanged("GroupFilter");
+                    this.OnPropertyChanged(nameof(GroupFilter));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }

@@ -20,13 +20,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="PaletteMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PaletteModeProperty =
-            DependencyProperty.Register("PaletteMode", typeof(SeriesPaletteMode), typeof(BarSeries), new PropertyMetadata(SeriesPaletteMode.Series, OnPaletteModeChanged));
+            DependencyProperty.Register(nameof(PaletteMode), typeof(SeriesPaletteMode), typeof(BarSeries), new PropertyMetadata(SeriesPaletteMode.Series, OnPaletteModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="LegendTitleBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty LegendTitleBindingProperty =
-            DependencyProperty.Register("LegendTitleBinding", typeof(DataPointBinding), typeof(BarSeries), new PropertyMetadata(null, OnLegendTitleBindingChanged));
+            DependencyProperty.Register(nameof(LegendTitleBinding), typeof(DataPointBinding), typeof(BarSeries), new PropertyMetadata(null, OnLegendTitleBindingChanged));
 
         private BarSeriesModel model;
         private SeriesPaletteMode paletteModeCache = SeriesPaletteMode.Series;

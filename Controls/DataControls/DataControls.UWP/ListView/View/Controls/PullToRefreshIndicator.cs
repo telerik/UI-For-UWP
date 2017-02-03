@@ -36,7 +36,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// Identifies the <see cref="CurrentPullOffset"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CurrentPullOffsetProperty =
-            DependencyProperty.Register("CurrentPullOffset", typeof(double), typeof(PullToRefreshIndicator), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(CurrentPullOffset), typeof(double), typeof(PullToRefreshIndicator), new PropertyMetadata(0d));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PullToRefreshIndicator" /> class.

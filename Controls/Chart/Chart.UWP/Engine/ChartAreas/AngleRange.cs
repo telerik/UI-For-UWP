@@ -68,7 +68,7 @@ namespace Telerik.Charting
             {
                 if (value < -360 || value > 360)
                 {
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 }
                 this.sweepAngle = value;
             }

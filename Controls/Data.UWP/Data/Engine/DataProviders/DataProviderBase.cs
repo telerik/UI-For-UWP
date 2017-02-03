@@ -92,7 +92,7 @@ namespace Telerik.Data.Core
                 if (this.deferUpdates != value)
                 {
                     this.deferUpdates = value;
-                    this.OnPropertyChanged("DeferUpdates");
+                    this.OnPropertyChanged(nameof(DeferUpdates));
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace Telerik.Data.Core
                 if (this.status != value)
                 {
                     this.status = value;
-                    this.OnPropertyChanged("Status");
+                    this.OnPropertyChanged(nameof(Status));
                 }
             }
         }
@@ -226,7 +226,7 @@ namespace Telerik.Data.Core
         /// </summary>
         internal virtual void OnFieldDescriptionsProviderChanged(IFieldDescriptionProvider oldProvider, IFieldDescriptionProvider newProvider)
         {
-            this.OnPropertyChanged("FieldDescriptionsProvider");
+            this.OnPropertyChanged(nameof(FieldDescriptionsProvider));
             if (this.deferLevel == 0 && !this.deferUpdates)
             {
                 this.Refresh();
@@ -365,10 +365,10 @@ namespace Telerik.Data.Core
                 switch (e.PropertyName)
                 {
                     case "AggregatesPosition":
-                        this.OnPropertyChanged("AggregatesPosition");
+                        this.OnPropertyChanged(nameof(AggregatesPosition));
                         break;
                     case "AggregatesLevel":
-                        this.OnPropertyChanged("AggregatesLevel");
+                        this.OnPropertyChanged(nameof(AggregatesLevel));
                         break;
                 }
             }

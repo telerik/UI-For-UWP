@@ -25,7 +25,7 @@
                 if (this.stackCount != value)
                 {
                     this.stackCount = value;
-                    this.OnPropertyChanged("StackCount");
+                    this.OnPropertyChanged(nameof(StackCount));
                 }
             }
         }

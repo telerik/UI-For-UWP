@@ -12,13 +12,13 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="IncrementalLoadingMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IncrementalLoadingModeProperty =
-            DependencyProperty.Register("IncrementalLoadingMode", typeof(BatchLoadingMode), typeof(RadDataGrid), new PropertyMetadata(BatchLoadingMode.Auto, OnIncrementalLoadingModeChanged));
+            DependencyProperty.Register(nameof(IncrementalLoadingMode), typeof(BatchLoadingMode), typeof(RadDataGrid), new PropertyMetadata(BatchLoadingMode.Auto, OnIncrementalLoadingModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSource"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(object), typeof(RadDataGrid), new PropertyMetadata(null, OnItemsSourceChanged));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(RadDataGrid), new PropertyMetadata(null, OnItemsSourceChanged));
 
         /// <summary>
         /// Gets or sets the data provider.

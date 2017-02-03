@@ -19,25 +19,25 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="CellContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellContentTemplateProperty =
-            DependencyProperty.Register("CellContentTemplate", typeof(DataTemplate), typeof(DataGridTemplateColumn), new PropertyMetadata(null, OnCellContentTemplateChanged));
+            DependencyProperty.Register(nameof(CellContentTemplate), typeof(DataTemplate), typeof(DataGridTemplateColumn), new PropertyMetadata(null, OnCellContentTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="CellContentTemplateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellContentTemplateSelectorProperty =
-            DependencyProperty.Register("CellContentTemplateSelector", typeof(DataTemplateSelector), typeof(DataGridTemplateColumn), new PropertyMetadata(null, OnCellContentTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(CellContentTemplateSelector), typeof(DataTemplateSelector), typeof(DataGridTemplateColumn), new PropertyMetadata(null, OnCellContentTemplateSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="SortDescriptor"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SortDescriptorProperty =
-            DependencyProperty.Register("SortDescriptor", typeof(SortDescriptorBase), typeof(DataGridTemplateColumn), new PropertyMetadata(null, OnSortDescriptorChanged));
+            DependencyProperty.Register(nameof(SortDescriptor), typeof(SortDescriptorBase), typeof(DataGridTemplateColumn), new PropertyMetadata(null, OnSortDescriptorChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupDescriptor"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GroupDescriptorProperty =
-            DependencyProperty.Register("GroupDescriptor", typeof(GroupDescriptorBase), typeof(DataGridTemplateColumn), new PropertyMetadata(null, OnGroupDescriptorChanged));
+            DependencyProperty.Register(nameof(GroupDescriptor), typeof(GroupDescriptorBase), typeof(DataGridTemplateColumn), new PropertyMetadata(null, OnGroupDescriptorChanged));
 
         private static readonly DataTemplate EmptyDataTemplate = new DataTemplate();
 

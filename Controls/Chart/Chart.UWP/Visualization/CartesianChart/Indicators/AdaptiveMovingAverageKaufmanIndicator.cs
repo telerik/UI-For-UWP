@@ -11,13 +11,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="SlowPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SlowPeriodProperty = 
-            DependencyProperty.Register("SlowPeriod", typeof(int), typeof(AdaptiveMovingAverageKaufmanIndicator), new PropertyMetadata(0, OnSlowPeriodChanged));
+            DependencyProperty.Register(nameof(SlowPeriod), typeof(int), typeof(AdaptiveMovingAverageKaufmanIndicator), new PropertyMetadata(0, OnSlowPeriodChanged));
 
         /// <summary>
         /// Identifies the <see cref="FastPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FastPeriodProperty = 
-            DependencyProperty.Register("FastPeriod", typeof(int), typeof(AdaptiveMovingAverageKaufmanIndicator), new PropertyMetadata(0, OnFastPeriodChanged));
+            DependencyProperty.Register(nameof(FastPeriod), typeof(int), typeof(AdaptiveMovingAverageKaufmanIndicator), new PropertyMetadata(0, OnFastPeriodChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdaptiveMovingAverageKaufmanIndicator" /> class.

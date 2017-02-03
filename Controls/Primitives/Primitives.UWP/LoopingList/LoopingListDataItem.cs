@@ -46,7 +46,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
                 if (this.text != value)
                 {
                     this.text = value;
-                    this.OnPropertyChanged("Text");
+                    this.OnPropertyChanged(nameof(Text));
                 }
             }
         }
@@ -60,7 +60,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             set
             {
                 this.item = value;
-                this.OnPropertyChanged("Item");
+                this.OnPropertyChanged(nameof(Item));
             }
         }
         

@@ -20,13 +20,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the FlipMode dependency property.
         /// </summary>
         public static readonly DependencyProperty FlipModeProperty =
-            DependencyProperty.Register("FlipMode", typeof(MosaicFlipMode), typeof(RadMosaicHubTile), new PropertyMetadata(MosaicFlipMode.Individual));
+            DependencyProperty.Register(nameof(FlipMode), typeof(MosaicFlipMode), typeof(RadMosaicHubTile), new PropertyMetadata(MosaicFlipMode.Individual));
 
         /// <summary>
         /// Identifies the TileStyle dependency property.
         /// </summary>
         public static readonly DependencyProperty TileStyleProperty =
-            DependencyProperty.Register("TileStyle", typeof(Style), typeof(RadMosaicHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(TileStyle), typeof(Style), typeof(RadMosaicHubTile), new PropertyMetadata(null));
 
         private readonly int[][] cornersIndices = new int[][]
         {

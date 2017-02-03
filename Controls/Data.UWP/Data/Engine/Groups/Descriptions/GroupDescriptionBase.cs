@@ -31,7 +31,7 @@ namespace Telerik.Data.Core
                 if (this.groupComparer != value)
                 {
                     this.ChangeSettingsProperty(ref this.groupComparer, value);
-                    this.OnPropertyChanged("GroupComparer");
+                    this.OnPropertyChanged(nameof(GroupComparer));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }
@@ -52,7 +52,7 @@ namespace Telerik.Data.Core
                 if (this.sortOrder != value)
                 {
                     this.sortOrder = value;
-                    this.OnPropertyChanged("SortOrder");
+                    this.OnPropertyChanged(nameof(SortOrder));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }

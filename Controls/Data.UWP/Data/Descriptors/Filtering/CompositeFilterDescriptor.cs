@@ -35,7 +35,7 @@ namespace Telerik.Data.Core
         {
             if (filterDescriptors == null)
             {
-                throw new ArgumentNullException("filterDescriptors");
+                throw new ArgumentNullException(nameof(filterDescriptors));
             }
 
             foreach (var descriptor in filterDescriptors)

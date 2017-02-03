@@ -22,109 +22,109 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the StartValue dependency property.
         /// </summary>
         public static readonly DependencyProperty StartValueProperty =
-            DependencyProperty.Register("StartValue", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(0.0, OnStartValuePropertyChanged));
+            DependencyProperty.Register(nameof(StartValue), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(0.0, OnStartValuePropertyChanged));
 
         /// <summary>
         /// Identifies the EndValue dependency property.
         /// </summary>
         public static readonly DependencyProperty EndValueProperty =
-            DependencyProperty.Register("EndValue", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(100.0, OnEndValuePropertyChanged));
+            DependencyProperty.Register(nameof(EndValue), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(100.0, OnEndValuePropertyChanged));
 
         /// <summary>
         /// Identifies the TickStep dependency property.
         /// </summary>
         public static readonly DependencyProperty TickStepProperty =
-            DependencyProperty.Register("TickStep", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(5.0));
+            DependencyProperty.Register(nameof(TickStep), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(5.0));
 
         /// <summary>
         /// Identifies the LabelStep dependency property.
         /// </summary>
         public static readonly DependencyProperty LabelStepProperty =
-            DependencyProperty.Register("LabelStep", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(25.0));
+            DependencyProperty.Register(nameof(LabelStep), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(25.0));
 
         /// <summary>
         /// Identifies the LabelOffset dependency property.
         /// </summary>
         public static readonly DependencyProperty LabelOffsetProperty =
-            DependencyProperty.Register("LabelOffset", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(20.0));
+            DependencyProperty.Register(nameof(LabelOffset), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(20.0));
 
         /// <summary>
         /// Identifies the TickTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty TickTemplateProperty =
-            DependencyProperty.Register("TickTemplate", typeof(DataTemplate), typeof(RadBulletGraph), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(TickTemplate), typeof(DataTemplate), typeof(RadBulletGraph), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the LabelTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty LabelTemplateProperty =
-            DependencyProperty.Register("LabelTemplate", typeof(DataTemplate), typeof(RadBulletGraph), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(LabelTemplate), typeof(DataTemplate), typeof(RadBulletGraph), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the Orientation dependency property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(RadBulletGraph), new PropertyMetadata(Orientation.Horizontal));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(RadBulletGraph), new PropertyMetadata(Orientation.Horizontal));
 
         /// <summary>
         /// Identifies the FeaturedMeasure dependency property.
         /// </summary>
         public static readonly DependencyProperty FeaturedMeasureProperty =
-            DependencyProperty.Register("FeaturedMeasure", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(90.0, OnFeaturedMeasurePropertyChanged));
+            DependencyProperty.Register(nameof(FeaturedMeasure), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(90.0, OnFeaturedMeasurePropertyChanged));
 
         /// <summary>
         /// Identifies the FeaturedMeasureStartValue dependency property.
         /// </summary>
         public static readonly DependencyProperty FeaturedMeasureStartValueProperty =
-            DependencyProperty.Register("FeaturedMeasureStartValue", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(0.0, OnFeaturedMeasureStartValuePropertyChanged));
+            DependencyProperty.Register(nameof(FeaturedMeasureStartValue), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(0.0, OnFeaturedMeasureStartValuePropertyChanged));
 
         /// <summary>
         /// Identifies the FeaturedMeasureBrush dependency property.
         /// </summary>
         public static readonly DependencyProperty FeaturedMeasureBrushProperty =
-            DependencyProperty.Register("FeaturedMeasureBrush", typeof(Brush), typeof(RadBulletGraph), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(FeaturedMeasureBrush), typeof(Brush), typeof(RadBulletGraph), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the FeaturedMeasureThickness dependency property.
         /// </summary>
         public static readonly DependencyProperty FeaturedMeasureThicknessProperty =
-            DependencyProperty.Register("FeaturedMeasureThickness", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(8.0));
+            DependencyProperty.Register(nameof(FeaturedMeasureThickness), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(8.0));
 
         /// <summary>
         /// Identifies the FeaturedMeasureAlternativeTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty FeaturedMeasureAlternativeTemplateProperty =
-            DependencyProperty.Register("FeaturedMeasureAlternativeTemplate", typeof(DataTemplate), typeof(RadBulletGraph), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(FeaturedMeasureAlternativeTemplate), typeof(DataTemplate), typeof(RadBulletGraph), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the ProjectedMeasure dependency property.
         /// </summary>
         public static readonly DependencyProperty ProjectedMeasureProperty =
-            DependencyProperty.Register("ProjectedMeasure", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(0.0, OnProjectedMeasurePropertyChanged));
+            DependencyProperty.Register(nameof(ProjectedMeasure), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(0.0, OnProjectedMeasurePropertyChanged));
 
         /// <summary>
         /// Identifies the ProjectedMeasureBrush dependency property.
         /// </summary>
         public static readonly DependencyProperty ProjectedMeasureBrushProperty =
-            DependencyProperty.Register("ProjectedMeasureBrush", typeof(Brush), typeof(RadBulletGraph), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ProjectedMeasureBrush), typeof(Brush), typeof(RadBulletGraph), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the ComparativeMeasure dependency property.
         /// </summary>
         public static readonly DependencyProperty ComparativeMeasureProperty =
-            DependencyProperty.Register("ComparativeMeasure", typeof(double), typeof(RadBulletGraph), new PropertyMetadata(80.0, OnComparativeMeasurePropertyChanged));
+            DependencyProperty.Register(nameof(ComparativeMeasure), typeof(double), typeof(RadBulletGraph), new PropertyMetadata(80.0, OnComparativeMeasurePropertyChanged));
 
         /// <summary>
         /// Identifies the ComparativeMeasureTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty ComparativeMeasureTemplateProperty =
-            DependencyProperty.Register("ComparativeMeasureTemplate", typeof(DataTemplate), typeof(RadBulletGraph), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ComparativeMeasureTemplate), typeof(DataTemplate), typeof(RadBulletGraph), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the IsAnimated dependency property.
         /// </summary>
         public static readonly DependencyProperty IsAnimatedProperty =
-            DependencyProperty.Register("IsAnimated", typeof(bool), typeof(RadBulletGraph), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsAnimated), typeof(bool), typeof(RadBulletGraph), new PropertyMetadata(true));
 
         internal const int FeaturedMeasuresZIndex = 3;
         internal const int ComparativeMeasuresZIndex = 2;

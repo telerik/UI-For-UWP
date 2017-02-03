@@ -14,13 +14,13 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the BarThickness dependency property.
         /// </summary>
         public static readonly DependencyProperty ThicknessProperty =
-            DependencyProperty.Register("Thickness", typeof(double), typeof(BarGaugeIndicator), new PropertyMetadata(1d, OnThicknessPropertyChanged));
+            DependencyProperty.Register(nameof(Thickness), typeof(double), typeof(BarGaugeIndicator), new PropertyMetadata(1d, OnThicknessPropertyChanged));
 
         /// <summary>
         /// Identifies the BarBrush dependency property.
         /// </summary>
         public static readonly DependencyProperty BrushProperty =
-            DependencyProperty.Register("Brush", typeof(Brush), typeof(BarGaugeIndicator), new PropertyMetadata(new SolidColorBrush(Colors.Gray), OnBrushPropertyChanged));
+            DependencyProperty.Register(nameof(Brush), typeof(Brush), typeof(BarGaugeIndicator), new PropertyMetadata(new SolidColorBrush(Colors.Gray), OnBrushPropertyChanged));
 
         /// <summary>
         /// Gets or sets the thickness of this bar indicator.

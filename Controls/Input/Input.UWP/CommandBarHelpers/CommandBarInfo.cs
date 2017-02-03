@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
         /// Identifies the <see cref="PickerCommandBar"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PickerCommandBarProperty =
-            DependencyProperty.Register("PickerCommandBar", typeof(CommandBar), typeof(CommandBarInfo), new PropertyMetadata(0));
+            DependencyProperty.Register(nameof(PickerCommandBar), typeof(CommandBar), typeof(CommandBarInfo), new PropertyMetadata(0));
 
         /// <summary>
         /// Gets or sets the <see cref="CommandBar"/> used by the <see cref="DateTimePicker"/> control.

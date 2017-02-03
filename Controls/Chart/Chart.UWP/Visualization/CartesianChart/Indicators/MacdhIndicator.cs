@@ -17,31 +17,31 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="PointTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty PointTemplateProperty =
-            DependencyProperty.Register("PointTemplate", typeof(DataTemplate), typeof(MacdhIndicator), new PropertyMetadata(null, OnPointTemplateChanged));
+            DependencyProperty.Register(nameof(PointTemplate), typeof(DataTemplate), typeof(MacdhIndicator), new PropertyMetadata(null, OnPointTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="LongPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LongPeriodProperty =
-            DependencyProperty.Register("LongPeriod", typeof(int), typeof(MacdhIndicator), new PropertyMetadata(0, OnLongPeriodChanged));
+            DependencyProperty.Register(nameof(LongPeriod), typeof(int), typeof(MacdhIndicator), new PropertyMetadata(0, OnLongPeriodChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShortPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShortPeriodProperty =
-            DependencyProperty.Register("ShortPeriod", typeof(int), typeof(MacdhIndicator), new PropertyMetadata(0, OnShortPeriodChanged));
+            DependencyProperty.Register(nameof(ShortPeriod), typeof(int), typeof(MacdhIndicator), new PropertyMetadata(0, OnShortPeriodChanged));
 
         /// <summary>
         /// Identifies the <see cref="SignalPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SignalPeriodProperty =
-            DependencyProperty.Register("SignalPeriod", typeof(int), typeof(MacdhIndicator), new PropertyMetadata(0, OnSignalPeriodChanged));
+            DependencyProperty.Register(nameof(SignalPeriod), typeof(int), typeof(MacdhIndicator), new PropertyMetadata(0, OnSignalPeriodChanged));
 
         /// <summary>
         /// Identifies the <see cref="PointTemplateSelector"/> property.
         /// </summary>
         public static readonly DependencyProperty PointTemplateSelectorProperty =
-            DependencyProperty.Register("PointTemplateSelector", typeof(DataTemplateSelector), typeof(MacdhIndicator), new PropertyMetadata(null, OnPointTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(PointTemplateSelector), typeof(DataTemplateSelector), typeof(MacdhIndicator), new PropertyMetadata(null, OnPointTemplateSelectorChanged));
 
         internal DataTemplate pointTemplateCache;
         internal DataTemplateSelector pointTemplateSelectorCache;

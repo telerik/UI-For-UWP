@@ -16,31 +16,31 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="CheckModeDeactivatedOnBackButton"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CheckModeDeactivatedOnBackButtonProperty =
-            DependencyProperty.Register("CheckModeDeactivatedOnBackButton", typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(true, OnCheckModeDeactivatedOnBackButtonChanged));
+            DependencyProperty.Register(nameof(CheckModeDeactivatedOnBackButton), typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(true, OnCheckModeDeactivatedOnBackButtonChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsCheckModeEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsCheckModeEnabledProperty =
-            DependencyProperty.Register("IsCheckModeEnabled", typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(false, OnIsCheckModeEnabledChanged));
+            DependencyProperty.Register(nameof(IsCheckModeEnabled), typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(false, OnIsCheckModeEnabledChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsCheckModeActive"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsCheckModeActiveProperty =
-            DependencyProperty.Register("IsCheckModeActive", typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(false, OnIsCheckModeActiveChanged));
+            DependencyProperty.Register(nameof(IsCheckModeActive), typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(false, OnIsCheckModeActiveChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemCheckedPath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemCheckedPathProperty =
-            DependencyProperty.Register("ItemCheckedPath", typeof(string), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnItemCheckedPathChanged));
+            DependencyProperty.Register(nameof(ItemCheckedPath), typeof(string), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnItemCheckedPathChanged));
 
         /// <summary>
         /// Identifies the <see cref="CheckBoxesIndicatorStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CheckBoxesIndicatorStyleProperty =
-            DependencyProperty.Register("CheckBoxesIndicatorStyle", typeof(Style), typeof(RadDataBoundListBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CheckBoxesIndicatorStyle), typeof(Style), typeof(RadDataBoundListBox), new PropertyMetadata(null));
 
         internal const int ShowCheckBoxesThreshold = 35;
         internal const int CheckBoxesTranslationAmount = 80;

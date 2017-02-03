@@ -18,7 +18,7 @@ namespace Telerik.Data.Core.Fields
         {
             if (root == null)
             {
-                throw new ArgumentNullException("root");
+                throw new ArgumentNullException(nameof(root));
             }
 
             this.RootFieldInfo = root;

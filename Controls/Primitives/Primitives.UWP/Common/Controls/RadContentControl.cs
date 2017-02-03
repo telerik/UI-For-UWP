@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls
         /// Defines the IsFocused property.
         /// </summary>
         public static readonly DependencyProperty IsFocusedProperty =
-            DependencyProperty.Register("IsFocused", typeof(bool), typeof(RadContentControl), new PropertyMetadata(false, OnIsFocusedChanged));
+            DependencyProperty.Register(nameof(IsFocused), typeof(bool), typeof(RadContentControl), new PropertyMetadata(false, OnIsFocusedChanged));
 
         private bool isFocused;
         private string currentVisualState;

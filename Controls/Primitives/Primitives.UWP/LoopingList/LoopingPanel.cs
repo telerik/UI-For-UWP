@@ -20,7 +20,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
         /// Used internally to animate the vertical offset of the panel.
         /// </summary>
         private static readonly DependencyProperty VerticalOffsetProperty =
-            DependencyProperty.Register("VerticalOffset", typeof(double), typeof(LoopingPanel), new PropertyMetadata(0d, OnVerticalOffsetChanged));
+            DependencyProperty.Register(nameof(VerticalOffset), typeof(double), typeof(LoopingPanel), new PropertyMetadata(0d, OnVerticalOffsetChanged));
 
         private int visualCount;
         private double availableLength;

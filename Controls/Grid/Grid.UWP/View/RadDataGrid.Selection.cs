@@ -11,19 +11,19 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the SelectionUnit dependency property. 
         /// </summary>
         public static readonly DependencyProperty SelectionUnitProperty =
-            DependencyProperty.Register("SelectionUnit", typeof(DataGridSelectionUnit), typeof(RadDataGrid), new PropertyMetadata(DataGridSelectionUnit.Row, OnSelectionUnitChanged));
+            DependencyProperty.Register(nameof(SelectionUnit), typeof(DataGridSelectionUnit), typeof(RadDataGrid), new PropertyMetadata(DataGridSelectionUnit.Row, OnSelectionUnitChanged));
 
         /// <summary>
         /// Identifies the SelectionMode dependency property. 
         /// </summary>
         public static readonly DependencyProperty SelectionModeProperty =
-            DependencyProperty.Register("SelectionMode", typeof(DataGridSelectionMode), typeof(RadDataGrid), new PropertyMetadata(DataGridSelectionMode.Single, OnSelectionModeChanged));
+            DependencyProperty.Register(nameof(SelectionMode), typeof(DataGridSelectionMode), typeof(RadDataGrid), new PropertyMetadata(DataGridSelectionMode.Single, OnSelectionModeChanged));
 
         /// <summary>
         /// Identifies the SelectedItem dependency property. 
         /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(RadDataGrid), new PropertyMetadata(null, OnSelectedItemChanged));
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(RadDataGrid), new PropertyMetadata(null, OnSelectedItemChanged));
 
         internal SelectionService selectionService;
 

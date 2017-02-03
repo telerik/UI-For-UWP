@@ -11,13 +11,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="HighBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty HighBindingProperty =
-            DependencyProperty.Register("HighBinding", typeof(DataPointBinding), typeof(HighLowIndicatorBase), new PropertyMetadata(null, OnHighBindingChanged));
+            DependencyProperty.Register(nameof(HighBinding), typeof(DataPointBinding), typeof(HighLowIndicatorBase), new PropertyMetadata(null, OnHighBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="LowBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty LowBindingProperty =
-            DependencyProperty.Register("LowBinding", typeof(DataPointBinding), typeof(HighLowIndicatorBase), new PropertyMetadata(null, OnLowBindingChanged));
+            DependencyProperty.Register(nameof(LowBinding), typeof(DataPointBinding), typeof(HighLowIndicatorBase), new PropertyMetadata(null, OnLowBindingChanged));
 
         /// <summary>
         /// Gets or sets the binding that will be used to fill the High value for the indicator calculations.

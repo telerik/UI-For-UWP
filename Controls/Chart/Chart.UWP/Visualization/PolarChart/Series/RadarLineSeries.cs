@@ -15,25 +15,25 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Stroke"/> property.
         /// </summary>
         public static readonly DependencyProperty StrokeProperty =
-            DependencyProperty.Register("Stroke", typeof(Brush), typeof(RadarLineSeries), new PropertyMetadata(null, OnStrokeChanged));
+            DependencyProperty.Register(nameof(Stroke), typeof(Brush), typeof(RadarLineSeries), new PropertyMetadata(null, OnStrokeChanged));
 
         /// <summary>
         /// Identifies the <see cref="StrokeThickness"/> property.
         /// </summary>
         public static readonly DependencyProperty StrokeThicknessProperty =
-            DependencyProperty.Register("StrokeThickness", typeof(double), typeof(RadarLineSeries), new PropertyMetadata(2d, OnStrokeThicknessChanged));
+            DependencyProperty.Register(nameof(StrokeThickness), typeof(double), typeof(RadarLineSeries), new PropertyMetadata(2d, OnStrokeThicknessChanged));
 
         /// <summary>
         /// Identifies the <see cref="StrokeDashArray"/> property.
         /// </summary>
         public static readonly DependencyProperty StrokeDashArrayProperty =
-            DependencyProperty.Register("StrokeDashArray", typeof(DoubleCollection), typeof(RadarLineSeries), new PropertyMetadata(null, OnStrokeDashArrayChanged));
+            DependencyProperty.Register(nameof(StrokeDashArray), typeof(DoubleCollection), typeof(RadarLineSeries), new PropertyMetadata(null, OnStrokeDashArrayChanged));
 
         /// <summary>
         /// Identifies the <see cref="StrokeLineJoin"/> property.
         /// </summary>
         public static readonly DependencyProperty StrokeLineJoinProperty =
-            DependencyProperty.Register("StrokeLineJoin", typeof(PenLineJoin), typeof(RadarLineSeries), new PropertyMetadata(PenLineJoin.Miter, OnStrokeLineJoinChanged));
+            DependencyProperty.Register(nameof(StrokeLineJoin), typeof(PenLineJoin), typeof(RadarLineSeries), new PropertyMetadata(PenLineJoin.Miter, OnStrokeLineJoinChanged));
 
         internal RadarLineRenderer renderer;
 

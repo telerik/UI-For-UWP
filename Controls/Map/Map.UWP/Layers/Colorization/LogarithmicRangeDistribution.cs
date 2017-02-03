@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="LogarithmBase"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LogarithmBaseProperty =
-            DependencyProperty.Register("LogarithmBase", typeof(double), typeof(LogarithmicRangeDistribution), new PropertyMetadata(10d, OnLogarithmBasePropertyChanged));
+            DependencyProperty.Register(nameof(LogarithmBase), typeof(double), typeof(LogarithmicRangeDistribution), new PropertyMetadata(10d, OnLogarithmBasePropertyChanged));
 
         private const double MinimumReciprocialNormedIntervalWidth = 10000000000;
         private readonly Collection<ColorRange> ranges;

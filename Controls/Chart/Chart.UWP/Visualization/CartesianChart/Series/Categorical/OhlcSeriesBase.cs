@@ -19,31 +19,31 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="HighBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty HighBindingProperty =
-            DependencyProperty.Register("HighBinding", typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnHighBindingChanged));
+            DependencyProperty.Register(nameof(HighBinding), typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnHighBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="LowBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty LowBindingProperty =
-            DependencyProperty.Register("LowBinding", typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnLowBindingChanged));
+            DependencyProperty.Register(nameof(LowBinding), typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnLowBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="OpenBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty OpenBindingProperty =
-            DependencyProperty.Register("OpenBinding", typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnOpenBindingChanged));
+            DependencyProperty.Register(nameof(OpenBinding), typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnOpenBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="CloseBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty CloseBindingProperty =
-            DependencyProperty.Register("CloseBinding", typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnCloseBindingChanged));
+            DependencyProperty.Register(nameof(CloseBinding), typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnCloseBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="CategoryBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty CategoryBindingProperty =
-            DependencyProperty.Register("CategoryBinding", typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnCategoryBindingChanged));
+            DependencyProperty.Register(nameof(CategoryBinding), typeof(DataPointBinding), typeof(OhlcSeriesBase), new PropertyMetadata(null, OnCategoryBindingChanged));
 
         private OhlcSeriesModel model;
 

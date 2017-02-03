@@ -24,25 +24,25 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty InputScopeProperty = DependencyProperty.Register("InputScope", typeof(InputScopeNameValue), typeof(RadNumericBox), new PropertyMetadata(InputScopeNameValue.Number, OnScopeChanged));
+        public static readonly DependencyProperty InputScopeProperty = DependencyProperty.Register(nameof(InputScope), typeof(InputScopeNameValue), typeof(RadNumericBox), new PropertyMetadata(InputScopeNameValue.Number, OnScopeChanged));
 
         /// <summary>
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged)); // TODO: double? is not supported as PropertyType, check with next WinRT versions
+            DependencyProperty.Register(nameof(Value), typeof(object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged)); // TODO: double? is not supported as PropertyType, check with next WinRT versions
 
         /// <summary>
         /// Identifies the <see cref="AllowNullValue"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AllowNullValueProperty =
-            DependencyProperty.Register("AllowNullValue", typeof(bool), typeof(RadNumericBox), new PropertyMetadata(true, OnAllowNullValueChanged));
+            DependencyProperty.Register(nameof(AllowNullValue), typeof(bool), typeof(RadNumericBox), new PropertyMetadata(true, OnAllowNullValueChanged));
 
         /// <summary>
         /// Identifies the <see cref="ValueFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueFormatProperty =
-            DependencyProperty.Register("ValueFormat", typeof(string), typeof(RadNumericBox), new PropertyMetadata("{0,0:N2}", OnValueFormatChanged));
+            DependencyProperty.Register(nameof(ValueFormat), typeof(string), typeof(RadNumericBox), new PropertyMetadata("{0,0:N2}", OnValueFormatChanged));
 
         /// <summary>
         /// Identifies the <see cref="ValueString"/> dependency property.
@@ -54,55 +54,55 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="IncreaseButtonStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IncreaseButtonStyleProperty =
-            DependencyProperty.Register("IncreaseButtonStyle", typeof(Style), typeof(RadNumericBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(IncreaseButtonStyle), typeof(Style), typeof(RadNumericBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DecreaseButtonStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DecreaseButtonStyleProperty =
-            DependencyProperty.Register("DecreaseButtonStyle", typeof(Style), typeof(RadNumericBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DecreaseButtonStyle), typeof(Style), typeof(RadNumericBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="Watermark"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WatermarkProperty =
-            DependencyProperty.Register("Watermark", typeof(object), typeof(RadNumericBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Watermark), typeof(object), typeof(RadNumericBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="WatermarkTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WatermarkTemplateProperty =
-            DependencyProperty.Register("WatermarkTemplate", typeof(object), typeof(RadNumericBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(WatermarkTemplate), typeof(object), typeof(RadNumericBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ButtonsVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ButtonsVisibilityProperty =
-            DependencyProperty.Register("ButtonsVisibility", typeof(Visibility), typeof(RadNumericBox), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(ButtonsVisibility), typeof(Visibility), typeof(RadNumericBox), new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
         /// Identifies the <see cref="IsEditable"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsEditableProperty =
-            DependencyProperty.Register("IsEditable", typeof(bool), typeof(RadNumericBox), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsEditable), typeof(bool), typeof(RadNumericBox), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="AcceptsDecimalSeparator"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AcceptsDecimalSeparatorProperty =
-            DependencyProperty.Register("AcceptsDecimalSeparator", typeof(bool), typeof(RadNumericBox), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(AcceptsDecimalSeparator), typeof(bool), typeof(RadNumericBox), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="DecimalSeparatorKey"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DecimalSeparatorKeyProperty =
-            DependencyProperty.Register("DecimalSeparatorKey", typeof(int), typeof(RadNumericBox), new PropertyMetadata(-1));
+            DependencyProperty.Register(nameof(DecimalSeparatorKey), typeof(int), typeof(RadNumericBox), new PropertyMetadata(-1));
 
         /// <summary>
         /// Identifies the <see cref="ValueFormatSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueFormatSelectorProperty =
-            DependencyProperty.Register("ValueFormatSelector", typeof(IFormatSelector), typeof(RadNumericBox), new PropertyMetadata(null, OnValueFormatSelectorChanged));
+            DependencyProperty.Register(nameof(ValueFormatSelector), typeof(IFormatSelector), typeof(RadNumericBox), new PropertyMetadata(null, OnValueFormatSelectorChanged));
 
         private const int CommaKey = 188;
         private const int DashKey = 189;

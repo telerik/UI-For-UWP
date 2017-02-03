@@ -11,49 +11,49 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="GridLinesVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GridLinesVisibilityProperty =
-            DependencyProperty.Register("GridLinesVisibility", typeof(GridLinesVisibility), typeof(RadDataGrid), new PropertyMetadata(GridLinesVisibility.Both, OnGridLinesVisibilityChanged));
+            DependencyProperty.Register(nameof(GridLinesVisibility), typeof(GridLinesVisibility), typeof(RadDataGrid), new PropertyMetadata(GridLinesVisibility.Both, OnGridLinesVisibilityChanged));
 
         /// <summary>
         /// Identifies the <see cref="GridLinesThickness"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GridLinesThicknessProperty =
-            DependencyProperty.Register("GridLinesThickness", typeof(double), typeof(RadDataGrid), new PropertyMetadata(2d, OnGridLinesThicknessChanged));
+            DependencyProperty.Register(nameof(GridLinesThickness), typeof(double), typeof(RadDataGrid), new PropertyMetadata(2d, OnGridLinesThicknessChanged));
 
         /// <summary>
         /// Identifies the <see cref="GridLinesBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GridLinesBrushProperty =
-            DependencyProperty.Register("GridLinesBrush", typeof(Brush), typeof(RadDataGrid), new PropertyMetadata(null, OnGridLinesBrushChanged));
+            DependencyProperty.Register(nameof(GridLinesBrush), typeof(Brush), typeof(RadDataGrid), new PropertyMetadata(null, OnGridLinesBrushChanged));
 
         /// <summary>
         /// Identifies the <see cref="AlternateRowBackground"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RowBackgroundProperty =
-            DependencyProperty.Register("RowBackground", typeof(Brush), typeof(RadDataGrid), new PropertyMetadata(null, OnRowBackgroundChanged));
+            DependencyProperty.Register(nameof(RowBackground), typeof(Brush), typeof(RadDataGrid), new PropertyMetadata(null, OnRowBackgroundChanged));
 
         /// <summary>
         /// Identifies the <see cref="RowBackgroundSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RowBackgroundSelectorProperty =
-            DependencyProperty.Register("RowBackgroundSelector", typeof(ObjectSelector<Brush>), typeof(RadDataGrid), new PropertyMetadata(null, OnRowBackgroundSelectorChanged));
+            DependencyProperty.Register(nameof(RowBackgroundSelector), typeof(ObjectSelector<Brush>), typeof(RadDataGrid), new PropertyMetadata(null, OnRowBackgroundSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="AlternateRowBackground"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AlternateRowBackgroundProperty =
-            DependencyProperty.Register("AlternateRowBackground", typeof(Brush), typeof(RadDataGrid), new PropertyMetadata(null, OnAlternateRowBackgroundChanged));
+            DependencyProperty.Register(nameof(AlternateRowBackground), typeof(Brush), typeof(RadDataGrid), new PropertyMetadata(null, OnAlternateRowBackgroundChanged));
 
         /// <summary>
         /// Identifies the <see cref="AlternationStep"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AlternationStepProperty =
-            DependencyProperty.Register("AlternationStep", typeof(int), typeof(RadDataGrid), new PropertyMetadata(0, OnAlternationStepChanged));
+            DependencyProperty.Register(nameof(AlternationStep), typeof(int), typeof(RadDataGrid), new PropertyMetadata(0, OnAlternationStepChanged));
 
         /// <summary>
         /// Identifies the <see cref="AlternationStartIndex"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AlternationStartIndexProperty =
-            DependencyProperty.Register("AlternationStartIndex", typeof(int), typeof(RadDataGrid), new PropertyMetadata(0, OnAlternationStartIndexChanged));
+            DependencyProperty.Register(nameof(AlternationStartIndex), typeof(int), typeof(RadDataGrid), new PropertyMetadata(0, OnAlternationStartIndexChanged));
 
         private double gridLinesThicknessCache = 2d;
         private GridLinesVisibility gridLinesVisibilityCache = GridLinesVisibility.Both;

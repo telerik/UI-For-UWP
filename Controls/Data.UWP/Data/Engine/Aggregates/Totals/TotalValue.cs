@@ -23,7 +23,7 @@ namespace Telerik.Data.Core.Totals
         /// <summary>
         /// Gets the <see cref="Coordinate"/> this <see cref="TotalValue"/> is responsible for.
         /// </summary>
-        [SuppressMessage("Microsoft.Maintainability", "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "value", Justification = "Design choice.")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = nameof(value), Justification = "Design choice.")]
         public Coordinate Groups
         {
             get;
@@ -33,7 +33,7 @@ namespace Telerik.Data.Core.Totals
         /// <summary>
         /// Gets or sets the <see cref="AggregateValue"/> that should replace the <see cref="Value"/> in the final result.
         /// </summary>
-        [SuppressMessage("Microsoft.Maintainability", "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = "value", Justification = "Design choice.")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1500:VariableNamesShouldNotMatchFieldNames", MessageId = nameof(value), Justification = "Design choice.")]
         public AggregateValue FormattedValue
         {
             get;

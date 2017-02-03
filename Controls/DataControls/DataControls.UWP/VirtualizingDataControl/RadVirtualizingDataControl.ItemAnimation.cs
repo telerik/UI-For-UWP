@@ -11,31 +11,31 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="RadVirtualizingDataControl.ItemAnimationMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemAnimationModeProperty = 
-            DependencyProperty.Register("ItemAnimationMode", typeof(ItemAnimationMode), typeof(RadVirtualizingDataControl), new PropertyMetadata(ItemAnimationMode.PlayAll, OnItemAnimationModeChanged));
+            DependencyProperty.Register(nameof(ItemAnimationMode), typeof(ItemAnimationMode), typeof(RadVirtualizingDataControl), new PropertyMetadata(ItemAnimationMode.PlayAll, OnItemAnimationModeChanged));
 
         /// <summary>
         /// Identifies the ItemAddedAnimationInterval dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemAddedAnimationIntervalProperty =
-            DependencyProperty.Register("ItemAddedAnimationInterval", typeof(TimeSpan), typeof(RadVirtualizingDataControl), new PropertyMetadata(TimeSpan.FromMilliseconds(50), OnItemAddedAnimationIntervalChanged));
+            DependencyProperty.Register(nameof(ItemAddedAnimationInterval), typeof(TimeSpan), typeof(RadVirtualizingDataControl), new PropertyMetadata(TimeSpan.FromMilliseconds(50), OnItemAddedAnimationIntervalChanged));
 
         /// <summary>
         /// Identifies the ItemRemovedAnimationInterval dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemRemovedAnimationIntervalProperty =
-            DependencyProperty.Register("ItemRemovedAnimationInterval", typeof(TimeSpan), typeof(RadVirtualizingDataControl), new PropertyMetadata(TimeSpan.FromMilliseconds(50), OnItemRemovedAnimationIntervalChanged));
+            DependencyProperty.Register(nameof(ItemRemovedAnimationInterval), typeof(TimeSpan), typeof(RadVirtualizingDataControl), new PropertyMetadata(TimeSpan.FromMilliseconds(50), OnItemRemovedAnimationIntervalChanged));
 
         /// <summary>
         /// Identifies the ItemAddedAnimation dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemAddedAnimationProperty =
-            DependencyProperty.Register("ItemAddedAnimation", typeof(RadAnimation), typeof(RadVirtualizingDataControl), new PropertyMetadata(null, OnItemAddedAnimationChanged));
+            DependencyProperty.Register(nameof(ItemAddedAnimation), typeof(RadAnimation), typeof(RadVirtualizingDataControl), new PropertyMetadata(null, OnItemAddedAnimationChanged));
 
         /// <summary>
         /// Identifies the ItemRemovedAnimation dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemRemovedAnimationProperty =
-            DependencyProperty.Register("ItemRemovedAnimation", typeof(RadAnimation), typeof(RadVirtualizingDataControl), new PropertyMetadata(null, OnItemRemovedAnimationChanged));
+            DependencyProperty.Register(nameof(ItemRemovedAnimation), typeof(RadAnimation), typeof(RadVirtualizingDataControl), new PropertyMetadata(null, OnItemRemovedAnimationChanged));
 
         internal List<SingleItemAnimationContext> scheduledRemoveAnimations;
         internal List<SingleItemAnimationContext> scheduledAddAnimations;

@@ -21,67 +21,67 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="CornerRadius"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RadSegmentedControl), new PropertyMetadata(new CornerRadius(0d)));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(RadSegmentedControl), new PropertyMetadata(new CornerRadius(0d)));
 
         /// <summary>
         /// Identifies the <see cref="DisplayMemberPath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayMemberPathProperty =
-            DependencyProperty.Register("DisplayMemberPath", typeof(string), typeof(RadSegmentedControl), new PropertyMetadata(null, OnDisplayMemberPathChanged));
+            DependencyProperty.Register(nameof(DisplayMemberPath), typeof(string), typeof(RadSegmentedControl), new PropertyMetadata(null, OnDisplayMemberPathChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemCommand"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemCommandProperty =
-            DependencyProperty.Register("ItemCommand", typeof(ICommand), typeof(RadSegmentedControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemCommand), typeof(ICommand), typeof(RadSegmentedControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemContainerStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemContainerStyleProperty =
-            DependencyProperty.Register("ItemContainerStyle", typeof(Style), typeof(RadSegmentedControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemContainerStyle), typeof(Style), typeof(RadSegmentedControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemContainerStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemContainerStyleSelectorProperty =
-            DependencyProperty.Register("ItemContainerStyleSelector", typeof(StyleSelector), typeof(RadSegmentedControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemContainerStyleSelector), typeof(StyleSelector), typeof(RadSegmentedControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSource"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(RadSegmentedControl), new PropertyMetadata(null, OnItemsSourceChanged));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(RadSegmentedControl), new PropertyMetadata(null, OnItemsSourceChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(RadSegmentedControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(RadSegmentedControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemTemplateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateSelectorProperty =
-            DependencyProperty.Register("ItemTemplateSelector", typeof(DataTemplateSelector), typeof(RadSegmentedControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemTemplateSelector), typeof(DataTemplateSelector), typeof(RadSegmentedControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="SegmentWidthMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SegmentWidthModeProperty =
-            DependencyProperty.Register("SegmentWidthMode", typeof(SegmentWidthMode), typeof(RadSegmentedControl), new PropertyMetadata(SegmentWidthMode.Equal));
+            DependencyProperty.Register(nameof(SegmentWidthMode), typeof(SegmentWidthMode), typeof(RadSegmentedControl), new PropertyMetadata(SegmentWidthMode.Equal));
 
         /// <summary>
         /// Identifies the <see cref="SeparatorWidth"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SeparatorWidthProperty =
-            DependencyProperty.Register("SeparatorWidth", typeof(double), typeof(RadSegmentedControl), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(SeparatorWidth), typeof(double), typeof(RadSegmentedControl), new PropertyMetadata(0d));
 
         /// <summary>
         /// Identifies the <see cref="SeparatorBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SeparatorBrushProperty =
-            DependencyProperty.Register("SeparatorBrush", typeof(Brush), typeof(RadSegmentedControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SeparatorBrush), typeof(Brush), typeof(RadSegmentedControl), new PropertyMetadata(null));
 
         private const string AnimationLayerTemplatePartName = "PART_AnimationLayer";
         private const string ItemsPanelTemplatePartName = "PART_ItemsPanel";

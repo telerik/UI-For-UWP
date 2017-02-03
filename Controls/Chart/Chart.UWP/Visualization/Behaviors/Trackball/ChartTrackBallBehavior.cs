@@ -26,13 +26,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="LineStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty LineStyleProperty =
-            DependencyProperty.Register("LineStyle", typeof(Style), typeof(ChartTrackBallBehavior), new PropertyMetadata(null, OnLineStylePropertyChanged));
+            DependencyProperty.Register(nameof(LineStyle), typeof(Style), typeof(ChartTrackBallBehavior), new PropertyMetadata(null, OnLineStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="InfoStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty InfoStyleProperty =
-            DependencyProperty.Register("InfoStyle", typeof(Style), typeof(ChartTrackBallBehavior), null);
+            DependencyProperty.Register(nameof(InfoStyle), typeof(Style), typeof(ChartTrackBallBehavior), null);
 
         /// <summary>
         /// Identifies the <see cref="IntersectionTemplateProperty"/> dependency property.
@@ -276,7 +276,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             if (instance == null)
             {
-                throw new ArgumentNullException("instance");
+                throw new ArgumentNullException(nameof(instance));
             }
 
             return instance.GetValue(TrackInfoTemplateProperty) as DataTemplate;
@@ -320,7 +320,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             this.HandleDrag(args.GetCurrentPoint(this.chart).Position);
@@ -336,7 +336,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (args.Pointer.IsInContact)
@@ -357,7 +357,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (args.Pointer.PointerDeviceType != PointerDeviceType.Touch)
@@ -395,7 +395,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             this.EndTrack();
@@ -410,7 +410,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             this.HandleDrag(args.GetPosition(this.chart));
@@ -426,7 +426,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (!this.chart.isInHold || args.IsInertial)

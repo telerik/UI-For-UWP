@@ -43,7 +43,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         // Using a DependencyProperty as the backing store for RealizedItemsBufferScale. 
         public static readonly DependencyProperty RealizedItemsBufferScaleProperty =
-            DependencyProperty.Register("RealizedItemsBufferScale", typeof(double), typeof(RadDataGrid), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
+            DependencyProperty.Register(nameof(RealizedItemsVerticalBufferScale), typeof(double), typeof(RadDataGrid), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
 
         private static void OnRealizedItemsBufferScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -65,91 +65,91 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="IsBusyIndicatorEnabled"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty IsBusyIndicatorEnabledProperty =
-            DependencyProperty.Register("IsBusyIndicatorEnabled", typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsBusyIndicatorEnabled), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false));
 
         /// <summary>
         /// Identifies the <see cref="IndentWidth"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty IndentWidthProperty =
-            DependencyProperty.Register("IndentWidth", typeof(double), typeof(RadDataGrid), new PropertyMetadata(24d, OnIndentWidthChanged));
+            DependencyProperty.Register(nameof(IndentWidth), typeof(double), typeof(RadDataGrid), new PropertyMetadata(24d, OnIndentWidthChanged));
 
         /// <summary>
         /// Identifies the RowHeight dependency property. 
         /// </summary>
         public static readonly DependencyProperty RowHeightProperty =
-            DependencyProperty.Register("RowHeight", typeof(double), typeof(RadDataGrid), new PropertyMetadata(double.NaN, OnRowHeightChanged));
+            DependencyProperty.Register(nameof(RowHeight), typeof(double), typeof(RadDataGrid), new PropertyMetadata(double.NaN, OnRowHeightChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderTemplate"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty GroupHeaderTemplateProperty =
-            DependencyProperty.Register("GroupHeaderTemplate", typeof(DataTemplate), typeof(RadDataGrid), new PropertyMetadata(null, OnGroupHeaderTemplateChanged));
+            DependencyProperty.Register(nameof(GroupHeaderTemplate), typeof(DataTemplate), typeof(RadDataGrid), new PropertyMetadata(null, OnGroupHeaderTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderTemplateSelector"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty GroupHeaderTemplateSelectorProperty =
-            DependencyProperty.Register("GroupHeaderTemplateSelector", typeof(DataTemplateSelector), typeof(RadDataGrid), new PropertyMetadata(null, OnGroupHeaderTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(GroupHeaderTemplateSelector), typeof(DataTemplateSelector), typeof(RadDataGrid), new PropertyMetadata(null, OnGroupHeaderTemplateSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderStyle"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty GroupHeaderStyleProperty =
-            DependencyProperty.Register("GroupHeaderStyle", typeof(Style), typeof(RadDataGrid), new PropertyMetadata(null, OnGroupHeaderStyleChanged));
+            DependencyProperty.Register(nameof(GroupHeaderStyle), typeof(Style), typeof(RadDataGrid), new PropertyMetadata(null, OnGroupHeaderStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderStyleSelector"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty GroupHeaderStyleSelectorProperty =
-            DependencyProperty.Register("GroupHeaderStyleSelector", typeof(StyleSelector), typeof(RadDataGrid), new PropertyMetadata(null, OnGroupHeaderStyleSelectorChanged));
+            DependencyProperty.Register(nameof(GroupHeaderStyleSelector), typeof(StyleSelector), typeof(RadDataGrid), new PropertyMetadata(null, OnGroupHeaderStyleSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupHeaderDisplayMode"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty GroupHeaderDisplayModeProperty =
-            DependencyProperty.Register("GroupHeaderDisplayMode", typeof(DataGridGroupHeaderDisplayMode), typeof(RadDataGrid), new PropertyMetadata(DataGridGroupHeaderDisplayMode.Frozen, OnGroupHeaderDisplayModeChanged));
+            DependencyProperty.Register(nameof(GroupHeaderDisplayMode), typeof(DataGridGroupHeaderDisplayMode), typeof(RadDataGrid), new PropertyMetadata(DataGridGroupHeaderDisplayMode.Frozen, OnGroupHeaderDisplayModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="UserSortMode"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty UserSortModeProperty =
-            DependencyProperty.Register("UserSortMode", typeof(DataGridUserSortMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserSortMode.Auto));
+            DependencyProperty.Register(nameof(UserSortMode), typeof(DataGridUserSortMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserSortMode.Auto));
 
         /// <summary>
         /// Identifies the <see cref="UserGroupMode"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty UserGroupModeProperty =
-            DependencyProperty.Register("UserGroupMode", typeof(DataGridUserGroupMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserGroupMode.Auto, OnUserGroupModeChanged));
+            DependencyProperty.Register(nameof(UserGroupMode), typeof(DataGridUserGroupMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserGroupMode.Auto, OnUserGroupModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="ColumnResizeHandleDisplayMode"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty ColumnResizeHandleDisplayModeProperty =
-            DependencyProperty.Register("ColumnResizeHandleDisplayMode", typeof(DataGridColumnResizeHandleDisplayMode), typeof(RadDataGrid), new PropertyMetadata(DataGridColumnResizeHandleDisplayMode.None, OnColumnResizeModeChanged));
+            DependencyProperty.Register(nameof(ColumnResizeHandleDisplayMode), typeof(DataGridColumnResizeHandleDisplayMode), typeof(RadDataGrid), new PropertyMetadata(DataGridColumnResizeHandleDisplayMode.None, OnColumnResizeModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="UserColumnReorderMode"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty UserColumnReorderModeProperty =
-            DependencyProperty.Register("UserColumnReorderMode", typeof(DataGridUserColumnReorderMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserColumnReorderMode.Interactive));
+            DependencyProperty.Register(nameof(UserColumnReorderMode), typeof(DataGridUserColumnReorderMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserColumnReorderMode.Interactive));
 
         /// <summary>
         /// Identifies the <see cref="UserGroupMode"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty UserFilterModeProperty =
-            DependencyProperty.Register("UserFilterMode", typeof(DataGridUserFilterMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserFilterMode.Auto, OnUserFilterModeChanged));
+            DependencyProperty.Register(nameof(UserFilterMode), typeof(DataGridUserFilterMode), typeof(RadDataGrid), new PropertyMetadata(DataGridUserFilterMode.Auto, OnUserFilterModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="DragBehavior"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty DragBehaviorProperty =
-            DependencyProperty.Register("DragBehavior", typeof(DataGridDragBehavior), typeof(RadDataGrid), new PropertyMetadata(null, OnDragBehaviorChanged));
+            DependencyProperty.Register(nameof(DragBehavior), typeof(DataGridDragBehavior), typeof(RadDataGrid), new PropertyMetadata(null, OnDragBehaviorChanged));
 
      /// <summary>
         /// Identifies the <see cref="GroupPanelPosition"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty GroupPanelPositionProperty =
-            DependencyProperty.Register("GroupPanelPosition", typeof(GroupPanelPosition), typeof(RadDataGrid), new PropertyMetadata(GroupPanelPosition.Left, OnGroupPanelPositionChanged));
+            DependencyProperty.Register(nameof(GroupPanelPosition), typeof(GroupPanelPosition), typeof(RadDataGrid), new PropertyMetadata(GroupPanelPosition.Left, OnGroupPanelPositionChanged));
 
         private DataGridColumnHeaderPanel columnHeadersPanel;
         private DataGridCellsPanel cellsPanel;

@@ -18,31 +18,31 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the ImageSource dependency property.
         /// </summary>
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(RadHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(RadHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the Message dependency property.
         /// </summary>
         public static readonly DependencyProperty MessageProperty =
-            DependencyProperty.Register("Message", typeof(object), typeof(RadHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Message), typeof(object), typeof(RadHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the MessageTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty MessageTemplateProperty =
-            DependencyProperty.Register("MessageTemplate", typeof(DataTemplate), typeof(RadHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(MessageTemplate), typeof(DataTemplate), typeof(RadHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the Notification dependency property.
         /// </summary>
         public static readonly DependencyProperty NotificationProperty =
-            DependencyProperty.Register("Notification", typeof(object), typeof(RadHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Notification), typeof(object), typeof(RadHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the NotificationTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty NotificationTemplateProperty =
-            DependencyProperty.Register("NotificationTemplate", typeof(DataTemplate), typeof(RadHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(NotificationTemplate), typeof(DataTemplate), typeof(RadHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the RadHubTile class.

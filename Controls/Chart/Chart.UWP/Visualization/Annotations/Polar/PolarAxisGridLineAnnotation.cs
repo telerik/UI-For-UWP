@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(PolarAxisGridLineAnnotation), new PropertyMetadata(double.NaN, OnValuePropertyChanged));
+            DependencyProperty.Register(nameof(Value), typeof(double), typeof(PolarAxisGridLineAnnotation), new PropertyMetadata(double.NaN, OnValuePropertyChanged));
 
         private Ellipse presenter;
         private PolarGridLineAnnotationModel model;

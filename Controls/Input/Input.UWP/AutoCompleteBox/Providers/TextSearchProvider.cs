@@ -92,7 +92,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             set
             {
                 this.filterMemberPath = value;
-                this.OnPropertyChanged("FilterMemberPath");
+                this.OnPropertyChanged(nameof(FilterMemberPath));
             }
         }
 
@@ -112,7 +112,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
                 if (value != this.filterKeyProvider)
                 {
                     this.filterKeyProvider = value;
-                    this.OnPropertyChanged("FilterKeyProvider");
+                    this.OnPropertyChanged(nameof(FilterMemberProvider));
                 }
             }
         }
@@ -203,7 +203,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
         public virtual void Reset()
         {
             this.currentInput.Clear();
-            this.OnPropertyChanged("FilteredItems");
+            this.OnPropertyChanged(nameof(FilteredItems));
         }
 
         /// <summary>

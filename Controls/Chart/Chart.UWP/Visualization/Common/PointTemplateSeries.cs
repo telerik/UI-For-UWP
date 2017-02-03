@@ -18,19 +18,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="PointTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty PointTemplateProperty =
-            DependencyProperty.Register("PointTemplate", typeof(DataTemplate), typeof(PointTemplateSeries), new PropertyMetadata(null, OnPointTemplateChanged));
+            DependencyProperty.Register(nameof(PointTemplate), typeof(DataTemplate), typeof(PointTemplateSeries), new PropertyMetadata(null, OnPointTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="PointTemplateSelector"/> property.
         /// </summary>
         public static readonly DependencyProperty PointTemplateSelectorProperty =
-            DependencyProperty.Register("PointTemplateSelector", typeof(DataTemplateSelector), typeof(PointTemplateSeries), new PropertyMetadata(null, OnPointTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(PointTemplateSelector), typeof(DataTemplateSelector), typeof(PointTemplateSeries), new PropertyMetadata(null, OnPointTemplateSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="DefaultVisualStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty DefaultVisualStyleProperty =
-            DependencyProperty.Register("DefaultVisualStyle", typeof(Style), typeof(PointTemplateSeries), new PropertyMetadata(null, OnDefaultVisualStyleChanged));
+            DependencyProperty.Register(nameof(DefaultVisualStyle), typeof(Style), typeof(PointTemplateSeries), new PropertyMetadata(null, OnDefaultVisualStyleChanged));
 
         internal DataTemplate pointTemplateCache;
         internal DataTemplateSelector pointTemplateSelectorCache;

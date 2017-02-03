@@ -20,7 +20,7 @@ namespace Telerik.Data.Core
                 }
 
                 this.function = value;
-                this.OnPropertyChanged("Function");
+                this.OnPropertyChanged(nameof(Function));
                 this.OnSettingsChanged(new SettingsChangedEventArgs());
             }
         }

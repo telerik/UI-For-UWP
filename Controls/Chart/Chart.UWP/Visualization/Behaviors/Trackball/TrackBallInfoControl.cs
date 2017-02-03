@@ -14,19 +14,19 @@ namespace Telerik.UI.Xaml.Controls.Chart.Primitives
         /// Identifies the <see cref="DataPointInfoTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty DataPointInfoTemplateProperty =
-            DependencyProperty.Register("DataPointInfoTemplate", typeof(DataTemplate), typeof(TrackBallInfoControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DataPointInfoTemplate), typeof(DataTemplate), typeof(TrackBallInfoControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DataPointInfoTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), typeof(TrackBallInfoControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(TrackBallInfoControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="HeaderTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty HeaderTemplateProperty =
-            DependencyProperty.Register("HeaderTemplate", typeof(DataTemplate), typeof(TrackBallInfoControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HeaderTemplate), typeof(DataTemplate), typeof(TrackBallInfoControl), new PropertyMetadata(null));
 
         private const string PanelPartName = "PART_Panel";
 

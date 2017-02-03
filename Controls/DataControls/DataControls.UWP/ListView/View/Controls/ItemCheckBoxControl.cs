@@ -18,7 +18,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         // Using a DependencyProperty as the backing store for CheckBoxStyle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CheckBoxStyleProperty =
-            DependencyProperty.Register("CheckBoxStyle", typeof(Style), typeof(ItemCheckBoxControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CheckBoxStyle), typeof(Style), typeof(ItemCheckBoxControl), new PropertyMetadata(null));
 
 
         public CheckBoxPosition CheckBoxPosition
@@ -29,7 +29,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         // Using a DependencyProperty as the backing store for CheckBoxPosition.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CheckBoxPositionProperty =
-            DependencyProperty.Register("CheckBoxPosition", typeof(CheckBoxPosition), typeof(ItemCheckBoxControl), new PropertyMetadata(CheckBoxPosition.BeforeItem));
+            DependencyProperty.Register(nameof(CheckBoxPosition), typeof(CheckBoxPosition), typeof(ItemCheckBoxControl), new PropertyMetadata(CheckBoxPosition.BeforeItem));
 
   
         internal void SetIsChecked(bool isChecked)

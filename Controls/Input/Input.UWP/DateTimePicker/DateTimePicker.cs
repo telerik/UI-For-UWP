@@ -20,85 +20,85 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="Step"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StepProperty =
-            DependencyProperty.Register("Step", typeof(DateTimeOffset), typeof(DateTimePicker), new PropertyMetadata(new DateTimeOffset(1, 1, 1, 1, 1, 1, TimeSpan.Zero), OnStepChanged));
+            DependencyProperty.Register(nameof(Step), typeof(DateTimeOffset), typeof(DateTimePicker), new PropertyMetadata(new DateTimeOffset(1, 1, 1, 1, 1, 1, TimeSpan.Zero), OnStepChanged));
 
         /// <summary>
         /// Identifies the <see cref="DisplayMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayModeProperty =
-            DependencyProperty.Register("DisplayMode", typeof(DateTimePickerDisplayMode), typeof(DateTimePicker), new PropertyMetadata(DateTimePickerDisplayMode.Standard, OnDisplayModeChanged));
+            DependencyProperty.Register(nameof(DisplayMode), typeof(DateTimePickerDisplayMode), typeof(DateTimePicker), new PropertyMetadata(DateTimePickerDisplayMode.Standard, OnDisplayModeChanged));
 
         /// <summary>
         /// Identifies the IsReadOnly dependency property.
         /// </summary>
         public static readonly DependencyProperty IsReadOnlyProperty =
-            DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(DateTimePicker), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(DateTimePicker), new PropertyMetadata(false));
 
         /// <summary>
         /// Identifies the <see cref="MinValue"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MinValueProperty =
-            DependencyProperty.Register("MinValue", typeof(DateTime), typeof(DateTimePicker), new PropertyMetadata(DateTime.MinValue, OnMinValueChanged));
+            DependencyProperty.Register(nameof(MinValue), typeof(DateTime), typeof(DateTimePicker), new PropertyMetadata(DateTime.MinValue, OnMinValueChanged));
 
         /// <summary>
         /// Identifies the <see cref="MaxValue"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MaxValueProperty =
-            DependencyProperty.Register("MaxValue", typeof(DateTime), typeof(DateTimePicker), new PropertyMetadata(DateTime.MaxValue, OnMaxValueChanged));
+            DependencyProperty.Register(nameof(MaxValue), typeof(DateTime), typeof(DateTimePicker), new PropertyMetadata(DateTime.MaxValue, OnMaxValueChanged));
 
         /// <summary>
         /// Identifies the <see cref="ValueString"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueStringProperty =
-            DependencyProperty.Register("ValueString", typeof(string), typeof(DateTimePicker), new PropertyMetadata(string.Empty, OnValueStringChanged));
+            DependencyProperty.Register(nameof(ValueString), typeof(string), typeof(DateTimePicker), new PropertyMetadata(string.Empty, OnValueStringChanged));
 
         /// <summary>
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(object), typeof(DateTimePicker), new PropertyMetadata(null, OnValueChanged));
+            DependencyProperty.Register(nameof(Value), typeof(object), typeof(DateTimePicker), new PropertyMetadata(null, OnValueChanged));
 
         /// <summary>
         /// Identifies the <see cref="DisplayValueFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayValueFormatProperty =
-            DependencyProperty.Register("DisplayValueFormat", typeof(string), typeof(DateTimePicker), new PropertyMetadata(string.Empty, OnDisplayValueFormatChanged));
+            DependencyProperty.Register(nameof(DisplayValueFormat), typeof(string), typeof(DateTimePicker), new PropertyMetadata(string.Empty, OnDisplayValueFormatChanged));
 
         /// <summary>
         /// Identifies the <see cref="EmptyContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EmptyContentProperty =
-            DependencyProperty.Register("EmptyContent", typeof(object), typeof(DateTimePicker), new PropertyMetadata(null, OnEmptyContentChanged));
+            DependencyProperty.Register(nameof(EmptyContent), typeof(object), typeof(DateTimePicker), new PropertyMetadata(null, OnEmptyContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="EmptyContentTemplateProperty"/>.
         /// </summary>
         public static readonly DependencyProperty EmptyContentTemplateProperty =
-            DependencyProperty.Register("EmptyContentTemplate", typeof(DataTemplate), typeof(DateTimePicker), new PropertyMetadata(null, OnEmptyContentTemplateChanged));
+            DependencyProperty.Register(nameof(EmptyContentTemplate), typeof(DataTemplate), typeof(DateTimePicker), new PropertyMetadata(null, OnEmptyContentTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="AutoSizeWidth"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AutoSizeWidthProperty =
-            DependencyProperty.Register("AutoSizeWidth", typeof(bool), typeof(DateTimePicker), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(AutoSizeWidth), typeof(bool), typeof(DateTimePicker), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="CalendarIdentifier"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CalendarIdentifierProperty =
-            DependencyProperty.Register("CalendarIdentifier", typeof(string), typeof(DateTimePicker), new PropertyMetadata(CalendarIdentifiers.Gregorian, OnCalendarIdentifierChanged));
+            DependencyProperty.Register(nameof(CalendarIdentifier), typeof(string), typeof(DateTimePicker), new PropertyMetadata(CalendarIdentifiers.Gregorian, OnCalendarIdentifierChanged));
 
         /// <summary>
         /// Identifies the <see cref="CalendarLanguage"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CalendarLanguageProperty =
-            DependencyProperty.Register("CalendarLanguage", typeof(string), typeof(DateTimePicker), new PropertyMetadata(Windows.Globalization.ApplicationLanguages.Languages[0], OnCalendarLanguageChanged));
+            DependencyProperty.Register(nameof(CalendarLanguage), typeof(string), typeof(DateTimePicker), new PropertyMetadata(Windows.Globalization.ApplicationLanguages.Languages[0], OnCalendarLanguageChanged));
 
         /// <summary>
         /// Identifies the <see cref="CalendarNumeralSystem"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CalendarNumeralSystemProperty =
-            DependencyProperty.Register("CalendarNumeralSystem", typeof(string), typeof(DateTimePicker), new PropertyMetadata(NumeralSystemIdentifiers.Latn, OnCalendarNumeralSystemChanged));
+            DependencyProperty.Register(nameof(CalendarNumeralSystem), typeof(string), typeof(DateTimePicker), new PropertyMetadata(NumeralSystemIdentifiers.Latn, OnCalendarNumeralSystemChanged));
 
         internal CalendarValidator calendarValidator;
 

@@ -24,7 +24,7 @@ namespace Telerik.Data.Core
                 if (this.totalFormat != value)
                 {
                     this.ChangeSettingsProperty(ref this.totalFormat, value);
-                    this.OnPropertyChanged("TotalFormat");
+                    this.OnPropertyChanged(nameof(TotalFormat));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }

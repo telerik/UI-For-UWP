@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="ClipToPlotArea"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ClipToPlotAreaProperty =
-            DependencyProperty.Register("ClipToPlotArea", typeof(bool), typeof(ChartAnnotation), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(ClipToPlotArea), typeof(bool), typeof(ChartAnnotation), new PropertyMetadata(true));
 
         private bool isInvalidateRequired = false;
 

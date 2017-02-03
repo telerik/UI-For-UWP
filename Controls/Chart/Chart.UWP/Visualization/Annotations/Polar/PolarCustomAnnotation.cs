@@ -14,32 +14,32 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Identifies the <see cref="RadialValue"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty RadialValueProperty = DependencyProperty.Register("RadialValue", typeof(object), typeof(PolarCustomAnnotation), new PropertyMetadata(null, OnRadialValuePropertyChanged));
+        public static readonly DependencyProperty RadialValueProperty = DependencyProperty.Register(nameof(RadialValue), typeof(object), typeof(PolarCustomAnnotation), new PropertyMetadata(null, OnRadialValuePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="PolarValue"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty PolarValueProperty = DependencyProperty.Register("PolarValue", typeof(double), typeof(PolarCustomAnnotation), new PropertyMetadata(double.NaN, OnPolarValuePropertyChanged));
+        public static readonly DependencyProperty PolarValueProperty = DependencyProperty.Register(nameof(PolarValue), typeof(double), typeof(PolarCustomAnnotation), new PropertyMetadata(double.NaN, OnPolarValuePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Content"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(PolarCustomAnnotation), new PropertyMetadata(null, OnContentPropertyChanged));
+        public static readonly DependencyProperty ContentProperty = DependencyProperty.Register(nameof(Content), typeof(object), typeof(PolarCustomAnnotation), new PropertyMetadata(null, OnContentPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ContentTemplate"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(PolarCustomAnnotation), new PropertyMetadata(null, OnContentTemplatePropertyChanged));
+        public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(PolarCustomAnnotation), new PropertyMetadata(null, OnContentTemplatePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="HorizontalOffset"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty HorizontalOffsetProperty = DependencyProperty.Register("HorizontalOffset", typeof(double), typeof(PolarCustomAnnotation), new PropertyMetadata(0d));
+        public static readonly DependencyProperty HorizontalOffsetProperty = DependencyProperty.Register(nameof(HorizontalOffset), typeof(double), typeof(PolarCustomAnnotation), new PropertyMetadata(0d));
 
         /// <summary>
         /// Identifies the <see cref="VerticalOffset"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty VerticalOffsetProperty = DependencyProperty.Register("VerticalOffset", typeof(double), typeof(PolarCustomAnnotation), new PropertyMetadata(0d));
+        public static readonly DependencyProperty VerticalOffsetProperty = DependencyProperty.Register(nameof(VerticalOffset), typeof(double), typeof(PolarCustomAnnotation), new PropertyMetadata(0d));
 
         private PolarCustomAnnotationModel model;
         private ContentPresenter presenter;

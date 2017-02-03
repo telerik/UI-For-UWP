@@ -15,25 +15,25 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="SelectedIndex"/> property.
         /// </summary>
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(RadSegmentedControl), new PropertyMetadata(-1, OnSelectedIndexChanged));
+            DependencyProperty.Register(nameof(SelectedIndex), typeof(int), typeof(RadSegmentedControl), new PropertyMetadata(-1, OnSelectedIndexChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectedItem"/> property.
         /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(RadSegmentedControl), new PropertyMetadata(null, OnSelectedItemChanged));
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(RadSegmentedControl), new PropertyMetadata(null, OnSelectedItemChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectedValuePath"/> property.
         /// </summary>
         public static readonly DependencyProperty SelectedValuePathProperty =
-            DependencyProperty.Register("SelectedValuePath", typeof(string), typeof(RadSegmentedControl), new PropertyMetadata(null, OnSelectedValuePathChanged));
+            DependencyProperty.Register(nameof(SelectedValuePath), typeof(string), typeof(RadSegmentedControl), new PropertyMetadata(null, OnSelectedValuePathChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectedValue"/> property.
         /// </summary>
         public static readonly DependencyProperty SelectedValueProperty =
-            DependencyProperty.Register("SelectedValue", typeof(object), typeof(RadSegmentedControl), new PropertyMetadata(null, OnSelectedValueChanged));
+            DependencyProperty.Register(nameof(SelectedValue), typeof(object), typeof(RadSegmentedControl), new PropertyMetadata(null, OnSelectedValueChanged));
 
         private object selectedItemCache;
 

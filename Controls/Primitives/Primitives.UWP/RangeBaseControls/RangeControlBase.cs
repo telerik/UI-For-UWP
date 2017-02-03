@@ -17,13 +17,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="Minimum"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MinimumProperty =
-            DependencyProperty.Register("Minimum", typeof(double), typeof(RangeControlBase), new PropertyMetadata(0d, OnMinimumChanged));
+            DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(RangeControlBase), new PropertyMetadata(0d, OnMinimumChanged));
 
         /// <summary>
         /// Identifies the <see cref="Maximum"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MaximumProperty =
-         DependencyProperty.Register("Maximum", typeof(double), typeof(RangeControlBase), new PropertyMetadata(100d, OnMaximumChanged));
+         DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(RangeControlBase), new PropertyMetadata(100d, OnMaximumChanged));
 
         private RangeChange delayedRangeChange;
 

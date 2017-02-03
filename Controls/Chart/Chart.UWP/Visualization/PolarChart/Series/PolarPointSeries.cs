@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="AngleBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty AngleBindingProperty =
-            DependencyProperty.Register("AngleBinding", typeof(DataPointBinding), typeof(PolarPointSeries), new PropertyMetadata(null, OnAngleBindingChanged));
+            DependencyProperty.Register(nameof(AngleBinding), typeof(DataPointBinding), typeof(PolarPointSeries), new PropertyMetadata(null, OnAngleBindingChanged));
 
         private PolarSeriesModel model;
 

@@ -28,7 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Gets or sets a value that specifies whether the clock will be 12 or 24-hour. The value should be taken from <see cref="Windows.Globalization.ClockIdentifiers"/>.
         /// </summary>
         public static readonly DependencyProperty CalendarClockIdentifierProperty =
-            DependencyProperty.Register("CalendarClockIdentifier", typeof(string), typeof(DateTimePicker), new PropertyMetadata(ClockIdentifiers.TwelveHour, OnCalendarClockIdentifierChanged));
+            DependencyProperty.Register(nameof(CalendarClockIdentifier), typeof(string), typeof(DateTimePicker), new PropertyMetadata(ClockIdentifiers.TwelveHour, OnCalendarClockIdentifierChanged));
         
         private const string DefaultSelectorFormat = "hmt";
 

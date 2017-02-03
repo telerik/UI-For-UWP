@@ -18,7 +18,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="SweepDirection"/> property.
         /// </summary>
         public static readonly DependencyProperty SweepDirectionProperty =
-            DependencyProperty.Register("SweepDirection", typeof(SweepDirection), typeof(RadialAxis), new PropertyMetadata(SweepDirection.Counterclockwise, OnSweepDirectionChanged));
+            DependencyProperty.Register(nameof(SweepDirection), typeof(SweepDirection), typeof(RadialAxis), new PropertyMetadata(SweepDirection.Counterclockwise, OnSweepDirectionChanged));
         private Ellipse ellipse;
 
         /// <summary>

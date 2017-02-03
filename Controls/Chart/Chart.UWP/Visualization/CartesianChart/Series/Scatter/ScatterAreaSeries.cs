@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Fill"/> property.
         /// </summary>
         public static readonly DependencyProperty FillProperty =
-            DependencyProperty.Register("Fill", typeof(Brush), typeof(ScatterAreaSeries), new PropertyMetadata(null, OnFillChanged));
+            DependencyProperty.Register(nameof(Fill), typeof(Brush), typeof(ScatterAreaSeries), new PropertyMetadata(null, OnFillChanged));
 
         internal AreaRenderer areaRenderer;
 

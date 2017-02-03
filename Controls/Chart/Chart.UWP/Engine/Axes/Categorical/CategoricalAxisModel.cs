@@ -51,7 +51,7 @@ namespace Telerik.Charting
             {
                 if (value < 1)
                 {
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
                 this.SetValue(MajorTickIntervalPropertyKey, value);
@@ -71,7 +71,7 @@ namespace Telerik.Charting
             {
                 if (value < 0 || value > 1)
                 {
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
                 this.SetValue(GapLengthPropertyKey, value);

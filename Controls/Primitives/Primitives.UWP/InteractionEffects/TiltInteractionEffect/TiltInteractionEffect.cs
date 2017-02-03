@@ -23,13 +23,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the MaxRotationAngle dependency property.
         /// </summary>
         public static readonly DependencyProperty MaxRotationAngleProperty =
-            DependencyProperty.Register("MaxRotationAngle", typeof(double), typeof(TiltInteractionEffect), new PropertyMetadata(0.3d));
+            DependencyProperty.Register(nameof(MaxRotationAngle), typeof(double), typeof(TiltInteractionEffect), new PropertyMetadata(0.3d));
 
         /// <summary>
         /// Identifies the MaxZOffset dependency property.
         /// </summary>
         public static readonly DependencyProperty MaxZOffsetProperty =
-            DependencyProperty.Register("MaxZOffset", typeof(double), typeof(TiltInteractionEffect), new PropertyMetadata(25d));
+            DependencyProperty.Register(nameof(MaxZOffset), typeof(double), typeof(TiltInteractionEffect), new PropertyMetadata(25d));
 
         private static readonly TimeSpan ResetAnimationDelay = TimeSpan.FromMilliseconds(200);
         private static readonly TimeSpan ResetAnimationDuration = TimeSpan.FromMilliseconds(200);
@@ -92,7 +92,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             element.SetValue(DedicatedTiltTargetProperty, value);
@@ -105,7 +105,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             return element.GetValue(DedicatedTiltTargetProperty) as FrameworkElement;

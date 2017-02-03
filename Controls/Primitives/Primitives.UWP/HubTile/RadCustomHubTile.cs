@@ -15,13 +15,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the FrontContent dependency property.
         /// </summary>
         public static readonly DependencyProperty FrontContentProperty =
-            DependencyProperty.Register("FrontContent", typeof(object), typeof(RadCustomHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(FrontContent), typeof(object), typeof(RadCustomHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the FrontContentTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty FrontContentTemplateProperty =
-            DependencyProperty.Register("FrontContentTemplate", typeof(DataTemplate), typeof(RadCustomHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(FrontContentTemplate), typeof(DataTemplate), typeof(RadCustomHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the RadCustomHubTile class.

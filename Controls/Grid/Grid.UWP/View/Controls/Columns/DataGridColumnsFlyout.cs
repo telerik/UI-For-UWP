@@ -26,7 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="HeaderStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderStyleProperty =
-            DependencyProperty.Register("HeaderStyle", typeof(Style), typeof(DataGridColumnsFlyout), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HeaderStyle), typeof(Style), typeof(DataGridColumnsFlyout), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridColumnsFlyout" /> class.

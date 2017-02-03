@@ -16,19 +16,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="From"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FromProperty =
-            DependencyProperty.Register("From", typeof(object), typeof(RadialAxisPlotBandAnnotation), new PropertyMetadata(null, OnFromPropertyChanged));
+            DependencyProperty.Register(nameof(From), typeof(object), typeof(RadialAxisPlotBandAnnotation), new PropertyMetadata(null, OnFromPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="To"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ToProperty =
-            DependencyProperty.Register("To", typeof(object), typeof(RadialAxisPlotBandAnnotation), new PropertyMetadata(null, OnToPropertyChanged));
+            DependencyProperty.Register(nameof(To), typeof(object), typeof(RadialAxisPlotBandAnnotation), new PropertyMetadata(null, OnToPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Fill"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FillProperty =
-            DependencyProperty.Register("Fill", typeof(Brush), typeof(RadialAxisPlotBandAnnotation), new PropertyMetadata(null, OnFillPropertyChanged));
+            DependencyProperty.Register(nameof(Fill), typeof(Brush), typeof(RadialAxisPlotBandAnnotation), new PropertyMetadata(null, OnFillPropertyChanged));
 
         private Path presenter;
         private RadialPlotBandAnnotationModel model;

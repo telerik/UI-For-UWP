@@ -22,13 +22,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="PolarLineStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty PolarLineStyleProperty =
-            DependencyProperty.Register("PolarLineStyle", typeof(Style), typeof(PolarChartGrid), new PropertyMetadata(null, OnPolarLineStyleChanged));
+            DependencyProperty.Register(nameof(PolarLineStyle), typeof(Style), typeof(PolarChartGrid), new PropertyMetadata(null, OnPolarLineStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="RadialLineStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty RadialLineStyleProperty =
-            DependencyProperty.Register("RadialLineStyle", typeof(Style), typeof(PolarChartGrid), new PropertyMetadata(null, OnRadialLineStyleChanged));
+            DependencyProperty.Register(nameof(RadialLineStyle), typeof(Style), typeof(PolarChartGrid), new PropertyMetadata(null, OnRadialLineStyleChanged));
 
         internal List<Path> polarStripes;
         internal List<Path> radialStripes;

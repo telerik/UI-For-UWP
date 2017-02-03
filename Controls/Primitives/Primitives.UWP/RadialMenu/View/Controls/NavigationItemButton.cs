@@ -17,7 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
         /// Identifies the <see cref="ContentGlyph"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentGlyphProperty =
-            DependencyProperty.Register("ContentGlyph", typeof(string), typeof(NavigationItemButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ContentGlyph), typeof(string), typeof(NavigationItemButton), new PropertyMetadata(null));
 
         internal double startAngle;
         internal TextBlock arrowGlyph;

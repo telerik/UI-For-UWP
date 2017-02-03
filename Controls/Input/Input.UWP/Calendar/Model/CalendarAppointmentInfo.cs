@@ -26,7 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             internal set
             {
                 this.appointments = value;
-                this.OnPropertyChanged("Appointments");
+                this.OnPropertyChanged(nameof(Appointments));
             }
         }
 
@@ -43,7 +43,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             internal set
             {
                 this.detailText = value;
-                this.OnPropertyChanged("DetailText");
+                this.OnPropertyChanged(nameof(DetailText));
             }
         }
 
@@ -59,7 +59,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             internal set
             {
                 this.date = value;
-                this.OnPropertyChanged("Date");
+                this.OnPropertyChanged(nameof(Date));
             }
         }
     }

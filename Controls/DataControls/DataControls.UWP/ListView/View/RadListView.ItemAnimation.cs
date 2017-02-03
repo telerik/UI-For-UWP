@@ -13,19 +13,19 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the ItemRemovedAnimation dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemRemovedAnimationProperty =
-            DependencyProperty.Register("ItemRemovedAnimation", typeof(RadAnimation), typeof(RadListView), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemRemovedAnimation), typeof(RadAnimation), typeof(RadListView), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the ItemAddedAnimation dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemAddedAnimationProperty =
-            DependencyProperty.Register("ItemAddedAnimation", typeof(RadAnimation), typeof(RadListView), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemAddedAnimation), typeof(RadAnimation), typeof(RadListView), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemAnimationMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemAnimationModeProperty =
-            DependencyProperty.Register("ItemAnimationMode", typeof(ItemAnimationMode), typeof(RadListView), new PropertyMetadata(ItemAnimationMode.PlayAll));
+            DependencyProperty.Register(nameof(ItemAnimationMode), typeof(ItemAnimationMode), typeof(RadListView), new PropertyMetadata(ItemAnimationMode.PlayAll));
 
         /// <summary>
         /// Gets or sets an animation that is played when an item is removed.

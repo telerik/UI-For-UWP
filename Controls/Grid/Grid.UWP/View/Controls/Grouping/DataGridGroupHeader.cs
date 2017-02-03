@@ -16,13 +16,13 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the IsExpanded dependency property.
         /// </summary>
         public static readonly DependencyProperty IsExpandedProperty =
-            DependencyProperty.Register("IsExpanded", typeof(bool), typeof(DataGridGroupHeader), new PropertyMetadata(true, OnIsExpandedPropertyChanged));
+            DependencyProperty.Register(nameof(IsExpanded), typeof(bool), typeof(DataGridGroupHeader), new PropertyMetadata(true, OnIsExpandedPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="IndentWidth"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IndentWidthProperty =
-            DependencyProperty.Register("IndentWidth", typeof(double), typeof(DataGridGroupHeader), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(IndentWidth), typeof(double), typeof(DataGridGroupHeader), new PropertyMetadata(0d));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridGroupHeader"/> class.

@@ -20,7 +20,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="RangeStops"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RangeStopsProperty =
-            DependencyProperty.Register("RangeStops", typeof(string), typeof(PaletteColorizer), new PropertyMetadata(null, OnRangeStopsPropertyChanged));
+            DependencyProperty.Register(nameof(RangeStops), typeof(string), typeof(PaletteColorizer), new PropertyMetadata(null, OnRangeStopsPropertyChanged));
 
         internal List<RangeStop> rangeStops;
         private readonly string[] separators = { ",", ";", ":", " ", "|" };
@@ -127,7 +127,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         {
             if (range == null)
             {
-                throw new ArgumentNullException("range");
+                throw new ArgumentNullException(nameof(range));
             }
 
             if (range.Index < 0 || this.brushes.Count == 0)

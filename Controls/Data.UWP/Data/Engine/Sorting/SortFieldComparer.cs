@@ -85,7 +85,7 @@ namespace Telerik.Data.Core
             {
                 if (culture == null)
                 {
-                    throw new ArgumentNullException("culture");
+                    throw new ArgumentNullException(nameof(culture));
                 }
                 this.compareInfo = culture.CompareInfo;
             }

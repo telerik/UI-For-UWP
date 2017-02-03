@@ -18,37 +18,37 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Identifies the <see cref="EmptyIconContent"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty EmptyIconContentProperty = DependencyProperty.Register("EmptyIconContent", typeof(object), typeof(RadRatingItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty EmptyIconContentProperty = DependencyProperty.Register(nameof(EmptyIconContent), typeof(object), typeof(RadRatingItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="EmptyIconContentTemplate"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty EmptyIconContentTemplateProperty = DependencyProperty.Register("EmptyIconContentTemplate", typeof(DataTemplate), typeof(RadRatingItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty EmptyIconContentTemplateProperty = DependencyProperty.Register(nameof(EmptyIconContentTemplate), typeof(DataTemplate), typeof(RadRatingItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="EmptyIconStyle"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty EmptyIconStyleProperty = DependencyProperty.Register("EmptyIconStyle", typeof(Style), typeof(RadRatingItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty EmptyIconStyleProperty = DependencyProperty.Register(nameof(EmptyIconStyle), typeof(Style), typeof(RadRatingItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="FilledIconContent"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty FilledIconContentProperty = DependencyProperty.Register("FilledIconContent", typeof(object), typeof(RadRatingItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty FilledIconContentProperty = DependencyProperty.Register(nameof(FilledIconContent), typeof(object), typeof(RadRatingItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="FilledIconContentTemplate"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty FilledIconContentTemplateProperty = DependencyProperty.Register("FilledIconContentTemplate", typeof(DataTemplate), typeof(RadRatingItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty FilledIconContentTemplateProperty = DependencyProperty.Register(nameof(FilledIconContentTemplate), typeof(DataTemplate), typeof(RadRatingItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="FilledIconStyle"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty FilledIconStyleProperty = DependencyProperty.Register("FilledIconStyle", typeof(Style), typeof(RadRatingItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty FilledIconStyleProperty = DependencyProperty.Register(nameof(FilledIconStyle), typeof(Style), typeof(RadRatingItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="HighlightedIconStyle"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty HighlightedIconStyleProperty = DependencyProperty.Register("HighlightedIconStyle", typeof(Style), typeof(RadRatingItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty HighlightedIconStyleProperty = DependencyProperty.Register(nameof(HighlightedIconStyle), typeof(Style), typeof(RadRatingItem), new PropertyMetadata(null));
 
         internal bool isArranged;
 

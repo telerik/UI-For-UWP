@@ -20,31 +20,31 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Style"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StyleProperty =
-            DependencyProperty.Register("Style", typeof(Style), typeof(ChartSeriesDescriptor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Style), typeof(Style), typeof(ChartSeriesDescriptor), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSourcePath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourcePathProperty =
-            DependencyProperty.Register("ItemsSourcePath", typeof(string), typeof(ChartSeriesDescriptor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemsSourcePath), typeof(string), typeof(ChartSeriesDescriptor), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="LegendTitlePath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LegendTitlePathProperty =
-            DependencyProperty.Register("LegendTitlePath", typeof(string), typeof(ChartSeriesDescriptor), new PropertyMetadata(null, OnLegendTitilePathChanged));
+            DependencyProperty.Register(nameof(LegendTitlePath), typeof(string), typeof(ChartSeriesDescriptor), new PropertyMetadata(null, OnLegendTitilePathChanged));
 
         /// <summary>
         /// Identifies the <see cref="TypePath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TypePathProperty =
-            DependencyProperty.Register("TypePath", typeof(string), typeof(ChartSeriesDescriptor), new PropertyMetadata(null, OnTypePathChanged));
+            DependencyProperty.Register(nameof(TypePath), typeof(string), typeof(ChartSeriesDescriptor), new PropertyMetadata(null, OnTypePathChanged));
 
         /// <summary>
         /// Identifies the <see cref="CollectionIndex"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CollectionIndexProperty =
-            DependencyProperty.Register("CollectionIndex", typeof(int), typeof(ChartSeriesDescriptor), new PropertyMetadata(-1));
+            DependencyProperty.Register(nameof(CollectionIndex), typeof(int), typeof(ChartSeriesDescriptor), new PropertyMetadata(-1));
 
         private Func<object, object> typeGetter;
         private string typePathCache;

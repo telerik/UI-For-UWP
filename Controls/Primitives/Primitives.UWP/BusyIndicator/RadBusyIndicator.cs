@@ -22,31 +22,31 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="InitialDelay"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty InitialDelayProperty =
-            DependencyProperty.Register("InitialDelay", typeof(TimeSpan), typeof(RadBusyIndicator), new PropertyMetadata(TimeSpan.Zero));
+            DependencyProperty.Register(nameof(InitialDelay), typeof(TimeSpan), typeof(RadBusyIndicator), new PropertyMetadata(TimeSpan.Zero));
 
         /// <summary>
         /// Identifies the <see cref="ContentPosition"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentPositionProperty =
-            DependencyProperty.Register("ContentPosition", typeof(ContentPosition), typeof(RadBusyIndicator), new PropertyMetadata(ContentPosition.Bottom, OnContentPositionChanged));
+            DependencyProperty.Register(nameof(ContentPosition), typeof(ContentPosition), typeof(RadBusyIndicator), new PropertyMetadata(ContentPosition.Bottom, OnContentPositionChanged));
 
         /// <summary>
         /// Identifies the <see cref="IndicatorAnimationStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IndicatorAnimationStyleProperty =
-            DependencyProperty.Register("IndicatorAnimationStyle", typeof(Style), typeof(RadBusyIndicator), new PropertyMetadata(null, OnIndicatorAnimationStyleChanged));
+            DependencyProperty.Register(nameof(IndicatorAnimationStyle), typeof(Style), typeof(RadBusyIndicator), new PropertyMetadata(null, OnIndicatorAnimationStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsActive"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsActiveProperty =
-            DependencyProperty.Register("IsActive", typeof(bool), typeof(RadBusyIndicator), new PropertyMetadata(false, OnIsActiveChanged));
+            DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(RadBusyIndicator), new PropertyMetadata(false, OnIsActiveChanged));
 
         /// <summary>
         /// Identifies the <see cref="AnimationStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AnimationStyleProperty =
-            DependencyProperty.Register("AnimationStyle", typeof(AnimationStyle), typeof(RadBusyIndicator), new PropertyMetadata(AnimationStyle.AnimationStyle1, OnAnimationStyleChanged));
+            DependencyProperty.Register(nameof(AnimationStyle), typeof(AnimationStyle), typeof(RadBusyIndicator), new PropertyMetadata(AnimationStyle.AnimationStyle1, OnAnimationStyleChanged));
 
         private Style animationStyleCache;
         private ContentPosition contentPositionCache = ContentPosition.Bottom;

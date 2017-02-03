@@ -18,7 +18,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="LoadingData"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LoadingDataProperty =
-            DependencyProperty.Register("LoadingData", typeof(bool), typeof(DataGridAutoDataLoadingControl), new PropertyMetadata(false, OnLoadingDataChanged));
+            DependencyProperty.Register(nameof(LoadingData), typeof(bool), typeof(DataGridAutoDataLoadingControl), new PropertyMetadata(false, OnLoadingDataChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridAutoDataLoadingControl" /> class.

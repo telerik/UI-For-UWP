@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="IsBusy"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsBusyProperty =
-            DependencyProperty.Register("IsBusy", typeof(bool), typeof(DataGridBusyOverlayControl), new PropertyMetadata(false, OnIsBusyChanged));
+            DependencyProperty.Register(nameof(IsBusy), typeof(bool), typeof(DataGridBusyOverlayControl), new PropertyMetadata(false, OnIsBusyChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridBusyOverlayControl" /> class.

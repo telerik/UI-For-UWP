@@ -33,7 +33,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.context = value;
-                this.OnPropertyChanged("Context");
+                this.OnPropertyChanged(nameof(Context));
             }
         }
 
@@ -52,7 +52,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.entity = value;
-                this.OnPropertyChanged("Entity");
+                this.OnPropertyChanged(nameof(Entity));
             }
         }
 

@@ -20,103 +20,103 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="MainContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MainContentProperty =
-            DependencyProperty.Register("MainContent", typeof(object), typeof(RadSideDrawer), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(MainContent), typeof(object), typeof(RadSideDrawer), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="MainContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MainContentTemplateProperty =
-            DependencyProperty.Register("MainContentTemplate", typeof(DataTemplate), typeof(RadSideDrawer), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(MainContentTemplate), typeof(DataTemplate), typeof(RadSideDrawer), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DrawerContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerContentProperty =
-            DependencyProperty.Register("DrawerContent", typeof(object), typeof(RadSideDrawer), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DrawerContent), typeof(object), typeof(RadSideDrawer), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DrawerContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerContentTemplateProperty =
-            DependencyProperty.Register("DrawerContentTemplate", typeof(DataTemplate), typeof(RadSideDrawer), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DrawerContentTemplate), typeof(DataTemplate), typeof(RadSideDrawer), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DrawerTransition"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerTransitionProperty =
-            DependencyProperty.Register("DrawerTransition", typeof(DrawerTransition), typeof(RadSideDrawer), new PropertyMetadata(DrawerTransition.SlideInOnTop, OnDrawerTransitionChanged));
+            DependencyProperty.Register(nameof(DrawerTransition), typeof(DrawerTransition), typeof(RadSideDrawer), new PropertyMetadata(DrawerTransition.SlideInOnTop, OnDrawerTransitionChanged));
 
         /// <summary>
         /// Identifies the <see cref="DrawerLocation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerLocationProperty =
-            DependencyProperty.Register("DrawerLocation", typeof(DrawerLocation), typeof(RadSideDrawer), new PropertyMetadata(DrawerLocation.Left, OnDrawerLocationChagned));
+            DependencyProperty.Register(nameof(DrawerLocation), typeof(DrawerLocation), typeof(RadSideDrawer), new PropertyMetadata(DrawerLocation.Left, OnDrawerLocationChagned));
 
         /// <summary>
         /// Identifies the <see cref="DrawerButtonStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerButtonStyleProperty =
-            DependencyProperty.Register("DrawerButtonStyle", typeof(Style), typeof(RadSideDrawer), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DrawerButtonStyle), typeof(Style), typeof(RadSideDrawer), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DrawerButtonVerticalAlignment"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerButtonVerticalAlignmentProperty =
-            DependencyProperty.Register("DrawerButtonVerticalAlignment", typeof(VerticalAlignment), typeof(RadSideDrawer), new PropertyMetadata(VerticalAlignment.Top));
+            DependencyProperty.Register(nameof(DrawerButtonVerticalAlignment), typeof(VerticalAlignment), typeof(RadSideDrawer), new PropertyMetadata(VerticalAlignment.Top));
 
         /// <summary>
         /// Identifies the <see cref="DrawerButtonHorizontalAlignment"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerButtonHorizontalAlignmentProperty =
-            DependencyProperty.Register("DrawerButtonHorizontalAlignment", typeof(HorizontalAlignment), typeof(RadSideDrawer), new PropertyMetadata(HorizontalAlignment.Left));
+            DependencyProperty.Register(nameof(DrawerButtonHorizontalAlignment), typeof(HorizontalAlignment), typeof(RadSideDrawer), new PropertyMetadata(HorizontalAlignment.Left));
 
         /// <summary>
         /// Identifies the <see cref="AnimationDuration"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AnimationDurationProperty =
-            DependencyProperty.Register("AnimationDuration", typeof(Duration), typeof(RadSideDrawer), new PropertyMetadata(new Duration(TimeSpan.FromMilliseconds(300))));
+            DependencyProperty.Register(nameof(AnimationDuration), typeof(Duration), typeof(RadSideDrawer), new PropertyMetadata(new Duration(TimeSpan.FromMilliseconds(300))));
 
         /// <summary>
         /// Identifies the <see cref="DrawerState"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerStateProperty =
-            DependencyProperty.Register("DrawerState", typeof(DrawerState), typeof(RadSideDrawer), new PropertyMetadata(DrawerState.Closed, OnDrawerStateChanged));
+            DependencyProperty.Register(nameof(DrawerState), typeof(DrawerState), typeof(RadSideDrawer), new PropertyMetadata(DrawerState.Closed, OnDrawerStateChanged));
 
         /// <summary>
         /// Identifies the <see cref="TapOutsideToClose"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TapOutsideToCloseProperty =
-            DependencyProperty.Register("TapOutsideToClose", typeof(bool), typeof(RadSideDrawer), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(TapOutsideToClose), typeof(bool), typeof(RadSideDrawer), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="IsOpen"/> dependency property.
         /// </summary>
         internal static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(RadSideDrawer), new PropertyMetadata(false, OnIsOpenChanged));
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RadSideDrawer), new PropertyMetadata(false, OnIsOpenChanged));
 
         /// <summary>
         /// Identifies the <see cref="DrawerClip"/> dependency property.
         /// </summary>
         private static readonly DependencyProperty DrawerClipProperty =
-            DependencyProperty.Register("DrawerClip", typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnDrawerClipChanged));
+            DependencyProperty.Register(nameof(DrawerClip), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnDrawerClipChanged));
 
         /// <summary>
         /// Identifies the <see cref="AnimationClip"/> dependency property.
         /// </summary>
         private static readonly DependencyProperty SlideoutSeekedAnimationClipProperty =
-            DependencyProperty.Register("SlideoutSeekedAnimationClip", typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnSlideoutSeekedAnimationClipChanged));
+            DependencyProperty.Register(nameof(SlideoutSeekedAnimationClip), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnSlideoutSeekedAnimationClipChanged));
 
         /// <summary>
         /// Identifies the <see cref="DrawerLength"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerLengthProperty =
-            DependencyProperty.Register("DrawerLength", typeof(double), typeof(RadSideDrawer), new PropertyMetadata(double.NaN, OnDrawerLengthChanged));
+            DependencyProperty.Register(nameof(DrawerLength), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(double.NaN, OnDrawerLengthChanged));
 
         /// <summary>
         /// Identifies the <see cref="DrawerTransitionFadeOpacity"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DrawerTransitionFadeOpacityProperty =
-            DependencyProperty.Register("DrawerTransitionFadeOpacity", typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0.5, OnDrawerTransitionFadeOpacityChanged));
+            DependencyProperty.Register(nameof(DrawerTransitionFadeOpacity), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0.5, OnDrawerTransitionFadeOpacityChanged));
 
         private Button showDrawerButton;
         private Border swipeAreaElement;

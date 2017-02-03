@@ -141,7 +141,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (args.Delta.Scale != 1f)
@@ -170,7 +170,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (args.Pointer.PointerDeviceType != PointerDeviceType.Mouse)

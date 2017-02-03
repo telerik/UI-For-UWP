@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ReorderMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ReorderModeProperty =
-            DependencyProperty.Register("ReorderMode", typeof(ListViewReorderMode), typeof(RadListView), new PropertyMetadata(ListViewReorderMode.Default, OnReorderModeChanged));
+            DependencyProperty.Register(nameof(ReorderMode), typeof(ListViewReorderMode), typeof(RadListView), new PropertyMetadata(ListViewReorderMode.Default, OnReorderModeChanged));
 
         private static void OnReorderModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -31,7 +31,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="IsItemReorderEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsItemReorderEnabledProperty =
-            DependencyProperty.Register("IsItemReorderEnabled", typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsItemReorderEnabledChanged));
+            DependencyProperty.Register(nameof(IsItemReorderEnabled), typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsItemReorderEnabledChanged));
 
         private static void OnIsItemReorderEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

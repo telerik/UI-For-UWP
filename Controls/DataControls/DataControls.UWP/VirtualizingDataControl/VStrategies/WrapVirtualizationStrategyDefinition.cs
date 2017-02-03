@@ -23,7 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 if (this.wrapLineAlignment != value)
                 {
                     this.wrapLineAlignment = value;
-                    this.OnPropertyChanged("WrapLineAlignment");
+                    this.OnPropertyChanged(nameof(WrapLineAlignment));
                 }
             }
         }

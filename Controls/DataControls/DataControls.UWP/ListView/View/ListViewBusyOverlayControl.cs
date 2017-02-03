@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// Identifies the <see cref="IsBusy"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsBusyProperty =
-            DependencyProperty.Register("IsBusy", typeof(bool), typeof(ListViewBusyOverlayControl), new PropertyMetadata(false, OnIsBusyChanged));
+            DependencyProperty.Register(nameof(IsBusy), typeof(bool), typeof(ListViewBusyOverlayControl), new PropertyMetadata(false, OnIsBusyChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListViewBusyOverlayControl"/> class.

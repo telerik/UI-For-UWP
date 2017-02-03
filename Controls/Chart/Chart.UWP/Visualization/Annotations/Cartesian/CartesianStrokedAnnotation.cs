@@ -19,31 +19,31 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Stroke"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StrokeProperty =
-            DependencyProperty.Register("Stroke", typeof(Brush), typeof(CartesianStrokedAnnotation), new PropertyMetadata(null, OnStrokePropertyChanged));
+            DependencyProperty.Register(nameof(Stroke), typeof(Brush), typeof(CartesianStrokedAnnotation), new PropertyMetadata(null, OnStrokePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="StrokeThickness"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StrokeThicknessProperty =
-            DependencyProperty.Register("StrokeThickness", typeof(double), typeof(CartesianStrokedAnnotation), new PropertyMetadata(0d, OnStrokeThicknessPropertyChanged));
+            DependencyProperty.Register(nameof(StrokeThickness), typeof(double), typeof(CartesianStrokedAnnotation), new PropertyMetadata(0d, OnStrokeThicknessPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="StrokeDashArray"/> property.
         /// </summary>
         public static readonly DependencyProperty StrokeDashArrayProperty =
-            DependencyProperty.Register("StrokeDashArray", typeof(DoubleCollection), typeof(CartesianStrokedAnnotation), new PropertyMetadata(null, OnStrokeDashArrayChanged));
+            DependencyProperty.Register(nameof(StrokeDashArray), typeof(DoubleCollection), typeof(CartesianStrokedAnnotation), new PropertyMetadata(null, OnStrokeDashArrayChanged));
 
         /// <summary>
         /// Identifies the <see cref="Label"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LabelProperty =
-            DependencyProperty.Register("Label", typeof(string), typeof(CartesianStrokedAnnotation), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Label), typeof(string), typeof(CartesianStrokedAnnotation), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="LabelDefinition"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LabelDefinitionProperty =
-            DependencyProperty.Register("LabelDefinition", typeof(ChartAnnotationLabelDefinition), typeof(CartesianStrokedAnnotation), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(LabelDefinition), typeof(ChartAnnotationLabelDefinition), typeof(CartesianStrokedAnnotation), new PropertyMetadata(null));
 
         internal FrameworkElement labelPresenter;
 

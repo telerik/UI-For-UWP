@@ -24,25 +24,25 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="PropertyName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PropertyNameProperty =
-            DependencyProperty.Register("PropertyName", typeof(string), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnPropertyNameChanged));
+            DependencyProperty.Register(nameof(PropertyName), typeof(string), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnPropertyNameChanged));
 
         /// <summary>
         /// Identifies the <see cref="CellContentStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellContentStyleProperty =
-            DependencyProperty.Register("CellContentStyle", typeof(Style), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnCellContentStyleChanged));
+            DependencyProperty.Register(nameof(CellContentStyle), typeof(Style), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnCellContentStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="CellContentStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellContentStyleSelectorProperty =
-            DependencyProperty.Register("CellContentStyleSelector", typeof(StyleSelector), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnCellContentStyleSelectorChanged));
+            DependencyProperty.Register(nameof(CellContentStyleSelector), typeof(StyleSelector), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnCellContentStyleSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="CellEditorStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellEditorStyleProperty =
-            DependencyProperty.Register("CellEditorStyle", typeof(Style), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnCellEditorStyleChanged));
+            DependencyProperty.Register(nameof(CellEditorStyle), typeof(Style), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnCellEditorStyleChanged));
         
         private IDataFieldInfo propertyInfo;
 

@@ -16,19 +16,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="From"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FromProperty =
-            DependencyProperty.Register("From", typeof(double), typeof(PolarAxisPlotBandAnnotation), new PropertyMetadata(double.NaN, OnFromPropertyChanged));
+            DependencyProperty.Register(nameof(From), typeof(double), typeof(PolarAxisPlotBandAnnotation), new PropertyMetadata(double.NaN, OnFromPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="To"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ToProperty =
-            DependencyProperty.Register("To", typeof(double), typeof(PolarAxisPlotBandAnnotation), new PropertyMetadata(double.NaN, OnToPropertyChanged));
+            DependencyProperty.Register(nameof(To), typeof(double), typeof(PolarAxisPlotBandAnnotation), new PropertyMetadata(double.NaN, OnToPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Fill"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FillProperty =
-            DependencyProperty.Register("Fill", typeof(Brush), typeof(PolarAxisPlotBandAnnotation), new PropertyMetadata(null, OnFillPropertyChanged));
+            DependencyProperty.Register(nameof(Fill), typeof(Brush), typeof(PolarAxisPlotBandAnnotation), new PropertyMetadata(null, OnFillPropertyChanged));
 
         private Path presenter;
         private PolarPlotBandAnnotationModel model;

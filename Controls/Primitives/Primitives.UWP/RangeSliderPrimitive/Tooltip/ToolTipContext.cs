@@ -23,7 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.RangeSlider
             set
             {
                 this.startValue = value;
-                this.OnPropertyChanged("StartValue");
+                this.OnPropertyChanged(nameof(StartValue));
             }
         }
 
@@ -37,7 +37,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.RangeSlider
             set
             {
                 this.endValue = value;
-                this.OnPropertyChanged("EndValue");
+                this.OnPropertyChanged(nameof(EndValue));
             }
         }
 
@@ -51,7 +51,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.RangeSlider
             set
             {
                 this.range = value;
-                this.OnPropertyChanged("Range");
+                this.OnPropertyChanged(nameof(Range));
             }
         }
 

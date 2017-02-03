@@ -24,25 +24,25 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="Content"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(object), typeof(DataGridColumnHeader), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Content), typeof(object), typeof(DataGridColumnHeader), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="FilterGlyphVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FilterGlyphVisibilityProperty =
-            DependencyProperty.Register("FilterGlyphVisibility", typeof(Visibility), typeof(DataGridColumnHeader), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(FilterGlyphVisibility), typeof(Visibility), typeof(DataGridColumnHeader), new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
         /// Identifies the <see cref="FilterGlyphVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ResizeHandleVisiblityProperty =
-            DependencyProperty.Register("ResizeHandleVisiblity", typeof(Visibility), typeof(DataGridColumnHeader), new PropertyMetadata(Visibility.Collapsed, OnResizeHandleVisiblityChanged));
+            DependencyProperty.Register(nameof(ResizeHandleVisiblity), typeof(Visibility), typeof(DataGridColumnHeader), new PropertyMetadata(Visibility.Collapsed, OnResizeHandleVisiblityChanged));
 
         /// <summary>
         /// Identifies the <see cref="SortDirection"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SortDirectionProperty =
-            DependencyProperty.Register("SortDirection", typeof(SortDirection), typeof(DataGridColumnHeader), new PropertyMetadata(SortDirection.None));
+            DependencyProperty.Register(nameof(SortDirection), typeof(SortDirection), typeof(DataGridColumnHeader), new PropertyMetadata(SortDirection.None));
         private Button filterButton;
         private double initialColumnResizeWidth;
         private bool isFiltered;

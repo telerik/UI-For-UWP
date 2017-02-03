@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
         /// Identifies the IsExpanded dependency property.
         /// </summary>
         public static readonly DependencyProperty IsExpandedProperty =
-            DependencyProperty.Register("IsExpanded", typeof(bool), typeof(ListViewGroupHeader), new PropertyMetadata(true, OnIsExpandedPropertyChanged));
+            DependencyProperty.Register(nameof(IsExpanded), typeof(bool), typeof(ListViewGroupHeader), new PropertyMetadata(true, OnIsExpandedPropertyChanged));
 
         internal bool OwnerArranging;
 

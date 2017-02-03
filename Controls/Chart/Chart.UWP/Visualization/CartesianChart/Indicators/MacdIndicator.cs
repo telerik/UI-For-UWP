@@ -15,13 +15,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="SignalStroke"/> property.
         /// </summary>
         public static readonly DependencyProperty SignalStrokeProperty =
-            DependencyProperty.Register("SignalStroke", typeof(Brush), typeof(MacdIndicator), new PropertyMetadata(null, OnSignalStrokeChanged));
+            DependencyProperty.Register(nameof(SignalStroke), typeof(Brush), typeof(MacdIndicator), new PropertyMetadata(null, OnSignalStrokeChanged));
 
         /// <summary>
         /// Identifies the <see cref="SignalPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SignalPeriodProperty =
-            DependencyProperty.Register("SignalPeriod", typeof(int), typeof(MacdIndicator), new PropertyMetadata(0, OnSignalPeriodChanged));
+            DependencyProperty.Register(nameof(SignalPeriod), typeof(int), typeof(MacdIndicator), new PropertyMetadata(0, OnSignalPeriodChanged));
 
         internal LineRenderer signalRenderer;
         internal CategoricalSeriesModel signalModel;

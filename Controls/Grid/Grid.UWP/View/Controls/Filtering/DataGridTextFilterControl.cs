@@ -18,7 +18,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="IsCaseSensitive"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsCaseSensitiveProperty =
-            DependencyProperty.Register("IsCaseSensitive", typeof(bool), typeof(DataGridTextFilterControl), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsCaseSensitive), typeof(bool), typeof(DataGridTextFilterControl), new PropertyMetadata(true));
 
         private TextBox valueBox;
         private ToggleButton caseButton;

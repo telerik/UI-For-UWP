@@ -142,7 +142,7 @@ namespace Telerik.Charting
             {
                 if (value < 1)
                 {
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
                 this.SetValue(LabelIntervalPropertyKey, value);
@@ -162,7 +162,7 @@ namespace Telerik.Charting
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
                 this.SetValue(LabelOffsetPropertyKey, value);
@@ -182,7 +182,7 @@ namespace Telerik.Charting
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("MajorTickOffset");
+                    throw new ArgumentOutOfRangeException(nameof(MajorTickOffset));
                 }
 
                 this.SetValue(MajorTickOffsetPropertyKey, value);
@@ -202,7 +202,7 @@ namespace Telerik.Charting
             {
                 if (value < 0 || value > 360)
                 {
-                    throw new ArgumentOutOfRangeException("NormalizedLabelRotationAngle");
+                    throw new ArgumentOutOfRangeException(nameof(NormalizedLabelRotationAngle));
                 }
 
                 this.SetValue(NormalizedLabelRotationAnglePropertyKey, value);

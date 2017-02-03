@@ -14,25 +14,25 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Minimum"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MinimumProperty =
-            DependencyProperty.Register("Minimum", typeof(double), typeof(NumericalAxis), new PropertyMetadata(double.NegativeInfinity, OnMinimumChanged));
+            DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(NumericalAxis), new PropertyMetadata(double.NegativeInfinity, OnMinimumChanged));
 
         /// <summary>
         /// Identifies the <see cref="Maximum"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MaximumProperty =
-            DependencyProperty.Register("Maximum", typeof(double), typeof(NumericalAxis), new PropertyMetadata(double.PositiveInfinity, OnMaximumChanged));
+            DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(NumericalAxis), new PropertyMetadata(double.PositiveInfinity, OnMaximumChanged));
 
         /// <summary>
         /// Identifies the <see cref="RangeExtendDirection"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RangeExtendDirectionProperty =
-            DependencyProperty.Register("RangeExtendDirection", typeof(NumericalAxisRangeExtendDirection), typeof(NumericalAxis), new PropertyMetadata(NumericalAxisRangeExtendDirection.Both, OnRangeExtendDirectionChanged));
+            DependencyProperty.Register(nameof(RangeExtendDirection), typeof(NumericalAxisRangeExtendDirection), typeof(NumericalAxis), new PropertyMetadata(NumericalAxisRangeExtendDirection.Both, OnRangeExtendDirectionChanged));
 
         /// <summary>
         /// Identifies the <see cref="DesiredTickCount"/> property.
         /// </summary>
         public static readonly DependencyProperty DesiredTickCountProperty =
-            DependencyProperty.Register("DesiredTickCount", typeof(int), typeof(NumericalAxis), new PropertyMetadata(0, OnDesiredTickCountChanged));
+            DependencyProperty.Register(nameof(DesiredTickCount), typeof(int), typeof(NumericalAxis), new PropertyMetadata(0, OnDesiredTickCountChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericalAxis" /> class.

@@ -12,25 +12,25 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="OpenPath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OpenPathProperty =
-            DependencyProperty.Register("OpenPath", typeof(string), typeof(OhlcSeriesDescriptor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(OpenPath), typeof(string), typeof(OhlcSeriesDescriptor), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="HighPath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HighPathProperty =
-            DependencyProperty.Register("HighPath", typeof(string), typeof(OhlcSeriesDescriptor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HighPath), typeof(string), typeof(OhlcSeriesDescriptor), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="LowPath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LowPathProperty =
-            DependencyProperty.Register("LowPath", typeof(string), typeof(OhlcSeriesDescriptor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(LowPath), typeof(string), typeof(OhlcSeriesDescriptor), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ClosePath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ClosePathProperty =
-            DependencyProperty.Register("ClosePath", typeof(string), typeof(OhlcSeriesDescriptor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ClosePath), typeof(string), typeof(OhlcSeriesDescriptor), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets the default type of series that are to be created if no Style is specified.

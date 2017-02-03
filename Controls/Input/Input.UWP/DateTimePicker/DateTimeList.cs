@@ -18,7 +18,7 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
         /// Identifies the <see cref="Step"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StepProperty =
-            DependencyProperty.Register("Step", typeof(int), typeof(DateTimeList), new PropertyMetadata(1, OnStepChanged));
+            DependencyProperty.Register(nameof(Step), typeof(int), typeof(DateTimeList), new PropertyMetadata(1, OnStepChanged));
 
         // Timer is static as there is only one UI thread and one list focused at a time.
         private static DispatcherTimer typeDelayTimer;

@@ -16,19 +16,19 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="IsPullToRefreshEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsPullToRefreshEnabledProperty =
-            DependencyProperty.Register("IsPullToRefreshEnabled", typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsPullToRefreshEnabledChanged));
+            DependencyProperty.Register(nameof(IsPullToRefreshEnabled), typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsPullToRefreshEnabledChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsPullToRefreshActive"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsPullToRefreshActiveProperty =
-            DependencyProperty.Register("IsPullToRefreshActive", typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsPullToRefreshActiveChanged));
+            DependencyProperty.Register(nameof(IsPullToRefreshActive), typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsPullToRefreshActiveChanged));
 
         /// <summary>
         /// Identifies the <see cref="PullToRefreshScrollMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PullToRefreshScrollModeProperty =
-            DependencyProperty.Register("PullToRefreshScrollMode", typeof(PullToRefreshScrollMode), typeof(RadListView), new PropertyMetadata(PullToRefreshScrollMode.ContentAndIndicator, OnPullToRefreshScrollModeChanged));
+            DependencyProperty.Register(nameof(PullToRefreshScrollMode), typeof(PullToRefreshScrollMode), typeof(RadListView), new PropertyMetadata(PullToRefreshScrollMode.ContentAndIndicator, OnPullToRefreshScrollModeChanged));
 
         private const string RefreshingState = "Refreshing";
         private const string ReadyState = "Ready";

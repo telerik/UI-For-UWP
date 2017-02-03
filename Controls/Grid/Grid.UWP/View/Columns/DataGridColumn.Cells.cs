@@ -18,19 +18,19 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="IsCellFlyoutEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsCellFlyoutEnabledProperty =
-            DependencyProperty.Register("IsCellFlyoutEnabled", typeof(bool), typeof(DataGridColumn), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsCellFlyoutEnabled), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(false));
 
         /// <summary>
         /// Identifies the <see cref="CellDecorationStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellDecorationStyleProperty =
-            DependencyProperty.Register("CellDecorationStyle", typeof(Style), typeof(DataGridColumn), new PropertyMetadata(null, OnCellDecorationStyleChanged));
+            DependencyProperty.Register(nameof(CellDecorationStyle), typeof(Style), typeof(DataGridColumn), new PropertyMetadata(null, OnCellDecorationStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="CellDecorationStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellDecorationStyleSelectorProperty =
-            DependencyProperty.Register("CellDecorationStyleSelector", typeof(StyleSelector), typeof(DataGridColumn), new PropertyMetadata(null, OnCellDecorationStyleSelectorChanged));
+            DependencyProperty.Register(nameof(CellDecorationStyleSelector), typeof(StyleSelector), typeof(DataGridColumn), new PropertyMetadata(null, OnCellDecorationStyleSelectorChanged));
 
         private Style cellDecorationStyleCache;
         private StyleSelector cellDecorationStyleSelectorCache;

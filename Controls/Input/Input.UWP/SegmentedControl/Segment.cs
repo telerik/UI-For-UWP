@@ -11,10 +11,10 @@ namespace Telerik.UI.Xaml.Controls.Input
     public class Segment : ButtonBase
     {
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(Segment), new PropertyMetadata(new CornerRadius(0d)));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(Segment), new PropertyMetadata(new CornerRadius(0d)));
 
         public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register("IsSelected", typeof(bool), typeof(Segment), new PropertyMetadata(false, OnIsSelectedChanged));
+            DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(Segment), new PropertyMetadata(false, OnIsSelectedChanged));
 
         private const string FocusedName = "Focused";
         private const string PointerFocusedName = "PointerFocused";

@@ -15,13 +15,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="StandardDeviations"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StandardDeviationsProperty =
-            DependencyProperty.Register("StandardDeviations", typeof(int), typeof(ValuePeriodIndicatorBase), new PropertyMetadata(0, OnStandardDeviationsChanged));
+            DependencyProperty.Register(nameof(StandardDeviations), typeof(int), typeof(ValuePeriodIndicatorBase), new PropertyMetadata(0, OnStandardDeviationsChanged));
 
         /// <summary>
         /// Identifies the <see cref="LowerBandStroke"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LowerBandStrokeProperty =
-            DependencyProperty.Register("LowerBandStroke", typeof(Brush), typeof(BollingerBandsIndicator), new PropertyMetadata(null, OnLowerBandStrokeChanged));
+            DependencyProperty.Register(nameof(LowerBandStroke), typeof(Brush), typeof(BollingerBandsIndicator), new PropertyMetadata(null, OnLowerBandStrokeChanged));
 
         internal LineRenderer lowerBandRenderer;
         internal CategoricalSeriesModel lowerBandModel;

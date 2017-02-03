@@ -13,13 +13,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar.Commands
         /// Identifies the <see cref="Command"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand), typeof(CalendarUserCommand), new PropertyMetadata(null, OnCommandChanged));
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(CalendarUserCommand), new PropertyMetadata(null, OnCommandChanged));
 
         /// <summary>
         /// Identifies the <see cref="EnableDefaultCommand"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EnableDefaultCommandProperty =
-            DependencyProperty.Register("EnableDefaultCommand", typeof(bool), typeof(CalendarUserCommand), new PropertyMetadata(true, OnEnableDefaultCommandChanged));
+            DependencyProperty.Register(nameof(EnableDefaultCommand), typeof(bool), typeof(CalendarUserCommand), new PropertyMetadata(true, OnEnableDefaultCommandChanged));
 
         private ICommand commandCache;
         private bool enableDefaultCommandCache = true;

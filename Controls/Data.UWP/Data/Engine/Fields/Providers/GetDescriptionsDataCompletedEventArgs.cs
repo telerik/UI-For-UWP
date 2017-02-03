@@ -17,7 +17,7 @@ namespace Telerik.Data.Core.Fields
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             }
 
             this.DescriptionsData = data;

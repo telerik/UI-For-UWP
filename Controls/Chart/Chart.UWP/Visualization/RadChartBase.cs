@@ -30,49 +30,49 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="SeriesProvider"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SeriesProviderProperty =
-            DependencyProperty.Register("SeriesProvider", typeof(ChartSeriesProvider), typeof(RadChartBase), new PropertyMetadata(null, OnSeriesProviderChanged));
+            DependencyProperty.Register(nameof(SeriesProvider), typeof(ChartSeriesProvider), typeof(RadChartBase), new PropertyMetadata(null, OnSeriesProviderChanged));
 
         /// <summary>
         /// Identifies the <see cref="Palette"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PaletteProperty =
-            DependencyProperty.Register("Palette", typeof(ChartPalette), typeof(RadChartBase), new PropertyMetadata(null, OnPaletteChanged));
+            DependencyProperty.Register(nameof(Palette), typeof(ChartPalette), typeof(RadChartBase), new PropertyMetadata(null, OnPaletteChanged));
 
         /// <summary>
         /// Identifies the <see cref="PaletteName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PaletteNameProperty =
-            DependencyProperty.Register("PaletteName", typeof(PredefinedPaletteName), typeof(RadChartBase), new PropertyMetadata(PredefinedPaletteName.None, OnPredefinedPaletteNameChanged));
+            DependencyProperty.Register(nameof(PaletteName), typeof(PredefinedPaletteName), typeof(RadChartBase), new PropertyMetadata(PredefinedPaletteName.None, OnPredefinedPaletteNameChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectionPaletteName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectionPaletteNameProperty =
-            DependencyProperty.Register("SelectionPaletteName", typeof(PredefinedPaletteName), typeof(RadChartBase), new PropertyMetadata(PredefinedPaletteName.None, OnPredefinedSelectionPaletteNameChanged));
+            DependencyProperty.Register(nameof(SelectionPaletteName), typeof(PredefinedPaletteName), typeof(RadChartBase), new PropertyMetadata(PredefinedPaletteName.None, OnPredefinedSelectionPaletteNameChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectionPalette"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectionPaletteProperty =
-            DependencyProperty.Register("SelectionPalette", typeof(ChartPalette), typeof(RadChartBase), new PropertyMetadata(null, OnSelectionPaletteChanged));
+            DependencyProperty.Register(nameof(SelectionPalette), typeof(ChartPalette), typeof(RadChartBase), new PropertyMetadata(null, OnSelectionPaletteChanged));
 
         /// <summary>
         /// Identifies the <see cref="PlotAreaStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PlotAreaStyleProperty =
-            DependencyProperty.Register("PlotAreaStyle", typeof(Style), typeof(RadChartBase), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PlotAreaStyle), typeof(Style), typeof(RadChartBase), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="EmptyContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EmptyContentProperty =
-            DependencyProperty.Register("EmptyContent", typeof(object), typeof(RadChartBase), new PropertyMetadata(null, OnEmptyContentChanged));
+            DependencyProperty.Register(nameof(EmptyContent), typeof(object), typeof(RadChartBase), new PropertyMetadata(null, OnEmptyContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="EmptyContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EmptyContentTemplateProperty =
-            DependencyProperty.Register("EmptyContentTemplate", typeof(DataTemplate), typeof(RadChartBase), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(EmptyContentTemplate), typeof(DataTemplate), typeof(RadChartBase), new PropertyMetadata(null));
 
         internal const string NoSeriesKey = "NoSeries";
         internal const string NoDataKey = "NoData";

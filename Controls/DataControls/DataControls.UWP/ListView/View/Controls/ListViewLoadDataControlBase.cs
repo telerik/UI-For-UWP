@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// Identifies the <see cref="IsLoadingData"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsLoadingDataProperty =
-            DependencyProperty.Register("IsLoadingData", typeof(bool), typeof(ListViewLoadDataControlBase), new PropertyMetadata(false, OnIsLoadingDataChanged));
+            DependencyProperty.Register(nameof(IsLoadingData), typeof(bool), typeof(ListViewLoadDataControlBase), new PropertyMetadata(false, OnIsLoadingDataChanged));
 
         /// <summary>
         /// Gets or sets a value indicating whether the control is loading data state.

@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="IsInverse"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsInverseProperty =
-            DependencyProperty.Register("IsInverse", typeof(bool), typeof(LineAxis), new PropertyMetadata(false, OnIsInverseChanged));
+            DependencyProperty.Register(nameof(IsInverse), typeof(bool), typeof(LineAxis), new PropertyMetadata(false, OnIsInverseChanged));
 
         internal Line line;
 

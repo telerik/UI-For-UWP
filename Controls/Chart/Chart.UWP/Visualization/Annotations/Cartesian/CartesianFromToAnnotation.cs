@@ -15,37 +15,37 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="HorizontalAxis"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HorizontalAxisProperty =
-            DependencyProperty.Register("HorizontalAxis", typeof(CartesianAxis), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnHorizontalAxisPropertyChanged));
+            DependencyProperty.Register(nameof(HorizontalAxis), typeof(CartesianAxis), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnHorizontalAxisPropertyChanged));
     
         /// <summary>
         /// Identifies the <see cref="VerticalAxis"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty VerticalAxisProperty =
-            DependencyProperty.Register("VerticalAxis", typeof(CartesianAxis), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnVerticalAxisPropertyChanged));
+            DependencyProperty.Register(nameof(VerticalAxis), typeof(CartesianAxis), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnVerticalAxisPropertyChanged));
       
         /// <summary>
         /// Identifies the <see cref="HorizontalFrom"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HorizontalFromProperty =
-            DependencyProperty.Register("HorizontalFrom", typeof(object), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnHorizontalFromPropertyChanged));
+            DependencyProperty.Register(nameof(HorizontalFrom), typeof(object), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnHorizontalFromPropertyChanged));
      
         /// <summary>
         /// Identifies the <see cref="HorizontalTo"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HorizontalToProperty =
-            DependencyProperty.Register("HorizontalTo", typeof(object), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnHorizontalToPropertyChanged));
+            DependencyProperty.Register(nameof(HorizontalTo), typeof(object), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnHorizontalToPropertyChanged));
      
         /// <summary>
         /// Identifies the <see cref="VerticalFrom"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty VerticalFromProperty =
-            DependencyProperty.Register("VerticalFrom", typeof(object), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnVerticalFromPropertyChanged));
+            DependencyProperty.Register(nameof(VerticalFrom), typeof(object), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnVerticalFromPropertyChanged));
      
         /// <summary>
         /// Identifies the <see cref="VerticalTo"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty VerticalToProperty =
-            DependencyProperty.Register("VerticalTo", typeof(object), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnVerticalToPropertyChanged));
+            DependencyProperty.Register(nameof(VerticalTo), typeof(object), typeof(CartesianFromToAnnotation), new PropertyMetadata(null, OnVerticalToPropertyChanged));
 
         internal CartesianFromToAnnotationModel model;
         internal Shape presenter;

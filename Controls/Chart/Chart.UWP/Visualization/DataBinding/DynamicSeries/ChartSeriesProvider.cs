@@ -17,13 +17,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Source"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source", typeof(object), typeof(ChartSeriesProvider), new PropertyMetadata(null, OnSourceChanged));
+            DependencyProperty.Register(nameof(Source), typeof(object), typeof(ChartSeriesProvider), new PropertyMetadata(null, OnSourceChanged));
 
         /// <summary>
         /// Identifies the <see cref="SeriesDescriptorSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SeriesDescriptorSelectorProperty =
-            DependencyProperty.Register("SeriesDescriptorSelector", typeof(ChartSeriesDescriptorSelector), typeof(ChartSeriesProvider), new PropertyMetadata(null, OnSeriesDescriptorSelectorChanged));
+            DependencyProperty.Register(nameof(SeriesDescriptorSelector), typeof(ChartSeriesDescriptorSelector), typeof(ChartSeriesProvider), new PropertyMetadata(null, OnSeriesDescriptorSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="SeriesDescriptorSelector"/> attached dependency property.

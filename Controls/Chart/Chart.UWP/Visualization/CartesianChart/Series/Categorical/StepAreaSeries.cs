@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="RisersPosition"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RisersPositionProperty =
-            DependencyProperty.Register("RisersPosition", typeof(StepSeriesRisersPosition), typeof(StepAreaSeries), new PropertyMetadata(StepSeriesRisersPosition.Default, OnRisersPositionChanged));
+            DependencyProperty.Register(nameof(RisersPosition), typeof(StepSeriesRisersPosition), typeof(StepAreaSeries), new PropertyMetadata(StepSeriesRisersPosition.Default, OnRisersPositionChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StepAreaSeries"/> class.

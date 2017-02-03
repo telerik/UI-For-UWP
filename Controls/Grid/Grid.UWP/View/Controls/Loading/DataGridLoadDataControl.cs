@@ -19,7 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="LoadingData"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LoadingDataProperty =
-            DependencyProperty.Register("LoadingData", typeof(bool), typeof(DataGridLoadDataControl), new PropertyMetadata(false, OnLoadingDataChanged));
+            DependencyProperty.Register(nameof(LoadingData), typeof(bool), typeof(DataGridLoadDataControl), new PropertyMetadata(false, OnLoadingDataChanged));
         private Button loadDataButton;
 
         private RadDataGrid owner;

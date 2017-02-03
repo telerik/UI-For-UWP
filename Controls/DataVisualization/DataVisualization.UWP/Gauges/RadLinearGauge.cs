@@ -26,7 +26,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the LabelOffset property.
         /// </summary>
         public static readonly DependencyProperty LabelOffsetProperty =
-            DependencyProperty.Register("LabelOffset", typeof(double), typeof(RadLinearGauge), new PropertyMetadata(15d, OnLabelOffsetPropertyChanged));
+            DependencyProperty.Register(nameof(LabelOffset), typeof(double), typeof(RadLinearGauge), new PropertyMetadata(15d, OnLabelOffsetPropertyChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RadLinearGauge"/> class.
@@ -82,7 +82,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         {
             if (indicator == null)
             {
-                throw new ArgumentNullException("indicator");
+                throw new ArgumentNullException(nameof(indicator));
             }
 
             indicator.SetValue(IndicatorOffsetProperty, value);
@@ -97,7 +97,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         {
             if (indicator == null)
             {
-                throw new ArgumentNullException("indicator");
+                throw new ArgumentNullException(nameof(indicator));
             }
             return (double)indicator.GetValue(IndicatorOffsetProperty);
         }
@@ -109,7 +109,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         {
             if (indicator == null)
             {
-                throw new ArgumentNullException("indicator");
+                throw new ArgumentNullException(nameof(indicator));
             }
 
             return (Orientation)indicator.GetValue(OrientationProperty);
@@ -122,7 +122,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         {
             if (indicator == null)
             {
-                throw new ArgumentNullException("indicator");
+                throw new ArgumentNullException(nameof(indicator));
             }
 
             indicator.SetValue(OrientationProperty, value);
