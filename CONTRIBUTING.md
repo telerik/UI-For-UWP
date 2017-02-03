@@ -2,7 +2,7 @@
 
 ## Before You Start
 
-Anyone wishing to contribute to the UI for Universal Windows Platform project MUST read & sign the [UI For Universal Windows Platform Contribution License Agreement](https://github.com/telerik/UI-For-UWP/blob/master/CLA.docs). The UI for UWP team cannot accept pull requests from users who have not signed the CLA first.
+Anyone wishing to contribute to the UI for Universal Windows Platform project MUST read & sign the [UI For Universal Windows Platform Contribution License Agreement](https://docs.google.com/forms/d/e/1FAIpQLSfQAzVxnnfwRQmtJCVmB41_ig1gYow--Gr8qLvaDxJRNHPtUQ/viewform). The UI for UWP team cannot accept pull requests from users who have not signed the CLA first.
 
 ## Introduction
 
