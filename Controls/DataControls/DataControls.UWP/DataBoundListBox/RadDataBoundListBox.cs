@@ -917,11 +917,11 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.ShowCheckboxesPressIndicator(item);
             }
         }
-
+        
         /// <summary>
         /// Handles a click from a child visual item.
         /// </summary>
-        protected internal virtual void OnItemTap(RadDataBoundListBoxItem item, UIElement container, UIElement originalSource, Point hitPoint)
+        protected async internal virtual void OnItemTap(RadDataBoundListBoxItem item, UIElement container, UIElement originalSource, Point hitPoint)
         {
             if (item.checkBoxVisible && item.isItemCheckable)
             {
@@ -955,7 +955,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 bool checkModeRequest = this.IsCheckModeArea(item, container, hitPoint);
                 if (checkModeRequest)
                 {
-                    this.Dispatcher.RunAsync(
+                    await this.Dispatcher.RunAsync(
                         CoreDispatcherPriority.Normal,
                         () =>
                         {
@@ -1912,7 +1912,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.UpdateVisualState(true);
         }
 
-        private void PrepareIncrementalLoadingIndicatorContainer(RadVirtualizingDataControlItem element, IDataSourceItem item)
+        private async void PrepareIncrementalLoadingIndicatorContainer(RadVirtualizingDataControlItem element, IDataSourceItem item)
         {
             if (this.incrementalLoadingModeCache == BatchLoadingMode.Explicit)
             {
@@ -1928,7 +1928,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.dataRequestContainerCache = element;
             element.BindToDataItem(item);
             this.PrepareStyle(element, item);
-            this.Dispatcher.RunAsync(
+            await this.Dispatcher.RunAsync(
                 CoreDispatcherPriority.Normal,
                 () =>
                 {
