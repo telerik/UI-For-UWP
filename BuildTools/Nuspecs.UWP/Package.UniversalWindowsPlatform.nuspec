@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>$Id$</id>
+        <version>$Version$</version>
+        <title>$Title$</title>
+        <authors>Telerik</authors>
+        <owners>Telerik</owners>
+        <projectUrl>http://www.telerik.com/universal-windows-platform-ui</projectUrl>
+        <licenseUrl>https://github.com/telerik/UI-For-UWP/blob/master/LICENSE.md</licenseUrl>
+        <iconUrl>http://www.telerik.com/docs/default-source/nuget-feed-product-files/nugeticon_uwp.png?sfvrsn=2</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>UI for Universal Windows Platform is a toolset for building Universal Windows Platform apps for the Windows Store and the enterprise. The library is designed to offer the same user experience, functionality and behavior on Windows devices of all form factors.</description>
+        <language>en-US</language>
+    </metadata>
+    <files>
+        <file src="$DeployDirectory$\$BinariesSubDir$\**" target="lib\uap10.0" exclude="$DeployDirectory$\$BinariesSubDir$\ARM\**;$DeployDirectory$\$BinariesSubDir$\x86\**;$DeployDirectory$\$BinariesSubDir$\x64\**"/>
+        <file src="$DeployDirectory$\$BinariesSubDir$\ARM\**\*" target="lib\uap10.0\ARM"/>
+        <file src="$DeployDirectory$\$BinariesSubDir$\x86\**\*" target="lib\uap10.0\x86"/>
+        <file src="$DeployDirectory$\$BinariesSubDir$\x64\**\*" target="lib\uap10.0\x64"/>
+        <file src="$NuspecsDir$\$Id$.targets" target="lib\uap10.0"/>
+        <file src="$DeployDirectory$\License.md" target="LicenseAgreements" />
+    </files>
+</package>
