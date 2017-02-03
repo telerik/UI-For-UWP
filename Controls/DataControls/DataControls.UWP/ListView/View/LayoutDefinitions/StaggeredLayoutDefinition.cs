@@ -26,7 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 if (this.spanCount != value)
                 {
                     this.spanCount = value;
-                    this.OnPropertyChanged("SpanCount");
+                    this.OnPropertyChanged(nameof(SpanCount));
                 }
             }
         }

@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="ValuePath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValuePathProperty =
-            DependencyProperty.Register("ValuePath", typeof(string), typeof(CategoricalSeriesDescriptor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ValuePath), typeof(string), typeof(CategoricalSeriesDescriptor), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets the default type of series that are to be created if no TypePath and no Style properties are specified.

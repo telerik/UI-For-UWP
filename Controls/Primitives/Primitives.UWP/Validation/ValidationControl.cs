@@ -20,37 +20,37 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="RelativePositionOffset"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RelativePositionOffsetProperty =
-            DependencyProperty.Register("RelativePositionOffset", typeof(Point), typeof(ValidationControl), new PropertyMetadata(new Point(5, -5)));
+            DependencyProperty.Register(nameof(RelativePositionOffset), typeof(Point), typeof(ValidationControl), new PropertyMetadata(new Point(5, -5)));
 
         /// <summary>
         /// Identifies the <see cref="ControlPeer"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ControlPeerProperty =
-            DependencyProperty.Register("ControlPeer", typeof(FrameworkElement), typeof(ValidationControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ControlPeer), typeof(FrameworkElement), typeof(ValidationControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DataItem"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DataItemProperty =
-            DependencyProperty.Register("DataItem", typeof(object), typeof(ValidationControl), new PropertyMetadata(null, OnDataItemChanged));
+            DependencyProperty.Register(nameof(DataItem), typeof(object), typeof(ValidationControl), new PropertyMetadata(null, OnDataItemChanged));
 
         /// <summary>
         /// Identifies the <see cref="PropertyName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PropertyNameProperty =
-            DependencyProperty.Register("PropertyName", typeof(string), typeof(ValidationControl), new PropertyMetadata(null, OnPropertyNameChanged));
+            DependencyProperty.Register(nameof(PropertyName), typeof(string), typeof(ValidationControl), new PropertyMetadata(null, OnPropertyNameChanged));
 
         /// <summary>
         /// Identifies the <see cref="ValidateOnErrors"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValidateOnErrorsProperty =
-            DependencyProperty.Register("ValidateOnErrors", typeof(bool), typeof(ValidationControl), new PropertyMetadata(true, OnValidateOnErrorsChanged));
+            DependencyProperty.Register(nameof(ValidateOnErrors), typeof(bool), typeof(ValidationControl), new PropertyMetadata(true, OnValidateOnErrorsChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsValid"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsValidProperty =
-            DependencyProperty.Register("IsValid", typeof(bool), typeof(ValidationControl), new PropertyMetadata(true, OnIsValidChanged));
+            DependencyProperty.Register(nameof(IsValid), typeof(bool), typeof(ValidationControl), new PropertyMetadata(true, OnIsValidChanged));
 
         private INotifyDataErrorInfo dataErrorInfo;
         private INotifyPropertyChanged notifyPropertyChangedItem;

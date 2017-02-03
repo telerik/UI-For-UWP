@@ -15,13 +15,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="UpStroke"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty UpStrokeProperty =
-            DependencyProperty.Register("UpStroke", typeof(Brush), typeof(OhlcShape), null);
+            DependencyProperty.Register(nameof(UpStroke), typeof(Brush), typeof(OhlcShape), null);
 
         /// <summary>
         /// Identifies the <see cref="DownStroke"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DownStrokeProperty =
-            DependencyProperty.Register("DownStroke", typeof(Brush), typeof(OhlcShape), null);
+            DependencyProperty.Register(nameof(DownStroke), typeof(Brush), typeof(OhlcShape), null);
 
         internal readonly SolidColorBrush DefaultBrush = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
         internal OhlcDataPoint dataPoint;

@@ -22,11 +22,11 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             if (removedItems == null)
             {
-                throw new ArgumentNullException("removedItems");
+                throw new ArgumentNullException(nameof(removedItems));
             }
             if (addedItems == null)
             {
-                throw new ArgumentNullException("addedItems");
+                throw new ArgumentNullException(nameof(addedItems));
             }
             this.removedItems = new object[removedItems.Count];
             removedItems.CopyTo(this.removedItems, 0);

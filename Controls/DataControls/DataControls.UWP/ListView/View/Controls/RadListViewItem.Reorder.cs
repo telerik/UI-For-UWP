@@ -26,7 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         // Using a DependencyProperty as the backing store for IsHandleEnabled.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsHandleEnabledProperty =
-            DependencyProperty.Register("IsHandleEnabled", typeof(bool), typeof(RadListViewItem), new PropertyMetadata(false, OnIsHandleEnabled));
+            DependencyProperty.Register(nameof(IsHandleEnabled), typeof(bool), typeof(RadListViewItem), new PropertyMetadata(false, OnIsHandleEnabled));
 
         private static void OnIsHandleEnabled(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

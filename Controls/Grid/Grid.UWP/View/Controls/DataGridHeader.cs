@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the DataTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentTemplateProperty =
-            DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(DataGridHeader), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(DataGridHeader), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridHeader"/> class.

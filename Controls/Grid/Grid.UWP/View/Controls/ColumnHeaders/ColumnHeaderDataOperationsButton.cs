@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         // Using a DependencyProperty as the backing store for IconText.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IconTextProperty =
-            DependencyProperty.Register("IconText", typeof(string), typeof(ColumnHeaderDataOperationsButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(IconText), typeof(string), typeof(ColumnHeaderDataOperationsButton), new PropertyMetadata(null));
         
         public ColumnHeaderDataOperationsButton()
         {

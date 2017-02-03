@@ -21,13 +21,13 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="VirtualizationStrategyDefinition"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty VirtualizationStrategyDefinitionProperty =
-            DependencyProperty.Register("VirtualizationStrategyDefinition", typeof(VirtualizationStrategyDefinition), typeof(RadVirtualizingDataControl), new PropertyMetadata(new StackVirtualizationStrategyDefinition() { Orientation = Orientation.Vertical }, OnVirtualizationStrategyDefinitionChanged));
+            DependencyProperty.Register(nameof(VirtualizationStrategyDefinition), typeof(VirtualizationStrategyDefinition), typeof(RadVirtualizingDataControl), new PropertyMetadata(new StackVirtualizationStrategyDefinition() { Orientation = Orientation.Vertical }, OnVirtualizationStrategyDefinitionChanged));
 
         /// <summary>
         /// Identifies the DisplayMemberPath dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayMemberPathProperty =
-            DependencyProperty.Register("DisplayMemberPath", typeof(string), typeof(RadVirtualizingDataControl), new PropertyMetadata(null, OnDisplayMemberPathChanged));
+            DependencyProperty.Register(nameof(DisplayMemberPath), typeof(string), typeof(RadVirtualizingDataControl), new PropertyMetadata(null, OnDisplayMemberPathChanged));
 
         internal double availableWidth;
         internal bool layoutUpdated;
@@ -714,7 +714,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             if (definition == null)
             {
-                throw new ArgumentNullException("VirtualizationStrategyDefinition");
+                throw new ArgumentNullException(nameof(VirtualizationStrategyDefinition));
             }
 
             this.RecycleAllItems();

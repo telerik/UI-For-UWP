@@ -47,7 +47,7 @@ namespace Telerik.Data.Core.Fields
         {
             if (fieldInfos == null)
             {
-                throw new ArgumentNullException("fieldInfos");
+                throw new ArgumentNullException(nameof(fieldInfos));
             }
 
             var root = ContainerNode.CreateRootNode();

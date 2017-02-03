@@ -18,7 +18,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// Identifies the <see cref="Content"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(object), typeof(ListViewLoadDataControl), new PropertyMetadata(null, OnContentChanged));
+            DependencyProperty.Register(nameof(Content), typeof(object), typeof(ListViewLoadDataControl), new PropertyMetadata(null, OnContentChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListViewLoadDataControl" /> class.

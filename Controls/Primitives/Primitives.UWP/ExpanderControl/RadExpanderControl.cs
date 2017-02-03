@@ -21,61 +21,61 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="AnimatedIndicatorContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AnimatedIndicatorContentProperty =
-            DependencyProperty.Register("AnimatedIndicatorContent", typeof(object), typeof(RadExpanderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(AnimatedIndicatorContent), typeof(object), typeof(RadExpanderControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="AnimatedIndicatorContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AnimatedIndicatorContentTemplateProperty =
-            DependencyProperty.Register("AnimatedIndicatorContentTemplate", typeof(DataTemplate), typeof(RadExpanderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(AnimatedIndicatorContentTemplate), typeof(DataTemplate), typeof(RadExpanderControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="AnimatedIndicatorStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AnimatedIndicatorStyleProperty =
-            DependencyProperty.Register("AnimatedIndicatorStyle", typeof(Style), typeof(RadExpanderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(AnimatedIndicatorStyle), typeof(Style), typeof(RadExpanderControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ExpandedStateContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ExpandedStateContentProperty =
-            DependencyProperty.Register("ExpandedStateContent", typeof(object), typeof(RadExpanderControl), new PropertyMetadata(null, OnExpandedStateContentChanged));
+            DependencyProperty.Register(nameof(ExpandedStateContent), typeof(object), typeof(RadExpanderControl), new PropertyMetadata(null, OnExpandedStateContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="ExpandedStateContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ExpandedStateContentTemplateProperty =
-            DependencyProperty.Register("ExpandedStateContentTemplate", typeof(DataTemplate), typeof(RadExpanderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ExpandedStateContentTemplate), typeof(DataTemplate), typeof(RadExpanderControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ExpandableContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ExpandableContentProperty =
-            DependencyProperty.Register("ExpandableContent", typeof(object), typeof(RadExpanderControl), new PropertyMetadata(null, OnExpandableContentChanged));
+            DependencyProperty.Register(nameof(ExpandableContent), typeof(object), typeof(RadExpanderControl), new PropertyMetadata(null, OnExpandableContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="ExpandableContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ExpandableContentTemplateProperty =
-            DependencyProperty.Register("ExpandableContentTemplate", typeof(DataTemplate), typeof(RadExpanderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ExpandableContentTemplate), typeof(DataTemplate), typeof(RadExpanderControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="IsExpanded"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsExpandedProperty =
-            DependencyProperty.Register("IsExpanded", typeof(bool), typeof(RadExpanderControl), new PropertyMetadata(false, OnIsExpandedChanged));
+            DependencyProperty.Register(nameof(IsExpanded), typeof(bool), typeof(RadExpanderControl), new PropertyMetadata(false, OnIsExpandedChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsExpandable"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsExpandableProperty =
-            DependencyProperty.Register("IsExpandable", typeof(bool), typeof(RadExpanderControl), new PropertyMetadata(true, OnIsExpandableChanged));
+            DependencyProperty.Register(nameof(IsExpandable), typeof(bool), typeof(RadExpanderControl), new PropertyMetadata(true, OnIsExpandableChanged));
 
         /// <summary>
         /// Identifies the <see cref="HideIndicatorWhenNotExpandable"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HideIndicatorWhenNotExpandableProperty =
-            DependencyProperty.Register("HideIndicatorWhenNotExpandable", typeof(bool), typeof(RadExpanderControl), new PropertyMetadata(false, OnHideIndicatorWhenNotExpandableChanged));
+            DependencyProperty.Register(nameof(HideIndicatorWhenNotExpandable), typeof(bool), typeof(RadExpanderControl), new PropertyMetadata(false, OnHideIndicatorWhenNotExpandableChanged));
 
         private static readonly DependencyProperty DataContextPrivateProperty =
             DependencyProperty.Register("DataContextPrivate", typeof(object), typeof(RadExpanderControl), new PropertyMetadata(null, OnDataContextPrivateChanged));
@@ -84,7 +84,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="HeaderBackground"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderBackgroundProperty =
-            DependencyProperty.Register("HeaderBackground", typeof(Brush), typeof(RadExpanderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HeaderBackground), typeof(Brush), typeof(RadExpanderControl), new PropertyMetadata(null));
 
         internal ContentPresenter mainContentPresenter;
 

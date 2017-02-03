@@ -21,7 +21,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm.View
         {
             if (view == null)
             {
-                throw new ArgumentNullException("owner");
+                throw new ArgumentNullException(nameof(owner));
             }
 
             this.owner = view;

@@ -13,13 +13,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="HorizontalAxis"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HorizontalAxisProperty =
-            DependencyProperty.Register("HorizontalAxis", typeof(CartesianAxis), typeof(CartesianSeries), new PropertyMetadata(null, OnHorizontalAxisChanged));
+            DependencyProperty.Register(nameof(HorizontalAxis), typeof(CartesianAxis), typeof(CartesianSeries), new PropertyMetadata(null, OnHorizontalAxisChanged));
 
         /// <summary>
         /// Identifies the <see cref="VerticalAxis"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty VerticalAxisProperty =
-            DependencyProperty.Register("VerticalAxis", typeof(CartesianAxis), typeof(CartesianSeries), new PropertyMetadata(null, OnVerticalAxisChanged));
+            DependencyProperty.Register(nameof(VerticalAxis), typeof(CartesianAxis), typeof(CartesianSeries), new PropertyMetadata(null, OnVerticalAxisChanged));
 
         private CartesianAxis horizontalAxisCache;
         private CartesianAxis verticalAxisCache;

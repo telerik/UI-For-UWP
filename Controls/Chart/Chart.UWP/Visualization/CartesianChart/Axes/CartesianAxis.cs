@@ -13,13 +13,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="HorizontalLocation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HorizontalLocationProperty =
-            DependencyProperty.Register("HorizontalLocation", typeof(AxisHorizontalLocation), typeof(CartesianAxis), new PropertyMetadata(AxisHorizontalLocation.Left, OnHorizontalLocationChanged));
+            DependencyProperty.Register(nameof(HorizontalLocation), typeof(AxisHorizontalLocation), typeof(CartesianAxis), new PropertyMetadata(AxisHorizontalLocation.Left, OnHorizontalLocationChanged));
 
         /// <summary>
         /// Identifies the <see cref="VerticalLocation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty VerticalLocationProperty =
-            DependencyProperty.Register("VerticalLocation", typeof(AxisVerticalLocation), typeof(CartesianAxis), new PropertyMetadata(AxisVerticalLocation.Bottom, OnVerticalLocationChanged));
+            DependencyProperty.Register(nameof(VerticalLocation), typeof(AxisVerticalLocation), typeof(CartesianAxis), new PropertyMetadata(AxisVerticalLocation.Bottom, OnVerticalLocationChanged));
 
         internal int linkedSeriesCount;
 

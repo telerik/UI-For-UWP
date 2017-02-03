@@ -14,37 +14,37 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Minimum"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MinimumProperty =
-            DependencyProperty.Register("Minimum", typeof(DateTime), typeof(DateTimeContinuousAxis), new PropertyMetadata(DateTime.MinValue, OnMinimumChanged));
+            DependencyProperty.Register(nameof(Minimum), typeof(DateTime), typeof(DateTimeContinuousAxis), new PropertyMetadata(DateTime.MinValue, OnMinimumChanged));
 
         /// <summary>
         /// Identifies the <see cref="Maximum"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MaximumProperty =
-            DependencyProperty.Register("Maximum", typeof(DateTime), typeof(DateTimeContinuousAxis), new PropertyMetadata(DateTime.MaxValue, OnMaximumChanged));
+            DependencyProperty.Register(nameof(Maximum), typeof(DateTime), typeof(DateTimeContinuousAxis), new PropertyMetadata(DateTime.MaxValue, OnMaximumChanged));
 
         /// <summary>
         /// Identifies the <see cref="MajorStep"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MajorStepProperty =
-            DependencyProperty.Register("MajorStep", typeof(double), typeof(DateTimeContinuousAxis), new PropertyMetadata(0d, OnMajorStepChanged));
+            DependencyProperty.Register(nameof(MajorStep), typeof(double), typeof(DateTimeContinuousAxis), new PropertyMetadata(0d, OnMajorStepChanged));
 
         /// <summary>
         /// Identifies the <see cref="MajorStepUnit"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MajorStepUnitProperty =
-            DependencyProperty.Register("MajorStepUnit", typeof(TimeInterval), typeof(DateTimeContinuousAxis), new PropertyMetadata(TimeInterval.Year, OnMajorStepUnitChanged));
+            DependencyProperty.Register(nameof(MajorStepUnit), typeof(TimeInterval), typeof(DateTimeContinuousAxis), new PropertyMetadata(TimeInterval.Year, OnMajorStepUnitChanged));
 
         /// <summary>
         /// Identifies the <see cref="GapLength"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GapLengthProperty =
-            DependencyProperty.Register("GapLength", typeof(double), typeof(DateTimeContinuousAxis), new PropertyMetadata(0.3, OnGapLengthChanged));
+            DependencyProperty.Register(nameof(GapLength), typeof(double), typeof(DateTimeContinuousAxis), new PropertyMetadata(0.3, OnGapLengthChanged));
 
         /// <summary>
         /// Identifies the <see cref="PlotStretch"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PlotStretchProperty =
-            DependencyProperty.Register("PlotStretch", typeof(DateTimePlotStretchMode), typeof(DateTimeContinuousAxis), new PropertyMetadata(DateTimePlotStretchMode.TickSlot, OnPlotStretchChanged));
+            DependencyProperty.Register(nameof(PlotStretch), typeof(DateTimePlotStretchMode), typeof(DateTimeContinuousAxis), new PropertyMetadata(DateTimePlotStretchMode.TickSlot, OnPlotStretchChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DateTimeContinuousAxis"/> class.

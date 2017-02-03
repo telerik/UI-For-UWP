@@ -25,31 +25,31 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="ShowLabels"/> property.
         /// </summary>
         public static readonly DependencyProperty ShowLabelsProperty =
-            DependencyProperty.Register("ShowLabels", typeof(bool), typeof(ChartSeries), new PropertyMetadata(false, OnShowLabelsChanged));
+            DependencyProperty.Register(nameof(ShowLabels), typeof(bool), typeof(ChartSeries), new PropertyMetadata(false, OnShowLabelsChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSource"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(object), typeof(ChartSeries), new PropertyMetadata(null, OnItemsSourceChanged));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(ChartSeries), new PropertyMetadata(null, OnItemsSourceChanged));
 
         /// <summary>
         /// Identifies the <see cref="ClipToPlotArea"/> property.
         /// </summary>
         public static readonly DependencyProperty ClipToPlotAreaProperty =
-            DependencyProperty.Register("ClipToPlotArea", typeof(bool), typeof(ChartSeries), new PropertyMetadata(true, OnClipToPlotAreaChanged));
+            DependencyProperty.Register(nameof(ClipToPlotArea), typeof(bool), typeof(ChartSeries), new PropertyMetadata(true, OnClipToPlotAreaChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsSelectedBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty IsSelectedBindingProperty =
-            DependencyProperty.Register("IsSelectedBinding", typeof(DataPointBinding), typeof(ChartSeries), new PropertyMetadata(null, OnIsSelectedBindingChanged));
+            DependencyProperty.Register(nameof(IsSelectedBinding), typeof(DataPointBinding), typeof(ChartSeries), new PropertyMetadata(null, OnIsSelectedBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="PaletteIndex"/> property.
         /// </summary>
         public static readonly DependencyProperty PaletteIndexProperty =
-            DependencyProperty.Register("PaletteIndex", typeof(int), typeof(ChartSeries), new PropertyMetadata(-1, OnPaletteIndexChanged));
+            DependencyProperty.Register(nameof(PaletteIndex), typeof(int), typeof(ChartSeries), new PropertyMetadata(-1, OnPaletteIndexChanged));
 
         internal ChartSeriesDataSource dataSource;
         internal TranslateTransform plotOriginTransform;

@@ -10,25 +10,25 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="FrozenColumnCount"/> dependency property. 
         /// </summary> 
         public static readonly DependencyProperty FrozenColumnCountProperty =
-            DependencyProperty.Register("FrozenColumnCount", typeof(int), typeof(RadDataGrid), new PropertyMetadata(0, OnFrozenColumnCountChanged));
+            DependencyProperty.Register(nameof(FrozenColumnCount), typeof(int), typeof(RadDataGrid), new PropertyMetadata(0, OnFrozenColumnCountChanged));
 
         /// <summary>
         /// Identifies the <see cref="AutoGenerateColumns"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty AutoGenerateColumnsProperty =
-            DependencyProperty.Register("AutoGenerateColumns", typeof(bool), typeof(RadDataGrid), new PropertyMetadata(true, OnAutoGenerateColumnsChanged));
+            DependencyProperty.Register(nameof(AutoGenerateColumns), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(true, OnAutoGenerateColumnsChanged));
 
         /// <summary>
         /// Identifies the <see cref="ColumnHeaderActionMode"/> dependency property. 
         /// </summary> 
         public static readonly DependencyProperty ColumnDataOperationsModeProperty =
-            DependencyProperty.Register("ColumnDataOperationsMode", typeof(ColumnDataOperationsMode), typeof(RadDataGrid), new PropertyMetadata(ColumnDataOperationsMode.Inline, OnColumnDataOperationsModeChanged));
+            DependencyProperty.Register(nameof(ColumnDataOperationsMode), typeof(ColumnDataOperationsMode), typeof(RadDataGrid), new PropertyMetadata(ColumnDataOperationsMode.Inline, OnColumnDataOperationsModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="CanUserChooseColumns"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty CanUserChooseColumnsProperty =
-            DependencyProperty.Register("CanUserChooseColumns", typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false, OnCanUserChooseColumnsChanged));
+            DependencyProperty.Register(nameof(CanUserChooseColumns), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false, OnCanUserChooseColumnsChanged));
 
         private static void OnCanUserChooseColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

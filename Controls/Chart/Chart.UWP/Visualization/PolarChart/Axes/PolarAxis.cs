@@ -15,19 +15,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="MajorStep"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MajorStepProperty =
-            DependencyProperty.Register("MajorStep", typeof(double), typeof(PolarAxis), new PropertyMetadata(0d, OnMajorStepChanged));
+            DependencyProperty.Register(nameof(MajorStep), typeof(double), typeof(PolarAxis), new PropertyMetadata(0d, OnMajorStepChanged));
 
         /// <summary>
         /// Identifies the <see cref="Minimum"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MinimumProperty =
-            DependencyProperty.Register("Minimum", typeof(double), typeof(PolarAxis), new PropertyMetadata(double.NegativeInfinity, OnMinimumChanged));
+            DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(PolarAxis), new PropertyMetadata(double.NegativeInfinity, OnMinimumChanged));
 
         /// <summary>
         /// Identifies the <see cref="Maximum"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MaximumProperty =
-            DependencyProperty.Register("Maximum", typeof(double), typeof(PolarAxis), new PropertyMetadata(double.PositiveInfinity, OnMaximumChanged));
+            DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(PolarAxis), new PropertyMetadata(double.PositiveInfinity, OnMaximumChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolarAxis"/> class.

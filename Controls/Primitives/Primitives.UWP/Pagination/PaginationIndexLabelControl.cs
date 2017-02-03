@@ -17,31 +17,31 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Pagination
         /// Identifies the <see cref="Separator"/> dependency property.
         /// </summary>  
         public static readonly DependencyProperty SeparatorProperty =
-            DependencyProperty.Register("Separator", typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(" / "));
+            DependencyProperty.Register(nameof(Separator), typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(" / "));
 
         /// <summary>
         /// Identifies the <see cref="ItemCountFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemCountFormatProperty =
-            DependencyProperty.Register("ItemCountFormat", typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemCountFormat), typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="CurrentIndexFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CurrentIndexFormatProperty =
-            DependencyProperty.Register("CurrentIndexFormat", typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CurrentIndexFormat), typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemCountDisplayValue"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemCountDisplayValueProperty =
-            DependencyProperty.Register("ItemCountDisplayValue", typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemCountDisplayValue), typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="CurrentIndexDisplayValue"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CurrentIndexDisplayValueProperty =
-            DependencyProperty.Register("CurrentIndexDisplayValue", typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CurrentIndexDisplayValue), typeof(string), typeof(PaginationIndexLabelControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PaginationIndexLabelControl"/> class.

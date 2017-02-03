@@ -65,7 +65,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             element.SetValue(ApplyInteractionExplicitlyProperty, value);
@@ -79,7 +79,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             return (bool)element.GetValue(ApplyInteractionExplicitlyProperty);
@@ -92,7 +92,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             element.SetValue(IsInteractionEnabledProperty, value);
@@ -106,7 +106,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             return (bool)element.GetValue(IsInteractionEnabledProperty);
@@ -119,7 +119,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             element.SetValue(InteractionProperty, value);
@@ -132,7 +132,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             return (InteractionEffectBase)element.GetValue(InteractionProperty);
@@ -145,7 +145,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             InteractionEffectBase effect = GetInteraction(element);

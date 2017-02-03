@@ -69,7 +69,7 @@ namespace Telerik.Core
         {
             if (node == null)
             {
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             }
 
             this.InsertCore(this.list.Count, node);
@@ -79,7 +79,7 @@ namespace Telerik.Core
         {
             if (node == null)
             {
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             }
 
             int index = this.IndexOf(node);
@@ -96,7 +96,7 @@ namespace Telerik.Core
         {
             if (index < 0 || index >= this.list.Count)
             {
-                throw new IndexOutOfRangeException("index");
+                throw new IndexOutOfRangeException(nameof(index));
             }
 
             this.RemoveCore(index);
@@ -124,7 +124,7 @@ namespace Telerik.Core
 
             if (node == null)
             {
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             }
 
             this.InsertCore(index, node);
@@ -137,7 +137,7 @@ namespace Telerik.Core
         {
             if (node == null)
             {
-                throw new ArgumentNullException("node");
+                throw new ArgumentNullException(nameof(node));
             }
 
             if (node.parent == this.owner)

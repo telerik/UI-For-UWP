@@ -6,7 +6,7 @@ namespace Telerik.Core
     /// <summary>
     /// Represents a Rectangle in the Euclidean plane geometry.
     /// </summary>
-    [DebuggerDisplay("{X}, {Y}, {Width}, {Height}")]
+    [DebuggerDisplay(nameof(X) + ", " + nameof(Y) + ", " + nameof(Width) + ", " + nameof(Height))]
     public struct RadRect
     {
         /// <summary>
@@ -22,13 +22,13 @@ namespace Telerik.Core
         /// <summary>
         /// The X-coordinate of the rectangle.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = nameof(X))]
         public double X;
 
         /// <summary>
         /// The Y-coordinate of the rectangle.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = nameof(Y))]
         public double Y;
 
         /// <summary>

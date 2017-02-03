@@ -17,37 +17,37 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="TickFrequency"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TickFrequencyProperty =
-            DependencyProperty.Register("TickFrequency", typeof(double), typeof(SliderBase), new PropertyMetadata(1d, OnTickFrequencyChanged));
+            DependencyProperty.Register(nameof(TickFrequency), typeof(double), typeof(SliderBase), new PropertyMetadata(1d, OnTickFrequencyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Orientation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(SliderBase), new PropertyMetadata(Orientation.Horizontal, OnOrientationChanged));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(SliderBase), new PropertyMetadata(Orientation.Horizontal, OnOrientationChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectionStart"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectionStartProperty =
-            DependencyProperty.Register("SelectionStart", typeof(double), typeof(SliderBase), new PropertyMetadata(4d, OnSelectionStartChanged));
+            DependencyProperty.Register(nameof(SelectionStart), typeof(double), typeof(SliderBase), new PropertyMetadata(4d, OnSelectionStartChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectionEnd"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectionEndProperty =
-            DependencyProperty.Register("SelectionEnd", typeof(double), typeof(SliderBase), new PropertyMetadata(6d, OnSelectionEndChanged));
+            DependencyProperty.Register(nameof(SelectionEnd), typeof(double), typeof(SliderBase), new PropertyMetadata(6d, OnSelectionEndChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsDeferredDraggingEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsDeferredDraggingEnabledProperty =
-            DependencyProperty.Register("IsDeferredDraggingEnabled", typeof(bool), typeof(SliderBase), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsDeferredDraggingEnabled), typeof(bool), typeof(SliderBase), new PropertyMetadata(false));
 
         /// <summary>
         /// Identifies the <see cref="SnapsTo"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SnapsToProperty =
-            DependencyProperty.Register("SnapsTo", typeof(SnapsTo), typeof(SliderBase), new PropertyMetadata(SnapsTo.None, OnSnapsToPropertyChanged));
+            DependencyProperty.Register(nameof(SnapsTo), typeof(SnapsTo), typeof(SliderBase), new PropertyMetadata(SnapsTo.None, OnSnapsToPropertyChanged));
 
         // TODO: Rethink the naming and consider whether the property is needed
 
@@ -55,25 +55,25 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="TrackTapMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TrackTapModeProperty =
-            DependencyProperty.Register("TrackTapMode", typeof(RangeSliderTrackTapMode), typeof(SliderBase), new PropertyMetadata(RangeSliderTrackTapMode.IncrementByLargeChange));
+            DependencyProperty.Register(nameof(TrackTapMode), typeof(RangeSliderTrackTapMode), typeof(SliderBase), new PropertyMetadata(RangeSliderTrackTapMode.IncrementByLargeChange));
 
         /// <summary>
         /// Identifies the <see cref="ShowValueToolTip"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShowValueToolTipProperty =
-           DependencyProperty.Register("ShowValueToolTip", typeof(bool), typeof(SliderBase), new PropertyMetadata(true, OnShowValueToolTipPropertyChanged));
+           DependencyProperty.Register(nameof(ShowValueToolTip), typeof(bool), typeof(SliderBase), new PropertyMetadata(true, OnShowValueToolTipPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShowRangeToolTip"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShowRangeToolTipProperty =
-           DependencyProperty.Register("ShowRangeToolTip", typeof(bool), typeof(SliderBase), new PropertyMetadata(true));
+           DependencyProperty.Register(nameof(ShowRangeToolTip), typeof(bool), typeof(SliderBase), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="ToolTipFormat"/> property.
         /// </summary>
         public static readonly DependencyProperty ToolTipFormatProperty =
-            DependencyProperty.Register("ToolTipFormat", typeof(string), typeof(SliderBase), new PropertyMetadata("{0:0.00}"));
+            DependencyProperty.Register(nameof(ToolTipFormat), typeof(string), typeof(SliderBase), new PropertyMetadata("{0:0.00}"));
 
         /// <summary>
         /// Gets or sets the logical tick frequency of the scale.

@@ -14,19 +14,19 @@ namespace Telerik.UI.Xaml.Controls
         /// Identifies the <see cref="Header"/> property.
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), typeof(RadHeaderedControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RadHeaderedControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="HeaderTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty HeaderTemplateProperty =
-            DependencyProperty.Register("HeaderTemplate", typeof(DataTemplate), typeof(RadHeaderedControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HeaderTemplate), typeof(DataTemplate), typeof(RadHeaderedControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="HeaderStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty HeaderStyleProperty =
-            DependencyProperty.Register("HeaderStyle", typeof(Style), typeof(RadHeaderedControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(HeaderStyle), typeof(Style), typeof(RadHeaderedControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the object that represents the header content.

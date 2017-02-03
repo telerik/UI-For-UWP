@@ -18,88 +18,88 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
         /// Identifies the <see cref="PressedBackgroundBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PressedBackgroundBrushProperty =
-            DependencyProperty.Register("PressedBackgroundBrush", typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PressedBackgroundBrush), typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="PressedForegroundBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PressedForegroundBrushProperty =
-            DependencyProperty.Register("PressedForegroundBrush", typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PressedForegroundBrush), typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="PressedBorderBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PressedBorderBrushProperty =
-            DependencyProperty.Register("PressedBorderBrush", typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PressedBorderBrush), typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="PointerOverBackgroundBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PointerOverBackgroundBrushProperty =
-            DependencyProperty.Register("PointerOverBackgroundBrush", typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PointerOverBackgroundBrush), typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="PointerOverForegroundBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PointerOverForegroundBrushProperty =
-            DependencyProperty.Register("PointerOverForegroundBrush", typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PointerOverForegroundBrush), typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="PointerOverBorderBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PointerOverBorderBrushProperty =
-            DependencyProperty.Register("PointerOverBorderBrush", typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PointerOverBorderBrush), typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DisabledBackgroundBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisabledBackgroundBrushProperty =
-            DependencyProperty.Register("DisabledBackgroundBrush", typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DisabledBackgroundBrush), typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DisabledForegroundBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisabledForegroundBrushProperty =
-            DependencyProperty.Register("DisabledForegroundBrush", typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DisabledForegroundBrush), typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DisabledBorderBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisabledBorderBrushProperty =
-            DependencyProperty.Register("DisabledBorderBrush", typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DisabledBorderBrush), typeof(Brush), typeof(InlineButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="RepeatDelay"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RepeatDelayProperty =
-            DependencyProperty.Register("RepeatDelay", typeof(int), typeof(InlineButton), new PropertyMetadata(250, OnRepeatDelayChanged));
+            DependencyProperty.Register(nameof(RepeatDelay), typeof(int), typeof(InlineButton), new PropertyMetadata(250, OnRepeatDelayChanged));
 
         /// <summary>
         /// Identifies the <see cref="RepeatInterval"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RepeatIntervalProperty =
-            DependencyProperty.Register("RepeatInterval", typeof(int), typeof(InlineButton), new PropertyMetadata(50, OnRepeatIntervalChanged));
+            DependencyProperty.Register(nameof(RepeatInterval), typeof(int), typeof(InlineButton), new PropertyMetadata(50, OnRepeatIntervalChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsRepeatingEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsRepeatingEnabledProperty =
-            DependencyProperty.Register("IsRepeatingEnabled", typeof(bool), typeof(InlineButton), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsRepeatingEnabled), typeof(bool), typeof(InlineButton), new PropertyMetadata(false));
 
         public static readonly DependencyProperty IconSourceProperty =
-          DependencyProperty.Register("IconSource", typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
+          DependencyProperty.Register(nameof(IconSource), typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
 
         public static readonly DependencyProperty PressedIconSourceProperty =
-            DependencyProperty.Register("PressedIconSource", typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PressedIconSource), typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
 
         public static readonly DependencyProperty PointerOverIconSourceProperty =
-            DependencyProperty.Register("PointerOverIconSource", typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PointerOverIconSource), typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
 
         public static readonly DependencyProperty DisabledIconSourceProperty =
-           DependencyProperty.Register("DisabledIconSource", typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
+           DependencyProperty.Register(nameof(DisabledIconSource), typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
 
         public static readonly DependencyProperty IconStyleProperty =
-            DependencyProperty.Register("IconStyle", typeof(Style), typeof(InlineButton), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(IconStyle), typeof(Style), typeof(InlineButton), new PropertyMetadata(null));
 
         private DispatcherTimer repeatTimer;
         private bool currentlyRepeating;

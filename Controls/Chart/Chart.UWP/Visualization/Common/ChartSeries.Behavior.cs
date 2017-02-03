@@ -14,13 +14,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="IsSelected"/> property.
         /// </summary>
         public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register("IsSelected", typeof(bool), typeof(ChartSeries), new PropertyMetadata(false, OnIsSelectedChanged));
+            DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(ChartSeries), new PropertyMetadata(false, OnIsSelectedChanged));
 
         /// <summary>
         /// Identifies the <see cref="AllowSelect"/> property.
         /// </summary>
         public static readonly DependencyProperty AllowSelectProperty =
-            DependencyProperty.Register("AllowSelect", typeof(bool), typeof(ChartSeries), new PropertyMetadata(false, OnAllowSelectChanged));
+            DependencyProperty.Register(nameof(AllowSelect), typeof(bool), typeof(ChartSeries), new PropertyMetadata(false, OnAllowSelectChanged));
 
         private bool isSelectedCache;
         private bool allowSelectCache;

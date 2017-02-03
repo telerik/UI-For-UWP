@@ -17,13 +17,13 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="AttributeName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AttributeNameProperty =
-            DependencyProperty.Register("AttributeName", typeof(string), typeof(ChoroplethColorizer), new PropertyMetadata(null, new PropertyChangedCallback(OnAttributeNamePropertyChanged)));
+            DependencyProperty.Register(nameof(AttributeName), typeof(string), typeof(ChoroplethColorizer), new PropertyMetadata(null, new PropertyChangedCallback(OnAttributeNamePropertyChanged)));
 
         /// <summary>
         /// Identifies the <see cref="RangeDistribution"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RangeDistributionProperty =
-            DependencyProperty.Register("RangeDistribution", typeof(ChoroplethRangeDistribution), typeof(ChoroplethColorizer), new PropertyMetadata(null, OnRangeDistributionPropertyChanged));
+            DependencyProperty.Register(nameof(RangeDistribution), typeof(ChoroplethRangeDistribution), typeof(ChoroplethColorizer), new PropertyMetadata(null, OnRangeDistributionPropertyChanged));
 
         private string attributeNameCache;
         private ValueRange<double> actualRange;

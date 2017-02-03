@@ -19,85 +19,85 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
         /// Defines the <see cref="Orientation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(RadLoopingList), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(RadLoopingList), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
 
         /// <summary>
         /// Defines the <see cref="IsLoopingEnabled"/> property.
         /// </summary>
         public static readonly DependencyProperty IsLoopingEnabledProperty =
-            DependencyProperty.Register("IsLoopingEnabled", typeof(bool), typeof(RadLoopingList), new PropertyMetadata(true, OnIsLoopingEnabledChanged));
+            DependencyProperty.Register(nameof(IsLoopingEnabled), typeof(bool), typeof(RadLoopingList), new PropertyMetadata(true, OnIsLoopingEnabledChanged));
 
         /// <summary>
         /// Defines <see cref="SnapOffsetCorrection"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SnapOffsetCorrectionProperty =
-            DependencyProperty.Register("SnapOffsetCorrection", typeof(double), typeof(RadLoopingList), new PropertyMetadata(0d, OnSnapOffsetCorrectionChanged));
+            DependencyProperty.Register(nameof(SnapOffsetCorrection), typeof(double), typeof(RadLoopingList), new PropertyMetadata(0d, OnSnapOffsetCorrectionChanged));
 
         /// <summary>
         /// Defines the <see cref="CenteredItemSnapPosition"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CenteredItemSnapPositionProperty =
-            DependencyProperty.Register("CenteredItemSnapPosition", typeof(LoopingListItemSnapPosition), typeof(RadLoopingList), new PropertyMetadata(LoopingListItemSnapPosition.Middle, OnCenteredItemSnapPositionChanged));
+            DependencyProperty.Register(nameof(CenteredItemSnapPosition), typeof(LoopingListItemSnapPosition), typeof(RadLoopingList), new PropertyMetadata(LoopingListItemSnapPosition.Middle, OnCenteredItemSnapPositionChanged));
 
         /// <summary>
         /// Defines the <see cref="IsCentered"/> property.
         /// </summary>
         public static readonly DependencyProperty IsCenteredProperty =
-            DependencyProperty.Register("IsCentered", typeof(bool), typeof(RadLoopingList), new PropertyMetadata(false, OnIsCenteredChanged));
+            DependencyProperty.Register(nameof(IsCentered), typeof(bool), typeof(RadLoopingList), new PropertyMetadata(false, OnIsCenteredChanged));
 
         /// <summary>
         /// Defines the <see cref="IsExpanded"/> property.
         /// </summary>
         public static readonly DependencyProperty IsExpandedProperty =
-            DependencyProperty.Register("IsExpanded", typeof(bool), typeof(RadLoopingList), new PropertyMetadata(true, OnIsExpandedChanged));
+            DependencyProperty.Register(nameof(IsExpanded), typeof(bool), typeof(RadLoopingList), new PropertyMetadata(true, OnIsExpandedChanged));
 
         /// <summary>
         /// Defines the <see cref="SelectedIndex"/> property.
         /// </summary>
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(RadLoopingList), new PropertyMetadata(-1, OnSelectedIndexChanged));
+            DependencyProperty.Register(nameof(SelectedIndex), typeof(int), typeof(RadLoopingList), new PropertyMetadata(-1, OnSelectedIndexChanged));
 
         /// <summary>
         /// Defines the <see cref="ItemHeight"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double), typeof(RadLoopingList), new PropertyMetadata(138d, OnItemHeightChanged));
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(RadLoopingList), new PropertyMetadata(138d, OnItemHeightChanged));
 
         /// <summary>
         /// Defines the <see cref="ItemWidth"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double), typeof(RadLoopingList), new PropertyMetadata(138d, OnItemWidthChanged));
+            DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(RadLoopingList), new PropertyMetadata(138d, OnItemWidthChanged));
 
         /// <summary>
         /// Defines the <see cref="ItemSpacing"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemSpacingProperty =
-            DependencyProperty.Register("ItemSpacing", typeof(double), typeof(RadLoopingList), new PropertyMetadata(6d, OnItemSpacingChanged));
+            DependencyProperty.Register(nameof(ItemSpacing), typeof(double), typeof(RadLoopingList), new PropertyMetadata(6d, OnItemSpacingChanged));
 
         /// <summary>
         /// Defines the <see cref="ItemTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(RadLoopingList), new PropertyMetadata(null, OnItemTemplateChanged));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(RadLoopingList), new PropertyMetadata(null, OnItemTemplateChanged));
 
         /// <summary>
         /// Identifies the SpecialDayTemplateSelector dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateSelectorProperty =
-            DependencyProperty.Register("ItemTemplateSelector", typeof(DataTemplateSelector), typeof(RadLoopingList), new PropertyMetadata(null, OnItemTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(ItemTemplateSelector), typeof(DataTemplateSelector), typeof(RadLoopingList), new PropertyMetadata(null, OnItemTemplateSelectorChanged));
 
         /// <summary>
         /// Defines the <see cref="ItemStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemStyleProperty =
-            DependencyProperty.Register("ItemStyle", typeof(Style), typeof(RadLoopingList), new PropertyMetadata(null, OnItemStyleChanged));
+            DependencyProperty.Register(nameof(ItemStyle), typeof(Style), typeof(RadLoopingList), new PropertyMetadata(null, OnItemStyleChanged));
 
         /// <summary>
         /// Defines the <see cref="ItemsSource"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IList), typeof(RadLoopingList), new PropertyMetadata(null, OnItemsSourceChanged));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(IList), typeof(RadLoopingList), new PropertyMetadata(null, OnItemsSourceChanged));
 
         internal LoopingPanel itemsPanel;
         private LoopingListSelectionChangeReason selectionChangeReason = LoopingListSelectionChangeReason.User;

@@ -15,13 +15,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="ValueBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty ValueBindingProperty =
-            DependencyProperty.Register("ValueBinding", typeof(DataPointBinding), typeof(BarIndicatorBase), new PropertyMetadata(null, OnValueBindingChanged));
+            DependencyProperty.Register(nameof(ValueBinding), typeof(DataPointBinding), typeof(BarIndicatorBase), new PropertyMetadata(null, OnValueBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="DefaultVisualStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty DefaultVisualStyleProperty = 
-            DependencyProperty.Register("DefaultVisualStyle", typeof(Style), typeof(BarIndicatorBase), new PropertyMetadata(null, OnDefaultVisualStyleChanged));
+            DependencyProperty.Register(nameof(DefaultVisualStyle), typeof(Style), typeof(BarIndicatorBase), new PropertyMetadata(null, OnDefaultVisualStyleChanged));
 
         internal Style defaultVisualStyleCache;
         internal List<FrameworkElement> realizedDataPoints;

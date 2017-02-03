@@ -16,25 +16,25 @@ namespace Telerik.UI.Xaml.Controls.Primitives.HubTile
         /// Identifies the FrontContent dependency property.
         /// </summary>
         public static readonly DependencyProperty FrontContentProperty =
-            DependencyProperty.Register("FrontContent", typeof(object), typeof(MosaicTilePart), new PropertyMetadata(null, OnFrontContentChanged));
+            DependencyProperty.Register(nameof(FrontContent), typeof(object), typeof(MosaicTilePart), new PropertyMetadata(null, OnFrontContentChanged));
 
         /// <summary>
         /// Identifies the FrontContent dependency property.
         /// </summary>
         public static readonly DependencyProperty BackContentProperty =
-            DependencyProperty.Register("BackContent", typeof(object), typeof(MosaicTilePart), new PropertyMetadata(null, OnBackContentChanged));
+            DependencyProperty.Register(nameof(BackContent), typeof(object), typeof(MosaicTilePart), new PropertyMetadata(null, OnBackContentChanged));
 
         /// <summary>
         /// Identifies the FrontContentTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty FrontContentTemplateProperty =
-            DependencyProperty.Register("FrontContentTemplate", typeof(DataTemplate), typeof(MosaicTilePart), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(FrontContentTemplate), typeof(DataTemplate), typeof(MosaicTilePart), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the BackContentTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty BackContentTemplateProperty =
-            DependencyProperty.Register("BackContentTemplate", typeof(DataTemplate), typeof(MosaicTilePart), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(BackContentTemplate), typeof(DataTemplate), typeof(MosaicTilePart), new PropertyMetadata(null));
 
         private bool isInFrontState;
 

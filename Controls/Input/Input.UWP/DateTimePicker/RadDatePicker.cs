@@ -27,19 +27,19 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="DayStepBehavior"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DayStepBehaviorProperty =
-            DependencyProperty.Register("DayStepBehavior", typeof(StepBehavior), typeof(RadDatePicker), new PropertyMetadata(StepBehavior.Multiples, OnDayStepBehaviorChanged));
+            DependencyProperty.Register(nameof(DayStepBehavior), typeof(StepBehavior), typeof(RadDatePicker), new PropertyMetadata(StepBehavior.Multiples, OnDayStepBehaviorChanged));
 
         /// <summary>
         /// Identifies the <see cref="MonthStepBehavior"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MonthStepBehaviorProperty =
-            DependencyProperty.Register("MonthStepBehavior", typeof(StepBehavior), typeof(RadDatePicker), new PropertyMetadata(StepBehavior.Multiples, OnMonthStepBehaviorChanged));
+            DependencyProperty.Register(nameof(MonthStepBehavior), typeof(StepBehavior), typeof(RadDatePicker), new PropertyMetadata(StepBehavior.Multiples, OnMonthStepBehaviorChanged));
 
         /// <summary>
         /// Identifies the <see cref="YearStepBehavior"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty YearStepBehaviorProperty =
-            DependencyProperty.Register("YearStepBehavior", typeof(StepBehavior), typeof(RadDatePicker), new PropertyMetadata(StepBehavior.Multiples, OnYearStepBehaviorChanged));
+            DependencyProperty.Register(nameof(YearStepBehavior), typeof(StepBehavior), typeof(RadDatePicker), new PropertyMetadata(StepBehavior.Multiples, OnYearStepBehaviorChanged));
 
         private const string DefaultSelectorFormat = "mdy";
 

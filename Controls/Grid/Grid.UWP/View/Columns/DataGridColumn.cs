@@ -19,86 +19,86 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="Width"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WidthProperty =
-            DependencyProperty.Register("Width", typeof(double), typeof(DataGridColumn), new PropertyMetadata(100d, OnWidthChanged));
+            DependencyProperty.Register(nameof(Width), typeof(double), typeof(DataGridColumn), new PropertyMetadata(100d, OnWidthChanged));
 
         /// <summary>
         /// Identifies the <see cref="SizeMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SizeModeProperty =
-            DependencyProperty.Register("SizeMode", typeof(DataGridColumnSizeMode), typeof(DataGridColumn), new PropertyMetadata(DataGridColumnSizeMode.Stretch, OnSizeModeChanged));
+            DependencyProperty.Register(nameof(SizeMode), typeof(DataGridColumnSizeMode), typeof(DataGridColumn), new PropertyMetadata(DataGridColumnSizeMode.Stretch, OnSizeModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="Header"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), typeof(DataGridColumn), new PropertyMetadata(null, OnHeaderChanged));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(DataGridColumn), new PropertyMetadata(null, OnHeaderChanged));
 
         /// <summary>
         /// Identifies the <see cref="SortDirection"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SortDirectionProperty =
-            DependencyProperty.Register("SortDirection", typeof(SortDescription), typeof(DataGridColumn), new PropertyMetadata(SortDirection.None));
+            DependencyProperty.Register(nameof(SortDirection), typeof(SortDescription), typeof(DataGridColumn), new PropertyMetadata(SortDirection.None));
 
         /// <summary>
         /// Identifies the <see cref="HeaderStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderStyleProperty =
-            DependencyProperty.Register("HeaderStyle", typeof(Style), typeof(DataGridColumn), new PropertyMetadata(null, OnHeaderStyleChanged));
+            DependencyProperty.Register(nameof(HeaderStyle), typeof(Style), typeof(DataGridColumn), new PropertyMetadata(null, OnHeaderStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="CanUserGroup"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CanUserGroupProperty =
-            DependencyProperty.Register("CanUserGroup", typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanUserGroup), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="CanUserFilter"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CanUserFilterProperty =
-            DependencyProperty.Register("CanUserFilter", typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true, OnCanUserFilterChanged));
+            DependencyProperty.Register(nameof(CanUserFilter), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true, OnCanUserFilterChanged));
 
         /// <summary>
         /// Identifies the <see cref="CanUserSort"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CanUserSortProperty =
-            DependencyProperty.Register("CanUserSort", typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true, OnCanUserSortChanged));
+            DependencyProperty.Register(nameof(CanUserSort), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true, OnCanUserSortChanged));
 
         /// <summary>
         /// Identifies the <see cref="CanUserResize"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CanUserResizeProperty =
-            DependencyProperty.Register("CanUserResize", typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanUserResize), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="CanUserReorder"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CanUserReorderProperty =
-            DependencyProperty.Register("CanUserReorder", typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanUserReorder), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="CanUserEdit"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CanUserEditProperty =
-            DependencyProperty.Register("CanUserEdit", typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanUserEdit), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="Name"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(DataGridColumn), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Name), typeof(string), typeof(DataGridColumn), new PropertyMetadata(null));
 
 
         /// <summary>
         /// Identifies the <see cref="DataOperationsFlyoutTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DataOperationsFlyoutTemplateProperty =
-            DependencyProperty.Register("DataOperationsFlyoutTemplate", typeof(DataTemplate), typeof(DataGridColumn), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DataOperationsFlyoutTemplate), typeof(DataTemplate), typeof(DataGridColumn), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="IsVisible"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsVisibleProperty =
-            DependencyProperty.Register("IsVisible", typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true, OnIsVisibleChanged));    
+            DependencyProperty.Register(nameof(IsVisible), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true, OnIsVisibleChanged));    
         
 
         internal int CollectionIndex;

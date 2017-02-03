@@ -20,7 +20,7 @@ namespace Telerik.Data.Core
         {
             if (parent == null)
             {
-                throw new ArgumentNullException("parent");
+                throw new ArgumentNullException(nameof(parent));
             }
 
             this.Parent = parent;

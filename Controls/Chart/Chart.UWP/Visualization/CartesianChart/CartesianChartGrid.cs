@@ -22,19 +22,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="MajorXLineStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty MajorXLineStyleProperty =
-            DependencyProperty.Register("MajorXLineStyle", typeof(Style), typeof(CartesianChartGrid), new PropertyMetadata(null, OnMajorXLineStyleChanged));
+            DependencyProperty.Register(nameof(MajorXLineStyle), typeof(Style), typeof(CartesianChartGrid), new PropertyMetadata(null, OnMajorXLineStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="MajorYLineStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty MajorYLineStyleProperty =
-            DependencyProperty.Register("MajorYLineStyle", typeof(Style), typeof(CartesianChartGrid), new PropertyMetadata(null, OnMajorYLineStyleChanged));
+            DependencyProperty.Register(nameof(MajorYLineStyle), typeof(Style), typeof(CartesianChartGrid), new PropertyMetadata(null, OnMajorYLineStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="MajorLinesVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MajorLinesVisibilityProperty =
-            DependencyProperty.Register("MajorLinesVisibility", typeof(GridLineVisibility), typeof(CartesianChartGrid), new PropertyMetadata(GridLineVisibility.None, OnMajorLinesVisibilityChanged));
+            DependencyProperty.Register(nameof(MajorLinesVisibility), typeof(GridLineVisibility), typeof(CartesianChartGrid), new PropertyMetadata(GridLineVisibility.None, OnMajorLinesVisibilityChanged));
 
         internal CartesianChartGridModel grid;
         internal List<Rectangle> xStripes;

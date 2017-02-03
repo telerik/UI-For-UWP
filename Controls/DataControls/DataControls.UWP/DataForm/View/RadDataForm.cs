@@ -23,7 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for LayoutDefinition.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LayoutDefinitionProperty =
-            DependencyProperty.Register("LayoutDefinition", typeof(DataFormLayoutDefinition), typeof(RadDataForm), new PropertyMetadata(null, OnLayoutDefinitionChanged));
+            DependencyProperty.Register(nameof(LayoutDefinition), typeof(DataFormLayoutDefinition), typeof(RadDataForm), new PropertyMetadata(null, OnLayoutDefinitionChanged));
 
         private static void OnLayoutDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -53,14 +53,14 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ValidationMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValidationModeProperty =
-            DependencyProperty.Register("ValidationMode", typeof(ValidationMode), typeof(RadDataForm), new PropertyMetadata(ValidationMode.OnCommit));
+            DependencyProperty.Register(nameof(ValidationMode), typeof(ValidationMode), typeof(RadDataForm), new PropertyMetadata(ValidationMode.OnCommit));
 
         // Using a DependencyProperty as the backing store for PropertyIteratorMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PropertyIteratorModeProperty =
-            DependencyProperty.Register("PropertyIteratorMode", typeof(PropertyIteratorMode), typeof(RadDataForm), new PropertyMetadata(PropertyIteratorMode.All, OnPropertyIteratorModeChanged));
+            DependencyProperty.Register(nameof(PropertyIteratorMode), typeof(PropertyIteratorMode), typeof(RadDataForm), new PropertyMetadata(PropertyIteratorMode.All, OnPropertyIteratorModeChanged));
 
         public static readonly DependencyProperty ItemProperty =
-            DependencyProperty.Register("Item", typeof(object), typeof(RadDataForm), new PropertyMetadata(null, OnItemChanged));
+            DependencyProperty.Register(nameof(Item), typeof(object), typeof(RadDataForm), new PropertyMetadata(null, OnItemChanged));
 
 
 
@@ -72,11 +72,11 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for EditorFactory.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EditorFactoryProperty =
-            DependencyProperty.Register("EditorFactory", typeof(EditorFactory), typeof(RadDataForm), new PropertyMetadata(null, OnEditorFactoryChanged));
+            DependencyProperty.Register(nameof(EditorFactory), typeof(EditorFactory), typeof(RadDataForm), new PropertyMetadata(null, OnEditorFactoryChanged));
 
         // Using a DependencyProperty as the backing store for IsReadOnly.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsReadOnlyProperty =
-            DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(RadDataForm), new PropertyMetadata(false, OnIsReadOnlyChanged));
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(RadDataForm), new PropertyMetadata(false, OnIsReadOnlyChanged));
 
         public DataTemplateSelector GroupHeaderTemplateSelector
         {
@@ -86,11 +86,11 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for GroupHeaderTemplateSelector.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty GroupHeaderTemplateSelectorProperty =
-            DependencyProperty.Register("GroupHeaderTemplateSelector", typeof(DataTemplateSelector), typeof(RadDataForm), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(GroupHeaderTemplateSelector), typeof(DataTemplateSelector), typeof(RadDataForm), new PropertyMetadata(null));
 
         // Using a DependencyProperty as the backing store for EditorStyleSelector.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EditorStyleSelectorProperty =
-            DependencyProperty.Register("EditorStyleSelector", typeof(StyleSelector), typeof(RadDataForm), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(EditorStyleSelector), typeof(StyleSelector), typeof(RadDataForm), new PropertyMetadata(null));
 
         public StyleSelector EditorStyleSelector
         {
@@ -100,7 +100,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ValidatorProvider.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EntityProviderProperty =
-            DependencyProperty.Register("EntityProvider", typeof(EntityProvider), typeof(RadDataForm), new PropertyMetadata(null, OnEntityProviderChanged));
+            DependencyProperty.Register(nameof(EntityProvider), typeof(EntityProvider), typeof(RadDataForm), new PropertyMetadata(null, OnEntityProviderChanged));
 
         private static void OnEntityProviderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -168,7 +168,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ValidationMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommitModeProperty =
-            DependencyProperty.Register("CommitMode", typeof(CommitMode), typeof(RadDataForm), new PropertyMetadata(CommitMode.Immediate, OnCommitModeChanged));
+            DependencyProperty.Register(nameof(CommitMode), typeof(CommitMode), typeof(RadDataForm), new PropertyMetadata(CommitMode.Immediate, OnCommitModeChanged));
 
         private static void OnCommitModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -61,7 +61,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             base.Input(start, selectionLength, inputText);
 
             this.BuildFilteredItems(clear);
-            this.OnPropertyChanged("FilteredItems");
+            this.OnPropertyChanged(nameof(FilteredItems));
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             if (!string.IsNullOrEmpty(this.InputString))
             {
                 this.BuildFilteredItems(true);
-                this.OnPropertyChanged("FilteredItems");
+                this.OnPropertyChanged(nameof(FilteredItems));
             }
         }
 
@@ -93,7 +93,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             if (!string.IsNullOrEmpty(this.InputString))
             {
                 this.BuildFilteredItems(true);
-                this.OnPropertyChanged("FilteredItems");
+                this.OnPropertyChanged(nameof(FilteredItems));
             }
         }
 

@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="CategoryPath"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CategoryPathProperty =
-            DependencyProperty.Register("CategoryPath", typeof(string), typeof(CategoricalSeriesDescriptorBase), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CategoryPath), typeof(string), typeof(CategoricalSeriesDescriptorBase), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the name of the property that points to the Category value of the data point view model.

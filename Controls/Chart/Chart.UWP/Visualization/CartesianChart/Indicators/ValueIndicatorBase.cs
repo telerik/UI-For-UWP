@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="ValueBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty ValueBindingProperty =
-            DependencyProperty.Register("ValueBinding", typeof(DataPointBinding), typeof(ValueIndicatorBase), new PropertyMetadata(null, OnValueBindingChanged));
+            DependencyProperty.Register(nameof(ValueBinding), typeof(DataPointBinding), typeof(ValueIndicatorBase), new PropertyMetadata(null, OnValueBindingChanged));
 
         /// <summary>
         /// Gets or sets the binding that will be used to fill the <see cref="SingleValueDataPoint.Value"/> member of the contained data points.

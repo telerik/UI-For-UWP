@@ -21,25 +21,25 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="Center"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CenterProperty =
-            DependencyProperty.Register("Center", typeof(Location), typeof(RadMap), new PropertyMetadata(Location.Empty, OnCenterPropertyChanged));
+            DependencyProperty.Register(nameof(Center), typeof(Location), typeof(RadMap), new PropertyMetadata(Location.Empty, OnCenterPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ZoomLevel"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ZoomLevelProperty =
-            DependencyProperty.Register("ZoomLevel", typeof(double), typeof(RadMap), new PropertyMetadata(1d, OnZoomLevelPropertyChanged));
+            DependencyProperty.Register(nameof(ZoomLevel), typeof(double), typeof(RadMap), new PropertyMetadata(1d, OnZoomLevelPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="MaxZoomLevel"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MaxZoomLevelProperty =
-            DependencyProperty.Register("MaxZoomLevel", typeof(double), typeof(RadMap), new PropertyMetadata(20d, OnMaxZoomLevelPropertyChanged));
+            DependencyProperty.Register(nameof(MaxZoomLevel), typeof(double), typeof(RadMap), new PropertyMetadata(20d, OnMaxZoomLevelPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="MinZoomLevel"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MinZoomLevelProperty =
-            DependencyProperty.Register("MinZoomLevel", typeof(double), typeof(RadMap), new PropertyMetadata(1d, OnMinZoomLevelPropertyChanged));
+            DependencyProperty.Register(nameof(MinZoomLevel), typeof(double), typeof(RadMap), new PropertyMetadata(1d, OnMinZoomLevelPropertyChanged));
 
         internal Canvas adornerLayer;
 

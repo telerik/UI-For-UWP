@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="ExponentStep"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ExponentStepProperty = 
-            DependencyProperty.Register("ExponentStep", typeof(double), typeof(LogarithmicAxis), new PropertyMetadata(10d, OnExponentStepChanged));
+            DependencyProperty.Register(nameof(ExponentStep), typeof(double), typeof(LogarithmicAxis), new PropertyMetadata(10d, OnExponentStepChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LogarithmicAxis"/> class.

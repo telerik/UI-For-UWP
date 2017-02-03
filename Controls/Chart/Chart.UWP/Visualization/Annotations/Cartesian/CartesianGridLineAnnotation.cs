@@ -15,13 +15,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Axis"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AxisProperty =
-            DependencyProperty.Register("Axis", typeof(CartesianAxis), typeof(CartesianGridLineAnnotation), new PropertyMetadata(null, OnAxisPropertyChanged));
+            DependencyProperty.Register(nameof(Axis), typeof(CartesianAxis), typeof(CartesianGridLineAnnotation), new PropertyMetadata(null, OnAxisPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(object), typeof(CartesianGridLineAnnotation), new PropertyMetadata(null, OnValuePropertyChanged));
+            DependencyProperty.Register(nameof(Value), typeof(object), typeof(CartesianGridLineAnnotation), new PropertyMetadata(null, OnValuePropertyChanged));
 
         private Line presenter;
         private CartesianGridLineAnnotationModel model;

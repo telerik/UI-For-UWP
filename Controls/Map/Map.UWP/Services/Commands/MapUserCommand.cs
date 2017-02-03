@@ -12,13 +12,13 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="Command"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand), typeof(MapUserCommand), new PropertyMetadata(null, OnCommandChanged));
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(MapUserCommand), new PropertyMetadata(null, OnCommandChanged));
 
         /// <summary>
         /// Identifies the <see cref="EnableDefaultCommand"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EnableDefaultCommandProperty =
-            DependencyProperty.Register("EnableDefaultCommand", typeof(bool), typeof(MapUserCommand), new PropertyMetadata(true, OnEnableDefaultCommandChanged));
+            DependencyProperty.Register(nameof(EnableDefaultCommand), typeof(bool), typeof(MapUserCommand), new PropertyMetadata(true, OnEnableDefaultCommandChanged));
 
         private ICommand commandCache;
         private bool enableDefaultCommandCache = true;

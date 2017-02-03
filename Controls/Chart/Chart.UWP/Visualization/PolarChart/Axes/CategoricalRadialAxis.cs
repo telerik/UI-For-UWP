@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="MajorTickInterval"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MajorTickIntervalProperty =
-            DependencyProperty.Register("MajorTickInterval", typeof(int), typeof(CategoricalRadialAxis), new PropertyMetadata(1, OnMajorTickIntervalPropertyChanged));
+            DependencyProperty.Register(nameof(MajorTickInterval), typeof(int), typeof(CategoricalRadialAxis), new PropertyMetadata(1, OnMajorTickIntervalPropertyChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoricalRadialAxis" /> class.

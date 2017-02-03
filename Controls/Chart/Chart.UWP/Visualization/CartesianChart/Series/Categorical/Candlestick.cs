@@ -14,13 +14,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="UpFill"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty UpFillProperty =
-            DependencyProperty.Register("UpFill", typeof(Brush), typeof(Candlestick), null);
+            DependencyProperty.Register(nameof(UpFill), typeof(Brush), typeof(Candlestick), null);
 
         /// <summary>
         /// Identifies the <see cref="DownFill"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DownFillProperty =
-            DependencyProperty.Register("DownFill", typeof(Brush), typeof(Candlestick), null);
+            DependencyProperty.Register(nameof(DownFill), typeof(Brush), typeof(Candlestick), null);
 
         /// <summary>
         /// Gets or sets the fill of the candlestick for up (raising) items.

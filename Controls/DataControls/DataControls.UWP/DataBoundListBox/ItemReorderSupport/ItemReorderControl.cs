@@ -16,13 +16,13 @@ namespace Telerik.UI.Xaml.Controls.Data.DataBoundListBox
         /// Identifies the <see cref="ShiftUpButtonStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShiftUpButtonStyleProperty =
-            DependencyProperty.Register("ShiftUpButtonStyle", typeof(Style), typeof(ItemReorderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ShiftUpButtonStyle), typeof(Style), typeof(ItemReorderControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ShiftDownButtonStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShiftDownButtonStyleProperty =
-            DependencyProperty.Register("ShiftDownButtonStyle", typeof(Style), typeof(ItemReorderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ShiftDownButtonStyle), typeof(Style), typeof(ItemReorderControl), new PropertyMetadata(null));
 
         internal RadDataBoundListBox owner;
         internal RadVirtualizingDataControlItem targetItem;

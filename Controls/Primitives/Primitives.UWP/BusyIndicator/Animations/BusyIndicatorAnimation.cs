@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.BusyIndicator
         /// Identifies the <see cref="IsActive"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsActiveProperty =
-            DependencyProperty.Register("IsActive", typeof(bool), typeof(BusyIndicatorAnimation), new PropertyMetadata(false, OnIsActiveChanged));
+            DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(BusyIndicatorAnimation), new PropertyMetadata(false, OnIsActiveChanged));
 
         private bool isActive;
         private Storyboard storyboard;

@@ -17,31 +17,31 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="TopContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TopContentProperty =
-            DependencyProperty.Register("TopContent", typeof(object), typeof(RadSlideHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(TopContent), typeof(object), typeof(RadSlideHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="TopContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TopContentTemplateProperty =
-            DependencyProperty.Register("TopContentTemplate", typeof(DataTemplate), typeof(RadSlideHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(TopContentTemplate), typeof(DataTemplate), typeof(RadSlideHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="BottomContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty BottomContentProperty =
-            DependencyProperty.Register("BottomContent", typeof(object), typeof(RadSlideHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(BottomContent), typeof(object), typeof(RadSlideHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="BottomContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty BottomContentTemplateProperty =
-            DependencyProperty.Register("BottomContentTemplate", typeof(DataTemplate), typeof(RadSlideHubTile), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(BottomContentTemplate), typeof(DataTemplate), typeof(RadSlideHubTile), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ExpandedState"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ExpandedStateProperty =
-            DependencyProperty.Register("ExpandedState", typeof(SlideTileExpandedState), typeof(RadSlideHubTile), new PropertyMetadata(SlideTileExpandedState.Normal));
+            DependencyProperty.Register(nameof(ExpandedState), typeof(SlideTileExpandedState), typeof(RadSlideHubTile), new PropertyMetadata(SlideTileExpandedState.Normal));
 
         private SlideControl slideControl;
         private FlipControl flipControl;

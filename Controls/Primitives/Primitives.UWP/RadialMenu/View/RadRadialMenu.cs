@@ -20,49 +20,49 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="ShowToolTip"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShowToolTipProperty =
-            DependencyProperty.Register("ShowToolTip", typeof(bool), typeof(RadRadialMenu), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(ShowToolTip), typeof(bool), typeof(RadRadialMenu), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="StartAngle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StartAngleProperty =
-            DependencyProperty.Register("StartAngle", typeof(double), typeof(RadRadialMenu), new PropertyMetadata(67.5d, OnStartAnglePropertyChanged));
+            DependencyProperty.Register(nameof(StartAngle), typeof(double), typeof(RadRadialMenu), new PropertyMetadata(67.5d, OnStartAnglePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="InnerNavigationRadiusFactor"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty InnerNavigationRadiusFactorProperty =
-            DependencyProperty.Register("InnerNavigationRadiusFactor", typeof(double), typeof(RadRadialMenu), new PropertyMetadata(0.85d, OnInnerNavigationRadiusFactorPropertyChanged));
+            DependencyProperty.Register(nameof(InnerNavigationRadiusFactor), typeof(double), typeof(RadRadialMenu), new PropertyMetadata(0.85d, OnInnerNavigationRadiusFactorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="InnerRadiusFactor"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty InnerRadiusFactorProperty =
-            DependencyProperty.Register("InnerRadiusFactor", typeof(double), typeof(RadRadialMenu), new PropertyMetadata(0.2d, OnInnerRadiusFactorPropertyChanged));
+            DependencyProperty.Register(nameof(InnerRadiusFactor), typeof(double), typeof(RadRadialMenu), new PropertyMetadata(0.2d, OnInnerRadiusFactorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="OuterRadiusFactor"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OuterRadiusFactorProperty =
-            DependencyProperty.Register("OuterRadiusFactor", typeof(double), typeof(RadRadialMenu), new PropertyMetadata(1d, OnOuterRadiusFactorPropertyChanged));
+            DependencyProperty.Register(nameof(OuterRadiusFactor), typeof(double), typeof(RadRadialMenu), new PropertyMetadata(1d, OnOuterRadiusFactorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ContentMenuBackgroundStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentMenuBackgroundStyleProperty =
-            DependencyProperty.Register("ContentMenuBackgroundStyle", typeof(Style), typeof(RadRadialMenu), new PropertyMetadata(null, OnContentMenuStylePropertyChanged));
+            DependencyProperty.Register(nameof(ContentMenuBackgroundStyle), typeof(Style), typeof(RadRadialMenu), new PropertyMetadata(null, OnContentMenuStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ContentMenuBackgroundStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty NavigationMenuBackgroundStyleProperty =
-            DependencyProperty.Register("NavigationMenuBackgroundStyle", typeof(Style), typeof(RadRadialMenu), new PropertyMetadata(null, OnNavigationMenuStylePropertyChanged));
+            DependencyProperty.Register(nameof(NavigationMenuBackgroundStyle), typeof(Style), typeof(RadRadialMenu), new PropertyMetadata(null, OnNavigationMenuStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsOpen"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(RadRadialMenu), new PropertyMetadata(false, OnIsOpenChanged));
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RadRadialMenu), new PropertyMetadata(false, OnIsOpenChanged));
 
         internal Style contentMenuBackgroundStyleCache;
         internal Style navigationMenuBackgroundStyleCache;

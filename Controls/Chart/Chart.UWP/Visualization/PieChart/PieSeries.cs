@@ -25,61 +25,61 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="DefaultSegmentStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty DefaultSegmentStyleProperty =
-            DependencyProperty.Register("DefaultSegmentStyle", typeof(Style), typeof(PieSeries), new PropertyMetadata(null, OnDefaultSegmentStyleChanged));
+            DependencyProperty.Register(nameof(DefaultSegmentStyle), typeof(Style), typeof(PieSeries), new PropertyMetadata(null, OnDefaultSegmentStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="ValueBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty ValueBindingProperty =
-            DependencyProperty.Register("ValueBinding", typeof(DataPointBinding), typeof(PieSeries), new PropertyMetadata(null, OnValueBindingChanged));
+            DependencyProperty.Register(nameof(ValueBinding), typeof(DataPointBinding), typeof(PieSeries), new PropertyMetadata(null, OnValueBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="SegmentStyleSelector"/> property.
         /// </summary>
         public static readonly DependencyProperty SegmentStyleSelectorProperty =
-            DependencyProperty.Register("SegmentStyleSelector", typeof(StyleSelector), typeof(PieSeries), new PropertyMetadata(null, OnSliceStyleSelectorChanged));
+            DependencyProperty.Register(nameof(SegmentStyleSelector), typeof(StyleSelector), typeof(PieSeries), new PropertyMetadata(null, OnSliceStyleSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="RadiusFactor"/> property.
         /// </summary>
         public static readonly DependencyProperty RadiusFactorProperty =
-            DependencyProperty.Register("RadiusFactor", typeof(double), typeof(PieSeries), new PropertyMetadata(DefaultRadiusFactor, OnRadiusFactorChanged));
+            DependencyProperty.Register(nameof(RadiusFactor), typeof(double), typeof(PieSeries), new PropertyMetadata(DefaultRadiusFactor, OnRadiusFactorChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectedPointOffset"/> property.
         /// </summary>
         public static readonly DependencyProperty SelectedPointOffsetProperty =
-            DependencyProperty.Register("SelectedPointOffset", typeof(double), typeof(PieSeries), new PropertyMetadata(DefaultSelectionOffset, OnSelectedPointOffsetChanged));
+            DependencyProperty.Register(nameof(SelectedPointOffset), typeof(double), typeof(PieSeries), new PropertyMetadata(DefaultSelectionOffset, OnSelectedPointOffsetChanged));
 
         /// <summary>
         /// Identifies the <see cref="HighlightBrush"/> property.
         /// </summary>
         public static readonly DependencyProperty HighlightBrushProperty =
-            DependencyProperty.Register("HighlightBrush", typeof(Brush), typeof(PieSeries), new PropertyMetadata(null, OnHighlightBrushChanged));
+            DependencyProperty.Register(nameof(HighlightBrush), typeof(Brush), typeof(PieSeries), new PropertyMetadata(null, OnHighlightBrushChanged));
 
         /// <summary>
         /// Identifies the <see cref="HighlightInnerRadiusFactor"/> property.
         /// </summary>
         public static readonly DependencyProperty HighlightInnerRadiusFactorProperty =
-            DependencyProperty.Register("HighlightInnerRadiusFactor", typeof(double), typeof(PieSeries), new PropertyMetadata(0.9, OnHighlightInnerRadiusFactorChanged));
+            DependencyProperty.Register(nameof(HighlightInnerRadiusFactor), typeof(double), typeof(PieSeries), new PropertyMetadata(0.9, OnHighlightInnerRadiusFactorChanged));
 
         /// <summary>
         /// Identifies the <see cref="LegendTitleBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty LegendTitleBindingProperty =
-            DependencyProperty.Register("LegendTitleBinding", typeof(DataPointBinding), typeof(PieSeries), new PropertyMetadata(null, OnLegendTitleBindingChanged));
+            DependencyProperty.Register(nameof(LegendTitleBinding), typeof(DataPointBinding), typeof(PieSeries), new PropertyMetadata(null, OnLegendTitleBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsVisibleInLegendBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty IsVisibleInLegendBindingProperty =
-            DependencyProperty.Register("IsVisibleInLegendBinding", typeof(DataPointBinding), typeof(PieSeries), new PropertyMetadata(null, OnVisibleInLegendBindingChanged));
+            DependencyProperty.Register(nameof(IsVisibleInLegendBinding), typeof(DataPointBinding), typeof(PieSeries), new PropertyMetadata(null, OnVisibleInLegendBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="AngleRange"/> property.
         /// </summary>
         public static readonly DependencyProperty AngleRangeProperty =
-            DependencyProperty.Register("AngleRange", typeof(AngleRange), typeof(PieSeries), new PropertyMetadata(Telerik.Charting.AngleRange.Default, OnAngleRangePropertyChanged));
+            DependencyProperty.Register(nameof(AngleRange), typeof(AngleRange), typeof(PieSeries), new PropertyMetadata(Telerik.Charting.AngleRange.Default, OnAngleRangePropertyChanged));
 
         private const double ArcPadding = 2;
         private const double DefaultRadiusFactor = 1;

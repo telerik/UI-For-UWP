@@ -11,7 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="CloseBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty CloseBindingProperty =
-            DependencyProperty.Register("CloseBinding", typeof(DataPointBinding), typeof(HighLowCloseIndicatorBase), new PropertyMetadata(null, OnCloseBindingChanged));
+            DependencyProperty.Register(nameof(CloseBinding), typeof(DataPointBinding), typeof(HighLowCloseIndicatorBase), new PropertyMetadata(null, OnCloseBindingChanged));
 
         /// <summary>
         /// Gets or sets the binding that will be used to fill the High value for the indicator calculations.

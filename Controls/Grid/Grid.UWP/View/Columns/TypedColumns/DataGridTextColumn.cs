@@ -17,7 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="CellContentFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellContentFormatProperty =
-            DependencyProperty.Register("CellContentFormat", typeof(string), typeof(DataGridTextColumn), new PropertyMetadata(null, OnCellContentFormatChanged));
+            DependencyProperty.Register(nameof(CellContentFormat), typeof(string), typeof(DataGridTextColumn), new PropertyMetadata(null, OnCellContentFormatChanged));
 
         internal static Type TextBlockType = typeof(TextBlock);
         private static Style defaultTextCellStyle;

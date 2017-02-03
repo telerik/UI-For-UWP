@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="FilterGlyphVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FilterGlyphVisibilityProperty =
-            DependencyProperty.Register("FilterGlyphVisibility", typeof(Visibility), typeof(DataGridColumnDragControl), new PropertyMetadata(Visibility.Collapsed));
+            DependencyProperty.Register(nameof(FilterGlyphVisibility), typeof(Visibility), typeof(DataGridColumnDragControl), new PropertyMetadata(Visibility.Collapsed));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridColumnDragControl" /> class.

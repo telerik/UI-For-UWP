@@ -11,13 +11,13 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="SelectionMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectionModeProperty =
-            DependencyProperty.Register("SelectionMode", typeof(DataControlsSelectionMode), typeof(RadListView), new PropertyMetadata(DataControlsSelectionMode.Single, OnSelectionModeChanged));
+            DependencyProperty.Register(nameof(SelectionMode), typeof(DataControlsSelectionMode), typeof(RadListView), new PropertyMetadata(DataControlsSelectionMode.Single, OnSelectionModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectedItem"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(RadListView), new PropertyMetadata(null, OnSelectedItemChanged));
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(RadListView), new PropertyMetadata(null, OnSelectedItemChanged));
 
         internal ListViewSelectionService selectionService;
 

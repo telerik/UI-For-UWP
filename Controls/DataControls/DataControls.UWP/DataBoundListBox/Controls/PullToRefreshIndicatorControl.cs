@@ -15,13 +15,13 @@ namespace Telerik.UI.Xaml.Controls.Data.DataBoundListBox
         /// Identifies the <see cref="RefreshTimeLabelFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RefreshTimeLabelFormatProperty =
-            DependencyProperty.Register("RefreshTimeLabelFormat", typeof(string), typeof(PullToRefreshIndicatorControl), new PropertyMetadata(null, OnRefreshTimeLabelFormatChanged));
+            DependencyProperty.Register(nameof(RefreshTimeLabelFormat), typeof(string), typeof(PullToRefreshIndicatorControl), new PropertyMetadata(null, OnRefreshTimeLabelFormatChanged));
 
         /// <summary>
         /// Identifies the <see cref="Orientation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(PullToRefreshIndicatorControl), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(PullToRefreshIndicatorControl), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
 
         internal ContentPresenter indicator;
         internal TextBlock refreshLabel;

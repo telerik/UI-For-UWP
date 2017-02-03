@@ -18,37 +18,37 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the Value dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(GaugeIndicator), new PropertyMetadata(0d, OnValuePropertyChanged));
+            DependencyProperty.Register(nameof(Value), typeof(double), typeof(GaugeIndicator), new PropertyMetadata(0d, OnValuePropertyChanged));
 
         /// <summary>
         /// Identifies the StartValue dependency property.
         /// </summary>
         public static readonly DependencyProperty StartValueProperty =
-            DependencyProperty.Register("StartValue", typeof(double), typeof(GaugeIndicator), new PropertyMetadata(0d, OnStartValuePropertyChanged));
+            DependencyProperty.Register(nameof(StartValue), typeof(double), typeof(GaugeIndicator), new PropertyMetadata(0d, OnStartValuePropertyChanged));
 
         /// <summary>
         /// Identifies the IsAnimated dependency property.
         /// </summary>
         public static readonly DependencyProperty IsAnimatedProperty =
-            DependencyProperty.Register("IsAnimated", typeof(bool), typeof(GaugeIndicator), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsAnimated), typeof(bool), typeof(GaugeIndicator), new PropertyMetadata(false));
 
         /// <summary>
         /// Identifies the AnimationEasing dependency property.
         /// </summary>
         public static readonly DependencyProperty AnimationEasingProperty =
-            DependencyProperty.Register("AnimationEasing", typeof(EasingFunctionBase), typeof(GaugeIndicator), new PropertyMetadata(null, OnAnimationEasingPropertyChanged));
+            DependencyProperty.Register(nameof(AnimationEasing), typeof(EasingFunctionBase), typeof(GaugeIndicator), new PropertyMetadata(null, OnAnimationEasingPropertyChanged));
 
         /// <summary>
         /// Identifies the AnimationDuration dependency property.
         /// </summary>
         public static readonly DependencyProperty AnimationDurationProperty =
-            DependencyProperty.Register("AnimationDuration", typeof(Duration), typeof(GaugeIndicator), new PropertyMetadata(new Duration(System.TimeSpan.FromSeconds(0.5)), OnAnimationDurationPropertyChanged));
+            DependencyProperty.Register(nameof(AnimationDuration), typeof(Duration), typeof(GaugeIndicator), new PropertyMetadata(new Duration(System.TimeSpan.FromSeconds(0.5)), OnAnimationDurationPropertyChanged));
 
         /// <summary>
         /// Identifies the ActualValue dependency property.
         /// </summary>
         private static readonly DependencyProperty ActualValueProperty =
-            DependencyProperty.Register("ActualValue", typeof(double), typeof(GaugeIndicator), new PropertyMetadata(0d, OnActualValuePropertyChanged));
+            DependencyProperty.Register(nameof(ActualValue), typeof(double), typeof(GaugeIndicator), new PropertyMetadata(0d, OnActualValuePropertyChanged));
 
         private bool isAnimationRunning = false;
         private Storyboard storyboard = new Storyboard();

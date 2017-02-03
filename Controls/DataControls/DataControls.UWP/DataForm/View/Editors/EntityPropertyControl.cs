@@ -32,7 +32,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for RowCount.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty RowCountProperty =
-            DependencyProperty.Register("RowCount", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(2, OnRowCountChanged));
+            DependencyProperty.Register(nameof(RowCount), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(2, OnRowCountChanged));
 
         private static void OnRowCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -61,7 +61,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ColumnCount.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ColumnCountProperty =
-            DependencyProperty.Register("ColumnCount", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(2, OnColumnCountChanged));
+            DependencyProperty.Register(nameof(ColumnCount), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(2, OnColumnCountChanged));
 
         private static void OnColumnCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -89,7 +89,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ViewRow.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ViewRowProperty =
-            DependencyProperty.Register("ViewRow", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnViewRowChanged));
+            DependencyProperty.Register(nameof(ViewRow), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnViewRowChanged));
 
         private static void OnViewRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -110,7 +110,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ViewColumn.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ViewColumnProperty =
-            DependencyProperty.Register("ViewColumn", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnViewColumnChanged));
+            DependencyProperty.Register(nameof(ViewColumn), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnViewColumnChanged));
 
         private static void OnViewColumnChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -129,7 +129,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for LabelRow.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LabelRowProperty =
-            DependencyProperty.Register("LabelRow", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnLabelRowChanged));
+            DependencyProperty.Register(nameof(LabelRow), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnLabelRowChanged));
 
         private static void OnLabelRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -148,7 +148,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for LabelColumn.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LabelColumnProperty =
-            DependencyProperty.Register("LabelColumn", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnLabelColumnChanged));
+            DependencyProperty.Register(nameof(LabelColumn), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnLabelColumnChanged));
 
         private static void OnLabelColumnChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -167,7 +167,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ErrorViewRow.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ErrorViewRowProperty =
-            DependencyProperty.Register("ErrorViewRow", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnErrorViewRowChanged));
+            DependencyProperty.Register(nameof(ErrorViewRow), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnErrorViewRowChanged));
 
         private static void OnErrorViewRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -186,7 +186,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ErrorViewColumn.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ErrorViewColumnProperty =
-            DependencyProperty.Register("ErrorViewColumn", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnErrorViewColumnChanged));
+            DependencyProperty.Register(nameof(ErrorViewColumn), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnErrorViewColumnChanged));
 
         private static void OnErrorViewColumnChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -205,7 +205,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ErrorViewRow.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PositiveMessageViewRowProperty =
-            DependencyProperty.Register("PositiveMessageViewRow", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, PositiveMessageViewRowChanged));
+            DependencyProperty.Register(nameof(PositiveMessageViewRow), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, PositiveMessageViewRowChanged));
 
         private static void PositiveMessageViewRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -224,7 +224,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ErrorViewColumn.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PositiveMessageViewColumnProperty =
-            DependencyProperty.Register("PositiveMessageViewColumn", typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, PositiveMessageViewColumnChanged));
+            DependencyProperty.Register(nameof(PositiveMessageViewColumn), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, PositiveMessageViewColumnChanged));
 
         private static void PositiveMessageViewColumnChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

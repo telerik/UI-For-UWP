@@ -32,85 +32,85 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="Text"/> property.
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(RadAutoCompleteBox), new PropertyMetadata(string.Empty, OnAutoCompleteBoxTextChanged));
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(RadAutoCompleteBox), new PropertyMetadata(string.Empty, OnAutoCompleteBoxTextChanged));
 
         /// <summary>
         /// Identifies the <see cref="FilterMode"/> property.
         /// </summary>
         public static readonly DependencyProperty FilterModeProperty =
-            DependencyProperty.Register("FilterMode", typeof(AutoCompleteBoxFilterMode), typeof(RadAutoCompleteBox), new PropertyMetadata(AutoCompleteBoxFilterMode.StartsWith, OnFilterModeChanged));
+            DependencyProperty.Register(nameof(FilterMode), typeof(AutoCompleteBoxFilterMode), typeof(RadAutoCompleteBox), new PropertyMetadata(AutoCompleteBoxFilterMode.StartsWith, OnFilterModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="FilterComparisonMode"/> property.
         /// </summary>
         public static readonly DependencyProperty FilterComparisonModeProperty =
-            DependencyProperty.Register("FilterComparisonMode", typeof(StringComparison), typeof(RadAutoCompleteBox), new PropertyMetadata(StringComparison.CurrentCultureIgnoreCase, OnFilterComparisonModeChanged));
+            DependencyProperty.Register(nameof(FilterComparisonMode), typeof(StringComparison), typeof(RadAutoCompleteBox), new PropertyMetadata(StringComparison.CurrentCultureIgnoreCase, OnFilterComparisonModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="FilterMemberPath"/> property.
         /// </summary>
         public static readonly DependencyProperty FilterMemberPathProperty =
-            DependencyProperty.Register("FilterMemberPath", typeof(string), typeof(RadAutoCompleteBox), new PropertyMetadata(null, OnFilterMemberPathChanged));
+            DependencyProperty.Register(nameof(FilterMemberPath), typeof(string), typeof(RadAutoCompleteBox), new PropertyMetadata(null, OnFilterMemberPathChanged));
 
         /// <summary>
         /// Identifies the <see cref="DisplayMemberPath"/> property.
         /// </summary>
         public static readonly DependencyProperty DisplayMemberPathProperty =
-            DependencyProperty.Register("DisplayMemberPath", typeof(string), typeof(RadAutoCompleteBox), new PropertyMetadata(null, OnDisplayMemberPathChanged));
+            DependencyProperty.Register(nameof(DisplayMemberPath), typeof(string), typeof(RadAutoCompleteBox), new PropertyMetadata(null, OnDisplayMemberPathChanged));
 
         /// <summary>
         /// Identifies the <see cref="FilterStartThreshold"/> property.
         /// </summary>
         public static readonly DependencyProperty FilterStartThresholdProperty =
-            DependencyProperty.Register("FilterStartThreshold", typeof(int), typeof(RadAutoCompleteBox), new PropertyMetadata(0, OnFilterStartThresholdChanged));
+            DependencyProperty.Register(nameof(FilterStartThreshold), typeof(int), typeof(RadAutoCompleteBox), new PropertyMetadata(0, OnFilterStartThresholdChanged));
 
         /// <summary>
         /// Identifies the <see cref="FilterDelay"/> property.
         /// </summary>
         public static readonly DependencyProperty FilterDelayProperty =
-            DependencyProperty.Register("FilterDelay", typeof(TimeSpan), typeof(RadAutoCompleteBox), new PropertyMetadata(TimeSpan.Zero, OnFilterDelayChanged));
+            DependencyProperty.Register(nameof(FilterDelay), typeof(TimeSpan), typeof(RadAutoCompleteBox), new PropertyMetadata(TimeSpan.Zero, OnFilterDelayChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSource"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(RadAutoCompleteBox), new PropertyMetadata(null, OnItemsSourceChanged));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(RadAutoCompleteBox), new PropertyMetadata(null, OnItemsSourceChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemTemplateSelector"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateSelectorProperty =
-            DependencyProperty.Register("ItemTemplateSelector", typeof(DataTemplateSelector), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemTemplateSelector), typeof(DataTemplateSelector), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="AutosuggestFirstItem"/> property.
         /// </summary>
         public static readonly DependencyProperty AutosuggestFirstItemProperty =
-            DependencyProperty.Register("AutosuggestFirstItem", typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(AutosuggestFirstItem), typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="DropDownPlacement"/> property.
         /// </summary>
         public static readonly DependencyProperty DropDownPlacementProperty =
-            DependencyProperty.Register("DropDownPlacement", typeof(AutoCompleteBoxPlacementMode), typeof(RadAutoCompleteBox), new PropertyMetadata(AutoCompleteBoxPlacementMode.Auto, OnDropDownPlacementChanged));
+            DependencyProperty.Register(nameof(DropDownPlacement), typeof(AutoCompleteBoxPlacementMode), typeof(RadAutoCompleteBox), new PropertyMetadata(AutoCompleteBoxPlacementMode.Auto, OnDropDownPlacementChanged));
 
         /// <summary>
         /// Identifies the <see cref="DropDownMaxHeight"/> property.
         /// </summary>
         public static readonly DependencyProperty DropDownMaxHeightProperty =
-            DependencyProperty.Register("DropDownMaxHeight", typeof(double), typeof(RadAutoCompleteBox), new PropertyMetadata(double.PositiveInfinity, OnDropDownMaxHeightChanged));
+            DependencyProperty.Register(nameof(DropDownMaxHeight), typeof(double), typeof(RadAutoCompleteBox), new PropertyMetadata(double.PositiveInfinity, OnDropDownMaxHeightChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsDropDownOpen"/> property.
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(false, OnIsDropDownOpenChanged));
+            DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(false, OnIsDropDownOpenChanged));
 
         /// <summary>
         /// Identifies the RadAutoCompleteBox.TextMatchHighlightStyle attached property.
@@ -128,37 +128,37 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="Watermark"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WatermarkProperty =
-            DependencyProperty.Register("Watermark", typeof(object), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Watermark), typeof(object), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the WatermarkTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty WatermarkTemplateProperty =
-            DependencyProperty.Register("WatermarkTemplate", typeof(DataTemplate), typeof(RadAutoCompleteBox), null);
+            DependencyProperty.Register(nameof(WatermarkTemplate), typeof(DataTemplate), typeof(RadAutoCompleteBox), null);
             
         /// <summary>
         /// Identifies the <see cref="SelectedItem"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="NoResultsContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty NoResultsContentProperty =
-            DependencyProperty.Register("NoResultsContent", typeof(object), typeof(RadAutoCompleteBox), new PropertyMetadata(null, OnNoResultsContentChanged));
+            DependencyProperty.Register(nameof(NoResultsContent), typeof(object), typeof(RadAutoCompleteBox), new PropertyMetadata(null, OnNoResultsContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="NoResultsContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty NoResultsContentTemplateProperty =
-            DependencyProperty.Register("NoResultsContentTemplate", typeof(DataTemplate), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(NoResultsContentTemplate), typeof(DataTemplate), typeof(RadAutoCompleteBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="IsNoResultsContentEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsNoResultsContentEnabledProperty =
-            DependencyProperty.Register("IsNoResultsContentEnabled", typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsNoResultsContentEnabled), typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(false));
 
         internal const double PopupOffsetFromTextBox = 2.0;
 

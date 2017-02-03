@@ -22,19 +22,19 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="LegendProvider"/> property.
         /// </summary>
         public static readonly DependencyProperty LegendProviderProperty =
-            DependencyProperty.Register("LegendProvider", typeof(object), typeof(RadLegendControl), new PropertyMetadata(null, OnProviderChanged));
+            DependencyProperty.Register(nameof(LegendProvider), typeof(object), typeof(RadLegendControl), new PropertyMetadata(null, OnProviderChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemsPanel"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemsPanelProperty =
-            DependencyProperty.Register("ItemsPanel", typeof(ItemsPanelTemplate), typeof(RadLegendControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemsPanel), typeof(ItemsPanelTemplate), typeof(RadLegendControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(RadLegendControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(RadLegendControl), new PropertyMetadata(null));
 
         private string presenterName = "PART_LegendPresenter";
         private FrameworkElement presenter;

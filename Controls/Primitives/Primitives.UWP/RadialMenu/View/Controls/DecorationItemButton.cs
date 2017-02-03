@@ -17,13 +17,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
         /// Identifies the <see cref="ThicknessFactor"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ThicknessFactorProperty =
-           DependencyProperty.Register("ThicknessFactor", typeof(double), typeof(DecorationItemButton), new PropertyMetadata(0.2d, OnThicknessFactorPropertyChanged));
+           DependencyProperty.Register(nameof(ThicknessFactor), typeof(double), typeof(DecorationItemButton), new PropertyMetadata(0.2d, OnThicknessFactorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ArrowThicknessFactor"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ArrowThicknessFactorProperty =
-         DependencyProperty.Register("ArrowThicknessFactor", typeof(double), typeof(DecorationItemButton), new PropertyMetadata(0.2d, OnArrowThicknessFactorPropertyChanged));
+         DependencyProperty.Register(nameof(ArrowThicknessFactor), typeof(double), typeof(DecorationItemButton), new PropertyMetadata(0.2d, OnArrowThicknessFactorPropertyChanged));
 
         internal Path arrowGlyph;
         internal Path selectedPath;

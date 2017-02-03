@@ -17,19 +17,19 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="IsPanEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsPanEnabledProperty =
-            DependencyProperty.Register("IsPanEnabled", typeof(bool), typeof(MapPanAndZoomBehavior), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsPanEnabled), typeof(bool), typeof(MapPanAndZoomBehavior), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="ZoomMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ZoomModeProperty =
-            DependencyProperty.Register("ZoomMode", typeof(MapZoomMode), typeof(MapPanAndZoomBehavior), new PropertyMetadata(MapZoomMode.ZoomToPoint));
+            DependencyProperty.Register(nameof(ZoomMode), typeof(MapZoomMode), typeof(MapPanAndZoomBehavior), new PropertyMetadata(MapZoomMode.ZoomToPoint));
 
         /// <summary>
         /// Identifies the <see cref="DoubleTapAction"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DoubleTapActionProperty =
-            DependencyProperty.Register("DoubleTapAction", typeof(MapDoubleTapAction), typeof(MapPanAndZoomBehavior), new PropertyMetadata(MapDoubleTapAction.ZoomToPoint));
+            DependencyProperty.Register(nameof(DoubleTapAction), typeof(MapDoubleTapAction), typeof(MapPanAndZoomBehavior), new PropertyMetadata(MapDoubleTapAction.ZoomToPoint));
      
         private const double MouseWheelZoomAmount = 0.33;
         private const double DoubleTapZoomAmount = 1d;
@@ -234,7 +234,7 @@ namespace Telerik.UI.Xaml.Controls.Map
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (args.Delta.Scale != 1f)
@@ -265,7 +265,7 @@ namespace Telerik.UI.Xaml.Controls.Map
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (args.Pointer.PointerDeviceType != PointerDeviceType.Mouse)

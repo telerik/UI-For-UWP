@@ -75,7 +75,7 @@ namespace Telerik.Data.Core
         {
             if (newInstance == null)
             {
-                throw new ArgumentNullException("newInstance");
+                throw new ArgumentNullException(nameof(newInstance));
             }
 
             if (original == newInstance)

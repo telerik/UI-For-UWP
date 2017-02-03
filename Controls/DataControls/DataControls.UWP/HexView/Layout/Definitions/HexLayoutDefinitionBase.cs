@@ -14,25 +14,25 @@ namespace Telerik.UI.Xaml.Controls.Data.HexView
         /// Identifies the <see cref="Orientation"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-             DependencyProperty.Register("Orientation", typeof(Orientation), typeof(HexLayoutDefinitionBase), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
+             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(HexLayoutDefinitionBase), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemLength"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemLengthProperty =
-            DependencyProperty.Register("ItemLength", typeof(double), typeof(HexLayoutDefinitionBase), new PropertyMetadata(171d, OnItemLengthChanged));
+            DependencyProperty.Register(nameof(ItemLength), typeof(double), typeof(HexLayoutDefinitionBase), new PropertyMetadata(171d, OnItemLengthChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSpacing"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemsSpacingProperty =
-            DependencyProperty.Register("ItemsSpacing", typeof(double), typeof(HexLayoutDefinitionBase), new PropertyMetadata(5d, OnItemsSpacingChanged));
+            DependencyProperty.Register(nameof(ItemsSpacing), typeof(double), typeof(HexLayoutDefinitionBase), new PropertyMetadata(5d, OnItemsSpacingChanged));
 
         /// <summary>
         /// Identifies the <see cref="ViewPortExtension"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ViewPortExtensionProperty =
-            DependencyProperty.Register("ViewPortExtension", typeof(double), typeof(HexLayoutDefinitionBase), new PropertyMetadata(0.5d, OnViewPortExtensionChanged));
+            DependencyProperty.Register(nameof(ViewPortExtension), typeof(double), typeof(HexLayoutDefinitionBase), new PropertyMetadata(0.5d, OnViewPortExtensionChanged));
 
         /// <summary>
         /// Occurs when a property is changed.
@@ -106,25 +106,25 @@ namespace Telerik.UI.Xaml.Controls.Data.HexView
         private static void OnItemLengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as HexLayoutDefinitionBase;
-            definition.OnPropertyChanged("ItemLength");
+            definition.OnPropertyChanged(nameof(ItemLength));
         }
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as HexLayoutDefinitionBase;
-            definition.OnPropertyChanged("Orientation");
+            definition.OnPropertyChanged(nameof(Orientation));
         }
 
         private static void OnItemsSpacingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as HexLayoutDefinitionBase;
-            definition.OnPropertyChanged("ItemsSpacing");
+            definition.OnPropertyChanged(nameof(ItemsSpacing));
         }
 
         private static void OnViewPortExtensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as HexLayoutDefinitionBase;
-            definition.OnPropertyChanged("ViewPortExtension");
+            definition.OnPropertyChanged(nameof(ViewPortExtension));
         }
 
         private void OnPropertyChanged(string propertyName)

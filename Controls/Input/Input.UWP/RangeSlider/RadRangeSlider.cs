@@ -20,25 +20,25 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="TopLeftScaleStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TopLeftScaleStyleProperty =
-          DependencyProperty.Register("TopLeftScaleStyle", typeof(Style), typeof(RadRangeSlider), new PropertyMetadata(null));
+          DependencyProperty.Register(nameof(TopLeftScaleStyle), typeof(Style), typeof(RadRangeSlider), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="BottomRightScaleStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty BottomRightScaleStyleProperty =
-          DependencyProperty.Register("BottomRightScaleStyle", typeof(Style), typeof(RadRangeSlider), new PropertyMetadata(null));
+          DependencyProperty.Register(nameof(BottomRightScaleStyle), typeof(Style), typeof(RadRangeSlider), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="SliderPrimitiveStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SliderPrimitiveStyleProperty =
-          DependencyProperty.Register("SliderPrimitiveStyle", typeof(Style), typeof(RadRangeSlider), new PropertyMetadata(null));
+          DependencyProperty.Register(nameof(SliderPrimitiveStyle), typeof(Style), typeof(RadRangeSlider), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="LabelFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LabelFormatProperty =
-          DependencyProperty.Register("LabelFormat", typeof(string), typeof(RadRangeSlider), new PropertyMetadata(null));
+          DependencyProperty.Register(nameof(LabelFormat), typeof(string), typeof(RadRangeSlider), new PropertyMetadata(null));
 
         private const string RangeSliderPanelName = "PART_RangeSliderPanel";
         private const string RangeSliderPrimitivePartName = "PART_RangeSliderPrimitive";

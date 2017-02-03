@@ -5,7 +5,7 @@ namespace Telerik.Charting
     /// <summary>
     /// Represents a struct, which defines a set of two values - High, Low.
     /// </summary>
-    [DebuggerDisplay("Low: {Low}, High: {High}")]
+    [DebuggerDisplay("Low: " + nameof(Low) + ", High: " + nameof(High))]
     internal struct Range
     {
         /// <summary>

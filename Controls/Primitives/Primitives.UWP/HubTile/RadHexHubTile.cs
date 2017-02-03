@@ -14,25 +14,25 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="Length"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LengthProperty =
-            DependencyProperty.Register("Length", typeof(double), typeof(RadHexHubTile), new PropertyMetadata(0d, OnLengthChanged));
+            DependencyProperty.Register(nameof(Length), typeof(double), typeof(RadHexHubTile), new PropertyMetadata(0d, OnLengthChanged));
 
         /// <summary>
         /// Identifies the <see cref="StrokeThickness"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StrokeThicknessProperty =
-            DependencyProperty.Register("StrokeThickness", typeof(double), typeof(RadHexHubTile), new PropertyMetadata(0d, OnStrokeThicknessChanged));
+            DependencyProperty.Register(nameof(StrokeThickness), typeof(double), typeof(RadHexHubTile), new PropertyMetadata(0d, OnStrokeThicknessChanged));
 
         /// <summary>
         /// Identifies the <see cref="Orientation"/> dependency property.
         /// </summary> 
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(HexOrientation), typeof(RadHexHubTile), new PropertyMetadata(HexOrientation.Flat, OnOrientationChanged));
+            DependencyProperty.Register(nameof(Orientation), typeof(HexOrientation), typeof(RadHexHubTile), new PropertyMetadata(HexOrientation.Flat, OnOrientationChanged));
 
         /// <summary>
         /// Identifies the <see cref="ImageSource"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(RadHexHubTile), new PropertyMetadata(null, OnImageSourceChanged));
+            DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(RadHexHubTile), new PropertyMetadata(null, OnImageSourceChanged));
 
         private const double WidthToHeightRatio = 0.866; // Math.Sqrt(3) / 2;
 

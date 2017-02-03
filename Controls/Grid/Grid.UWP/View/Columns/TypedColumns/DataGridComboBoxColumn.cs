@@ -19,25 +19,25 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="ItemsSource"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(object), typeof(DataGridComboBoxColumn), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(DataGridComboBoxColumn), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSourcePath"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty ItemsSourcePathProperty =
-            DependencyProperty.Register("ItemsSourcePath", typeof(string), typeof(DataGridComboBoxColumn), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemsSourcePath), typeof(string), typeof(DataGridComboBoxColumn), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="SelectedValuePath"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty SelectedValuePathProperty =
-            DependencyProperty.Register("SelectedValuePath", typeof(string), typeof(DataGridComboBoxColumn), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register(nameof(SelectedValuePath), typeof(string), typeof(DataGridComboBoxColumn), new PropertyMetadata(string.Empty));
 
         /// <summary>
         /// Identifies the <see cref="DisplayMemberPath"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty DisplayMemberPathProperty =
-            DependencyProperty.Register("DisplayMemberPath", typeof(string), typeof(DataGridComboBoxColumn), new PropertyMetadata(string.Empty, OnDisplayMemberPathChanged));
+            DependencyProperty.Register(nameof(DisplayMemberPath), typeof(string), typeof(DataGridComboBoxColumn), new PropertyMetadata(string.Empty, OnDisplayMemberPathChanged));
 
         private static readonly Type comboBoxType = typeof(ComboBox);
         private static Style defaultCellEditorStyle;

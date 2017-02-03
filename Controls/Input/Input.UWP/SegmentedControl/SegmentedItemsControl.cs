@@ -18,25 +18,25 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="CornerRadius"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(SegmentedItemsControl), new PropertyMetadata(new CornerRadius(0d), OnCornerRadiusChanged));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(SegmentedItemsControl), new PropertyMetadata(new CornerRadius(0d), OnCornerRadiusChanged));
 
         /// <summary>
         /// Identifies the <see cref="SegmentWidthMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SegmentWidthModeProperty =
-            DependencyProperty.Register("SegmentWidthMode", typeof(SegmentWidthMode), typeof(SegmentedItemsControl), new PropertyMetadata(SegmentWidthMode.Equal, OnSegmentWidthModeChanged));
+            DependencyProperty.Register(nameof(SegmentWidthMode), typeof(SegmentWidthMode), typeof(SegmentedItemsControl), new PropertyMetadata(SegmentWidthMode.Equal, OnSegmentWidthModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="SeparatorWidth"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SeparatorWidthProperty =
-            DependencyProperty.Register("SeparatorWidth", typeof(double), typeof(SegmentedItemsControl), new PropertyMetadata(0d, OnSeparatorStyleChanged));
+            DependencyProperty.Register(nameof(SeparatorWidth), typeof(double), typeof(SegmentedItemsControl), new PropertyMetadata(0d, OnSeparatorStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="SeparatorBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SeparatorBrushProperty =
-            DependencyProperty.Register("SeparatorBrush", typeof(Brush), typeof(SegmentedItemsControl), new PropertyMetadata(null, OnSeparatorStyleChanged));
+            DependencyProperty.Register(nameof(SeparatorBrush), typeof(Brush), typeof(SegmentedItemsControl), new PropertyMetadata(null, OnSeparatorStyleChanged));
 
         private const string DecorationLayerTemplatePartName = "PART_DecorationLayer";
 

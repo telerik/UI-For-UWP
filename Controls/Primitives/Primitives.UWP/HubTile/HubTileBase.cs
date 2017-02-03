@@ -17,55 +17,55 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the Title dependency property.
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(object), typeof(HubTileBase), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Title), typeof(object), typeof(HubTileBase), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="TitleTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TitleTemplateProperty =
-            DependencyProperty.Register("TitleTemplate", typeof(DataTemplate), typeof(HubTileBase), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(TitleTemplate), typeof(DataTemplate), typeof(HubTileBase), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the UpdateInterval dependency property.
         /// </summary>
         public static readonly DependencyProperty UpdateIntervalProperty =
-            DependencyProperty.Register("UpdateInterval", typeof(TimeSpan), typeof(HubTileBase), new PropertyMetadata(TimeSpan.FromSeconds(3), OnUpdateIntervalChanged));
+            DependencyProperty.Register(nameof(UpdateInterval), typeof(TimeSpan), typeof(HubTileBase), new PropertyMetadata(TimeSpan.FromSeconds(3), OnUpdateIntervalChanged));
 
         /// <summary>
         /// Identifies the IsFrozen dependency property.
         /// </summary>
         public static readonly DependencyProperty IsFrozenProperty =
-           DependencyProperty.Register("IsFrozen", typeof(bool), typeof(HubTileBase), new PropertyMetadata(false, OnIsFrozenChanged));
+           DependencyProperty.Register(nameof(IsFrozen), typeof(bool), typeof(HubTileBase), new PropertyMetadata(false, OnIsFrozenChanged));
 
         /// <summary>
         /// Identifies the BackContent dependency property.
         /// </summary>
         public static readonly DependencyProperty BackContentProperty =
-            DependencyProperty.Register("BackContent", typeof(object), typeof(HubTileBase), new PropertyMetadata(null, OnBackContentChanged));
+            DependencyProperty.Register(nameof(BackContent), typeof(object), typeof(HubTileBase), new PropertyMetadata(null, OnBackContentChanged));
 
         /// <summary>
         /// Identifies the BackContentTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty BackContentTemplateProperty =
-            DependencyProperty.Register("BackContentTemplate", typeof(DataTemplate), typeof(HubTileBase), new PropertyMetadata(null, OnBackContentChanged));
+            DependencyProperty.Register(nameof(BackContentTemplate), typeof(DataTemplate), typeof(HubTileBase), new PropertyMetadata(null, OnBackContentChanged));
 
         /// <summary>
         /// Identifies the Command dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand), typeof(HubTileBase), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(HubTileBase), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the IsFlipped dependency property.
         /// </summary>
         public static readonly DependencyProperty IsFlippedProperty =
-            DependencyProperty.Register("IsFlipped", typeof(bool), typeof(HubTileBase), new PropertyMetadata(false, OnIsFlippedChanged));
+            DependencyProperty.Register(nameof(IsFlipped), typeof(bool), typeof(HubTileBase), new PropertyMetadata(false, OnIsFlippedChanged));
 
         /// <summary>
         /// Identifies the CommandParameter dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register("CommandParameter", typeof(object), typeof(HubTileBase), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(HubTileBase), new PropertyMetadata(null));
 
         private DispatcherTimer updateTimer = new DispatcherTimer();
         private UIElement layoutRoot;

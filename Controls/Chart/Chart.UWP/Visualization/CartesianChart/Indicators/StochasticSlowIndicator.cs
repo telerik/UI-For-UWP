@@ -11,7 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="SlowingPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SlowingPeriodProperty = 
-            DependencyProperty.Register("SlowingPeriod", typeof(int), typeof(StochasticSlowIndicator), new PropertyMetadata(0, OnSlowingPeriodChanged));
+            DependencyProperty.Register(nameof(SlowingPeriod), typeof(int), typeof(StochasticSlowIndicator), new PropertyMetadata(0, OnSlowingPeriodChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StochasticSlowIndicator"/> class.

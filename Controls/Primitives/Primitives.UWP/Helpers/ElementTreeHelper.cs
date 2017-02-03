@@ -166,7 +166,7 @@ namespace Telerik.UI.Xaml.Controls
         {
             if (element == null)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
 
             if (element.Visibility == Visibility.Collapsed ||
@@ -186,12 +186,12 @@ namespace Telerik.UI.Xaml.Controls
         {
             if (from == null)
             {
-                throw new ArgumentNullException("from");
+                throw new ArgumentNullException(nameof(from));
             }
 
             if (to == null)
             {
-                throw new ArgumentNullException("to");
+                throw new ArgumentNullException(nameof(to));
             }
 
             if (!IsElementRendered(from) || !IsElementRendered(to))
@@ -209,12 +209,12 @@ namespace Telerik.UI.Xaml.Controls
         {
             if (from == null)
             {
-                throw new ArgumentNullException("from");
+                throw new ArgumentNullException(nameof(from));
             }
 
             if (to == null)
             {
-                throw new ArgumentNullException("to");
+                throw new ArgumentNullException(nameof(to));
             }
 
             if (!IsElementRendered(from) || !IsElementRendered(to))

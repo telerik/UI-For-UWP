@@ -65,7 +65,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("FillEntries");
+                    throw new ArgumentNullException(nameof(FillEntries));
                 }
 
                 this.fillEntries = value;
@@ -85,7 +85,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("SpecialFillEntries");
+                    throw new ArgumentNullException(nameof(SpecialFillEntries));
                 }
 
                 this.specialFillEntries = value;
@@ -105,7 +105,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("StrokeEntries");
+                    throw new ArgumentNullException(nameof(StrokeEntries));
                 }
 
                 this.strokeEntries = value;
@@ -125,7 +125,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("SpecialStrokeEntries");
+                    throw new ArgumentNullException(nameof(SpecialStrokeEntries));
                 }
 
                 this.specialStrokeEntries = value;

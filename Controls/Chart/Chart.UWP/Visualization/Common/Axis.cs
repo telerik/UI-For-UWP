@@ -20,85 +20,85 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="LabelRotationAngle"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelRotationAngleProperty =
-            DependencyProperty.Register("LabelRotationAngle", typeof(double), typeof(Axis), new PropertyMetadata(300d, OnLabelRotationAngleChanged));
+            DependencyProperty.Register(nameof(LabelRotationAngle), typeof(double), typeof(Axis), new PropertyMetadata(300d, OnLabelRotationAngleChanged));
 
         /// <summary>
         /// Identifies the <see cref="MajorTickTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty MajorTickTemplateProperty =
-            DependencyProperty.Register("MajorTickTemplate", typeof(DataTemplate), typeof(Axis), new PropertyMetadata(null, OnMajorTickTemplateChanged));
+            DependencyProperty.Register(nameof(MajorTickTemplate), typeof(DataTemplate), typeof(Axis), new PropertyMetadata(null, OnMajorTickTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="MajorTickStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty MajorTickStyleProperty =
-            DependencyProperty.Register("MajorTickStyle", typeof(Style), typeof(Axis), new PropertyMetadata(null, OnMajorTickStyleChanged));
+            DependencyProperty.Register(nameof(MajorTickStyle), typeof(Style), typeof(Axis), new PropertyMetadata(null, OnMajorTickStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="TitleTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty TitleTemplateProperty =
-            DependencyProperty.Register("TitleTemplate", typeof(DataTemplate), typeof(Axis), new PropertyMetadata(null, OnTitleTemplateChanged));
+            DependencyProperty.Register(nameof(TitleTemplate), typeof(DataTemplate), typeof(Axis), new PropertyMetadata(null, OnTitleTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShowLabels"/> property.
         /// </summary>
         public static readonly DependencyProperty ShowLabelsProperty =
-            DependencyProperty.Register("ShowLabels", typeof(bool), typeof(Axis), new PropertyMetadata(true, OnShowLabelsPropertyChanged));
+            DependencyProperty.Register(nameof(ShowLabels), typeof(bool), typeof(Axis), new PropertyMetadata(true, OnShowLabelsPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelInterval"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelIntervalProperty =
-            DependencyProperty.Register("LabelInterval", typeof(int), typeof(Axis), new PropertyMetadata(1, OnLabelIntervalPropertyChanged));
+            DependencyProperty.Register(nameof(LabelInterval), typeof(int), typeof(Axis), new PropertyMetadata(1, OnLabelIntervalPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelFitMode"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelFitModeProperty =
-            DependencyProperty.Register("LabelFitMode", typeof(AxisLabelFitMode), typeof(Axis), new PropertyMetadata(AxisLabelFitMode.None, OnLabelFitModePropertyChanged));
+            DependencyProperty.Register(nameof(LabelFitMode), typeof(AxisLabelFitMode), typeof(Axis), new PropertyMetadata(AxisLabelFitMode.None, OnLabelFitModePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelTemplateProperty =
-            DependencyProperty.Register("LabelTemplate", typeof(DataTemplate), typeof(Axis), new PropertyMetadata(null, OnLabelTemplateChanged));
+            DependencyProperty.Register(nameof(LabelTemplate), typeof(DataTemplate), typeof(Axis), new PropertyMetadata(null, OnLabelTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelTemplateSelector"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelTemplateSelectorProperty =
-            DependencyProperty.Register("LabelTemplateSelector", typeof(DataTemplateSelector), typeof(Axis), new PropertyMetadata(null, OnLabelTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(LabelTemplateSelector), typeof(DataTemplateSelector), typeof(Axis), new PropertyMetadata(null, OnLabelTemplateSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelStyleProperty =
-            DependencyProperty.Register("LabelStyle", typeof(Style), typeof(Axis), new PropertyMetadata(null, OnLabelStyleChanged));
+            DependencyProperty.Register(nameof(LabelStyle), typeof(Style), typeof(Axis), new PropertyMetadata(null, OnLabelStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="LineStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty LineStyleProperty =
-            DependencyProperty.Register("LineStyle", typeof(Style), typeof(Axis), new PropertyMetadata(null, OnLineStyleChanged));
+            DependencyProperty.Register(nameof(LineStyle), typeof(Style), typeof(Axis), new PropertyMetadata(null, OnLineStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="Title"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(object), typeof(Axis), new PropertyMetadata(null, OnTitleChanged));
+            DependencyProperty.Register(nameof(Title), typeof(object), typeof(Axis), new PropertyMetadata(null, OnTitleChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LabelFormatProperty =
-            DependencyProperty.Register("LabelFormat", typeof(string), typeof(Axis), new PropertyMetadata(string.Empty, OnLabelFormatChanged));
+            DependencyProperty.Register(nameof(LabelFormat), typeof(string), typeof(Axis), new PropertyMetadata(string.Empty, OnLabelFormatChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelFormatter"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LabelFormatterProperty =
-            DependencyProperty.Register("LabelFormatter", typeof(IContentFormatter), typeof(Axis), new PropertyMetadata(null, OnLabelFormatterChanged));
+            DependencyProperty.Register(nameof(LabelFormatter), typeof(IContentFormatter), typeof(Axis), new PropertyMetadata(null, OnLabelFormatterChanged));
 
         internal const int DefaultMajorTickLength = 5;
 

@@ -17,13 +17,13 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="Child"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ChildProperty =
-            DependencyProperty.Register("Child", typeof(UIElement), typeof(RotatedContainer), new PropertyMetadata(null, OnChildChanged));
+            DependencyProperty.Register(nameof(Child), typeof(UIElement), typeof(RotatedContainer), new PropertyMetadata(null, OnChildChanged));
 
         /// <summary>
         /// Identifies the <see cref="RotationAngle"/> property.
         /// </summary>
         public static readonly DependencyProperty RotationAngleProperty =
-            DependencyProperty.Register("RotationAngle", typeof(double), typeof(RotatedContainer), new PropertyMetadata(0d, OnRotationAngleChanged));
+            DependencyProperty.Register(nameof(RotationAngle), typeof(double), typeof(RotatedContainer), new PropertyMetadata(0d, OnRotationAngleChanged));
 
         private Size childDesiredSize;
 

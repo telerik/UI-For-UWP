@@ -19,7 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         // Using a DependencyProperty as the backing store for Content.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ChildProperty =
-            DependencyProperty.Register("Child", typeof(object), typeof(DataGridCellFlyoutControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Child), typeof(object), typeof(DataGridCellFlyoutControl), new PropertyMetadata(null));
 
         public SolidColorBrush OuterBorderBrush
         {
@@ -29,7 +29,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         // Using a DependencyProperty as the backing store for OuterBorderBrush.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OuterBorderBrushProperty =
-            DependencyProperty.Register("OuterBorderBrush", typeof(SolidColorBrush), typeof(DataGridCellFlyoutControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(OuterBorderBrush), typeof(SolidColorBrush), typeof(DataGridCellFlyoutControl), new PropertyMetadata(null));
 
         
         public DataGridCellFlyoutControl()

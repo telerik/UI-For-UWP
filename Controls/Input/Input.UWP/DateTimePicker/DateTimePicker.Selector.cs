@@ -23,55 +23,55 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="ItemLength"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemLengthProperty =
-            DependencyProperty.Register("ItemLength", typeof(double), typeof(DateTimePicker), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemLength), typeof(double), typeof(DateTimePicker), new PropertyMetadata(double.NaN));
 
         /// <summary>
         /// Identifies the <see cref="ItemSpacing"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemSpacingProperty =
-            DependencyProperty.Register("ItemSpacing", typeof(double), typeof(DateTimePicker), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemSpacing), typeof(double), typeof(DateTimePicker), new PropertyMetadata(double.NaN));
 
         /// <summary>
         /// Identifies the <see cref="ItemCount"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemCountProperty =
-            DependencyProperty.Register("ItemCount", typeof(int), typeof(DateTimePicker), new PropertyMetadata(3));
+            DependencyProperty.Register(nameof(ItemCount), typeof(int), typeof(DateTimePicker), new PropertyMetadata(3));
 
         /// <summary>
         /// Identifies the SelectorOrder dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectorOrderProperty =
-            DependencyProperty.Register("SelectorOrder", typeof(string), typeof(DateTimePicker), new PropertyMetadata(string.Empty, OnSelectorOrderPropertyChanged));
+            DependencyProperty.Register(nameof(SelectorOrder), typeof(string), typeof(DateTimePicker), new PropertyMetadata(string.Empty, OnSelectorOrderPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectorDefaultValue"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectorDefaultValueProperty =
-            DependencyProperty.Register("SelectorDefaultValue", typeof(object), typeof(DateTimePicker), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectorDefaultValue), typeof(object), typeof(DateTimePicker), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="SelectorHeader"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectorHeaderProperty =
-            DependencyProperty.Register("SelectorHeader", typeof(object), typeof(DateTimePicker), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectorHeader), typeof(object), typeof(DateTimePicker), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="SelectorHeaderTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectorHeaderTemplateProperty =
-            DependencyProperty.Register("SelectorHeaderTemplate", typeof(DataTemplate), typeof(DateTimePicker), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectorHeaderTemplate), typeof(DataTemplate), typeof(DateTimePicker), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="IsOpen"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register("IsOpen", typeof(bool), typeof(DateTimePicker), new PropertyMetadata(false, OnIsOpenChanged));
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(DateTimePicker), new PropertyMetadata(false, OnIsOpenChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectorBackgroundStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectorBackgroundStyleProperty =
-            DependencyProperty.Register("SelectorBackgroundStyle", typeof(Style), typeof(DateTimePicker), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectorBackgroundStyle), typeof(Style), typeof(DateTimePicker), new PropertyMetadata(null));
 
         internal int availableListsCount;
         internal Popup popup;

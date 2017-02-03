@@ -11,7 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="MomentumPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MomentumPeriodProperty =
-            DependencyProperty.Register("MomentumPeriod", typeof(int), typeof(RelativeMomentumIndexIndicator), new PropertyMetadata(1, OnMomentumPeriodChanged));
+            DependencyProperty.Register(nameof(MomentumPeriod), typeof(int), typeof(RelativeMomentumIndexIndicator), new PropertyMetadata(1, OnMomentumPeriodChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RelativeMomentumIndexIndicator"/> class.

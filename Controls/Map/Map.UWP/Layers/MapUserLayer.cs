@@ -22,43 +22,43 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="ItemTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(MapUserLayer), new PropertyMetadata(null, OnItemTemplatePropertyChanged));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(MapUserLayer), new PropertyMetadata(null, OnItemTemplatePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemTemplateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateSelectorProperty =
-            DependencyProperty.Register("ItemTemplateSelector", typeof(DataTemplateSelector), typeof(MapUserLayer), new PropertyMetadata(null, OnItemTemplateSelectorPropertyChanged));
+            DependencyProperty.Register(nameof(ItemTemplateSelector), typeof(DataTemplateSelector), typeof(MapUserLayer), new PropertyMetadata(null, OnItemTemplateSelectorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSource"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(object), typeof(MapUserLayer), new PropertyMetadata(null, OnItemsSourcePropertyChanged));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(MapUserLayer), new PropertyMetadata(null, OnItemsSourcePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="LocationPropertyName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LocationPropertyNameProperty =
-            DependencyProperty.Register("LocationPropertyName", typeof(string), typeof(MapUserLayer), new PropertyMetadata(null, OnLocationPropertyNamePropertyChanged));
+            DependencyProperty.Register(nameof(LocationPropertyName), typeof(string), typeof(MapUserLayer), new PropertyMetadata(null, OnLocationPropertyNamePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="LocationOriginPropertyName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LocationOriginPropertyNameProperty =
-            DependencyProperty.Register("LocationOriginPropertyName", typeof(string), typeof(MapUserLayer), new PropertyMetadata(null, OnLocationOriginPropertyNamePropertyChanged));
+            DependencyProperty.Register(nameof(LocationOriginPropertyName), typeof(string), typeof(MapUserLayer), new PropertyMetadata(null, OnLocationOriginPropertyNamePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="MinZoomPropertyName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MinZoomPropertyNameProperty =
-            DependencyProperty.Register("MinZoomPropertyName", typeof(string), typeof(MapUserLayer), new PropertyMetadata(null, OnMinZoomPropertyNamePropertyChanged));
+            DependencyProperty.Register(nameof(MinZoomPropertyName), typeof(string), typeof(MapUserLayer), new PropertyMetadata(null, OnMinZoomPropertyNamePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="MaxZoomPropertyName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MaxZoomPropertyNameProperty =
-            DependencyProperty.Register("MaxZoomPropertyName", typeof(string), typeof(MapUserLayer), new PropertyMetadata(null, OnMaxZoomPropertyNamePropertyChanged));
+            DependencyProperty.Register(nameof(MaxZoomPropertyName), typeof(string), typeof(MapUserLayer), new PropertyMetadata(null, OnMaxZoomPropertyNamePropertyChanged));
 
         private static readonly Size InfinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
 

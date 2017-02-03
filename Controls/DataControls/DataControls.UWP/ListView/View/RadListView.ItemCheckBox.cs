@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="IsCheckModeActive"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsCheckModeActiveProperty =
-            DependencyProperty.Register("IsCheckModeActive", typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsCheckModeActiveChanged));
+            DependencyProperty.Register(nameof(IsCheckModeActive), typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsCheckModeActiveChanged));
 
 
 
@@ -24,7 +24,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ItemCheckBoxPosition.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemCheckBoxPositionProperty =
-            DependencyProperty.Register("ItemCheckBoxPosition", typeof(CheckBoxPosition), typeof(RadListView), new PropertyMetadata(CheckBoxPosition.BeforeItem));
+            DependencyProperty.Register(nameof(ItemCheckBoxPosition), typeof(CheckBoxPosition), typeof(RadListView), new PropertyMetadata(CheckBoxPosition.BeforeItem));
 
         
 
@@ -36,7 +36,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ItemCheckBoxStyle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemCheckBoxStyleProperty =
-            DependencyProperty.Register("ItemCheckBoxStyle", typeof(Style), typeof(RadListView), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ItemCheckBoxStyle), typeof(Style), typeof(RadListView), new PropertyMetadata(null));
     
         internal readonly ListViewItemCheckBoxService itemCheckBoxService;
 

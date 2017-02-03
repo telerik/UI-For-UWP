@@ -326,7 +326,7 @@ namespace Telerik.Data.Core
         {
             if (description == null)
             {
-                throw new ArgumentNullException("description");
+                throw new ArgumentNullException(nameof(description));
             }
 
             return new PropertyFilterDescription() { PropertyName = description.Name };
@@ -337,7 +337,7 @@ namespace Telerik.Data.Core
         {
             if (description == null)
             {
-                throw new ArgumentNullException("description");
+                throw new ArgumentNullException(nameof(description));
             }
 
             var aggregateDescription = new PropertyAggregateDescription() { PropertyName = description.Name };
@@ -355,7 +355,7 @@ namespace Telerik.Data.Core
         {
             if (description == null)
             {
-                throw new ArgumentNullException("description");
+                throw new ArgumentNullException(nameof(description));
             }
 
             return new PropertySortDescription() { PropertyName = description.Name };
@@ -366,7 +366,7 @@ namespace Telerik.Data.Core
         {
             if (description == null)
             {
-                throw new ArgumentNullException("description");
+                throw new ArgumentNullException(nameof(description));
             }
 
             ////if (FieldInfoHelper.IsNumericType(description.DataType))

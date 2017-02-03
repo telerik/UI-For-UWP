@@ -23,67 +23,67 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="ToolTipContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ToolTipContentProperty =
-            DependencyProperty.Register("ToolTipContent", typeof(object), typeof(RadialMenuItemControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ToolTipContent), typeof(object), typeof(RadialMenuItemControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="Command"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandProperty =
-    DependencyProperty.Register("Command", typeof(ICommand), typeof(RadialMenuItem), new PropertyMetadata(null, OnCommandChanged));
+    DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(RadialMenuItem), new PropertyMetadata(null, OnCommandChanged));
 
         /// <summary>
         /// Identifies the <see cref="CommandParameter"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register("CommandParameter", typeof(object), typeof(RadialMenuItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(RadialMenuItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="IsEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsEnabledProperty =
-            DependencyProperty.Register("IsEnabled", typeof(bool), typeof(RadialMenuItem), new PropertyMetadata(true, OnIsEnabledChanged));
+            DependencyProperty.Register(nameof(IsEnabled), typeof(bool), typeof(RadialMenuItem), new PropertyMetadata(true, OnIsEnabledChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsSelected"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register("IsSelected", typeof(bool), typeof(RadialMenuItem), new PropertyMetadata(false, OnIsSelectedChanged));
+            DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(RadialMenuItem), new PropertyMetadata(false, OnIsSelectedChanged));
 
         /// <summary>
         /// Identifies the <see cref="GroupName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register("GroupName", typeof(string), typeof(RadialMenuItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(RadialMenuItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="Selectable"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectableProperty =
-            DependencyProperty.Register("Selectable", typeof(bool), typeof(RadialMenuItem), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(Selectable), typeof(bool), typeof(RadialMenuItem), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="Deselectable"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DeselectableProperty =
-            DependencyProperty.Register("Deselectable", typeof(bool), typeof(RadialMenuItem), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(Deselectable), typeof(bool), typeof(RadialMenuItem), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="Header"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), typeof(RadialMenuItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RadialMenuItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="IconContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IconContentProperty =
-            DependencyProperty.Register("IconContent", typeof(object), typeof(RadialMenuItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(IconContent), typeof(object), typeof(RadialMenuItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ContentSectorBackground"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentSectorBackgroundProperty =
-            DependencyProperty.Register("ContentSectorBackground", typeof(Brush), typeof(RadialMenuItem), new PropertyMetadata(null, OnContentSectorBackgroundPropertyChanged));
+            DependencyProperty.Register(nameof(ContentSectorBackground), typeof(Brush), typeof(RadialMenuItem), new PropertyMetadata(null, OnContentSectorBackgroundPropertyChanged));
 
         internal Brush contentSectorBackgroundCache;
 

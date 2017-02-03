@@ -16,19 +16,19 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="PullToRefreshIndicatorStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PullToRefreshIndicatorStyleProperty =
-            DependencyProperty.Register("PullToRefreshIndicatorStyle", typeof(Style), typeof(RadDataBoundListBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PullToRefreshIndicatorStyle), typeof(Style), typeof(RadDataBoundListBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="ShowPullToRefreshWhenNoData"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShowPullToRefreshWhenNoDataProperty =
-            DependencyProperty.Register("ShowPullToRefreshWhenNoData", typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ShowPullToRefreshWhenNoData), typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="IsPullToRefreshEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsPullToRefreshEnabledProperty =
-            DependencyProperty.Register("IsPullToRefreshEnabled", typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(false, OnIsPullToRefreshActiveChanged));
+            DependencyProperty.Register(nameof(IsPullToRefreshEnabled), typeof(bool), typeof(RadDataBoundListBox), new PropertyMetadata(false, OnIsPullToRefreshActiveChanged));
 
         internal PullToRefreshIndicatorControl pullToRefreshIndicator;
         internal bool isIndicatorVisible;

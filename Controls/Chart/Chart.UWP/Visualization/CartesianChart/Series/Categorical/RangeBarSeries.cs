@@ -17,19 +17,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="CombineMode"/> property.
         /// </summary>
         public static readonly DependencyProperty CombineModeProperty =
-            DependencyProperty.Register("CombineMode", typeof(ChartSeriesCombineMode), typeof(RangeBarSeries), new PropertyMetadata(ChartSeriesCombineMode.Cluster, OnCombineModePropertyChanged));
+            DependencyProperty.Register(nameof(CombineMode), typeof(ChartSeriesCombineMode), typeof(RangeBarSeries), new PropertyMetadata(ChartSeriesCombineMode.Cluster, OnCombineModePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="PaletteMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PaletteModeProperty =
-            DependencyProperty.Register("PaletteMode", typeof(SeriesPaletteMode), typeof(RangeBarSeries), new PropertyMetadata(SeriesPaletteMode.Series, OnPaletteModeChanged));
+            DependencyProperty.Register(nameof(PaletteMode), typeof(SeriesPaletteMode), typeof(RangeBarSeries), new PropertyMetadata(SeriesPaletteMode.Series, OnPaletteModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="LegendTitleBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty LegendTitleBindingProperty =
-            DependencyProperty.Register("LegendTitleBinding", typeof(DataPointBinding), typeof(RangeBarSeries), new PropertyMetadata(null, OnLegendTitleBindingChanged));
+            DependencyProperty.Register(nameof(LegendTitleBinding), typeof(DataPointBinding), typeof(RangeBarSeries), new PropertyMetadata(null, OnLegendTitleBindingChanged));
 
         private SeriesPaletteMode paletteModeCache = SeriesPaletteMode.Series;
         private Dictionary<DataPoint, LegendItem> legendItems;

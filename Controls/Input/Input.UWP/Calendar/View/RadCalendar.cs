@@ -25,229 +25,229 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="DisplayDateStart"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayDateStartProperty =
-            DependencyProperty.Register("DisplayDateStart", typeof(DateTime), typeof(RadCalendar), new PropertyMetadata(new DateTime(1900, 1, 1), OnDisplayDateStartPropertyChanged));
+            DependencyProperty.Register(nameof(DisplayDateStart), typeof(DateTime), typeof(RadCalendar), new PropertyMetadata(new DateTime(1900, 1, 1), OnDisplayDateStartPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DisplayDateEnd"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayDateEndProperty =
-            DependencyProperty.Register("DisplayDateEnd", typeof(DateTime), typeof(RadCalendar), new PropertyMetadata(new DateTime(2099, 12, 31), OnDisplayDateEndPropertyChanged));
+            DependencyProperty.Register(nameof(DisplayDateEnd), typeof(DateTime), typeof(RadCalendar), new PropertyMetadata(new DateTime(2099, 12, 31), OnDisplayDateEndPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DisplayDate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayDateProperty =
-            DependencyProperty.Register("DisplayDate", typeof(DateTime), typeof(RadCalendar), new PropertyMetadata(DateTime.Today, OnDisplayDatePropertyChanged));
+            DependencyProperty.Register(nameof(DisplayDate), typeof(DateTime), typeof(RadCalendar), new PropertyMetadata(DateTime.Today, OnDisplayDatePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DisplayMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DisplayModeProperty =
-            DependencyProperty.Register("DisplayMode", typeof(CalendarDisplayMode), typeof(RadCalendar), new PropertyMetadata(CalendarDisplayMode.MonthView, OnDisplayModePropertyChanged));
+            DependencyProperty.Register(nameof(DisplayMode), typeof(CalendarDisplayMode), typeof(RadCalendar), new PropertyMetadata(CalendarDisplayMode.MonthView, OnDisplayModePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="GridLinesBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GridLinesBrushProperty =
-            DependencyProperty.Register("GridLinesBrush", typeof(Brush), typeof(RadCalendar), new PropertyMetadata(null, OnGridLinesBrushPropertyChanged));
+            DependencyProperty.Register(nameof(GridLinesBrush), typeof(Brush), typeof(RadCalendar), new PropertyMetadata(null, OnGridLinesBrushPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="GridLinesThickness"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GridLinesThicknessProperty =
-            DependencyProperty.Register("GridLinesThickness", typeof(double), typeof(RadCalendar), new PropertyMetadata(2d, OnGridLinesThicknessPropertyChanged));
+            DependencyProperty.Register(nameof(GridLinesThickness), typeof(double), typeof(RadCalendar), new PropertyMetadata(2d, OnGridLinesThicknessPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="GridLinesVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GridLinesVisibilityProperty =
-            DependencyProperty.Register("GridLinesVisibility", typeof(GridLinesVisibility), typeof(RadCalendar), new PropertyMetadata(GridLinesVisibility.Both, OnGridLinesVisibilityPropertyChanged));
+            DependencyProperty.Register(nameof(GridLinesVisibility), typeof(GridLinesVisibility), typeof(RadCalendar), new PropertyMetadata(GridLinesVisibility.Both, OnGridLinesVisibilityPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectionMode"/> dependency property. 
         /// </summary> 
         public static readonly DependencyProperty SelectionModeProperty =
-            DependencyProperty.Register("SelectionMode", typeof(CalendarSelectionMode), typeof(RadCalendar), new PropertyMetadata(CalendarSelectionMode.Single, OnSelectionModePropertyChanged));
+            DependencyProperty.Register(nameof(SelectionMode), typeof(CalendarSelectionMode), typeof(RadCalendar), new PropertyMetadata(CalendarSelectionMode.Single, OnSelectionModePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="PointerOverCellStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PointerOverCellStyleProperty =
-            DependencyProperty.Register("PointerOverCellStyle", typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnPointerOverCellStylePropertyChanged));
+            DependencyProperty.Register(nameof(PointerOverCellStyle), typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnPointerOverCellStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="NormalCellStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty NormalCellStyleProperty =
-            DependencyProperty.Register("NormalCellStyle", typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnNormalCellStylePropertyChanged));
+            DependencyProperty.Register(nameof(NormalCellStyle), typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnNormalCellStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="AnotherViewCellStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AnotherViewCellStyleProperty =
-            DependencyProperty.Register("AnotherViewCellStyle", typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnAnotherViewCellStylePropertyChanged));
+            DependencyProperty.Register(nameof(AnotherViewCellStyle), typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnAnotherViewCellStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="BlackoutCellStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty BlackoutCellStyleProperty =
-            DependencyProperty.Register("BlackoutCellStyle", typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnBlackoutCellStylePropertyChanged));
+            DependencyProperty.Register(nameof(BlackoutCellStyle), typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnBlackoutCellStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="BlackoutCellStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectedCellStyleProperty =
-            DependencyProperty.Register("SelectedCellStyle", typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnSelectedCellStylePropertyChanged));
+            DependencyProperty.Register(nameof(SelectedCellStyle), typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnSelectedCellStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="HighlightedCellStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HighlightedCellStyleProperty =
-            DependencyProperty.Register("HighlightedCellStyle", typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnHighlightedCellStylePropertyChanged));
+            DependencyProperty.Register(nameof(HighlightedCellStyle), typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnHighlightedCellStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="CurrentCellStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CurrentCellStyleProperty =
-            DependencyProperty.Register("CurrentCellStyle", typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnCurrentCellStylePropertyChanged));
+            DependencyProperty.Register(nameof(CurrentCellStyle), typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnCurrentCellStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DayNameCellStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DayNameCellStyleProperty =
-            DependencyProperty.Register("DayNameCellStyle", typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnDayNameCellStylePropertyChanged));
+            DependencyProperty.Register(nameof(DayNameCellStyle), typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnDayNameCellStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="WeekNumberCellStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WeekNumberCellStyleProperty =
-            DependencyProperty.Register("WeekNumberCellStyle", typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnWeekNumberCellStylePropertyChanged));
+            DependencyProperty.Register(nameof(WeekNumberCellStyle), typeof(CalendarCellStyle), typeof(RadCalendar), new PropertyMetadata(null, OnWeekNumberCellStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="CellStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellStyleSelectorProperty =
-            DependencyProperty.Register("CellStyleSelector", typeof(CalendarCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnCellStyleSelectorPropertyChanged));
+            DependencyProperty.Register(nameof(CellStyleSelector), typeof(CalendarCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnCellStyleSelectorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="CellStateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellStateSelectorProperty =
-            DependencyProperty.Register("CellStateSelector", typeof(CalendarCellStateSelector), typeof(RadCalendar), new PropertyMetadata(null, OnCellStateSelectorPropertyChanged));
+            DependencyProperty.Register(nameof(CellStateSelector), typeof(CalendarCellStateSelector), typeof(RadCalendar), new PropertyMetadata(null, OnCellStateSelectorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DayNameCellStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DayNameCellStyleSelectorProperty =
-            DependencyProperty.Register("DayNameCellStyleSelector", typeof(CalendarDayNameCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnDayNameCellStyleSelectorPropertyChanged));
+            DependencyProperty.Register(nameof(DayNameCellStyleSelector), typeof(CalendarDayNameCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnDayNameCellStyleSelectorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="WeekNumberStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WeekNumberCellStyleSelectorProperty =
-            DependencyProperty.Register("WeekNumberCellStyleSelector", typeof(CalendarWeekNumberCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnWeekNumberStyleSelectorPropertyChanged));
+            DependencyProperty.Register(nameof(WeekNumberCellStyleSelector), typeof(CalendarWeekNumberCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnWeekNumberStyleSelectorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsTodayHighlighted"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsTodayHighlightedProperty =
-            DependencyProperty.Register("IsTodayHighlighted", typeof(bool), typeof(RadCalendar), new PropertyMetadata(true, OnIsTodayHighlightedPropertyChanged));
+            DependencyProperty.Register(nameof(IsTodayHighlighted), typeof(bool), typeof(RadCalendar), new PropertyMetadata(true, OnIsTodayHighlightedPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="MonthViewHeaderFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MonthViewHeaderFormatProperty =
-            DependencyProperty.Register("MonthViewHeaderFormat", typeof(string), typeof(RadCalendar), new PropertyMetadata(DefaultMonthViewHeaderFormatString, OnCalendarViewHeaderFormatPropertyChanged));
+            DependencyProperty.Register(nameof(MonthViewHeaderFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(DefaultMonthViewHeaderFormatString, OnCalendarViewHeaderFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="YearViewHeaderFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty YearViewHeaderFormatProperty =
-            DependencyProperty.Register("YearViewHeaderFormat", typeof(string), typeof(RadCalendar), new PropertyMetadata(DefaultYearViewHeaderFormatString, OnCalendarViewHeaderFormatPropertyChanged));
+            DependencyProperty.Register(nameof(YearViewHeaderFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(DefaultYearViewHeaderFormatString, OnCalendarViewHeaderFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DecadeViewHeaderFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DecadeViewHeaderFormatProperty =
-            DependencyProperty.Register("DecadeViewHeaderFormat", typeof(string), typeof(RadCalendar), new PropertyMetadata(DefaultDecadeViewHeaderFormatString, OnCalendarViewHeaderFormatPropertyChanged));
+            DependencyProperty.Register(nameof(DecadeViewHeaderFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(DefaultDecadeViewHeaderFormatString, OnCalendarViewHeaderFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="CenturyViewHeaderFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CenturyViewHeaderFormatProperty =
-            DependencyProperty.Register("CenturyViewHeaderFormat", typeof(string), typeof(RadCalendar), new PropertyMetadata(DefaultCenturyViewHeaderFormatString, OnCalendarViewHeaderFormatPropertyChanged));
+            DependencyProperty.Register(nameof(CenturyViewHeaderFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(DefaultCenturyViewHeaderFormatString, OnCalendarViewHeaderFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="MonthViewCellFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MonthViewCellFormatProperty =
-            DependencyProperty.Register("MonthViewCellFormat", typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultMonthViewCellFormatString, OnMonthViewCellFormatPropertyChanged));
+            DependencyProperty.Register(nameof(MonthViewCellFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultMonthViewCellFormatString, OnMonthViewCellFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="YearViewCellFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty YearViewCellFormatProperty =
-            DependencyProperty.Register("YearViewCellFormat", typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultYearViewCellFormatString, OnYearViewCellFormatPropertyChanged));
+            DependencyProperty.Register(nameof(YearViewCellFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultYearViewCellFormatString, OnYearViewCellFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DecadeViewCellFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DecadeViewCellFormatProperty =
-            DependencyProperty.Register("DecadeViewCellFormat", typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultDecadeViewCellFormatString, OnDecadeViewCellFormatPropertyChanged));
+            DependencyProperty.Register(nameof(DecadeViewCellFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultDecadeViewCellFormatString, OnDecadeViewCellFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="CenturyViewCellFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CenturyViewCellFormatProperty =
-            DependencyProperty.Register("CenturyViewCellFormat", typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultCenturyViewCellFormatString, OnCenturyViewCellFormatPropertyChanged));
+            DependencyProperty.Register(nameof(CenturyViewCellFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultCenturyViewCellFormatString, OnCenturyViewCellFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DayNamesVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DayNamesVisibilityProperty =
-            DependencyProperty.Register("DayNamesVisibility", typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Visible, OnDayNamesVisibilityPropertyChanged));
+            DependencyProperty.Register(nameof(DayNamesVisibility), typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Visible, OnDayNamesVisibilityPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="NavigationArrowsVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty NavigationArrowsVisibilityProperty =
-            DependencyProperty.Register("NavigationArrowsVisibility", typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(NavigationArrowsVisibility), typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
         /// Identifies the <see cref="WeekNumbersVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WeekNumbersVisibilityProperty =
-            DependencyProperty.Register("WeekNumbersVisibility", typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Collapsed, OnWeekNumbersVisibilityPropertyChanged));
+            DependencyProperty.Register(nameof(WeekNumbersVisibility), typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Collapsed, OnWeekNumbersVisibilityPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DayNameFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DayNameFormatProperty =
-            DependencyProperty.Register("DayNameFormat", typeof(CalendarDayNameFormat), typeof(RadCalendar), new PropertyMetadata(CalendarDayNameFormat.AbbreviatedName, OnDayNameFormatPropertyChanged));
+            DependencyProperty.Register(nameof(DayNameFormat), typeof(CalendarDayNameFormat), typeof(RadCalendar), new PropertyMetadata(CalendarDayNameFormat.AbbreviatedName, OnDayNameFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="WeekNumberFormat"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WeekNumberFormatProperty =
-            DependencyProperty.Register("WeekNumberFormat", typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultWeekNumberFormatString, OnWeekNumberFormatPropertyChanged));
+            DependencyProperty.Register(nameof(WeekNumberFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultWeekNumberFormatString, OnWeekNumberFormatPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectedDateRange"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectedDateRangeProperty =
-            DependencyProperty.Register("SelectedDateRange", typeof(object), typeof(RadCalendar), new PropertyMetadata(null, OnSelectedDateRangePropertyChanged));
+            DependencyProperty.Register(nameof(SelectedDateRange), typeof(object), typeof(RadCalendar), new PropertyMetadata(null, OnSelectedDateRangePropertyChanged));
 
         /// <summary>
         /// Identifies the <c cref="AppointmentSource"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AppointmentSourceProperty =
-            DependencyProperty.Register("AppointmentSource", typeof(AppointmentSource), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentSourceChanged));
+            DependencyProperty.Register(nameof(AppointmentSource), typeof(AppointmentSource), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentSourceChanged));
 
         /// <summary>
         /// Identifies the <c cref="AppointmentTemplateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AppointmentTemplateSelectorProperty =
-            DependencyProperty.Register("AppointmentTemplateSelector", typeof(AppointmentTemplateSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(AppointmentTemplateSelector), typeof(AppointmentTemplateSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentTemplateSelectorChanged));
 
         internal static readonly Size InfinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
 

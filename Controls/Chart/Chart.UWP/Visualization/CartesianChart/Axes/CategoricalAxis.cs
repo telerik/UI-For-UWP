@@ -12,25 +12,25 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="GapLength"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GapLengthProperty =
-            DependencyProperty.Register("GapLength", typeof(double), typeof(CategoricalAxis), new PropertyMetadata(0.3, OnGapLengthChanged));
+            DependencyProperty.Register(nameof(GapLength), typeof(double), typeof(CategoricalAxis), new PropertyMetadata(0.3, OnGapLengthChanged));
 
         /// <summary>
         /// Identifies the <see cref="AutoGroup"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AutoGroupProperty =
-            DependencyProperty.Register("AutoGroup", typeof(bool), typeof(CategoricalAxis), new PropertyMetadata(true, OnAutoGroupPropertyChanged));
+            DependencyProperty.Register(nameof(AutoGroup), typeof(bool), typeof(CategoricalAxis), new PropertyMetadata(true, OnAutoGroupPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="MajorTickInterval"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MajorTickIntervalProperty =
-            DependencyProperty.Register("MajorTickInterval", typeof(int), typeof(CategoricalAxis), new PropertyMetadata(1, OnMajorTickIntervalPropertyChanged));
+            DependencyProperty.Register(nameof(MajorTickInterval), typeof(int), typeof(CategoricalAxis), new PropertyMetadata(1, OnMajorTickIntervalPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="PlotMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PlotModeProperty =
-            DependencyProperty.Register("PlotMode", typeof(AxisPlotMode), typeof(CategoricalAxis), new PropertyMetadata(AxisPlotMode.BetweenTicks, OnPlotModePropertyChanged));
+            DependencyProperty.Register(nameof(PlotMode), typeof(AxisPlotMode), typeof(CategoricalAxis), new PropertyMetadata(AxisPlotMode.BetweenTicks, OnPlotModePropertyChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoricalAxis"/> class.

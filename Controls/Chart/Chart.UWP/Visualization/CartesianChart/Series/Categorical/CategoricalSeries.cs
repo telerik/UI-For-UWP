@@ -17,7 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="CombineMode"/> property.
         /// </summary>
         public static readonly DependencyProperty CombineModeProperty =
-            DependencyProperty.Register("CombineMode", typeof(ChartSeriesCombineMode), typeof(CategoricalSeries), new PropertyMetadata(ChartSeriesCombineMode.None, OnCombineModePropertyChanged));
+            DependencyProperty.Register(nameof(CombineMode), typeof(ChartSeriesCombineMode), typeof(CategoricalSeries), new PropertyMetadata(ChartSeriesCombineMode.None, OnCombineModePropertyChanged));
 
         private ChartSeriesCombineMode combineModeCache;
 

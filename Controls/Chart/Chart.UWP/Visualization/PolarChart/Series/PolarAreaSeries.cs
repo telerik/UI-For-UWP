@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Fill"/> property.
         /// </summary>
         public static readonly DependencyProperty FillProperty =
-            DependencyProperty.Register("Fill", typeof(Brush), typeof(PolarAreaSeries), new PropertyMetadata(null, OnFillChanged));
+            DependencyProperty.Register(nameof(Fill), typeof(Brush), typeof(PolarAreaSeries), new PropertyMetadata(null, OnFillChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolarAreaSeries"/> class.

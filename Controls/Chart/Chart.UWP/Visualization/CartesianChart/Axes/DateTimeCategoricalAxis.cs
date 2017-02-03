@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="DateTimeComponent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DateTimeComponentProperty =
-            DependencyProperty.Register("DateTimeComponent", typeof(DateTimeComponent), typeof(DateTimeCategoricalAxis), new PropertyMetadata(DateTimeComponent.Ticks, OnDateTimeComponentPropertyChanged));
+            DependencyProperty.Register(nameof(DateTimeComponent), typeof(DateTimeComponent), typeof(DateTimeCategoricalAxis), new PropertyMetadata(DateTimeComponent.Ticks, OnDateTimeComponentPropertyChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DateTimeCategoricalAxis"/> class.

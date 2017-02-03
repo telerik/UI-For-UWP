@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the Template property.
         /// </summary>
         public static readonly DependencyProperty TemplateProperty =
-            DependencyProperty.Register("Template", typeof(DataTemplate), typeof(BulletGraphComparativeMeasure), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Template), typeof(DataTemplate), typeof(BulletGraphComparativeMeasure), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets a data template that defines the look of this comparative measure instance.

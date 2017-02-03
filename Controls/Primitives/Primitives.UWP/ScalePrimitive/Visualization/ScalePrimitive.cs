@@ -17,73 +17,73 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="TickFrequency"/> property.
         /// </summary>
         public static readonly DependencyProperty TickFrequencyProperty =
-            DependencyProperty.Register("TickFrequency", typeof(double), typeof(ScalePrimitive), new PropertyMetadata(1d, OnTickFrequencyChanged));
+            DependencyProperty.Register(nameof(TickFrequency), typeof(double), typeof(ScalePrimitive), new PropertyMetadata(1d, OnTickFrequencyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Orientation"/> property.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ScalePrimitive), new PropertyMetadata(Orientation.Horizontal, OnOrientationChanged));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(ScalePrimitive), new PropertyMetadata(Orientation.Horizontal, OnOrientationChanged));
 
         /// <summary>
         /// Identifies the <see cref="LineStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty LineStyleProperty =
-            DependencyProperty.Register("LineStyle", typeof(Style), typeof(ScalePrimitive), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(LineStyle), typeof(Style), typeof(ScalePrimitive), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="TickPlacement"/> property.
         /// </summary>
         public static readonly DependencyProperty TickPlacementProperty =
-            DependencyProperty.Register("TickPlacement", typeof(ScaleElementPlacement), typeof(ScalePrimitive), new PropertyMetadata(DefaultTickPlacement, OnTickPlacementChanged));
+            DependencyProperty.Register(nameof(TickPlacement), typeof(ScaleElementPlacement), typeof(ScalePrimitive), new PropertyMetadata(DefaultTickPlacement, OnTickPlacementChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelPlacement"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelPlacementProperty =
-            DependencyProperty.Register("LabelPlacement", typeof(ScaleElementPlacement), typeof(ScalePrimitive), new PropertyMetadata(DefaultTickPlacement, OnLabelPlacementChanged));
+            DependencyProperty.Register(nameof(LabelPlacement), typeof(ScaleElementPlacement), typeof(ScalePrimitive), new PropertyMetadata(DefaultTickPlacement, OnLabelPlacementChanged));
 
         /// <summary>
         /// Identifies the <see cref="TickStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty TickStyleProperty =
-            DependencyProperty.Register("TickStyle", typeof(Style), typeof(ScalePrimitive), new PropertyMetadata(null, OnTickStyleChanged));
+            DependencyProperty.Register(nameof(TickStyle), typeof(Style), typeof(ScalePrimitive), new PropertyMetadata(null, OnTickStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="TickThickness"/> property.
         /// </summary>
         public static readonly DependencyProperty TickThicknessProperty =
-            DependencyProperty.Register("TickThickness", typeof(double), typeof(ScalePrimitive), new PropertyMetadata(DefaultTickThickness, OnTickThicknessChanged));
+            DependencyProperty.Register(nameof(TickThickness), typeof(double), typeof(ScalePrimitive), new PropertyMetadata(DefaultTickThickness, OnTickThicknessChanged));
 
         /// <summary>
         /// Identifies the <see cref="TickThickness"/> property.
         /// </summary>
         public static readonly DependencyProperty TickLengthProperty =
-            DependencyProperty.Register("TickLength", typeof(double), typeof(ScalePrimitive), new PropertyMetadata(DefaultTickLength, OnTickLengthChanged));
+            DependencyProperty.Register(nameof(TickLength), typeof(double), typeof(ScalePrimitive), new PropertyMetadata(DefaultTickLength, OnTickLengthChanged));
 
         /// <summary>
         /// Identifies the <see cref="TickTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty TickTemplateProperty =
-            DependencyProperty.Register("TickTemplate", typeof(DataTemplate), typeof(ScalePrimitive), new PropertyMetadata(null, OnTickTemplateChanged));
+            DependencyProperty.Register(nameof(TickTemplate), typeof(DataTemplate), typeof(ScalePrimitive), new PropertyMetadata(null, OnTickTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelFormat"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelFormatProperty =
-            DependencyProperty.Register("LabelFormat", typeof(string), typeof(ScalePrimitive), new PropertyMetadata(null, OnLabelFormatChanged));
+            DependencyProperty.Register(nameof(LabelFormat), typeof(string), typeof(ScalePrimitive), new PropertyMetadata(null, OnLabelFormatChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelStyleProperty =
-            DependencyProperty.Register("LabelStyle", typeof(Style), typeof(ScalePrimitive), new PropertyMetadata(null, OnLabelStyleChanged));
+            DependencyProperty.Register(nameof(LabelStyle), typeof(Style), typeof(ScalePrimitive), new PropertyMetadata(null, OnLabelStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="LabelTemplate"/> property.
         /// </summary>
         public static readonly DependencyProperty LabelTemplateProperty =
-            DependencyProperty.Register("LabelTemplate", typeof(DataTemplate), typeof(ScalePrimitive), new PropertyMetadata(null, OnLabelTemplateChanged));
+            DependencyProperty.Register(nameof(LabelTemplate), typeof(DataTemplate), typeof(ScalePrimitive), new PropertyMetadata(null, OnLabelTemplateChanged));
 
         internal const double DefaultMinimum = 0;
         internal const double DefaultMaximum = 1;
@@ -92,7 +92,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         internal const ScaleElementPlacement DefaultTickPlacement = ScaleElementPlacement.BottomRight;
 
         internal static readonly DependencyProperty AxisLineOffsetProperty =
-    DependencyProperty.Register("AxisLineOffset", typeof(Thickness), typeof(ScalePrimitive), new PropertyMetadata(new Thickness(0), OnAxisLineOffsetChanged));
+    DependencyProperty.Register(nameof(AxisLineOffset), typeof(Thickness), typeof(ScalePrimitive), new PropertyMetadata(new Thickness(0), OnAxisLineOffsetChanged));
 
         private const double DefaultTickLength = 5;
         private const double DefaultTickThickness = 1;

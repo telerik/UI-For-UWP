@@ -11,19 +11,19 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="CurrentItem"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty CurrentItemProperty =
-            DependencyProperty.Register("CurrentItem", typeof(object), typeof(RadDataGrid), new PropertyMetadata(null, OnCurrentItemChanged));
+            DependencyProperty.Register(nameof(CurrentItem), typeof(object), typeof(RadDataGrid), new PropertyMetadata(null, OnCurrentItemChanged));
 
         /// <summary>
         /// Identifies the <see cref="EnsureCurrentItemIntoView"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty EnsureCurrentItemIntoViewProperty =
-            DependencyProperty.Register("EnsureCurrentItemIntoView", typeof(bool), typeof(RadDataGrid), new PropertyMetadata(true, OnEnsureCurrentItemIntoViewChanged));
+            DependencyProperty.Register(nameof(EnsureCurrentItemIntoView), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(true, OnEnsureCurrentItemIntoViewChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsSynchronizedWithCurrentItem"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty IsSynchronizedWithCurrentItemProperty =
-            DependencyProperty.Register("IsSynchronizedWithCurrentItem", typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false, OnIsSynchronizedWithCurrentItemChanged));
+            DependencyProperty.Register(nameof(IsSynchronizedWithCurrentItem), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false, OnIsSynchronizedWithCurrentItemChanged));
 
         internal readonly DataGridCurrencyService CurrencyService;
 

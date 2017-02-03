@@ -21,7 +21,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="InnerRadiusFactor"/> property.
         /// </summary>
         public static readonly DependencyProperty InnerRadiusFactorProperty =
-            DependencyProperty.Register("InnerRadiusFactor", typeof(double), typeof(DoughnutSeries), new PropertyMetadata(0.5, OnInnerRadiusFactorChanged));
+            DependencyProperty.Register(nameof(InnerRadiusFactor), typeof(double), typeof(DoughnutSeries), new PropertyMetadata(0.5, OnInnerRadiusFactorChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DoughnutSeries"/> class.

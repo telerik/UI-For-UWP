@@ -11,7 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Period"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PeriodProperty = 
-            DependencyProperty.Register("Period", typeof(int), typeof(ValuePeriodIndicatorBase), new PropertyMetadata(0, OnPeriodChanged));
+            DependencyProperty.Register(nameof(Period), typeof(int), typeof(ValuePeriodIndicatorBase), new PropertyMetadata(0, OnPeriodChanged));
 
         /// <summary>
         /// Gets or sets the indicator period.

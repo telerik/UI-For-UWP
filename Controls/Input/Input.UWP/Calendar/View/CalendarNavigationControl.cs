@@ -13,25 +13,25 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         /// Identifies the <see cref="Header"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(CalendarNavigationControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Header), typeof(string), typeof(CalendarNavigationControl), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="NavigationArrowsVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty NavigationArrowsVisibilityProperty =
-            DependencyProperty.Register("NavigationArrowsVisibility", typeof(Visibility), typeof(CalendarNavigationControl), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(NavigationArrowsVisibility), typeof(Visibility), typeof(CalendarNavigationControl), new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
         /// Identifies the <see cref="IsNavigationToPreviousViewEnabled"/> dependency property.
         /// </summary>
         internal static readonly DependencyProperty IsNavigationToPreviousViewEnabledProperty =
-            DependencyProperty.Register("IsNavigationToPreviousViewEnabled", typeof(bool), typeof(CalendarNavigationControl), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsNavigationToPreviousViewEnabled), typeof(bool), typeof(CalendarNavigationControl), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="IsNavigationToNextViewEnabled"/> dependency property.
         /// </summary>
         internal static readonly DependencyProperty IsNavigationToNextViewEnabledProperty =
-            DependencyProperty.Register("IsNavigationToNextViewEnabled", typeof(bool), typeof(CalendarNavigationControl), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsNavigationToNextViewEnabled), typeof(bool), typeof(CalendarNavigationControl), new PropertyMetadata(true));
 
         private const string NextButtonPartName = "navigateToNextViewButton";
         private const string PreviousButtonPartName = "navigateToPreviousViewButton";

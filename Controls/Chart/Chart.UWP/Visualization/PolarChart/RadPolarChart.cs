@@ -20,19 +20,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="PolarAxis"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PolarAxisProperty =
-            DependencyProperty.Register("PolarAxis", typeof(PolarAxis), typeof(RadPolarChart), new PropertyMetadata(null, OnPolarAxisChanged));
+            DependencyProperty.Register(nameof(PolarAxis), typeof(PolarAxis), typeof(RadPolarChart), new PropertyMetadata(null, OnPolarAxisChanged));
 
         /// <summary>
         /// Identifies the <see cref="RadialAxis"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RadialAxisProperty =
-            DependencyProperty.Register("RadialAxis", typeof(RadialAxis), typeof(RadPolarChart), new PropertyMetadata(null, OnRadialAxisChanged));
+            DependencyProperty.Register(nameof(RadialAxis), typeof(RadialAxis), typeof(RadPolarChart), new PropertyMetadata(null, OnRadialAxisChanged));
 
         /// <summary>
         /// Identifies the <see cref="StartAngle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty StartAngleProperty =
-            DependencyProperty.Register("StartAngle", typeof(double), typeof(RadPolarChart), new PropertyMetadata(0d, OnStartAngleChanged));
+            DependencyProperty.Register(nameof(StartAngle), typeof(double), typeof(RadPolarChart), new PropertyMetadata(0d, OnStartAngleChanged));
 
         private PolarAxis polarAxisCache;
         private RadialAxis radialAxisCache;

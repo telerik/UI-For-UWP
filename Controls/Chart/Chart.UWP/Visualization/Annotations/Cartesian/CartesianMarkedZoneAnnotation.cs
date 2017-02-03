@@ -17,7 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Fill"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FillProperty =
-            DependencyProperty.Register("Fill", typeof(Brush), typeof(CartesianMarkedZoneAnnotation), new PropertyMetadata(null, OnFillPropertyChanged));
+            DependencyProperty.Register(nameof(Fill), typeof(Brush), typeof(CartesianMarkedZoneAnnotation), new PropertyMetadata(null, OnFillPropertyChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CartesianMarkedZoneAnnotation" /> class.

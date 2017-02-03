@@ -26,7 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 if (this.itemWidth != value)
                 {
                     this.itemWidth = value;
-                    this.OnPropertyChanged("ItemWidth");
+                    this.OnPropertyChanged(nameof(ItemWidth));
                 }
             }
         }

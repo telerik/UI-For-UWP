@@ -15,13 +15,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="CategoryBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty CategoryBindingProperty =
-            DependencyProperty.Register("CategoryBinding", typeof(DataPointBinding), typeof(RadarPointSeries), new PropertyMetadata(null, RadarPointSeries.OnCategoryBindingChanged));
+            DependencyProperty.Register(nameof(CategoryBinding), typeof(DataPointBinding), typeof(RadarPointSeries), new PropertyMetadata(null, RadarPointSeries.OnCategoryBindingChanged));
 
         /// <summary>
         /// Identifies the <see cref="CombineMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CombineModeProperty =
-            DependencyProperty.Register("CombineMode", typeof(ChartSeriesCombineMode), typeof(RadarPointSeries), new PropertyMetadata(ChartSeriesCombineMode.None, OnCombineModePropertyChanged));
+            DependencyProperty.Register(nameof(CombineMode), typeof(ChartSeriesCombineMode), typeof(RadarPointSeries), new PropertyMetadata(ChartSeriesCombineMode.None, OnCombineModePropertyChanged));
 
         private RadarSeriesModel model;
         private ChartSeriesCombineMode combineModeCache;

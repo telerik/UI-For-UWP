@@ -23,19 +23,19 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="SelectionStartThumbStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectionStartThumbStyleProperty =
-            DependencyProperty.Register("SelectionStartThumbStyle", typeof(Style), typeof(RangeSliderPrimitive), null);
+            DependencyProperty.Register(nameof(SelectionStartThumbStyle), typeof(Style), typeof(RangeSliderPrimitive), null);
 
         /// <summary>
         /// Identifies the <see cref="SelectionEndThumbStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectionEndThumbStyleProperty =
-            DependencyProperty.Register("SelectionEndThumbStyle", typeof(Style), typeof(RangeSliderPrimitive), null);
+            DependencyProperty.Register(nameof(SelectionEndThumbStyle), typeof(Style), typeof(RangeSliderPrimitive), null);
 
         /// <summary>
         /// Identifies the <see cref="SelectionMiddleThumbStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectionMiddleThumbStyleProperty =
-            DependencyProperty.Register("SelectionMiddleThumbStyle", typeof(Style), typeof(RangeSliderPrimitive), null);
+            DependencyProperty.Register(nameof(SelectionMiddleThumbStyle), typeof(Style), typeof(RangeSliderPrimitive), null);
 
         internal double coeficient;
         internal Popup rangeToolTip;

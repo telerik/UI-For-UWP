@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for LabelIconStyle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LabelIconStyleProperty =
-            DependencyProperty.Register("LabelIconStyle", typeof(Style), typeof(AutoCompleteEditor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(LabelIconStyle), typeof(Style), typeof(AutoCompleteEditor), new PropertyMetadata(null));
 
         public Style ErrorIconStyle
         {
@@ -25,7 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ErrorIconStyle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ErrorIconStyleProperty =
-            DependencyProperty.Register("ErrorIconStyle", typeof(Style), typeof(AutoCompleteEditor), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ErrorIconStyle), typeof(Style), typeof(AutoCompleteEditor), new PropertyMetadata(null));
 
         public bool HasErrors
         {
@@ -35,7 +35,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for HasErrors.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HasErrorsProperty =
-            DependencyProperty.Register("HasErrors", typeof(bool), typeof(AutoCompleteEditor), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasErrors), typeof(bool), typeof(AutoCompleteEditor), new PropertyMetadata(false));
 
         public EditorIconDisplayMode IconDisplayMode
         {
@@ -45,7 +45,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for IconDisplayMode.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IconDisplayModeProperty =
-            DependencyProperty.Register("IconDisplayMode", typeof(EditorIconDisplayMode), typeof(AutoCompleteEditor), new PropertyMetadata(EditorIconDisplayMode.None));
+            DependencyProperty.Register(nameof(IconDisplayMode), typeof(EditorIconDisplayMode), typeof(AutoCompleteEditor), new PropertyMetadata(EditorIconDisplayMode.None));
 
         public AutoCompleteEditor()
         {

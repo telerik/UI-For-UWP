@@ -19,7 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="OuterBorderVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty OuterBorderVisibilityProperty =
-            DependencyProperty.Register("OuterBorderVisibility", typeof(Visibility), typeof(DataGridFlyoutHeader), new PropertyMetadata(Visibility.Collapsed));
+            DependencyProperty.Register(nameof(OuterBorderVisibility), typeof(Visibility), typeof(DataGridFlyoutHeader), new PropertyMetadata(Visibility.Collapsed));
 
         internal RadDataGrid ParentGrid;
         internal event EventHandler DescriptorContentTap;

@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
         /// Specifies the <see cref="LoopingListItem.IsSelected"/> property.
         /// </summary>
         public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register("IsSelected", typeof(bool), typeof(LoopingListItem), new PropertyMetadata(false, OnIsSelectedChanged));
+            DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(LoopingListItem), new PropertyMetadata(false, OnIsSelectedChanged));
 
         internal TranslateTransform translateTransform;
         internal Point translation;

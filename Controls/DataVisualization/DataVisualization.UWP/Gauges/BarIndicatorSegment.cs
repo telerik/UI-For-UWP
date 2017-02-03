@@ -16,19 +16,19 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the <see cref="Length"/> property.
         /// </summary>
         public static readonly DependencyProperty LengthProperty =
-            DependencyProperty.Register("Length", typeof(double), typeof(BarIndicatorSegment), new PropertyMetadata(1d, OnLengthPropertyChanged));
+            DependencyProperty.Register(nameof(Length), typeof(double), typeof(BarIndicatorSegment), new PropertyMetadata(1d, OnLengthPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Thickness"/> property.
         /// </summary>
         public static readonly DependencyProperty ThicknessProperty =
-            DependencyProperty.Register("Thickness", typeof(double), typeof(BarIndicatorSegment), new PropertyMetadata(1d, OnThicknessPropertyChanged));
+            DependencyProperty.Register(nameof(Thickness), typeof(double), typeof(BarIndicatorSegment), new PropertyMetadata(1d, OnThicknessPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Stroke"/> property.
         /// </summary>
         public static readonly DependencyProperty StrokeProperty =
-            DependencyProperty.Register("Stroke", typeof(Brush), typeof(BarIndicatorSegment), new PropertyMetadata(null, OnStrokePropertyChanged));
+            DependencyProperty.Register(nameof(Stroke), typeof(Brush), typeof(BarIndicatorSegment), new PropertyMetadata(null, OnStrokePropertyChanged));
 
         private const string LayoutPartName = "PART_Layout";
 

@@ -15,19 +15,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="MainPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MainPeriodProperty =
-            DependencyProperty.Register("MainPeriod", typeof(int), typeof(StochasticFastIndicator), new PropertyMetadata(0, OnMainPeriodChanged));
+            DependencyProperty.Register(nameof(MainPeriod), typeof(int), typeof(StochasticFastIndicator), new PropertyMetadata(0, OnMainPeriodChanged));
 
         /// <summary>
         /// Identifies the <see cref="MainPeriod"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SignalPeriodProperty =
-            DependencyProperty.Register("SignalPeriod", typeof(int), typeof(StochasticFastIndicator), new PropertyMetadata(0, OnSignalPeriodChanged));
+            DependencyProperty.Register(nameof(SignalPeriod), typeof(int), typeof(StochasticFastIndicator), new PropertyMetadata(0, OnSignalPeriodChanged));
 
         /// <summary>
         /// Identifies the <see cref="SignalStroke"/> property.
         /// </summary>
         public static readonly DependencyProperty SignalStrokeProperty =
-            DependencyProperty.Register("SignalStroke", typeof(Brush), typeof(StochasticFastIndicator), new PropertyMetadata(null, OnSignalStrokeChanged));
+            DependencyProperty.Register(nameof(SignalStroke), typeof(Brush), typeof(StochasticFastIndicator), new PropertyMetadata(null, OnSignalStrokeChanged));
 
         internal LineRenderer signalRenderer;
         internal CategoricalSeriesModel signalModel;

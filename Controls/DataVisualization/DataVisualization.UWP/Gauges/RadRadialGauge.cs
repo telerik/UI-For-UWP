@@ -14,13 +14,13 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the MaxAngle attached property.
         /// </summary>
         public static readonly DependencyProperty MaxAngleProperty =
-            DependencyProperty.Register("MaxAngle", typeof(double), typeof(RadRadialGauge), new PropertyMetadata(180.0, OnAnglePropertyChanged));
+            DependencyProperty.Register(nameof(MaxAngle), typeof(double), typeof(RadRadialGauge), new PropertyMetadata(180.0, OnAnglePropertyChanged));
 
         /// <summary>
         /// Identifies the MinAngle attached property.
         /// </summary>
         public static readonly DependencyProperty MinAngleProperty =
-            DependencyProperty.Register("MinAngle", typeof(double), typeof(RadRadialGauge), new PropertyMetadata(0.0d, OnAnglePropertyChanged));
+            DependencyProperty.Register(nameof(MinAngle), typeof(double), typeof(RadRadialGauge), new PropertyMetadata(0.0d, OnAnglePropertyChanged));
 
         /// <summary>
         /// Identifies the IndicatorRadiusScale attached property.
@@ -32,13 +32,13 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the TickRadiusScale property.
         /// </summary>
         public static readonly DependencyProperty TickRadiusScaleProperty =
-            DependencyProperty.Register("TickRadiusScale", typeof(double), typeof(RadRadialGauge), new PropertyMetadata(1d, OnRadiusScalePropertyChanged));
+            DependencyProperty.Register(nameof(TickRadiusScale), typeof(double), typeof(RadRadialGauge), new PropertyMetadata(1d, OnRadiusScalePropertyChanged));
 
         /// <summary>
         /// Identifies the LabelRadiusScale property.
         /// </summary>
         public static readonly DependencyProperty LabelRadiusScaleProperty =
-            DependencyProperty.Register("LabelRadiusScale", typeof(double), typeof(RadRadialGauge), new PropertyMetadata(1d, OnRadiusScalePropertyChanged));
+            DependencyProperty.Register(nameof(LabelRadiusScale), typeof(double), typeof(RadRadialGauge), new PropertyMetadata(1d, OnRadiusScalePropertyChanged));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RadRadialGauge"/> class.
@@ -143,7 +143,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         {
             if (indicator == null)
             {
-                throw new ArgumentNullException("indicator");
+                throw new ArgumentNullException(nameof(indicator));
             }
             return (double)indicator.GetValue(IndicatorRadiusScaleProperty);
         }
@@ -157,7 +157,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         {
             if (indicator == null)
             {
-                throw new ArgumentNullException("indicator");
+                throw new ArgumentNullException(nameof(indicator));
             }
             indicator.SetValue(IndicatorRadiusScaleProperty, scale);
         }

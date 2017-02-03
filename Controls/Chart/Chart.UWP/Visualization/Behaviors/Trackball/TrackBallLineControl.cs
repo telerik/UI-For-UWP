@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Chart.Primitives
         /// Identifies the <see cref="LineStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty LineStyleProperty =
-            DependencyProperty.Register("LineStyle", typeof(Style), typeof(TrackBallLineControl), new PropertyMetadata(null, OnLineStylePropertyChanged));
+            DependencyProperty.Register(nameof(LineStyle), typeof(Style), typeof(TrackBallLineControl), new PropertyMetadata(null, OnLineStylePropertyChanged));
 
         private Polyline line;
         private Canvas layoutRoot;

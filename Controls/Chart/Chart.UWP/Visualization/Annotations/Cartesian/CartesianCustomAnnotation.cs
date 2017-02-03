@@ -15,49 +15,49 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="HorizontalAxis"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HorizontalAxisProperty =
-            DependencyProperty.Register("HorizontalAxis", typeof(CartesianAxis), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnHorizontalAxisPropertyChanged));
+            DependencyProperty.Register(nameof(HorizontalAxis), typeof(CartesianAxis), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnHorizontalAxisPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="VerticalAxis"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty VerticalAxisProperty =
-            DependencyProperty.Register("VerticalAxis", typeof(CartesianAxis), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnVerticalAxisPropertyChanged));
+            DependencyProperty.Register(nameof(VerticalAxis), typeof(CartesianAxis), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnVerticalAxisPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="HorizontalValue"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HorizontalValueProperty =
-            DependencyProperty.Register("HorizontalValue", typeof(object), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnHorizontalValuePropertyChanged));
+            DependencyProperty.Register(nameof(HorizontalValue), typeof(object), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnHorizontalValuePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="VerticalValue"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty VerticalValueProperty =
-            DependencyProperty.Register("VerticalValue", typeof(object), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnVerticalValuePropertyChanged));
+            DependencyProperty.Register(nameof(VerticalValue), typeof(object), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnVerticalValuePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Content"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(object), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnContentPropertyChanged));
+            DependencyProperty.Register(nameof(Content), typeof(object), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnContentPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentTemplateProperty =
-            DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnContentTemplatePropertyChanged));
+            DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(CartesianCustomAnnotation), new PropertyMetadata(null, OnContentTemplatePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="HorizontalOffset"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HorizontalOffsetProperty =
-            DependencyProperty.Register("HorizontalOffset", typeof(double), typeof(CartesianCustomAnnotation), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(HorizontalOffset), typeof(double), typeof(CartesianCustomAnnotation), new PropertyMetadata(0d));
 
         /// <summary>
         /// Identifies the <see cref="VerticalOffset"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty VerticalOffsetProperty =
-            DependencyProperty.Register("VerticalOffset", typeof(double), typeof(CartesianCustomAnnotation), new PropertyMetadata(0d));
+            DependencyProperty.Register(nameof(VerticalOffset), typeof(double), typeof(CartesianCustomAnnotation), new PropertyMetadata(0d));
 
         private CartesianCustomAnnotationModel model;
         private ContentPresenter presenter;

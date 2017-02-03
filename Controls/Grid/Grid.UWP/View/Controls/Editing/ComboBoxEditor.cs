@@ -17,7 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         // Using a DependencyProperty as the backing store for Source.  This enables animation, styling, binding, etc...    
         public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source", typeof(object), typeof(ComboBoxEditor), new PropertyMetadata(null, OnSourceChanged));
+            DependencyProperty.Register(nameof(Source), typeof(object), typeof(ComboBoxEditor), new PropertyMetadata(null, OnSourceChanged));
 
         private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -21,13 +21,13 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="SelectionMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectionModeProperty =
-            DependencyProperty.Register("SelectionMode", typeof(MapShapeSelectionMode), typeof(MapShapeSelectionBehavior), new PropertyMetadata(MapShapeSelectionMode.Single, OnSelectionModePropertyChanged));
+            DependencyProperty.Register(nameof(SelectionMode), typeof(MapShapeSelectionMode), typeof(MapShapeSelectionBehavior), new PropertyMetadata(MapShapeSelectionMode.Single, OnSelectionModePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="SelectedShape"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectedShapeProperty =
-            DependencyProperty.Register("SelectedShape", typeof(object), typeof(MapShapeSelectionBehavior), new PropertyMetadata(null, OnSelectedShapeChanged));
+            DependencyProperty.Register(nameof(SelectedShape), typeof(object), typeof(MapShapeSelectionBehavior), new PropertyMetadata(null, OnSelectedShapeChanged));
 
         private MapShapeSelectionMode selectionModeCache = MapShapeSelectionMode.Single;
         private List<MapShapeModel> selectedModels;

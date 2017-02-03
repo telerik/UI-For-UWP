@@ -11,7 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
     public partial class RadDataGrid
     {
         internal static readonly DependencyProperty DecorationLayerProperty =
-            DependencyProperty.Register("DecorationLayer", typeof(DecorationLayer), typeof(RadDataGrid), new PropertyMetadata(null, OnDecorationLayerChanged));
+            DependencyProperty.Register(nameof(DecorationLayer), typeof(DecorationLayer), typeof(RadDataGrid), new PropertyMetadata(null, OnDecorationLayerChanged));
 
         internal DecorationLayer frozenDecorationLayer;
         internal VisualStateLayer visualStateLayerCache;

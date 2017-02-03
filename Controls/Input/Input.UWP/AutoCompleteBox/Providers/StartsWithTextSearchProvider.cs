@@ -97,7 +97,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
                 this.BuildFilterSteps();
             }
 
-            this.OnPropertyChanged("FilteredItems");
+            this.OnPropertyChanged(nameof(FilteredItems));
         }
 
         internal override void OnItemsSourceCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs a)
@@ -108,7 +108,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             {
                 this.filterSteps.Clear();
                 this.BuildFilterSteps();
-                this.OnPropertyChanged("FilteredItems");
+                this.OnPropertyChanged(nameof(FilteredItems));
             }
         }
 
@@ -120,7 +120,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             {
                 this.filterSteps.Clear();
                 this.BuildFilterSteps();
-                this.OnPropertyChanged("FilteredItems");
+                this.OnPropertyChanged(nameof(FilteredItems));
             }
         }
 

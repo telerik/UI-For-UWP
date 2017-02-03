@@ -12,25 +12,25 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the ItemTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(TemplateProviderControl), new PropertyMetadata(null, OnItemTemplateChanged));
+            DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(TemplateProviderControl), new PropertyMetadata(null, OnItemTemplateChanged));
 
         /// <summary>
         /// Identifies the ItemTemplateSelector dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemTemplateSelectorProperty =
-            DependencyProperty.Register("ItemTemplateSelector", typeof(DataTemplateSelector), typeof(TemplateProviderControl), new PropertyMetadata(null, OnItemTemplateSelectorChanged));
+            DependencyProperty.Register(nameof(ItemTemplateSelector), typeof(DataTemplateSelector), typeof(TemplateProviderControl), new PropertyMetadata(null, OnItemTemplateSelectorChanged));
 
         /// <summary>
         /// Identifies the ItemContainerStyle dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemContainerStyleProperty =
-            DependencyProperty.Register("ItemContainerStyle", typeof(Style), typeof(TemplateProviderControl), new PropertyMetadata(null, OnItemContainerStyleChanged));
+            DependencyProperty.Register(nameof(ItemContainerStyle), typeof(Style), typeof(TemplateProviderControl), new PropertyMetadata(null, OnItemContainerStyleChanged));
 
         /// <summary>
         /// Identifies the ItemContainerStyleSelector dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemContainerStyleSelectorProperty =
-            DependencyProperty.Register("ItemContainerStyleSelector", typeof(StyleSelector), typeof(TemplateProviderControl), new PropertyMetadata(null, OnItemContainerStyleSelectorChanged));
+            DependencyProperty.Register(nameof(ItemContainerStyleSelector), typeof(StyleSelector), typeof(TemplateProviderControl), new PropertyMetadata(null, OnItemContainerStyleSelectorChanged));
 
         internal DataTemplate itemTemplateCache;
         internal DataTemplateSelector itemTemplateSelectorCache;

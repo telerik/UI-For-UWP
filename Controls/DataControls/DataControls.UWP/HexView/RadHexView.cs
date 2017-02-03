@@ -25,61 +25,61 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="ImageSourcePath"/> property.
         /// </summary>
         public static readonly DependencyProperty ImageSourcePathProperty =
-            DependencyProperty.Register("ImageSourcePath", typeof(string), typeof(RadHexView), new PropertyMetadata(string.Empty, OnImageSourcePathChanged));
+            DependencyProperty.Register(nameof(ImageSourcePath), typeof(string), typeof(RadHexView), new PropertyMetadata(string.Empty, OnImageSourcePathChanged));
 
         /// <summary>
         /// Identifies the <see cref="TitlePath"/> property.
         /// </summary>
         public static readonly DependencyProperty TitlePathProperty =
-            DependencyProperty.Register("TitlePath", typeof(string), typeof(RadHexView), new PropertyMetadata(string.Empty, OnTitlePathChanged));
+            DependencyProperty.Register(nameof(TitlePath), typeof(string), typeof(RadHexView), new PropertyMetadata(string.Empty, OnTitlePathChanged));
 
         /// <summary>
         /// Identifies the <see cref="BackContentPath"/> property.
         /// </summary>
         public static readonly DependencyProperty BackContentPathProperty =
-            DependencyProperty.Register("BackContentPath", typeof(string), typeof(RadHexView), new PropertyMetadata(string.Empty, OnBackContentPathChanged));
+            DependencyProperty.Register(nameof(BackContentPath), typeof(string), typeof(RadHexView), new PropertyMetadata(string.Empty, OnBackContentPathChanged));
 
         /// <summary>
         /// Identifies the <see cref="LayoutDefinition"/> property.
         /// </summary>
         public static readonly DependencyProperty LayoutDefinitionProperty =
-            DependencyProperty.Register("LayoutDefinition", typeof(HexLayoutDefinitionBase), typeof(RadHexView), new PropertyMetadata(null, OnLayoutDefinitionChanged));
+            DependencyProperty.Register(nameof(LayoutDefinition), typeof(HexLayoutDefinitionBase), typeof(RadHexView), new PropertyMetadata(null, OnLayoutDefinitionChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemStyle"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemStyleProperty =
-            DependencyProperty.Register("ItemStyle", typeof(Style), typeof(RadHexView), new PropertyMetadata(null, OnItemStyleChanged));
+            DependencyProperty.Register(nameof(ItemStyle), typeof(Style), typeof(RadHexView), new PropertyMetadata(null, OnItemStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemStyleSelector"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemStyleSelectorProperty =
-            DependencyProperty.Register("ItemStyleSelector", typeof(StyleSelector), typeof(RadHexView), new PropertyMetadata(null, OnItemStyleSelectorChanged));
+            DependencyProperty.Register(nameof(ItemStyleSelector), typeof(StyleSelector), typeof(RadHexView), new PropertyMetadata(null, OnItemStyleSelectorChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemsSource"/> property.
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(object), typeof(RadHexView), new PropertyMetadata(null, OnItemsSourceChanged));
+            DependencyProperty.Register(nameof(ItemsSource), typeof(object), typeof(RadHexView), new PropertyMetadata(null, OnItemsSourceChanged));
 
         /// <summary>
         /// Identifies the <see cref="MinUpdateInterval"/> property.
         /// </summary>
         public static readonly DependencyProperty MinUpdateIntervalProperty =
-            DependencyProperty.Register("MinUpdateInterval", typeof(TimeSpan), typeof(RadHexView), new PropertyMetadata(TimeSpan.Zero, OnMinUpdateIntervalChanged));
+            DependencyProperty.Register(nameof(MinUpdateInterval), typeof(TimeSpan), typeof(RadHexView), new PropertyMetadata(TimeSpan.Zero, OnMinUpdateIntervalChanged));
 
         /// <summary>
         /// Identifies the <see cref="MaxUpdateInterval"/> property.
         /// </summary>
         public static readonly DependencyProperty MaxUpdateIntervalProperty =
-            DependencyProperty.Register("MaxUpdateInterval", typeof(TimeSpan), typeof(RadHexView), new PropertyMetadata(TimeSpan.Zero, OnMaxUpdateIntervalChanged));
+            DependencyProperty.Register(nameof(MaxUpdateInterval), typeof(TimeSpan), typeof(RadHexView), new PropertyMetadata(TimeSpan.Zero, OnMaxUpdateIntervalChanged));
 
         /// <summary>
         /// Identifies the <see cref="UpdateIntervalStep"/> property.
         /// </summary>
         public static readonly DependencyProperty UpdateIntervalStepProperty =
-            DependencyProperty.Register("UpdateIntervalStep", typeof(double), typeof(RadHexView), new PropertyMetadata(0d, OnUpdateIntervalStepChanged));
+            DependencyProperty.Register(nameof(UpdateIntervalStep), typeof(double), typeof(RadHexView), new PropertyMetadata(0d, OnUpdateIntervalStepChanged));
 
         private static Random random = new Random();
 

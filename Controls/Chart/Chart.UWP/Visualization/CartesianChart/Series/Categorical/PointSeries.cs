@@ -19,19 +19,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="PointSize"/> property.
         /// </summary>     
         public static readonly DependencyProperty PointSizeProperty =
-            DependencyProperty.Register("PointSize", typeof(Size), typeof(PointSeries), new PropertyMetadata(new Size(12, 12), OnPointSizeChanged));
+            DependencyProperty.Register(nameof(PointSize), typeof(Size), typeof(PointSeries), new PropertyMetadata(new Size(12, 12), OnPointSizeChanged));
 
         /// <summary>
         /// Identifies the <see cref="PaletteMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PaletteModeProperty =
-          DependencyProperty.Register("PaletteMode", typeof(SeriesPaletteMode), typeof(PointSeries), new PropertyMetadata(SeriesPaletteMode.Series, OnPaletteModeChanged));
+          DependencyProperty.Register(nameof(PaletteMode), typeof(SeriesPaletteMode), typeof(PointSeries), new PropertyMetadata(SeriesPaletteMode.Series, OnPaletteModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="LegendTitleBinding"/> property.
         /// </summary>
         public static readonly DependencyProperty LegendTitleBindingProperty =
-            DependencyProperty.Register("LegendTitleBinding", typeof(DataPointBinding), typeof(PointSeries), new PropertyMetadata(null, OnLegendTitleBindingChanged));
+            DependencyProperty.Register(nameof(LegendTitleBinding), typeof(DataPointBinding), typeof(PointSeries), new PropertyMetadata(null, OnLegendTitleBindingChanged));
 
         private Dictionary<DataPoint, LegendItem> legendItems;
         private SeriesPaletteMode paletteModeCache = SeriesPaletteMode.Series;

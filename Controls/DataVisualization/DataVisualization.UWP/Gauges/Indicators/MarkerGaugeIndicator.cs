@@ -19,19 +19,19 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the <see cref="ContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentTemplateProperty =
-            DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(MarkerGaugeIndicator), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(MarkerGaugeIndicator), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="Content"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(object), typeof(MarkerGaugeIndicator), new PropertyMetadata(null, OnContentPropertyChanged));
+            DependencyProperty.Register(nameof(Content), typeof(object), typeof(MarkerGaugeIndicator), new PropertyMetadata(null, OnContentPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsRotated"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsRotatedProperty =
-            DependencyProperty.Register("IsRotated", typeof(bool), typeof(MarkerGaugeIndicator), new PropertyMetadata(true, OnIsRotatedPropertyChanged));
+            DependencyProperty.Register(nameof(IsRotated), typeof(bool), typeof(MarkerGaugeIndicator), new PropertyMetadata(true, OnIsRotatedPropertyChanged));
 
         private const string VisualElementPartName = "PART_VisualElement";
         private const string VisualElementRotationPartName = "PART_VisualElementRotation";

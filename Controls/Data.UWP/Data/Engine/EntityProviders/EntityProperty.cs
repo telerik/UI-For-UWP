@@ -115,7 +115,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.range = value;
-                this.OnPropertyChanged("Range");
+                this.OnPropertyChanged(nameof(Range));
             }
         }
 
@@ -137,7 +137,7 @@ namespace Telerik.Data.Core
 
                 this.DisplayPositiveMessage = false;
 
-                this.OnPropertyChanged("PropertyValue");
+                this.OnPropertyChanged(nameof(PropertyValue));
             }
         }
 
@@ -156,7 +156,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.displayPositiveMessage = value;
-                this.OnPropertyChanged("DisplayPositiveMessage");
+                this.OnPropertyChanged(nameof(DisplayPositiveMessage));
             }
         }
 
@@ -175,7 +175,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.label = value;
-                this.OnPropertyChanged("Label");
+                this.OnPropertyChanged(nameof(Label));
             }
         }
 
@@ -194,7 +194,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.postitiveMessage = value;
-                this.OnPropertyChanged("PostitiveMessage");
+                this.OnPropertyChanged(nameof(PositiveMessage));
             }
         }
 
@@ -213,7 +213,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.watermark = value;
-                this.OnPropertyChanged("Watermark");
+                this.OnPropertyChanged(nameof(Watermark));
             }
         }
 
@@ -283,7 +283,7 @@ namespace Telerik.Data.Core
                     this.errors.CollectionChanged += Errors_CollectionChanged;
                 }
 
-                this.OnPropertyChanged("Errors");
+                this.OnPropertyChanged(nameof(Errors));
 
                 this.IsValid = this.errors.Count == 0;
             }
@@ -306,7 +306,7 @@ namespace Telerik.Data.Core
                 if (isValid != value)
                 {
                     this.isValid = value;
-                    this.OnPropertyChanged("IsValid");
+                    this.OnPropertyChanged(nameof(IsValid));
                 }
             }
         }

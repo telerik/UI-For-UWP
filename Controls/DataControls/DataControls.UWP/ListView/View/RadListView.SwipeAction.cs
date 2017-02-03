@@ -12,19 +12,19 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="IsActionOnSwipeEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsActionOnSwipeEnabledProperty =
-            DependencyProperty.Register("IsActionOnSwipeEnabled", typeof(bool), typeof(RadListView), new PropertyMetadata(null, OnIsActionOnSwipeEnabled));
+            DependencyProperty.Register(nameof(IsActionOnSwipeEnabled), typeof(bool), typeof(RadListView), new PropertyMetadata(null, OnIsActionOnSwipeEnabled));
 
         /// <summary>
         /// Identifies the <see cref="SwipeActionContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SwipeActionContentProperty =
-            DependencyProperty.Register("SwipeActionContent", typeof(object), typeof(RadListView), new PropertyMetadata(null, OnActionContentChanged));
+            DependencyProperty.Register(nameof(SwipeActionContent), typeof(object), typeof(RadListView), new PropertyMetadata(null, OnActionContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="DragBehavior"/> dependency property.
         /// </summary>
         internal static readonly DependencyProperty DragBehaviorProperty =
-            DependencyProperty.Register("DragBehavior", typeof(ListViewDragBehavior), typeof(RadListView), new PropertyMetadata(null, OnDragBehaviorChanged));
+            DependencyProperty.Register(nameof(DragBehavior), typeof(ListViewDragBehavior), typeof(RadListView), new PropertyMetadata(null, OnDragBehaviorChanged));
 
         private double itemSwipeThreshold = 40;
         private Thickness itemSwipeOffset = new Thickness(100);

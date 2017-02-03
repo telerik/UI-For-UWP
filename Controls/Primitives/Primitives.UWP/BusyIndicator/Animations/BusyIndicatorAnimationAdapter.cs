@@ -14,7 +14,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.BusyIndicator
         /// Identifies the Animation dependency property.
         /// </summary>
         public static readonly DependencyProperty AnimationProperty =
-            DependencyProperty.Register("Animation", typeof(Storyboard), typeof(BusyIndicatorAnimationAdapter), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Animation), typeof(Storyboard), typeof(BusyIndicatorAnimationAdapter), new PropertyMetadata(null));
 
         private double[] widthScaleFactors = new double[] { 0.0, 0.33, 0.66, 1.0 };
 

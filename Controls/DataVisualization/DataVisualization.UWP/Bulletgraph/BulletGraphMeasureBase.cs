@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the Value dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(double), typeof(BulletGraphMeasureBase), new PropertyMetadata(0.0, OnValuePropertyChanged));
+            DependencyProperty.Register(nameof(Value), typeof(double), typeof(BulletGraphMeasureBase), new PropertyMetadata(0.0, OnValuePropertyChanged));
 
         /// <summary>
         /// Initializes a new instance of the BulletGraphMeasureBase class.

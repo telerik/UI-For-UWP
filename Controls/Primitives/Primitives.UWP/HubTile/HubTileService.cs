@@ -42,7 +42,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (hubTile == null)
             {
-                throw new ArgumentNullException("hubTile");
+                throw new ArgumentNullException(nameof(hubTile));
             }
 
             return (string)hubTile.GetValue(HubTileService.GroupTagProperty);
@@ -63,7 +63,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             if (hubTile == null)
             {
-                throw new ArgumentNullException("hubTile");
+                throw new ArgumentNullException(nameof(hubTile));
             }
 
             hubTile.SetValue(HubTileService.GroupTagProperty, value);

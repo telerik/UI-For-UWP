@@ -24,7 +24,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
                 }
 
                 if (this.valueSelector == value)
@@ -33,7 +33,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 this.valueSelector = value;
-                this.OnPropertyChanged("ValueSelector");
+                this.OnPropertyChanged(nameof(ValueSelector));
             }
         }
 
@@ -44,7 +44,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             if (instance == null)
             {
-                throw new ArgumentNullException("instance");
+                throw new ArgumentNullException(nameof(instance));
             }
 
             if (this.valueSelector == null)

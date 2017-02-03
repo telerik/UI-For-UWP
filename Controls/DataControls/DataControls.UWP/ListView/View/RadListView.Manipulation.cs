@@ -19,7 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         // Using a DependencyProperty as the backing store for ItemSwipeDirection.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemSwipeDirectionProperty =
-            DependencyProperty.Register("ItemSwipeDirection", typeof(ListViewItemSwipeDirection), typeof(RadListView), new PropertyMetadata(ListViewItemSwipeDirection.All, OnItemSwipeDirectionChanged));
+            DependencyProperty.Register(nameof(ItemSwipeDirection), typeof(ListViewItemSwipeDirection), typeof(RadListView), new PropertyMetadata(ListViewItemSwipeDirection.All, OnItemSwipeDirectionChanged));
 
         private const double CheckBoxSelectionTouchTargetThreshold = 20;
 

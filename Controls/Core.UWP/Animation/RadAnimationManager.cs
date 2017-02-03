@@ -85,7 +85,7 @@ namespace Telerik.Core
         {
             if (obj == null)
             {
-                throw new ArgumentNullException("obj");
+                throw new ArgumentNullException(nameof(obj));
             }
 
             return (AnimationSelectorBase)obj.GetValue(AnimationSelectorProperty);
@@ -100,7 +100,7 @@ namespace Telerik.Core
         {
             if (obj == null)
             {
-                throw new ArgumentNullException("obj");
+                throw new ArgumentNullException(nameof(obj));
             }
 
             obj.SetValue(AnimationSelectorProperty, value);
@@ -115,7 +115,7 @@ namespace Telerik.Core
         {
             if (obj == null)
             {
-                throw new ArgumentNullException("obj");
+                throw new ArgumentNullException(nameof(obj));
             }
 
             return (bool)obj.GetValue(IsAnimationEnabledProperty);
@@ -130,7 +130,7 @@ namespace Telerik.Core
         {
             if (obj == null)
             {
-                throw new ArgumentNullException("obj");
+                throw new ArgumentNullException(nameof(obj));
             }
 
             obj.SetValue(IsAnimationEnabledProperty, value);
@@ -153,7 +153,7 @@ namespace Telerik.Core
         {
             if (target == null)
             {
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             }
 
             Storyboard storyboard = GetStoryboard(target, info => info.Target == target && info.Animation == animation);
@@ -173,7 +173,7 @@ namespace Telerik.Core
         {
             if (target == null)
             {
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             }
 
             Storyboard storyboard = GetStoryboard(target, info => info.Target == target && info.Animation == animation);
@@ -193,7 +193,7 @@ namespace Telerik.Core
         {
             if (target == null)
             {
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             }
 
             Storyboard storyboard = GetStoryboard(target, info => info.Target == target && info.Animation == animation);
@@ -222,12 +222,12 @@ namespace Telerik.Core
         {
             if (target == null)
             {
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             }
 
             if (animation == null)
             {
-                throw new ArgumentNullException("animation");
+                throw new ArgumentNullException(nameof(animation));
             }
 
             PlayAnimationInfo info = GetAnimationInfo(arg => arg.Target == target && arg.Animation == animation);
@@ -246,7 +246,7 @@ namespace Telerik.Core
         {
             if (element == null)
             {
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(element));
             }
 
             Storyboard storyboard = GetStoryboard(element, info => info.Target == element && info.Animation == animation);

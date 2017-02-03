@@ -46,7 +46,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException("value");
+                    throw new ArgumentException(nameof(value));
                 }
 
                 if (this.propertyName == value)
@@ -57,7 +57,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 this.getter = null;
                 this.callSite = null;
                 this.propertyName = value;
-                this.OnPropertyChanged("PropertyName");
+                this.OnPropertyChanged(nameof(PropertyName));
             }
         }
 
@@ -74,7 +74,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (instance == null)
             {
-                throw new ArgumentNullException("instance");
+                throw new ArgumentNullException(nameof(instance));
             }
 
             if (string.IsNullOrEmpty(this.propertyName))

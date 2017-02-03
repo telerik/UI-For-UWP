@@ -11,13 +11,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Period2"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty Period2Property = 
-            DependencyProperty.Register("Period2", typeof(int), typeof(UltimateOscillatorIndicator), new PropertyMetadata(0, OnPeriod2Changed));
+            DependencyProperty.Register(nameof(Period2), typeof(int), typeof(UltimateOscillatorIndicator), new PropertyMetadata(0, OnPeriod2Changed));
 
         /// <summary>
         /// Identifies the <see cref="Period3"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty Period3Property = 
-            DependencyProperty.Register("Period3", typeof(int), typeof(UltimateOscillatorIndicator), new PropertyMetadata(0, OnPeriod3Changed));
+            DependencyProperty.Register(nameof(Period3), typeof(int), typeof(UltimateOscillatorIndicator), new PropertyMetadata(0, OnPeriod3Changed));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UltimateOscillatorIndicator"/> class.

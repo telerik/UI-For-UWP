@@ -19,67 +19,67 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// Identifies the MinValue property.
         /// </summary>
         public static readonly DependencyProperty MinValueProperty =
-            DependencyProperty.Register("MinValue", typeof(double), typeof(RadGauge), new PropertyMetadata(0d, OnMinValuePropertyChanged));
+            DependencyProperty.Register(nameof(MinValue), typeof(double), typeof(RadGauge), new PropertyMetadata(0d, OnMinValuePropertyChanged));
 
         /// <summary>
         /// Identifies the MinValue property.
         /// </summary>
         public static readonly DependencyProperty MaxValueProperty =
-            DependencyProperty.Register("MaxValue", typeof(double), typeof(RadGauge), new PropertyMetadata(100d, OnMaxValuePropertyChanged));
+            DependencyProperty.Register(nameof(MaxValue), typeof(double), typeof(RadGauge), new PropertyMetadata(100d, OnMaxValuePropertyChanged));
 
         /// <summary>
         /// Identifies the TickTemplate property.
         /// </summary>
         public static readonly DependencyProperty TickTemplateProperty =
-            DependencyProperty.Register("TickTemplate", typeof(DataTemplate), typeof(RadGauge), new PropertyMetadata(null, OnTickTemplatePropertyChanged));
+            DependencyProperty.Register(nameof(TickTemplate), typeof(DataTemplate), typeof(RadGauge), new PropertyMetadata(null, OnTickTemplatePropertyChanged));
 
         /// <summary>
         /// Identifies the MiddleTickTemplate property.
         /// </summary>
         public static readonly DependencyProperty MiddleTickTemplateProperty =
-            DependencyProperty.Register("MiddleTickTemplate", typeof(DataTemplate), typeof(RadGauge), new PropertyMetadata(null, OnMiddleTickTemplatePropertyChanged));
+            DependencyProperty.Register(nameof(MiddleTickTemplate), typeof(DataTemplate), typeof(RadGauge), new PropertyMetadata(null, OnMiddleTickTemplatePropertyChanged));
 
         /// <summary>
         /// Identifies the MajorTickTemplate property.
         /// </summary>
         public static readonly DependencyProperty MajorTickTemplateProperty =
-            DependencyProperty.Register("MajorTickTemplate", typeof(DataTemplate), typeof(RadGauge), new PropertyMetadata(null, OnMajorTickTemplatePropertyChanged));
+            DependencyProperty.Register(nameof(MajorTickTemplate), typeof(DataTemplate), typeof(RadGauge), new PropertyMetadata(null, OnMajorTickTemplatePropertyChanged));
 
         /// <summary>
         /// Identifies the LabelTemplate property.
         /// </summary>
         public static readonly DependencyProperty LabelTemplateProperty =
-            DependencyProperty.Register("LabelTemplate", typeof(DataTemplate), typeof(RadGauge), new PropertyMetadata(null, OnLabelTemplatePropertyChanged));
+            DependencyProperty.Register(nameof(LabelTemplate), typeof(DataTemplate), typeof(RadGauge), new PropertyMetadata(null, OnLabelTemplatePropertyChanged));
 
         /// <summary>
         /// Identifies the TickStep property.
         /// </summary>
         public static readonly DependencyProperty TickStepProperty =
-            DependencyProperty.Register("TickStep", typeof(double), typeof(RadGauge), new PropertyMetadata(10d, OnTickStepPropertyChanged));
+            DependencyProperty.Register(nameof(TickStep), typeof(double), typeof(RadGauge), new PropertyMetadata(10d, OnTickStepPropertyChanged));
 
         /// <summary>
         /// Identifies the LabelStep property.
         /// </summary>
         public static readonly DependencyProperty LabelStepProperty =
-            DependencyProperty.Register("LabelStep", typeof(double), typeof(RadGauge), new PropertyMetadata(10d, OnLabelStepPropertyChanged));
+            DependencyProperty.Register(nameof(LabelStep), typeof(double), typeof(RadGauge), new PropertyMetadata(10d, OnLabelStepPropertyChanged));
 
         /// <summary>
         /// Identifies the MiddleTickStep property.
         /// </summary>
         public static readonly DependencyProperty MiddleTickStepProperty =
-            DependencyProperty.Register("MiddleTickStep", typeof(int), typeof(RadGauge), new PropertyMetadata(-1, OnMiddleTickStepPropertyChanged));
+            DependencyProperty.Register(nameof(MiddleTickStep), typeof(int), typeof(RadGauge), new PropertyMetadata(-1, OnMiddleTickStepPropertyChanged));
 
         /// <summary>
         /// Identifies the MajorTickStep property.
         /// </summary>
         public static readonly DependencyProperty MajorTickStepProperty =
-            DependencyProperty.Register("MajorTickStep", typeof(int), typeof(RadGauge), new PropertyMetadata(-1, OnMajorTickStepPropertyChanged));
+            DependencyProperty.Register(nameof(MajorTickStep), typeof(int), typeof(RadGauge), new PropertyMetadata(-1, OnMajorTickStepPropertyChanged));
 
         /// <summary>
         /// Identifies the IndicatorsZIndex property.
         /// </summary>
         public static readonly DependencyProperty IndicatorsZIndexProperty =
-            DependencyProperty.Register("IndicatorsZIndex", typeof(int), typeof(RadGauge), new PropertyMetadata(-1, OnIndicatorsZIndexPropertyChanged));
+            DependencyProperty.Register(nameof(IndicatorsZIndex), typeof(int), typeof(RadGauge), new PropertyMetadata(-1, OnIndicatorsZIndexPropertyChanged));
 
         internal static readonly DependencyProperty TickTypeProperty =
             DependencyProperty.RegisterAttached("TickType", typeof(TickType), typeof(RadGauge), null);

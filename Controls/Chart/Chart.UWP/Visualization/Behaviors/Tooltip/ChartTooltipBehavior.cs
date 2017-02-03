@@ -191,7 +191,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (!this.HandleTooltipManually)
@@ -209,7 +209,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (!this.HandleTooltipManually)
@@ -227,7 +227,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (!this.HandleTooltipManually)
@@ -245,7 +245,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (args.Pointer.PointerDeviceType == PointerDeviceType.Touch)
@@ -276,7 +276,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (!this.toolTip.IsOpen && !this.HandleTooltipManually)
@@ -294,7 +294,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (!this.HandleTooltipManually)
@@ -312,7 +312,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (!this.HandleTooltipManually)
@@ -330,7 +330,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             if (!this.chart.isInHold)

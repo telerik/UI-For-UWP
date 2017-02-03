@@ -15,31 +15,31 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="FontStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FontStyleProperty =
-            DependencyProperty.Register("FontStyle", typeof(FontStyle), typeof(HighlightStyle), null);
+            DependencyProperty.Register(nameof(FontStyle), typeof(FontStyle), typeof(HighlightStyle), null);
 
         /// <summary>
         /// Identifies the <see cref="FontWeight"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FontWeightProperty =
-            DependencyProperty.Register("FontWeight", typeof(FontWeightName), typeof(HighlightStyle), null);
+            DependencyProperty.Register(nameof(FontWeight), typeof(FontWeightName), typeof(HighlightStyle), null);
 
         /// <summary>
         /// Identifies the <see cref="FontSize"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FontSizeProperty =
-            DependencyProperty.Register("FontSize", typeof(double), typeof(HighlightStyle), null);
+            DependencyProperty.Register(nameof(FontSize), typeof(double), typeof(HighlightStyle), null);
 
         /// <summary>
         /// Identifies the <see cref="Foreground"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ForegroundProperty =
-            DependencyProperty.Register("Foreground", typeof(Brush), typeof(HighlightStyle), null);
+            DependencyProperty.Register(nameof(Foreground), typeof(Brush), typeof(HighlightStyle), null);
 
         /// <summary>
         /// Identifies the <see cref="FontFamily"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty FontFamilyProperty =
-            DependencyProperty.Register("FontFamily", typeof(FontFamily), typeof(HighlightStyle), null);
+            DependencyProperty.Register(nameof(FontFamily), typeof(FontFamily), typeof(HighlightStyle), null);
 
         /// <summary>
         /// Gets or sets an instance of the <see cref="FontFamily"/> class

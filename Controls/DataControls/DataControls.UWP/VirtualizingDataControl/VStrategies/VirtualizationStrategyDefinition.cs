@@ -31,7 +31,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 if (value != this.orientation)
                 {
                     this.orientation = value;
-                    this.OnPropertyChanged("Orientation");
+                    this.OnPropertyChanged(nameof(Orientation));
                 }
             }
         }

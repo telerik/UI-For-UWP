@@ -6,22 +6,22 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
     public class FlyoutHeaderControl : RadControl
     {
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(object), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Content), typeof(object), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
 
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(object), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Icon), typeof(object), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
 
         public static readonly DependencyProperty IconStyleProperty =
-            DependencyProperty.Register("IconStyle", typeof(Style), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(IconStyle), typeof(Style), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
 
         public static readonly DependencyProperty ContentStyleProperty =
-            DependencyProperty.Register("ContentStyle", typeof(Style), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ContentStyle), typeof(Style), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
 
         public static readonly DependencyProperty ButtonStyleProperty =
-            DependencyProperty.Register("ButtonStyle", typeof(Style), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ButtonStyle), typeof(Style), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
 
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(FlyoutHeaderControl), new PropertyMetadata(null));
 
         public FlyoutHeaderControl()
         {

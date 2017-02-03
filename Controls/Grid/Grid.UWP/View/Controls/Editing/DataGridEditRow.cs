@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// Identifies the <see cref="CancelButtonStyle"/> dependency property. 
         /// </summary>    
         public static readonly DependencyProperty CancelButtonStyleProperty =
-            DependencyProperty.Register("CancelButtonStyle", typeof(Style), typeof(DataGridEditRow), new PropertyMetadata(null, OnCloseButtonStyleChanged));
+            DependencyProperty.Register(nameof(CancelButtonStyle), typeof(Style), typeof(DataGridEditRow), new PropertyMetadata(null, OnCloseButtonStyleChanged));
 
         private Button cancelButton;
 

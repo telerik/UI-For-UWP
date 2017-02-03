@@ -12,25 +12,25 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="Zoom"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ZoomProperty =
-            DependencyProperty.Register("Zoom", typeof(Size), typeof(RadChartBase), new PropertyMetadata(new Size(1, 1), OnZoomPropertyChanged));
+            DependencyProperty.Register(nameof(Zoom), typeof(Size), typeof(RadChartBase), new PropertyMetadata(new Size(1, 1), OnZoomPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="MaxZoom"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MaxZoomProperty =
-            DependencyProperty.Register("MaxZoom", typeof(Size), typeof(RadChartBase), new PropertyMetadata(new Size(50, 50), OnMaxZoomPropertyChanged));
+            DependencyProperty.Register(nameof(MaxZoom), typeof(Size), typeof(RadChartBase), new PropertyMetadata(new Size(50, 50), OnMaxZoomPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="MaxZoom"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MinZoomProperty =
-            DependencyProperty.Register("MinZoom", typeof(Size), typeof(RadChartBase), new PropertyMetadata(new Size(1, 1), OnMinZoomPropertyChanged));
+            DependencyProperty.Register(nameof(MinZoom), typeof(Size), typeof(RadChartBase), new PropertyMetadata(new Size(1, 1), OnMinZoomPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ScrollOffset"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ScrollOffsetProperty =
-            DependencyProperty.Register("ScrollOffset", typeof(Point), typeof(RadChartBase), new PropertyMetadata(new Point(0, 0), OnScrollOffsetPropertyChanged));
+            DependencyProperty.Register(nameof(ScrollOffset), typeof(Point), typeof(RadChartBase), new PropertyMetadata(new Point(0, 0), OnScrollOffsetPropertyChanged));
 
         internal Size maxZoomCache = new Size(50, 50);
         internal Size minZoomCache = new Size(1, 1);

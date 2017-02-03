@@ -107,7 +107,7 @@ namespace Telerik.Data.Core
         {
             if (args == null)
             {
-                throw new ArgumentNullException("args");
+                throw new ArgumentNullException(nameof(args));
             }
 
             args.OriginalSource = this;

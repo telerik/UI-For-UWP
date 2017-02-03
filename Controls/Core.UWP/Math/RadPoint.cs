@@ -7,7 +7,7 @@ namespace Telerik.Core
     /// <summary>
     /// Represents a structure that defines a location (X, Y) in a two-dimensional space.
     /// </summary>
-    [DebuggerDisplay("{X}, {Y}")]
+    [DebuggerDisplay(nameof(X) + ", " + nameof(Y))]
     public struct RadPoint
     {
         /// <summary>
@@ -18,13 +18,13 @@ namespace Telerik.Core
         /// <summary>
         /// The X-coordinate of the point.
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "X")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = nameof(X))]
         public double X;
 
         /// <summary>
         /// The Y-coordinate of the point.
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Y")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = nameof(Y))]
         public double Y;
 
         /// <summary>

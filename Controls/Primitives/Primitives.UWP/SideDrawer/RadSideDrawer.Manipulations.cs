@@ -14,10 +14,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="TouchTargetThreshold"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TouchTargetThresholdProperty =
-            DependencyProperty.Register("TouchTargetThreshold", typeof(double), typeof(RadSideDrawer), new PropertyMetadata(20d));
+            DependencyProperty.Register(nameof(TouchTargetThreshold), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(20d));
 
         internal static readonly DependencyProperty ContextProperty =
-            DependencyProperty.Register("Context", typeof(AnimationContext), typeof(RadSideDrawer), new PropertyMetadata(new AnimationContext(), OnContextChanged));
+            DependencyProperty.Register(nameof(Context), typeof(AnimationContext), typeof(RadSideDrawer), new PropertyMetadata(new AnimationContext(), OnContextChanged));
 
         private bool shouldAnimate;
 

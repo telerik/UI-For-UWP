@@ -33,115 +33,115 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// Identifies the <see cref="CheckBoxStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CheckBoxStyleProperty =
-            DependencyProperty.Register("CheckBoxStyle", typeof(Style), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnCheckBoxStyleChanged));
+            DependencyProperty.Register(nameof(CheckBoxStyle), typeof(Style), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnCheckBoxStyleChanged));
 
         /// <summary>
         /// Identifies the <see cref="EmptyContentDisplayMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EmptyContentDisplayModeProperty =
-            DependencyProperty.Register("EmptyContentDisplayMode", typeof(EmptyContentDisplayMode), typeof(RadDataBoundListBox), new PropertyMetadata(EmptyContentDisplayMode.Always, OnEmptyContentDisplayModeChanged));
+            DependencyProperty.Register(nameof(EmptyContentDisplayMode), typeof(EmptyContentDisplayMode), typeof(RadDataBoundListBox), new PropertyMetadata(EmptyContentDisplayMode.Always, OnEmptyContentDisplayModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="ListHeaderTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ListHeaderTemplateProperty =
-            DependencyProperty.Register("ListHeaderTemplate", typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnListHeaderTemplateChanged));
+            DependencyProperty.Register(nameof(ListHeaderTemplate), typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnListHeaderTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="ListHeaderContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ListHeaderContentProperty =
-            DependencyProperty.Register("ListHeaderContent", typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnListHeaderContentChanged));
+            DependencyProperty.Register(nameof(ListHeaderContent), typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnListHeaderContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="ListFooterTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ListFooterTemplateProperty =
-            DependencyProperty.Register("ListFooterTemplate", typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnListFooterTemplateChanged));
+            DependencyProperty.Register(nameof(ListFooterTemplate), typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnListFooterTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="ListFooterContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ListFooterContentProperty =
-            DependencyProperty.Register("ListFooterContent", typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnListFooterContentChanged));
+            DependencyProperty.Register(nameof(ListFooterContent), typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnListFooterContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="IncrementalLoadingItemTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IncrementalLoadingItemTemplateProperty =
-            DependencyProperty.Register("IncrementalLoadingItemTemplate", typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnIncrementalLoadingItemTemplateChanged));
+            DependencyProperty.Register(nameof(IncrementalLoadingItemTemplate), typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnIncrementalLoadingItemTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="IncrementalLoadingItemContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IncrementalLoadingItemContentProperty =
-            DependencyProperty.Register("IncrementalLoadingItemContent", typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnIncrementalLoadingItemContentChanged));
+            DependencyProperty.Register(nameof(IncrementalLoadingItemContent), typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnIncrementalLoadingItemContentChanged));
 
         /// <summary>
         /// Identifies the ItemLoadingTemplate dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemLoadingTemplateProperty =
-            DependencyProperty.Register("ItemLoadingTemplate", typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnItemLoadingTemplateChanged));
+            DependencyProperty.Register(nameof(ItemLoadingTemplate), typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnItemLoadingTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="ItemLoadingContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemLoadingContentProperty =
-            DependencyProperty.Register("ItemLoadingContent", typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnItemLoadingContentChanged));
+            DependencyProperty.Register(nameof(ItemLoadingContent), typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnItemLoadingContentChanged));
 
         /// <summary>
         /// Identifies the <see cref="EmptyContentTemplate"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EmptyContentTemplateProperty =
-            DependencyProperty.Register("EmptyContentTemplate", typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnEmptyContentTemplateChanged));
+            DependencyProperty.Register(nameof(EmptyContentTemplate), typeof(DataTemplate), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnEmptyContentTemplateChanged));
 
         /// <summary>
         /// Identifies the <see cref="EmptyContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EmptyContentProperty =
-            DependencyProperty.Register("EmptyContent", typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnEmptyContentChanged));
+            DependencyProperty.Register(nameof(EmptyContent), typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnEmptyContentChanged));
 
         /// <summary>
         /// Defines the <see cref="IsSynchronizedWithCurrentItem"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsSynchronizedWithCurrentItemProperty =
-            DependencyProperty.Register("IsSynchronizedWithCurrentItem", typeof(bool?), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnIsSynchronizedWithCurrentItemChanged));
+            DependencyProperty.Register(nameof(IsSynchronizedWithCurrentItem), typeof(bool?), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnIsSynchronizedWithCurrentItemChanged));
 
         /// <summary>
         /// Defines the <see cref="SelectedItem"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem", typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnSelectedItemChanged));
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnSelectedItemChanged));
 
         /// <summary>
         /// Identifies the <see cref="IncrementalLoadingMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IncrementalLoadingModeProperty =
-            DependencyProperty.Register("IncrementalLoadingMode", typeof(BatchLoadingMode), typeof(RadVirtualizingDataControl), new PropertyMetadata(BatchLoadingMode.Auto, OnIncrementalLoadingModeChanged));
+            DependencyProperty.Register(nameof(IncrementalLoadingMode), typeof(BatchLoadingMode), typeof(RadVirtualizingDataControl), new PropertyMetadata(BatchLoadingMode.Auto, OnIncrementalLoadingModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="ListHeaderDisplayMode"/> property.
         /// </summary>
         public static readonly DependencyProperty ListHeaderDisplayModeProperty =
-            DependencyProperty.Register("ListHeaderDisplayMode", typeof(HeaderFooterDisplayMode), typeof(RadDataBoundListBox), new PropertyMetadata(HeaderFooterDisplayMode.AlwaysVisible, OnListHeaderDisplayModeChanged));
+            DependencyProperty.Register(nameof(ListHeaderDisplayMode), typeof(HeaderFooterDisplayMode), typeof(RadDataBoundListBox), new PropertyMetadata(HeaderFooterDisplayMode.AlwaysVisible, OnListHeaderDisplayModeChanged));
 
         /// <summary>
         /// Identifies the <see cref="ListFooterDisplayMode"/> property.
         /// </summary>
         public static readonly DependencyProperty ListFooterDisplayModeProperty =
-            DependencyProperty.Register("ListFooterDisplayMode", typeof(HeaderFooterDisplayMode), typeof(RadDataBoundListBox), new PropertyMetadata(HeaderFooterDisplayMode.AlwaysVisible, OnListFooterDisplayModeChanged));
+            DependencyProperty.Register(nameof(ListFooterDisplayMode), typeof(HeaderFooterDisplayMode), typeof(RadDataBoundListBox), new PropertyMetadata(HeaderFooterDisplayMode.AlwaysVisible, OnListFooterDisplayModeChanged));
 
         /// <summary>
         /// Defines the <see cref="SelectedValue"/> dependency property.
         /// </summary>
         internal static readonly DependencyProperty SelectedValueProperty =
-            DependencyProperty.Register("SelectedValue", typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectedValue), typeof(object), typeof(RadDataBoundListBox), new PropertyMetadata(null));
 
         /// <summary>
         /// Defines the <see cref="SelectedValuePath"/> dependency property.
         /// </summary>
         internal static readonly DependencyProperty SelectedValuePathProperty =
-            DependencyProperty.Register("SelectedValuePath", typeof(string), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnSelectedValuePathChanged));
+            DependencyProperty.Register(nameof(SelectedValuePath), typeof(string), typeof(RadDataBoundListBox), new PropertyMetadata(null, OnSelectedValuePathChanged));
 
         internal static readonly IncrementalLoadingIndicatorItem IncrementalLoadingIndicator = new IncrementalLoadingIndicatorItem(null, new object());
         internal static readonly ListHeaderIndicatorItem ListHeaderIndicator = new ListHeaderIndicatorItem(null, new object());

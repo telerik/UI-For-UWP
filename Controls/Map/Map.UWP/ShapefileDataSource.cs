@@ -25,55 +25,55 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="SourceUri"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SourceUriProperty =
-            DependencyProperty.Register("SourceUri", typeof(Uri), typeof(ShapefileDataSource), new PropertyMetadata(null, OnUriPropertyChanged));
+            DependencyProperty.Register(nameof(SourceUri), typeof(Uri), typeof(ShapefileDataSource), new PropertyMetadata(null, OnUriPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DataSourceUri"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DataSourceUriProperty =
-            DependencyProperty.Register("DataSourceUri", typeof(Uri), typeof(ShapefileDataSource), new PropertyMetadata(null, OnUriPropertyChanged));
+            DependencyProperty.Register(nameof(DataSourceUri), typeof(Uri), typeof(ShapefileDataSource), new PropertyMetadata(null, OnUriPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="SourceUriString"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SourceUriStringProperty =
-            DependencyProperty.Register("SourceUriString", typeof(string), typeof(ShapefileDataSource), new PropertyMetadata(null, OnSourceUriStringPropertyChanged));
+            DependencyProperty.Register(nameof(SourceUriString), typeof(string), typeof(ShapefileDataSource), new PropertyMetadata(null, OnSourceUriStringPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="DataSourceUriString"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DataSourceUriStringProperty =
-            DependencyProperty.Register("DataSourceUriString", typeof(string), typeof(ShapefileDataSource), new PropertyMetadata(null, OnDataSourceUriStringPropertyChanged));
+            DependencyProperty.Register(nameof(DataSourceUriString), typeof(string), typeof(ShapefileDataSource), new PropertyMetadata(null, OnDataSourceUriStringPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Encoding"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EncodingProperty =
-            DependencyProperty.Register("Encoding", typeof(Encoding), typeof(ShapefileDataSource), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Encoding), typeof(Encoding), typeof(ShapefileDataSource), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="TransportResolver"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TransportResolverProperty =
-            DependencyProperty.Register("TransportResolver", typeof(ITransportResolver), typeof(ShapefileDataSource), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(TransportResolver), typeof(ITransportResolver), typeof(ShapefileDataSource), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="AttributesToLoad"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AttributesToLoadProperty =
-            DependencyProperty.Register("AttributesToLoad", typeof(string), typeof(ShapefileDataSource), new PropertyMetadata(null, OnAttributesToLoadPropertyChanged));
+            DependencyProperty.Register(nameof(AttributesToLoad), typeof(string), typeof(ShapefileDataSource), new PropertyMetadata(null, OnAttributesToLoadPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="AttributeValueConverter"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AttributeValueConverterProperty =
-            DependencyProperty.Register("AttributeValueConverter", typeof(IAttributeValueConverter), typeof(ShapefileDataSource), new PropertyMetadata(null, OnAttributeValueConverterPropertyChanged));
+            DependencyProperty.Register(nameof(AttributeValueConverter), typeof(IAttributeValueConverter), typeof(ShapefileDataSource), new PropertyMetadata(null, OnAttributeValueConverterPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="CoordinateValueConverter"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CoordinateValueConverterProperty =
-            DependencyProperty.Register("CoordinateValueConverter", typeof(ICoordinateValueConverter), typeof(ShapefileDataSource), new PropertyMetadata(null, OnCoordinateValueConverterPropertyChanged));
+            DependencyProperty.Register(nameof(CoordinateValueConverter), typeof(ICoordinateValueConverter), typeof(ShapefileDataSource), new PropertyMetadata(null, OnCoordinateValueConverterPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Shapes"/> dependency property.

@@ -20,7 +20,7 @@ namespace Telerik.Data.Core.Fields
         {
             if (propertyInfo == null)
             {
-                throw new ArgumentNullException("propertyInfo");
+                throw new ArgumentNullException(nameof(propertyInfo));
             }
 
             this.propertyInfo = propertyInfo;
@@ -36,7 +36,7 @@ namespace Telerik.Data.Core.Fields
         {
             if (propertyAccess == null)
             {
-                throw new ArgumentNullException("propertyAccess");
+                throw new ArgumentNullException(nameof(propertyAccess));
             }
 
             this.propertyAccess = propertyAccess;

@@ -17,13 +17,13 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="ContentStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentStyleProperty =
-            DependencyProperty.Register("ContentStyle", typeof(Style), typeof(CalendarCellStyle), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ContentStyle), typeof(Style), typeof(CalendarCellStyle), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the <see cref="DecorationStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DecorationStyleProperty =
-            DependencyProperty.Register("DecorationStyle", typeof(Style), typeof(CalendarCellStyle), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(DecorationStyle), typeof(Style), typeof(CalendarCellStyle), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the style applied to the default content visual (TextBlock) for the respective calendar cell.

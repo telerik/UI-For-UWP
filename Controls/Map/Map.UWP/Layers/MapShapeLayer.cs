@@ -19,80 +19,80 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Identifies the <see cref="ShapeStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShapeStyleProperty =
-            DependencyProperty.Register("ShapeStyle", typeof(D2DShapeStyle), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeStylePropertyChanged));
+            DependencyProperty.Register(nameof(ShapeStyle), typeof(D2DShapeStyle), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShapePointerOverStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShapePointerOverStyleProperty =
-            DependencyProperty.Register("ShapePointerOverStyle", typeof(D2DShapeStyle), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapePointerOverStylePropertyChanged));
+            DependencyProperty.Register(nameof(ShapePointerOverStyle), typeof(D2DShapeStyle), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapePointerOverStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShapeSelectedStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShapeSelectedStyleProperty =
-            DependencyProperty.Register("ShapeSelectedStyle", typeof(D2DShapeStyle), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeSelectedStylePropertyChanged));
+            DependencyProperty.Register(nameof(ShapeSelectedStyle), typeof(D2DShapeStyle), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeSelectedStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShapeLabelStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShapeLabelStyleProperty =
-            DependencyProperty.Register("ShapeLabelStyle", typeof(D2DTextStyle), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeLabelStylePropertyChanged));
+            DependencyProperty.Register(nameof(ShapeLabelStyle), typeof(D2DTextStyle), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeLabelStylePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShapeStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShapeStyleSelectorProperty =
-            DependencyProperty.Register("ShapeStyleSelector", typeof(MapShapeStyleSelector), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeStyleSelectorPropertyChanged));
+            DependencyProperty.Register(nameof(ShapeStyleSelector), typeof(MapShapeStyleSelector), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeStyleSelectorPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShapeLabelLayoutStrategy"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShapeLabelLayoutStrategyProperty =
-            DependencyProperty.Register("ShapeLabelLayoutStrategy", typeof(MapShapeLabelLayoutStrategy), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeLabelLayoutStrategyPropertyChanged));
+            DependencyProperty.Register(nameof(ShapeLabelLayoutStrategy), typeof(MapShapeLabelLayoutStrategy), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeLabelLayoutStrategyPropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="Source"/> dependency property.
         /// </summary>
         ////TODO: The Property type is object because WinRT bindings will fails to work with a .NET interface type.
         public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source", typeof(object), typeof(MapShapeLayer), new PropertyMetadata(null, OnSourcePropertyChanged));
+            DependencyProperty.Register(nameof(Source), typeof(object), typeof(MapShapeLayer), new PropertyMetadata(null, OnSourcePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShapeLabelAttributeName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShapeLabelAttributeNameProperty =
-            DependencyProperty.Register("ShapeLabelAttributeName", typeof(string), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeLabelAttributeNamePropertyChanged));
+            DependencyProperty.Register(nameof(ShapeLabelAttributeName), typeof(string), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeLabelAttributeNamePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="ShapeToolTipAttributeName"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShapeToolTipAttributeNameProperty =
-            DependencyProperty.Register("ShapeToolTipAttributeName", typeof(string), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeToolTipAttributeNamePropertyChanged));
+            DependencyProperty.Register(nameof(ShapeToolTipAttributeName), typeof(string), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeToolTipAttributeNamePropertyChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsSelectionEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsSelectionEnabledProperty =
-            DependencyProperty.Register("IsSelectionEnabled", typeof(bool), typeof(MapShapeLayer), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsSelectionEnabled), typeof(bool), typeof(MapShapeLayer), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="IsPointerOverEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsPointerOverEnabledProperty =
-            DependencyProperty.Register("IsPointerOverEnabled", typeof(bool), typeof(MapShapeLayer), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsPointerOverEnabled), typeof(bool), typeof(MapShapeLayer), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="IsToolTipEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsToolTipEnabledProperty =
-            DependencyProperty.Register("IsToolTipEnabled", typeof(bool), typeof(MapShapeLayer), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsToolTipEnabled), typeof(bool), typeof(MapShapeLayer), new PropertyMetadata(true));
 
         /// <summary>
         /// Identifies the <see cref="ShapeColorizer"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShapeColorizerProperty =
-            DependencyProperty.Register("ShapeColorizer", typeof(MapShapeColorizer), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeColorizerPropertyChanged));
+            DependencyProperty.Register(nameof(ShapeColorizer), typeof(MapShapeColorizer), typeof(MapShapeLayer), new PropertyMetadata(null, OnShapeColorizerPropertyChanged));
 
         internal static int layerIDCounter = 0;
 

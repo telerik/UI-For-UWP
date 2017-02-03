@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Identifies the <see cref="DefaultStripeBrush"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty DefaultStripeBrushProperty =
-            DependencyProperty.Register("DefaultStripeBrush", typeof(Brush), typeof(ChartGrid), new PropertyMetadata(null, OnDefaultStripeBrushChanged));
+            DependencyProperty.Register(nameof(DefaultStripeBrush), typeof(Brush), typeof(ChartGrid), new PropertyMetadata(null, OnDefaultStripeBrushChanged));
 
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> value that defines the appearance of the chart stripes of this instance.
