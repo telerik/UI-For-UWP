@@ -1929,8 +1929,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.dataRequestContainerCache = element;
             element.BindToDataItem(item);
             this.PrepareStyle(element, item);
-            // Assinging to variable in order to avoid compiler warning. Variable will be ignored at compile time.
-            var asyncAction = this.Dispatcher.RunAsync(
+            this.Dispatcher.RunAsync(
                 CoreDispatcherPriority.Normal,
                 () =>
                 {
