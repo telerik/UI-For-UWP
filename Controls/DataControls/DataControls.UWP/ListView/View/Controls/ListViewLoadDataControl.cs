@@ -89,6 +89,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         public ListViewLoadDataControl LoadDataControl { get; set; }
 #pragma warning disable 0067
         public event EventHandler CanExecuteChanged;
+#pragma warning restore 0067
 
         public bool CanExecute(object parameter)
         {
