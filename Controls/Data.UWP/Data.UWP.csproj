@@ -309,9 +309,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\default.rd.xml">
-      <Link>Properties\default.rd.xml</Link>
-    </Content>
+    <Content Include="Properties\default.rd.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="..\..\BuildTools\CopyBinaries.targets"  />

@@ -18,8 +18,6 @@ namespace Telerik.Charting
         public bool isUpdated;
 
         private ValueAxesExtractor valueAxesExtractor;
-        private int combinedBarSeriesCount;
-        private int combinedStrokedSeriesCount;
 
         public ChartSeriesCombineStrategy()
         {
@@ -37,22 +35,17 @@ namespace Telerik.Charting
         /// </summary>
         internal int CombinedBarSeriesCount
         {
-            get
-            {
-                return this.combinedBarSeriesCount;
-            }
+            get;
+            set;
         }
 
         /// <summary>
-        /// Gets the combined stroked series count. Exposed for testing.
+        /// Gets the combined stroked series count. Exposed for testing purposes.
         /// </summary>
-        /// <value>The combined stroked series count.</value>
         internal int CombinedStrokedSeriesCount
         {
-            get
-            {
-                return this.combinedStrokedSeriesCount;
-            }
+            get;
+            set;
         }
 
         public void Update(IList<ChartSeriesModel> series, AxisModel stackAxis)
