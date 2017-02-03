@@ -87,6 +87,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             this.LoadDataControl = owner;
         }
         public ListViewLoadDataControl LoadDataControl { get; set; }
+#pragma warning disable 0067
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
