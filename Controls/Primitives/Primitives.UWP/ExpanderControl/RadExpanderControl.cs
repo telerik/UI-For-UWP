@@ -314,6 +314,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             return false;
         }
 
+#pragma warning disable 4014
         /// <summary>
         /// When overridden in a derived class, is invoked whenever application code or internal processes (such as a rebuilding layout pass) call <see cref="M:System.Windows.Controls.Control.ApplyTemplate" />. In simplest terms, this means the method is called just before a UI element displays in an application. For more information, see Remarks.
         /// </summary>
@@ -369,14 +370,14 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 }
                 else
                 {
-                    // Assinging to variable in order to avoid compiler warning. Variable will be ignored at compile time.
-                    var asyncAction = this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
                             this.SetInitialControlState(false);
                         });
                 }
             }
         }
+#pragma warning restore 4014
 
         /// <summary>
         /// Called before the <see cref="E:System.Windows.UIElement.Tap" /> event
@@ -433,6 +434,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             return measuredResult;
         }
 
+#pragma warning disable 4014
         /// <summary>
         /// Provides the behavior for the Arrange pass of Silverlight layout. Classes
         /// can override this method to define their own Arrange pass behavior.
@@ -463,8 +465,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 }
                 else
                 {
-                    // Assinging to variable in order to avoid compiler warning. Variable will be ignored at compile time.
-                    var asyncAction = this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
                         action();
                     });
@@ -473,6 +474,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             return result;
         }
+#pragma warning restore 4014
 
         /// <summary>
         /// Called when the value of the <see cref="P:System.Windows.Controls.ContentControl.Content" /> property changes.
