@@ -22,7 +22,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
-        bool IDragDropElement.CanStartDrag(DragDropTrigger trigger, object initializeContext = null)
+        bool IDragDropElement.CanStartDrag(DragDropTrigger trigger, object initializeContext)
         {
             if (trigger == DragDropTrigger.Hold)
             {
@@ -39,7 +39,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
-        DragStartingContext IDragDropElement.DragStarting(DragDropTrigger trigger, object initializeContext = null)
+        DragStartingContext IDragDropElement.DragStarting(DragDropTrigger trigger, object initializeContext)
         {
             this.ListView.CleanupSwipedItem();
 

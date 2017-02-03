@@ -12,7 +12,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal WrapLineAlignment wrapLineAlignment = WrapLineAlignment.Near;
         internal List<WrapRow> wrapRows;
         internal double allItemsExtent;
-        internal double averageItemExtent;
         internal double averageItemCountPerRow;
         internal int guessedRowCount;
         internal WrapRow lastWrapRow;

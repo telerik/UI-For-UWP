@@ -9,20 +9,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var orientation = (Orientation)value;
-
-            if (orientation != null)
+            if (orientation == Orientation.Vertical)
             {
-                if (orientation == Orientation.Vertical)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return -90;
-                }
+                return 0;
             }
-
-            return 0;
+            else
+            {
+                return -90;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
