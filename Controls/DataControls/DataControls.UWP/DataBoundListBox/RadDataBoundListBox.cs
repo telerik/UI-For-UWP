@@ -955,8 +955,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 bool checkModeRequest = this.IsCheckModeArea(item, container, hitPoint);
                 if (checkModeRequest)
                 {
-                    // Assinging to variable in order to avoid compiler warning. Variable will be ignored at compile time.
-                    var asyncAction = this.Dispatcher.RunAsync(
+                    this.Dispatcher.RunAsync(
                         CoreDispatcherPriority.Normal,
                         () =>
                         {
