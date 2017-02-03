@@ -471,11 +471,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.id = id;
         }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add { }
-            remove { }
-        }
+#pragma warning disable 0067
+        public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
         {
