@@ -42,12 +42,12 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
-        bool IDragDropElement.CanStartDrag(DragDropTrigger trigger, object initializeContext = null)
+        bool IDragDropElement.CanStartDrag(DragDropTrigger trigger, object initializeContext)
         {
             return false;
         }
 
-        DragStartingContext IDragDropElement.DragStarting(DragDropTrigger trigger, object initializeContext = null)
+        DragStartingContext IDragDropElement.DragStarting(DragDropTrigger trigger, object initializeContext)
         {
             throw new NotImplementedException();
         }

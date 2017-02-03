@@ -20,7 +20,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
             return parameter != null;
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { }
+            remove { }
+        }
 
         public void Execute(object parameter)
         {
