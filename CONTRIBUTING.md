@@ -2,7 +2,7 @@
 
 ## Before You Start
 
-Anyone wishing to contribute to the UI for Universal Windows Platform project MUST read & sign the [UI For Universal Windows Platform Contribution License Agreement](https://github.com/telerik/UI-For-UWP/blob/master/CLA.docs). The UI for UWP team cannot accept pull requests from users who have not signed the CLA first.
+Anyone wishing to contribute to the UI for Universal Windows Platform project MUST read & sign the [UI For Universal Windows Platform Contribution License Agreement](https://docs.google.com/forms/d/e/1FAIpQLSfQAzVxnnfwRQmtJCVmB41_ig1gYow--Gr8qLvaDxJRNHPtUQ/viewform). The UI for UWP team cannot accept pull requests from users who have not signed the CLA first.
 
 ## Introduction
 
@@ -81,5 +81,3 @@ All code contributed to this project should adhere to a consistent style, so ple
 - Do use braces for one-line blocks (if, for, while, do)
 - Place braces, "else", "catch", and "finally" on new line
 - Qualify member access with this
-
-Beyond these, your best bet when in doubt is to follow The Stylecop and Code analisys enabled for the Project(remember to build in Release).
