@@ -6,7 +6,7 @@ namespace Telerik.Core
     /// <summary>
     /// Represents a structure that defines margins (or padding) of an element.
     /// </summary>
-    [DebuggerDisplay(nameof(Left) + ", " + nameof(Top) + ", " + nameof(Right) + ", " + nameof(Bottom))]
+    [DebuggerDisplay("{Left}, {Top}, {Right}, {Bottom}")]
     public struct RadThickness
     {
         /// <summary>

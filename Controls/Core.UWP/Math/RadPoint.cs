@@ -7,7 +7,7 @@ namespace Telerik.Core
     /// <summary>
     /// Represents a structure that defines a location (X, Y) in a two-dimensional space.
     /// </summary>
-    [DebuggerDisplay(nameof(X) + ", " + nameof(Y))]
+    [DebuggerDisplay("{X}, {Y}")]
     public struct RadPoint
     {
         /// <summary>

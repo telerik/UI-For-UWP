@@ -6,7 +6,7 @@ namespace Telerik.Core
     /// <summary>
     /// Represents a structure that defines a size in the two-dimensional space.
     /// </summary>
-    [DebuggerDisplay(nameof(Width) + ", " + nameof(Height))]
+    [DebuggerDisplay("{Width}, {Height}")]
     public struct RadSize
     {
         /// <summary>

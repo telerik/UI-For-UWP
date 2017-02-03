@@ -6,7 +6,7 @@ namespace Telerik.Core
     /// <summary>
     /// Represents a Rectangle in the Euclidean plane geometry.
     /// </summary>
-    [DebuggerDisplay(nameof(X) + ", " + nameof(Y) + ", " + nameof(Width) + ", " + nameof(Height))]
+    [DebuggerDisplay("{X}, {Y}, {Width}, {Height}")]
     public struct RadRect
     {
         /// <summary>
