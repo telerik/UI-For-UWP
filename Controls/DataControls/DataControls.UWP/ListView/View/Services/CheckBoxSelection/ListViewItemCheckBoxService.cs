@@ -24,11 +24,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal CheckBoxGenerator generator;
 
         internal event EventHandler<CheckModeActiveChangedEventArgs> IsCheckModeActiveChanged;
-        internal event EventHandler<ItemCheckedStateChangedEventArgs> ItemCheckedStateChanged
-        {
-            add { }
-            remove { }
-        }
+        internal event EventHandler<ItemCheckedStateChangedEventArgs> ItemCheckedStateChanged;
 
         public ListViewItemCheckBoxService(RadListView owner)
             : base(owner)
