@@ -2,7 +2,6 @@
 <Project DefaultTargets="Nuget" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
 
     <Import Project="$(MSBuildProjectDirectory)\Config.UWP.proj" />
-    <Import Project="$(MSBuildProjectDirectory)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
 
     <PropertyGroup>
         <NugetDependsOn>
