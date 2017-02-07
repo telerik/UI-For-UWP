@@ -51,7 +51,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         private Border secondHandle;
 
         private bool isSelectedCache;
-        private Orientation orientationCache;
+        private Orientation orientationCache = Orientation.Vertical;
 
         /// <summary>
         /// Exposed for testing purposes.
