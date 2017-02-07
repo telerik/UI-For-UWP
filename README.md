@@ -43,7 +43,6 @@ The official documentation for Telerik UI for UWP is available [here](http://doc
 * Open UWPMap.sln located in Controls folder and build it in x86/x64 and Arm configs.
 * All binaries are now located in Binaries folder
 * You can additionaly build nuget package by running BuildTools/BuildNuget.bat. The output nuget will be located in the Nuget subfolder.
-**********************************************************************************************************************************
 
 ## How to Contribute
 Telerik UI for UWP is free and open-source. We encourage and support an active, healthy community that accepts contributions from the public. We'd like you to be a part of that community.
