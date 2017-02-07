@@ -53,6 +53,16 @@
     <Message Text="DEBUG INFO: CopyXBF from: &quot;$(XBFSourceFolder)&quot; Configuration=$(Configuration) --- @(XBFFiles)"   />
     <Copy SourceFiles="@(XBFFiles)"
           DestinationFolder="$(BinariesDestinationFolder)\$(AssemblyName)\Themes\%(RecursiveDir)" />
+		  
+	<ItemGroup>
+		  <MapX86OutputFiles Condition=" '$(ControlName)' == 'Map' And '$(Platform)' == 'x86'" 
+							Include="$(BinariesDestinationFolder)\**\*"
+							Exclude="$(BinariesDestinationFolder)\Telerik.UI.Drawing.dll"/>
+	</ItemGroup>
+	<Copy SourceFiles="@(MapX86OutputFiles)"
+		  DestinationFolder="$(BinariesOutDir)\%(RecursiveDir)" />
+	<!-- Clears flags so that NuGet references to platform specific assemblies work. -->
+	<Exec Condition=" '$(ControlName)' == 'Map' And '$(Platform)' == 'x86'" Command=' "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\x64\CorFlags.exe" /32BITREQ- "$(BinariesOutDir)\Telerik.UI.Xaml.Map.UWP.dll" /Force' />
 
     </Target>
 
