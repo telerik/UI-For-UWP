@@ -1,47 +1,52 @@
 # Telerik UI for Universal Windows Platform
 
 This is an open source version of Telerik UI for Universal Windows Platform. The project is community supported on StackOverflow.com.
-Commercial support for Telerik UI for UWP is available at (http://www.Telerik.com/UWP)[http://www.Telerik.com/UWP] . Please visit that site for a supported commercial trial and pricing options. 
+Commercial support for Telerik UI for UWP is available at [http://www.Telerik.com/UWP](http://www.Telerik.com/UWP) . Please visit that site for a supported commercial trial and pricing options. 
 Licensed under the Apache License, Version 2.0, for more information, please refer to the License.md. 
-If you’re looking for UI tools for ASP.NET, WPF, WinForms or JavaScript, please visit (http://www.Telerik.com)[http://www.Telerik.com] . 
+If you’re looking for UI tools for ASP.NET, WPF, WinForms or JavaScript, please visit [http://www.Telerik.com](http://www.Telerik.com) . 
 
 ## Available UI components and documentation for UI for UWP
 Telerik UI for Windows Universal is built to target UWP Windows 10 application development and deliver a unique experience based on the [Microsoft UX guidelines for Windows Runtime apps](http://msdn.microsoft.com/en-us/library/windows/apps/hh465424.aspx).
 
-* [RadAutoCompleteBox](http://docs.telerik.com/windows-universal/controls/radautocompletebox/autocompletebox-overview)
-* [RadBulletGraph](http://docs.telerik.com/windows-universal/controls/radbulletgraph/bulletgraph-overview)
-* [RadBusyIndicator](http://docs.telerik.com/windows-universal/controls/radbusyindicator/busyindicator-overview)
-* [RadCalendar](http://docs.telerik.com/windows-universal/controls/radcalendar/overview)
-* [RadChart](http://docs.telerik.com/windows-universal/controls/radchart/overview)
-* [RadDataBoundListBox](http://docs.telerik.com/windows-universal/controls/raddataboundlistbox/databoundlistbox-overview)
-* [RadDataForm](http://docs.telerik.com/windows-universal/controls/raddataform/dataform-overview)
-* [RadDataGrid](http://docs.telerik.com/windows-universal/controls/raddatagrid/overview)
-* [RadDatePicker and RadTimePicker](http://docs.telerik.com/windows-universal/controls/raddatepicker-and-radtimepicker/raddatetimepickers-overview)
-* [RadExpander](http://docs.telerik.com/windows-universal/controls/radexpander/expander-overview)
-* [RadGauge](http://docs.telerik.com/windows-universal/controls/radgauge/overview)
-* [RadHexView](http://docs.telerik.com/windows-universal/controls/radhexview/hexview-overview)
+* [RadAutoCompleteBox](http://docs.telerik.com/devtools/universal-windows-platform/controls/radautocompletebox/autocompletebox-overview)
+* [RadBulletGraph](http://docs.telerik.com/devtools/universal-windows-platform/controls/radbulletgraph/bulletgraph-overview)
+* [RadBusyIndicator](http://docs.telerik.com/devtools/universal-windows-platform/controls/radbusyindicator/busyindicator-overview)
+* [RadCalendar](http://docs.telerik.com/devtools/universal-windows-platform/controls/radcalendar/overview)
+* [RadChart](http://docs.telerik.com/devtools/universal-windows-platform/controls/radchart/overview)
+* [RadDataBoundListBox](http://docs.telerik.com/devtools/universal-windows-platform/raddataboundlistbox/databoundlistbox-overview)
+* [RadDataForm](http://docs.telerik.com/devtools/universal-windows-platform/raddataform/dataform-overview)
+* [RadDataGrid](http://docs.telerik.com/devtools/universal-windows-platform/controls/raddatagrid/overview)
+* [RadDatePicker and RadTimePicker](http://docs.telerik.com/devtools/universal-windows-platform/controls/raddatepicker-and-radtimepicker/raddatetimepickers-overview)
+* [RadExpander](http://docs.telerik.com/devtools/universal-windows-platform/controls/radexpander/expander-overview)
+* [RadGauge](http://docs.telerik.com/devtools/universal-windows-platform/controls/radgauge/overview)
+* [RadHexView](http://docs.telerik.com/devtools/universal-windows-platform/controls/radhexview/hexview-overview)
 * [RadHubTile](http://docs.telerik.com/windows-universal/controls/radhubtile/overview)
 * [RadListView](http://docs.telerik.com/windows-universal/controls/radlistview/listview-overview)
 * [RadLoopingList](http://docs.telerik.com/windows-universal/controls/radloopinglist/loopinglist-overview)
 * [RadMap](http://docs.telerik.com/windows-universal/controls/radmap/overview)
-* [RadNumericBox](http://docs.telerik.com/windows-universal/controls/radnumericbox/overview)
-* [RadPagination](http://docs.telerik.com/windows-universal/controls/radpagination/overview)
-* [RadRadialMenu](http://docs.telerik.com/windows-universal/controls/radradialmenu/radialmenu-overview)
-* [RadRangeSlider](http://docs.telerik.com/windows-universal/controls/radrangeslider/overview)
-* [RadRating](http://docs.telerik.com/windows-universal/controls/radrating/rating-overview)
-* [RadSideDrawer](http://docs.telerik.com/windows-universal/controls/radsidedrawer/sidedrawer-getting-started)
+* [RadNumericBox](http://docs.telerik.com/devtools/universal-windows-platform/controls/radnumericbox/overview)
+* [RadPagination](http://docs.telerik.com/devtools/universal-windows-platform/controls/radpagination/overview)
+* [RadRadialMenu](http://docs.telerik.com/devtools/universal-windows-platform/controls/radradialmenu/radialmenu-overview)
+* [RadRangeSlider](http://docs.telerik.com/devtools/universal-windows-platform/controls/radrangeslider/overview)
+* [RadRating](http://docs.telerik.com/devtools/universal-windows-platform/controls/radrating/rating-overview)
+* [RadSideDrawer](http://docs.telerik.com/devtools/universal-windows-platform/controls/radsidedrawer/sidedrawer-getting-started)
 
 ### Documentation
-The official documentation for Telerik UI for UWP is available [here](http://docs.telerik.com/windows-universal/UWP-Introduction).
+The official documentation for Telerik UI for UWP is available [here](http://docs.telerik.com/devtools/universal-windows-platform/Introduction-uwp).
 
 **********************************************************************************************************************************
 ## Getting started
 
+* Make sure you have the [required software to  build UWP applications] (https://msdn.microsoft.com/en-us/windows/uwp/get-started/get-set-up)
+* Clone a copy of the repository code
+* Open UWPControls.sln located in Controls folder and build it.
+* Open UWPMap.sln located in Controls folder and build it in x86/x64 and Arm configs.
+* All binaries are now located in Binaries folder
+* You can additionaly build nuget package by running BuildTools/BuildNuget.bat. The output nuget will be located in the Nuget subfolder.
 **********************************************************************************************************************************
 
-
 ## How to Contribute
-Telerik UI for WinForms is free and open-source. We encourage and support an active, healthy community that accepts contributions from the public. We'd like you to be a part of that community.
+Telerik UI for UWP is free and open-source. We encourage and support an active, healthy community that accepts contributions from the public. We'd like you to be a part of that community.
 
 Before contributing to Telerik UI for UWP, please:
 
