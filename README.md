@@ -2,6 +2,8 @@
 
 This is an open-source version of Telerik UI for Universal Windows Platform (UWP) by Progress. The project is community-supported on [Stack Overflow](https://stackoverflow.com/). Commercial support is available at [telerik.com/uwp](http://www.telerik.com/uwp) where you'll find a supported commercial trial and pricing options. Please visit [telerik.com](http://www.telerik.com/) for UI tools for ASP.NET, WPF, WinForms, or JavaScript.
 
+![UI for UWP](http://d585tldpucybw.cloudfront.net/sfimages/default-source/default-album/oss/uwp-ui.png?sfvrsn=2)
+
 ## Available UI Components and Documentation for UI for UWP
 
 UI for UWP is built to target UWP Windows 10 application development and deliver a unique experience based on the [Microsoft UX guidelines for Windows Runtime apps](https://developer.microsoft.com/windows/apps/design). It consists of the following components:
