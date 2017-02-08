@@ -25,7 +25,7 @@ UI for UWP is built to target UWP Windows 10 application development and deliver
 * [RadLoopingList](http://www.telerik.com/universal-windows-platform-ui/loopinglist)
 * [RadMap](http://www.telerik.com/universal-windows-platform-ui/map)
 * [RadNumericBox](http://www.telerik.com/universal-windows-platform-ui/numericbox)
-* [RadPagination](http://docs.telerik.com/devtools/universal-windows-platform/controls/radpagination/overview)
+* [RadPagination](http://www.telerik.com/universal-windows-platform-ui/pagination)
 * [RadRadialMenu](http://www.telerik.com/universal-windows-platform-ui/radialmenu)
 * [RadRangeSlider](http://www.telerik.com/universal-windows-platform-ui/rangeslider)
 * [RadRating](http://www.telerik.com/universal-windows-platform-ui/rating)
