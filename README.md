@@ -1,12 +1,10 @@
-# Telerik UI for Universal Windows Platform
+# Telerik UI for UWP by Progress
 
-This is an open source version of Telerik UI for Universal Windows Platform. The project is community supported on StackOverflow.com.
-Commercial support for Telerik UI for UWP is available at [http://www.Telerik.com/UWP](http://www.Telerik.com/UWP) . Please visit that site for a supported commercial trial and pricing options. 
-Licensed under the Apache License, Version 2.0, for more information, please refer to the License.md. 
-If you’re looking for UI tools for ASP.NET, WPF, WinForms or JavaScript, please visit [http://www.Telerik.com](http://www.Telerik.com) . 
+This is an open-source version of Telerik UI for Universal Windows Platform (UWP) by Progress. The project is community-supported on [Stack Overflow](https://stackoverflow.com/). Commercial support is available at [telerik.com/uwp](http://www.telerik.com/uwp) where you'll find a supported commercial trial and pricing options. Please visit [telerik.com](http://www.telerik.com/) for UI tools for ASP.NET, WPF, WinForms, or JavaScript.
 
-## Available UI components and documentation for UI for UWP
-Telerik UI for Windows Universal is built to target UWP Windows 10 application development and deliver a unique experience based on the [Microsoft UX guidelines for Windows Runtime apps](http://msdn.microsoft.com/en-us/library/windows/apps/hh465424.aspx).
+## Available UI Components and Documentation for UI for UWP
+
+UI for UWP is built to target UWP Windows 10 application development and deliver a unique experience based on the [Microsoft UX guidelines for Windows Runtime apps](https://developer.microsoft.com/windows/apps/design). It consists of the following components:
 
 * [RadAutoCompleteBox](http://docs.telerik.com/devtools/universal-windows-platform/controls/radautocompletebox/autocompletebox-overview)
 * [RadBulletGraph](http://docs.telerik.com/devtools/universal-windows-platform/controls/radbulletgraph/bulletgraph-overview)
@@ -32,37 +30,45 @@ Telerik UI for Windows Universal is built to target UWP Windows 10 application d
 * [RadSideDrawer](http://docs.telerik.com/devtools/universal-windows-platform/controls/radsidedrawer/sidedrawer-getting-started)
 
 ### Documentation
-The official documentation for Telerik UI for UWP is available [here](http://docs.telerik.com/devtools/universal-windows-platform/Introduction-uwp).
+
+The official documentation for UI for UWP is available [here](http://docs.telerik.com/devtools/universal-windows-platform/Introduction-uwp).
 
 **********************************************************************************************************************************
+
 ## Getting started
 
-* Make sure you have the [required software to  build UWP applications] (https://msdn.microsoft.com/en-us/windows/uwp/get-started/get-set-up)
+* Make sure you have the [required software to build UWP applications] (https://docs.microsoft.com/windows/uwp/get-started/get-set-up)
 * Clone a copy of the repository code
-* Open UWPControls.sln located in Controls folder and build it.
-* Open UWPMap.sln located in Controls folder and build it in x86/x64 and Arm configs.
+* Open UWPControls.sln located in Controls folder and build it
+* Open UWPMap.sln located in Controls folder and build it in x86/x64 and ARM configs
 * All binaries are now located in Binaries folder
-* You can additionaly build nuget package by running BuildTools/BuildNuget.bat. The output nuget will be located in the Nuget subfolder.
+* You can additionaly build a NuGet package by running BuildTools/BuildNuGet.bat. The generated package will be located in the NuGet subfolder.
 
 ## How to Contribute
-Telerik UI for UWP is free and open-source. We encourage and support an active, healthy community that accepts contributions from the public. We'd like you to be a part of that community.
 
-Before contributing to Telerik UI for UWP, please:
+UI for UWP is free and open-source. We encourage and support an active, healthy community that accepts contributions from the public. We'd like you to be a part of that community.
+
+Before contributing to UI for UWP, please:
 
 1. Read and sign the [Telerik UI for UWP Contribution License Agreement](https://docs.google.com/forms/d/e/1FAIpQLSfQAzVxnnfwRQmtJCVmB41_ig1gYow--Gr8qLvaDxJRNHPtUQ/viewform), to confirm you've read and acknowledged the legal aspects of your contributions, and
-2. Read our [contribution guide](https://raw.githubusercontent.com/telerik/UI-For-UWP/master/CONTRIBUTING.md?token=ABOo0qokftaz5YVEh3HxTGel-yXJm6Owks5Yoa6xwA%3D%3D), which houses all of the necessary info to:
+2. Read our [contribution guide](CONTRIBUTING.md), which houses all of the necessary info to:
   * submit bugs,
   * request new features, and,
   * walk you through the entire process of preparing your code for a Pull Request.
   
 ## Source Code and Downloads
-If you want to skip building the project yourself, head on over to [Telerik.com](http://telerik.com) to grab the full source.
+
+If you want to skip building the project yourself, you can visit [telerik.com](http://www.telerik.com/) to grab the full source.
 
 ## Getting Help
 
 * Use the [issues list](https://github.com/telerik/UI-For-UWP/issues) of this repo for bug reports.
-* Get help on [Stack Overflow](http://stackoverflow.com/questions/tagged/telerik+uwp) or the using the [commercial Telerik UI for UWP support channel](http://www.telerik.com/account/support-tickets/my-support-tickets.aspx).
+* Get help on [Stack Overflow](https://stackoverflow.com/questions/tagged/telerik+uwp) or the using the [commercial Telerik UI for UWP support channel](http://www.telerik.com/account/support-tickets/my-support-tickets.aspx).
 
-As a fully-open source project, Telerik UI for UWP is a primarily community-supported project, as such, you are encouraged to use forums like Stack Overflow to post questions, and the issues list of this repo to report bugs.
+As a fully-open source project, UI for UWP is a primarily community-supported project, as such, you are encouraged to use forums like [Stack Overflow](https://stackoverflow.com/) to post questions, and the issues list of this repo to report bugs.
 
-The Telerik UI for UWP team does not provide formal support, except to those customers who have purchased a [commercial license for Telerik UI for UWP](http://www.telerik.com/universal-windows-platform-ui). Please do not create support requests for this project in the issues list for this repo, as these will be immediately closed. You'll be directed to post your question on a community forum.
+The UI for UWP team does not provide formal support, except to those customers who have purchased a [commercial license for UI for UWP](http://www.telerik.com/universal-windows-platform-ui). Please do not create support requests for this project in the issues list for this repo, as these will be immediately closed. You'll be directed to post your question on a community forum.
+
+## License
+
+Licensed under the Apache License, Version 2.0. Please refer to [LICENSE.md](LICENSE.md) for more information.
