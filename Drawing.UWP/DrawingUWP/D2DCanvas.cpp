@@ -559,7 +559,6 @@ namespace Telerik
                 target.As(&bitmap);
                 this->CaptureViewport(bitmap);
 
-                this->mainRenderContext->RenderWatermark();
                 this->mainRenderContext->DeviceContext->SetTarget(nullptr);
 
                 result = this->nativeImageSource->EndDraw();
