@@ -11,15 +11,6 @@ namespace Telerik
 		{
 			D2DRenderContext::D2DRenderContext(void)
 			{
-#if TRIAL
-				this->watermark = ref new D2DTextBlock();
-				this->watermark->Text = L"Telerik Drawing Library Trial Version";
-				auto style = ref new D2DTextStyle();
-				auto foreground = ref new D2DSolidColorBrush();
-				foreground->Color = ColorHelper::FromArgb(150, 150, 150, 150);
-				style->Foreground = foreground;
-				this->watermark->Style = style;
-#endif
 			}
 
 			void D2DRenderContext::Initialize(D3DResources^ resources, Size dipSize, UINT width, UINT height, float dpi)
@@ -84,28 +75,6 @@ namespace Telerik
 				this->factory.Reset();
 				this->writeFactory.Reset();
 				this->strokeStyle.Reset();
-
-#if TRIAL
-				this->watermark->Invalidate(true);
-				this->watermark = nullptr;
-#endif
-			}
-
-			void D2DRenderContext::RenderWatermark()
-			{
-#if TRIAL
-				if(this->watermark == nullptr)
-				{
-					return;
-				}
-
-				this->context->BeginDraw();
-
-				this->watermark->InitRender(this);
-				this->watermark->Render(this->context, nullptr, Point(10, 10));
-
-				this->context->EndDraw();
-#endif
 			}
 
 			void D2DRenderContext::BeginDraw()

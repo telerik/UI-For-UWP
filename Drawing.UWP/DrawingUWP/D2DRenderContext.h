@@ -29,8 +29,6 @@ namespace Telerik
 
 				void Clear();
 
-				void RenderWatermark();
-
 				property Size DIPSize
 				{
 					Size get() { return this->dipSize; }
@@ -92,10 +90,6 @@ namespace Telerik
 
 				bool canDraw;
 				std::stack<D2D1::Matrix3x2F> transforms;
-
-#if TRIAL
-				D2DTextBlock^ watermark;
-#endif
 			};
 		}
 	}
