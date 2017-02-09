@@ -298,11 +298,6 @@
     <AssemblyOriginatorKeyFile>..\..\BuildTools\Win8PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Runtime.WindowsRuntime.UI.Xaml">
-      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Runtime.WindowsRuntime.UI.Xaml.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Core.UWP\Core.UWP.csproj">
       <Project>{1652093C-B541-48C9-BCB6-BBE7CE7C7FFE}</Project>
       <Name>Core.UWP</Name>
