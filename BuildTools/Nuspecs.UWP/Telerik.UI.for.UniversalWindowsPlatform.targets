@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <ItemGroup Condition=" '$(Platform)' == 'x86' or '$(Platform)' == 'x64' or '$(Platform)' == 'ARM'">
+     
+     <PropertyGroup>
+     <PlatformPath>$(Platform)</PlatformPath>
+     <PlatformPath Condition="$(Platform) == 'AnyCPU' or $(Platform) == ''">x86</PlatformPath>
+     </PropertyGroup>
+     <ItemGroup>
         <Reference Include="Telerik.UI.Xaml.Map.UWP">
-            <HintPath>$(MSBuildThisFileDirectory)$(Platform)\Telerik.UI.Xaml.Map.UWP.dll</HintPath>
+            <HintPath>$(MSBuildThisFileDirectory)\..\..\lib\uap10.0\$(PlatformPath)\Telerik.UI.Xaml.Map.UWP.dll</HintPath>
+        </Reference>
+         <Reference Include="Telerik.UI.Drawing">
+            <HintPath>$(MSBuildThisFileDirectory)\..\..\lib\uap10.0\$(PlatformPath)\Telerik.UI.Drawing.winmd</HintPath>
         </Reference>
     </ItemGroup>
 </Project>
