@@ -1373,11 +1373,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
 
             if (!item.IsSelected)
             {
-                if (!this.isExpanded)
-                {
-                    this.IsExpanded = true;
-                }
-                else
+                if (this.isExpanded)
                 {
                     this.SelectItem(item, LoopingListSelectionChangeReason.VisualItemClick);
                 }
