@@ -14,6 +14,7 @@
     xmlns:inputTextBox="using:Telerik.UI.Xaml.Controls.Input.NumericBox"
     xmlns:primitivesCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
     xmlns:localDateTime="using:Telerik.UI.Xaml.Controls.Input.DateTimePickers"
+    xmlns:localAutoComplete="using:Telerik.UI.Xaml.Controls.Input.AutoCompleteBox"
     xmlns:theming="using:Telerik.UI.Xaml.Controls">
 
     <ResourceDictionary.ThemeDictionaries>
@@ -61,6 +62,105 @@
         </Setter>
     </Style>
 
+    <!--AUTOCOMPLETE EDITOR START-->
+    
+    <Style TargetType="local:AutoCompleteEditor" BasedOn="{StaticResource RadAutoCompleteBoxStyle}">
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+        <Setter Property="Padding" Value="{StaticResource TextControlThemePadding}" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikAutoCompleteBoxForegroundBrush}" />
+        <Setter Property="Background" Value="{ThemeResource TelerikAutoCompleteBoxBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikAutoCompleteBoxBorderBrush}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="DropDownMaxHeight" Value="328" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="HeaderStyle">
+            <Setter.Value>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Foreground" Value="{ThemeResource TelerikAutoCompleteBoxHeaderForegroundBrush}" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:AutoCompleteEditor">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="WatermarkElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikAutoCompleteBoxWatermarkDisabledForegroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="WatermarkUnfocused" />
+                                <VisualState x:Name="WatermarkFocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="WatermarkElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <ContentControl Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            Style="{TemplateBinding HeaderStyle}" IsTabStop="False" IsHitTestVisible="False" />
+
+                        <dataForm:DataFormAutoCompleteTextBox x:Name="PART_TextBox" Grid.Row="1"
+                                                   Foreground="{TemplateBinding Foreground}"
+                                                   FontSize="{TemplateBinding FontSize}"
+                                                   FontFamily="{TemplateBinding FontFamily}"
+                                                   FontStyle="{TemplateBinding FontStyle}"
+                                                   FontWeight="{TemplateBinding FontWeight}"
+                                                   Background="{TemplateBinding Background}"
+                                                   BorderBrush="{TemplateBinding BorderBrush}"
+                                                   BorderThickness="{TemplateBinding BorderThickness}"
+                                                   Padding="{TemplateBinding Padding}"
+                                                   LabelIconStyle="{TemplateBinding LabelIconStyle}"
+                                                   ErrorIconStyle="{TemplateBinding ErrorIconStyle}"
+                                                   IconDisplayMode="{TemplateBinding IconDisplayMode}"
+                                                   HasErrors="{TemplateBinding HasErrors}"/>
+                        <ContentControl x:Name="WatermarkElement" IsTabStop="False" IsHitTestVisible="False"
+                            Content="{TemplateBinding Watermark}" ContentTemplate="{TemplateBinding WatermarkTemplate}"
+                            FontWeight="Normal"
+                            FontStyle="Normal"
+                            Foreground="{ThemeResource TelerikAutoCompleteBoxWatermarkForegroundBrush}"
+                            Background="{StaticResource TextBoxBackgroundThemeBrush}"
+                            BorderBrush="{StaticResource TextBoxBorderThemeBrush}"
+                            BorderThickness="{StaticResource TextControlBorderThemeThickness}"
+                            Padding="0,2"
+                            Margin="{TemplateBinding Padding}"
+                            Grid.Row="1" />
+
+                        <Popup x:Name="PART_Popup" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}">
+                            <Popup.Child>
+                                <Grid>
+                                    <localAutoComplete:SuggestionItemsControl x:Name="PART_SuggestionsControl"
+                                                          DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
+                                                          ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                          ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" />
+                                    <ContentControl x:Name="PART_NoResultsControl" Visibility="Collapsed" ContentTemplate="{TemplateBinding NoResultsContentTemplate}"
+                                                    BorderBrush ="{ThemeResource TelerikAutoCompleteBoxSelectorItemBorderBrush}"
+                                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  />
+                                </Grid>
+                            </Popup.Child>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--AUTOCOMPLETE EDITOR END-->
     <!--NUMERIC EDITOR START-->
     <Style TargetType="dataForm:DataFormNumericTextBox">
         <Setter Property="Foreground" Value="{ThemeResource TelerikNumericBoxForegroundBrush}"/>
@@ -173,7 +273,7 @@
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikNumericBoxBorderBrush}" />
-        <Setter Property="DecreaseButtonStyle" Value="{StaticResource NumericButtonDecreaseStyle}"/>
+        <Setter Property="DecreaseButtonStyle" Value="{StaticResource NumericButtonDecreaseStyle}" />
         <Setter Property="IncreaseButtonStyle" Value="{StaticResource NumericButtonIncreaseStyle}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -337,7 +437,7 @@
     <listView:OrientationToHorizontalAlignmentConverter x:Key="orientationToHorizontalAlignmentConverter" />
     <listView:OrientationToVerticalAlignmentConverter x:Key="orientationToVerticalAlignmentConverter" />
     <listView:OrientationToSizeConverter x:Key="orientationToSizeConverter" />
-
+    
     <Style TargetType="local:RadListView">
         <Setter Property="MinWidth" Value="100"/>
         <Setter Property="MinHeight" Value="100"/>
@@ -835,7 +935,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <ContentControl x:Name="PART_Content" DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                            <ContentControl x:Name="PART_Content" DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}" >
                                 <ContentControl.Content>
                                     <Grid>
                                         <Button Visibility="{Binding IsLoadingData, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" Command="{Binding LoadDataUICommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
