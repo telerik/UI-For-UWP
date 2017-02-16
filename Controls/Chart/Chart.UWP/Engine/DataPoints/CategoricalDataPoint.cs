@@ -62,7 +62,7 @@ namespace Telerik.Charting
             if (axis is NumericalAxisModel)
             {
                 this.numericalPlot = newValue as NumericalAxisPlotInfo;
-                if (numericalPlot != null)
+                if (this.numericalPlot != null)
                 {
                     this.isInNumericalRange = true;
                     this.isPositive = this.numericalPlot.NormalizedValue >= this.numericalPlot.NormalizedOrigin;
