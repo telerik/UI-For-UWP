@@ -33,7 +33,7 @@ UI for UWP is built to target UWP Windows 10 application development and deliver
 
 ### Documentation
 
-The official documentation for UI for UWP is available [here](http://docs.telerik.com/devtools/universal-windows-platform/Introduction-uwp).
+The official documentation for UI for UWP is available [here](http://docs.telerik.com/devtools/universal-windows-platform/Introduction-uwp) and here is the git repo for it [Telerik UI for UWP documentaton repo](https://github.com/telerik/uwp-docs)
 
 **********************************************************************************************************************************
 
