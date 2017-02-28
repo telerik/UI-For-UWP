@@ -50,7 +50,7 @@ namespace Telerik.Core
         public string Description { get; private set; }
 
         /// <summary>
-        /// Gets or sets the description of this appointment.
+        /// Gets or sets the subject of this appointment.
         /// </summary>
         public string Subject { get; set; }
     }
