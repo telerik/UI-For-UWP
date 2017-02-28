@@ -156,12 +156,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 return true;
             }
-
-            if (object.ReferenceEquals(this.currentItem, newCurrentItem))
-            {
-                return true;
-            }
-
+            
             return this.ChangeCurrentCore(newCurrentItem, cancelable, scrollToCurrent);
         }
 

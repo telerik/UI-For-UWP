@@ -178,7 +178,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         private static bool IsPointInElementBounds(FrameworkElement element, Point position)
         {
             Size emptySize = new Size(0, 0);
-            if (element.RenderSize == emptySize || element.RenderSize == emptySize)
+            if (element.RenderSize == emptySize || element.DesiredSize == emptySize)
             {
                 return false;
             }

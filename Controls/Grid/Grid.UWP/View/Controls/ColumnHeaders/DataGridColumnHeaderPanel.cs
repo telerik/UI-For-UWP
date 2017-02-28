@@ -69,6 +69,12 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
+            
+            if (this.Owner == null)
+            {
+                return base.MeasureOverride(availableSize);
+            }
+
             // after the column headers are measured we should allow the measurement of the cells.
             this.Owner.CellsPanel.isDirectMeasure = false;
 
@@ -76,11 +82,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             {
                 this.skipSingleMeasurePass = false;
                 return this.desiredSize;
-            }
-
-            if (this.Owner == null)
-            {
-                return base.MeasureOverride(availableSize);
             }
 
             var size = new Telerik.Core.RadSize(Math.Max(availableSize.Width, this.Owner.CellsHostAvaialbleSize.Width), Math.Max(availableSize.Height, this.Owner.CellsHostAvaialbleSize.Height));
