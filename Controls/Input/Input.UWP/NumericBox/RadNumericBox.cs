@@ -5,6 +5,7 @@ using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Input.NumericBox;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.System;
+using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -137,7 +138,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Occurs when the current value has changed.
         /// </summary>
         public event EventHandler ValueChanged;
-        
+
         /// <summary>
         /// Gets or sets the context for input used by this RadNumericBox.
         /// </summary>
@@ -766,7 +767,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private static bool IsNumericKey(VirtualKey key)
         {
-            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6)
+            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile")
             {
                 return false;
             }
@@ -790,7 +791,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (RadNumericBox.IsAzertyKeyboard)
             {
-                isNegativeSign = isNegativeSign || key == VirtualKey.Number6;
+                isNegativeSign = isNegativeSign || (key == VirtualKey.Number6 && AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Mobile");
             }
 
             return isNegativeSign;
