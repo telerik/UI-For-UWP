@@ -8,6 +8,7 @@ using Windows.System;
 using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Input
@@ -890,7 +891,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 return this.currentCulture.NumberFormat.NumberDecimalSeparator == ",";
             }
-
             return false;
         }
 
@@ -929,6 +929,8 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             this.UpdateVisualState(true);
             this.ValidateText();
+            if (this.GetBindingExpression(ValueProperty)?.ParentBinding.UpdateSourceTrigger == UpdateSourceTrigger.PropertyChanged && !String.IsNullOrWhiteSpace(this.TextBox.Text))
+                this.Value = this.TryParseValue();
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.UI.Xaml.Controls.Input.RadNumericBox.SetText(System.String)")]
