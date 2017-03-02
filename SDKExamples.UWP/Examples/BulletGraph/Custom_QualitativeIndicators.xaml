@@ -1,0 +1,27 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.BulletGraph.Custom_QualitativeIndicators"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dataViz="using:Telerik.UI.Xaml.Controls.DataVisualization"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <dataViz:RadBulletGraph EndValue="100" Margin="10" Grid.Row="1">
+            <dataViz:RadBulletGraph.QualitativeRanges>
+                <dataViz:BarIndicatorSegment Stroke="Red" Thickness="20" Length="30" />
+                <dataViz:BarIndicatorSegment Stroke="Orange" Thickness="20" Length="40" />
+                <dataViz:BarIndicatorSegment Stroke="Yellow" Thickness="20" Length="30" />
+            </dataViz:RadBulletGraph.QualitativeRanges>
+        </dataViz:RadBulletGraph>
+    </Grid>
+</local:ExamplePageBase>

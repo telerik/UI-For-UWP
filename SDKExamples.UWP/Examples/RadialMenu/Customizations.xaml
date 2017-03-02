@@ -1,0 +1,47 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.RadialMenu.Customizations"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localRadialMenu="using:SDKExamples.UWP.RadialMenu"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    mc:Ignorable="d" x:Name="page">
+
+    <local:ExamplePageBase.Resources>
+        <localRadialMenu:MenuCommand x:Key="Command" BackGroundElement="{Binding ElementName=Grid}" />
+        <SolidColorBrush Color="Red" x:Key="red" />
+        <SolidColorBrush Color="Green" x:Key="green" />
+        <SolidColorBrush Color="Blue" x:Key="blue" />
+        <SolidColorBrush Color="Pink" x:Key="pink" />
+        <SolidColorBrush Color="Brown" x:Key="brown" />
+        <SolidColorBrush Color="White" x:Key="white" />
+        <SolidColorBrush Color="Orange" x:Key="orange" />
+    </local:ExamplePageBase.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="Grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <TextBlock Text="Select an item to change the color of the page" VerticalAlignment="Center" Grid.Row="1" Margin="10" />
+
+        <primitives:RadRadialMenu IsOpen="True" Grid.Row="2" StartAngle="45" InnerRadiusFactor="0.1" InnerNavigationRadiusFactor="0.7" OuterRadiusFactor="0.9">
+            <primitives:RadRadialMenu.Items>
+                <primitives:RadialMenuItem Header="red" IconContent="1" GroupName="g1" Command="{StaticResource Command}" CommandParameter="{StaticResource red}" />
+                <primitives:RadialMenuItem Header="green" IconContent="2" GroupName="g1" Command="{StaticResource Command}" CommandParameter="{StaticResource green}" />
+                <primitives:RadialMenuItem Header="blue" IconContent="3" GroupName="g1" Command="{StaticResource Command}" CommandParameter="{StaticResource blue}" />
+                <primitives:RadialMenuItem Header="pink" IconContent="4" GroupName="g2" Command="{StaticResource Command}" CommandParameter="{StaticResource pink}" />
+                <primitives:RadialMenuItem Header="white" IconContent="5" GroupName="g2" Command="{StaticResource Command}" CommandParameter="{StaticResource white}" />
+                <primitives:RadialMenuItem Header="orange" IconContent="6" GroupName="g2" Command="{StaticResource Command}" CommandParameter="{StaticResource orange}" />
+                <primitives:RadialMenuItem Header="brown" IconContent="7" GroupName="g2" Command="{StaticResource Command}" CommandParameter="{StaticResource brown}" />
+            </primitives:RadRadialMenu.Items>
+        </primitives:RadRadialMenu> 
+
+    </Grid>
+</local:ExamplePageBase>

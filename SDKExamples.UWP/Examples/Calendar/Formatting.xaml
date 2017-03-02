@@ -1,0 +1,30 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Calendar.Formatting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        
+        <input:RadCalendar MonthViewHeaderFormat="{}{0:MMMM yyyy}"
+                           YearViewHeaderFormat="{}{0:yyyy}"
+                           DecadeViewHeaderFormat="{}{0:yyyy} ~ {1:yyyy}"
+                           CenturyViewHeaderFormat="{}{0:yyyy} ~ {1:yyyy}"
+                           MonthViewCellFormat="{}{0:%d}"
+                           YearViewCellFormat="{}{0:MMMM}"
+                           DecadeViewCellFormat="{}{0:yyyy}"
+                           CenturyViewCellFormat="{}{0:yyyy} ~ {1:yyyy}"
+                           DayNameFormat="AbbreviatedName" 
+                           Grid.Row="1"/>
+    </Grid>
+</local:ExamplePageBase>

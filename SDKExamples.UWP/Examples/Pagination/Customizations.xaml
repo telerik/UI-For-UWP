@@ -1,0 +1,48 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Pagination.Customizations"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:pagination="using:Telerik.UI.Xaml.Controls.Primitives.Pagination"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <FlipView Margin="10" x:Name="MyFlipview" Grid.Row="2" >
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Image Stretch="None" Source="{Binding ImagePath}"/>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+
+        <primitives:RadPaginationControl Margin="10" Grid.Row="1" x:Name="pagination" PageProvider="{Binding ElementName=MyFlipview}">
+            <primitives:RadPaginationControl.Resources>
+                <Style TargetType="pagination:PaginationIndexLabelControl">
+                    <Setter Property="Separator" Value=" -of- "/>
+                    <Setter Property="ItemCountFormat" Value=" {0:0} images" />
+                    <Setter Property="CurrentIndexFormat" Value=" {0:0} image" />
+                </Style>
+            </primitives:RadPaginationControl.Resources>
+            <primitives:RadPaginationControl.ListItemTemplate>
+                <DataTemplate>
+                    <Border Width="50" Height="50" Padding="1">
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Source="{Binding ImagePath}" Stretch="UniformToFill"/>
+                    </Border>
+                </DataTemplate>
+            </primitives:RadPaginationControl.ListItemTemplate>
+        </primitives:RadPaginationControl>
+
+    </Grid>
+</local:ExamplePageBase>

@@ -1,0 +1,35 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Chart.UnboundMode"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:charting="using:Telerik.Charting"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <chart:RadCartesianChart Grid.Row="1">
+            <chart:RadCartesianChart.HorizontalAxis>
+                <chart:CategoricalAxis/>
+            </chart:RadCartesianChart.HorizontalAxis>
+            <chart:RadCartesianChart.VerticalAxis>
+                <chart:LinearAxis/>
+            </chart:RadCartesianChart.VerticalAxis>
+            <chart:BarSeries ShowLabels="True">
+                <chart:BarSeries.DataPoints>
+                    <charting:CategoricalDataPoint Category="Apples" Value="7" Label="Label1"/>
+                    <charting:CategoricalDataPoint Category="Oranges" Value="13" Label="Label2"/>
+                    <charting:CategoricalDataPoint Category="Pears" Value="9" Label="Label3"/>
+                </chart:BarSeries.DataPoints>
+            </chart:BarSeries>
+        </chart:RadCartesianChart>
+    </Grid>
+</local:ExamplePageBase>

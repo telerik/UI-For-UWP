@@ -1,0 +1,130 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Chart.Annotations_GridLine"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:charting="using:Telerik.Charting"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="listview.(Grid.Row)" Value="2" />
+                        <Setter Target="listview.(Grid.Column)" Value="0" />
+                        <Setter Target="listview.HorizontalAlignment" Value="Stretch" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="listview.(Grid.Row)" Value="1" />
+                        <Setter Target="listview.(Grid.Column)" Value="1" />
+                        <Setter Target="listview.HorizontalAlignment" Value="Right" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <ListView x:Name="listview" SelectedIndex="0">
+            <ListViewItem>
+                <TextBlock Text="CartesianGridLineAnnotation" FontSize="20"/>
+                <ListViewItem.DataContext>
+                    <DataTemplate>
+                        <chart:RadCartesianChart x:Name="cartesianChart">
+
+                            <chart:RadCartesianChart.Annotations>
+                                <chart:CartesianGridLineAnnotation Axis="{Binding ElementName=cartesianChart, Path=HorizontalAxis}" 
+                                        Value="2.8" Stroke="Blue" StrokeThickness="1"/>
+                                <chart:CartesianGridLineAnnotation Axis="{Binding ElementName=cartesianChart, Path=VerticalAxis}" 
+                                        Value="6" Stroke="Red" StrokeThickness="1"/>
+                            </chart:RadCartesianChart.Annotations>
+
+                            <chart:RadCartesianChart.HorizontalAxis>
+                                <chart:LinearAxis />
+                            </chart:RadCartesianChart.HorizontalAxis>
+                            <chart:RadCartesianChart.VerticalAxis>
+                                <chart:LinearAxis/>
+                            </chart:RadCartesianChart.VerticalAxis>
+
+                            <chart:ScatterPointSeries>
+                                <chart:ScatterPointSeries.DataPoints>
+                                    <charting:ScatterDataPoint XValue="1" YValue="1" />
+                                    <charting:ScatterDataPoint XValue="5" YValue="3" />
+                                    <charting:ScatterDataPoint XValue="8" YValue="11" />
+                                </chart:ScatterPointSeries.DataPoints>
+                            </chart:ScatterPointSeries>
+
+                            <chart:RadCartesianChart.Grid>
+                                <chart:CartesianChartGrid MajorLinesVisibility="XY" />
+                            </chart:RadCartesianChart.Grid>
+
+                        </chart:RadCartesianChart>
+                    </DataTemplate>
+                </ListViewItem.DataContext>
+            </ListViewItem>
+
+            <ListViewItem>
+                <TextBlock Text="PolarAxisGridLineAnnotation" FontSize="20"/>
+                <ListViewItem.DataContext>
+                    <DataTemplate>
+                        <chart:RadPolarChart>
+
+                            <chart:RadPolarChart.Annotations>
+                                <chart:PolarAxisGridLineAnnotation Value="2" Stroke="Red"/>
+                                <chart:PolarAxisGridLineAnnotation Value="7" Stroke="LightGreen"/>
+                                <chart:PolarAxisGridLineAnnotation Value="8" Stroke="LightBlue"/>
+                            </chart:RadPolarChart.Annotations>
+
+                            <chart:RadPolarChart.RadialAxis>
+                                <chart:NumericalRadialAxis/>
+                            </chart:RadPolarChart.RadialAxis>
+
+                            <chart:RadPolarChart.PolarAxis>
+                                <chart:PolarAxis/>
+                            </chart:RadPolarChart.PolarAxis>
+
+                            <chart:PolarPointSeries>
+                                <chart:PolarPointSeries.DataPoints>
+                                    <charting:PolarDataPoint Value="1" Angle="15" />
+                                    <charting:PolarDataPoint Value="5" Angle="200" />
+                                    <charting:PolarDataPoint Value="11" Angle="300" />
+                                </chart:PolarPointSeries.DataPoints>
+                            </chart:PolarPointSeries>
+
+                            <chart:RadPolarChart.Grid>
+                                <chart:PolarChartGrid GridLineVisibility="Both" />
+                            </chart:RadPolarChart.Grid>
+
+                        </chart:RadPolarChart>
+                    </DataTemplate>
+                </ListViewItem.DataContext>
+            </ListViewItem>
+        </ListView>
+       
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" Grid.ColumnSpan="2"/>
+
+        <ContentControl ContentTemplate="{Binding SelectedItem.DataContext, ElementName=listview}" Grid.Row="1"/>
+    </Grid>
+</local:ExamplePageBase>

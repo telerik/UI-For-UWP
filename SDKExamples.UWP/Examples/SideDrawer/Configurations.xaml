@@ -1,0 +1,46 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.SideDrawer.Configurations"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:drawer="using:Telerik.UI.Xaml.Controls.Primitives.SideDrawer"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        
+        <primitives:RadSideDrawer DrawerLocation="Right"
+                                  DrawerButtonHorizontalAlignment="Right"
+                                  DrawerButtonVerticalAlignment="Top"
+                                  DrawerManipulationMode="Button" Grid.Row="1">
+            <primitives:RadSideDrawer.DrawerButtonStyle>
+                <Style TargetType="drawer:DrawerButton">
+                    <Setter Property="Foreground" Value="Red" />
+                    <Setter Property="Margin" Value="10"/>
+                    <Setter Property="MinWidth" Value="20"/>
+                    <Setter Property="MinHeight" Value="20"/>
+                </Style>
+            </primitives:RadSideDrawer.DrawerButtonStyle>
+            <primitives:RadSideDrawer.MainContent>
+                <Grid Background="LightGreen" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <TextBlock Text="Main content" HorizontalAlignment="Center" Foreground="Black" FontSize="20" TextWrapping="WrapWholeWords" Margin="10"/>
+                </Grid>
+            </primitives:RadSideDrawer.MainContent>
+            <primitives:RadSideDrawer.DrawerContent>
+                <Grid  Background="DimGray" VerticalAlignment="Stretch" Width="200">
+                    <TextBlock Text="Drawer content" Foreground="White" FontSize="20" TextWrapping="WrapWholeWords" Margin="10"/>
+                </Grid>
+            </primitives:RadSideDrawer.DrawerContent>
+        </primitives:RadSideDrawer>
+
+    </Grid>
+</local:ExamplePageBase>

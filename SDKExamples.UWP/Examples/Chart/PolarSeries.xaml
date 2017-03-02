@@ -1,0 +1,194 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Chart.PolarSeries"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localChart="using:SDKExamples.UWP.Chart"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="listview.(Grid.Row)" Value="2" />
+                        <Setter Target="listview.(Grid.Column)" Value="0" />
+                        <Setter Target="listview.HorizontalAlignment" Value="Stretch" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="listview.(Grid.Row)" Value="1" />
+                        <Setter Target="listview.(Grid.Column)" Value="1" />
+                        <Setter Target="listview.HorizontalAlignment" Value="Right" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <ListView x:Name="listview" SelectedIndex="0">
+            <ListViewItem>
+                <ListViewItem.DataContext>
+                    <DataTemplate>
+                        <chart:RadPolarChart>
+                            <chart:RadPolarChart.DataContext>
+                                <localChart:ViewModelPolarSeries/>
+                            </chart:RadPolarChart.DataContext>
+                            <chart:RadPolarChart.PolarAxis>
+                                <chart:PolarAxis/>
+                            </chart:RadPolarChart.PolarAxis>
+                            <chart:RadPolarChart.RadialAxis>
+                                <chart:NumericalRadialAxis/>
+                            </chart:RadPolarChart.RadialAxis>
+                            <chart:PolarAreaSeries ItemsSource="{Binding Source}">
+                                <chart:PolarAreaSeries.AngleBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Angle"/>
+                                </chart:PolarAreaSeries.AngleBinding>
+                                <chart:PolarAreaSeries.ValueBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Value"/>
+                                </chart:PolarAreaSeries.ValueBinding>
+                            </chart:PolarAreaSeries>
+                        </chart:RadPolarChart>
+                    </DataTemplate>
+                </ListViewItem.DataContext>
+                <TextBlock  Text="PolarArea Series" FontSize="20"/>
+            </ListViewItem>
+
+            <ListViewItem>
+                <ListViewItem.DataContext>
+                    <DataTemplate>
+                        <chart:RadPolarChart>
+                            <chart:RadPolarChart.DataContext>
+                                <localChart:ViewModelPolarSeries/>
+                            </chart:RadPolarChart.DataContext>
+                            <chart:RadPolarChart.PolarAxis>
+                                <chart:PolarAxis/>
+                            </chart:RadPolarChart.PolarAxis>
+                            <chart:RadPolarChart.RadialAxis>
+                                <chart:NumericalRadialAxis/>
+                            </chart:RadPolarChart.RadialAxis>
+                            <chart:PolarSplineAreaSeries ItemsSource="{Binding Source}">
+                                <chart:PolarSplineAreaSeries.AngleBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Angle"/>
+                                </chart:PolarSplineAreaSeries.AngleBinding>
+                                <chart:PolarSplineAreaSeries.ValueBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Value"/>
+                                </chart:PolarSplineAreaSeries.ValueBinding>
+                            </chart:PolarSplineAreaSeries>
+                        </chart:RadPolarChart>
+                    </DataTemplate>
+                </ListViewItem.DataContext>
+                <TextBlock  Text="PolarSplineArea Series" FontSize="20"/>
+            </ListViewItem>
+
+            <ListViewItem>
+                <ListViewItem.DataContext>
+                    <DataTemplate>
+                        <chart:RadPolarChart>
+                            <chart:RadPolarChart.DataContext>
+                                <localChart:ViewModelPolarSeries/>
+                            </chart:RadPolarChart.DataContext>
+                            <chart:RadPolarChart.PolarAxis>
+                                <chart:PolarAxis/>
+                            </chart:RadPolarChart.PolarAxis>
+                            <chart:RadPolarChart.RadialAxis>
+                                <chart:NumericalRadialAxis/>
+                            </chart:RadPolarChart.RadialAxis>
+                            <chart:PolarLineSeries ItemsSource="{Binding Source}">
+                                <chart:PolarLineSeries.AngleBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Angle"/>
+                                </chart:PolarLineSeries.AngleBinding>
+                                <chart:PolarLineSeries.ValueBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Value"/>
+                                </chart:PolarLineSeries.ValueBinding>
+                            </chart:PolarLineSeries>
+                        </chart:RadPolarChart>
+                    </DataTemplate>
+                </ListViewItem.DataContext>
+                <TextBlock Text="PolarLine Series" FontSize="20"/>
+            </ListViewItem>
+
+            <ListViewItem>
+                <ListViewItem.DataContext>
+                    <DataTemplate>
+                        <chart:RadPolarChart>
+                            <chart:RadPolarChart.DataContext>
+                                <localChart:ViewModelPolarSeries/>
+                            </chart:RadPolarChart.DataContext>
+                            <chart:RadPolarChart.PolarAxis>
+                                <chart:PolarAxis/>
+                            </chart:RadPolarChart.PolarAxis>
+                            <chart:RadPolarChart.RadialAxis>
+                                <chart:NumericalRadialAxis/>
+                            </chart:RadPolarChart.RadialAxis>
+                            <chart:PolarSplineSeries ItemsSource="{Binding Source}">
+                                <chart:PolarSplineSeries.AngleBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Angle"/>
+                                </chart:PolarSplineSeries.AngleBinding>
+                                <chart:PolarSplineSeries.ValueBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Value"/>
+                                </chart:PolarSplineSeries.ValueBinding>
+                            </chart:PolarSplineSeries>
+                        </chart:RadPolarChart>
+                    </DataTemplate>
+                </ListViewItem.DataContext>
+                <TextBlock  Text="PolarSpline Series" FontSize="20"/>
+            </ListViewItem>
+
+            <ListViewItem>
+                <ListViewItem.DataContext>
+                    <DataTemplate>
+                        <chart:RadPolarChart>
+                            <chart:RadPolarChart.DataContext>
+                                <localChart:ViewModelPolarSeries/>
+                            </chart:RadPolarChart.DataContext>
+                            <chart:RadPolarChart.PolarAxis>
+                                <chart:PolarAxis/>
+                            </chart:RadPolarChart.PolarAxis>
+                            <chart:RadPolarChart.RadialAxis>
+                                <chart:NumericalRadialAxis/>
+                            </chart:RadPolarChart.RadialAxis>
+                            <chart:PolarPointSeries ItemsSource="{Binding Source}">
+                                <chart:PolarPointSeries.AngleBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Angle"/>
+                                </chart:PolarPointSeries.AngleBinding>
+                                <chart:PolarPointSeries.ValueBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Value"/>
+                                </chart:PolarPointSeries.ValueBinding>
+                            </chart:PolarPointSeries>
+                        </chart:RadPolarChart>
+                    </DataTemplate>
+                </ListViewItem.DataContext>
+                <TextBlock  Text="PolarPoint Series" FontSize="20"/>
+            </ListViewItem>
+
+
+        </ListView>
+      
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" Grid.ColumnSpan="2"/>
+
+        <ContentControl ContentTemplate="{Binding SelectedItem.DataContext, ElementName=listview}" Grid.Row="1"/>
+    </Grid>
+</local:ExamplePageBase>

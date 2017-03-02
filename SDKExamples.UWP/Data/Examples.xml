@@ -1,0 +1,137 @@
+﻿<?xml version="1.0"?>
+<Data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <Control Name="AutoCompleteBox">
+    <Example DisplayName="Filter Settings" ClassName="SDKExamples.UWP.AutoCompleteBox.FilterSettings" />
+    <Example DisplayName="Drop Down Behavior" ClassName="SDKExamples.UWP.AutoCompleteBox.DropDownBehavior" />
+    <Example DisplayName="Configurations" ClassName="SDKExamples.UWP.AutoCompleteBox.Configurations" />
+    <Example DisplayName="Binding to Complex Object" ClassName="SDKExamples.UWP.AutoCompleteBox.BindingComplexObjects" />
+  </Control>
+  <Control Name="BulletGraph">
+    <Example DisplayName="Customizations" ClassName="SDKExamples.UWP.BulletGraph.Customizations" />
+    <Example DisplayName="Custom Qualitative Indicators" ClassName="SDKExamples.UWP.BulletGraph.Custom_QualitativeIndicators" />
+  </Control>
+  <Control Name="BusyIndicator">
+    <Example DisplayName="Animation Types" ClassName="SDKExamples.UWP.BusyIndicator.AnimationTypes" />
+    <Example DisplayName="Custom Animation" ClassName="SDKExamples.UWP.BusyIndicator.CustomAnimation" />
+    <Example DisplayName="Configurations" ClassName="SDKExamples.UWP.BusyIndicator.Configurations" />
+  </Control>
+  <Control Name="Calendar">
+    <Example DisplayName="Remove Animation on Navigation" ClassName="SDKExamples.UWP.Calendar.RemoveNavigationAnimations" />
+    <Example DisplayName="Change First Day of Week and Week Rule" ClassName="SDKExamples.UWP.Calendar.FirstDayOfWeek_and_WeekRule" />
+    <Example DisplayName="Custom Event Information" ClassName="SDKExamples.UWP.Calendar.CustomEventInformation" />
+    <Example DisplayName="Selection" ClassName="SDKExamples.UWP.Calendar.Selection" />
+    <Example DisplayName="Formatting" ClassName="SDKExamples.UWP.Calendar.Formatting" />
+    <Example DisplayName="Styling" ClassName="SDKExamples.UWP.Calendar.Styling" />
+    <Example DisplayName="Blackout Cells" ClassName="SDKExamples.UWP.Calendar.BlackoutCells" />
+  </Control>
+  <Control Name="Chart">
+    <Example DisplayName="Unbound Mode" ClassName="SDKExamples.UWP.Chart.UnboundMode" />
+    <Example DisplayName="Pie Series" ClassName="SDKExamples.UWP.Chart.PieSeries" />
+    <Example DisplayName="Polar Series" ClassName="SDKExamples.UWP.Chart.PolarSeries" />
+    <Example DisplayName="Radar Series" ClassName="SDKExamples.UWP.Chart.RadarSeries" />
+    <Example DisplayName="Scatter Series" ClassName="SDKExamples.UWP.Chart.ScatterSeries" />
+    <Example DisplayName="Ohlc Series" ClassName="SDKExamples.UWP.Chart.OhlcSeries" />
+    <Example DisplayName="Categorical Series" ClassName="SDKExamples.UWP.Chart.CategoricalSeries" />
+    <Example DisplayName="Dynamic Series" ClassName="SDKExamples.UWP.Chart.DynamicSeries" />
+    <Example DisplayName="Selection Behavior" ClassName="SDKExamples.UWP.Chart.SelectionBehavior" />
+    <Example DisplayName="TrackBall Behavior" ClassName="SDKExamples.UWP.Chart.TrackBallBehavior" />
+    <Example DisplayName="Tooltip Behavior" ClassName="SDKExamples.UWP.Chart.TooltipBehavior" />
+    <Example DisplayName="Pan and Zoom Behavior" ClassName="SDKExamples.UWP.Chart.PanAndZoom" />
+    <Example DisplayName="Create Custom Palette" ClassName="SDKExamples.UWP.Chart.CustomPalette" />
+    <Example DisplayName="Use Multiple Axes" ClassName="SDKExamples.UWP.Chart.MultipleAxes" />
+    <Example DisplayName="Label Definitions" ClassName="SDKExamples.UWP.Chart.LabelDefinitions" />
+    <Example DisplayName="Label Strategy" ClassName="SDKExamples.UWP.Chart.LabelStrategy" />
+    <Example DisplayName="Plot Band Annotations" ClassName="SDKExamples.UWP.Chart.Annotations_PlotBand" />
+    <Example DisplayName="Grid Line Annotations" ClassName="SDKExamples.UWP.Chart.Annotations_GridLine" />
+    <Example DisplayName="Custom Annotations" ClassName="SDKExamples.UWP.Chart.Annotations_Custom" />
+    <Example DisplayName="Financial Indicators" ClassName="SDKExamples.UWP.Chart.FinancialIndicators" />
+    <Example DisplayName="Change Point template" ClassName="SDKExamples.UWP.Chart.PointTemplate" />
+    <Example DisplayName="Chart Grid" ClassName="SDKExamples.UWP.Chart.ChartGrid" />
+  </Control>
+  <Control Name="DataForm">
+    <Example DisplayName="Validation" ClassName="SDKExamples.UWP.DataForm.Validation" />
+    <Example DisplayName="Attributes Usage" ClassName="SDKExamples.UWP.DataForm.Attributes" />
+    <Example DisplayName="Create Custom Editor" ClassName="SDKExamples.UWP.DataForm.CustomEditor" />
+    <Example DisplayName="Enable Inline Icons" ClassName="SDKExamples.UWP.DataForm.InlineIcons" />
+    <Example DisplayName="Provide External Metadata" ClassName="SDKExamples.UWP.DataForm.ExternalMetadata" />
+    <Example DisplayName="Custom Arrangement of Editors" ClassName="SDKExamples.UWP.DataForm.CustomEditorArrangement" />
+    <Example DisplayName="Grouping" ClassName="SDKExamples.UWP.DataForm.Grouping" />
+  </Control>
+  <Control Name="DateTimePickers">
+    <Example DisplayName="Display Mode" ClassName="SDKExamples.UWP.DatePicker.DisplayMode" />
+    <Example DisplayName="Selector Customizations" ClassName="SDKExamples.UWP.DatePicker.SelectorCustomizations" />
+    <Example DisplayName="Picker Button Customizations" ClassName="SDKExamples.UWP.DatePicker.PickerButtonCustomizations" />
+  </Control>
+  <Control Name="Expander">
+     <Example DisplayName="Customizations" ClassName="SDKExamples.UWP.Expander.Customizations" />
+  </Control>
+  <Control Name="Gauge">
+    <Example DisplayName="Radial Gauge" ClassName="SDKExamples.UWP.Gauge.RadialGauge" />
+    <Example DisplayName="Linear Gauge" ClassName="SDKExamples.UWP.Gauge.LinearGauge" />
+    <Example DisplayName="Indicators" ClassName="SDKExamples.UWP.Gauge.Indicators" />
+    <Example DisplayName="Data Binding" ClassName="SDKExamples.UWP.Gauge.DataBinding" />
+  </Control>
+  <Control Name="HubTile">
+    <Example DisplayName="HubTile" ClassName="SDKExamples.UWP.HubTile.HubTile" />
+    <Example DisplayName="Slide HubTile" ClassName="SDKExamples.UWP.HubTile.SlideHubTile" />
+    <Example DisplayName="Mosaic HubTile" ClassName="SDKExamples.UWP.HubTile.MosaicHubTile" />
+    <Example DisplayName="PictureRotator HubTile" ClassName="SDKExamples.UWP.HubTile.PictureRotatorHubTile" />
+    <Example DisplayName="HexHubTile" ClassName="SDKExamples.UWP.HubTile.HexHubTile" />
+  </Control>
+  <Control Name="ListView">
+    <Example DisplayName="Selection" ClassName="SDKExamples.UWP.Listview.Selection" />
+    <Example DisplayName="Sorting" ClassName="SDKExamples.UWP.Listview.Sorting" />
+    <Example DisplayName="Pull to Refresh" ClassName="SDKExamples.UWP.Listview.PullToRefresh" />
+    <Example DisplayName="Grouping" ClassName="SDKExamples.UWP.Listview.Grouping" />
+    <Example DisplayName="Reorder" ClassName="SDKExamples.UWP.Listview.Reorder" />
+    <Example DisplayName="Load on Demand" ClassName="SDKExamples.UWP.Listview.LoadOnDemand" />
+    <Example DisplayName="Filtering" ClassName="SDKExamples.UWP.Listview.Filtering" />
+    <Example DisplayName="Item Animations" ClassName="SDKExamples.UWP.Listview.ItemAnimations" />
+    <Example DisplayName="Layouts" ClassName="SDKExamples.UWP.Listview.Layouts" />
+    <Example DisplayName="Item Swipe" ClassName="SDKExamples.UWP.Listview.ItemSwipe" />
+  </Control>
+  <Control Name="Grid">
+    <Example DisplayName="Column DataOperations Mode" ClassName="SDKExamples.UWP.DataGrid.ColumnDataOperationsModeExample" />
+    <Example DisplayName="Change position of Group Panel" ClassName="SDKExamples.UWP.DataGrid.GroupPanelPosition" />
+    <Example DisplayName="Priority Columns" ClassName="SDKExamples.UWP.DataGrid.PriorityColumns" />
+    <Example DisplayName="Reorder Columns" ClassName="SDKExamples.UWP.DataGrid.ColumnReordering" />
+    <Example DisplayName="Resize Columns" ClassName="SDKExamples.UWP.DataGrid.ColumnResizing" />
+    <Example DisplayName="Adaptive Layout" ClassName="SDKExamples.UWP.DataGrid.GridAdaptiveLayout" />
+    <Example DisplayName="Edit Mode" ClassName="SDKExamples.UWP.DataGrid.EditMode" />
+    <Example DisplayName="Selection" ClassName="SDKExamples.UWP.DataGrid.GridSelection" />
+    <Example DisplayName="Frozen Columns" ClassName="SDKExamples.UWP.DataGrid.FrozenColumnsExample" />
+  </Control>
+  <Control Name="LoopingList">
+    <Example DisplayName="Customizations" ClassName="SDKExamples.UWP.LoopingList.Customizations" />
+  </Control>
+  <Control Name="NumericBox">
+    <Example DisplayName="Styling" ClassName="SDKExamples.UWP.NumericBox.Styling" />
+    <Example DisplayName="Configurations" ClassName="SDKExamples.UWP.NumericBox.Configurations" />
+  </Control>
+  <Control Name="Pagination">
+    <Example DisplayName="Customizations" ClassName="SDKExamples.UWP.Pagination.Customizations" />
+  </Control>
+  <Control Name="RadialMenu">
+    <Example DisplayName="Customizations" ClassName="SDKExamples.UWP.RadialMenu.Customizations" />
+    <Example DisplayName="Tool Tip" ClassName="SDKExamples.UWP.RadialMenu.ToolTip" />
+    <Example DisplayName="Change Item Template" ClassName="SDKExamples.UWP.RadialMenu.RadialMenuItemTemplate" />
+    <Example DisplayName="Styling" ClassName="SDKExamples.UWP.RadialMenu.Styling" />
+    <Example DisplayName="Radial Menu as Context Menu" ClassName="SDKExamples.UWP.RadialMenu.ContextMenu" />
+  </Control>
+  <Control Name="RangeSlider">
+    <Example DisplayName="Configurations" ClassName="SDKExamples.UWP.Slider.Configurations" />
+    <Example DisplayName="Slider with one scale" ClassName="SDKExamples.UWP.Slider.OneScaleSlider" />
+    <Example DisplayName="Slider with one thumb" ClassName="SDKExamples.UWP.Slider.OneThumbSlider" />
+    <Example DisplayName="Styling" ClassName="SDKExamples.UWP.Slider.Styling" />
+  </Control>
+  <Control Name="Rating">
+    <Example DisplayName="Selection" ClassName="SDKExamples.UWP.Rating.Selection" />
+    <Example DisplayName="Customizations" ClassName="SDKExamples.UWP.Rating.Customizations" />
+  </Control>
+  <Control Name="SideDrawer">
+    <Example DisplayName="Animations" ClassName="SDKExamples.UWP.SideDrawer.Animations" />
+    <Example DisplayName="Drawer State" ClassName="SDKExamples.UWP.SideDrawer.DrawerState" />
+    <Example DisplayName="Configurations" ClassName="SDKExamples.UWP.SideDrawer.Configurations" />
+  </Control>
+</Data>

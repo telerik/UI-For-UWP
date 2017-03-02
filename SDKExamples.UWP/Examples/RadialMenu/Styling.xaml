@@ -1,0 +1,59 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.RadialMenu.Styling"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:radialMenu="using:Telerik.UI.Xaml.Controls.Primitives.Menu"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <primitives:RadRadialMenu Grid.Row="1" Margin="10" >
+            <primitives:RadRadialMenu.Resources>
+                <Style TargetType="radialMenu:NavigationItemButton">
+                    <Setter Property="Foreground" Value="Cyan"/>
+                    <Setter Property="Background" Value="DarkGreen"/>
+                </Style>
+
+                <Style TargetType="radialMenu:DecorationItemButton">
+                    <Setter Property="Background" Value="Pink"/>
+                </Style>
+
+                <Style TargetType="radialMenu:RadialMenuButton">
+                    <Setter Property="Content" Value="options"/>
+                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="Width" Value="60"/>
+                    <Setter Property="Foreground" Value="DarkGreen"/>
+                </Style>
+            </primitives:RadRadialMenu.Resources>
+            
+            <primitives:RadRadialMenu.ContentMenuBackgroundStyle>
+                <Style TargetType="Rectangle">
+                    <Setter Property="Fill" Value="LightGray"/>
+                </Style>
+            </primitives:RadRadialMenu.ContentMenuBackgroundStyle>
+            <primitives:RadRadialMenu.NavigationMenuBackgroundStyle>
+                <Style TargetType="Rectangle">
+                    <Setter Property="Fill" Value="Chocolate"/>
+                </Style>
+            </primitives:RadRadialMenu.NavigationMenuBackgroundStyle>
+
+            <primitives:RadRadialMenu.Items>
+                <primitives:RadialMenuItem Header="Item 1" ContentSectorBackground="LightGreen"/>
+                <primitives:RadialMenuItem Header="Item 2" ContentSectorBackground="DarkBlue"/>
+                <primitives:RadialMenuItem Header="Item 3" ContentSectorBackground="DarkCyan"/>
+                <primitives:RadialMenuItem Header="Item 4" ContentSectorBackground="DarkGray"/>
+                <primitives:RadialMenuItem Header="Item 5" ContentSectorBackground="DarkMagenta"/>
+            </primitives:RadRadialMenu.Items>
+        </primitives:RadRadialMenu>
+    </Grid>
+</local:ExamplePageBase>

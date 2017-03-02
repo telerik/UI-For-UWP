@@ -1,0 +1,67 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.RadialMenu.RadialMenuItemTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:radialMenu="using:Telerik.UI.Xaml.Controls.Primitives.Menu"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <primitives:RadRadialMenu Grid.Row="1" Margin="10">
+            <primitives:RadRadialMenu.Resources>
+                <Style TargetType="radialMenu:RadialMenuItemControl">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="radialMenu:RadialMenuItemControl">
+                                <StackPanel>
+                                    <ContentPresenter VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                                              FontSize="14" Content="{TemplateBinding Header}" >
+                                    </ContentPresenter>
+                                    <ContentPresenter VerticalAlignment="Bottom" HorizontalAlignment="Center" 
+                                              Content="{TemplateBinding IconContent}" Width="80" Height="80">
+                                    </ContentPresenter>
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </primitives:RadRadialMenu.Resources>
+
+            <primitives:RadialMenuItem>
+                <primitives:RadialMenuItem.Header>
+                    <TextBlock Foreground="#3B5998">Elephant</TextBlock>
+                </primitives:RadialMenuItem.Header>
+                <primitives:RadialMenuItem.IconContent>
+                    <Image  Source="../../Images/elephant.jpg"/>
+                </primitives:RadialMenuItem.IconContent>
+            </primitives:RadialMenuItem>
+            <primitives:RadialMenuItem>
+                <primitives:RadialMenuItem.Header>
+                    <TextBlock Foreground="#4099FF">Donkey</TextBlock>
+                </primitives:RadialMenuItem.Header>
+                <primitives:RadialMenuItem.IconContent>
+                    <Image  Source="../../Images/donkey.jpg"/>
+                </primitives:RadialMenuItem.IconContent>
+            </primitives:RadialMenuItem>
+            <primitives:RadialMenuItem>
+                <primitives:RadialMenuItem.Header>
+                    <TextBlock Foreground="#C92C19">Butterfly</TextBlock>
+                </primitives:RadialMenuItem.Header>
+                <primitives:RadialMenuItem.IconContent>
+                    <Image  Source="../../Images/butterfly.jpg"/>
+                </primitives:RadialMenuItem.IconContent>
+            </primitives:RadialMenuItem>
+        </primitives:RadRadialMenu>
+    </Grid>
+</local:ExamplePageBase>

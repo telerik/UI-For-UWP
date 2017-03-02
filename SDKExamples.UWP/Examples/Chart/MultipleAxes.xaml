@@ -1,0 +1,63 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Chart.MultipleAxes"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localChart="using:SDKExamples.UWP.Chart"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.DataContext>
+            <localChart:ViewModelMultipleAxes/>
+        </Grid.DataContext>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <chart:RadCartesianChart DataContext="{Binding Source}" ClipToBounds="False"
+                                 PaletteName="DefaultDark" Grid.Row="1">
+
+            <chart:BarSeries ItemsSource="{Binding}">
+                <chart:BarSeries.HorizontalAxis>
+                    <chart:DateTimeCategoricalAxis VerticalLocation="Bottom" 
+                                                   Foreground="#1E98E4"
+                                                   LabelFormat="{}{0,0:yyyy}"/>
+                </chart:BarSeries.HorizontalAxis>
+                <chart:BarSeries.VerticalAxis>
+                    <chart:LinearAxis HorizontalLocation="Right" Foreground="#1E98E4"/>
+                </chart:BarSeries.VerticalAxis>
+                <chart:BarSeries.CategoryBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="BarCategory"/>
+                </chart:BarSeries.CategoryBinding>
+                <chart:BarSeries.ValueBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="BarValue"/>
+                </chart:BarSeries.ValueBinding>
+            </chart:BarSeries>
+
+            <chart:LineSeries ItemsSource="{Binding}">
+                <chart:LineSeries.HorizontalAxis>
+                    <chart:CategoricalAxis VerticalLocation="Top" Foreground="#FFC500" PlotMode="OnTicksPadded"/>
+                </chart:LineSeries.HorizontalAxis>
+                <chart:LineSeries.VerticalAxis>
+                    <chart:LinearAxis HorizontalLocation="Left" Foreground="#FFC500"/>
+                </chart:LineSeries.VerticalAxis>
+                <chart:LineSeries.CategoryBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="LineCategory"/>
+                </chart:LineSeries.CategoryBinding>
+                <chart:LineSeries.ValueBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="LineValue"/>
+                </chart:LineSeries.ValueBinding>
+                <chart:LineSeries.PointTemplate>
+                    <DataTemplate>
+                        <Ellipse Width="20" Height="20"/>
+                    </DataTemplate>
+                </chart:LineSeries.PointTemplate>
+            </chart:LineSeries>
+        </chart:RadCartesianChart>
+    </Grid>
+</local:ExamplePageBase>

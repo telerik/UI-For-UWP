@@ -1,0 +1,35 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Calendar.CustomEventInformation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localCalendar="using:SDKExamples.UWP.Calendar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
+    mc:Ignorable="d"  x:Name="page" >
+
+    <Page.DataContext>
+        <localCalendar:ViewModelCalendarEvents />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <localCalendar:CellModelToEventConverter x:Key="eventConverter" />
+            <DataTemplate x:Key="template">
+                <Grid>
+                    <TextBlock Text="⏰" Foreground="#FF3399FF" FontSize="15" HorizontalAlignment="Right" FontFamily="Segoe UI Symbol" Margin="0,1,2,0" />
+                    <TextBlock Text="{Binding Converter={StaticResource eventConverter}}" Foreground="#FF767676" FontSize="13.333" VerticalAlignment="Bottom" Margin="6,0,0,4" />
+                </Grid>
+            </DataTemplate>
+            <localCalendar:CustomCalendarCellStyleSelector x:Key="selector" EventTemplate="{StaticResource template}" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <input:RadCalendar CellStyleSelector="{StaticResource selector}" Grid.Row="1"/>
+    </Grid>
+</local:ExamplePageBase>

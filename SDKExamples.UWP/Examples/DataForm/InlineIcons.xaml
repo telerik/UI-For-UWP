@@ -1,0 +1,51 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.DataForm.InlineIcons"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
+    mc:Ignorable="d" x:Name="page">
+
+    <local:ExamplePageBase.Resources>
+        <Style TargetType="data:DateEditor">
+            <Setter Property="IconDisplayMode" Value="Label" />
+            <Setter Property="LabelIconStyle">
+                <Setter.Value>
+                    <Style TargetType="SymbolIcon">
+                        <Setter Property="Symbol" Value="Calendar" />
+                        <Setter Property="Foreground" Value="Blue" />
+                        <Setter Property="Margin" Value="5,0,0,0" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="data:StringEditor">
+            <Setter Property="IconDisplayMode" Value="Label" />
+            <Setter Property="LabelIconStyle">
+                <Setter.Value>
+                    <Style TargetType="SymbolIcon">
+                        <Setter Property="Symbol" Value="Phone" />
+                        <Setter Property="Foreground" Value="Red" />
+                        <Setter Property="Margin" Value="5,0,0,0" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </local:ExamplePageBase.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <ScrollViewer Grid.Row="1" Padding="10"
+                      HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled"
+                      VerticalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
+            <data:RadDataForm Item="{Binding}" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+        </ScrollViewer>
+    </Grid>
+</local:ExamplePageBase>
