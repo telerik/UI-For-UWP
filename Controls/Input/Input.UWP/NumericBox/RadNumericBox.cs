@@ -121,7 +121,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private bool updatingValue;
         private bool allowNullValueCache;
         private double? valueCache;
-        private bool _internalChange;
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="RadNumericBox" /> class.
         /// </summary>
@@ -837,8 +837,11 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (oldValue != numericBox.Value)
             {
-                if (!numericBox._internalChange)
+                if (numericBox.TextBox != null && numericBox.TextBox.FocusState == FocusState.Unfocused)
+                {
                     numericBox.UpdateTextBoxText();
+                }
+                
                 numericBox.OnValueChanged();
             }
         }
@@ -931,9 +934,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.ValidateText();
             if (this.GetBindingExpression(ValueProperty)?.ParentBinding.UpdateSourceTrigger == UpdateSourceTrigger.PropertyChanged)
             {
-                this._internalChange = true;
                 this.Value = this.TryParseValue();
-                this._internalChange = false;
             }
         }
 
