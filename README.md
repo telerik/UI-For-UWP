@@ -49,6 +49,10 @@ Currently, you can take a look at the [Customers Orders Database sample](https:/
 * All binaries are now located in Binaries folder
 * You can additionaly build a NuGet package by running BuildTools/BuildNuGet.bat. The generated package will be located in the NuGet subfolder.
 
+## Downloads
+
+If you want to skip building the project yourself, you can get [the prebuilt nuget package](https://www.nuget.org/packages/Telerik.UI.for.UniversalWindowsPlatform/).
+
 ## How to Contribute
 
 UI for UWP is free and open-source. We encourage and support an active, healthy community that accepts contributions from the public. We'd like you to be a part of that community.
@@ -61,10 +65,6 @@ Before contributing to UI for UWP, please:
   * request new features, and,
   * walk you through the entire process of preparing your code for a Pull Request.
   
-## Source Code and Downloads
-
-If you want to skip building the project yourself, you can visit [telerik.com](http://www.telerik.com/) to grab the full source.
-
 ## Getting Help
 
 * Use the [issues list](https://github.com/telerik/UI-For-UWP/issues) of this repo for bug reports.
