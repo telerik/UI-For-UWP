@@ -7,6 +7,7 @@ using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Input
@@ -30,7 +31,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged)); // TODO: double? is not supported as PropertyType, check with next WinRT versions
+            DependencyProperty.Register(nameof(Value), typeof(Object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged)); // TODO: double? is not supported as PropertyType, check with next WinRT versions
 
         /// <summary>
         /// Identifies the <see cref="AllowNullValue"/> dependency property.
@@ -120,7 +121,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private bool updatingValue;
         private bool allowNullValueCache;
         private double? valueCache;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="RadNumericBox" /> class.
         /// </summary>
@@ -137,7 +138,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Occurs when the current value has changed.
         /// </summary>
         public event EventHandler ValueChanged;
-        
+
         /// <summary>
         /// Gets or sets the context for input used by this RadNumericBox.
         /// </summary>
@@ -766,7 +767,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private static bool IsNumericKey(VirtualKey key)
         {
-            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6)
+            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() != DeviceType.Phone)
             {
                 return false;
             }
@@ -790,7 +791,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (RadNumericBox.IsAzertyKeyboard)
             {
-                isNegativeSign = isNegativeSign || key == VirtualKey.Number6;
+                isNegativeSign = isNegativeSign || (key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() != DeviceType.Phone);
             }
 
             return isNegativeSign;
@@ -836,7 +837,11 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (oldValue != numericBox.Value)
             {
-                numericBox.UpdateTextBoxText();
+                if (numericBox.TextBox != null && numericBox.TextBox.FocusState == FocusState.Unfocused)
+                {
+                    numericBox.UpdateTextBoxText();
+                }
+                
                 numericBox.OnValueChanged();
             }
         }
@@ -889,7 +894,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 return this.currentCulture.NumberFormat.NumberDecimalSeparator == ",";
             }
-
             return false;
         }
 
@@ -928,6 +932,10 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             this.UpdateVisualState(true);
             this.ValidateText();
+            if (this.GetBindingExpression(ValueProperty)?.ParentBinding.UpdateSourceTrigger == UpdateSourceTrigger.PropertyChanged)
+            {
+                this.Value = this.TryParseValue();
+            }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Telerik.UI.Xaml.Controls.Input.RadNumericBox.SetText(System.String)")]
