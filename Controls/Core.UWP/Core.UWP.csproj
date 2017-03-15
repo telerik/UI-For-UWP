@@ -109,6 +109,7 @@
     <Compile Include="Common\BaseCommand.cs" />
     <Compile Include="Common\BitStateChangedEventArgs.cs" />
     <Compile Include="Common\BitVector32.cs" />
+    <Compile Include="Common\DeviceType.cs" />
     <Compile Include="Common\DisposableObject.cs" />
     <Compile Include="Common\ElementTreeHelper.cs" />
     <Compile Include="Common\ExportHelper.cs" />
