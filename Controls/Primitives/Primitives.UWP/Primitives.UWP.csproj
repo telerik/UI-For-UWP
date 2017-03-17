@@ -56,6 +56,29 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusyIndicator\AutomationPeers\RadBusyIndicatorAutomationPeer.cs" />
+    <Compile Include="Common\Controls\AutomationPeers\RadContentControlAutomationPeer.cs" />
+    <Compile Include="Common\Controls\AutomationPeers\RadControlAutomationPeer.cs" />
+    <Compile Include="Common\Controls\AutomationPeers\RadHeaderedControlAutomationPeer.cs" />
+    <Compile Include="ExpanderControl\RadExpanderControlAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\FlipControlAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\HubTileBaseAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\RadCustomHubTileAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\RadCycleHubTileAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\RadHexHubTileAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\RadHubTileAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\RadMosaicHubTileAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\RadPictureRotatorHubTileAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\RadSlideHubTileAutomationPeer.cs" />
+    <Compile Include="HubTile\AutomationPeers\SlideControlAutomationPeer.cs" />
+    <Compile Include="LoopingList\AutomationPeers\AutomationPeerHalper.cs" />
+    <Compile Include="LoopingList\AutomationPeers\LoopingListItemAutomationPeer.cs" />
+    <Compile Include="LoopingList\AutomationPeers\RadLoopingListAutomationPeer.cs" />
+    <Compile Include="Pagination\AutomationPeers\PaginationButtonAutomationPeer.cs" />
+    <Compile Include="Pagination\AutomationPeers\PaginationIndexLabelControlAutomationPeer.cs" />
+    <Compile Include="Pagination\AutomationPeers\PaginationListControlAutomationPeer.cs" />
+    <Compile Include="Pagination\AutomationPeers\PaginationListControlItemAutomationPeer.cs" />
+    <Compile Include="Pagination\AutomationPeers\RadPaginationControlAutomationPeer.cs" />
     <Compile Include="Pagination\PaginationButton.cs" />
     <Compile Include="Pagination\PaginationControlDisplayMode.cs" />
     <Compile Include="Pagination\PaginationControlNavigationMode.cs" />
@@ -64,6 +87,8 @@
     <Compile Include="Pagination\PaginationListControl.cs" />
     <Compile Include="Pagination\PaginationListControlItem.cs" />
     <Compile Include="Pagination\RadPaginationControl.cs" />
+    <Compile Include="RadialMenu\AutomationPeers\RadialMenuItemControlAutomationPeer.cs" />
+    <Compile Include="RadialMenu\AutomationPeers\RadRadialMenuAutomationPeer.cs" />
     <Compile Include="RadialMenu\Common\CoordinatesUtils.cs" />
     <Compile Include="RadialMenu\Common\RadialLayoutSlot.cs" />
     <Compile Include="RadialMenu\Common\RadPolarPoint.cs" />
@@ -115,6 +140,11 @@
     <Compile Include="RadialMenu\View\Triggers\RadialMenuAttachTriggers.cs" />
     <Compile Include="RadialMenu\View\Triggers\RadialMenuTriggerBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RangeBaseControls\AutomationPeers\RangeControlBaseAutomationPeer.cs" />
+    <Compile Include="RangeBaseControls\AutomationPeers\RangeInputBaseAutomationPeer.cs" />
+    <Compile Include="RangeBaseControls\AutomationPeers\SliderBaseAutomationPeer.cs" />
+    <Compile Include="RangeSliderPrimitive\AutomationPeers\RangeSliderPrimitiveAutomationPeer.cs" />
+    <Compile Include="SideDrawer\AutomationPeer\RadSideDrawerAutomationPeer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
@@ -138,11 +168,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\ThemeColorsHighContrast.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\ThemeColorsLight.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ThemeResourcesDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeResourcesHighContrast.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -387,7 +425,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\..\..\BuildTools\CopyBinaries.targets"  />
+  <Import Project="..\..\..\BuildTools\CopyBinaries.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

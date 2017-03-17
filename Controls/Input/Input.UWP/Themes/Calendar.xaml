@@ -20,6 +20,13 @@
                 <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
     
     <Style TargetType="localCalendar:AppointmentControl">      
@@ -113,7 +120,7 @@
                                 <VisualState x:Name="PointerFocused"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <TextBlock x:Name="ArrowGlyph" Text="&#xE010;" Margin="15" />
+                        <TextBlock x:Name="ArrowGlyph" Text="&#xE010;" Margin="15" AutomationProperties.AccessibilityView="Raw" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -159,7 +166,7 @@
                                 <VisualState x:Name="PointerFocused"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <TextBlock x:Name="ArrowGlyph" Text="&#xE011;" Margin="15"  />
+                        <TextBlock x:Name="ArrowGlyph" Text="&#xE011;" Margin="15"  AutomationProperties.AccessibilityView="Raw"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -227,6 +234,7 @@
     </Style>
 
     <Style TargetType="local:RadCalendar">
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="MinHeight" Value="200" />
         <Setter Property="MinWidth" Value="200" />
         <Setter Property="GridLinesBrush" Value="{ThemeResource TelerikCalendarGridLinesBrush}" />
@@ -381,7 +389,6 @@
                                     <ScaleTransform />
                                 </Canvas.RenderTransform>
                             </localCalendar:CalendarViewHost>
-
                         </Grid>
                     </Border>
                 </ControlTemplate>

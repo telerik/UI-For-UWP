@@ -1,4 +1,6 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.NumericBox
@@ -14,6 +16,17 @@ namespace Telerik.UI.Xaml.Controls.Input.NumericBox
         public NumericTextBox()
         {
             this.DefaultStyleKey = typeof(NumericTextBox);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            RadNumericBox parent = ElementTreeHelper.FindVisualAncestor<RadNumericBox>(this);
+            if (parent != null)
+            {
+                return new NumericTextBoxAutomationPeer(this, parent);
+            }
+            return base.OnCreateAutomationPeer();
         }
     }
 }

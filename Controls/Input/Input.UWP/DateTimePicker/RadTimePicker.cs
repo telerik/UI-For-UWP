@@ -1,8 +1,10 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.DateTimePickers;
 using Telerik.UI.Xaml.Controls.Primitives.LoopingList;
 using Windows.Globalization;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
@@ -64,6 +66,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 this.SetValue(CalendarClockIdentifierProperty, value);
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadTimePickerAutomationPeer(this);
         }
 
         internal override string GetDisplayValueFormatFromCulture()

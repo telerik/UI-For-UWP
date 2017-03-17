@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Grid
 {
@@ -134,6 +136,16 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// </summary>
         public void DeselectItem(object item)
         {
+            var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this) as RadDataGridAutomationPeer;
+            if (dataGridPeer != null && dataGridPeer.childrenCache != null && dataGridPeer.childrenCache.Count > 0)
+            {
+                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Item == item).FirstOrDefault() as DataGridCellInfoAutomationPeer;
+                if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
+                {
+                    cellPeer.RaiseValuePropertyChangedEvent(true, false);
+                }
+            }
+
             this.selectionService.SelectItem(item, false, false);
         }
 
@@ -153,6 +165,16 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// </summary>
         public void DeselectCell(DataGridCellInfo item)
         {
+            var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this) as RadDataGridAutomationPeer;
+            if (dataGridPeer != null && dataGridPeer.childrenCache != null && dataGridPeer.childrenCache.Count > 0)
+            {
+                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == item.RowItemInfo.Slot && a.Column == item.Column.ItemInfo.Slot).FirstOrDefault() as DataGridCellInfoAutomationPeer;
+                if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
+                {
+                    cellPeer.RaiseValuePropertyChangedEvent(true, false);
+                }
+            }
+
             this.selectionService.SelectCellInfo(item, false, false);
         }
 

@@ -18,6 +18,12 @@
                 <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.DataVisualization.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
     <bulletGraph:ValueToVisibilityConverter x:Key="ZeroToCollapsedConverter" Visibility="Collapsed"/>

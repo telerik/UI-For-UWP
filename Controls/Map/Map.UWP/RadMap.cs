@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Telerik.Geospatial;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Drawing;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
@@ -573,6 +575,12 @@ namespace Telerik.UI.Xaml.Controls.Map
             this.layoutRoot.SizeChanged -= this.OnLayoutRootSizeChanged;
 
             base.UnapplyTemplateCore();
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadMapAutomationPeer(this);
         }
 
         private static void OnCenterPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

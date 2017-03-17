@@ -24,7 +24,8 @@ namespace Telerik.UI.Xaml.Controls.Data
                     this.headerControl = new ContentControl()
                     {
                         VerticalContentAlignment = VerticalAlignment.Stretch,
-                        HorizontalContentAlignment = HorizontalAlignment.Stretch
+                        HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                        IsTabStop = false,
                     };
 
                     this.AddVisualChild(this.headerControl);
@@ -48,7 +49,8 @@ namespace Telerik.UI.Xaml.Controls.Data
                     this.footerControl = new ContentControl()
                     {
                         VerticalContentAlignment = VerticalAlignment.Stretch,
-                        HorizontalContentAlignment = HorizontalAlignment.Stretch
+                        HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                        IsTabStop = false,
                     };
 
                     this.AddVisualChild(this.footerControl);

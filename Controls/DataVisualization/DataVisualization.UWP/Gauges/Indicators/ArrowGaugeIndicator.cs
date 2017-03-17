@@ -1,6 +1,8 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
@@ -124,6 +126,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         {
             this.UpdateArrow(finalSize);
             return base.ArrangeOverride(finalSize);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new ArrowGaugeIndicatorAutomationPeer(this);
         }
 
         private static void OnArrowTailRadiusPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

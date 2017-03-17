@@ -32,6 +32,13 @@
                 <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
     <ResourceDictionary.MergedDictionaries>
@@ -273,7 +280,7 @@
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikNumericBoxBorderBrush}" />
-        <Setter Property="DecreaseButtonStyle" Value="{StaticResource NumericButtonDecreaseStyle}" />
+        <Setter Property="DecreaseButtonStyle" Value="{StaticResource NumericButtonDecreaseStyle}"/>
         <Setter Property="IncreaseButtonStyle" Value="{StaticResource NumericButtonIncreaseStyle}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -332,12 +339,14 @@
     <!--NUMERIC EDITOR END-->
 
     <Style TargetType="local:ErrorsControl">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Foreground" Value="Red"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ErrorsControl">
                     <Border Background="{TemplateBinding Background}">
-                        <ContentControl ContentTemplate="{TemplateBinding ContentTemplate}" Visibility="{Binding IsValid, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}">
+                        <ContentControl ContentTemplate="{TemplateBinding ContentTemplate}" Visibility="{Binding IsValid, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}"
+                                        IsTabStop="False">
                             <ItemsControl Foreground="{TemplateBinding Foreground}" ItemsSource="{Binding Errors}" />
                         </ContentControl>
                     </Border>
@@ -347,22 +356,25 @@
     </Style>
 
     <Style TargetType="local:PositiveMessageControl">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Foreground" Value="Green"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:PositiveMessageControl">
-                    <ContentControl Content="{Binding PositiveMessage}" ContentTemplate="{TemplateBinding ContentTemplate}" Visibility="{Binding DisplayPositiveMessage, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <ContentControl Content="{Binding PositiveMessage}" ContentTemplate="{TemplateBinding ContentTemplate}" Visibility="{Binding DisplayPositiveMessage, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    IsTabStop="False"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
     <Style TargetType="local:LabelControl">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Margin" Value="5,5,5,5" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:LabelControl">
-                    <ContentControl ContentTemplate="{TemplateBinding ContentTemplate}">
+                    <ContentControl ContentTemplate="{TemplateBinding ContentTemplate}" IsTabStop="False">
                         <TextBlock Text="{Binding Label}" FontSize="15" />
                     </ContentControl>
                 </ControlTemplate>
@@ -370,6 +382,7 @@
         </Setter>
     </Style>
     <Style TargetType="local:EntityPropertyControl">
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="Margin" Value="0 5 0 5" />
         <Setter Property="Template">
             <Setter.Value>
@@ -381,6 +394,7 @@
         </Setter>
     </Style>
     <Style TargetType="local:RadDataForm">
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="MinHeight" Value="150"/>
         <Setter Property="MinWidth" Value="150"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -394,7 +408,7 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Border Margin="{TemplateBinding Margin}" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentControl HorizontalContentAlignment="Stretch" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" x:Name="PART_ChildrensPanelPresenter"/>
+                        <ContentControl IsTabStop="False" HorizontalContentAlignment="Stretch" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}" x:Name="PART_ChildrensPanelPresenter"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -437,8 +451,14 @@
     <listView:OrientationToHorizontalAlignmentConverter x:Key="orientationToHorizontalAlignmentConverter" />
     <listView:OrientationToVerticalAlignmentConverter x:Key="orientationToVerticalAlignmentConverter" />
     <listView:OrientationToSizeConverter x:Key="orientationToSizeConverter" />
-    
+
     <Style TargetType="local:RadListView">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="TabNavigation" Value="Once" />
+        <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="False" />
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="MinWidth" Value="100"/>
         <Setter Property="MinHeight" Value="100"/>
         <Setter Property="LayoutDefinition">
@@ -455,9 +475,11 @@
                         BorderBrush="{TemplateBinding BorderBrush}">
                         <listView:ListViewRootPanel x:Name="PART_ListViewRootPanel">
                             <ScrollViewer x:Name="PART_ScrollViewer" VerticalAlignment="Top" HorizontalAlignment="Left"
-                                                  HorizontalScrollBarVisibility="Auto"
-                                                  VerticalScrollBarVisibility="Auto"
-                                                  ZoomMode="Disabled"
+                                                  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                                  ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                                                  TabNavigation="{TemplateBinding TabNavigation}"
+                                                  BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}"
                                                   HorizontalScrollMode="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Orientation, 
                                                              Converter={StaticResource OrientationToScrollModeConverter}, ConverterParameter=Horizontal}"
                                                   VerticalScrollMode="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Orientation, 
@@ -469,7 +491,7 @@
                                     <listView:ListViewPanel x:Name="PART_ScrollableContent" Background="Transparent">
                                         <Canvas x:Name="PART_AnimatingChildrenPanel" HorizontalAlignment="Left" VerticalAlignment="Top">
                                             <listView:ChildrenListViewPanel x:Name="PART_ChildrenPanel" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent">
-                                                <listView:PullToRefreshIndicator Canvas.ZIndex="1000" x:Name="PART_PullToRefreshIndicator"/>
+                                                <listView:PullToRefreshIndicator Canvas.ZIndex="1000" x:Name="PART_PullToRefreshIndicator" IsTabStop="False"/>
                                                 <ContentControl x:Name="PART_SwipeActionContent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{TemplateBinding SwipeActionContent}" Canvas.ZIndex="5" Margin="5" Padding="5" />
 
                                             </listView:ChildrenListViewPanel>
@@ -487,6 +509,7 @@
     </Style>
 
     <Style TargetType="telerikPrimitives:RadBusyIndicator" x:Key="PullToRefreshBusyIndicatorStyle">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -561,7 +584,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <telerikPrimitivesBusyIndicator:BusyIndicatorAnimation 
+                            <telerikPrimitivesBusyIndicator:BusyIndicatorAnimation IsTabStop="False"
                                 x:Name="PART_Animation"
                                 VerticalAlignment="Center"
                                 Style="{TemplateBinding IndicatorAnimationStyle}"
@@ -684,6 +707,8 @@
     </Style>
 
     <Style TargetType="listView:RadListViewItem">
+        <Setter Property="TabNavigation" Value="Local"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
@@ -764,7 +789,8 @@
                                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                             VerticalAlignment="{TemplateBinding VerticalAlignment}" 
                                             HorizontalAlignment="{TemplateBinding HorizontalAlignment}" 
-                                            Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                            Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            IsTabStop="False"/>
                             <Border x:Name="border"  
                                     IsHitTestVisible="False"
                                     VerticalAlignment="Stretch" 
@@ -883,6 +909,7 @@
     </Style>
 
     <Style TargetType="listView:ListViewAutoDataLoadingControl">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Template">
@@ -935,7 +962,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <ContentControl x:Name="PART_Content" DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}" >
+                            <ContentControl x:Name="PART_Content" DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
                                 <ContentControl.Content>
                                     <Grid>
                                         <Button Visibility="{Binding IsLoadingData, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=true}" Command="{Binding LoadDataUICommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -962,6 +989,7 @@
     </Style>
 
     <Style TargetType="listView:ListViewBusyOverlayControl">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Background" Value="#55555555"/>
         <Setter Property="IsHitTestVisible" Value="False"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>

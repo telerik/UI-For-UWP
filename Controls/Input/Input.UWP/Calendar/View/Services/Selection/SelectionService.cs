@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
@@ -186,12 +188,27 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 		{
 			this.Owner.OnPropertyChanged(new PropertyChangedEventArgs("SelectedDateRanges"));
 
-			EventHandler<CurrentSelectionChangedEventArgs> handler = this.SelectionChanged;
+            CurrentSelectionChangedEventArgs args = new CurrentSelectionChangedEventArgs();
+            if (this.Owner.SelectedDateRange.HasValue)
+            {
+                args.NewSelection = this.Owner.SelectedDateRange.Value.StartDate;
+            }
 
-			if (handler != null)
+            EventHandler<CurrentSelectionChangedEventArgs> handler = this.SelectionChanged;
+            if (handler != null)
 			{
-				handler(this.Owner, new CurrentSelectionChangedEventArgs() { NewSelection = this.Owner.SelectedDateRange.Value.StartDate });
-			}
-		}
+                handler(this.Owner, args);
+            }
+
+            if (AutomationPeer.ListenerExists(AutomationEvents.SelectionItemPatternOnElementSelected) ||
+                    AutomationPeer.ListenerExists(AutomationEvents.SelectionItemPatternOnElementAddedToSelection))
+            {
+                RadCalendarAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this.Owner) as RadCalendarAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseSelectionEvents(args);
+                }
+            }
+        }
 	}
 }

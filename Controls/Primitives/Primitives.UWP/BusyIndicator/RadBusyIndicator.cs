@@ -8,6 +8,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 using System.Linq;
+using Windows.UI.Xaml.Automation.Peers;
+using Telerik.UI.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
 {
@@ -237,6 +239,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             return "NotRunning";
         }
 
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadBusyIndicatorAutomationPeer(this);
+        }
+
         private static void OnAnimationStyleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             RadBusyIndicator typedSender = sender as RadBusyIndicator;
@@ -253,6 +261,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             RadBusyIndicator typedSender = sender as RadBusyIndicator;
             typedSender.OnIsActiveChanged(args);
+
+            var peer = FrameworkElementAutomationPeer.CreatePeerForElement(typedSender) as RadBusyIndicatorAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseToggleStatePropertyChangedEvent((bool)args.OldValue, (bool)args.NewValue);
+            }
         }
 
         private static void OnIndicatorAnimationStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

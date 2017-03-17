@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 
@@ -433,6 +435,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             base.UnapplyTemplateCore();
 
             this.panel.Indicators.Clear();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadGaugeAutomationPeer(this);
         }
 
         private static void OnMinValuePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

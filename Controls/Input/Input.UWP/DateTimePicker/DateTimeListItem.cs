@@ -1,5 +1,6 @@
 ﻿using Telerik.UI.Xaml.Controls.Primitives.LoopingList;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
 {
@@ -20,6 +21,11 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
         public DateTimeListItem()
         {
             this.DefaultStyleKey = typeof(DateTimeListItem);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.DateTimeListItemAutomationPeer(this);
         }
     }
 }

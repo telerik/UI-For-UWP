@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
@@ -162,6 +164,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             }
 
             return applied;
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SegmentedGaugeIndicatorAutomationPeer(this);
         }
 
         private void SegmentsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.RangeSlider;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 
@@ -251,6 +254,75 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
+        private bool HandleKeyDown(VirtualKey key)
+        {
+            var delta = this.GetDeltaByKey(key);
+            var handled = true;
+
+            if (this.selectionMiddleThumb != null && this.selectionMiddleThumb.FocusState != FocusState.Unfocused)
+            {
+                this.UpdateSelectionRange(delta);
+            }
+            else if (this.selectionStartThumb != null && this.selectionStartThumb.FocusState != FocusState.Unfocused)
+            {
+                this.UpdateSelectionStart(delta);
+            }
+            else if (this.selectionEndThumb != null && this.selectionEndThumb.FocusState != FocusState.Unfocused)
+            {
+                this.UpdateSelectionEnd(delta);
+            }
+            else handled = false;
+
+            return handled && delta != 0;
+        }
+
+        private double GetDeltaByKey(VirtualKey key)
+        {
+            double delta = .0;
+            if (key == VirtualKey.Left || key == VirtualKey.Down)
+            {
+                delta = -this.SmallChange;
+            }
+            else if (key == VirtualKey.Right || key == VirtualKey.Up)
+            {
+                delta = this.SmallChange;
+            }
+            else if (key == VirtualKey.Home)
+            {
+                delta = this.Minimum - this.Maximum;
+            }
+            else if (key == VirtualKey.End)
+            {
+                delta = this.Maximum;
+            }
+            else if (key == VirtualKey.PageUp)
+            {
+                delta = this.LargeChange;
+            }
+            else if (key == VirtualKey.PageDown)
+            {
+                delta = -this.LargeChange;
+            }
+
+            return this.GetValueBasedOnSnapping(delta);
+        }
+
+        private double GetValueBasedOnSnapping(double value)
+        {
+            if (this.SnapsTo == SnapsTo.Ticks)
+            {
+                if (value > 0)
+                {
+                    value = Math.Max(this.TickFrequency, value);
+                }
+                else if (value < 0)
+                {
+                    value = Math.Min(-this.TickFrequency, value);
+                }
+            }
+            return value;
+        }
+
         private void AttachThumbsEvents()
         {
             this.selectionStartThumb.SizeChanged += this.OnThumbSizeChanged;
@@ -258,17 +330,20 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.selectionStartThumb.DragDelta += this.OnSelectionStartThumbDragDelta;
             this.selectionStartThumb.DragCompleted += this.OnSelectionStartThumbDragCompleted;
             this.selectionStartThumb.DragStarted += this.OnSelectionStartThumbDragStarted;
+            this.selectionStartThumb.AddHandler(Thumb.PointerPressedEvent, new PointerEventHandler(this.OnThumbPointerPressed), true);
 
             this.selectionEndThumb.SizeChanged += this.OnThumbSizeChanged;
             this.selectionEndThumb.PointerEntered += this.OnThumbPointerEntered;
             this.selectionEndThumb.DragDelta += this.OnSelectionEndThumbDragDelta;
             this.selectionEndThumb.DragCompleted += this.OnSelectionEndThumbDragCompleted;
             this.selectionEndThumb.DragStarted += this.OnSelectionEndThumbDragStarted;
+            this.selectionEndThumb.AddHandler(Thumb.PointerPressedEvent, new PointerEventHandler(this.OnThumbPointerPressed), true);
 
             this.selectionMiddleThumb.PointerEntered += this.OnThumbPointerEntered;
             this.selectionMiddleThumb.DragDelta += this.OnSelectionMiddleThumbDragDelta;
             this.selectionMiddleThumb.DragCompleted += this.OnSelectionMiddleThumbDragCompleted;
             this.selectionMiddleThumb.DragStarted += this.OnSelectionMiddleThumbDragStarted;
+            this.selectionMiddleThumb.AddHandler(Thumb.PointerPressedEvent, new PointerEventHandler(this.OnThumbPointerPressed), true);
 
             this.trackBar.PointerPressed += this.OnTrackBarPointerPressed;
             this.trackBar.PointerReleased += this.OnTrackBarPointerReleased;
@@ -311,17 +386,20 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.selectionStartThumb.DragDelta -= this.OnSelectionStartThumbDragDelta;
             this.selectionStartThumb.DragCompleted -= this.OnSelectionStartThumbDragCompleted;
             this.selectionStartThumb.DragStarted -= this.OnSelectionStartThumbDragStarted;
+            this.selectionStartThumb.RemoveHandler(Thumb.PointerPressedEvent, new PointerEventHandler(this.OnThumbPointerPressed));
 
             this.selectionEndThumb.SizeChanged -= this.OnThumbSizeChanged;
             this.selectionEndThumb.PointerEntered -= this.OnThumbPointerEntered;
             this.selectionEndThumb.DragDelta -= this.OnSelectionEndThumbDragDelta;
             this.selectionEndThumb.DragCompleted -= this.OnSelectionEndThumbDragCompleted;
             this.selectionEndThumb.DragStarted -= this.OnSelectionEndThumbDragStarted;
+            this.selectionEndThumb.RemoveHandler(Thumb.PointerPressedEvent, new PointerEventHandler(this.OnThumbPointerPressed));
 
             this.selectionMiddleThumb.PointerEntered -= this.OnThumbPointerEntered;
             this.selectionMiddleThumb.DragDelta -= this.OnSelectionMiddleThumbDragDelta;
             this.selectionMiddleThumb.DragCompleted -= this.OnSelectionMiddleThumbDragCompleted;
             this.selectionMiddleThumb.DragStarted -= this.OnSelectionMiddleThumbDragStarted;
+            this.selectionMiddleThumb.RemoveHandler(Thumb.PointerPressedEvent, new PointerEventHandler(this.OnThumbPointerPressed));
 
             this.trackBar.PointerPressed -= this.OnTrackBarPointerPressed;
             this.trackBar.PointerReleased -= this.OnTrackBarPointerReleased;
@@ -446,6 +524,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.InvalidateThumbsPanelArrange();
         }
 
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            e.Handled = this.HandleKeyDown(e.Key);
+            base.OnKeyDown(e);
+        }
+
         private void OnSliderPointerReleased(object sender, PointerRoutedEventArgs e)
         {
             this.UpdateSelectionStart(0, true);
@@ -464,6 +548,18 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         private void OnThumbPointerEntered(object sender, PointerRoutedEventArgs e)
         {
             this.StopTimer();
+        }
+
+        private void OnThumbPointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            Thumb thumb = sender as Thumb;
+            if (thumb != null && thumb.IsTabStop)
+            {
+                if (thumb.FocusState == FocusState.Unfocused)
+                {
+                    thumb.Focus(FocusState.Programmatic);
+                }
+            }
         }
 
         private void OnTrackBarPointerMoved(object sender, PointerRoutedEventArgs e)

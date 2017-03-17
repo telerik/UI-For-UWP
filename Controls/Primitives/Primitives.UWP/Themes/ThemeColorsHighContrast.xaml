@@ -1,0 +1,25 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Colors-->
+    <Color x:Key="TelerikSecondaryForegroundColor">#99FFFFFF</Color>
+    <Color x:Key="TelerikForegroundColor">#FF000000</Color>
+    <Color x:Key="TelerikSelectedColor">#FF006AC1</Color>
+    <Color x:Key="TelerikDisabledColor">#66FFFFFF</Color>
+    <Color x:Key="TelerikBlackColor">#FF000000</Color>
+    <Color x:Key="TelerikWhiteColor">#FFFFFFFF</Color>
+
+    <!--SelectorItem Rest State-->
+    <SolidColorBrush x:Key="TelerikLoopingItemBackgroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikLoopingItemForegroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+
+    <!--SelectorItem Select State-->
+    <SolidColorBrush x:Key="TelerikLoopingItemSelectedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikLoopingItemSelectedForegroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+
+    <!--SelectorItem Disabled State-->
+    <SolidColorBrush x:Key="TelerikLoopingItemDisabledBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+    <SolidColorBrush x:Key="TelerikLoopingItemDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}"/>
+
+</ResourceDictionary>

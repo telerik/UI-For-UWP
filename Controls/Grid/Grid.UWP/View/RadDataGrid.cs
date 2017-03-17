@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using Telerik.Core;
 using Telerik.Core.Data;
 using Telerik.Data.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Grid.Commands;
 using Telerik.UI.Xaml.Controls.Grid.Model;
 using Telerik.UI.Xaml.Controls.Grid.Primitives;
@@ -12,6 +13,7 @@ using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
@@ -943,6 +945,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 }
             }
 #endif
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadDataGridAutomationPeer(this);
         }
 
 

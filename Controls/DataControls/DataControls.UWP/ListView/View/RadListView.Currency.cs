@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using Telerik.Data.Core.Layouts;
+using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
+using Telerik.UI.Xaml.Controls.Data.ListView;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -27,6 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             DependencyProperty.Register(nameof(IsSynchronizedWithCurrentItem), typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsSynchronizedWithCurrentItemChanged));
 
         internal readonly ListViewCurrencyService currencyService;
+        internal int currentLogicalIndex;
 
         /// <summary>
         /// Occurs when the <see cref="CurrentItem"/> property has changed.
@@ -111,6 +113,31 @@ namespace Telerik.UI.Xaml.Controls.Data
         public bool MoveCurrentTo(object item)
         {
             return this.currencyService.MoveCurrentTo(item);
+        }       
+
+        internal void FocusCurrentContainer()
+        {
+            RadListViewItem container = this.GetCurrentContainer();
+            if (container != null)
+            {
+                container.Focus(FocusState.Programmatic);          
+            }
+        }
+
+        private RadListViewItem GetCurrentContainer()
+        {
+            if (this.CurrentItem == null || this.currencyService.CurrentItemInfo == null || !this.currencyService.CurrentItemInfo.HasValue)
+                return null;
+
+            ItemInfo currentInfo = this.currencyService.CurrentItemInfo.Value;
+            GeneratedItemModel generatedModel = this.Model.GetDisplayedElement(currentInfo.Slot, currentInfo.Id);
+
+            RadListViewItem result = null;
+            if (generatedModel != null)
+            {
+                result = generatedModel.Container as RadListViewItem;
+            }
+            return result;
         }
 
         private static void OnCurrentItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

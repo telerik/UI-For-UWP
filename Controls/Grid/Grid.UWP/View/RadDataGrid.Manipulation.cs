@@ -1,8 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using Telerik.Core;
 using Telerik.Data.Core.Layouts;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Grid.Commands;
 using Telerik.UI.Xaml.Controls.Grid.Primitives;
 using Telerik.UI.Xaml.Controls.Grid.View;
@@ -11,6 +10,7 @@ using Windows.Devices.Input;
 using Windows.System;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -98,17 +98,21 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         internal void OnColumnHeaderTap(DataGridColumnHeader headerCell, TappedRoutedEventArgs e)
         {
+            var columnHeaderPeer = FrameworkElementAutomationPeer.FromElement(headerCell) as DataGridColumnHeaderAutomationPeer;
+            if (columnHeaderPeer != null)
+            {
+                columnHeaderPeer.RaiseAutomationEvent(AutomationEvents.InvokePatternOnInvoked);
+            }
+
             var context = this.GenerateColumnHeaderTapContext(headerCell.Column, e.PointerDeviceType);
             context.IsFlyoutOpen = this.ContentFlyout.IsOpen;
             this.ContentFlyout.Hide(DataGridFlyoutId.All);
             this.commandService.ExecuteCommand(CommandId.ColumnHeaderTap, context);
         }
 
-        internal void OnFilterButtonTap(DataGridColumnHeader header, TappedRoutedEventArgs e)
+        internal void OnFilterButtonTap(DataGridColumnHeader header)
         {
             this.ExecuteFilter(header);
-
-            e.Handled = true;
         }
 
         internal void OnGroupHeaderTap(DataGridGroupHeader header)

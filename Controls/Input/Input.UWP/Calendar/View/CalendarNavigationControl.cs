@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using Telerik.UI.Automation.Peers;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
@@ -183,6 +185,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.headerButton.Click -= this.OnHeaderButtonTapped;
             }
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new CalendarNavigationControlAutomationPeer(this);
         }
 
         private void OnNextButtonTapped(object sender, RoutedEventArgs e)

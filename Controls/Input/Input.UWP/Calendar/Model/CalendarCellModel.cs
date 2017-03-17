@@ -30,6 +30,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="CalendarCellModel"/> class.
+        /// </summary>
+        /// <param name="row">The row index of the cell.</param>
+        /// <param name="column">The column index of the cell.</param>
+        public CalendarCellModel(int row, int column) : this()
+        {
+            this.RowIndex = row;
+            this.ColumnIndex = column;
+        }
+
+        /// <summary>
         /// Gets the date represented by the calendar cell.
         /// </summary>
         public DateTime Date

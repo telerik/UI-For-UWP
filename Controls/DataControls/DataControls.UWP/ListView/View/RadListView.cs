@@ -4,6 +4,7 @@ using Telerik.Core;
 using Telerik.Core.Data;
 using Telerik.Data.Core;
 using Telerik.Data.Core.Layouts;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
 using Telerik.UI.Xaml.Controls.Data.ListView;
 using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
@@ -15,6 +16,7 @@ using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -734,6 +736,12 @@ namespace Telerik.UI.Xaml.Controls.Data
 
                 return false;
             }
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadListViewAutomationPeer(this);
         }
 
         protected internal virtual void PrepareLoadDataControl(ListViewLoadDataControl control)

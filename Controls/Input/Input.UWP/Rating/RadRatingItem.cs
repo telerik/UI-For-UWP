@@ -1,6 +1,8 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
@@ -171,6 +173,31 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadRatingItemAutomationPeer(this);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            switch (e.Key)
+            {
+                case Windows.System.VirtualKey.Space:
+                    this.Select();
+                    break;
+                case Windows.System.VirtualKey.Right:
+                    FocusManager.TryMoveFocus(FocusNavigationDirection.Next);
+                    break;
+                case Windows.System.VirtualKey.Left:
+                    FocusManager.TryMoveFocus(FocusNavigationDirection.Previous);
+                    break;
+            }            
+        }
+
         internal RadRating Owner { get; set; }
 
         internal double FillRatio
@@ -187,6 +214,18 @@ namespace Telerik.UI.Xaml.Controls.Input
                     this.UpdateClip();
                 }
             }
+        }
+
+        internal bool Select()
+        {
+            int index = this.Owner.GetIndexOf(this);
+            if (index != -1)
+            {
+                this.Owner.Value = index + 1;
+                this.RaiseSelectionAutomationEvents();               
+                return true;
+            }
+            return false;
         }
 
         internal bool HitTest(Point touchPoint)
@@ -310,6 +349,21 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (!this.Owner.IsReadOnly)
             {
                 this.Owner.HandleTapEvent(this);
+            }
+        }
+
+        private void RaiseSelectionAutomationEvents()
+        {
+            RadRatingItemAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RadRatingItemAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseIsSelectedAutomationEventAndFocusChanged(false, true);
+            }
+
+            RadRatingAutomationPeer ratingPeer = FrameworkElementAutomationPeer.FromElement(this.Owner) as RadRatingAutomationPeer;
+            if (ratingPeer != null)
+            {
+                ratingPeer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementSelected);
             }
         }
     }

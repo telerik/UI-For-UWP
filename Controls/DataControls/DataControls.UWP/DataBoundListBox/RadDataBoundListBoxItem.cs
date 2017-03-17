@@ -1,4 +1,5 @@
 ﻿using Telerik.Core.Data;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
@@ -264,6 +265,12 @@ namespace Telerik.UI.Xaml.Controls.Data
         protected override string ComposeVisualStateName()
         {
             return this.IsSelected ? "Selected" : "Unselected";
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadDataBoundListBoxItemAutomationPeer(this);
         }
 
         partial void InitManipulation();

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
@@ -159,6 +161,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
                     line.Point = this.isHorizontal ? new Point(info.Start, currentPoint.Y) : new Point(currentPoint.X, info.End);
                 }
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SegmentedLinearGaugeIndicatorAutomationPeer(this);
         }
     }
 }

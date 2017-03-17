@@ -1,8 +1,10 @@
 ﻿using System;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -69,12 +71,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
-            
-            if (this.Owner == null)
-            {
-                return base.MeasureOverride(availableSize);
-            }
-
             // after the column headers are measured we should allow the measurement of the cells.
             this.Owner.CellsPanel.isDirectMeasure = false;
 
@@ -82,6 +78,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             {
                 this.skipSingleMeasurePass = false;
                 return this.desiredSize;
+            }
+
+            if (this.Owner == null)
+            {
+                return base.MeasureOverride(availableSize);
             }
 
             var size = new Telerik.Core.RadSize(Math.Max(availableSize.Width, this.Owner.CellsHostAvaialbleSize.Width), Math.Max(availableSize.Height, this.Owner.CellsHostAvaialbleSize.Height));
@@ -121,6 +122,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.Owner.FrozenColumnHeadersHost.Height = finalSize.Height;
 
             return this.Owner.OnHeaderRowArrange(this.lastArrangeSize.ToRadSize()).ToSize();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridColumnHeaderPanelAutomationPeer(this);
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)

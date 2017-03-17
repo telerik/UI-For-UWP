@@ -1,5 +1,7 @@
 ﻿using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -186,6 +188,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.isInArrange = false;
 
             return size;
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridCellsPanelAutomationPeer(this, this.Owner);
         }
 
         private void OnHolding(object sender, HoldingRoutedEventArgs e)

@@ -139,6 +139,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomationPeers\MapShapeAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\MapShapeLayerAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\RadMapAutomationPeer.cs" />
     <Compile Include="Behaviors\MapBehavior.cs" />
     <Compile Include="Behaviors\MapBehaviorCollection.cs" />
     <Compile Include="Behaviors\MapShapePointerOverBehavior.cs" />

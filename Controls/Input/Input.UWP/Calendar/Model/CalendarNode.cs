@@ -24,6 +24,18 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        internal int RowIndex
+        {
+            get;
+            set;
+        }
+
+        internal int ColumnIndex
+        {
+            get;
+            set;
+        }
+
         // TODO: Reconsider this as it breaks the "model" abstraction (the CalendarCellStyleContext class contains platform-specific visual references).
         internal CalendarCellStyleContext Context
         {

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.LoopingList;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
@@ -434,6 +436,11 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
 
             this.ResetCurrentTypedInput();
             this.DetachCharacterReceived();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DateTimeListAutomationPeer(this);
         }
 
         private static void OnStepChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

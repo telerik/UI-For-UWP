@@ -24,6 +24,13 @@
                 <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
 
@@ -71,6 +78,7 @@
         <Setter Property="Foreground" Value="{ThemeResource TelerikPaginationForegroundBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:RadPaginationControl">
@@ -91,7 +99,7 @@
                             <localPagination:PaginationListControl Grid.Column="1" x:Name="PART_ThumbnailList" ItemTemplate="{TemplateBinding ListItemTemplate}" IsEnabled="{TemplateBinding IsEnabled}" Margin="5 0 5 0" VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
                             <localPagination:PaginationButton Grid.Column="2" x:Name="PART_RightArrow" IsEnabled="{TemplateBinding IsEnabled}" ContentTemplate="{TemplateBinding RightArrowTemplate}"
                                               VerticalAlignment="Stretch"/>
-                            <localPagination:PaginationIndexLabelControl VerticalAlignment="Center" Grid.Column="3" Foreground="{TemplateBinding Foreground}" IsEnabled="{TemplateBinding IsEnabled}" Margin="10 0 0 0" x:Name="PART_IndexLabelControl"/>
+                            <localPagination:PaginationIndexLabelControl VerticalAlignment="Center" Grid.Column="3" Foreground="{TemplateBinding Foreground}" IsEnabled="{TemplateBinding IsEnabled}" Margin="10 0 0 0" x:Name="PART_IndexLabelControl" IsTabStop="False"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -203,7 +211,7 @@
                                       Content="{TemplateBinding Content}" 
                                       ContentTemplate="{TemplateBinding ContentTemplate}"/>
                         </Border>
-                        <localPagination:PaginationItemIndicator x:Name="ItemIndicator" Visibility="Collapsed" Background="{TemplateBinding Background}" Width="20" Height="5" Margin="2 0 2 0"  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <localPagination:PaginationItemIndicator x:Name="ItemIndicator" Visibility="Collapsed" Background="{TemplateBinding Background}" Width="20" Height="5" Margin="2 0 2 0"  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" IsTabStop="False"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -267,6 +275,7 @@
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="MinWidth" Value="40"/>
         <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -398,7 +407,8 @@
         <Setter Property="Width" Value="11" />
         <Setter Property="Height" Value="11" />
         <Setter Property="Background" Value="{ThemeResource TelerikRangeSliderPrimitiveSelectionThumbBackgroundBrush}"/>
-        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="IsTabStop" Value="True"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Thumb">
@@ -432,7 +442,8 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Height" Value="11" />
         <Setter Property="Background" Value="{ThemeResource TelerikRangeSliderPrimitiveSelectionMiddleThumbBackgroundBrush}"/>
-        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="IsTabStop" Value="True"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Thumb">
@@ -510,6 +521,7 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="Height" Value="11" />
+        <Setter Property="AutomationProperties.AccessibilityView" Value="Raw"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localRangeSlider:RangeTrackPrimitive">
@@ -547,7 +559,7 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <localRangeSlider:RangeTrackPrimitive x:Name="PART_TrackBar"/>
+                            <localRangeSlider:RangeTrackPrimitive x:Name="PART_TrackBar" IsTabStop="False"/>
                             <Thumb x:Name="PART_SelectionStartThumb" Style="{TemplateBinding SelectionStartThumbStyle}"  />
                             <Thumb x:Name="PART_SelectionMiddleThumb" Style="{TemplateBinding SelectionMiddleThumbStyle}"/>
                             <Thumb x:Name="PART_SelectionEndThumb" Style="{TemplateBinding SelectionEndThumbStyle}"/>
@@ -588,7 +600,7 @@
                             <ContentPresenter x:Name="NormalGlyph" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="{TemplateBinding FontSize}" Content="{TemplateBinding Content}" 
                                        Foreground="{TemplateBinding Foreground}" Margin="0,-1,0,0"/>
                             <TextBlock x:Name="BackGlyph" HorizontalAlignment="Center" Margin="0,-3,0,0"  VerticalAlignment="Center" FontSize="{TemplateBinding FontSize}" Text="&#xE0C4;" 
-                                       Visibility="Collapsed" Foreground="{TemplateBinding Foreground}"/>
+                                       Visibility="Collapsed" Foreground="{TemplateBinding Foreground}" IsHitTestVisible="False"/>
                         </Grid>
                         <Rectangle
                             x:Name="FocusVisualWhite"
@@ -697,6 +709,7 @@
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikRadialMenuNavigationButtonBorderBrush}"/>
         <Setter Property="Foreground" Value="{ThemeResource TelerikRadialMenuNavigationButtonForegroundBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="ContentGlyph" Value="&#xE0E4;"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -734,6 +747,7 @@
     <Style TargetType="localRadialMenu:DecorationItemButton">
         <Setter Property="Background" Value="{ThemeResource TelerikRadialMenuStateItemButtonPointerOverBackgroundBrush}"/>
         <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localRadialMenu:DecorationItemButton">
@@ -815,6 +829,7 @@
     <Style TargetType="local:RadRadialMenu">
         <Setter Property="NavigationMenuBackgroundStyle" Value="{StaticResource NavigationMenuStyle}"/>
         <Setter Property="ContentMenuBackgroundStyle" Value="{StaticResource ContentMenuStyle}"/>
+        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="MinWidth" Value="265"/>
         <Setter Property="MinHeight" Value="265"/>
         <Setter Property="Template">
@@ -856,6 +871,7 @@
 
     <Style TargetType="localRadialMenu:RadialMenuItemControl">
         <Setter Property="Foreground" Value="{ThemeResource TelerikRadialMenuHeaderForegroundBrush}"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localRadialMenu:RadialMenuItemControl">

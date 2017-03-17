@@ -1,6 +1,8 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Shapes;
 
@@ -131,6 +133,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             base.OnTemplateApplied();
 
             this.UpdateBarThickness(this.Thickness);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new LinearBarGaugeIndicatorAutomationPeer(this);
         }
 
         private void SetLocation(Point location)

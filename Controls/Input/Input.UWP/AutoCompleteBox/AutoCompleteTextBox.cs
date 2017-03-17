@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Telerik.UI.Automation.Peers;
+using Windows.UI.Xaml.Automation.Peers;
+using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
 {
@@ -13,6 +15,17 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
         public AutoCompleteTextBox()
         {
             this.DefaultStyleKey = typeof(AutoCompleteTextBox);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            RadAutoCompleteBox parent = ElementTreeHelper.FindVisualAncestor<RadAutoCompleteBox>(this);
+            if (parent != null)
+            {
+                return new AutoCompleteTextBoxAutomationPeer(this, parent);
+            }
+            return base.OnCreateAutomationPeer();
         }
     }
 }

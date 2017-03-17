@@ -10,6 +10,11 @@ namespace Telerik.UI.Xaml.Controls.Data
 {
     public class ListEditor : ComboBox, ITypeEditor
     {
+        public ListEditor()
+        {
+            this.DefaultStyleKey = typeof(ListEditor);
+        }
+
         public void BindEditor()
         {
 

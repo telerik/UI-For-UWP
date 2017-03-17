@@ -4,8 +4,12 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls;
+using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
+using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Primitives.Menu
 {
@@ -117,6 +121,35 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             commonVisualState = this.Loading ? "Loading" : commonVisualState;
 
             return commonVisualState;
+        }
+
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            e.Handled = this.HandleKeyDown(e.Key);
+            base.OnKeyDown(e);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            var parent = ElementTreeHelper.FindVisualAncestor<RadRadialMenu>(this);
+            if (parent != null)
+            {
+                return new RadialMenuItemControlAutomationPeer(this, parent);
+            }
+
+            return base.OnCreateAutomationPeer();
+        }
+
+        private bool HandleKeyDown(VirtualKey key)
+        {
+            if ((key == VirtualKey.Enter || key == VirtualKey.Space) && this.Segment != null
+                && this.Segment.TargetItem.Selectable)
+            {
+                this.Segment.TargetItem.IsSelected = !this.Segment.TargetItem.IsSelected;
+                return true;
+            }
+
+            return false;
         }
 
         private static void OnLoadingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

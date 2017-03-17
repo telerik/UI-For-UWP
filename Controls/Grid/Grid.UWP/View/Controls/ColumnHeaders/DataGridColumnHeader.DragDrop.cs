@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
@@ -172,6 +174,16 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                     if (!columnReordered && this.reorderCoordinator != null)
                     {
                         this.reorderCoordinator.CancelReorderOperation(this, data.InitialSourceIndex);
+                    }
+                }
+
+                var gridOwner = this.Owner as RadDataGrid;
+                if (gridOwner != null)
+                {
+                    var gridPeer = FrameworkElementAutomationPeer.FromElement(gridOwner) as RadDataGridAutomationPeer;
+                    if (gridPeer != null && gridPeer.childrenCache != null)
+                    {
+                        gridPeer.childrenCache = null;
                     }
                 }
             }

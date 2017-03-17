@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls
@@ -217,6 +218,11 @@ namespace Telerik.UI.Xaml.Controls
             base.OnLostFocus(e);
 
             this.IsFocused = false;
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.RadContentControlAutomationPeer(this);
         }
 
         /// <summary>

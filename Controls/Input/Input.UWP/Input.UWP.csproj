@@ -52,9 +52,29 @@
     <AssemblyOriginatorKeyFile>..\..\..\BuildTools\Win8PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AutoCompleteBox\AutomationPeers\AutoCompleteTextBoxAutomationPeer.cs" />
+    <Compile Include="AutoCompleteBox\AutomationPeers\RadAutoCompleteBoxAutomationPeer.cs" />
+    <Compile Include="Calendar\AutomationPeers\CalendarCellInfoBaseAutomationPeer.cs" />
+    <Compile Include="Calendar\AutomationPeers\CalendarHeaderCellInfoAutomationPeer.cs" />
+    <Compile Include="Calendar\AutomationPeers\CalendarInvokableCellInfoAutomationPeer.cs" />
+    <Compile Include="Calendar\AutomationPeers\CalendarNavigationControlAutomationPeer.cs" />
+    <Compile Include="Calendar\AutomationPeers\CalendarSelectableCellnfoAutomationPeer.cs" />
+    <Compile Include="Calendar\AutomationPeers\CalendarViewHostAutomationPeer.cs" />
+    <Compile Include="Calendar\AutomationPeers\RadCalendarAutomationPeer.cs" />
+    <Compile Include="DateTimePicker\AutomationPeers\DateTimeListAutomationPeer.cs" />
+    <Compile Include="DateTimePicker\AutomationPeers\DateTimeListItemAutomationPeer.cs" />
+    <Compile Include="DateTimePicker\AutomationPeers\DateTimePickerAutomationPeer.cs" />
+    <Compile Include="DateTimePicker\AutomationPeers\DateTimePickerButtonAutomationPeer.cs" />
+    <Compile Include="DateTimePicker\AutomationPeers\RadDatePickerAutomationPeer.cs" />
+    <Compile Include="DateTimePicker\AutomationPeers\RadTimePickerAutomationPeer.cs" />
+    <Compile Include="NumericBox\AutomationPeers\NumericTextBoxAutomationPeer.cs" />
+    <Compile Include="NumericBox\AutomationPeers\RadNumericBoxAutomationPeer.cs" />
     <Compile Include="RangeSlider\RadRangeSlider.cs" />
+    <Compile Include="RangeSlider\RadRangeSliderAutomationPeer.cs" />
     <Compile Include="RangeSlider\RangeSliderPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rating\AutomationPeers\RadRatingAutomationPeer.cs" />
+    <Compile Include="Rating\AutomationPeers\RadRatingItemAutomationPeer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core.UWP\Core.UWP.csproj">
@@ -84,6 +104,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ThemeResourcesDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeResourcesHighContrast.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -234,7 +258,7 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\..\..\BuildTools\CopyBinaries.targets"  />
+  <Import Project="..\..\..\BuildTools\CopyBinaries.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

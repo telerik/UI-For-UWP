@@ -5,6 +5,7 @@ using System.Text;
 using Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
 {
@@ -28,6 +29,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             get { return (double)GetValue(TouchTargetThresholdProperty); }
             set { SetValue(TouchTargetThresholdProperty, value); }
+        }
+
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.Key == Windows.System.VirtualKey.Space || e.Key == Windows.System.VirtualKey.Enter)
+            {
+                this.ToggleDrawer();
+                e.Handled = true;
+            }
         }
 
         internal AnimationContext Context

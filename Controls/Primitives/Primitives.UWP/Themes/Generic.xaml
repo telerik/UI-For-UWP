@@ -23,6 +23,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="AnimatedIndicatorContent" Value="&#xE015;" />
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="AnimatedIndicatorContentTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -211,11 +212,12 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <ContentPresenter
+                                <ContentPresenter 
                                     Grid.Column="0"
                                     x:Name="PART_MainContentPresenter"
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    AutomationProperties.AccessibilityView="Raw"/>
                                 <ContentPresenter
                                     Content="{TemplateBinding AnimatedIndicatorContent}"
                                     ContentTemplate="{TemplateBinding AnimatedIndicatorContentTemplate}"
@@ -223,7 +225,8 @@
                                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                     Grid.Column="1"
                                     x:Name="PART_AnimatedIndicator"
-                                    RenderTransformOrigin="0.5, 0.5">
+                                    RenderTransformOrigin="0.5, 0.5"
+                                    AutomationProperties.AccessibilityView="Raw">
                                     <ContentPresenter.RenderTransform>
                                         <RotateTransform x:Name="AnimatedIndicatorRotate"/>
                                     </ContentPresenter.RenderTransform>
@@ -237,7 +240,7 @@
                                 x:Name="PART_ExpandableContentHolder"
                                 Height="0"
                                 Width="0">
-                                <ContentPresenter
+                                <ContentPresenter 
                                     Visibility="Collapsed"
                                     x:Name="PART_ExpandableContentPresenter"
                                     Content="{TemplateBinding ExpandableContent}"
@@ -336,7 +339,7 @@
 
     <Style TargetType="primitivesLoopingList:LoopingListItem" BasedOn="{StaticResource LoopingListItemStyle}">
         <Setter Property="IsTabStop" Value="False"/>
-        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="IsHitTestVisible" Value="True"/>
         <Setter Property="Foreground" Value="{ThemeResource TelerikLoopingItemForegroundBrush}" />
         <Setter Property="Background" Value="{ThemeResource TelerikLoopingItemBackgroundBrush}" />
         <Setter Property="Template" Value="{StaticResource LoopingListItemControlTemplate}" />
@@ -375,6 +378,7 @@
     <!-- SideDrawer start -->
 
     <Style TargetType="sideDrawer:DrawerButton">
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
         <Setter Property="BorderBrush" Value="White"/>
@@ -506,7 +510,7 @@
                                     <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{TemplateBinding Padding}"
                                                       Content="{TemplateBinding Title}" ContentTemplate="{TemplateBinding TitleTemplate}"/>
                                     <ContentControl x:Name="PART_Notification" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{TemplateBinding Padding}"
-                                                    FontWeight="Bold" Content="{TemplateBinding Notification}" ContentTemplate="{TemplateBinding NotificationTemplate}"/>
+                                                    FontWeight="Bold" Content="{TemplateBinding Notification}" ContentTemplate="{TemplateBinding NotificationTemplate}" IsTabStop="False"/>
                                 </Grid>
                             </localHubTile:FlipControl.FrontContent>
                         </localHubTile:FlipControl>
@@ -519,6 +523,7 @@
     <localHubTile:OrientationToPathDataConverter x:Key="OrientationToPathDataConverter"/>
 
     <Style TargetType="local:RadHexHubTile" BasedOn="{StaticResource BaseHubTileStyle}">
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="Length" Value="171"/>
         <Setter Property="Padding" Value="20"/>
         <Setter Property="IsFrozen" Value="True"/>
@@ -629,6 +634,7 @@
     </Style>
 
     <Style TargetType="localHubTile:CustomMosaicTilePart">
+        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localHubTile:CustomMosaicTilePart">
@@ -949,6 +955,8 @@
     </Style>
 
     <Style TargetType="localHubTile:SlideControl">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="AutomationProperties.AccessibilityView" Value="Raw"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localHubTile:SlideControl">
@@ -1000,6 +1008,8 @@
     </Style>
 
     <Style TargetType="localHubTile:FlipControl">
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="AutomationProperties.AccessibilityView" Value="Raw"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localHubTile:FlipControl">

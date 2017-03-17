@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Data
@@ -155,6 +156,12 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             this.OnTap(e.OriginalSource as UIElement, e.OriginalSource as UIElement, e.GetPosition(e.OriginalSource as UIElement));
             this.UpdateCheckBoxVisualState("Normal");
+
+            AutomationPeer itemPeer = FrameworkElementAutomationPeer.FromElement(this);
+            if (itemPeer != null)
+            {
+                itemPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+            }
         }
 
         /// <summary>

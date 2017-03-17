@@ -4,9 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.RangeSlider;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
@@ -285,6 +287,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RangeSliderPrimitiveAutomationPeer(this);
+        }
+        
         internal virtual void OnSelectionOffsetChanged(EventArgs e)
         {
             EventHandler handler = this.SelectionOffsetChanged;
@@ -303,6 +310,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             this.TryUpdate();
             this.UpdateCoeficient();
+
+            RangeSliderPrimitiveAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RangeSliderPrimitiveAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseMaximumPropertyChangedEvent((double)oldMinimum, (double)newMinimum);
+            }
         }
 
         internal override void OnMaximumChanged(double oldMaximum, double newMaximum)
@@ -314,6 +327,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             this.TryUpdate();
             this.UpdateCoeficient();
+
+            RangeSliderPrimitiveAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RangeSliderPrimitiveAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseMaximumPropertyChangedEvent((double)oldMaximum, (double)newMaximum);
+            }
         }
 
         internal override void OnOrientationChanged(Orientation oldOrientation, Orientation newOrientation)
