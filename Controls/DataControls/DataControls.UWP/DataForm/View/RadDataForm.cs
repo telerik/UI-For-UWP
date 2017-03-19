@@ -422,9 +422,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         object IDataFormView.CreateGroupContainer(string groupKey)
         {
             RadExpanderControl groupHeader = new RadExpanderControl();
-#if WINDOWS_UWP
             groupHeader.UseSystemFocusVisuals = true;
-#endif
             groupHeader.IsExpanded = true;
             groupHeader.ExpandableContent = this.LayoutDefinition.CreateGroupLayoutPanel(groupKey);
 
