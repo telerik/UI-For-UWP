@@ -64,6 +64,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar.Commands
             if (this.Owner.CurrentDate != cellModel.Date)
             {
                 this.Owner.CurrencyService.CurrentDate = cellModel.Date;
+                this.Owner.FireAutomationFocusEvent();
             }
             else
             {

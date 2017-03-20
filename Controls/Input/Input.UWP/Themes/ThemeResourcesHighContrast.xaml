@@ -1,0 +1,257 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls">
+
+    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer" />
+
+    <!--#region SegmentedControl Brushes-->
+
+    <SolidColorBrush x:Key="TelerikSegmentedControlBackgroundThemeBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TelerikSegmentedControlBorderThemeBrush" Color="{ThemeResource TelerikSelectedColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentedControlSeparatorThemeBrush" Color="{ThemeResource TelerikSelectedColor}" />
+
+    <SolidColorBrush x:Key="TelerikSegmentedControlDisabledBackgroundThemeBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TelerikSegmentedControlDisabledBorderThemeBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentedControlDisabledSeparatorThemeBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+
+    <!--segment normal-->
+
+    <SolidColorBrush x:Key="TelerikSegmentBackgroundThemeBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TelerikSegmentContentForegroundThemeBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentBorderThemeBrush" Color="Transparent" />
+
+    <!--segment pointer over-->
+
+    <SolidColorBrush x:Key="TelerikSegmentPointerOverBackgroundThemeBrush" Color="{ThemeResource SystemColorHighlightColor}" Opacity="0.4" />
+    <SolidColorBrush x:Key="TelerikSegmentPointerOverContentForegroundThemeBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentPointerOverBorderThemeBrush" Color="Transparent" />
+
+    <!--segment pressed-->
+
+    <SolidColorBrush x:Key="TelerikSegmentPressedBackgroundThemeBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentPressedContentForegroundThemeBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentPressedBorderThemeBrush" Color="Transparent" />
+
+    <!--segment disabled-->
+
+    <SolidColorBrush x:Key="TelerikSegmentDisabledBackgroundThemeBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TelerikSegmentDisabledContentForegroundThemeBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentDisabledBorderThemeBrush" Color="Transparent" />
+
+    <!--segment selected-->
+
+    <SolidColorBrush x:Key="TelerikSegmentSelectedBackgroundThemeBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentSelectedContentForegroundThemeBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentSelectedBorderThemeBrush" Color="Transparent" />
+
+    <!--segment selected pointer over-->
+
+    <SolidColorBrush x:Key="TelerikSegmentSelectedPointerOverBackgroundThemeBrush" Color="{ThemeResource SystemColorHighlightColor}" Opacity="0.7" />
+    <SolidColorBrush x:Key="TelerikSegmentSelectedPointerOverContentForegroundThemeBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentSelectedPointerOverBorderThemeBrush" Color="Transparent" />
+
+    <!--segment selected pressed-->
+
+    <SolidColorBrush x:Key="TelerikSegmentSelectedPressedBackgroundThemeBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentSelectedPressedContentForegroundThemeBrush" Color="{ThemeResource SystemColorButtonFaceColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentSelectedPressedBorderThemeBrush" Color="Transparent" />
+
+    <!--segment selected disabled-->
+
+    <SolidColorBrush x:Key="TelerikSegmentSelectedDisabledBackgroundThemeBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentSelectedDisabledContentForegroundThemeBrush" Color="{ThemeResource TelerikWhiteColor}" />
+    <SolidColorBrush x:Key="TelerikSegmentSelectedDisabledBorderThemeBrush" Color="Transparent" />
+
+    <!--#endregion-->
+
+    <!--#region AutoCompleteBox Brushes-->
+
+    <!--Inline-->
+
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxHeaderForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxWatermarkForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <!--PointerOver-->
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxPointerOverBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxPointerOverBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+    <!--Focused-->
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxFocusedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxFocusedBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxFocusedBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+    <!--Disabled-->
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxDisabledBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxDisabledBorderBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxWatermarkDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+
+    <!--Selector-->
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxSelectorBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxSelectorBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxSelectorItemBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxSelectorSelectedItemBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikAutoCompleteBoxSelectorSelectedItemBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <!--#endregion-->
+
+    <!--#region DateTimePicker Brushes-->
+
+    <!--Header-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerHeaderForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <!--Rest state-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerArrowForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <!--Hover state-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerPointerOverBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerPointerOverBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectedPointerOverBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+
+    <!--Focused state-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerFocusedBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerFocusedBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerFocusedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+    <!--Pressed state-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerPressedBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerPressedBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerPressedForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerArrowPressedForegroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerPressedHighlightBrush" Color="{ThemeResource SystemColorWindowColor}" />
+
+    <!--Disabled state-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerDisabledBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerDisabledBorderBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerArrowDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+
+    <!--Selector-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <!--SelectorItem Rest State-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorItemBackgroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorItemForegroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+
+    <!--SelectorItem Select State-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorItemSelectedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorItemSelectedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <!--SelectorItem Disabled State-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorItemDisabledBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorItemDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+
+    <!--SelectorIconButton States-->
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorButtonBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorButtonBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemColorButtonFaceColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectorButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <!--#endregion-->
+
+    <!--#region NumericBox Brushes-->
+
+    <!--Normal State-->
+    <SolidColorBrush x:Key="TelerikNumericBoxBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxHeaderForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxWatermarkForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <!--PointerOver State-->
+    <SolidColorBrush x:Key="TelerikNumericBoxPointerOverBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxPointerOverBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+    <!--Focused State-->
+    <SolidColorBrush x:Key="TelerikNumericBoxFocusedBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxFocusedBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+    <!--Disabled State-->
+    <SolidColorBrush x:Key="TelerikNumericBoxDisabledBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxDisabledBorderBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxWatermarkDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+
+    <!--Spin Button-->
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonBackgroundBrush" Color="{ThemeResource TelerikSelectedColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPointerOverBackgroundBrush" Color="#FF217DC9" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonDisabledBackgroundBrush" Color="#66CACACA" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonDisabledBorderBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+
+    <!--Delete Button-->
+    <SolidColorBrush x:Key="TelerikNumericBoxDeleteButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxDeleteButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemColorButtonFaceColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxDeleteButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxDeleteButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <!--#endregion-->
+
+    <!--#region Calendar Brushes-->
+
+    <!--GridLines-->
+    <SolidColorBrush x:Key="TelerikCalendarGridLinesBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <!--DayNames-->
+    <SolidColorBrush x:Key="TelerikCalendarDayNamesForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <!--CellStyles-->
+    <SolidColorBrush x:Key="TelerikCalendarNormalCellForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarAnotherViewCellForegroundBrush" Color="{ThemeResource SystemColorHotlightColor}" />
+
+    <SolidColorBrush x:Key="TelerikCalendarBlackoutCellForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarBlackoutCellBackgroundBrush" Color="#FFF0F0F0" />
+
+    <SolidColorBrush x:Key="TelerikCalendarSelectedCellForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarSelectedCellBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarSelectedCellBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikCalendarHighlightedCellBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+    <!--HoldClueControl-->
+    <SolidColorBrush x:Key="TelerikCalendarHoldClueControlBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+    <!--NavigationControl-->
+    <SolidColorBrush x:Key="TelerikCalendarNavigationControlBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+
+    <SolidColorBrush x:Key="TelerikCalendarPreviousNextButtonForegroundBrush" Color="{ThemeResource SystemColorHotlightColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarPreviousNextButtonDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarPreviousNextButtonPointerOverForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarPreviousNextButtonPointerPressedForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikCalendarHeaderButtonForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarHeaderButtonDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarHeaderButtonPointerPressedForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarHeaderButtonPointerOverForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <!--Hover-->
+    <SolidColorBrush x:Key="TelerikCalendarPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarPointerOverBorderBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikCalendarCurrentCellBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+    <!--#endregion-->
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsHighContrast.xaml" />
+        <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

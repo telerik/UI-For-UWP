@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 
@@ -89,6 +91,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             base.OnPointerExited(e);
             this.isMouseOver = false;
             this.UpdateVisualState(false);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridColumnReorderServicePanelAutomationPeer(this);
         }
 
         internal void OpenColumnsFlyout()

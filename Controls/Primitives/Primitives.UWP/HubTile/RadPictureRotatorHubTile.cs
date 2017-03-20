@@ -1,6 +1,8 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.HubTile;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -221,6 +223,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             this.firstImage.Source = this.GetRandomImageSource();
             this.secondImage.Source = this.GetRandomImageSource();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadPictureRotatorHubTileAutomationPeer(this);
         }
 
         private void OnCurrentAnimationCompleted(object sender, object args)

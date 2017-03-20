@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Diagnostics;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -120,7 +123,8 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             this.DefaultStyleKey = typeof(RadLoopingList);
 
             this.SizeChanged += this.OnSizeChanged;
-
+            this.KeyDown += this.OnKeyDown;
+            
             this.isExpanded = true;
             this.selectedVisualIndex = -1;
             this.selectedIndex = -1;
@@ -533,6 +537,20 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
                 }
 
                 this.UpdateItemsIsSelectedState();
+
+                if (this.ItemsPanel != null)
+                {
+                    var loopingListItem = this.ItemsPanel.ItemFromLogicalIndex(this.selectedIndex) as LoopingListItem;
+                    if (loopingListItem != null)
+                    {
+                        loopingListItem.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementAddedToSelection,
+                                                             AutomationEvents.SelectionItemPatternOnElementRemovedFromSelection,
+                                                             AutomationEvents.SelectionItemPatternOnElementSelected,
+                                                             AutomationEvents.SelectionPatternOnInvalidated,
+                                                             AutomationEvents.AutomationFocusChanged);
+
+                    }
+                }
             }
 
             if (reason != LoopingListSelectionChangeReason.PrivateNoNotify)
@@ -1088,7 +1106,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             base.OnGotFocus(e);
-
+            
             this.IsExpanded = true;
         }
 
@@ -1099,7 +1117,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
         protected override void OnLostFocus(RoutedEventArgs e)
         {
             base.OnLostFocus(e);
-
+            
             this.IsExpanded = false;
             this.skipTapped = false;
         }
@@ -1148,6 +1166,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             {
                 e.Handled = true;
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.RadLoopingListAutomationPeer(this);
         }
 
         private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1229,6 +1252,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
 
             list.UpdateItemsVisualState();
 
+            RadLoopingListAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(list) as RadLoopingListAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseExpandCollapseAutomationEvent(!((bool)e.NewValue), (bool)e.NewValue);
+            }
+
             list.OnIsExpandedChanged();
         }
 
@@ -1290,6 +1319,71 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             RectangleGeometry clip = new RectangleGeometry();
             clip.Rect = new Rect(0, 0, e.NewSize.Width, e.NewSize.Height);
             this.Clip = clip;
+        }
+
+        private void OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (!e.Handled)
+            {
+                e.Handled = this.HandleKeyboardInput(e.Key);
+            }
+        }
+
+        private bool HandleKeyboardInput(VirtualKey key)
+        {
+            if (this.SelectedIndex > -1)
+            {
+                switch (key)
+                {
+                    case VirtualKey.Up:
+                        this.SelectPrev(this.SelectedIndex - 1);
+                        return true;
+                    case VirtualKey.Down:
+                        this.SelectNext(this.SelectedIndex + 1);
+                        return true;
+                    case VirtualKey.Home:
+                        if (this.SelectedIndex != 0)
+                        {
+                            this.SelectedIndex = 0;
+                        }
+                        return true;
+                    case VirtualKey.End:
+                        var lastIndex = this.itemsPanel.LogicalCount - 1;
+                        if (this.SelectedIndex != lastIndex)
+                        {
+                            this.SelectedIndex = lastIndex;
+                        }
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        internal void SelectNext(int indexToSelect)
+        {
+            if (this.IsIndexSelectable(indexToSelect))
+            {
+                this.SelectedIndex = indexToSelect >= this.itemsPanel.LogicalCount ? 0 : indexToSelect;
+            }
+        }
+
+        internal void SelectPrev(int indexToSelect)
+        {
+            if (this.IsIndexSelectable(indexToSelect))
+            {
+                this.SelectedIndex = indexToSelect < 0 ? this.itemsPanel.LogicalCount - 1 : indexToSelect;
+            }
+        }
+
+        private bool IsIndexSelectable(int index)
+        {
+            if (this.IsLoopingEnabled || (index < this.itemsPanel.LogicalCount && index > -1))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void SetupPanel()

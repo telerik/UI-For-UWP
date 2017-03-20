@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.DateTimePickers;
 using Telerik.UI.Xaml.Controls.Primitives.LoopingList;
 using Windows.Foundation;
@@ -10,6 +11,7 @@ using Windows.System.Profile;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
@@ -720,15 +722,10 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return true;
             }
 
-            if (key == VirtualKey.Down)
+            if (key == VirtualKey.Down || key == VirtualKey.Up 
+                || key == VirtualKey.Home || key == VirtualKey.End)
             {
-                this.SelectNextItem();
-                return true;
-            }
-
-            if (key == VirtualKey.Up)
-            {
-                this.SelectPreviousItem();
+                this.SelectCurrentIndex();
                 return true;
             }
 
@@ -1023,6 +1020,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return;
             }
 
+            DateTimePickerAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(picker) as DateTimePickerAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseExpandCollapseAutomationEvent(!((bool)args.NewValue), (bool)args.NewValue);
+            }
+
             if ((bool)args.NewValue)
             {
                 picker.PrepareSelector();
@@ -1168,7 +1171,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             args.Handled = this.PerformSelectorKeyDown(args.VirtualKey);
         }
 
-        private void SelectNextItem()
+        private void SelectCurrentIndex()
         {
             int index = this.GetExpandedIndex();
             if (index == -1)
@@ -1176,18 +1179,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return;
             }
 
-            SelectNextDateTimeItem(this.dateTimeLists[index]);
-        }
-
-        private void SelectPreviousItem()
-        {
-            int index = this.GetExpandedIndex();
-            if (index == -1)
-            {
-                return;
-            }
-
-            SelectPreviousDateTimeItem(this.dateTimeLists[index]);
+            TryUpdateSelection(this.dateTimeLists[index], this.dateTimeLists[index].SelectedIndex);
         }
 
         private void ExpandLastOrPreviousList()

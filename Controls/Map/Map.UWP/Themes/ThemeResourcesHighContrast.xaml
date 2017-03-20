@@ -1,0 +1,30 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls">
+
+    <SolidColorBrush x:Key="TelerikMapBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+    <SolidColorBrush x:Key="TelerikMapBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <Color x:Key="TelerikMapShapeFillColor">#FFE5E5E5</Color>
+    <Color x:Key="TelerikMapShapeStrokeColor">#FFBFBFBF</Color>
+    <Color x:Key="TelerikMapShapeForegroundColor">#FF707070</Color>
+
+    <Color x:Key="TelerikMapShapePointerOverFillColor">#FF2086D9</Color>
+    <Color x:Key="TelerikMapShapePointerOverStrokeColor">#FFBFBFBF</Color>
+    <Color x:Key="TelerikMapShapePointerOverForegroundColor">#FF000000</Color>
+
+    <Color x:Key="TelerikMapShapeSelectedFillColor">#FF006AC1</Color>
+    <Color x:Key="TelerikMapShapeSelectedStrokeColor">#FFBFBFBF</Color>
+    <Color x:Key="TelerikMapShapeSelectedForegroundColor">#FF000000</Color>
+
+    <SolidColorBrush x:Key="TelerikMapToolTipForeground" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikMapToolTipBackground" Color="{ThemeResource SystemColorWindowColor}" />
+
+    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

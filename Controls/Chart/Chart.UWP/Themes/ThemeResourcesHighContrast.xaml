@@ -1,0 +1,42 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Chart.Themes"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls">
+
+    <!-- Axis -->
+
+    <SolidColorBrush x:Key="TelerikChartAxisBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikChartAxisLabelsForegroundBrush" Color="{StaticResource SystemColorGrayTextColor}"/>
+    <SolidColorBrush x:Key="TelerikChartAxisTitleForegroundBrush" Color="{StaticResource SystemColorButtonTextColor}"/>
+
+    <!-- Grid -->
+
+    <SolidColorBrush x:Key="TelerikChartGridLineBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikChartStripeBackgroundBrush" Color="#0A000000" />
+
+    <!-- Annotations -->
+
+    <SolidColorBrush x:Key="TelerikChartGridLineAnnotationBorderBrush" Color="#991D1D1D" />
+    <SolidColorBrush x:Key="TelerikChartPlotBandAnnotationBackgroundBrush" Color="#190D486B" />
+    <SolidColorBrush x:Key="TelerikChartMarkedZoneAnnotationBackgroundBrush" Color="#190D486B" />
+
+    <!-- TrackBall -->
+
+    <SolidColorBrush x:Key="TelerikChartTrackBallLineBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+
+    <SolidColorBrush x:Key="TelerikChartTrackBallInfoBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikChartTrackBallInfoForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikChartToolTipForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikChartToolTipBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+
+    <SolidColorBrush x:Key="TelerikChartPolarChartGridStripeBrush" Color="#66000000" Opacity="0.15"/>
+
+    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

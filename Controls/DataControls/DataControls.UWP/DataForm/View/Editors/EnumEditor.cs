@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     {
         public EnumEditor()
         {
-            this.DefaultStyleKey = typeof(ComboBox);
+            this.DefaultStyleKey = typeof(EnumEditor);
         }
 
         public void BindEditor()

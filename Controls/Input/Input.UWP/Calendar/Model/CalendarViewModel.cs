@@ -52,7 +52,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             return base.CanAddChild(child);
         }
-
+         
         internal override RadRect ArrangeOverride(RadRect rect)
         {
             this.layoutSlot = rect;
@@ -173,12 +173,15 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.calendarCells = new ElementCollection<CalendarCellModel>(this);
 
-                int itemCount = this.RowCount * this.ColumnCount;
-                for (int cellIndex = 0; cellIndex < itemCount; cellIndex++)
+                // New way of indexing cell models to support the ITableProvider and IGridProvider automation providers.
+                for (int i = 0; i < this.RowCount; i++)
                 {
-                    CalendarCellModel cell = new CalendarCellModel();
+                    for (int j = 0; j < this.ColumnCount; j++)
+                    {
+                        CalendarCellModel cell = new CalendarCellModel(i, j);
 
-                    this.calendarCells.Add(cell);
+                        this.calendarCells.Add(cell);
+                    }
                 }
             }
             else

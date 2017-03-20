@@ -27,6 +27,12 @@
                 <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
     <!-- Common -->
@@ -626,6 +632,7 @@
     <!-- Start Range Slider -->
 
     <Style TargetType="local:RadRangeSlider">
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="TopLeftScaleStyle">
             <Setter.Value>
                 <Style TargetType="localRangeSliderPrimitives:ScalePrimitive">
@@ -684,6 +691,8 @@
                                                                              ShowValueToolTip ="{TemplateBinding ShowValueToolTip}"
                                                                              ShowRangeToolTip ="{TemplateBinding ShowRangeToolTip}"                                     
                                                                              ToolTipFormat ="{TemplateBinding ToolTipFormat}"
+                                                                             AutomationProperties.AccessibilityView="Raw"
+                                                                             IsTabStop="False"
                                                                              Style="{TemplateBinding SliderPrimitiveStyle}"/>
                             <localRangeSliderPrimitives:ScalePrimitive x:Name="PART_ScaleBottomRight"
                                                                        LabelFormat="{TemplateBinding LabelFormat}"

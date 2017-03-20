@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Grid.Commands;
 using Telerik.UI.Xaml.Controls.Primitives.Common;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
@@ -215,6 +217,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return applied;
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridColumnHeaderAutomationPeer(this);
+        }
+
         /// <summary>
         /// Provides the behavior for the Arrange pass of layout. Classes can override this method to define their own Arrange pass behavior.
         /// </summary>
@@ -282,6 +289,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             base.OnTemplateApplied();
 
             this.filterButton.Tapped += this.OnFilterButtonTapped;
+            this.filterButton.Click += this.OnFilterButtonClicked;
 
             this.thumb.PointerPressed += Thumb_PointerPressed;
             this.thumb.IsDoubleTapEnabled = true;
@@ -300,6 +308,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             base.UnapplyTemplateCore();
 
             this.filterButton.Tapped -= this.OnFilterButtonTapped;
+            this.filterButton.Click -= this.OnFilterButtonClicked;
 
             this.thumb.DragStarted -= this.Thumb_DragStarted;
             this.thumb.DragDelta -= this.Thumb_DragDelta;
@@ -317,9 +326,14 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         private void OnFilterButtonTapped(object sender, TappedRoutedEventArgs e)
         {
+            e.Handled = true;
+        }
+
+        private void OnFilterButtonClicked(object sender, RoutedEventArgs e)
+        {
             if (this.Owner != null)
             {
-                this.Owner.OnFilterButtonTap(this, e);
+                this.Owner.OnFilterButtonTap(this);
             }
         }
 

@@ -2,11 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.AutoCompleteBox;
 using Windows.Foundation;
 using Windows.System;
 using Windows.UI;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
@@ -1039,6 +1042,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.filterDelayTimer.Stop();
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadAutoCompleteBoxAutomationPeer(this);
+        }
+
         /// <summary>
         /// Raises the <see cref="E:PropertyChanged" /> event.
         /// </summary>
@@ -1107,6 +1116,11 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (autoCompleteBox.IsTemplateApplied)
             {
+                AutomationPeer peer = FrameworkElementAutomationPeer.FromElement(autoCompleteBox);
+                if (peer != null)
+                {
+                    peer.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, args.OldValue, args.NewValue);
+                }
                 autoCompleteBox.textbox.Text = autoCompleteBox.textCache;
             }
         }
@@ -1255,6 +1269,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                 autoCompleteBox.suggestionsControl.ClearValue(FrameworkElement.WidthProperty);
 
                 autoCompleteBox.suggestionsControl.MaxHeight = autoCompleteBox.DropDownMaxHeight;
+            }
+
+            RadAutoCompleteBoxAutomationPeer autoCompletePeer = FrameworkElementAutomationPeer.FromElement(autoCompleteBox) as RadAutoCompleteBoxAutomationPeer;
+            if (autoCompletePeer != null)
+            {
+                autoCompletePeer.RaisePropertyChangedEvent(ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty, args.OldValue, args.NewValue);
             }
         }
 

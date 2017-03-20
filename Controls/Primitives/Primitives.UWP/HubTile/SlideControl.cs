@@ -1,5 +1,7 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Primitives.HubTile
 {
@@ -145,7 +147,18 @@ namespace Telerik.UI.Xaml.Controls.Primitives.HubTile
                 slide.UpdateVisualState(slide.IsLoaded);
 
                 slide.updatingExpandedState = false;
+
+                SlideControlAutomationPeer peer = SlideControlAutomationPeer.FromElement(slide) as SlideControlAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseExpandCollapseAutomationEvent((SlideTileExpandedState)e.OldValue, (SlideTileExpandedState)e.NewValue);
+                }
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SlideControlAutomationPeer(this);
         }
 
         private void UpdateExpandedState()

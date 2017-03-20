@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.Calendar;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 
@@ -79,6 +81,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             bool handled = false;
+            DateTime oldCurrentDate = this.CurrentDate;
 
             switch (key)
             {
@@ -120,12 +123,37 @@ namespace Telerik.UI.Xaml.Controls.Input
                     }
             }
 
+            // Shift Selection in Multiple SelectionMode.
+            if (key != VirtualKey.Enter && key != VirtualKey.Space && 
+                KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift) && !KeyboardHelper.IsModifierKeyDown(VirtualKey.Control) &&
+                oldCurrentDate != this.CurrentDate && this.SelectionMode == CalendarSelectionMode.Multiple)
+            {
+                CalendarCellModel oldCurrentModel = this.GetCellByDate(oldCurrentDate);
+                CalendarCellModel newCurrentModel = this.GetCellByDate(this.CurrentDate);                
+
+                this.SelectionService.MakeRangeSelection(oldCurrentModel, newCurrentModel);
+            }
+
+            if (oldCurrentDate != this.CurrentDate)
+            {
+                this.FireAutomationFocusEvent();
+            }
+
             if (handled && this.FocusState != FocusState.Keyboard)
             {
                 this.TryFocus(FocusState.Keyboard);
             }
 
             return handled;
+        }
+
+        internal void FireAutomationFocusEvent()
+        {
+            RadCalendarAutomationPeer calendarPeer = FrameworkElementAutomationPeer.FromElement(this) as RadCalendarAutomationPeer;
+            if (calendarPeer != null)
+            {
+                calendarPeer.RaiseAutomationFocusEvent(this.CurrentDate);
+            }
         }
 
         /// <summary>
@@ -211,6 +239,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             e.Handled = this.ProcessKeyDown(e.Key);
-        }
+        }        
     }
 }

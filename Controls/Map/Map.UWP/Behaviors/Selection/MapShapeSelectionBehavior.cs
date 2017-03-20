@@ -273,6 +273,43 @@ namespace Telerik.UI.Xaml.Controls.Map
             }
         }
 
+        internal void PerformSelection(D2DShape shape)
+        {
+            MapShapeModel model = shape.Model as MapShapeModel;
+            if (model == null)
+            {
+                Debug.Assert(false, "Must have a model associated with each UI shape");
+                return;
+            }
+
+            var context = new SelectionChangeContext()
+            {
+                Layer = this.map.Layers.FindLayerById(shape.LayerId),
+                Shape = shape,
+                Model = model
+            };
+
+            if (this.selectionModeCache == MapShapeSelectionMode.Single)
+            {
+                this.SingleSelect(context, true);
+            }
+            else if (this.selectionModeCache == MapShapeSelectionMode.MultiSimple)
+            {
+                this.SingleSelect(context, false);
+            }
+            else if (this.selectionModeCache == MapShapeSelectionMode.MultiExtended)
+            {
+                this.MultiExtendedSelect(context);
+            }
+
+            this.NotifySelectionChanged(context);
+        }
+
+        internal void DeselectShape(MapShapeModel shapeModel)
+        {
+            this.selectedModels.Remove(shapeModel);
+        }
+
         private static void OnSelectionModePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var behavior = d as MapShapeSelectionBehavior;
@@ -334,39 +371,7 @@ namespace Telerik.UI.Xaml.Controls.Map
                     }
                 }
             }
-        }
-
-        private void PerformSelection(D2DShape shape)
-        {
-            MapShapeModel model = shape.Model as MapShapeModel;
-            if (model == null)
-            {
-                Debug.Assert(false, "Must have a model associated with each UI shape");
-                return;
-            }
-
-            var context = new SelectionChangeContext()
-            {
-                Layer = this.map.Layers.FindLayerById(shape.LayerId),
-                Shape = shape,
-                Model = model
-            };
-
-            if (this.selectionModeCache == MapShapeSelectionMode.Single)
-            {
-                this.SingleSelect(context, true);
-            }
-            else if (this.selectionModeCache == MapShapeSelectionMode.MultiSimple)
-            {
-                this.SingleSelect(context, false);
-            }
-            else if (this.selectionModeCache == MapShapeSelectionMode.MultiExtended)
-            {
-                this.MultiExtendedSelect(context);
-            }
-
-            this.NotifySelectionChanged(context);
-        }
+        }        
 
         private void OnSelectionModeChanged()
         {

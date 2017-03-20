@@ -178,7 +178,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         private static bool IsPointInElementBounds(FrameworkElement element, Point position)
         {
             Size emptySize = new Size(0, 0);
-            if (element.RenderSize == emptySize || element.DesiredSize == emptySize)
+            if (element.RenderSize == emptySize || element.RenderSize == emptySize)
             {
                 return false;
             }
@@ -200,7 +200,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             Size emptySize = new Size(0, 0);
             Point elementCenterInContainerBounds = elementCenter;
 
-            if (element.RenderSize != emptySize && container.RenderSize != emptySize)
+            if (element.RenderSize != emptySize && container.DesiredSize != emptySize)
             {
                 elementCenterInContainerBounds = element.TransformToVisual(container).TransformPoint(elementCenter);
             }

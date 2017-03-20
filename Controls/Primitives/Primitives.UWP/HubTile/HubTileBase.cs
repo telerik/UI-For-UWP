@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Windows.Input;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.HubTile;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
@@ -89,7 +91,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.updateTimer.Tick += this.OnUpdateTimerTick;
             this.updateIntervalChache = (TimeSpan)this.GetValue(UpdateIntervalProperty);
             this.UpdateTimer.Interval = this.updateIntervalChache;
-
+            
             this.SizeChanged += this.OnSizeChanged;
 
             InteractionEffectManager.SetIsInteractionEnabled(this, true);
@@ -333,6 +335,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// </summary>
         internal void ExecuteCommand()
         {
+            if (AutomationPeer.ListenerExists(AutomationEvents.InvokePatternOnInvoked))
+            {
+                AutomationPeer peer = FrameworkElementAutomationPeer.CreatePeerForElement(this);
+                if (peer != null)
+                    peer.RaiseAutomationEvent(AutomationEvents.InvokePatternOnInvoked);
+            }
+
             if (this.Command == null)
             {
                 return;
@@ -412,6 +421,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             base.OnTapped(e);
 
+            var peer = FrameworkElementAutomationPeer.FromElement(this);
+            if (peer != null)
+            {
+                peer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+            }
             this.ExecuteCommand();
         }
 
@@ -435,6 +449,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.UpdateTimerState();
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new HubTileBaseAutomationPeer(this);
+        }
+        
         /// <summary>
         /// A virtual method that resets the timer.
         /// </summary>
@@ -505,6 +524,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             HubTileBase hubTile = (HubTileBase)sender;
             hubTile.UpdateTimerState();
+
+            var peer = FrameworkElementAutomationPeer.CreatePeerForElement(hubTile) as HubTileBaseAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseToggleStatePropertyChangedEvent((bool)args.OldValue, (bool)args.NewValue);
+            }
         }
 
         private static void OnIsFlippedChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

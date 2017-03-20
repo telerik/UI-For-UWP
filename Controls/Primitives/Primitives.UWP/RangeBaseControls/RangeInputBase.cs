@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
@@ -91,6 +92,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             RangeControlBase.VerifyValidDoubleValue((double)e.NewValue);
             sender.OnLargeChangeChanged((double)e.OldValue, (double)e.NewValue);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.RangeInputBaseAutomationPeer(this);
         }
     }
 }

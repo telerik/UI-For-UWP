@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Telerik.UI.Xaml.Controls.Primitives.Menu;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 
@@ -425,6 +427,20 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             if (item.Owner != null)
             {
                 item.Owner.OnSelectionChanged(item);
+
+                var contentSegment = item.Owner.GetContentSegment(item);
+                if (contentSegment != null)
+                {
+                    var radialMenuItemControl = contentSegment.Visual as RadialMenuItemControl;
+                    if (radialMenuItemControl != null)
+                    {
+                        var peer = FrameworkElementAutomationPeer.CreatePeerForElement(radialMenuItemControl) as RadialMenuItemControlAutomationPeer;
+                        if (peer != null)
+                        {
+                            peer.RaiseToggleStatePropertyChangedEvent((bool)e.OldValue, (bool)e.NewValue);
+                        }
+                    }
+                }
             }
         }
 

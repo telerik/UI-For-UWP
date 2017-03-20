@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
 using Telerik.UI.Xaml.Controls.Data.ListView.View.Controls;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -331,12 +334,105 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            object currentItem = this.ListView.CurrentItem;
+
+            // Makes the focus moves like in MS ListView on Tab and Shift + Tab
+            // The negative side effect is small glitch - focus jumps from the first / last item to the current.
+            if (currentItem != this.Content)
+            {
+                this.ListView.FocusCurrentContainer();
+            }
+            else
+            {
+                this.ListView.ScrollItemIntoView(currentItem);
+            }
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadListViewItemAutomationPeer(this);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            bool success = false;
+            this.ListView.currentLogicalIndex = this.logicalIndex;
+
+            switch (e.Key)
+            {
+                case VirtualKey.Right:
+                    {
+                        if (this.Owner.Orientation == Orientation.Horizontal)
+                        {
+                            success = this.Owner.CurrencyService.MoveCurrentToNext();
+                        }
+                    }
+                    break;
+                case VirtualKey.Down:
+                    {
+                        if (this.Owner.Orientation == Orientation.Vertical)
+                        {
+                            success = this.Owner.CurrencyService.MoveCurrentToNext();
+                        }
+                    }
+                    break;
+                case VirtualKey.Left:
+                    {
+                        if (this.Owner.Orientation == Orientation.Horizontal)
+                        {
+                            success = this.Owner.CurrencyService.MoveCurrentToPrevious();
+                        }
+                    }
+                    break;
+                case VirtualKey.Up:
+                    {
+                        if (this.Owner.Orientation == Orientation.Vertical)
+                        {
+                            success = this.Owner.CurrencyService.MoveCurrentToPrevious();
+                        }
+                    }
+                    break;
+                case VirtualKey.Home:
+                    {
+                        success = this.Owner.CurrencyService.MoveCurrentToFirst();
+                    }
+                    break;
+                case VirtualKey.End:
+                    {
+                        success = this.Owner.CurrencyService.MoveCurrentToLast();
+                    }
+                    break;
+                case VirtualKey.Space:
+                case VirtualKey.Enter:
+                    {
+                        if (this.ListView != null)
+                        {
+                            this.ListView.OnItemTap(this, new Point());
+                        }
+                        e.Handled = true;
+                    }
+                    break;
+            }
+
+            if (success)
+            {
+                this.ListView.FocusCurrentContainer();
+                e.Handled = true;
+            }
+        }
+
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RadListViewItem item = d as RadListViewItem;
             item.isSelectedCache = (bool)e.NewValue;
             item.ChangeVisualState(true);
-        }
+        }       
 
         private void OnReorderHandlePointerPressed(object sender, PointerRoutedEventArgs e)
         {

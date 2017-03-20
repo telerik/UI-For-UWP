@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Telerik.Core;
 using Telerik.Core.Data;
 using Telerik.Data.Core;
@@ -358,7 +358,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             index -= this.layoutController.strategy.Layout.GetCollapsedSlotsCount(0, index);
             index = this.layoutController.strategy.GetElementFlatIndex(index);
 
-            return this.FindDataItemFromIndex(index, true, item);
+            return this.FindDataItemFromIndex(index, item);
         }
 
         internal Telerik.Data.Core.DataGroup FindItemParentGroup(object item)
@@ -680,7 +680,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             return (this.CurrentDataProvider.Results.Root.RowGroup == null || this.CurrentDataProvider.Results.Root.RowGroup.Items.Count == 0) && this.DataLoadingMode == BatchLoadingMode.Auto ? 0 : -1;
         }
 
-        private ItemInfo? FindDataItemFromIndex(int index, bool next, object dataItem = null)
+        internal ItemInfo? FindDataItemFromIndex(int index, object dataItem = null)
         {
             var enumerator = this.layoutController.strategy.Layout.GetLines(index, true).GetEnumerator();
 
@@ -711,6 +711,14 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal void RecycleAllContainers()
         {
             this.layoutController.strategy.FullyRecycle();
+        }
+
+        internal int ItemsCount
+        {
+            get
+            {
+                return this.layoutController.strategy.Layout.GetLines(0, true).Count();
+            }
         }
     }
 }

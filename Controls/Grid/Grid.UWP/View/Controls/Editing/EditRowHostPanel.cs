@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
@@ -41,6 +43,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             grid.updateService.RegisterUpdate(UpdateFlags.AffectsDecorations);
 
             return base.MeasureOverride(availableSize);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new EditRowHostPanelAutomationPeer(this);
         }
     }
 }

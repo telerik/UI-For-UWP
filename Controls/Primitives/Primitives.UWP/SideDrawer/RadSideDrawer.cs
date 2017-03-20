@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -641,6 +643,29 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             base.UnapplyTemplateCore();
         }
 
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadSideDrawerAutomationPeer(this);
+        }
+
+        internal void ToggleDrawer()
+        {
+            if (this.IsOpen)
+            {
+                this.Context.MainContentStoryBoardReverse.Begin();
+                this.Context.DrawerStoryBoardReverse.Begin();
+                this.IsOpen = false;
+            }
+            else
+            {
+                this.Context.MainContentStoryBoard.Begin();
+                this.Context.DrawerStoryBoard.Begin();
+                this.IsOpen = true;
+                this.closeDrawer = false;
+            }
+        }
+
         private static void OnDrawerLengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var sideDrawer = d as RadSideDrawer;
@@ -802,6 +827,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
 
             sideDrawer.CommandService.ExecuteCommand(CommandId.DrawerStateChanged, e.NewValue);
+
+            var peer = FrameworkElementAutomationPeer.CreatePeerForElement(sideDrawer) as RadSideDrawerAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseToggleStatePropertyChangedEvent((DrawerState)e.OldValue, (DrawerState)e.NewValue);
+            }
         }
 
         private static void OnDrawerLocationChagned(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -855,19 +886,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
         private void ShowDrawerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.IsOpen)
-            {
-                this.Context.MainContentStoryBoardReverse.Begin();
-                this.Context.DrawerStoryBoardReverse.Begin();
-                this.IsOpen = false;
-            }
-            else
-            {
-                this.Context.MainContentStoryBoard.Begin();
-                this.Context.DrawerStoryBoard.Begin();
-                this.IsOpen = true;
-                this.closeDrawer = false;
-            }
+            this.ToggleDrawer();
         }
 
         private void ResetDrawer()

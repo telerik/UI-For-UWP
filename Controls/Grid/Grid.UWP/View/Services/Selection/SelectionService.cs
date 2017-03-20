@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using Telerik.Core;
 using Telerik.Data.Core;
 using Telerik.Data.Core.Layouts;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Grid.Primitives;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Grid
 {
@@ -64,8 +66,28 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
-        internal void Select(GridCellModel gridCellModel)
+        internal async void Select(GridCellModel gridCellModel)
         {
+            var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this.Owner) as RadDataGridAutomationPeer;
+            if (dataGridPeer != null && dataGridPeer.childrenCache != null)
+            {
+                if (dataGridPeer.childrenCache.Count == 0)
+                {
+                    dataGridPeer.GetChildren();
+                }
+
+                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == gridCellModel.ParentRow.ItemInfo.Slot && a.Column == gridCellModel.Column.ItemInfo.Slot).FirstOrDefault()as DataGridCellInfoAutomationPeer;
+                if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
+                {
+                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => 
+                    {
+                        cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                        cellPeer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementAddedToSelection);
+                        cellPeer.RaiseValuePropertyChangedEvent(false, true);
+                    });
+                }
+            }
+
             switch (this.Owner.SelectionUnit)
             {
                 case DataGridSelectionUnit.Row:

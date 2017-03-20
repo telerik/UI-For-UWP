@@ -1,6 +1,8 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.DataVisualization
@@ -133,6 +135,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         {
             this.PrivateUpdate();
             return base.ArrangeOverride(finalSize);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadialGaugeIndicatorAutomationPeer(this);
         }
 
         private void CalculateRadiusAndCenter(Size availableSize)

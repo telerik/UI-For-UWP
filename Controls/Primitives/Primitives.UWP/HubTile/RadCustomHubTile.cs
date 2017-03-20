@@ -1,5 +1,7 @@
-﻿using Telerik.UI.Xaml.Controls.Primitives.HubTile;
+﻿using Telerik.UI.Automation.Peers;
+using Telerik.UI.Xaml.Controls.Primitives.HubTile;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
@@ -29,6 +31,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         public RadCustomHubTile()
         {
             this.DefaultStyleKey = typeof(RadCustomHubTile);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadCustomHubTileAutomationPeer(this);
         }
 
         /// <summary>

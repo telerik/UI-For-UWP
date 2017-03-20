@@ -1,0 +1,38 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.DataVisualization"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls"
+    >
+
+    <!--Gauges-->
+    <SolidColorBrush x:Key="TelerikGaugeMainIndicatorBackgroundBrush" Color="{StaticResource TelerikForegroundColor}"/>
+    <SolidColorBrush x:Key="TelerikGaugeSecondaryIndicatorBackgroundBrush" Color="{StaticResource TelerikSecondaryForegroundColor}"/>
+    <SolidColorBrush x:Key="TelerikGaugeThirdIndicatorBackgroundBrush" Color="#3D000000"/>
+    <SolidColorBrush x:Key="TelerikGaugeRangeBackgroundBrush" Color="{StaticResource TelerikSecondaryForegroundColor}"/>
+    <SolidColorBrush x:Key="TelerikGaugeRangeForegroundBrush" Color="{ThemeResource SystemColorWindowTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGaugeGoodBackgroundBrush" Color="#FF999999"/>
+    <SolidColorBrush x:Key="TelerikGaugeSatisfactoryBackgroundBrush" Color="#FF4D4D4D"/>
+    <SolidColorBrush x:Key="TelerikGaugeBadBackgroundBrush" Color="#FFFF0000"/>
+    <SolidColorBrush x:Key="TelerikGaugeTickBackgroundBrush" Color="{ThemeResource SystemColorWindowTextColor}"/>
+
+    <!--BulletGraph-->
+    <SolidColorBrush x:Key="TelerikBulletGraphFeaturedMeasureBackgroundBrush" Color="{ThemeResource SystemColorWindowTextColor}"/>
+    <SolidColorBrush x:Key="TelerikBulletGraphBestQualitativeRangeBackgroundBrush" Color="#07000000"/>
+    <SolidColorBrush x:Key="TelerikBulletGraphGoodQualitativeRangeBackgroundBrush" Color="#19000000"/>
+    <SolidColorBrush x:Key="TelerikBulletGraphSatisfactoryQualitativeRangeBackgroundBrush" Color="#33000000"/>
+    <SolidColorBrush x:Key="TelerikBulletGraphBadQualitativeRangeBackgroundBrush" Color="#59000000"/>
+    <SolidColorBrush x:Key="TelerikBulletGraphWorstQualitativeRangeBackgroundBrush" Color="#7F000000"/>
+    <SolidColorBrush x:Key="TelerikBulletGraphQuantitativeRangeForegroundBrush" Color="{StaticResource TelerikSecondaryForegroundColor}"/>
+    <SolidColorBrush x:Key="TelerikBulletGraphTickBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikBulletGraphComparitiveMeasureBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+
+    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsHighContrast.xaml"/>
+        <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+    </ResourceDictionary.MergedDictionaries>
+
+
+</ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
@@ -35,7 +36,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
 
             this.LogicalIndex = -1;
             this.VisualIndex = -1;
-
+            
             this.translateTransform = new TranslateTransform();
             this.RenderTransform = this.translateTransform;
         }
@@ -214,6 +215,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             }
 
             base.SetVisualState(state, animate);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.LoopingListItemAutomationPeer(this);
         }
 
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -1,6 +1,8 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -212,6 +214,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             return base.ArrangeOverride(finalSize);
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new MarkerGaugeIndicatorAutomationPeer(this);
+        }
+
         private static void OnIsRotatedPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MarkerGaugeIndicator indicator = sender as MarkerGaugeIndicator;
@@ -225,6 +232,12 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
                 indicator.visualElementRotation.Angle = indicator.initialRotationAngle;
             }
             indicator.UpdateRotationInLinearRange();
+
+            var peer = FrameworkElementAutomationPeer.CreatePeerForElement(indicator) as MarkerGaugeIndicatorAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseToggleStatePropertyChangedEvent((bool)args.OldValue, (bool)args.NewValue);
+            }
         }
 
         private static void OnContentPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

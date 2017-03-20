@@ -1,5 +1,4 @@
-﻿
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 namespace Telerik.UI.Xaml.Controls.Data
 {
     public class LabelControl : ContentControl

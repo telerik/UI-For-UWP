@@ -1,6 +1,9 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
@@ -53,6 +56,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
 
             return finalSize;
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridContentLayerPanelAutomationPeer(this);
         }
     }
 }

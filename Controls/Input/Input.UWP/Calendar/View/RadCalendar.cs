@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.Calendar;
 using Telerik.UI.Xaml.Controls.Input.Calendar.Commands;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -261,6 +263,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal XamlAppointmentLayer appointmentLayer;
         internal CalendarNavigationControl navigationPanel;
         internal List<CalendarDateRange> unattachedSelectedRanges;
+        internal CalendarViewHost calendarViewHost;
 
         private const string DefaultMonthViewHeaderFormatString = "{0:MMMM yyyy}";
         private const string DefaultYearViewHeaderFormatString = "{0:yyyy}";
@@ -273,8 +276,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         private readonly HitTestService hitTestService;
         private readonly InputService inputService;
         private CommandService commandService;
-
-        private CalendarViewHost calendarViewHost;
 
         private XamlHeaderContentLayer headerContentLayer;
 
@@ -1925,6 +1926,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             return finalSize;
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadCalendarAutomationPeer(this);
+        }
+
         private static void OnDisplayDateStartPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             RadCalendar calendar = (RadCalendar)sender;
@@ -2021,6 +2028,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 calendar.contentLayer.RecycleAllVisuals();
                 calendar.visualStateLayer.ClearHoverState();
+            }
+
+            RadCalendarAutomationPeer calendarPeer = FrameworkElementAutomationPeer.FromElement(calendar) as RadCalendarAutomationPeer;
+            if (calendarPeer != null)
+            {
+                calendarPeer.ClearCache();
             }
         }
 

@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Telerik.UI.Automation.Peers;
+using Windows.UI.Xaml.Automation.Peers;
+using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
@@ -7,5 +9,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     /// </summary>
     public class CalendarViewHost : Canvas
     {
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            RadCalendar calendar = ElementTreeHelper.FindVisualAncestor<RadCalendar>(this);
+            if (calendar != null)
+            {
+                return new CalendarViewHostAutomationPeer(this, calendar);
+            }
+            return null;
+        }
     }
 }

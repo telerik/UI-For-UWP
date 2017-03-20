@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.Menu;
 using Telerik.UI.Xaml.Controls.Primitives.Menu.Commands;
 using Windows.Foundation;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -622,6 +627,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadRadialMenuAutomationPeer(this);
+        }
+
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var menu = d as RadRadialMenu;
@@ -643,6 +653,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 }
 
                 menu.Close();
+            }
+
+            RadRadialMenuAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(menu) as RadRadialMenuAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseExpandCollapseAutomationEvent(!((bool)e.NewValue), (bool)e.NewValue);
             }
         }
 

@@ -52,39 +52,53 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BulletGraph\AdditionalMeasuresCollection.cs" />
+    <Compile Include="BulletGraph\AutomationPeers\RadBulletGraphAutomationPeer.cs" />
     <Compile Include="BulletGraph\BulletGraphComparativeMeasure.cs" />
     <Compile Include="BulletGraph\BulletGraphMeasureBase.cs" />
     <Compile Include="BulletGraph\BulletGraphQualitativeRangeCollection.cs" />
-    <Compile Include="BulletGraph\RadBulletGraph.cs"/>
+    <Compile Include="BulletGraph\RadBulletGraph.cs" />
     <Compile Include="BulletGraph\ValueToVisibilityConverter.cs" />
     <Compile Include="BulletGraph\VisibilityExtensions.cs" />
+    <Compile Include="Gauges\AutomationPeers\ArrowGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\BarGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\BarIndicatorSegmentAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\GaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\LinearBarGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\MarkerGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\NeedleGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\RadGaugeAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\RadialBarGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\RadialGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\SegmentedGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\SegmentedLinearGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\SegmentedRadialGaugeIndicatorAutomationPeer.cs" />
     <Compile Include="Gauges\BarIndicatorSegment.cs" />
     <Compile Include="Gauges\CalculateAngleContext.cs" />
     <Compile Include="Gauges\GaugeColorValueRange.cs" />
     <Compile Include="Gauges\GaugePanel.cs" />
-    <Compile Include="Gauges\GaugeRangeType.cs"/>
-    <Compile Include="Gauges\GaugeValueToBrushConverter.cs"/>
-    <Compile Include="Gauges\GaugeValueToStringConverter.cs"/>
-    <Compile Include="Gauges\Indicators\ArrowGaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\BarGaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\GaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\GaugeIndicatorCollection.cs"/>
-    <Compile Include="Gauges\Indicators\IndicatorSegmentCollection.cs"/>
-    <Compile Include="Gauges\Indicators\LinearBarGaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\MarkerGaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\NeedleGaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\RadialBarGaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\RadialGaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\SegmentedGaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\SegmentedLinearGaugeIndicator.cs"/>
-    <Compile Include="Gauges\Indicators\SegmentedRadialGaugeIndicator.cs"/>
-    <Compile Include="Gauges\IndicatorValueChangedEventArgs.cs"/>
-    <Compile Include="Gauges\LinearGaugePanel.cs"/>
-    <Compile Include="Gauges\RadGauge.cs"/>
-    <Compile Include="Gauges\RadialGaugePanel.cs"/>
-    <Compile Include="Gauges\RadLinearGauge.cs"/>
-    <Compile Include="Gauges\RadRadialGauge.cs"/>
-    <Compile Include="Gauges\TickType.cs"/>
+    <Compile Include="Gauges\GaugeRangeType.cs" />
+    <Compile Include="Gauges\GaugeValueToBrushConverter.cs" />
+    <Compile Include="Gauges\GaugeValueToStringConverter.cs" />
+    <Compile Include="Gauges\Indicators\ArrowGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\BarGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\GaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\GaugeIndicatorCollection.cs" />
+    <Compile Include="Gauges\Indicators\IndicatorSegmentCollection.cs" />
+    <Compile Include="Gauges\Indicators\LinearBarGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\MarkerGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\NeedleGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\RadialBarGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\RadialGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\SegmentedGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\SegmentedLinearGaugeIndicator.cs" />
+    <Compile Include="Gauges\Indicators\SegmentedRadialGaugeIndicator.cs" />
+    <Compile Include="Gauges\IndicatorValueChangedEventArgs.cs" />
+    <Compile Include="Gauges\LinearGaugePanel.cs" />
+    <Compile Include="Gauges\RadGauge.cs" />
+    <Compile Include="Gauges\RadialGaugePanel.cs" />
+    <Compile Include="Gauges\RadLinearGauge.cs" />
+    <Compile Include="Gauges\RadRadialGauge.cs" />
+    <Compile Include="Gauges\TickType.cs" />
     <Compile Include="Gauges\UpdateArcContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,6 +112,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ThemeResourcesDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeResourcesHighContrast.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -132,7 +150,7 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\..\..\BuildTools\CopyBinaries.targets"  />
+  <Import Project="..\..\..\BuildTools\CopyBinaries.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
