@@ -1,0 +1,75 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.DataGrid.GridAdaptiveLayout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localDataGrid="using:SDKExamples.UWP.DataGrid"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="DesktopLarge">
+                    <VisualState.StateTriggers>
+                        <localDataGrid:CustomTrigger MinWidth="720" DeviceFamily="Windows.Desktop"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="grid.UserEditMode" Value="Inline" />
+                        <Setter Target="grid.CanUserChooseColumns" Value="False" />
+                        <Setter Target="grid.GroupPanelPosition" Value="Left" />
+                        <Setter Target="grid.ColumnDataOperationsMode" Value="Inline" />
+                        <Setter Target="grid.ColumnResizeHandleDisplayMode" Value="Always" />
+                        <Setter Target="info1.Visibility" Value="Visible"/>
+                        <Setter Target="info2.Text" Value="Large Desktop"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <localDataGrid:CustomTrigger DeviceFamily="Windows.Desktop"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="grid.UserEditMode" Value="External" />
+                        <Setter Target="grid.CanUserChooseColumns" Value="True" />
+                        <Setter Target="grid.GroupPanelPosition" Value="Bottom" />
+                        <Setter Target="grid.ColumnDataOperationsMode" Value="Flyout" />
+                        <Setter Target="grid.ColumnResizeHandleDisplayMode" Value="OnColumnHeaderActionFlyoutOpen" />
+                        <Setter Target="info1.Visibility" Value="Visible"/>
+                        <Setter Target="info2.Text" Value="Small Desktop"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <localDataGrid:CustomTrigger DeviceFamily="Windows.Mobile"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="grid.UserEditMode" Value="External" />
+                        <Setter Target="grid.CanUserChooseColumns" Value="True" />
+                        <Setter Target="grid.GroupPanelPosition" Value="Bottom" />
+                        <Setter Target="grid.ColumnDataOperationsMode" Value="Flyout" />
+                        <Setter Target="grid.ColumnResizeHandleDisplayMode" Value="OnColumnHeaderActionFlyoutOpen" />
+                        <Setter Target="info1.Visibility" Value="Collapsed"/>
+                        <Setter Target="info2.Text" Value="Mobile"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <TextBlock x:Name="info1" Text="Resize the window to see how the grid layout changes." TextWrapping="WrapWholeWords" Grid.Row="1" Margin="10"/>
+        <TextBlock Margin="10" Grid.Row="2" TextWrapping="WrapWholeWords">
+            <Run Text="The grid layout has been set for "/>
+            <Run x:Name="info2" FontWeight="Bold"/>
+            <Run Text=" mode."/>
+        </TextBlock>
+
+        <grid:RadDataGrid Grid.Row="3" x:Name="grid" ItemsSource="{Binding}" />
+    </Grid>
+</local:ExamplePageBase>

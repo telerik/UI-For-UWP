@@ -1,0 +1,93 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Chart.PieSeries"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localChart="using:SDKExamples.UWP.Chart"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="listview.(Grid.Row)" Value="2" />
+                        <Setter Target="listview.(Grid.Column)" Value="0" />
+                        <Setter Target="listview.HorizontalAlignment" Value="Stretch" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="listview.(Grid.Row)" Value="1" />
+                        <Setter Target="listview.(Grid.Column)" Value="1" />
+                        <Setter Target="listview.HorizontalAlignment" Value="Right" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <ListView x:Name="listview" SelectedIndex="0">
+            <ListViewItem>
+                    <ListViewItem.DataContext>
+                        <DataTemplate>
+                            <chart:RadPieChart PaletteName="DefaultDark">
+                                <chart:RadPieChart.DataContext>
+                                <localChart:ViewModel/>
+                                </chart:RadPieChart.DataContext>
+                                <chart:PieSeries ItemsSource="{Binding Source}" RadiusFactor="0.6">
+                                    <chart:PieSeries.ValueBinding>
+                                        <chart:PropertyNameDataPointBinding PropertyName="Value"/>
+                                    </chart:PieSeries.ValueBinding>
+                                </chart:PieSeries>
+                            </chart:RadPieChart>
+                        </DataTemplate>
+                    </ListViewItem.DataContext>
+                    <TextBlock Text="Pie Series" FontSize="20"/>
+                </ListViewItem>
+
+            <ListViewItem>
+                <ListViewItem.DataContext>
+                    <DataTemplate>
+                        <chart:RadPieChart PaletteName="DefaultDark" >
+                            <chart:RadPieChart.DataContext>
+                                <localChart:ViewModel/>
+                            </chart:RadPieChart.DataContext>
+                            <chart:DoughnutSeries ItemsSource="{Binding Source}" RadiusFactor="0.6">
+                                <chart:DoughnutSeries.ValueBinding>
+                                    <chart:PropertyNameDataPointBinding PropertyName="Value"/>
+                                </chart:DoughnutSeries.ValueBinding>
+                            </chart:DoughnutSeries>
+                        </chart:RadPieChart>
+                    </DataTemplate>
+                </ListViewItem.DataContext>
+                <TextBlock Text="Doughnut Series" FontSize="18"/>
+            </ListViewItem>
+        </ListView>
+     
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" Grid.ColumnSpan="2"/>
+
+        <ContentControl ContentTemplate="{Binding SelectedItem.DataContext, ElementName=listview}" Grid.Row="1"/>
+    </Grid>
+</local:ExamplePageBase>

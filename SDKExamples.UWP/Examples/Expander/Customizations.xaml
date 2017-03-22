@@ -1,0 +1,44 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Expander.Customizations"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <primitives:RadExpanderControl Grid.Row="1" Content="Content" ExpandableContent="Expandable Content"
+                                       IsExpanded="True" ExpandedStateContent="Content in Expanded State" x:Name="expander"
+                                       AnimatedIndicatorContent="&#xE8C5;" ExpandedStateChanged="expander_ExpandedStateChanged">
+            <primitives:RadExpanderControl.AnimatedIndicatorContentTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontFamily="Segoe MDL2 Assets" FontSize="22" Foreground="Green" />
+                </DataTemplate>
+            </primitives:RadExpanderControl.AnimatedIndicatorContentTemplate>
+            <primitives:RadExpanderControl.ContentTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontSize="24" Foreground="Green" />
+                </DataTemplate>
+            </primitives:RadExpanderControl.ContentTemplate>
+            <primitives:RadExpanderControl.ExpandableContentTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Red" FontSize="34"/>
+                </DataTemplate>
+            </primitives:RadExpanderControl.ExpandableContentTemplate>
+            <primitives:RadExpanderControl.ExpandedStateContentTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontStyle="Italic" FontSize="24" />
+                </DataTemplate>
+            </primitives:RadExpanderControl.ExpandedStateContentTemplate>
+        </primitives:RadExpanderControl>
+        <TextBlock x:Name="textblock" Text="The control is expanded" Margin="20" FontSize="22" Grid.Row="2" />
+    </Grid>
+</local:ExamplePageBase>

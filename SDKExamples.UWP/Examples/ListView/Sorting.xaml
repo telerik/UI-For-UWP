@@ -1,0 +1,38 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Listview.Sorting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
+    xmlns:dataCore="using:Telerik.Data.Core"
+    mc:Ignorable="d" x:Name="page">
+
+    <Page.Resources>
+        <dataCore:DelegateSortDescriptor x:Key="delegate" />
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        
+
+        <data:RadListView x:Name="ListView" Grid.Column="1" Margin="10,0,0,0" ItemsSource="{Binding}">
+            <data:RadListView.SortDescriptors>
+                <dataCore:PropertySortDescriptor SortOrder="Descending" PropertyName="FirstName" />
+            </data:RadListView.SortDescriptors>
+
+            <data:RadListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding FirstName}" />
+                </DataTemplate>
+            </data:RadListView.ItemTemplate>
+        </data:RadListView>
+
+        <Button Content="Sort by custom rule" Click="SortButtonClick" Margin="10,0,0,0" Grid.Column="2" />
+    </Grid>
+</local:ExamplePageBase>

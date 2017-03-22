@@ -1,0 +1,84 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Chart.FinancialIndicators"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <chart:RadCartesianChart x:Name="OhlcChart" PaletteName="DefaultLightSelected" Grid.Row="1">
+            <chart:RadCartesianChart.Indicators>
+                <chart:BollingerBandsIndicator ItemsSource="{Binding}" Period="2" StandardDeviations="2" Stroke="Green" StrokeThickness="2" LowerBandStroke="Red">
+                    <chart:BollingerBandsIndicator.ValueBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Close"/>
+                    </chart:BollingerBandsIndicator.ValueBinding>
+                    <chart:BollingerBandsIndicator.CategoryBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Date"/>
+                    </chart:BollingerBandsIndicator.CategoryBinding>
+                </chart:BollingerBandsIndicator>
+
+            </chart:RadCartesianChart.Indicators>
+            <chart:RadCartesianChart.VerticalAxis>
+                <chart:LinearAxis/>
+            </chart:RadCartesianChart.VerticalAxis>
+            <chart:RadCartesianChart.HorizontalAxis>
+                <chart:DateTimeCategoricalAxis LabelFormat="{}{0,0:dd/MM}"/>
+            </chart:RadCartesianChart.HorizontalAxis>
+            <chart:RadCartesianChart.Series>
+                <chart:CandlestickSeries ItemsSource="{Binding}">
+                    <chart:CandlestickSeries.CategoryBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Date"/>
+                    </chart:CandlestickSeries.CategoryBinding>
+                    <chart:CandlestickSeries.HighBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="High"/>
+                    </chart:CandlestickSeries.HighBinding>
+                    <chart:CandlestickSeries.LowBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Low"/>
+                    </chart:CandlestickSeries.LowBinding>
+                    <chart:CandlestickSeries.OpenBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Open"/>
+                    </chart:CandlestickSeries.OpenBinding>
+                    <chart:CandlestickSeries.CloseBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Close"/>
+                    </chart:CandlestickSeries.CloseBinding>
+                </chart:CandlestickSeries>
+            </chart:RadCartesianChart.Series>
+        </chart:RadCartesianChart>
+
+        <chart:RadCartesianChart Grid.Row="2" x:Name="secondChart">
+            <chart:RadCartesianChart.VerticalAxis>
+                <chart:LinearAxis/>
+            </chart:RadCartesianChart.VerticalAxis>
+            <chart:RadCartesianChart.HorizontalAxis>
+                <chart:DateTimeCategoricalAxis LabelFormat="{}{0,0:dd/MM}"/>
+            </chart:RadCartesianChart.HorizontalAxis>
+            <chart:RadCartesianChart.Indicators>
+                <chart:MacdhIndicator ItemsSource="{Binding}" ShortPeriod="2" SignalPeriod="4" LongPeriod="10">
+                    <chart:MacdhIndicator.PointTemplate>
+                        <DataTemplate>
+                            <Rectangle Fill="#B45121" Stroke="#80D6F4"/>
+                        </DataTemplate>
+                    </chart:MacdhIndicator.PointTemplate>
+                    <chart:MacdhIndicator.ValueBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Close"/>
+                    </chart:MacdhIndicator.ValueBinding>
+                    <chart:MacdhIndicator.CategoryBinding>
+                        <chart:PropertyNameDataPointBinding PropertyName="Date"/>
+                    </chart:MacdhIndicator.CategoryBinding>
+                </chart:MacdhIndicator>
+            </chart:RadCartesianChart.Indicators>
+        </chart:RadCartesianChart>
+        
+    </Grid>
+</local:ExamplePageBase>

@@ -1,0 +1,49 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.DataGrid.GridSelection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                      <Setter Target="comboUnit.(RelativePanel.Below)" Value="comboMode" />
+
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                      <Setter Target="comboUnit.(RelativePanel.RightOf)" Value="comboMode" />
+
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+      <RelativePanel Grid.Row="1">
+        <ComboBox Header="Change Selection Mode" x:Name="comboMode" SelectionChanged="ComboBox_SelectionChanged" Margin="10"/>
+        <ComboBox Header="Change Selection Unit" x:Name="comboUnit" SelectionChanged="ComboBoxMode_SelectionChanged" Margin="10"/>
+      </RelativePanel>
+      
+        <grid:RadDataGrid x:Name="grid" UserGroupMode="Disabled" UserFilterMode="Disabled" UserSortMode="None" Grid.Row="2" ItemsSource="{Binding}"/>
+    </Grid>
+</local:ExamplePageBase>

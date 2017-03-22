@@ -1,0 +1,30 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Gauge.Indicators"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dataViz="using:Telerik.UI.Xaml.Controls.DataVisualization"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <dataViz:RadRadialGauge Margin="20" LabelRadiusScale="1.1" Grid.Row="1">
+            <dataViz:RadialBarGaugeIndicator Value="100" Brush="Gray" Thickness="5" Margin="10"/>
+            <dataViz:ArrowGaugeIndicator Brush="Red" Thickness="3" ArrowTailRadius="2" Value="60" Margin="20"/>
+            <dataViz:MarkerGaugeIndicator Value="99" Content="Indicator" Foreground="Green" Margin="0,0,100,0" IsRotated="False"/>
+
+            <dataViz:SegmentedRadialGaugeIndicator Value="100">
+                <dataViz:BarIndicatorSegment Stroke="Green" Length="3"/>
+                <dataViz:BarIndicatorSegment Stroke="Orange" Length="2" />
+                <dataViz:BarIndicatorSegment Stroke="Red" Length="1" />
+            </dataViz:SegmentedRadialGaugeIndicator>
+        </dataViz:RadRadialGauge>
+    </Grid>
+</local:ExamplePageBase>
