@@ -28,7 +28,7 @@ namespace SDKExamples.UWP.Chart
                 ObservableCollection<FinancialData> collection = new ObservableCollection<FinancialData>();
                 for (int i = 1; i < 360; i += 10)
                 {
-                    collection.Add(new FinancialData() { Angle = i, Value = (a * Math.Cos(20 * i * b)) });
+                    collection.Add(new FinancialData() { Angle = i, Value = Math.Abs((a * Math.Cos(20 * i * b)) )});
                 }
                 return collection;
             }
