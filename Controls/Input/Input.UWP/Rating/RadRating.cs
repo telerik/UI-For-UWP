@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Telerik.Core;
 using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
@@ -275,6 +276,16 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(ValueProperty, value);
+                // raise the change for UIA 
+                if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+                {
+                    RadRatingAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RadRatingAutomationPeer;
+                    if (peer != null)
+                    {
+                        peer.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, this.GetValue(ValueProperty), value);
+                        peer.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, this.GetValue(ValueProperty), value);
+                    }
+                }
             }
         }
 
@@ -541,6 +552,59 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             this.SetHighlightMode(true);
             this.HandlePointManipulation(args.Position);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Handled) return;
+
+            if (!IsReadOnly)
+            {
+                // mark it not handled yet
+                bool handled = false;
+
+                // get the virtual key
+                VirtualKey key = e.Key;
+                VirtualKey originalKey = e.OriginalKey;
+
+                // map up/down on keyboard to right/left for increment/decrement
+                if (originalKey == VirtualKey.Up)
+                {
+                    key = VirtualKey.Right;
+                }
+                else if (originalKey == VirtualKey.Down)
+                {
+                    key = VirtualKey.Left;
+                }
+
+                switch (key)
+                {
+                    case VirtualKey.Left:
+                        // decrement the rating
+                        Value--;
+                        handled = true;
+                        break;
+                    case VirtualKey.Right:
+                        // increment the rating
+                        Value++;
+                        break;
+                    case VirtualKey.Home:
+                        // set rating to 0
+                        Value = 0.0;
+                        handled = true;
+                        break;
+                    case VirtualKey.End:
+                        // set rating to max
+                        Value = 5.0;
+                        handled = true;
+                        break;
+                    default:
+                        break;
+                }
+
+                e.Handled = handled;
+            }
         }
 
         /// <inheritdoc/>
