@@ -242,20 +242,7 @@ namespace Telerik.UI.Automation.Peers
 
         private static bool IsWindowsPhone()
         {
-#if WINDOWS_UWP
-            bool isHardwareButtonsAPIPresent =
-                ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons");
-
-            if (isHardwareButtonsAPIPresent)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-#endif
-            return false;
+            return ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons");
         }
     }
 }
