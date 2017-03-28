@@ -557,49 +557,33 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <inheritdoc/>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
-            if (e.Handled) return;
-
-            if (!IsReadOnly)
+            if (e.Handled)
             {
-                // mark it not handled yet
+                return;
+            }
+
+            if (!this.IsReadOnly)
+            {
                 bool handled = false;
 
-                // get the virtual key
-                VirtualKey key = e.Key;
-                VirtualKey originalKey = e.OriginalKey;
-
-                // map up/down on keyboard to right/left for increment/decrement
-                if (originalKey == VirtualKey.Up)
-                {
-                    key = VirtualKey.Right;
-                }
-                else if (originalKey == VirtualKey.Down)
-                {
-                    key = VirtualKey.Left;
-                }
-
-                switch (key)
+                switch (e.Key)
                 {
                     case VirtualKey.Left:
-                        // decrement the rating
-                        Value--;
+                    case VirtualKey.Down:
+                        this.Value--;
                         handled = true;
                         break;
                     case VirtualKey.Right:
-                        // increment the rating
-                        Value++;
+                    case VirtualKey.Up:
+                        this.Value++;
                         break;
                     case VirtualKey.Home:
-                        // set rating to 0
-                        Value = 0.0;
+                        this.Value = 0.0;
                         handled = true;
                         break;
                     case VirtualKey.End:
-                        // set rating to max
-                        Value = 5.0;
+                        this.Value = this.Items.Count;
                         handled = true;
-                        break;
-                    default:
                         break;
                 }
 

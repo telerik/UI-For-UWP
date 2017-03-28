@@ -1,10 +1,7 @@
 ﻿using System;
-using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Automation.Provider;
-using System.Linq;
-using Windows.UI.Xaml.Automation;
 
 namespace Telerik.UI.Automation.Peers
 {
@@ -53,10 +50,8 @@ namespace Telerik.UI.Automation.Peers
                 {
                     return string.Format(localizedRatingString, this.Rating.Value, this.Maximum);
                 }
-                else
-                {
-                    return "Rating unset";
-                }
+
+                return "Rating unset";
             }
         }
 
@@ -84,6 +79,7 @@ namespace Telerik.UI.Automation.Peers
             {
                 return this;
             }
+
             return base.GetPatternCore(patternInterface);
         }
 
@@ -123,7 +119,7 @@ namespace Telerik.UI.Automation.Peers
         public double LargeChange => 1.0;
 
         /// <inheritdoc />
-        public double Maximum => 5.0;
+        public double Maximum => this.Rating.Items.Count;
 
         /// <inheritdoc />
         public double Minimum => 0.0;
@@ -136,8 +132,7 @@ namespace Telerik.UI.Automation.Peers
         {
             get
             {
-                RadRating owner = base.Owner as RadRating;
-                return owner.Value;
+                return this.Rating.Value;
             }
         }
     }
