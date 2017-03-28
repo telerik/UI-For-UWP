@@ -189,12 +189,6 @@ namespace Telerik.UI.Xaml.Controls.Input
                 case Windows.System.VirtualKey.Space:
                     this.Select();
                     break;
-                case Windows.System.VirtualKey.Right:
-                    FocusManager.TryMoveFocus(FocusNavigationDirection.Next);
-                    break;
-                case Windows.System.VirtualKey.Left:
-                    FocusManager.TryMoveFocus(FocusNavigationDirection.Previous);
-                    break;
             }            
         }
 

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Telerik.Core;
 using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
@@ -275,6 +276,16 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(ValueProperty, value);
+                // raise the change for UIA 
+                if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+                {
+                    RadRatingAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RadRatingAutomationPeer;
+                    if (peer != null)
+                    {
+                        peer.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, this.GetValue(ValueProperty), value);
+                        peer.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, this.GetValue(ValueProperty), value);
+                    }
+                }
             }
         }
 
@@ -541,6 +552,43 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             this.SetHighlightMode(true);
             this.HandlePointManipulation(args.Position);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Handled)
+            {
+                return;
+            }
+
+            if (!this.IsReadOnly)
+            {
+                bool handled = false;
+
+                switch (e.Key)
+                {
+                    case VirtualKey.Left:
+                    case VirtualKey.Down:
+                        this.Value--;
+                        handled = true;
+                        break;
+                    case VirtualKey.Right:
+                    case VirtualKey.Up:
+                        this.Value++;
+                        break;
+                    case VirtualKey.Home:
+                        this.Value = 0.0;
+                        handled = true;
+                        break;
+                    case VirtualKey.End:
+                        this.Value = this.Items.Count;
+                        handled = true;
+                        break;
+                }
+
+                e.Handled = handled;
+            }
         }
 
         /// <inheritdoc/>

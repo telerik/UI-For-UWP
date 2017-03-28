@@ -1,16 +1,14 @@
 ﻿using System;
-using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Automation.Provider;
-using System.Linq;
 
 namespace Telerik.UI.Automation.Peers
 {
     /// <summary>
     /// Automation peer class for RadRating.
     /// </summary>
-    public class RadRatingAutomationPeer : RadControlAutomationPeer, IValueProvider, ISelectionProvider
+    public class RadRatingAutomationPeer : RadControlAutomationPeer, IValueProvider, IRangeValueProvider
     {
         private RadRating Rating
         {
@@ -47,7 +45,13 @@ namespace Telerik.UI.Automation.Peers
         {
             get
             {
-                return this.Rating.Value.ToString();
+                var localizedRatingString = InputLocalizationManager.Instance.GetString("RatingValueString");
+                if (!string.IsNullOrEmpty(localizedRatingString))
+                {
+                    return string.Format(localizedRatingString, this.Rating.Value, this.Maximum);
+                }
+
+                return "Rating unset";
             }
         }
 
@@ -66,57 +70,23 @@ namespace Telerik.UI.Automation.Peers
             {
                 throw new InvalidOperationException("Given string is not successfully parsed to double");
             }
-        }
-
-        // <summary>
-        // Retrieves a UI Automation provider for each child element that is selected.
-        // </summary>
-        public IRawElementProviderSimple[] GetSelection()
-        {
-            RadRatingItem selectedRatingItem = this.Rating.Items.LastOrDefault(item => this.Rating.GetIndexOf(item) < this.Rating.Value);
-            if (selectedRatingItem != null)
-            {
-                return new[] { ProviderFromPeer(FromElement(selectedRatingItem)) };
-            }
-            return new IRawElementProviderSimple[] { };
-        }
-
-        /// <summary>
-        ///  Gets a value that specifies whether the UI Automation provider allows more than one child element to be selected concurrently.
-        /// </summary>
-        public bool CanSelectMultiple
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value that specifies whether the UI Automation provider requires at least one child element to be selected.
-        /// </summary>
-        public bool IsSelectionRequired
-        {
-            get
-            {
-                return false;
-            }
-        }        
+        }       
 
         /// <inheritdoc />	
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.Value || patternInterface == PatternInterface.Selection)
+            if (patternInterface == PatternInterface.Value || patternInterface == PatternInterface.RangeValue)
             {
                 return this;
             }
+
             return base.GetPatternCore(patternInterface);
         }
 
         /// <inheritdoc />	
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.Slider | AutomationControlType.List;
+            return AutomationControlType.Slider;
         }
 
         /// <inheritdoc />
@@ -129,13 +99,41 @@ namespace Telerik.UI.Automation.Peers
             if (this.Rating != null && !string.IsNullOrEmpty(this.Rating.Name))
                 return this.Rating.Name;
 
-            return string.Empty;
+            return "Ratings control";
         }
 
         /// <inheritdoc />
         protected override string GetLocalizedControlTypeCore()
         {
-            return "rad rating";
-        }          
+            return "slider";
+        }
+
+        /// <inheritdoc />
+        public void SetValue(double value)
+        {
+            RadRating owner = base.Owner as RadRating;
+            owner.Value = value;
+        }
+
+        /// <inheritdoc />
+        public double LargeChange => 1.0;
+
+        /// <inheritdoc />
+        public double Maximum => this.Rating.Items.Count;
+
+        /// <inheritdoc />
+        public double Minimum => 0.0;
+
+        /// <inheritdoc />
+        public double SmallChange => 1.0;
+
+        /// <inheritdoc />
+        double IRangeValueProvider.Value
+        {
+            get
+            {
+                return this.Rating.Value;
+            }
+        }
     }
 }
