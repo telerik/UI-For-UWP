@@ -312,6 +312,7 @@
 
     <Style TargetType="local:RadRating">
         <Setter Property="Orientation" Value="Horizontal" />
+		<Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="EmptyIconStyle" Value="{StaticResource EmptyIconStyle}" />
         <Setter Property="EmptyIconContent" Value="&#xe0b4;" />
         <Setter Property="FilledIconStyle" Value="{StaticResource FilledIconStyle}" />
