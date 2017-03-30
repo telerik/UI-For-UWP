@@ -65,6 +65,10 @@ Before contributing to UI for UWP, please:
   * request new features, and,
   * walk you through the entire process of preparing your code for a Pull Request.
   
+This project has adopted the code of conduct defined by the [Contributor Covenant](http://contributor-covenant.org/)
+to clarify expected behavior in our community.
+For more information see the [.NET Foundation Code of Conduct](http://www.dotnetfoundation.org/code-of-conduct).
+  
 ## Getting Help
 
 * Use the [issues list](https://github.com/telerik/UI-For-UWP/issues) of this repo for bug reports.
