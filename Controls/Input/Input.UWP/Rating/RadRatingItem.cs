@@ -216,7 +216,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (index != -1)
             {
                 this.Owner.Value = index + 1;
-                this.RaiseSelectionAutomationEvents();               
                 return true;
             }
             return false;
@@ -343,21 +342,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (!this.Owner.IsReadOnly)
             {
                 this.Owner.HandleTapEvent(this);
-            }
-        }
-
-        private void RaiseSelectionAutomationEvents()
-        {
-            RadRatingItemAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RadRatingItemAutomationPeer;
-            if (peer != null)
-            {
-                peer.RaiseIsSelectedAutomationEventAndFocusChanged(false, true);
-            }
-
-            RadRatingAutomationPeer ratingPeer = FrameworkElementAutomationPeer.FromElement(this.Owner) as RadRatingAutomationPeer;
-            if (ratingPeer != null)
-            {
-                ratingPeer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementSelected);
             }
         }
     }

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
+using System.Linq;
 using Telerik.UI.Xaml.Controls.Input;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Automation.Provider;
-using System.Linq;
-using Windows.UI.Xaml.Automation;
 
 namespace Telerik.UI.Automation.Peers
 {
     /// <summary>
     /// Automation peer class for RadRatingItem.
     /// </summary>
-    public class RadRatingItemAutomationPeer : RadContentControlAutomationPeer, ISelectionItemProvider
+    public class RadRatingItemAutomationPeer : RadContentControlAutomationPeer, IInvokeProvider
     {
         private RadRatingItem RatingItem
         {
@@ -28,97 +26,22 @@ namespace Telerik.UI.Automation.Peers
         public RadRatingItemAutomationPeer(RadRatingItem owner) : base(owner)
         {
 
-        }       
-
-        /// <summary>
-        /// Indicates whether an item is selected.
-        /// </summary>
-        public bool IsSelected
-        {
-            get
-            {
-                RadRating rating = this.RatingItem.Owner;
-                RadRatingItem selectedRatingItem = rating.Items.LastOrDefault(item => rating.GetIndexOf(item) < rating.Value);
-
-                bool selected = selectedRatingItem != null && selectedRatingItem == this.RatingItem;
-                return selected;
-            }
         }
-
-        /// <summary>
-        /// Specifies the provider that implements ISelectionProvider and acts as the container for the calling object.
-        /// </summary>
-        public IRawElementProviderSimple SelectionContainer
-        {
-            get
-            {
-                RadRating parentControl = this.RatingItem.Owner;
-                if (parentControl != null)
-                {
-                    return this.ProviderFromPeer(CreatePeerForElement(parentControl));
-                }
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Not implemented in this single-value control.
-        /// </summary>
-        public void AddToSelection()
-        {
-            if (!this.IsSelected)
-            {
-                RadRating rating = this.RatingItem.Owner;
-                RadRatingItem selectedRatingItem = rating.Items.LastOrDefault(item => rating.GetIndexOf(item) < rating.Value);
-                if (selectedRatingItem != null && selectedRatingItem != this.RatingItem)
-                {
-                    throw new ArgumentException("Rating supports only single selection.");
-                }
-                this.Select();
-            }
-            else
-            {
-                throw new InvalidOperationException("Element is already selected");
-            }
-        }
-
-        /// <summary>
-        /// Not implemented in this single-value control.
-        /// </summary>
-        public void RemoveFromSelection()
-        {
-            if (this.IsSelected)
-            {
-                this.RatingItem.Owner.Value = 0d;
-                this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, true, false);
-            }
-        }
-
-        /// <summary>
-        /// Selects the current element.
-        /// </summary>
-        public void Select()
-        {
-            bool selectSuccess = this.RatingItem.Select();
-            if (selectSuccess)
-            {
-                this.RaiseIsSelectedAutomationEventAndFocusChanged(false, true);
-            }
-        }
-
+        
         /// <inheritdoc />	
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.ListItem;
+            return AutomationControlType.Custom;
         }
 
         /// <inheritdoc />	
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.SelectionItem)
+            if (patternInterface == PatternInterface.Invoke)
             {
                 return this;
             }
+
             return base.GetPatternCore(patternInterface);
         }
 
@@ -146,11 +69,18 @@ namespace Telerik.UI.Automation.Peers
             return "rad rating item";
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseIsSelectedAutomationEventAndFocusChanged(bool oldValue, bool newValue)
+        public void Invoke()
         {
-            this.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
-            this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, oldValue, newValue);
+            RadRating rating = this.RatingItem.Owner;
+            RadRatingItem selectedRatingItem = rating.Items.LastOrDefault(item => rating.GetIndexOf(item) < rating.Value);
+            if (selectedRatingItem != null && selectedRatingItem == this.RatingItem)
+            {
+                this.RatingItem.Owner.Value = 0d;
+            }
+            else
+            {
+                this.RatingItem.Select();
+            }
         }
     }
 }
