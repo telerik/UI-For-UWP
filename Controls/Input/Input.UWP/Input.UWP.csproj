@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AutoCompleteBox\AutomationPeers\AutoCompleteTextBoxAutomationPeer.cs" />
     <Compile Include="AutoCompleteBox\AutomationPeers\RadAutoCompleteBoxAutomationPeer.cs" />
+    <Compile Include="AutoCompleteBox\AutomationPeers\SuggestionItemAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\CalendarCellInfoBaseAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\CalendarHeaderCellInfoAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\CalendarInvokableCellInfoAutomationPeer.cs" />

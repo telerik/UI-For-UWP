@@ -95,7 +95,8 @@
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="BorderElement" BorderBrush="{ThemeResource TextBoxButtonBorderThemeBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
                         <Border x:Name="BackgroundElement" Background="{ThemeResource TextBoxButtonBackgroundThemeBrush}" Margin="{TemplateBinding BorderThickness}">
-                            <TextBlock x:Name="GlyphElement" Foreground="{ThemeResource TextBoxButtonForegroundThemeBrush}" FontFamily="{ThemeResource SymbolThemeFontFamily}" HorizontalAlignment="Center" Text="&#xE711;" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="GlyphElement" Foreground="{ThemeResource TextBoxButtonForegroundThemeBrush}" FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                       HorizontalAlignment="Center" Text="&#xE711;" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw"/>
                         </Border>
                     </Grid>
                 </ControlTemplate>
@@ -174,6 +175,7 @@
                           Padding="{TemplateBinding Padding}" 
                           VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" 
                           VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                          AutomationProperties.AccessibilityView="Raw"
                           ZoomMode="Disabled"/>
             <Button x:Name="DeleteButton" 
                     BorderThickness="{TemplateBinding BorderThickness}" 

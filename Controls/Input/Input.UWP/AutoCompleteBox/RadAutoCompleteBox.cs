@@ -1631,7 +1631,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.textbox.Focus(FocusState.Programmatic);
         }
 
-        private void UpdateTextFromPopupInteraction(object suggestionItem)
+        internal void UpdateTextFromPopupInteraction(object suggestionItem)
         {
             this.textChangedByPopupInteraction = true;
             this.textbox.Text = this.suggestionsProvider.GetFilterKey(suggestionItem);

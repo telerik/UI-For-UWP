@@ -1,5 +1,4 @@
-﻿using Telerik.UI.Automation.Peers;
-using Telerik.UI.Xaml.Controls.Input;
+﻿using Telerik.UI.Xaml.Controls.Input;
 using Windows.Foundation;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
@@ -9,7 +8,7 @@ namespace Telerik.UI.Automation.Peers
     /// <summary>
     /// AutomationPeer class for AutoCompleteTextBox.
     /// </summary>
-    public class AutoCompleteTextBoxAutomationPeer : FrameworkElementAutomationPeer
+    public class AutoCompleteTextBoxAutomationPeer : TextBoxAutomationPeer
     {
         /// <summary>
         /// Initializes a new instance of the AutoCompleteTextBoxAutomationPeer class.
@@ -40,9 +39,20 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.Edit;
+        }
+
+        /// <inheritdoc />
+        protected override string GetNameCore()
+        {
+            var nameCore = base.GetNameCore();
+            if (!string.IsNullOrEmpty(nameCore))
+                return nameCore;
+
+            return this.AutoCompletePeer.GetName();
         }
 
         /// <inheritdoc />
