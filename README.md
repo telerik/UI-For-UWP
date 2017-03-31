@@ -5,8 +5,8 @@ This is an open-source version of Telerik UI for Universal Windows Platform (UWP
 ![UI for UWP](http://d585tldpucybw.cloudfront.net/sfimages/default-source/default-album/oss/uwp-ui.png?sfvrsn=2)
 
 | Target | Branch | Status |
-| ------ | ------ | ------ | ------ |
-| Production | master | [![Build status](https://ci.appveyor.com/api/projects/status/5k6vlxo0qkk7cy66?svg=true)](https://ci.appveyor.com/project/dotnetfoundation/uwpcommunitytoolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/Microsoft.Toolkit.Uwp.svg)](https://www.nuget.org/packages/Microsoft.Toolkit.Uwp/) |
+| ------ | ------ | ------ |
+| Production | master | [![Build status](https://ci.appveyor.com/api/projects/status/5k6vlxo0qkk7cy66?svg=true)](https://ci.appveyor.com/project/dotnetfoundation/uwpcommunitytoolkit/branch/master) |
 
 
 
