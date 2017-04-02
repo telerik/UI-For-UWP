@@ -628,6 +628,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.IncrementValue(this.LargeChange);
                         break;
                 }
+
+                if (key == VirtualKey.Down || key == VirtualKey.Up
+                    || key == VirtualKey.PageDown || key == VirtualKey.PageUp)
+                {
+                    this.UpdateTextBoxText();
+                }
             }
 
             return false;

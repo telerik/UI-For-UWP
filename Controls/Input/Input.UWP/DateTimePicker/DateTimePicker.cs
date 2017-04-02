@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Globalization;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Input
@@ -588,6 +589,15 @@ namespace Telerik.UI.Xaml.Controls.Input
             var oldValue = (DateTime?)args.OldValue;
 
             picker.HandleValueChange(oldValue, newValue);
+
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+            {
+                var peer = FrameworkElementAutomationPeer.FromElement(picker) as DateTimePickerAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseSelectionAutomationEvent(oldValue.ToString(), newValue.ToString());
+                }
+            }
         }
 
         private static void OnMinValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

@@ -42,7 +42,7 @@ namespace Telerik.UI.Automation.Peers
         /// </summary>
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.Custom;
+            return AutomationControlType.ListItem;
         }
 
         /// <inheritdoc />

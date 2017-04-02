@@ -452,6 +452,16 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             {
                 gauge.panel.UpdateOnMinMaxValueChange();
             }
+
+            
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+            {
+                var peer = FrameworkElementAutomationPeer.FromElement(gauge) as RadGaugeAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseMinimumPropertyChangedEvent((double)args.OldValue, (double)args.NewValue);
+                }
+            }
         }
 
         private static void OnMaxValuePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -463,6 +473,15 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             if (gauge.panel != null)
             {
                 gauge.panel.UpdateOnMinMaxValueChange();
+            }
+
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+            {
+                var peer = FrameworkElementAutomationPeer.FromElement(gauge) as RadGaugeAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseMinimumPropertyChangedEvent((double)args.OldValue, (double)args.NewValue);
+                }
             }
         }
 

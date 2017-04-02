@@ -30,6 +30,12 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Group;
+        }
+
+        /// <inheritdoc />
         protected override IList<AutomationPeer> GetChildrenCore()
         {
             var children = base.GetChildrenCore().ToList();

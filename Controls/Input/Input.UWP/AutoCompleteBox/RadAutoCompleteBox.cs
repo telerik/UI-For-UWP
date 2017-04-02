@@ -1116,12 +1116,16 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (autoCompleteBox.IsTemplateApplied)
             {
-                AutomationPeer peer = FrameworkElementAutomationPeer.FromElement(autoCompleteBox);
-                if (peer != null)
-                {
-                    peer.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, args.OldValue, args.NewValue);
-                }
                 autoCompleteBox.textbox.Text = autoCompleteBox.textCache;
+
+                if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+                {
+                    var peer = FrameworkElementAutomationPeer.FromElement(autoCompleteBox.suggestionsControl) as ListBoxAutomationPeer;
+                    if (peer != null)
+                    {
+                        peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+                    }
+                }
             }
         }
 

@@ -69,6 +69,8 @@
     <Compile Include="Gauges\AutomationPeers\RadGaugeAutomationPeer.cs" />
     <Compile Include="Gauges\AutomationPeers\RadialBarGaugeIndicatorAutomationPeer.cs" />
     <Compile Include="Gauges\AutomationPeers\RadialGaugeIndicatorAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\RadLinearGaugeAutomationPeer.cs" />
+    <Compile Include="Gauges\AutomationPeers\RadRadialGaugeAutomationPeer.cs" />
     <Compile Include="Gauges\AutomationPeers\SegmentedGaugeIndicatorAutomationPeer.cs" />
     <Compile Include="Gauges\AutomationPeers\SegmentedLinearGaugeIndicatorAutomationPeer.cs" />
     <Compile Include="Gauges\AutomationPeers\SegmentedRadialGaugeIndicatorAutomationPeer.cs" />

@@ -2,6 +2,7 @@
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
+using Windows.UI.Xaml.Automation.Provider;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
@@ -142,13 +143,17 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
 
         private void RaiseAutomationFocusChangedEvent()
         {
-            var suggestionItem = this.ContainerFromIndex(this.SelectedIndex) as ListBoxItem;
-            if (suggestionItem != null)
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
             {
-                var peer = FrameworkElementAutomationPeer.FromElement(suggestionItem) as ListBoxItemAutomationPeer;
-                if (peer != null)
+                var suggestionItem = this.ContainerFromIndex(this.SelectedIndex) as ListBoxItem;
+                if (suggestionItem != null)
                 {
-                    peer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                    var peer = FrameworkElementAutomationPeer.FromElement(suggestionItem) as ListBoxItemAutomationPeer;
+                    if (peer != null)
+                    {
+                        peer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                        peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+                    }
                 }
             }
         }
