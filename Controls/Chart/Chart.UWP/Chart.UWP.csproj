@@ -54,6 +54,41 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomationPeers\Annotations\CartesianCustomAnnotationAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Annotations\CartesianGridLineAnnotationAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Annotations\CartesianPlotBandAnnotationAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Annotations\ChartAnnotationAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Annotations\PolarAxisGridLineAnnotationAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Annotations\PolarAxisPlotBandAnnotationAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Annotations\PolarCustomAnnotationAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Common\AxisAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\CartesianChartGridAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\PolarChartGridAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Common\IndicatorBaseAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\RadCartesianChartAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\RadPieChartAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Common\RadChartBaseAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\RadPolarChartAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\AreaSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\BarSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\CandlestickSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\ChartSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\DoughnutSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\LineSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\OhlcSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\PieSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\RadarAreaSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\RadarLineSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\RadarPointSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\RadarSplineAreaSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\RadarSplineSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\ScatterAreaSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\ScatterLineSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\ScatterPointSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\ScatterSplineAreaSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\ScatterSplineSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\SplineAreaSeriesAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\Series\SplineSeriesAutomationPeer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -484,6 +519,7 @@
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Resources\Neutral.resw" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="..\..\..\BuildTools\CopyBinaries.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

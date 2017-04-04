@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using Telerik.Charting;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -623,6 +625,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     oldChartArea.RemoveAxis(this.model);
                 }
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new AxisAutomationPeer(this);
         }
 
         private static void OnLabelRotationAngleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

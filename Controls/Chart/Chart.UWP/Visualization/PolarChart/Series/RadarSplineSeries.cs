@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.UI.Automation.Peers;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -22,6 +24,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override RadarLineRenderer CreateRenderer()
         {
             return new RadarSplineRenderer();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadarSplineSeriesAutomationPeer(this);
         }
     }
 }

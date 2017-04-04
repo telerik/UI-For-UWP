@@ -1,6 +1,8 @@
 ﻿using System;
 using Telerik.Charting;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Markup;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -106,6 +108,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override ChartSeriesDataSource CreateDataSourceInstance()
         {
             return new CategoricalSeriesDataSource();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadarPointSeriesAutomationPeer(this);
         }
 
         /// <summary>

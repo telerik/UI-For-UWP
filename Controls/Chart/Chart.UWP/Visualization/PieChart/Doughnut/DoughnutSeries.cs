@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.Charting;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Markup;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -71,6 +73,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override ChartSeriesDataSource CreateDataSourceInstance()
         {
             return new DoughnutSeriesDataSource();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DoughnutSeriesAutomationPeer(this);
         }
 
         private static void OnInnerRadiusFactorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

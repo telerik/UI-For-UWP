@@ -1,6 +1,8 @@
 ﻿using System;
 using Telerik.Charting;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -79,6 +81,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             // TODO: Possible optimizations
             this.UpdateUICore(context);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new IndicatorBaseAutomationPeer(this);
         }
 
         /// <summary>

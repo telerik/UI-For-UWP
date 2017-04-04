@@ -5,10 +5,12 @@ using System.Diagnostics;
 using System.Text;
 using Telerik.Charting;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -743,6 +745,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
             this.UpdatePanZoomOnArrange();
 
             return finalSize;
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadChartBaseAutomationPeer(this);
         }
 
         /// <summary>
