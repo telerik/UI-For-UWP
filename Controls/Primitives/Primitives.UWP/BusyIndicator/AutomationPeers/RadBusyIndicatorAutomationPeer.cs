@@ -37,19 +37,15 @@ namespace Telerik.UI.Automation.Peers
                 return this.BusyIndicatorOwner.IsActive ? ToggleState.On : ToggleState.Off;
             }
         }
-
+        
         /// <summary>
         /// Cycles through the toggle states of a control.
         /// </summary>
         public void Toggle()
         {
-            ToggleState oldValue = this.ToggleState;
             this.BusyIndicatorOwner.IsActive = !this.BusyIndicatorOwner.IsActive;
-            ToggleState newValue = this.ToggleState;
-
-            this.RaisePropertyChangedEvent(TogglePatternIdentifiers.ToggleStateProperty, oldValue, newValue);
         }
-
+        
         /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
@@ -62,9 +58,30 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Custom;
+        }
+
+        /// <inheritdoc />
         protected override string GetLocalizedControlTypeCore()
         {
             return "rad busy indicator";
+        }
+
+        /// <inheritdoc />
+        protected override string GetItemStatusCore()
+        {
+            if (this.ToggleState == ToggleState.On)
+            {
+                return nameof(ToggleState.On);
+            }
+            else if (this.ToggleState == ToggleState.Off)
+            {
+                return nameof(ToggleState.Off);
+            }
+
+            return base.GetItemStatusCore();
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
@@ -74,6 +91,7 @@ namespace Telerik.UI.Automation.Peers
             ToggleState newToggle = newState ? ToggleState.On : ToggleState.Off;
 
             this.RaisePropertyChangedEvent(TogglePatternIdentifiers.ToggleStateProperty, oldState, newToggle);
+            this.RaisePropertyChangedEvent(AutomationElementIdentifiers.ItemStatusProperty, oldToggle.ToString(), newToggle.ToString());
         }
     }
 }

@@ -379,6 +379,7 @@
 
     <Style TargetType="sideDrawer:DrawerButton">
         <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property="AutomationProperties.Name" Value="DrawerButton"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
         <Setter Property="BorderBrush" Value="White"/>
@@ -1242,7 +1243,9 @@
                                 VerticalAlignment="Center"
                                 Style="{TemplateBinding IndicatorAnimationStyle}"
                                 IsActive="{TemplateBinding IsActive}"
-                                Foreground="{TemplateBinding Foreground}"  />
+                                Foreground="{TemplateBinding Foreground}"  
+                                AutomationProperties.AccessibilityView="Raw"
+                                IsTabStop="False"/>
                             <ContentPresenter
                                 Content="{TemplateBinding Content}"
                                 ContentTemplate="{TemplateBinding ContentTemplate}"

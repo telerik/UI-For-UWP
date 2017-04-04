@@ -830,7 +830,8 @@
     <Style TargetType="local:RadRadialMenu">
         <Setter Property="NavigationMenuBackgroundStyle" Value="{StaticResource NavigationMenuStyle}"/>
         <Setter Property="ContentMenuBackgroundStyle" Value="{StaticResource ContentMenuStyle}"/>
-        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
+        <Setter Property="IsTabStop" Value="True"/>
         <Setter Property="MinWidth" Value="265"/>
         <Setter Property="MinHeight" Value="265"/>
         <Setter Property="Template">

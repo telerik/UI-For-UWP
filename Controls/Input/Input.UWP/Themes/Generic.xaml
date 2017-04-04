@@ -825,7 +825,7 @@
                                     <localAutoComplete:SuggestionItemsControl x:Name="PART_SuggestionsControl"
                                                                           DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
                                                                           ItemTemplate="{TemplateBinding ItemTemplate}"
-                                                                          AutomationProperties.LiveSetting="Assertive"
+                                                                          AutomationProperties.LiveSetting="Polite"
                                                                           ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" />
                                     <ContentControl x:Name="PART_NoResultsControl" Visibility="Collapsed" ContentTemplate="{TemplateBinding NoResultsContentTemplate}"
                                                     BorderBrush ="{ThemeResource TelerikAutoCompleteBoxSelectorItemBorderBrush}"
