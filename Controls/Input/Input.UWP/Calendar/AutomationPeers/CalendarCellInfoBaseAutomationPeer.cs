@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Input.Calendar;
 using Windows.Foundation;
@@ -110,9 +111,15 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetNameCore()
         {
-            if (!string.IsNullOrEmpty(this.CellNode.Label))
+            var headerCellModel = this.CellNode as CalendarHeaderCellModel;
+            if (headerCellModel != null && headerCellModel.Type == CalendarHeaderCellType.DayName && !string.IsNullOrEmpty(this.CellNode.Label))
             {
                 return this.CellNode.Label;
+            }
+
+            if (this.CellNode.Context != null && !string.IsNullOrEmpty(this.CellNode.Context.Date.ToString()))
+            {
+                return this.CellNode.Context.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
             }
 
             return string.Empty;
