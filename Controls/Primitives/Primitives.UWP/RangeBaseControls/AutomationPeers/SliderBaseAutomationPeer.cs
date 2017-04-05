@@ -186,7 +186,7 @@ namespace Telerik.UI.Automation.Peers
                 return this;
             }
 
-            return null;
+            return base.GetPatternCore(patternInterface);
         }
 
         /// <inheritdoc />

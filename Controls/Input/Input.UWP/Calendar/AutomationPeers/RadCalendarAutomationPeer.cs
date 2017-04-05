@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Telerik.UI.Xaml.Controls.Input;
 using Telerik.UI.Xaml.Controls.Input.Calendar;
@@ -12,7 +13,7 @@ namespace Telerik.UI.Automation.Peers
     /// <summary>
     /// AutomationPerr class for RadCalendar.
     /// </summary>
-    public class RadCalendarAutomationPeer : RadControlAutomationPeer, IMultipleViewProvider , ITableProvider, IGridProvider, ISelectionProvider
+    public class RadCalendarAutomationPeer : RadControlAutomationPeer, IMultipleViewProvider , ITableProvider, IGridProvider, ISelectionProvider, IValueProvider
     {
         internal readonly List<CalendarCellInfoBaseAutomationPeer> childrenCache;
         private RadCalendar CalendarOwner
@@ -43,7 +44,8 @@ namespace Telerik.UI.Automation.Peers
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.MultipleView || patternInterface == PatternInterface.Table
-                || patternInterface == PatternInterface.Grid || patternInterface ==PatternInterface.Selection)
+                || patternInterface == PatternInterface.Grid || patternInterface == PatternInterface.Selection
+                || patternInterface == PatternInterface.Value)
             {
                 return this;
             }
@@ -315,6 +317,44 @@ namespace Telerik.UI.Automation.Peers
                 }
             }          
             return peer;
+        }
+
+        /// <summary>
+        /// IValueProvider implementation.
+        /// </summary>
+        public void SetValue(string value)
+        {
+            if (this.IsReadOnly)
+            {
+                throw new InvalidOperationException("Read-only Calendar");
+            }
+
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
+
+            DateTime parsedValue;
+            if (DateTime.TryParse(value, out parsedValue))
+            {
+                this.CalendarOwner.DisplayDate = parsedValue;
+            }
+        }
+
+        /// <summary>
+        /// IValueProvider implementation.
+        /// </summary>
+        public bool IsReadOnly => !this.CalendarOwner.IsEnabled;
+
+        /// <summary>
+        /// IValueProvider implementation.
+        /// </summary>
+        public string Value => this.CalendarOwner.DisplayDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseValuePropertyChangedEvent(string oldValue, string newValue)
+        {
+            this.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue, newValue);
         }
     }
 }

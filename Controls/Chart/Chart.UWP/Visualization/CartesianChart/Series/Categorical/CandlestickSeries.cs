@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Charting;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -78,6 +80,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override void UpdateLegendItem(FrameworkElement visual, DataPoint dataPoint)
         {
             // Implement this when the legend start to makes sense for this series.
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new CandlestickSeriesAutomationPeer(this);
         }
     }
 }

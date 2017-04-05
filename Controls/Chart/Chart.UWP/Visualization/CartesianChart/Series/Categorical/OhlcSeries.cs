@@ -1,5 +1,7 @@
 ﻿using Telerik.Charting;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -19,6 +21,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override FrameworkElement CreateDefaultDataPointVisual(DataPoint point)
         {
             return new OhlcStick();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new OhlcSeriesAutomationPeer(this);
         }
     }
 }

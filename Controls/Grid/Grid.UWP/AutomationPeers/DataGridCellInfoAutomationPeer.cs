@@ -297,6 +297,25 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override Rect GetBoundingRectangleCore()
         {
+            if (this.radDataGrid.SelectionUnit == DataGridSelectionUnit.Row)
+            {
+                var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this.radDataGrid) as RadDataGridAutomationPeer;
+                if (dataGridPeer != null)
+                {
+                    var firstCellInRow = dataGridPeer.childrenCache.Where(a => a.Row == this.Row && a.Column == 0).FirstOrDefault();
+                    var lastCellInRow = dataGridPeer.childrenCache.Where(a => a.Row == this.Row && a.Column == (this.radDataGrid.Columns.Count - 1)).FirstOrDefault();
+
+                    if (firstCellInRow != null && lastCellInRow != null && firstCellInRow.ChildTextBlockPeer != null
+                        && lastCellInRow.ChildTextBlockPeer != null)
+                    {
+                        var startPointRect = firstCellInRow.ChildTextBlockPeer.GetBoundingRectangle();
+                        var endPointRect = lastCellInRow.ChildTextBlockPeer.GetBoundingRectangle();
+
+                        return new Rect(startPointRect.Left, endPointRect.Top, (endPointRect.Left + endPointRect.Width) - startPointRect.Left, startPointRect.Height);
+                    }
+                }
+            }
+
             if (this.ChildTextBlockPeer != null)
             {
                 return this.ChildTextBlockPeer.GetBoundingRectangle();

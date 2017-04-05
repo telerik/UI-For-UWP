@@ -818,12 +818,14 @@
                                         Margin="{TemplateBinding Padding}"
                                         Grid.Row="1" />
 
-                        <Popup x:Name="PART_Popup" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}">
+                        <Popup x:Name="PART_Popup" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}"
+                               AutomationProperties.AccessibilityView="Raw">
                             <Popup.Child>
                                 <Grid>
                                     <localAutoComplete:SuggestionItemsControl x:Name="PART_SuggestionsControl"
                                                                           DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
                                                                           ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                                          AutomationProperties.LiveSetting="Polite"
                                                                           ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" />
                                     <ContentControl x:Name="PART_NoResultsControl" Visibility="Collapsed" ContentTemplate="{TemplateBinding NoResultsContentTemplate}"
                                                     BorderBrush ="{ThemeResource TelerikAutoCompleteBoxSelectorItemBorderBrush}"
@@ -874,13 +876,14 @@
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="IsTabStop" Value="True" />
         <Setter Property="ItemSpacing" Value="5" />
         <Setter Property="Background" Value="{ThemeResource TelerikDateTimePickerBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikDateTimePickerBorderBrush}" />
         <Setter Property="Foreground" Value="{ThemeResource TelerikDateTimePickerForegroundBrush}" />
         <Setter Property="SelectorBackgroundStyle" Value="{StaticResource DateTimePickerSelectorBackgroundStyle}" />
         <Setter Property="HeaderStyle" Value="{StaticResource TelerikHeaderContentPresenterStyle}" />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
     </Style>
 
     <Style TargetType="local:RadDatePicker" BasedOn="{StaticResource DateTimePickerCommonStyle}">

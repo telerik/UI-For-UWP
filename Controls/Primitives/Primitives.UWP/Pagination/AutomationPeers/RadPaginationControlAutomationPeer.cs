@@ -1,4 +1,6 @@
-﻿using Telerik.UI.Xaml.Controls.Primitives;
+﻿using System.Collections.Generic;
+using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
@@ -34,7 +36,12 @@ namespace Telerik.UI.Automation.Peers
                 return automationId;
             }
 
-            return nameof(RadRadialMenu);
+            return nameof(RadPaginationControl);
+        }
+
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Group;
         }
 
         /// <inheritdoc />

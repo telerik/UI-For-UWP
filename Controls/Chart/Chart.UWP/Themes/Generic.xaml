@@ -39,7 +39,7 @@
     <!--Base Styles-->
 
     <Style TargetType="local:ChartElementPresenter" x:Key="BasePresenterStyle">
-        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="IsTabStop" Value="True"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="Template">
@@ -63,7 +63,8 @@
     <!--Chart Types-->
 
     <Style TargetType="local:RadChartBase" x:Key="BaseChartStyle">
-        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="IsTabStop" Value="True"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="MinWidth" Value="100"/>
         <Setter Property="MinHeight" Value="100"/>
         <Setter Property="Background" Value="#00FFFFFF"/>

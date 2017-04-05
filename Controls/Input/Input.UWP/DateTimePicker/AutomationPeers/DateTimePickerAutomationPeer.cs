@@ -46,7 +46,7 @@ namespace Telerik.UI.Automation.Peers
         {
             get
             {
-                return this.DateTimePicker.Value.ToString();
+                return this.DateTimePicker.ValueString;
             }
         }
 
@@ -56,7 +56,7 @@ namespace Telerik.UI.Automation.Peers
         public ExpandCollapseState ExpandCollapseState
         {
             get
-            {
+            { 
                 return this.DateTimePicker.IsOpen ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed;
             }
         }
@@ -81,7 +81,6 @@ namespace Telerik.UI.Automation.Peers
             {
                 var oldValue = this.DateTimePicker == null ? string.Empty : this.DateTimePicker.Value.ToString();
                 this.DateTimePicker.Value = parsedValue;
-                this.RaiseSelectionAutomationEvent(oldValue, value);
             }
         }
 
@@ -114,12 +113,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.Value || patternInterface == PatternInterface.ExpandCollapse)
+            if (patternInterface == PatternInterface.Value 
+                || (this.DateTimePicker.DisplayMode != DateTimePickerDisplayMode.Inline && patternInterface == PatternInterface.ExpandCollapse))
             {
                 return this;
             }
 
-            return null;
+            return base.GetPatternCore(patternInterface);
         }
 
         /// <inheritdoc />

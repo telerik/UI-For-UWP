@@ -2008,6 +2008,15 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 calendar.FetchNewAppointments();
             }
+
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+            {
+                var peer = FrameworkElementAutomationPeer.FromElement(calendar) as RadCalendarAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseValuePropertyChangedEvent(oldDisplayDate.ToString(), newDisplayDate.ToString());
+                }
+            }
         }
 
         private static void OnDisplayModePropertyChanged(DependencyObject target, DependencyPropertyChangedEventArgs args)

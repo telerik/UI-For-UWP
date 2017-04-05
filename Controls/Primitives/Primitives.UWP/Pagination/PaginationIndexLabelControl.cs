@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Primitives.Pagination
 {
@@ -147,6 +149,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Pagination
             }
 
             this.SetValue(CurrentIndexDisplayValueProperty, indexValue);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new PaginationIndexLabelControlAutomationPeer(this);
         }
 
         private void OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)

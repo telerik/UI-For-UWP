@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Primitives.Pagination
@@ -43,6 +45,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Pagination
             {
                 VisualStateManager.GoToState(this, "BoundToItem", true);
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new PaginationListControlItemAutomationPeer(this);
         }
     }
 }

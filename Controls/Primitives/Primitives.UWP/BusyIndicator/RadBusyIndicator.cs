@@ -262,10 +262,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             RadBusyIndicator typedSender = sender as RadBusyIndicator;
             typedSender.OnIsActiveChanged(args);
 
-            var peer = FrameworkElementAutomationPeer.CreatePeerForElement(typedSender) as RadBusyIndicatorAutomationPeer;
-            if (peer != null)
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
             {
-                peer.RaiseToggleStatePropertyChangedEvent((bool)args.OldValue, (bool)args.NewValue);
+                var peer = FrameworkElementAutomationPeer.FromElement(typedSender) as RadBusyIndicatorAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseToggleStatePropertyChangedEvent((bool)args.OldValue, (bool)args.NewValue);
+                }
             }
         }
 

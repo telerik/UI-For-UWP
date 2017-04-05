@@ -560,9 +560,9 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <localRangeSlider:RangeTrackPrimitive x:Name="PART_TrackBar" IsTabStop="False"/>
-                            <Thumb x:Name="PART_SelectionStartThumb" Style="{TemplateBinding SelectionStartThumbStyle}"  />
-                            <Thumb x:Name="PART_SelectionMiddleThumb" Style="{TemplateBinding SelectionMiddleThumbStyle}"/>
-                            <Thumb x:Name="PART_SelectionEndThumb" Style="{TemplateBinding SelectionEndThumbStyle}"/>
+                            <Thumb x:Name="PART_SelectionStartThumb" Style="{TemplateBinding SelectionStartThumbStyle}" AutomationProperties.Name="SelectionStartThumb"/>
+                            <Thumb x:Name="PART_SelectionMiddleThumb" Style="{TemplateBinding SelectionMiddleThumbStyle}" AutomationProperties.Name="SelectionMiddleThumb"/>
+                            <Thumb x:Name="PART_SelectionEndThumb" Style="{TemplateBinding SelectionEndThumbStyle}" AutomationProperties.Name="SelectionEndThumb"/>
                         </localRangeSlider:ThumbsPanel>
                     </Grid>
                 </ControlTemplate>
@@ -588,6 +588,7 @@
         <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
         <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="FontSize" Value="30"/>
+        <Setter Property="AutomationProperties.Name" Value="RadialMenuButton"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localRadialMenu:RadialMenuButton">
@@ -829,7 +830,8 @@
     <Style TargetType="local:RadRadialMenu">
         <Setter Property="NavigationMenuBackgroundStyle" Value="{StaticResource NavigationMenuStyle}"/>
         <Setter Property="ContentMenuBackgroundStyle" Value="{StaticResource ContentMenuStyle}"/>
-        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
+        <Setter Property="IsTabStop" Value="True"/>
         <Setter Property="MinWidth" Value="265"/>
         <Setter Property="MinHeight" Value="265"/>
         <Setter Property="Template">

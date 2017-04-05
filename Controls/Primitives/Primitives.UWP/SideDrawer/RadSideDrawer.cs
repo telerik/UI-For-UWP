@@ -828,10 +828,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             sideDrawer.CommandService.ExecuteCommand(CommandId.DrawerStateChanged, e.NewValue);
 
-            var peer = FrameworkElementAutomationPeer.CreatePeerForElement(sideDrawer) as RadSideDrawerAutomationPeer;
-            if (peer != null)
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
             {
-                peer.RaiseToggleStatePropertyChangedEvent((DrawerState)e.OldValue, (DrawerState)e.NewValue);
+                var peer = FrameworkElementAutomationPeer.FromElement(sideDrawer) as RadSideDrawerAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseExpandCollapseAutomationEvent((DrawerState)e.OldValue, (DrawerState)e.NewValue);
+                }
             }
         }
 

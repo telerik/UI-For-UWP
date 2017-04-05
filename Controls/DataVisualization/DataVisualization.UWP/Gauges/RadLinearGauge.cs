@@ -1,5 +1,7 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.DataVisualization
@@ -137,6 +139,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
 
             // Orientation orientation = GetOrientation(this);
             // SetOrientation(this.Panel, orientation);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadLinearGaugeAutomationPeer(this);
         }
 
         private static void OnOrientationPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

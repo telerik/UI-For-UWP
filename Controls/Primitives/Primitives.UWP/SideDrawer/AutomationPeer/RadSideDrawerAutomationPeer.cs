@@ -1,4 +1,5 @@
-﻿using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.Core;
+using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Automation.Provider;
@@ -8,7 +9,7 @@ namespace Telerik.UI.Automation.Peers
     /// <summary>
     /// AutomationPeer class for <see cref="RadSideDrawer"/>.
     /// </summary>
-    public class RadSideDrawerAutomationPeer : RadControlAutomationPeer, IToggleProvider
+    public class RadSideDrawerAutomationPeer : RadControlAutomationPeer, IExpandCollapseProvider
     {
         private RadSideDrawer SideDrawerOwner
         {
@@ -22,53 +23,35 @@ namespace Telerik.UI.Automation.Peers
         /// Initializes a new instance of the RadSideDrawerAutomationPeer class.
         /// </summary>
         /// <param name="owner">The RadSideDrawer that is associated with this RadSideDrawerAutomationPeer.</param>
-        public RadSideDrawerAutomationPeer(RadSideDrawer owner) : base(owner)
+        public RadSideDrawerAutomationPeer(RadSideDrawer owner) 
+            : base(owner)
         {
 
         }
 
-        /// <summary>
-        ///  Gets the toggle state of the control. 
-        /// </summary>
-        public ToggleState ToggleState
+        /// <inheritdoc />
+        protected override string GetNameCore()
         {
-            get
+            if (this.SideDrawerOwner.MainContent != null)
             {
-                return this.ConvertDrawerToToggleState(this.SideDrawerOwner.DrawerState);
+                var textBlock = ElementTreeHelper.FindVisualDescendant<Windows.UI.Xaml.Controls.TextBlock>(this.SideDrawerOwner);
+                if (textBlock != null)
+                {
+                    return textBlock.Text;
+                }
             }
-        }
 
-        /// <summary>
-        /// Cycles through the toggle states of a control.
-        /// </summary>
-        public void Toggle()
-        {
-            DrawerState state = this.SideDrawerOwner.DrawerState;
-            if (state == DrawerState.Opened)
-            {
-                this.SideDrawerOwner.HideDrawer();
-            }
-            else if (state == DrawerState.Closed)
-            {
-                this.SideDrawerOwner.ShowDrawer();
-            }
-            else
-            {
-                if (this.SideDrawerOwner.IsOpen)
-                {
-                    this.SideDrawerOwner.HideDrawer();
-                }
-                else
-                {
-                    this.SideDrawerOwner.ShowDrawer();
-                }
-            }
+            var nameCore = base.GetNameCore();
+            if (!string.IsNullOrEmpty(nameCore))
+                return nameCore;
+
+            return string.Empty;
         }
 
         /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.Toggle)
+            if (patternInterface == PatternInterface.ExpandCollapse)
             {
                 return this;
             }
@@ -77,34 +60,66 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Custom;
+        }
+
+        /// <inheritdoc />
         protected override string GetLocalizedControlTypeCore()
         {
             return "rad side drawer";
         }
 
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseToggleStatePropertyChangedEvent(DrawerState oldState, DrawerState newState)
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
+        public void Collapse()
         {
-            this.RaisePropertyChangedEvent(
-                TogglePatternIdentifiers.ToggleStateProperty,
-                this.ConvertDrawerToToggleState(oldState),
-                this.ConvertDrawerToToggleState(newState));
+            this.SideDrawerOwner.ToggleDrawer();
         }
 
-        private ToggleState ConvertDrawerToToggleState(DrawerState drawerState)
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
+        public void Expand()
+        {
+            this.SideDrawerOwner.ToggleDrawer();
+        }
+
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
+        public ExpandCollapseState ExpandCollapseState
+        {
+            get
+            {
+                return ConvertDrawerToExpandCollapseState(this.SideDrawerOwner.DrawerState);
+            }
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseExpandCollapseAutomationEvent(DrawerState oldValue, DrawerState newValue)
+        {
+            var oldConvertedValue = this.ConvertDrawerToExpandCollapseState(oldValue);
+            var newConvertedValue = this.ConvertDrawerToExpandCollapseState(newValue);
+
+            this.RaisePropertyChangedEvent(ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty, oldConvertedValue.ToString(), newConvertedValue.ToString());
+            this.RaisePropertyChangedEvent(AutomationElementIdentifiers.ItemStatusProperty, oldConvertedValue.ToString(), newConvertedValue.ToString());
+        }
+
+        private ExpandCollapseState ConvertDrawerToExpandCollapseState(DrawerState drawerState)
         {
             if (drawerState == DrawerState.Opened)
             {
-                return ToggleState.On;
+                return ExpandCollapseState.Expanded;
             }
             else if (drawerState == DrawerState.Closed)
             {
-                return ToggleState.Off;
+                return ExpandCollapseState.Collapsed;
             }
-            else
-            {
-                return ToggleState.Indeterminate;
-            }
+
+            return ExpandCollapseState.PartiallyExpanded;
         }
     }
 }

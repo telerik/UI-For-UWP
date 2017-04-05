@@ -2,9 +2,11 @@
 using System.Collections;
 using Telerik.Charting;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Markup;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -223,6 +225,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override ChartAreaModel CreateChartAreaModel()
         {
             return new CartesianChartAreaModel();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadCartesianChartAutomationPeer(this);
         }
 
         /// <summary>

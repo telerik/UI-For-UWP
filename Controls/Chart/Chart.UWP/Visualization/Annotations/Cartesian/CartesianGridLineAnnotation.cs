@@ -1,5 +1,7 @@
 ﻿using Telerik.Charting;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
@@ -197,6 +199,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return applied;
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new CartesianGridLineAnnotationAutomationPeer(this);
+        }
+
         private static void OnAxisPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             CartesianGridLineAnnotation annotation = sender as CartesianGridLineAnnotation;
@@ -214,6 +221,15 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             CartesianGridLineAnnotation annotation = sender as CartesianGridLineAnnotation;
             annotation.model.Value = annotation.Value;
+
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+            {
+                var peer = FrameworkElementAutomationPeer.FromElement(annotation) as CartesianGridLineAnnotationAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseValueChangedAutomationEvent(e.OldValue != null ? e.OldValue.ToString() : string.Empty, e.NewValue != null ? e.NewValue.ToString() : string.Empty);
+                }
+            }
         }
     }
 }
