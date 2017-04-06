@@ -438,6 +438,15 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                         if (peer != null)
                         {
                             peer.RaiseToggleStatePropertyChangedEvent((bool)e.OldValue, (bool)e.NewValue);
+                            if (newValue)
+                            {
+                                peer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementAddedToSelection);
+                                peer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementSelected);
+                            }
+                            else
+                            {
+                                peer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementRemovedFromSelection);
+                            }
                         }
                     }
                 }

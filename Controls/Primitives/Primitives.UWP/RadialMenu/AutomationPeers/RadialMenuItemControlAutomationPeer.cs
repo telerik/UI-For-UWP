@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Telerik.UI.Xaml.Controls.Primitives.Menu;
 using Windows.UI.Xaml.Automation;
@@ -7,7 +8,7 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
-    public class RadialMenuItemControlAutomationPeer : RadControlAutomationPeer, IToggleProvider, IInvokeProvider
+    public class RadialMenuItemControlAutomationPeer : RadControlAutomationPeer, IToggleProvider, IInvokeProvider, ISelectionItemProvider
     {
         private RadRadialMenu parent;
 
@@ -48,10 +49,31 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public bool IsSelected => this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected;
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public IRawElementProviderSimple SelectionContainer
+        {
+            get
+            {
+                if (this.parent != null)
+                {
+                    return this.ProviderFromPeer(CreatePeerForElement(this.parent));
+                }
+                return null;
+            }
+        }
+
         /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.Invoke || patternInterface == PatternInterface.Toggle)
+            if (patternInterface == PatternInterface.Invoke || patternInterface == PatternInterface.Toggle
+                || patternInterface == PatternInterface.SelectionItem)
             {
                 return this;
             }
@@ -61,7 +83,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.MenuItem;
+            return AutomationControlType.ListItem;
         }
 
         /// <inheritdoc />
@@ -130,6 +152,55 @@ namespace Telerik.UI.Automation.Peers
             {
                 this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected = !this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected;
             }
+        }
+        
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public void AddToSelection()
+        {
+            if (this.OwnerAsRadialMenuItemControl.Segment != null && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.Selectable
+                && !this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected)
+            {
+                this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected = true;
+            }
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public void RemoveFromSelection()
+        {
+            if (this.OwnerAsRadialMenuItemControl.Segment != null && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.Selectable
+                 && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected)
+            {
+                this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected = false;
+            }
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public void Select()
+        {
+            var radialMenuModel = this.parent.model;
+            if (radialMenuModel != null && radialMenuModel.contentRing != null
+                && radialMenuModel.contentRing.Segments != null)
+            {
+                var radialMenuItems = radialMenuModel.contentRing.Segments.OfType<RadialSegment>();
+                if (radialMenuItems != null)
+                {
+                    foreach (var item in radialMenuItems)
+                    {
+                        if (item.TargetItem != null && item.TargetItem.IsSelected)
+                        {
+                            item.TargetItem.IsSelected = !item.TargetItem.IsSelected;
+                        }
+                    }
+                }
+            }
+
+            this.AddToSelection();
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]

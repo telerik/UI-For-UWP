@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.Menu;
 using Windows.Foundation;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
 {
