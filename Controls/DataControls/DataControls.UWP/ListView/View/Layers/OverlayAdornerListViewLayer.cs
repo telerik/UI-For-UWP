@@ -32,16 +32,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                 if (this.busyControl.IsBusy != isBusy)
                 {
                     this.busyControl.IsBusy = isBusy;
-
-                    // TODO: 
-                    ////if (isBusy)
-                    ////{
-                    ////    this.Owner.HitTestService.Suspend();
-                    ////}
-                    ////else
-                    ////{
-                    ////    this.Owner.HitTestService.Resume();
-                    ////}
                 }
             }
 

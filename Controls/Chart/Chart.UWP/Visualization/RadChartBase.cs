@@ -480,7 +480,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (DesignMode.DesignModeEnabled)
             {
-                // TODO: This is hacky, the InvokeAsync method fails, so directly invalidate the Arrange
                 this.availableSize = new Size(0, 0);
                 this.InvalidateArrange();
             }

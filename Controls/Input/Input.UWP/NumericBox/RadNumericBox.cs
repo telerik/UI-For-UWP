@@ -33,7 +33,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(Object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged)); // TODO: double? is not supported as PropertyType, check with next WinRT versions
+            DependencyProperty.Register(nameof(Value), typeof(Object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged));
 
         /// <summary>
         /// Identifies the <see cref="AllowNullValue"/> dependency property.

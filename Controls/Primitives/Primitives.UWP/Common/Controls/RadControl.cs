@@ -127,7 +127,6 @@ namespace Telerik.UI.Xaml.Controls
             }
 
             // For some reason a COM exception is raised when trying to access the Dispatcher ar design-time
-            // HACK!!! Check with the RC version of the framework
             if (DesignMode.DesignModeEnabled)
             {
                 return false;

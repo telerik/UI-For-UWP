@@ -1395,13 +1395,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             this.itemsPanel.SnapOffsetCorrection = this.SnapOffsetCorrection;
 
             this.UpdateLogicalCount(false);
-
-            // TODO: Revisit if we decide to expose the control publicly
-            ////int deferredSelectedIndex = (int)this.GetValue(SelectedIndexProperty);
-            ////if (deferredSelectedIndex != -1)
-            ////{
-            ////    this.UpdateSelection(deferredSelectedIndex, LoopingListSelectionChangeReason.User);
-            ////}
         }
 
         private void SetDataItem(LoopingListItem visualItem)

@@ -14,30 +14,6 @@ namespace Telerik
 
 			void D2DMultiPolygon::SetPoints(IIterable<IIterable<Point>^>^ points)
 			{
-				//// TODO: Memory clean-up?
-				//for(auto i = this->pointsArray.begin(); i != this->pointsArray.end(); ++i)
-				//{
-				//	(*i).clear();
-				//}
-				//this->pointsArray.clear();
-
-				//IIterator<IIterable<Point>^>^ topIterator = points->First();
-				//while(topIterator->HasCurrent)
-				//{
-				//	std::vector<D2D1_POINT_2F> points;
-				//	IIterator<Point>^ nestedIterator = topIterator->Current->First();
-
-				//	while(nestedIterator->HasCurrent)
-				//	{
-				//		points.push_back(Extensions::ToPoint(nestedIterator->Current));
-				//		nestedIterator->MoveNext();
-				//	}
-
-				//	this->pointsArray.push_back(points);
-				//	topIterator->MoveNext();
-				//}
-
-				//this->Invalidate(true);
 			}
 
 			void D2DMultiPolygon::Populate(ComPtr<ID2D1GeometrySink> sink)

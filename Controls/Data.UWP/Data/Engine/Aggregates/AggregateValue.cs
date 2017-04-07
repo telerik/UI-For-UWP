@@ -15,9 +15,6 @@ namespace Telerik.Data.Core
         private AggregateError error;
         private string formattedValue;
 
-        // TODO: public bool TryGetValue<T>(out T value) ...
-        // check if the aggregate GetValue() could be cast or interpreted or converted to T 
-
         /// <summary>
         /// Gets a presentation friendly value of the results in the current <see cref="AggregateValue"/>.
         /// </summary>

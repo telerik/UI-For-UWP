@@ -16,9 +16,6 @@ namespace Telerik.Data.Core
         {
         }
 
-        // TODO: Consider wrapping the IGroups in small objects that has settable 'IsFiltered' property similar to the TotalValue that has settable 'FormattedValue'.
-        // TODO: Or the other way around - make them both return an ISet/IDictionary implementations that contain the filtered groups / values for groups.
-
         /// <summary>
         /// Filters the groups within a parent group. Can filter based on count, average values or sorted values.
         /// </summary>

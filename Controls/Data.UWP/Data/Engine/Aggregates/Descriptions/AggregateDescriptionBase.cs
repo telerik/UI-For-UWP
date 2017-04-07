@@ -30,8 +30,6 @@ namespace Telerik.Data.Core
             }
         }
 
-        // TODO: Make internal. Set formatted values in the engine. Remove from IAggregateDescription.
-
         /// <inheritdoc />
         protected internal abstract AggregateValue CreateAggregate();
 

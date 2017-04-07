@@ -231,7 +231,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// </returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            // A HACK to overcome the differences in the DesiredSize of the header and the ArrangeSize, coming from the NodePool.
+            // Overcome the differences in the DesiredSize of the header and the ArrangeSize, coming from the NodePool.
             if (!this.AllowArrange)
             {
                 return new Size(0, 0);

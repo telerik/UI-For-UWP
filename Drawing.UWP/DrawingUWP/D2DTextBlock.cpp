@@ -46,7 +46,6 @@ namespace Telerik
 
 					if(!SUCCEEDED(hr))
 					{
-						// TODO: For debugging ONLY!!!
 						throw;
 					}
 
@@ -62,7 +61,6 @@ namespace Telerik
 
 					if(!SUCCEEDED(hr))
 					{
-						// TODO: For debugging ONLY!!!
 						throw;
 					}
 				}

@@ -155,7 +155,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         internal void OnDataBindingComplete(bool scrollToCurrent)
         {
-            // TODO:
             this.currentItemInfo = null;
             this.UpdateState(scrollToCurrent);
         }
@@ -248,7 +247,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private void OnItemsSourceCurrentChanged(object sender, object e)
         {
-            // TODO: 
         }
 
         private bool PreviewCancelCurrentChanging(bool cancelable)

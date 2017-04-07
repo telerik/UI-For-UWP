@@ -71,7 +71,7 @@ namespace Telerik.Charting
             }
             else if (zoomed && this.DataPoints.Count > 0)
             {
-                // TODO: This tells the renderer to use the Renderable points rather than the DataPoints themselves. This is a bit hacky.
+                // This tells the renderer to use the Renderable points rather than the DataPoints themselves.
                 this.renderablePoints.Add(this.DataPoints[0]);
             }
 

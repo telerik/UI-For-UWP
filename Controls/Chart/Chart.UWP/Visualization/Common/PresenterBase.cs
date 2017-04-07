@@ -234,18 +234,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (setSize)
             {
-                // TODO: We can have custom Canvas and to skip the Width/Height setting
+                // We can have custom Canvas and to skip the Width/Height setting
                 if (presenter.Width != layoutSlot.Width)
                     presenter.Width = layoutSlot.Width;
                 if (presenter.Height != layoutSlot.Height)
                     presenter.Height = layoutSlot.Height;
-
-                // TODO: This is very HACKY, investigate why this happens
-                //if (!(presenter is Shape))
-                //{
-                //    presenter.InvalidateArrange();
-                //    presenter.Arrange(layoutSlot.ToRect());
-                //}
             }
         }
 

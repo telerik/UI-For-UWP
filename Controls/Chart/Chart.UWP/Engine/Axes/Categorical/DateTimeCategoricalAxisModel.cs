@@ -54,19 +54,6 @@ namespace Telerik.Charting
                     return date.Year;
                 case DateTimeComponent.Quarter:
                     return string.Format(CultureInfo.CurrentUICulture, CompositeCategoryKeyFormat, date.Year, DateTimeExtensions.GetQuarterOfYear(date));
-                ////TODO: reconsider datetimecomponent combine strategy
-                ////case DateTimeComponent.Month:
-                ////    return string.Format(CultureInfo.CurrentUICulture, CompositeCategoryKeyFormat, date.Year, date.Month);
-                ////case DateTimeComponent.Week:
-                ////    return string.Format(CultureInfo.CurrentUICulture, CompositeCategoryKeyFormat, date.Year, DateTimeExtensions.GetWeekOfYear(date));
-                ////case DateTimeComponent.Hour:
-                ////    return string.Format(CultureInfo.CurrentUICulture, CompositeCategoryKeyFormat, date.Year, DateTimeExtensions.GetHourOfYear(date));
-                ////case DateTimeComponent.Minute:
-                ////    return string.Format(CultureInfo.CurrentUICulture, CompositeCategoryKeyFormat, date.Year, DateTimeExtensions.GetMinuteOfYear(date));
-                ////case DateTimeComponent.Second:
-                ////    return string.Format(CultureInfo.CurrentUICulture, CompositeCategoryKeyFormat, date.Year, DateTimeExtensions.GetSecondOfYear(date));
-                ////case DateTimeComponent.Millisecond:
-                ////    return string.Format(CultureInfo.CurrentUICulture, CompositeCategoryKeyFormat, date.Year, DateTimeExtensions.GetMillisecondOfYear(date));
                 case DateTimeComponent.Month:
                     return date.Month;
                 case DateTimeComponent.Week:

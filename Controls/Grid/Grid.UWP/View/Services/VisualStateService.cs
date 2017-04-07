@@ -19,7 +19,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             RadRect slot;
 
-            // TODO: Call this on arrange and check whether still on over the same cell.
             switch (this.Owner.SelectionUnit)
             {
                 case DataGridSelectionUnit.Row:

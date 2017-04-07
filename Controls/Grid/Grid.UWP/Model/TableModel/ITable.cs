@@ -7,8 +7,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
     {
         double PhysicalVerticalOffset { get; }
         double PhysicalHorizontalOffset { get; }
-
-        // TODO: Consider removing them
         bool RowHeightIsNaN { get; }
         double RowHeight { get; }
 
@@ -17,8 +15,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
         void RecycleColumn(ItemInfo itemInfo);
         void RecycleRow(ItemInfo itemInfo);
         void RecycleEditRow(ItemInfo itemInfo);
-
-        // TODO: Consider removing them
         double GetWidthForLine(int line);
         double GetHeightForLine(int line);
 

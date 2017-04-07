@@ -120,7 +120,6 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         private static void OnSelectionModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {        
-            // TODO
             var listView = d as RadListView;
             var newValue = (DataControlsSelectionMode)e.NewValue;
             var oldValue = (DataControlsSelectionMode)e.OldValue;

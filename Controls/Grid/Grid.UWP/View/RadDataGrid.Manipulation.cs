@@ -302,7 +302,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return;
             }
 
-            // HACK: Workaround for WinRT issue with KeyDown raised twice for VirtualKey.Enter
+            // KeyDown is raised twice for VirtualKey.Enter
             if (e.Key == VirtualKey.Enter && e.KeyStatus.RepeatCount > 0)
             {
                 return;
