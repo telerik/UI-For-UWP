@@ -327,6 +327,26 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     }
                     break;
                 case VirtualKey.Tab:
+                    if (!this.editService.IsEditing)
+                    {
+                        e.Handled = true;
+                        if (!KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift))
+                        {
+                            info = this.model.FindPreviousOrNextDataItem(this.CurrentItem, true);
+                            if (info == null)
+                            {
+                                info = this.model.FindFirstDataItemInView();
+                            }
+                        }
+                        else
+                        {
+                            info = this.model.FindPreviousOrNextDataItem(this.CurrentItem, false);
+                            if (info == null)
+                            {
+                                info = this.model.FindLastDataItemInView();
+                            }
+                        }
+                    }
                     break;
                 case VirtualKey.Down:
                     if (!this.editService.IsEditing)
@@ -382,11 +402,40 @@ namespace Telerik.UI.Xaml.Controls.Grid
                         info = this.model.FindPreviousOrNextDataItem(this.CurrentItem, !shiftPressed);
                     }
                     break;
+                case VirtualKey.Space:
+                    if (this.SelectionUnit == DataGridSelectionUnit.Row)
+                    {
+                        info = this.model.FindItemInfo(this.CurrentItem);
+                        if (info != null)
+                        {
+                            var cell = this.model.CellsController.GetCellsForRow(info.Value.Slot).First();
+                            if (cell != null)
+                            {
+                                this.OnCellTap(new DataGridCellInfo(cell));
+                            }
+                        }
+                    }
+                    break;
             }
 
             if (info != null)
             {
                 this.CurrencyService.ChangeCurrentItem(info.Value.Item, true, true);
+
+                var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this) as RadDataGridAutomationPeer;
+                if (dataGridPeer != null && dataGridPeer.childrenCache != null)
+                {
+                    if (dataGridPeer.childrenCache.Count == 0)
+                    {
+                        dataGridPeer.GetChildren();
+                    }
+
+                    var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == info.Value.Slot && a.Column == 0).FirstOrDefault() as DataGridCellInfoAutomationPeer;
+                    if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
+                    {
+                        cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                    }
+                }
             }
         }
 

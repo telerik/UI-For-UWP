@@ -121,6 +121,19 @@ namespace Telerik.UI.Xaml.Controls.Input
                         handled = this.CurrencyService.HandleCellTap();
                         break;
                     }
+                case VirtualKey.Tab:
+                    {
+                        if (!KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift))
+                        {
+                            handled = this.CurrencyService.MoveCurrentToNext(false);
+                        }
+                        else
+                        {
+                            handled = this.CurrencyService.MoveCurrentToPrevious(false);
+                        }
+                       
+                        break;
+                    }
             }
 
             // Shift Selection in Multiple SelectionMode.

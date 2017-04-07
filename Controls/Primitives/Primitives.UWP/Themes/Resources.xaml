@@ -79,6 +79,7 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="UseSystemFocusVisuals" Value="True"/>
+        <Setter Property="AutomationProperties.LiveSetting" Value="Assertive"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:RadPaginationControl">

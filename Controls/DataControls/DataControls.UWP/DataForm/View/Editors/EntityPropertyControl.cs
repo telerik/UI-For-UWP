@@ -278,12 +278,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.UpdateRowCount(this.RowCount);
         }
 
-        /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new EntityPropertyControlAutomationPeer(this);
-        }
-
         public FrameworkElement View { get; set; }
         public FrameworkElement Label { get; set; }
         public FrameworkElement ErrorView { get; set; }
