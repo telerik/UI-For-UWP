@@ -46,7 +46,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (this.IsEditing && rowInfo.Item != this.EditItem)
             {
-                ////TODO behavior for default action.
                 canStartEdit = this.Owner.CommitEdit();
             }
 

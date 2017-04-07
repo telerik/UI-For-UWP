@@ -76,10 +76,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
             foreach (var rowPairs in this.RowPool.GetDisplayedElements())
             {
                 int rowSlot = rowPairs.Key;
+                var rowModel = rowPairs.Value.Last();
                 if (firstRow)
                 {
                     firstRow = false;
-                    int line = rowPairs.Value.Last().ItemInfo.Slot;
+                    int line = rowModel.ItemInfo.Slot;
                     topOffset = line - 1 >= 0 ? this.RowPool.RenderInfo.OffsetFromIndex(line - 1) : 0;
                 }
 
@@ -87,7 +88,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 this.generatedRowCells.TryGetValue(rowSlot, out columnCellsPair);
 
                 leftOffset = 0;
-                double cellHeight = this.GetSlotHeight(rowSlot);
+                double rowSlotHeight = this.GetSlotHeight(rowSlot);
+                double cellHeight = rowSlotHeight - rowModel.DetailsSize.Height;
                 bool firstColumn = true;
                 int cellSequenceNumber = 0;
 
@@ -121,11 +123,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
                 foreach (var row in rowPairs.Value)
                 {
-                    row.layoutSlot = new RadRect(0, topOffset, leftOffset, cellHeight);
+                    row.layoutSlot = new RadRect(0, topOffset, leftOffset, rowSlotHeight);
                     this.table.Arrange(row);
                 }
 
-                topOffset += cellHeight;
+                topOffset += rowSlotHeight;
             }
 
             return finalSize;

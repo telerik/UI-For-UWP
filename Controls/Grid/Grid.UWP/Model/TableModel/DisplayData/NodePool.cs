@@ -630,6 +630,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             double height = this.GenerateCellsForLine(slot, largestLength, lastElement);
 
+            height = Math.Max(largestLength, height);
+
             double width = 0;
             for (int i = 0; i < this.columnWidth.Count; i++)
             {

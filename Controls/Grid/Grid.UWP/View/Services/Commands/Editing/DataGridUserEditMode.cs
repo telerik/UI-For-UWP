@@ -22,6 +22,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// </summary>
         Inline,
 
+        /// <summary>
+        /// Editing is dispalyed in extrnal flyout.
+        /// </summary>
         External,
     }
 }

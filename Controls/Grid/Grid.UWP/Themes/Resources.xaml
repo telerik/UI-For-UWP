@@ -2108,6 +2108,23 @@
         </Setter>
     </Style>
 
+    <Style TargetType="localPrimitives:DataGridRowDetailsControl">
+        <Setter Property="Background" Value="{ThemeResource TelerikGridBackgroundBrush}"/>
+        <Setter Property="MinWidth" Value="50"/>
+        <Setter Property="MinHeight" Value="20"/>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localPrimitives:DataGridRowDetailsControl">
+                    <Border Background="{TemplateBinding Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 0 2 0"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="localPrimitives:DataGridAutoDataLoadingControl">
         <Setter Property="IsHitTestVisible" Value="False"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>

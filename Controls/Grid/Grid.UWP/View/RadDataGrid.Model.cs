@@ -14,6 +14,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
 {
     public partial class RadDataGrid
     {
+        private double cellsRowHeight = 40;
+
         private GridModel model;
 
         double IView.ViewportWidth
@@ -82,7 +84,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             GridRowModel row = node as GridRowModel;
             if (row != null)
             {
-                RadDataGrid.ArrangeRow(row);
+                this.ArrangeRow(row);
                 return;
             }
 
@@ -188,7 +190,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
                 this.FrozenColumnsContentLayer.ApplyClip(adjustedFrozenClip);
                 this.frozenDecorationLayer.ApplyClip(frozendecorationClip);
-                this.GroupHeadersContentLayer.ApplyClip(new RadRect(0, adjustedFrozenClip.Y, this.CellsPanel.ActualWidth, this.CellsPanel.ActualHeight),false);
+                this.GroupHeadersContentLayer.ApplyClip(new RadRect(0, adjustedFrozenClip.Y, this.CellsPanel.ActualWidth, this.CellsPanel.ActualHeight), false);
             }
             else
             {
@@ -326,7 +328,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
                 var element = this.Model.RowPool.GetDisplayedElement(line + 1);
 
-                if (element!=null && line != visibleLines - 1 && this.HasHorizontalGridLines && element.ContainerType != typeof(DataGridGroupHeader))
+                if (element != null && line != visibleLines - 1 && this.HasHorizontalGridLines && element.ContainerType != typeof(DataGridGroupHeader))
                 {
                     height += this.GridLinesThickness;
                 }
@@ -340,11 +342,17 @@ namespace Telerik.UI.Xaml.Controls.Grid
             return rect;
         }
 
-        private static Size ArrangeRow(GridRowModel row)
+        private Size ArrangeRow(GridRowModel row)
         {
             var arrangeRect = row.layoutSlot;
 
-            // TODO: Pass this to the content layer(s) in case needed.
+            DataGridRowDetailsControl rowDetailsContainer = row.Container as DataGridRowDetailsControl;
+
+            if (rowDetailsContainer != null)
+            {
+                arrangeRect = new RadRect(arrangeRect.X, arrangeRect.Y + cellsRowHeight, arrangeRect.Width, arrangeRect.Height - cellsRowHeight);
+            }
+
             var container = row.Container as UIElement;
 
             if (container != null)
@@ -377,12 +385,22 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private RadSize MeasureRow(GridRowModel row)
         {
-            // TODO: Consider different Layer model so that RowGroups can be measured also.
+
+
+
             UIElement container = row.Container as UIElement;
             if (container != null)
             {
                 container.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
                 row.DesiredSize = GridModel.DoubleArithmetics.Ceiling(container.DesiredSize.ToRadSize());
+            }
+
+            DataGridRowDetailsControl rowDetailsContainer = row.Container as DataGridRowDetailsControl;
+
+            if (rowDetailsContainer != null)
+            {
+                row.DetailsSize = new RadSize(row.DesiredSize.Width, row.DesiredSize.Height);
+                row.DesiredSize = new RadSize(row.DesiredSize.Width, row.DesiredSize.Height + cellsRowHeight);
             }
 
             var tuple = row.Container as Tuple<UIElement, UIElement>;
