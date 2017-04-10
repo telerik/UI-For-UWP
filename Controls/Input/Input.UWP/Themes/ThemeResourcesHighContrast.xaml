@@ -116,7 +116,7 @@
     <!--Hover state-->
     <SolidColorBrush x:Key="TelerikDateTimePickerPointerOverBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
     <SolidColorBrush x:Key="TelerikDateTimePickerPointerOverBorderBrush" Color="{ThemeResource SystemColorHighlightColor}" />
-    <SolidColorBrush x:Key="TelerikDateTimePickerSelectedPointerOverBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikDateTimePickerSelectedPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
 
     <!--Focused state-->
     <SolidColorBrush x:Key="TelerikDateTimePickerFocusedBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
@@ -188,14 +188,14 @@
     <SolidColorBrush x:Key="TelerikNumericBoxWatermarkDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
 
     <!--Spin Button-->
-    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonBackgroundBrush" Color="{ThemeResource TelerikSelectedColor}" />
-    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
     <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPointerOverBackgroundBrush" Color="#FF217DC9" />
     <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
     <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
     <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonDisabledBackgroundBrush" Color="#66CACACA" />
     <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonDisabledForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
-    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonDisabledBorderBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
+    <SolidColorBrush x:Key="TelerikNumericBoxSpinButtonDisabledBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
 
     <!--Delete Button-->
     <SolidColorBrush x:Key="TelerikNumericBoxDeleteButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
@@ -214,7 +214,7 @@
     <SolidColorBrush x:Key="TelerikCalendarDayNamesForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
 
     <!--CellStyles-->
-    <SolidColorBrush x:Key="TelerikCalendarNormalCellForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarNormalCellForegroundBrush" Color="#AA2809" />
     <SolidColorBrush x:Key="TelerikCalendarAnotherViewCellForegroundBrush" Color="{ThemeResource SystemColorHotlightColor}" />
 
     <SolidColorBrush x:Key="TelerikCalendarBlackoutCellForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}" />
