@@ -327,27 +327,34 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     }
                     break;
                 case VirtualKey.Tab:
-                    if (!this.editService.IsEditing)
+                    if (e.OriginalSource is RadDataGrid)
                     {
-                        e.Handled = true;
-                        if (!KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift))
+                        if (!this.editService.IsEditing)
                         {
-                            info = this.model.FindPreviousOrNextDataItem(this.CurrentItem, true);
-                            if (info == null)
-                            {
-                                info = this.model.FindFirstDataItemInView();
-                            }
-                        }
-                        else
-                        {
-                            info = this.model.FindPreviousOrNextDataItem(this.CurrentItem, false);
-                            if (info == null)
-                            {
-                                info = this.model.FindLastDataItemInView();
-                            }
+                            e.Handled = true;
+                            info = this.CurrencyService.CurrentItemInfo == null ?
+                                this.model.FindFirstDataItemInView()
+                                : this.CurrencyService.CurrentItemInfo;
+
+#pragma warning disable CS4014 
+                            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Low, () =>
+                             {
+                                 var xamlVisualStateLayer = this.visualStateLayerCache as XamlVisualStateLayer;
+                                 if (xamlVisualStateLayer != null)
+                                 {
+                                     var currencyVisual = xamlVisualStateLayer.CurrencyVisual as DataGridCurrencyControl;
+                                     if (currencyVisual != null && currencyVisual.Visibility == Visibility.Visible)
+                                     {
+                                         currencyVisual.Focus(FocusState.Keyboard);
+                                         this.RaiseCellPeerFocusChangedEvent(info);
+                                     }
+                                 }
+                             });
+#pragma warning restore CS4014
                         }
                     }
                     break;
+
                 case VirtualKey.Down:
                     if (!this.editService.IsEditing)
                     {
@@ -422,23 +429,13 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 this.CurrencyService.ChangeCurrentItem(info.Value.Item, true, true);
 
-                var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this) as RadDataGridAutomationPeer;
-                if (dataGridPeer != null && dataGridPeer.childrenCache != null)
+                if (e.Key != VirtualKey.Tab)
                 {
-                    if (dataGridPeer.childrenCache.Count == 0)
-                    {
-                        dataGridPeer.GetChildren();
-                    }
-
-                    var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == info.Value.Slot && a.Column == 0).FirstOrDefault() as DataGridCellInfoAutomationPeer;
-                    if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
-                    {
-                        cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
-                    }
+                    this.RaiseCellPeerFocusChangedEvent(info);
                 }
             }
         }
-
+        
         /// <summary>
         /// Called before the KeyDown event occurs.
         /// </summary>
@@ -482,6 +479,24 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 frozenHost.PointerExited -= this.FrozenContentHost_PointerExited;
                 frozenHost.PointerPressed -= this.FrozenContentHost_PointerPressed;
                 frozenHost.KeyDown -= this.FrozenContentHost_KeyDown;
+            }
+        }
+
+        private void RaiseCellPeerFocusChangedEvent(ItemInfo? info)
+        {
+            var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this) as RadDataGridAutomationPeer;
+            if (dataGridPeer != null && dataGridPeer.childrenCache != null)
+            {
+                if (dataGridPeer.childrenCache.Count == 0)
+                {
+                    dataGridPeer.GetChildren();
+                }
+
+                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == info.Value.Slot && a.Column == 0).FirstOrDefault() as DataGridCellInfoAutomationPeer;
+                if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
+                {
+                    cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                }
             }
         }
 

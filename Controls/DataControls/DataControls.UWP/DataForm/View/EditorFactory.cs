@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
@@ -155,6 +156,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             var positiveMessageView = this.GenerateContainerForPositiveMessage(property);
             editor.PositiveMessageView = positiveMessageView;
 
+            if (property.Label != null)
+            {
+                AutomationProperties.SetName(editor.View, property.Label);
+            }
+            
             return editor;
         }
 
