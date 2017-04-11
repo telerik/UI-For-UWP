@@ -1,0 +1,121 @@
+6/1/2010	Printer stand	11	119.70	1 Free with 10	Direct mail
+6/1/2010	Glare filter	6	77.82	Extra Discount	Magazine
+6/1/2010	Mouse pad	15	100.95	Extra Discount	Newspaper
+6/1/2010	Glare filter	11	149.71	1 Free with 10	Magazine
+6/2/2010	Mouse pad	22	155.40	1 Free with 10	Magazine
+6/2/2010	Mouse pad	3	20.19	Extra Discount	Newspaper
+6/2/2010	Copy holder	5	33.65	Extra Discount	Direct mail
+6/2/2010	Printer stand	22	239.36	1 Free with 10	Newspaper
+6/2/2010	Glare filter	10	129.70	Extra Discount	Magazine
+6/5/2010	Mouse pad	22	155.40	1 Free with 10	Magazine
+6/5/2010	Printer stand	8	82.96	Extra Discount	Direct mail
+6/5/2010	Printer stand	22	239.40	1 Free with 10	Direct mail
+6/5/2010	Copy holder	55	388.50	1 Free with 10	Magazine
+6/5/2010	Mouse pad	25	168.25	Extra Discount	Newspaper
+6/5/2010	Glare filter	22	299.42	1 Free with 10	Magazine
+6/6/2010	Mouse pad	33	256.41	1 Free with 10	Magazine
+6/6/2010	Printer stand	11	119.70	1 Free with 10	Magazine
+6/6/2010	Glare filter	22	329.34	1 Free with 10	Magazine
+6/6/2010	Copy holder	20	134.60	Extra Discount	Magazine
+6/24/2010	Printer stand	99	1,185.03	1 Free with 10	Magazine
+6/24/2010	Printer stand	55	658.35	1 Free with 10	Direct mail
+6/5/2010	Printer stand	11	131.67	1 Free with 10	Newspaper
+6/8/2010	Printer stand	25	299.25	Extra Discount	Magazine
+6/9/2010	Printer stand	22	263.34	1 Free with 10	Newspaper
+6/12/2010	Printer stand	11	131.67	1 Free with 10	Newspaper
+6/13/2010	Printer stand	22	263.34	1 Free with 10	Newspaper
+6/14/2010	Printer stand	30	311.10	Extra Discount	Magazine
+6/15/2010	Printer stand	15	155.55	Extra Discount	Magazine
+6/16/2010	Printer stand	20	207.40	Extra Discount	Magazine
+6/17/2010	Printer stand	74	767.38	Extra Discount	Direct mail
+6/7/2010	Printer stand	102	1,057.74	Extra Discount	Newspaper
+6/8/2010	Glare filter	22	329.34	1 Free with 10	Magazine
+6/9/2010	Glare filter	11	164.67	1 Free with 10	Magazine
+6/12/2010	Glare filter	33	494.01	1 Free with 10	Magazine
+6/13/2010	Glare filter	33	494.01	1 Free with 10	Magazine
+6/14/2010	Glare filter	25	374.25	Extra Discount	Magazine
+6/15/2010	Glare filter	30	449.10	Extra Discount	Magazine
+6/16/2010	Glare filter	30	449.10	Extra Discount	Magazine
+6/16/2010	Glare filter	25	374.25	Extra Discount	Magazine
+6/17/2010	Glare filter	15	224.55	Extra Discount	Magazine
+6/20/2010	Glare filter	99	1,482.03	1 Free with 10	Direct mail
+6/21/2010	Glare filter	132	1,976.04	1 Free with 10	Newspaper
+6/22/2010	Glare filter	15	194.55	Extra Discount	Magazine
+6/23/2010	Glare filter	69	894.93	Extra Discount	Direct mail
+6/24/2010	Glare filter	120	1,556.40	Extra Discount	Newspaper
+6/7/2010	Mouse pad	55	427.35	1 Free with 10	Magazine
+6/8/2010	Mouse pad	44	341.88	1 Free with 10	Magazine
+6/9/2010	Mouse pad	55	427.35	1 Free with 10	Magazine
+6/12/2010	Mouse pad	66	512.82	1 Free with 10	Magazine
+6/13/2010	Mouse pad	50	336.50	Extra Discount	Magazine
+6/14/2010	Mouse pad	45	302.85	Extra Discount	Magazine
+6/15/2010	Mouse pad	75	504.75	Extra Discount	Magazine
+6/16/2010	Mouse pad	50	336.50	Extra Discount	Magazine
+6/25/2010	Mouse pad	77	598.29	1 Free with 10	Magazine
+6/26/2010	Mouse pad	165	1,282.05	1 Free with 10	Direct mail
+6/17/2010	Mouse pad	187	1,452.99	1 Free with 10	Newspaper
+6/18/2010	Mouse pad	68	457.64	Extra Discount	Magazine
+6/19/2010	Mouse pad	122	821.06	Extra Discount	Direct mail
+6/20/2010	Mouse pad	175	1,177.75	Extra Discount	Newspaper
+6/7/2010	Copy holder	25	168.25	Extra Discount	Newspaper
+6/8/2010	Copy holder	30	201.90	Extra Discount	Newspaper
+6/9/2010	Copy holder	15	100.95	Extra Discount	Newspaper
+6/12/2010	Copy holder	20	134.60	Extra Discount	Newspaper
+6/13/2010	Copy holder	11	85.47	1 Free with 10	Magazine
+6/14/2010	Copy holder	22	170.94	1 Free with 10	Magazine
+6/15/2010	Copy holder	22	170.94	1 Free with 10	Magazine
+6/16/2010	Copy holder	33	256.41	1 Free with 10	Magazine
+6/21/2010	Copy holder	22	170.94	1 Free with 10	Magazine
+6/22/2010	Copy holder	66	512.82	1 Free with 10	Direct mail
+6/23/2010	Copy holder	121	940.17	1 Free with 10	Newspaper
+6/24/2010	Copy holder	62	417.26	Extra Discount	Magazine
+6/25/2010	Copy holder	65	437.45	Extra Discount	Direct mail
+6/26/2010	Copy holder	21	141.33	Extra Discount	Newspaper
+7/1/2010	Printer stand	88	1,053.36	1 Free with 10	Magazine
+7/2/2010	Printer stand	44	526.68	1 Free with 10	Direct mail
+7/3/2010	Printer stand	77	921.69	1 Free with 10	Newspaper
+7/4/2010	Printer stand	102	1,057.74	Extra Discount	Magazine
+7/5/2010	Printer stand	60	622.20	Extra Discount	Direct mail
+7/6/2010	Printer stand	80	829.60	Extra Discount	Newspaper
+7/7/2010	Glare filter	110	1,646.70	1 Free with 10	Magazine
+7/8/2010	Glare filter	77	1,152.69	1 Free with 10	Direct mail
+7/9/2010	Glare filter	77	1,152.69	1 Free with 10	Newspaper
+7/10/2010	Glare filter	124	1,608.28	Extra Discount	Magazine
+7/11/2010	Glare filter	65	843.05	Extra Discount	Direct mail
+7/12/2010	Glare filter	130	1,686.10	Extra Discount	Newspaper
+7/13/2010	Mouse pad	275	2,136.75	1 Free with 10	Magazine
+7/14/2010	Mouse pad	121	940.17	1 Free with 10	Direct mail
+7/15/2010	Mouse pad	176	1,367.52	1 Free with 10	Newspaper
+7/16/2010	Mouse pad	274	1,844.02	Extra Discount	Magazine
+7/17/2010	Mouse pad	141	948.93	Extra Discount	Direct mail
+7/18/2010	Mouse pad	166	1,117.18	Extra Discount	Newspaper
+7/19/2010	Copy holder	99	769.23	1 Free with 10	Magazine
+7/20/2010	Copy holder	55	427.35	1 Free with 10	Direct mail
+7/21/2010	Copy holder	132	1,025.64	1 Free with 10	Newspaper
+7/22/2010	Copy holder	75	504.75	Extra Discount	Magazine
+7/23/2010	Copy holder	60	403.80	Extra Discount	Direct mail
+7/24/2010	Copy holder	88	592.24	Extra Discount	Newspaper
+8/1/2010	Printer stand	66	790.02	1 Free with 10	Magazine
+8/2/2010	Printer stand	44	526.68	1 Free with 10	Direct mail
+8/3/2010	Printer stand	33	395.01	1 Free with 10	Newspaper
+8/4/2010	Printer stand	90	933.30	Extra Discount	Magazine
+8/5/2010	Printer stand	20	207.40	Extra Discount	Direct mail
+8/6/2010	Printer stand	80	829.60	Extra Discount	Newspaper
+8/7/2010	Glare filter	88	1,317.36	1 Free with 10	Magazine
+8/8/2010	Glare filter	44	658.68	1 Free with 10	Direct mail
+8/9/2010	Glare filter	33	494.01	1 Free with 10	Newspaper
+8/10/2010	Glare filter	87	1,128.39	Extra Discount	Magazine
+8/11/2010	Glare filter	48	622.56	Extra Discount	Direct mail
+8/12/2010	Glare filter	95	1,232.15	Extra Discount	Newspaper
+8/13/2010	Mouse pad	187	1,452.99	1 Free with 10	Magazine
+8/14/2010	Mouse pad	99	769.23	1 Free with 10	Direct mail
+8/15/2010	Mouse pad	121	940.17	1 Free with 10	Newspaper
+8/16/2010	Mouse pad	198	1,332.54	Extra Discount	Magazine
+8/17/2010	Mouse pad	104	699.92	Extra Discount	Direct mail
+8/18/2010	Mouse pad	144	969.12	Extra Discount	Newspaper
+8/19/2010	Copy holder	77	598.29	1 Free with 10	Magazine
+8/20/2010	Copy holder	33	256.41	1 Free with 10	Direct mail
+8/21/2010	Copy holder	44	341.88	1 Free with 10	Newspaper
+8/22/2010	Copy holder	57	383.61	Extra Discount	Magazine
+8/23/2010	Copy holder	38	255.74	Extra Discount	Direct mail
+8/24/2010	Copy holder	66	444.18	Extra Discount	Newspaper
