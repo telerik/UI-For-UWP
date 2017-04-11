@@ -5,11 +5,11 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   IgnorableNamespaces="uap mp">
 
-  <Identity Name="9322e5d9-3454-4944-b9cd-328f48e14562"
+  <Identity Name="40e72854-547a-4fdd-b200-229419401185"
             Publisher="CN=apopatan"
             Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="9322e5d9-3454-4944-b9cd-328f48e14562" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="40e72854-547a-4fdd-b200-229419401185" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Chart.Tests</DisplayName>
