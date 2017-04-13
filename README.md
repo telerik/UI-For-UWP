@@ -42,7 +42,7 @@ Currently, you can take a look at the [Customers Orders Database sample](https:/
 
 ## Getting started
 
-* Make sure you have the [required software to build UWP applications] (https://docs.microsoft.com/windows/uwp/get-started/get-set-up)
+* Make sure you have the [required software to build UWP applications](https://docs.microsoft.com/windows/uwp/get-started/get-set-up)
 * Clone a copy of the repository code
 * Open UWPControls.sln located in Controls folder and build it
 * Open UWPMap.sln located in Controls folder and build it in x86/x64 and ARM configs
