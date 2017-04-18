@@ -25,7 +25,6 @@ namespace Telerik
 				result = D2D1CreateFactory(D2D1_FACTORY_TYPE_MULTI_THREADED, __uuidof(ID2D1Factory1), &this->factory);
 				if(!SUCCEEDED(result))
 				{
-					// TODO: For debugging ONLY
 					throw;
 				}
 
@@ -34,7 +33,6 @@ namespace Telerik
 
 				if(!SUCCEEDED(result))
 				{
-					// TODO: For debugging ONLY
 					throw;
 				}
 
@@ -42,7 +40,6 @@ namespace Telerik
 				result = this->device->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_ENABLE_MULTITHREADED_OPTIMIZATIONS, &this->context);
 				if(!SUCCEEDED(result))
 				{
-					// TODO: For debugging ONLY
 					throw;
 				}
 
@@ -58,7 +55,6 @@ namespace Telerik
 				result = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory1), &this->writeFactory);
 				if(!SUCCEEDED(result))
 				{
-					// TODO: For debugging ONLY
 					throw;
 				}
 			}

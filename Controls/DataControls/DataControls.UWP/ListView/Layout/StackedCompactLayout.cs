@@ -163,7 +163,7 @@ namespace Telerik.Data.Core.Layouts
             {
                 itemsCount = Math.Max(item.Value.LastSubItemSlot, itemsCount);
             }
-            // int stackSlot = visibleLine;
+
             int stackSlot = GetFirstStackSlotOnRow(rowSlot, itemsCount);
 
             if (this.GroupHeadersTable.TryGetValue(stackSlot, out groupInfo, out lowerBound) && stackSlot <= itemsCount)

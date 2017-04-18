@@ -57,10 +57,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             {
                 this.skipSingleMeasurePass = false;
             }
-
-            // We neeed to skip next measure pass if if desiredSize is different.
-            // TODO: Why is this, Sir?
-            // this.skipSingleMeasurePass = previousDesiredSize != this.desiredSize;
         }
 
         internal void Arrange()
@@ -111,7 +107,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 return finalSize;
             }
 
-            // TODO: HACK!!! The InvalidateMeasure call does not work while in MeasureOverride pass
+            // The InvalidateMeasure call does not work while in MeasureOverride pass
             if ((this.Owner.Model.pendingMeasureFlags & InvalidateMeasureFlags.Header) == InvalidateMeasureFlags.Header)
             {
                 this.InvalidateMeasure();

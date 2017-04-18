@@ -189,9 +189,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.checkedItems = new CheckedItemsCollection<object>(this);
             this.PrepareCheckboxesSupport();
             this.SizeChanged += this.RadDataBoundListBox_SizeChanged;
-
-            // TODO:CONTEXTMENU
-            //// RadContextMenu.SetFocusedElementType(this, typeof(RadDataBoundListBoxItem));
         }
 
         /// <summary>

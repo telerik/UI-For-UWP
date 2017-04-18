@@ -77,12 +77,6 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         void IReorderItemsHost.CommitReorderOperation(int sourceIndex, int destinationIndex)
         {
-            //// this.Owner.DragBehavior.ReorderColumn(sourceIndex, destinationIndex);
-            //// foreach (var item in this.Children)
-            //// {
-            ////     item.Opacity = 1;
-            //// }
-            //// TODO:Raise Command 
         }
 
         internal void PrepareReorderItem(RadListViewItem reorderItem)

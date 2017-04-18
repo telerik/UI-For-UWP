@@ -196,7 +196,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private static void OnSelectionUnitChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            // TODO
             var grid = d as RadDataGrid;
 
             // Ensurance that itemscontrols bound to this property will not force incorrect refresh when the new and old value are same
@@ -208,7 +207,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private static void OnSelectionModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            // TODO
             var grid = d as RadDataGrid;
             var newValue = (DataGridSelectionMode)e.NewValue;
 

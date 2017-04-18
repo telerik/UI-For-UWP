@@ -15,7 +15,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             get
             {
-                // TODO: Actually Radar points can be sorted by category but do we need this? (cartesian categorical series do not support this right now as well).
                 throw new NotSupportedException("Cannot sort points for Radar series.");
             }
         }

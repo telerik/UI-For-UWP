@@ -678,13 +678,6 @@ namespace Telerik.Charting
 
             this.lastMeasureSize = availableSize;
             this.MeasureCore(availableSize);
-
-            //// TODO: Optimize this
-            ////if (availableSize != this.desiredSize)
-            ////{
-            ////    // additional measure pass so that the axis properly fits the last visible label
-            ////    this.MeasureCore(availableSize);
-            ////}
             this.isMeasureValid = true;
 
             return true;

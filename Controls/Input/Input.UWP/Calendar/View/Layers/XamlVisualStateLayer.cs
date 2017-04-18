@@ -6,7 +6,6 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
-    // TODO: extract abstract VisualStateLayer class
     internal class XamlVisualStateLayer : SharedUILayer
     {
         internal CalendarCellModel lastHoveredCell;

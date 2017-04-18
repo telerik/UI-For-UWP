@@ -146,7 +146,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// </returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            // NOTE: We cannot skip arrange pass else containers won't show at all.
+            // We cannot skip arrange pass else containers won't show at all.
             // TODO: Consider using Arrange method instead of Canvas.Set* methods - probably it will be faster because we have to Arrange then anyway.
             base.ArrangeOverride(finalSize);
 
@@ -163,7 +163,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 return finalSize;
             }
 
-            // TODO: HACK!!! The InvalidateMeasure call does not work while in MeasureOverride pass
+            // The InvalidateMeasure call does not work while in MeasureOverride pass
             if ((this.Owner.Model.pendingMeasureFlags & InvalidateMeasureFlags.Cells) == InvalidateMeasureFlags.Cells)
             {
                 this.InvalidateMeasure();

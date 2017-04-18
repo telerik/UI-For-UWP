@@ -1117,13 +1117,6 @@
                 <ControlTemplate TargetType="localPrimitives:SelectionRegionBorderControl">
                     <Grid>
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        <!--TODO: This is the top-left gripper (selection handler) UI-->
-                        <!--<Border Width="16" Height="16" BorderBrush="#2D2D2D"  BorderThickness="2 2 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                        <Border x:Name="TopLeft_Thumb"  Width="14" Height="14"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="4 4 0 0" VerticalAlignment="Top" HorizontalAlignment="Left"/>-->
-
-                        <!--TODO: This is the bottom-right gripper (selection handler) UI-->
-                        <!--<Border Width="16" Height="16" BorderBrush="#2D2D2D"  BorderThickness="0 0 2 2" VerticalAlignment="Bottom" HorizontalAlignment="Right" />-->
-                        <!--<Border x:Name="BottomRight_Thumb"  Width="14" Height="14"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0 0 4 4" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>-->
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

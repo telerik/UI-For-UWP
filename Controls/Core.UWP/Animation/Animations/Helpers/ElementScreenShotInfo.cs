@@ -18,17 +18,6 @@ namespace Telerik.Core
         /// <param name="targetElement">The target element.</param>
         public ElementScreenShotInfo(FrameworkElement targetElement)
         {
-            ////TODO:
-            ////if (targetElement == null)
-            ////{
-            ////    return;
-            ////}
-            ////this.ScreenShotContainer = new Rectangle();
-            ////this.ScreenShotContainer.Fill = new ImageBrush
-            ////{
-            ////    ImageSource = ExportHelper.GetElementImage(targetElement as FrameworkElement)
-            ////};
-
             FrameworkElement rootVisual = Window.Current.Content as FrameworkElement;
             this.Popup = new Popup();
             Canvas popupChild = new Canvas()

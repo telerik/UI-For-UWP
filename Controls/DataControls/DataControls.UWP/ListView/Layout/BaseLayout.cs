@@ -278,7 +278,7 @@ namespace Telerik.Data.Core.Layouts
             IReadOnlyList<object> readOnlyList = source as IReadOnlyList<object>;
             if (readOnlyList != null)
             {
-                this.ItemsSource = readOnlyList; // TODO: Should we copy?
+                this.ItemsSource = readOnlyList;
             }
             else
                 if (source == null)

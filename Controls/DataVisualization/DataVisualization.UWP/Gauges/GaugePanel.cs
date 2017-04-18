@@ -107,7 +107,6 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
 
             if (DesignMode.DesignModeEnabled)
             {
-                // TODO: This is hacky, the Dispatcher.RunAsync method fails, so directly invalidate the Measure
                 this.ResetTicksAndLabels();
                 this.InvalidateMeasure();
             }
@@ -342,7 +341,6 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             tick.SetValue(RadGauge.TickValueProperty, value);
 
             // The default value formatter displayes 0d as 0.0000000, that is why we are calling ToString() explicitly
-            // TODO: Verify with newer WinRT versions
             tick.Content = value.ToString(CultureInfo.CurrentUICulture.NumberFormat);
         }
 
