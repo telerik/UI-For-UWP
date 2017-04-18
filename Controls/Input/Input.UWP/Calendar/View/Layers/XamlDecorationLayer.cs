@@ -6,7 +6,6 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
-    // TODO: extract abstract DecorationLayer class
     internal class XamlDecorationLayer : CalendarLayer
     {
         private const int DefaultGridLineDecorationZIndex = -1;
@@ -26,7 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.recycledContainers = new Queue<Border>();
             this.realizedCalendarCellDecorationPresenters = new Dictionary<CalendarNode, Border>();
 
-            // HACK: we need dictionary keys for the additional line decorations we are drawing for the day names and week numbers;
+            // We need dictionary keys for the additional line decorations we are drawing for the day names and week numbers;
             this.dayNamesLineModel = new CalendarHeaderCellModel() { Type = CalendarHeaderCellType.DayName };
             this.weekNumbersLineModel = new CalendarHeaderCellModel() { Type = CalendarHeaderCellType.WeekNumber };
         }

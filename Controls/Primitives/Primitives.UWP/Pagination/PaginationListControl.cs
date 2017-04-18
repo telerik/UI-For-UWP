@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
@@ -79,6 +81,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Pagination
             {
                 paginationItem.ShouldDisplayIndicator = false;
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new PaginationListControlAutomationPeer(this);
         }
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)

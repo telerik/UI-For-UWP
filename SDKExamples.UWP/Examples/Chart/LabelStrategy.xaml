@@ -1,0 +1,69 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Chart.LabelStrategy"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localChart="using:SDKExamples.UWP.Chart"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    mc:Ignorable="d" x:Name="page">
+
+    <local:ExamplePageBase.DataContext>
+        <localChart:ViewModelLabelStrategy />
+    </local:ExamplePageBase.DataContext>
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <localChart:CenterInsideLabelStrategy x:Key="centerInsideStrategy" />
+            <localChart:CenterOutsideLabelStrategy x:Key="centerOutsideStrategy" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <chart:RadCartesianChart PaletteName="DefaultDark" x:Name="chart" Grid.Row="1">
+            <chart:RadCartesianChart.HorizontalAxis>
+                <chart:CategoricalAxis />
+            </chart:RadCartesianChart.HorizontalAxis>
+            <chart:RadCartesianChart.VerticalAxis>
+                <chart:LinearAxis />
+            </chart:RadCartesianChart.VerticalAxis>
+
+            <chart:BarSeries CombineMode="Stack" ItemsSource="{Binding Data}" ShowLabels="True" LegendTitle="first">
+                <chart:BarSeries.CategoryBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Category" />
+                </chart:BarSeries.CategoryBinding>
+                <chart:BarSeries.ValueBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Value" />
+                </chart:BarSeries.ValueBinding>
+                <chart:BarSeries.LabelDefinitions>
+                    <!-- use custom label strategy to position the labels center&inside the bars -->
+                    <chart:ChartSeriesLabelDefinition Strategy="{StaticResource centerInsideStrategy}" />
+                </chart:BarSeries.LabelDefinitions>
+            </chart:BarSeries>
+            <chart:BarSeries CombineMode="Stack" ItemsSource="{Binding Data}" ShowLabels="True" LegendTitle="second">
+                <chart:BarSeries.CategoryBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Category" />
+                </chart:BarSeries.CategoryBinding>
+                <chart:BarSeries.ValueBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Value2" />
+                </chart:BarSeries.ValueBinding>
+                <chart:BarSeries.LabelDefinitions>
+                    <!-- use custom label strategy to position the labels center&inside the bars -->
+                    <chart:ChartSeriesLabelDefinition Strategy="{StaticResource centerInsideStrategy}" />
+
+                    <!-- Add second label definition to the last stacked series ONLY - it will handle the stacked sums display center&outside the stacks  -->
+                    <chart:ChartSeriesLabelDefinition Strategy="{StaticResource centerOutsideStrategy}">
+                        <chart:ChartSeriesLabelDefinition.Binding>
+                            <chart:PropertyNameDataPointBinding PropertyName="CalculatedStackedSum" />
+                        </chart:ChartSeriesLabelDefinition.Binding>
+                    </chart:ChartSeriesLabelDefinition>
+                </chart:BarSeries.LabelDefinitions>
+            </chart:BarSeries>
+
+        </chart:RadCartesianChart>
+    </Grid>
+</local:ExamplePageBase>

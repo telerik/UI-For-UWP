@@ -134,8 +134,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
             this.Owner.Owner.CommandService.ExecuteCommand(CommandId.ToggleColumnVisibility, new ToggleColumnVisibilityContext() { Column = column, IsColumnVisible = true });
         }
-
-        //TODO check this.
+        
         internal override void ClearUI()
         {
             if (this.Container != null)

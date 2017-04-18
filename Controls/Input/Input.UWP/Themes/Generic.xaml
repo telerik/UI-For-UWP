@@ -257,7 +257,7 @@
     </Style>
 
     <Style TargetType="ContentPresenter" x:Key="FilledIconStyle" BasedOn="{StaticResource RatingIconStyle}">
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{StaticResource TelerikSelectedColor}" />
     </Style>
 
     <Style TargetType="ContentPresenter" x:Key="HighlightedIconStyle" BasedOn="{StaticResource RatingIconStyle}">
@@ -265,6 +265,7 @@
     </Style>
 
     <Style TargetType="local:RadRatingItem">
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -274,7 +275,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:RadRatingItem">
-                    <Grid x:Name="LayoutRoot" Margin="{TemplateBinding Padding}">
+                    <Grid x:Name="LayoutRoot" Margin="{TemplateBinding Padding}">                        
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition Height="Auto" />
@@ -286,7 +287,7 @@
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
 
                         <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="EmptyIconContainer" Margin="0" Grid.Row="1">
-                            <ContentPresenter Style="{TemplateBinding EmptyIconStyle}"
+                            <ContentPresenter Style="{TemplateBinding EmptyIconStyle}" AutomationProperties.AccessibilityView="Raw"
                                               Content="{TemplateBinding EmptyIconContent}"
                                               ContentTemplate="{TemplateBinding EmptyIconContentTemplate}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -295,7 +296,7 @@
                         </Border>
 
                         <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="FilledIconContainer" Margin="0" Grid.Row="1">
-                            <ContentPresenter x:Name="FilledIconPresenter"
+                            <ContentPresenter x:Name="FilledIconPresenter" AutomationProperties.AccessibilityView="Raw"
                                               Style="{TemplateBinding FilledIconStyle}"
                                               Content="{TemplateBinding FilledIconContent}"
                                               ContentTemplate="{TemplateBinding FilledIconContentTemplate}"
@@ -311,6 +312,7 @@
 
     <Style TargetType="local:RadRating">
         <Setter Property="Orientation" Value="Horizontal" />
+		<Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="EmptyIconStyle" Value="{StaticResource EmptyIconStyle}" />
         <Setter Property="EmptyIconContent" Value="&#xe0b4;" />
         <Setter Property="FilledIconStyle" Value="{StaticResource FilledIconStyle}" />
@@ -816,12 +818,14 @@
                                         Margin="{TemplateBinding Padding}"
                                         Grid.Row="1" />
 
-                        <Popup x:Name="PART_Popup" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}">
+                        <Popup x:Name="PART_Popup" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsDropDownOpen, Mode=TwoWay}"
+                               AutomationProperties.AccessibilityView="Raw">
                             <Popup.Child>
                                 <Grid>
                                     <localAutoComplete:SuggestionItemsControl x:Name="PART_SuggestionsControl"
                                                                           DisplayMemberPath="{TemplateBinding DisplayMemberPath}"
                                                                           ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                                          AutomationProperties.LiveSetting="Polite"
                                                                           ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}" />
                                     <ContentControl x:Name="PART_NoResultsControl" Visibility="Collapsed" ContentTemplate="{TemplateBinding NoResultsContentTemplate}"
                                                     BorderBrush ="{ThemeResource TelerikAutoCompleteBoxSelectorItemBorderBrush}"
@@ -842,7 +846,7 @@
     <Style TargetType="localDateTime:DateTimeListItem" BasedOn="{StaticResource DateTimeListItemStyle}">
 
         <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="IsHitTestVisible" Value="True" />
         <Setter Property="Template" Value="{StaticResource DateTimeListItemControlTemplate}" />
     </Style>
 
@@ -872,13 +876,14 @@
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="IsTabStop" Value="True" />
         <Setter Property="ItemSpacing" Value="5" />
         <Setter Property="Background" Value="{ThemeResource TelerikDateTimePickerBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikDateTimePickerBorderBrush}" />
         <Setter Property="Foreground" Value="{ThemeResource TelerikDateTimePickerForegroundBrush}" />
         <Setter Property="SelectorBackgroundStyle" Value="{StaticResource DateTimePickerSelectorBackgroundStyle}" />
         <Setter Property="HeaderStyle" Value="{StaticResource TelerikHeaderContentPresenterStyle}" />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
     </Style>
 
     <Style TargetType="local:RadDatePicker" BasedOn="{StaticResource DateTimePickerCommonStyle}">

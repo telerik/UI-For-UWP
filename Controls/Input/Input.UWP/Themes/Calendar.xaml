@@ -20,6 +20,13 @@
                 <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
     
     <Style TargetType="localCalendar:AppointmentControl">      
@@ -43,6 +50,7 @@
     </Style>
     
     <Style x:Key="CalendarHeaderButtonStyle" TargetType="Button">
+        <Setter Property="AutomationProperties.Name" Value="CalendarHeaderButton"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -85,6 +93,7 @@
         <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarPreviousNextButtonForegroundBrush}" />
         <Setter Property="FontSize" Value="18" />
         <Setter Property="FontFamily" Value="Segoe UI Symbol" />
+        <Setter Property="AutomationProperties.Name" Value="CalendarLeftArrowButton"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -113,7 +122,7 @@
                                 <VisualState x:Name="PointerFocused"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <TextBlock x:Name="ArrowGlyph" Text="&#xE010;" Margin="15" />
+                        <TextBlock x:Name="ArrowGlyph" Text="&#xE010;" Margin="15" AutomationProperties.AccessibilityView="Raw" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -123,6 +132,7 @@
     <Style x:Key="CalendarRightArrowButtonStyle" TargetType="Button">
         <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarPreviousNextButtonForegroundBrush}" />
         <Setter Property="FontSize" Value="18" />
+        <Setter Property="AutomationProperties.Name" Value="CalendarRightArrowButton"/>
         <Setter Property="FontFamily" Value="Segoe UI Symbol" />
         <Setter Property="Template">
             <Setter.Value>
@@ -159,7 +169,7 @@
                                 <VisualState x:Name="PointerFocused"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <TextBlock x:Name="ArrowGlyph" Text="&#xE011;" Margin="15"  />
+                        <TextBlock x:Name="ArrowGlyph" Text="&#xE011;" Margin="15"  AutomationProperties.AccessibilityView="Raw"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -227,6 +237,7 @@
     </Style>
 
     <Style TargetType="local:RadCalendar">
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="MinHeight" Value="200" />
         <Setter Property="MinWidth" Value="200" />
         <Setter Property="GridLinesBrush" Value="{ThemeResource TelerikCalendarGridLinesBrush}" />
@@ -381,7 +392,6 @@
                                     <ScaleTransform />
                                 </Canvas.RenderTransform>
                             </localCalendar:CalendarViewHost>
-
                         </Grid>
                     </Border>
                 </ControlTemplate>

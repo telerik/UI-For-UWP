@@ -434,21 +434,18 @@ namespace Telerik
                 IInspectable* inspectable = (IInspectable*) reinterpret_cast<IInspectable*>(this->imageSource);
                 if (!inspectable)
                 {
-                    // TODO: for debugging only
                     throw;
                 }
 
                 HRESULT result = inspectable->QueryInterface(__uuidof(ISurfaceImageSourceNative), (void **)&this->nativeImageSource);
                 if (!SUCCEEDED(result))
                 {
-                    // TODO: for debugging only
                     throw;
                 }
 
                 result = this->nativeImageSource->SetDevice(this->resources->DXGIDevice.Get());
                 if (!SUCCEEDED(result))
                 {
-                    // TODO: for debugging only
                     throw;
                 }
 
@@ -564,7 +561,6 @@ namespace Telerik
                 result = this->nativeImageSource->EndDraw();
                 if (!SUCCEEDED(result))
                 {
-                    // TODO: For debugging only
                     throw;
                 }
             }
@@ -625,12 +621,12 @@ namespace Telerik
 
             void D2DCanvas::PrepareZoomIn()
             {
-                // TODO:
+
             }
 
             void D2DCanvas::PrepareZoomOut()
             {
-                // TODO:
+
             }
 
             void D2DCanvas::OnLoaded(Object^ sender, RoutedEventArgs^ args)

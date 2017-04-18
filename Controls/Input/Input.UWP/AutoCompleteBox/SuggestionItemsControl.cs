@@ -1,6 +1,8 @@
 ﻿using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
+using Windows.UI.Xaml.Automation.Provider;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
@@ -109,6 +111,8 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             }
 
             this.ScrollIntoView(this.SelectedItem);
+
+            this.RaiseAutomationFocusChangedEvent();
         }
 
         internal void SelectNextItem()
@@ -133,6 +137,25 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             }
 
             this.ScrollIntoView(this.SelectedItem);
+
+            this.RaiseAutomationFocusChangedEvent();
+        }
+
+        private void RaiseAutomationFocusChangedEvent()
+        {
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+            {
+                var suggestionItem = this.ContainerFromIndex(this.SelectedIndex) as ListBoxItem;
+                if (suggestionItem != null)
+                {
+                    var peer = FrameworkElementAutomationPeer.FromElement(suggestionItem) as ListBoxItemAutomationPeer;
+                    if (peer != null)
+                    {
+                        peer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                        peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+                    }
+                }
+            }
         }
 
         internal DependencyObject GetContainerForSuggestionItem()

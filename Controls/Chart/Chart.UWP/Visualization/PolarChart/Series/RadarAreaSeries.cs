@@ -1,5 +1,7 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -58,6 +60,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 return ChartPalette.AreaFamily;
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadarAreaSeriesAutomationPeer(this);
         }
 
         private static void OnFillChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

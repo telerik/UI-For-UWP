@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
@@ -223,6 +225,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             {
                 this.SetValue(ToolTipFormatProperty, value);
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SliderBaseAutomationPeer(this);
         }
 
         internal virtual void OnSelectionStartChanged(double oldSelectionStart, double newSelectionStart)

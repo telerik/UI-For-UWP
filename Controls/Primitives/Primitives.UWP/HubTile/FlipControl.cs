@@ -1,5 +1,7 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Primitives.HubTile
 {
@@ -148,6 +150,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives.HubTile
             }
 
             return this.IsFlipped ? "Flipped" : "NotFlipped";
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new FlipControlAutomationPeer(this);
         }
 
         private static void OnIsFlippedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

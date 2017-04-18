@@ -139,6 +139,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomationPeers\MapShapeAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\MapShapeLayerAutomationPeer.cs" />
+    <Compile Include="AutomationPeers\RadMapAutomationPeer.cs" />
     <Compile Include="Behaviors\MapBehavior.cs" />
     <Compile Include="Behaviors\MapBehaviorCollection.cs" />
     <Compile Include="Behaviors\MapShapePointerOverBehavior.cs" />
@@ -198,6 +201,10 @@
     <Page Include="Themes\ThemeResourcesDark.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeResourcesHighContrast.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\ThemeResourcesLight.xaml">
       <Generator>MSBuild:Compile</Generator>

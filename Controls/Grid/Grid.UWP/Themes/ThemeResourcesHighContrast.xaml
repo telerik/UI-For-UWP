@@ -1,0 +1,210 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls"
+    xmlns:system="using:System"
+    >
+
+    <SolidColorBrush x:Key="TelerikGridBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+    <SolidColorBrush x:Key="TelerikGridForegroundBrush" Color="#AA2809"/>
+    <SolidColorBrush x:Key="TelerikGridBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridHeaderBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridHeaderForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridHeaderPointerOverForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridAlternateRowBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+    <SolidColorBrush x:Key="TelerikGridSelectedBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridShadowBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridInnerShadowBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <!--Grouping-->
+    <SolidColorBrush x:Key="TelerikGridGroupHeaderBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridGroupHeaderForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridGroupHeaderArrowForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <!--Filtering ClearFilter button-->
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutClearButtonBackgroundBrush" Color="{ThemeResource SystemColorButtonFaceColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutClearButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutClearButtonBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutClearButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutClearButtonPointerOverForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutClearButtonPointerOverBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutClearButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutClearButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutClearButtonPressedBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <!--FlyoutHeader CancelFilter button-->
+    <SolidColorBrush x:Key="TelerikGridFlyoutHeaderCancelButtonBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutHeaderCancelButtonForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutHeaderCancelButtonBorderBrush" Color="Transparent"/>
+
+    <SolidColorBrush x:Key="TelerikGridFlyoutHeaderCancelButtonPointerOverBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutHeaderCancelButtonPointerOverForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutHeaderCancelButtonPointerOverBorderBrush" Color="Transparent"/>
+
+    <SolidColorBrush x:Key="TelerikGridFlyoutHeaderCancelButtonPressedBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutHeaderCancelButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutHeaderCancelButtonPressedBorderBrush" Color="Transparent"/>
+
+    <!--Filtering ExpandCollapse button-->
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutExpandButtonBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutExpandButtonBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutExpandButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutExpandButtonPointerOverBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutExpandButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutExpandButtonPressedBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <!--Filtering Header-->
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutHeaderForegroundBrush" Color="{ThemeResource SystemColorButtonFaceColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutHeaderBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutHeaderBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <!--Flyout-->
+    <SolidColorBrush x:Key="TelerikGridFlyoutBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <!--Service column-->
+    <SolidColorBrush x:Key="TelerikGridServiceColumnBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridServiceColumnForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridServiceColumnActiveForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridServiceColumnActiveBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridServiceColumnFlyoutBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+
+    <!--Flyout grouping-->
+    <SolidColorBrush x:Key="TelerikGridFlyoutGroupHeaderBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutGroupHeaderForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFlyoutGroupForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <!--Service Button-->
+    <SolidColorBrush x:Key="TelerikGridServiceButtonBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridServiceButtonForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridServiceButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridServiceButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridServiceButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+
+    <!--Selection-->
+    <SolidColorBrush x:Key="TelerikGridSelectedBorderBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridSelectedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+
+    <!--PointerOver-->
+    <SolidColorBrush x:Key="TelerikGridPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+
+    <!--Currency-->
+    <SolidColorBrush x:Key="TelerikGridCurrentCellBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridCurrentCellBorderBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+
+    <!-- Load More Data-->
+    <SolidColorBrush x:Key="TelerikGridLoadMoreDataButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridLoadMoreDataButtonBorderBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridLoadMoreDataButtonBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
+    <SolidColorBrush x:Key="TelerikGridLoadMoreDataButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridLoadMoreDataButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridLoadMoreDataButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <!--Overlay-->
+    <SolidColorBrush x:Key="TelerikGridOverlayBackgroundBrush" Color="#B2FFFFFF"/>
+
+    <!--ExternalEditor-->
+
+    <SolidColorBrush x:Key="TelerikGridExternalEditorBackgroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+    <SolidColorBrush x:Key="TelerikGridExternalEditorHeaderBackgroundBrush" Color="#CCCCCC" />
+    <SolidColorBrush x:Key="TelerikGridExternalEditorEditLabelBackgroundBrush" Color="#454545" />
+
+    <!--SaveButton-->
+    <SolidColorBrush x:Key="TelerikGridExternalEditorSaveButtonBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}" />
+    <SolidColorBrush x:Key="TelerikGridExternalEditorSaveButtonForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikGridExternalEditorSaveButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
+    <SolidColorBrush x:Key="TelerikGridExternalEditorSaveButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikGridExternalEditorSaveButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}" />
+    <SolidColorBrush x:Key="TelerikGridExternalEditorSaveButtonPointerOverForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <!--CancelButton-->
+    <SolidColorBrush x:Key="TelerikGridExternalEditorCancelButtonBackgroundBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TelerikGridExternalEditorCancelButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikGridExternalEditorCancelButtonPressedBackgroundBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TelerikGridExternalEditorCancelButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikGridExternalEditorCancelButtonPointerOverBackgroundBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TelerikGridExternalEditorCancelButtonPointerOverForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+
+    <!--ColumnDataOperationsControl-->
+    <SolidColorBrush x:Key="TelerikGridColumnDataOperationsButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikGridColumnDataOperationsButtonPressedForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
+    <SolidColorBrush x:Key="TelerikGridColumnDataOperationsButtonPointerOverForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+
+    <SolidColorBrush x:Key="TelerikGridColumnDataOperationsControlBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikGridColumnDataOperationsControlBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikGridColumnDataOperationsControlOuterBorderBrush" Color="#FF838282" />
+    <x:Double x:Key="TelerikGridColumnDataOperationsControlOuterBorderOpacity">0.3</x:Double>
+
+    <!--CellFlyoutControl-->
+    <SolidColorBrush x:Key="TelerikGridCellFlyoutControlBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="TelerikGridCellFlyoutControlBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}" />
+    <SolidColorBrush x:Key="TelerikGridCellFlyoutControlOuterBorderBrush" Color="#FF838282" />
+    <x:Double x:Key="TelerikGridCellFlyoutControlOuterBorderOpacity">0.3</x:Double>
+
+    <!--Filtering TextCaseButton-->
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonPointerOverBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonPointerOverForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonPressedBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonPressedForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonCheckedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonCheckedBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonCheckedForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonCheckedPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonCheckedPointerOverBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonCheckedPointerOverForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonCheckedPressedBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonCheckedPressedBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutTextCaseButtonCheckedPressedForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <!-- Column chooser -->
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxPointerOverForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxPressedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxPressedForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPointerOverForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPressedBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="TelerikGridColumnFlyoutColumnHeaderCheckBoxCheckedPressedForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+
+    <BitmapImage x:Key="TelerikGridReorderHandle" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/Reorder/ic_reorder_light.png"></BitmapImage>
+    <BitmapImage x:Key="TelerikGridReorderHandleWhite" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/Reorder/ic_reorder_dark.png"></BitmapImage>
+    <BitmapImage x:Key="TelerikGridColumnChooserOpen" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/Reorder/column_chooser_btn.png"></BitmapImage>
+    <BitmapImage x:Key="TelerikGridColumnChooserOpenMouseOver" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/Reorder/column_chooser_btn_blue.png"></BitmapImage>
+    <BitmapImage x:Key="TelerikGridColumnChooserClose" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/Reorder/close_btn.png"></BitmapImage>
+    <BitmapImage x:Key="TelerikGridColumnChooserCloseMouseOver" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/Reorder/close_btn_blue.png"></BitmapImage>
+
+    <!--FilterFlyoutIcons-->
+    <BitmapImage x:Key="TelerikGridFilterFlyoutHeaderIcon" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/FilterFlyout/ic_filter_header_light.png"/>
+    <BitmapImage x:Key="TelerikGridFilterFlyoutExpanderIcon" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/FilterFlyout/ic_arrow_down.png"/>
+    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

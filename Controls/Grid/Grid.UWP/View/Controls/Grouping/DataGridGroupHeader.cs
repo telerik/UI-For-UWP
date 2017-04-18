@@ -1,6 +1,8 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Grid.View;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
@@ -133,6 +135,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return "Collapsed";
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridGroupHeaderAutomationPeer(this);
+        }
+
         private static void OnIsExpandedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DataGridGroupHeader groupHeader = d as DataGridGroupHeader;
@@ -146,6 +153,12 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             if (groupHeader.Owner != null)
             {
                 groupHeader.Owner.OnGroupIsExpandedChanged();
+            }
+
+            var peer = FrameworkElementAutomationPeer.FromElement(groupHeader) as DataGridGroupHeaderAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseExpandCollapseAutomationEvent(!((bool)e.NewValue), (bool)e.NewValue);
             }
         }
     }

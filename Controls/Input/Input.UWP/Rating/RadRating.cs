@@ -4,9 +4,12 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Windows.Input;
 using Telerik.Core;
-using Telerik.UI.Xaml.Controls;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Markup;
@@ -273,6 +276,16 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(ValueProperty, value);
+                // raise the change for UIA 
+                if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+                {
+                    RadRatingAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RadRatingAutomationPeer;
+                    if (peer != null)
+                    {
+                        peer.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, this.GetValue(ValueProperty), value);
+                        peer.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, this.GetValue(ValueProperty), value);
+                    }
+                }
             }
         }
 
@@ -445,7 +458,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal void HandleTapEvent(RadRatingItem ratingItem)
         {
-            int index = this.itemsSource.IndexOf(ratingItem);
+            int index = this.GetIndexOf(ratingItem);
             if (index == -1)
             {
                 Debug.Assert(false, "Unknown item");
@@ -453,6 +466,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             this.Value = index + 1;
+        }
+
+        internal int GetIndexOf(RadRatingItem ratingItem)
+        {
+            return this.itemsSource.IndexOf(ratingItem);     
         }
 
         /// <inheritdoc/>
@@ -537,6 +555,43 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Handled)
+            {
+                return;
+            }
+
+            if (!this.IsReadOnly)
+            {
+                bool handled = false;
+
+                switch (e.Key)
+                {
+                    case VirtualKey.Left:
+                    case VirtualKey.Down:
+                        this.Value--;
+                        handled = true;
+                        break;
+                    case VirtualKey.Right:
+                    case VirtualKey.Up:
+                        this.Value++;
+                        break;
+                    case VirtualKey.Home:
+                        this.Value = 0.0;
+                        handled = true;
+                        break;
+                    case VirtualKey.End:
+                        this.Value = this.Items.Count;
+                        handled = true;
+                        break;
+                }
+
+                e.Handled = handled;
+            }
+        }
+
+        /// <inheritdoc/>
         protected override void OnManipulationDelta(ManipulationDeltaRoutedEventArgs args)
         {
             base.OnManipulationDelta(args);
@@ -574,6 +629,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.UpdateDisplayValue();
                 this.UpdateFillRatio();
             }
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadRatingAutomationPeer(this);
         }
 
         private static void OnCommandChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -1175,11 +1236,21 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.UpdateDisplayValue();
                 this.UpdateFillRatio();
                 this.OnValueChanged(new ValueChangedEventArgs<object>(oldValue, roundedNewValue));
+                this.RaiseAutomationEvent(oldValue, roundedNewValue);
                 this.RaiseCommandExecute();
             }
             else
             {
                 this.SetValuePropertySilently(RadRating.ValueProperty, oldValue);
+            }
+        }
+
+        private void RaiseAutomationEvent(double oldValue, double newValue)
+        {
+            AutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this);
+            if (peer != null)
+            {
+                peer.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue, newValue);
             }
         }
 

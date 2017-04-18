@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Telerik.Charting;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
@@ -489,6 +491,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
 
             return base.GetDistanceToPoint(dataPoint, tapLocation, pointDistanceMode);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new PieSeriesAutomationPeer(this);
         }
 
         internal virtual PieUpdateContext SetupUpdateContext(RadSize availableSize, Size updatedAvailableSize, PieUpdateContext context)

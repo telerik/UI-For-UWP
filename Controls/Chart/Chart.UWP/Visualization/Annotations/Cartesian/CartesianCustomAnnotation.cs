@@ -1,6 +1,8 @@
 ﻿using Telerik.Charting;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
@@ -335,6 +337,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 this.model.SecondAxis = cartesianChart.VerticalAxis.model;
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new CartesianCustomAnnotationAutomationPeer(this);
         }
 
         private static void OnHorizontalAxisPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)

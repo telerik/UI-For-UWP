@@ -52,6 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataBoundListBox\AutomationPeers\RadDataBoundListBoxAutomationPeer.cs" />
+    <Compile Include="DataBoundListBox\AutomationPeers\RadDataBoundListBoxItemAutomationPeer.cs" />
+    <Compile Include="DataForm\AutomationPeers\RadDataFormAutomationPeer.cs" />
+    <Compile Include="HexView\AutomationPeers\RadHexViewAutomationPeer.cs" />
+    <Compile Include="ListView\AutomationPeers\RadListViewAutomationPeer.cs" />
+    <Compile Include="ListView\AutomationPeers\RadListViewItemAutomationPeer.cs" />
     <Compile Include="VirtualizingDataControl\RenderInfo\StaggeredRenderInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +74,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\ThemeResourcesDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeResourcesHighContrast.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

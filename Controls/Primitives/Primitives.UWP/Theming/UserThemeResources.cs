@@ -10,9 +10,11 @@ namespace Telerik.UI.Xaml.Controls
     {
         internal const string DarkResourcesPathKeyName = "DarkResourcesPath";
         internal const string LightResourcesPathKeyName = "LightResourcesPath";
+        internal const string HighContrastResourcesPathKeyName = "HighContrastResourcesPath";
 
         private static string lightResourcesPath;
         private static string darkResourcesPath;
+        private static string highContrastResourcesPath;
 
         /// <summary>
         /// Initializes static members of the <see cref="UserThemeResources"/> class.
@@ -62,6 +64,22 @@ namespace Telerik.UI.Xaml.Controls
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="Uri"/> path to the resource dictionary containing theme resource definitions for the HighContrast theme.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        public string HighContrastResourcesPath
+        {
+            get
+            {
+                return highContrastResourcesPath;
+            }
+            set
+            {
+                highContrastResourcesPath = value;
+            }
+        }
+
         internal static Uri GetUriByPath(string resourceId)
         {
             if (resourceId == LightResourcesPathKeyName)
@@ -76,6 +94,13 @@ namespace Telerik.UI.Xaml.Controls
                 if (!string.IsNullOrEmpty(darkResourcesPath))
                 {
                     return new Uri(darkResourcesPath);
+                }
+            }
+            else if (resourceId == HighContrastResourcesPathKeyName)
+            {
+                if (!string.IsNullOrEmpty(highContrastResourcesPath))
+                {
+                    return new Uri(highContrastResourcesPath);
                 }
             }
 

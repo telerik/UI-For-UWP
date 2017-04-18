@@ -1,4 +1,6 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -18,6 +20,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override LineRenderer CreateRenderer()
         {
             return new SplineRenderer();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SplineSeriesAutomationPeer(this);
         }
     }
 }

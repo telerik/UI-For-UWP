@@ -147,7 +147,6 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal void UnapplyTemplate()
         {
-            // TODO
             var segmentedPanel = this.ItemsPanelRoot as SegmentedPanel;
             if (segmentedPanel != null)
             {

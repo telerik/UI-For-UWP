@@ -112,7 +112,6 @@
     <Compile Include="Common\DeviceType.cs" />
     <Compile Include="Common\DisposableObject.cs" />
     <Compile Include="Common\ElementTreeHelper.cs" />
-    <Compile Include="Common\ExportHelper.cs" />
     <Compile Include="Common\HslColor.cs" />
     <Compile Include="Common\IAsyncDataErrorInfo.cs" />
     <Compile Include="Common\ICloneable.cs" />

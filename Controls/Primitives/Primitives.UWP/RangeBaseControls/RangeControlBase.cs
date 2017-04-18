@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telerik.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
 {
@@ -93,6 +94,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             base.OnTemplateApplied();
             this.FitRange(this.delayedRangeChange);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.RangeControlBaseAutomationPeer(this);
         }
 
         private static void OnMinimumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

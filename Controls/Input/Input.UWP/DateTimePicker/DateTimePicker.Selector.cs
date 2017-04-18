@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.DateTimePickers;
 using Telerik.UI.Xaml.Controls.Primitives.LoopingList;
 using Windows.Foundation;
@@ -10,6 +11,7 @@ using Windows.System.Profile;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
@@ -720,15 +722,10 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return true;
             }
 
-            if (key == VirtualKey.Down)
+            if (key == VirtualKey.Down || key == VirtualKey.Up 
+                || key == VirtualKey.Home || key == VirtualKey.End)
             {
-                this.SelectNextItem();
-                return true;
-            }
-
-            if (key == VirtualKey.Up)
-            {
-                this.SelectPreviousItem();
+                this.SelectCurrentIndex();
                 return true;
             }
 
@@ -737,10 +734,6 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal Size GetSelectorSize()
         {
-            // In Windows Phone App the Popup should match the size of the screen.
-#if WINDOWS_PHONE_APP
-            return new Size(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-#elif WINDOWS_UWP
             var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             if (AnalyticsInfo.VersionInfo.DeviceFamily.Equals(DeviceFamilyMobileName) && view != null)
             {
@@ -751,10 +744,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 return this.CalculateSelectorSize();
             }
-
-#else
-            return this.CalculateSelectorSize();
-#endif
         }
 
         internal DateTime GetValueFromKind(DateTime date)
@@ -907,17 +896,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             base.OnTemplateApplied();
 
             this.pickerButton.Click += this.OnPickerButtonClick;
-
-#if WINDOWS_PHONE_APP
-            this.commandBarOKButton.Click += this.OnSelectorOKButtonClick;
-            this.commandBarCancelButton.Click += this.OnSelectorCancelButtonClick;
-#endif
-
-#if !WINDOWS_PHONE_APP
+            
             this.selectorOKButton.Click += this.OnSelectorOKButtonClick;
             this.selectorCancelButton.Click += this.OnSelectorCancelButtonClick;
-#endif
-
+            
             this.popup.Opened += this.OnPopupOpened;
             this.popup.Closed += this.OnPopupClosed;
 
@@ -930,12 +912,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.dateTimeLists.Sort(this.CompareDateTimeListByGridColumn);
             this.UpdateDateTimeListsTabMode();
 
-#if WINDOWS_PHONE_APP
-            this.commandBarOKButton.Content = InputLocalizationManager.Instance.GetString("OKText");
-            this.commandBarCancelButton.Content = InputLocalizationManager.Instance.GetString("CancelText");
-#endif
-
-#if !WINDOWS_PHONE_APP
             this.selectorOKButton.Content = InputLocalizationManager.Instance.GetString("OKText");
             this.selectorCancelButton.Content = InputLocalizationManager.Instance.GetString("CancelText");
 
@@ -944,8 +920,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.UpdateDisplayMode();
                 return;
             }
-#endif
-
+            
             if (this.IsOpen)
             {
                 // IsOpen is set in XAML, update the selector size and position
@@ -1023,14 +998,18 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return;
             }
 
+            DateTimePickerAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(picker) as DateTimePickerAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseExpandCollapseAutomationEvent(!((bool)args.NewValue), (bool)args.NewValue);
+            }
+
             if ((bool)args.NewValue)
             {
                 picker.PrepareSelector();
             }
         }
-
-
-#if WINDOWS_UWP ||WINDOWS_APP
+        
         private Size CalculateSelectorSize()
         {
             double itemLength = this.ItemLength;
@@ -1078,7 +1057,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             return new Size(width, height);
         }
-#endif
         private FrameworkElement FindPage()
         {
             Frame frame = Window.Current.Content as Frame;
@@ -1168,7 +1146,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             args.Handled = this.PerformSelectorKeyDown(args.VirtualKey);
         }
 
-        private void SelectNextItem()
+        private void SelectCurrentIndex()
         {
             int index = this.GetExpandedIndex();
             if (index == -1)
@@ -1176,18 +1154,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return;
             }
 
-            SelectNextDateTimeItem(this.dateTimeLists[index]);
-        }
-
-        private void SelectPreviousItem()
-        {
-            int index = this.GetExpandedIndex();
-            if (index == -1)
-            {
-                return;
-            }
-
-            SelectPreviousDateTimeItem(this.dateTimeLists[index]);
+            TryUpdateSelection(this.dateTimeLists[index], this.dateTimeLists[index].SelectedIndex);
         }
 
         private void ExpandLastOrPreviousList()
@@ -1589,7 +1556,6 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return;
             }
 
-#if !WINDOWS_PHONE_APP
             if (this.DisplayMode == DateTimePickerDisplayMode.Inline)
             {
                 FrameworkElement content = this.popup.Child as FrameworkElement;
@@ -1622,7 +1588,6 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.InvalidateMeasure();
                 return;
             }
-#endif
 
             UIElement popupChild = null;
             foreach (FrameworkElement child in layoutRoot.Children)

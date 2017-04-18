@@ -1,6 +1,8 @@
 ﻿using System;
 using Telerik.Charting;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -35,6 +37,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 return this.renderer.strokeShape;
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new LineSeriesAutomationPeer(this);
         }
     }
 }

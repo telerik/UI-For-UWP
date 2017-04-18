@@ -1,8 +1,10 @@
 ﻿using System;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -55,10 +57,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             {
                 this.skipSingleMeasurePass = false;
             }
-
-            // We neeed to skip next measure pass if if desiredSize is different.
-            // TODO: Why is this, Sir?
-            // this.skipSingleMeasurePass = previousDesiredSize != this.desiredSize;
         }
 
         internal void Arrange()
@@ -109,7 +107,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 return finalSize;
             }
 
-            // TODO: HACK!!! The InvalidateMeasure call does not work while in MeasureOverride pass
+            // The InvalidateMeasure call does not work while in MeasureOverride pass
             if ((this.Owner.Model.pendingMeasureFlags & InvalidateMeasureFlags.Header) == InvalidateMeasureFlags.Header)
             {
                 this.InvalidateMeasure();
@@ -120,6 +118,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.Owner.FrozenColumnHeadersHost.Height = finalSize.Height;
 
             return this.Owner.OnHeaderRowArrange(this.lastArrangeSize.ToRadSize()).ToSize();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridColumnHeaderPanelAutomationPeer(this);
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)

@@ -171,6 +171,9 @@
   <data name="PosterizeToolText" xml:space="preserve">
     <value>Posterize</value>
   </data>
+  <data name="RatingValueString" xml:space="preserve">
+    <value>Rating, {0} of {1}</value>
+  </data>
   <data name="RotateToolText" xml:space="preserve">
     <value />
   </data>

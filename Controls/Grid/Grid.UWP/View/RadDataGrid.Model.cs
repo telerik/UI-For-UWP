@@ -496,7 +496,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             Canvas.SetLeft(container, rect.X);
             Canvas.SetTop(container, rect.Y);
 
-            // A HACK to overcome the differences in the DesiredSize of the header and the ArrangeSize, coming from the NodePool.
+            // Overcome the differences in the DesiredSize of the header and the ArrangeSize, coming from the NodePool.
             container.AllowArrange = true;
 
             container.ArrangeRestriction = new Size(rect.Width, rect.Height);

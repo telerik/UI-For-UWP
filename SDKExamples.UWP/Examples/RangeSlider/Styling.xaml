@@ -1,0 +1,115 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Slider.Styling"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:sliderPrimitives="using:Telerik.UI.Xaml.Controls.Primitives.RangeSlider"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <input:RadRangeSlider Grid.Row="1" VerticalAlignment="Center" Header="Header">
+            <input:RadRangeSlider.HeaderStyle>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Foreground" Value="#BE673D"/>
+                    <Setter Property="FontSize" Value="15"/>
+                </Style>
+            </input:RadRangeSlider.HeaderStyle>
+
+            <input:RadRangeSlider.BottomRightScaleStyle>
+                <Style TargetType="primitives:ScalePrimitive">
+                    <Setter Property="LabelPlacement" Value="None"/>
+                    <Setter Property="TickPlacement" Value="TopLeft"/>
+                    <Setter Property="TickTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Ellipse Width="5" Height="5" Margin="0,5,0,0" Fill="LimeGreen"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </input:RadRangeSlider.BottomRightScaleStyle>
+
+            <input:RadRangeSlider.TopLeftScaleStyle>
+                <Style TargetType="primitives:ScalePrimitive">
+                    <Setter Property="LabelPlacement" Value="Center"/>
+                    <Setter Property="LabelStyle">
+                        <Setter.Value>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="#BE673D"/>
+                                <Setter Property="FontSize" Value="15"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="TickPlacement" Value="None"/>
+                </Style>
+            </input:RadRangeSlider.TopLeftScaleStyle>
+
+            <input:RadRangeSlider.SliderPrimitiveStyle>
+                <Style TargetType="primitives:RangeSliderPrimitive">
+                    <Setter Property="SelectionStartThumbStyle">
+                        <Setter.Value>
+                            <Style TargetType="Thumb">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Background" Value="#FFCE5E"/>
+                                <Setter Property="Width" Value="15"/>
+                                <Setter Property="Height" Value="15"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="SelectionMiddleThumbStyle">
+                        <Setter.Value>
+                            <Style TargetType="Thumb">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Background" Value="#80D6F4"/>
+                                <Setter Property="Height" Value="11"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="SelectionEndThumbStyle">
+                        <Setter.Value>
+                            <Style TargetType="Thumb">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Background" Value="#BE673D"/>
+                                <Setter Property="Width" Value="15"/>
+                                <Setter Property="Height" Value="15"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </input:RadRangeSlider.SliderPrimitiveStyle>
+
+            <input:RadRangeSlider.Resources>
+                <Style TargetType="sliderPrimitives:RangeTrackPrimitive">
+                    <Setter Property="Background" Value="#FFCE5E"/>
+                </Style>
+
+                <Style TargetType="sliderPrimitives:RangeToolTip">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="sliderPrimitives:RangeToolTip">
+                                <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock FontSize="20" VerticalAlignment="Top" Foreground="#80D6F4" Text="{Binding StartValue}"/>
+                                    <TextBlock FontSize="25" VerticalAlignment="Center" Foreground="#80D6F4" Text="/"/>
+                                    <TextBlock FontSize="15" VerticalAlignment="Bottom" Foreground="#FFCE5E" Text="{Binding EndValue}" />
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                
+            </input:RadRangeSlider.Resources>
+        </input:RadRangeSlider>
+
+    </Grid>
+</local:ExamplePageBase>

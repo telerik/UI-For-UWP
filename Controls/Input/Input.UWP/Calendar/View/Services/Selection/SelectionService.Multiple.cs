@@ -13,11 +13,16 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             if (cellModel != null)
             {
-                this.selectOperation = new SelectOperation(cellModel);
-                this.UpdateCellsIsSelectedFlags(this.selectOperation.CurrentSelectedRange, true);
-
-                this.RefreshModifiedCells();
+                this.InitSelection(cellModel);
             }
+        }
+
+        internal void InitSelection(CalendarCellModel cellModel)
+        {
+            this.selectOperation = new SelectOperation(cellModel);
+            this.UpdateCellsIsSelectedFlags(this.selectOperation.CurrentSelectedRange, true);
+
+            this.RefreshModifiedCells();
         }
 
         internal void ModifySelection(CalendarCellModel currentModelSelected)
@@ -57,6 +62,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.selectOperation = null;
         }
 
+        internal void MakeRangeSelection(CalendarCellModel startModel, CalendarCellModel endModel)
+        {
+            this.InitSelection(startModel);
+            this.ModifySelection(endModel);
+            this.EndSelection(true);
+        }
+
         private void CommitSelectOperation(Tuple<int, int> range)
         {
             var calendarCells = this.Owner.Model.CalendarCells;
@@ -70,6 +82,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             var cellsToUpdate = this.GetCellModelsByRange(this.selectOperation.CellRangeToRefresh);
             this.Owner.UpdatePresenters(cellsToUpdate);
-        }
+        }       
     }
 }

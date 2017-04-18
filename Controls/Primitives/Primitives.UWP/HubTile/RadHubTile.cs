@@ -1,6 +1,8 @@
 ﻿using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.HubTile;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -128,6 +130,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             {
                 this.SetValue(NotificationTemplateProperty, value);
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadHubTileAutomationPeer(this);
         }
     }
 }

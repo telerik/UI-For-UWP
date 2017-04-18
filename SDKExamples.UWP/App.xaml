@@ -1,0 +1,15 @@
+﻿<Application
+    x:Class="SDKExamples.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    RequestedTheme="Light">
+    <Application.Resources>
+        <Style TargetType="TextBlock" x:Key="ExampleHeaderTextBlockStyle" BasedOn="{StaticResource HeaderTextBlockStyle}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+               
+    </Application.Resources>
+
+</Application>

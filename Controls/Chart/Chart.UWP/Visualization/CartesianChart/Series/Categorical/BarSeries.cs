@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Charting;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -264,6 +266,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override bool IsDefaultVisual(FrameworkElement visual)
         {
             return visual is Border;
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new BarSeriesAutomationPeer(this);
         }
 
         private static void OnPaletteModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

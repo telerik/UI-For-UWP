@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{B3477108-2FE6-419A-8BDF-FDBD587B70F3}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Telerik.UI.Xaml.Controls.Grid.Tests</RootNamespace>
+    <AssemblyName>Grid.Tests</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <PackageCertificateKeyFile>Grid.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">$(VisualStudioVersion)</UnitTestPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
+    <None Include="project.json" />
+    <SDKReference Include="MSTestFramework.Universal, Version=$(UnitTestPlatformVersion)">
+      <Name>MSTest for Managed Projects</Name>
+    </SDKReference>
+    <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)">
+      <Name>Microsoft Visual Studio Test Core</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\CompactLayoutTests.cs" />
+    <Compile Include="Data\DataLoading\BatchLoadingProviderTests.cs" />
+    <Compile Include="Data\DataProviders\DataProviderBaseTests.cs" />
+    <Compile Include="Data\DataProviders\DataProviderStub.cs" />
+    <Compile Include="Data\DataProviders\LocalDataSourceProviderTests.CollectionAndPropertyChanged.cs" />
+    <Compile Include="Data\DataProviders\LocalDataSourceProviderTests.cs" />
+    <Compile Include="Data\DataProviders\LocalDataSourceProviderTests.DescriptionInitialization.cs" />
+    <Compile Include="Data\DataProviders\LocalDataSourceProviderTests.Setup.cs" />
+    <Compile Include="Data\DataProviders\LocalDataSourceProviderTests.Status.cs" />
+    <Compile Include="Data\DataProviders\SynchronousLocalDataSourceFieldDescriptionsProvider.cs" />
+    <Compile Include="Data\DataSourceView\EnumerableDataSourceViewTests.cs" />
+    <Compile Include="Data\DataSourceView\GenericDataSourceViewTests.cs" />
+    <Compile Include="Data\Data\Data.cs" />
+    <Compile Include="Data\Data\ExtendedOrder.cs" />
+    <Compile Include="Data\Data\Order.cs" />
+    <Compile Include="Data\Data\OrdersSource.cs" />
+    <Compile Include="Data\Fields\ContainerNodeTests.cs" />
+    <Compile Include="Data\Fields\Desciptions\PropertyInfoFieldDescriptionTests.cs" />
+    <Compile Include="Data\Fields\FieldInfoHelperTests.cs" />
+    <Compile Include="Data\Fields\FieldInfoNodeTests.cs" />
+    <Compile Include="Data\Fields\MockedFieldInfo.cs" />
+    <Compile Include="Data\Fields\Providers\EmptyFieldDescriptionsDataTests.cs" />
+    <Compile Include="Data\Fields\Providers\EnumerableFieldDescriptionsExtractorTests.cs" />
+    <Compile Include="Data\Fields\Providers\EnumerableScenariosHelper.cs" />
+    <Compile Include="Data\Fields\Providers\FieldDescriptionProviderBaseStub.cs" />
+    <Compile Include="Data\Fields\Providers\FieldDescriptionProviderBaseTests.cs" />
+    <Compile Include="Data\Fields\Providers\FieldDescriptionsDataTests.cs" />
+    <Compile Include="Data\Fields\Providers\GetDescriptionsDataCompletedEventArgsTests.cs" />
+    <Compile Include="Data\Fields\Providers\InheritedLocalDataSourceFieldDescriptionsProvider.cs" />
+    <Compile Include="Data\Fields\Providers\LocalDataSourceFieldDescriptionsProviderTests.cs" />
+    <Compile Include="Data\Fields\Providers\LocalFieldDescriptionsProviderBaseTests.cs" />
+    <Compile Include="Data\GrandTotalComparerTests.cs" />
+    <Compile Include="Data\Groups\Descriptions\PropertyAggregateDescriptionBaseTests.cs" />
+    <Compile Include="Data\Groups\Descriptions\PropertyGroupDescriptionBaseTests.cs" />
+    <Compile Include="Data\GroupTestsHelper.cs" />
+    <Compile Include="Data\Helpers\IEnumerableExtensions.cs" />
+    <Compile Include="Data\Helpers\IEnumerableOfIGroupExtensions.cs" />
+    <Compile Include="Data\Helpers\IGroupExtensions.cs" />
+    <Compile Include="Data\Helpers\INotifyPropertyChangedExtensions.cs" />
+    <Compile Include="Data\Helpers\IReadOnlyListOfIGroupExtensions.cs" />
+    <Compile Include="Data\MockUps\AggregatesResultProviderMock.cs" />
+    <Compile Include="Data\MockUps\Constant.cs" />
+    <Compile Include="Data\MockUps\DelegateMemberAccess.cs" />
+    <Compile Include="Data\MockUps\ErrorPropertyException.cs" />
+    <Compile Include="Data\MockUps\FakeAggregatesResultProviderMock.cs" />
+    <Compile Include="Data\MockUps\PivotEngineMock.cs" />
+    <Compile Include="Data\MockUps\ReadOnlyList.cs" />
+    <Compile Include="Data\MockUps\TestGroup.cs" />
+    <Compile Include="Data\MockUps\ValuesItem.cs" />
+    <Compile Include="Data\OutlineLayoutTests.cs" />
+    <Compile Include="Data\PivotEngineTests.cs" />
+    <Compile Include="Data\PropertyFilterDescriptionTests.cs" />
+    <Compile Include="Data\PropertyGroupDescriptionTests.cs" />
+    <Compile Include="Data\Sort\PropertySortDescriptionTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestApp.xaml.cs">
+      <DependentUpon>UnitTestApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Common\TestViewModel.cs" />
+    <Compile Include="View\Filtering\BooleanFilterDescriptorTests.cs" />
+    <Compile Include="View\Filtering\DateTimeFilterDescriptorTests.cs" />
+    <Compile Include="View\Filtering\NumericalFilterDescriptorTests.cs" />
+    <Compile Include="View\Filtering\TextFilterDescriptorTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="UnitTestApp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="Grid.Tests_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Data\OrderData.txt" />
+    <EmbeddedResource Include="Images\Banana-icon.png" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <EmbeddedResource Include="Properties\Grid.Tests.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Controls\Core.UWP\Core.UWP.csproj">
+      <Project>{1652093c-b541-48c9-bcb6-bbe7ce7c7ffe}</Project>
+      <Name>Core.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Controls\Data.UWP\Data.UWP.csproj">
+      <Project>{453edd2c-5b29-4d4e-b4da-578d0bdca06f}</Project>
+      <Name>Data.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Controls\Grid\Grid.UWP\Grid.UWP.csproj">
+      <Project>{23930c19-5a0f-4217-a80a-868505d629a4}</Project>
+      <Name>Grid.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Controls\Input\Input.UWP\Input.UWP.csproj">
+      <Project>{5db497cd-b469-42a8-ae39-41b8465710a6}</Project>
+      <Name>Input.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Controls\Primitives\Primitives.UWP\Primitives.UWP.csproj">
+      <Project>{bf14f352-f1b9-4cde-854b-0339259a4cfd}</Project>
+      <Name>Primitives.UWP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\BuildTools\Win8PublicKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

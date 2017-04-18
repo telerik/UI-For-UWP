@@ -1,6 +1,8 @@
 ﻿using Telerik.Charting;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -168,6 +170,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             base.UpdateLegendItem(visual, dataPoint);
             this.UpdateLegendItemProperties(this.renderer.strokeShape.Fill, this.renderer.strokeShape.Stroke);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new ScatterLineSeriesAutomationPeer(this);
         }
 
         internal virtual LineRenderer CreateRenderer()

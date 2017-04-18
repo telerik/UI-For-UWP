@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Linq;
+using Telerik.UI.Automation.Peers;
 using Windows.ApplicationModel;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
-using System.Linq;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
 {
@@ -379,6 +383,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 #pragma warning restore 4014
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadExpanderControlAutomationPeer(this);
+        }
+
         /// <summary>
         /// Called before the <see cref="E:System.Windows.UIElement.Tap" /> event
         /// occurs.
@@ -399,8 +408,25 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 this.ToggleExpandedOnTap();
                 this.useTransitions = false;
             }
+
+            if (this.IsTabStop && this.FocusState == FocusState.Unfocused)
+            {
+                this.Focus(FocusState.Programmatic);
+            }
+
+            var expanderControlPeer = FrameworkElementAutomationPeer.FromElement(this) as RadExpanderControlAutomationPeer;
+            if (expanderControlPeer != null)
+            {
+                expanderControlPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+            }
         }
 
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            e.Handled = this.HandleKeyDown(e.Key);
+            base.OnKeyDown(e);
+        }
+        
         /// <summary>
         /// Builds the current visual state for this instance.
         /// </summary>
@@ -538,6 +564,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                     typedSender.IsExpanded = !typedSender.IsExpanded;
                     typedSender.isPropertySetSilently = false;
                 }
+            }
+
+            var expanderControlPeer = FrameworkElementAutomationPeer.FromElement(typedSender) as RadExpanderControlAutomationPeer;
+            if (expanderControlPeer != null)
+            {
+                expanderControlPeer.RaiseExpandCollapseAutomationEvent((bool)args.OldValue, (bool)args.NewValue);
             }
         }
 
@@ -689,6 +721,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                     this.expandContentHolderAnimation.To = this.expandableContent.ActualHeight;
                 }
             }
+        }
+
+        private bool HandleKeyDown(VirtualKey key)
+        {
+            if (key == VirtualKey.Enter || key == VirtualKey.Space)
+            {
+                this.ToggleExpandedOnTap();
+                return true;
+            }
+
+            return false;
         }
     }
 }

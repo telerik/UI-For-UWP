@@ -1,6 +1,8 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.Common;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -96,6 +98,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
             this.RaiseCloseButtonClick();
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridFlyoutGroupHeaderAutomationPeer(this);
         }
     }
 }

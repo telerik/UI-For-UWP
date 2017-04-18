@@ -42,12 +42,16 @@ Currently, you can take a look at the [Customers Orders Database sample](https:/
 
 ## Getting started
 
-* Make sure you have the [required software to build UWP applications] (https://docs.microsoft.com/windows/uwp/get-started/get-set-up)
+* Make sure you have the [required software to build UWP applications](https://docs.microsoft.com/windows/uwp/get-started/get-set-up)
 * Clone a copy of the repository code
 * Open UWPControls.sln located in Controls folder and build it
 * Open UWPMap.sln located in Controls folder and build it in x86/x64 and ARM configs
 * All binaries are now located in Binaries folder
 * You can additionaly build a NuGet package by running BuildTools/BuildNuGet.bat. The generated package will be located in the NuGet subfolder.
+
+## Downloads
+
+If you want to skip building the project yourself, you can get [the prebuilt nuget package](https://www.nuget.org/packages/Telerik.UI.for.UniversalWindowsPlatform/).
 
 ## How to Contribute
 
@@ -61,10 +65,6 @@ Before contributing to UI for UWP, please:
   * request new features, and,
   * walk you through the entire process of preparing your code for a Pull Request.
   
-## Source Code and Downloads
-
-If you want to skip building the project yourself, you can visit [telerik.com](http://www.telerik.com/) to grab the full source.
-
 ## Getting Help
 
 * Use the [issues list](https://github.com/telerik/UI-For-UWP/issues) of this repo for bug reports.

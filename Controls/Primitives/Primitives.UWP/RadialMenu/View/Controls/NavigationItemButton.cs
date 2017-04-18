@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Linq;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
+using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
@@ -181,6 +186,51 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             {
                 return base.ComposeVisualStateName();
             }
+        }
+
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Handled)
+            {
+                return;
+            }
+
+            e.Handled = this.HandleKeyDown(e.Key);
+
+            base.OnKeyDown(e);
+        }
+
+        private bool HandleKeyDown(VirtualKey key)
+        {
+            if (key == VirtualKey.Enter)
+            {
+                this.ExecuteNavigation();
+                return true;
+            }
+
+            return false;
+        }
+
+        internal void ExecuteNavigation()
+        {
+            var navigateItem = this.Model as RadialNavigateItem;
+            if (navigateItem != null && navigateItem.TargetItem.CanNavigate)
+            {
+                var radialMenuModel = navigateItem.TargetItem.Owner as RadialMenuModel;
+                if (radialMenuModel != null)
+                {
+                    var radialMenu = radialMenuModel.Owner as RadRadialMenu;
+                    if (radialMenu != null)
+                    {
+                        radialMenu.RaiseNavigateCommand(navigateItem.TargetItem, radialMenu.model.viewState.MenuLevels.FirstOrDefault(), navigateItem.LayoutSlot.StartAngle);
+                    }
+                }
+            }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new NavigationItemButtonAutomationPeer(this);
         }
 
         private static PathGeometry GetNavigationButtonArc(RadialSegment segmentModel)

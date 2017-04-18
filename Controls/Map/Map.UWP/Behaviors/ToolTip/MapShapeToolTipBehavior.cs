@@ -328,35 +328,6 @@ namespace Telerik.UI.Xaml.Controls.Map
 
         private void UpdateToolTipPosition(Point position)
         {
-            //// TODO: Revisit the Alignment routine.
-            ////switch (this.HorizontalAlignment)
-            ////{
-            ////    case HorizontalAlignment.Left:
-            ////        position.X -= this.contentSize.Width + this.TouchOverhang.X;
-            ////        break;
-            ////    case HorizontalAlignment.Center:
-            ////    case HorizontalAlignment.Stretch:
-            ////        position.X += -this.contentSize.Width / 2;
-            ////        break;
-            ////    case HorizontalAlignment.Right:
-            ////        position.X += this.TouchOverhang.X;
-            ////        break;
-            ////}
-
-            ////switch (this.VerticalAlignment)
-            ////{
-            ////    case VerticalAlignment.Top:
-            ////        position.Y -= this.contentSize.Height + this.TouchOverhang.Y;
-            ////        break;
-            ////    case VerticalAlignment.Center:
-            ////    case VerticalAlignment.Stretch:
-            ////        position.Y += -this.contentSize.Height / 2;
-            ////        break;
-            ////    case VerticalAlignment.Bottom:
-            ////        position.Y += this.TouchOverhang.Y;
-            ////        break;
-            ////}
-
             var offsetX = position.X + this.TouchOverhang.X;
             var offsetY = position.Y - this.contentSize.Height - this.TouchOverhang.Y;
 

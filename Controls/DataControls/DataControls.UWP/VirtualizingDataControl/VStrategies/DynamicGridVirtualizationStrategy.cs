@@ -21,9 +21,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal DynamicGridVirtualizationStrategy()
         {
             this.slotsRepository = new Dictionary<int, int>();
-
-            //TODO consider dynamic change of stackcount
-            //   this.itemSlotsRepository = new StaggeredRenderInfo(this.StackCount);
         }
 
         internal int StackCount
@@ -94,10 +91,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 IDataSourceItem firstRealized = this.owner.realizedItems[removedAt].associatedDataItem;
 
-                // this.itemSlotsRepository.Remove(firstRealized.GetHashCode());
-
-                //TODO: rearange items.
-
                 while (firstRealized != null)
                 {
                     this.slotsRepository.Remove(firstRealized.GetHashCode());
@@ -111,10 +104,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal override void ReorderViewportItemsOnItemRemovedFromTop(IDataSourceItem removedItem)
         {
             IDataSourceItem firstRealized = this.owner.listSource.GetItemAt(removedItem.Index);
-
-            // this.itemSlotsRepository.Remove(firstRealized.GetHashCode());
-
-            //TODO: rearange items.
 
             while (firstRealized != null)
             {

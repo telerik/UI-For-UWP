@@ -1,6 +1,8 @@
 ﻿using System;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
@@ -171,6 +173,25 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadRatingItemAutomationPeer(this);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            switch (e.Key)
+            {
+                case Windows.System.VirtualKey.Space:
+                    this.Select();
+                    break;
+            }            
+        }
+
         internal RadRating Owner { get; set; }
 
         internal double FillRatio
@@ -187,6 +208,17 @@ namespace Telerik.UI.Xaml.Controls.Input
                     this.UpdateClip();
                 }
             }
+        }
+
+        internal bool Select()
+        {
+            int index = this.Owner.GetIndexOf(this);
+            if (index != -1)
+            {
+                this.Owner.Value = index + 1;
+                return true;
+            }
+            return false;
         }
 
         internal bool HitTest(Point touchPoint)

@@ -1,0 +1,54 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.HubTile.MosaicHubTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localHubTile="using:SDKExamples.UWP.HubTile"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="hubtile.HorizontalAlignment" Value="Center" />
+                        <Setter Target="flipModeCombo.HorizontalAlignment" Value="Stretch" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="hubtile.HorizontalAlignment" Value="Left" />
+                        <Setter Target="flipModeCombo.HorizontalAlignment" Value="Left" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <primitives:RadMosaicHubTile UpdateInterval="0:0:1"  PicturesSource="{Binding}"
+                                     Margin="10" x:Name="hubtile" Grid.Row="2" >
+            <primitives:RadMosaicHubTile.PictureSourceProvider>
+                <localHubTile:PictureProvider />
+            </primitives:RadMosaicHubTile.PictureSourceProvider>
+        </primitives:RadMosaicHubTile>
+
+        <ComboBox Header="Select FlipMode" x:Name="flipModeCombo" SelectionChanged="SelectionChanged" Grid.Row="1" Margin="10"/>
+    </Grid>
+</local:ExamplePageBase>

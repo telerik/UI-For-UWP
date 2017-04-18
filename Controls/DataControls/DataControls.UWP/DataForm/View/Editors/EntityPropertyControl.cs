@@ -1,6 +1,8 @@
 ﻿using Telerik.Data.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data

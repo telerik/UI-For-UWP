@@ -4,12 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using Telerik.Data.Core;
 using Telerik.Data.Core.Layouts;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
 using Telerik.UI.Xaml.Controls.Data.HexView;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Telerik.UI.Xaml.Controls.Primitives.HubTile;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
@@ -362,6 +364,12 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.scrollViewer.ViewChanged -= this.ScrollViewer_ViewChanged;
             this.scrollViewer.SizeChanged -= this.ScrollViewer_SizeChanged;
             base.UnapplyTemplateCore();
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadHexViewAutomationPeer(this);
         }
 
         /// <inheritdoc/>

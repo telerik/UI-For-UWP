@@ -1,6 +1,8 @@
 ﻿using Telerik.Charting;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -165,6 +167,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     new Point((touchRect.Left + touchRect.Right) / 2, (touchRect.Top + touchRect.Bottom) / 2)
                 };
             };
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new AreaSeriesAutomationPeer(this);
         }
 
         private static void OnFillChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

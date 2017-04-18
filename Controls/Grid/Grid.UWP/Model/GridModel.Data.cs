@@ -178,11 +178,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         internal void OnItemsSourceChanged(object newSource)
         {
-            if (this.itemsSource != null)
-            {
-                ////TODO: Clean up items if it is required, else GC will do its work
-            }
-
             this.areColumnsGenerated = false;
             this.dataChangeFlags |= DataChangeFlags.Source;
 

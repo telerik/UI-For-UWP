@@ -133,7 +133,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 return finalSize;
             }
 
-            // TODO: HACK!!! The InvalidateMeasure call does not work while in MeasureOverride pass
+            // The InvalidateMeasure call does not work while in MeasureOverride pass
             if (this.Owner.Model.pendingMeasure)
             {
                 this.InvalidateMeasure();

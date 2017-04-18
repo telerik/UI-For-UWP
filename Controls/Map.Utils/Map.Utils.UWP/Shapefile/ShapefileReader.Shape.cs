@@ -66,14 +66,6 @@ namespace Telerik.Geospatial
                                 CreatePoint(content, shapeModels, 4, coordinateConverter);
                                 break;
 
-                            //// TODO: Consider adding proper support for multipoints 
-                            //// Currently we can "downgrade" multipoints to points (i.e. the set of points that represent a multipoint is not considered a single shape) but the dbf attribute data is per multipoint shape.
-                            ////case EsriShapeType.Multipoint:
-                            ////case EsriShapeType.MultipointM:
-                            ////case EsriShapeType.MultipointZ:
-                            ////    CreatePoints(content, shapeModels, coordinateConverter);
-                            ////    break;
-
                             case EsriShapeType.Polyline:
                             case EsriShapeType.PolylineM:
                             case EsriShapeType.PolylineZ:

@@ -5,8 +5,10 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Telerik.Charting;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
@@ -241,6 +243,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
             // TODO: Consider rasing exception.
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new PolarChartGridAutomationPeer(this);
+        }
+
         private static void OnPolarLineStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             PolarChartGrid presenter = d as PolarChartGrid;
@@ -303,7 +310,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         private static void UpdateDashArray(Shape shape, DoubleCollection dashArray)
         {
-            // TODO: This HACK is needed because for some reason the DashArray, applied through Style, is not working properly for more than one shape(s)
+            // This is needed because for some reason the DashArray, applied through Style, is not working properly for more than one shape(s)
             if (dashArray == null)
             {
                 return;
@@ -611,7 +618,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         private Brush GetDefaultStripeBrush(int index, Brush fill)
         {
-            // TODO: Think of a more elegant way to apply a default stripe brush
             if (fill == null && (index % 2) == 0)
             {
                 fill = this.defaultStripeBrushCache;

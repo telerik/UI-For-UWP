@@ -1,0 +1,44 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Chart.PointTemplate"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localChart="using:SDKExamples.UWP.Chart"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}"/>
+        <chart:RadCartesianChart ClipToBounds="False" Grid.Row="1">
+            <chart:RadCartesianChart.DataContext>
+                <localChart:ViewModelPointTemplate/>
+            </chart:RadCartesianChart.DataContext>
+            <chart:LineSeries ItemsSource="{Binding Source}" ClipToPlotArea="False">
+                <chart:LineSeries.HorizontalAxis>
+                    <chart:CategoricalAxis/>
+                </chart:LineSeries.HorizontalAxis>
+                <chart:LineSeries.VerticalAxis>
+                    <chart:LinearAxis/>
+                </chart:LineSeries.VerticalAxis>
+                <chart:LineSeries.CategoryBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Category"/>
+                </chart:LineSeries.CategoryBinding>
+                <chart:LineSeries.ValueBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Value"/>
+                </chart:LineSeries.ValueBinding>
+                <chart:LineSeries.PointTemplate>
+                    <DataTemplate>
+                        <Ellipse Width="10" Height="10" Stroke="Red" Fill="Red"/>
+                    </DataTemplate>
+                </chart:LineSeries.PointTemplate>
+            </chart:LineSeries>
+        </chart:RadCartesianChart>
+    </Grid>
+</local:ExamplePageBase>

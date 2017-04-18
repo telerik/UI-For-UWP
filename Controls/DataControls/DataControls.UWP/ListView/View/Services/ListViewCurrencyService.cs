@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     {
         ListViewCurrencyService CurrencyService { get; }
     }
-    internal class ListViewCurrencyService : ServiceBase<RadListView>
+    internal class ListViewCurrencyService : ServiceBase<RadListView>, ISupportCurrentItem
     {
         internal bool ensureCurrentIntoView = true;
         internal bool isSynchronizedWithCurrent;
@@ -45,6 +45,14 @@ namespace Telerik.UI.Xaml.Controls.Data
             get
             {
                 return this.currentItemInfo;
+            }
+        }
+
+        public bool IsCurrentItemInView
+        {
+            get
+            {
+                return this.isCurrentInView;
             }
         }
 
@@ -162,6 +170,64 @@ namespace Telerik.UI.Xaml.Controls.Data
                var slot = model != null ? model.LayoutSlot : RadRect.Empty;
                this.Owner.currencyLayerCache.UpdateCurrencyDecoration(slot);
             }
+        }
+
+        /// <inheritdoc />
+        public bool MoveCurrentToNext()
+        {
+            return this.MoveCurrentToNextOrPrev(true);
+        }
+
+        /// <inheritdoc />
+        public bool MoveCurrentToPrevious()
+        {
+            return this.MoveCurrentToNextOrPrev(false);
+        }
+
+        /// <inheritdoc />
+        public bool MoveCurrentToLast()
+        {
+            return this.MoveCurrentToLastOrFirst(true);
+        }
+
+        /// <inheritdoc />
+        public bool MoveCurrentToFirst()
+        {
+            return this.MoveCurrentToLastOrFirst(false);
+        }
+        private bool MoveCurrentToNextOrPrev(bool isNext)
+        {
+            int index;
+            if (this.CurrentItemInfo == null)
+            {
+                // Current is set the item after (before) the focused one like in MS ListView.
+                index = this.Owner.currentLogicalIndex;
+            }
+            else
+            {
+                index = this.CurrentItemInfo.Value.Slot;
+            }
+
+            int increment = isNext ? 1 : -1;
+            ItemInfo? nextInfo = this.Owner.Model.FindDataItemFromIndex(index + increment, null);
+            if (nextInfo.HasValue)
+            {
+                return this.MoveCurrentTo(nextInfo.Value.Item);
+            }
+
+            return false;
+        }
+
+        private bool MoveCurrentToLastOrFirst(bool isLast)
+        {
+            int index = isLast ? this.Owner.Model.ItemsCount - 1 : 0;
+            ItemInfo? nextInfo = this.Owner.Model.FindDataItemFromIndex(index, null);
+            if (nextInfo.HasValue)
+            {
+                return this.MoveCurrentTo(nextInfo.Value.Item);
+            }
+
+            return false;
         }
 
         private bool ChangeCurrentCore(object newCurrent, ItemInfo? info, bool cancelable, bool scrollToCurrent)
@@ -286,6 +352,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 eh(this.Owner, args);
             }
+        }
+
+        bool ISupportCurrentItem.MoveCurrentTo(object item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

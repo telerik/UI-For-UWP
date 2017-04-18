@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.RangeSlider;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Data;
 
 namespace Telerik.UI.Xaml.Controls.Input
@@ -224,6 +226,12 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             double calculatedSelectionStart = RangeSliderPrimitive.CalculateSelectionStart(this.Minimum, this.Maximum, this.SelectionStart, this.SelectionStart);
             this.SelectionStart = this.rangeSlider.Snap(calculatedSelectionStart);
+
+            RadRangeSliderAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RadRangeSliderAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseValuePropertyChangedEvent(oldSelectionStart, newSelectionStart);
+            }
         }
 
         internal override void OnSelectionEndChanged(double oldSelectionEnd, double newSelectionEnd)
@@ -236,6 +244,12 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             double calculatedSelectionEnd = this.rangeSlider.CalculateSelectionEnd(this.Maximum, this.SelectionStart, this.SelectionEnd, this.SelectionEnd);
             this.SelectionEnd = this.rangeSlider.Snap(calculatedSelectionEnd);
+
+            RadRangeSliderAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RadRangeSliderAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseValuePropertyChangedEvent(oldSelectionEnd, newSelectionEnd);
+            }
         }
 
         /// <summary>
@@ -279,6 +293,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             base.UnapplyTemplateCore();
 
             this.rangeSlider.SelectionOffsetChanged -= this.OnSelectionOffsetChanged;
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadRangeSliderAutomationPeer(this);
         }
 
         private void OnSelectionOffsetChanged(object sender, EventArgs e)

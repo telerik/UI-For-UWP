@@ -1,0 +1,39 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Gauge.DataBinding"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dataViz="using:Telerik.UI.Xaml.Controls.DataVisualization"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <dataViz:RadLinearGauge Grid.Row="1" MaxValue="100" MinValue="0" Orientation="Vertical" Margin="15">
+            <dataViz:SegmentedLinearGaugeIndicator Value="100" >
+                <dataViz:BarIndicatorSegment Stroke="Green" Length="{Binding Min}"/>
+                <dataViz:BarIndicatorSegment Stroke="Orange" Length="{Binding Average}"/>
+                <dataViz:BarIndicatorSegment Stroke="Red" Length="{Binding Max}"/>
+            </dataViz:SegmentedLinearGaugeIndicator>
+            <dataViz:MarkerGaugeIndicator Value="{Binding Temperature}">
+                <dataViz:MarkerGaugeIndicator.Content>
+                    <TextBlock Foreground="Gray" Margin="0,0,50,0">
+                <Run Text="{Binding Temperature}"/>
+                <Run Text="°C"/>
+                    </TextBlock>
+                </dataViz:MarkerGaugeIndicator.Content>
+            </dataViz:MarkerGaugeIndicator>
+            <dataViz:MarkerGaugeIndicator Value="{Binding Temperature}">
+                <dataViz:MarkerGaugeIndicator.Content>
+                    <Rectangle Fill="Gray" Width="10" Height="10"/>
+                </dataViz:MarkerGaugeIndicator.Content>
+            </dataViz:MarkerGaugeIndicator>
+        </dataViz:RadLinearGauge>
+    </Grid>
+</local:ExamplePageBase>

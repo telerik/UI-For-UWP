@@ -1,0 +1,46 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.HubTile.HubTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        
+
+        <primitives:RadHubTile Title="Some Header" Message="Some Message" BackContent="Some back content" Grid.Row="1"
+                               Notification="5 note" UpdateInterval="0:0:2"
+                               ImageSource="../../Images/burger.jpg" Margin="10">
+            <primitives:RadHubTile.MessageTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Red" />
+                </DataTemplate>
+            </primitives:RadHubTile.MessageTemplate>
+            <primitives:RadHubTile.NotificationTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontStyle="Italic" />
+                </DataTemplate>
+            </primitives:RadHubTile.NotificationTemplate>
+            <primitives:RadHubTile.TitleTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontSize="13" />
+                </DataTemplate>
+            </primitives:RadHubTile.TitleTemplate>
+            <primitives:RadHubTile.BackContentTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="21" Foreground="DarkGreen" />
+                </DataTemplate>
+            </primitives:RadHubTile.BackContentTemplate>
+        </primitives:RadHubTile>
+        
+    </Grid>
+</local:ExamplePageBase>

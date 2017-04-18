@@ -1,6 +1,8 @@
-﻿using Telerik.UI.Xaml.Controls.Primitives.Pagination;
+﻿using Telerik.UI.Automation.Peers;
+using Telerik.UI.Xaml.Controls.Primitives.Pagination;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 
@@ -263,6 +265,24 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             this.UpdateIndexControl();
             this.UpdateDisplayMode(this.DisplayMode);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadPaginationControlAutomationPeer(this);
+        }
+
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            if (e.OriginalSource is RadPaginationControl)
+            {
+                var peer = FrameworkElementAutomationPeer.FromElement(this) as RadPaginationControlAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+                }
+            }
+            base.OnGotFocus(e);
         }
 
         private static void OnPageProviderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

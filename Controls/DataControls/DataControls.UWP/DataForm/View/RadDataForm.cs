@@ -7,6 +7,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using System.Linq;
+using Windows.UI.Xaml.Automation.Peers;
+using Telerik.UI.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
@@ -327,6 +329,12 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.Model.RefreshLayout();
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadDataFormAutomationPeer(this);
+        }
+
         ITransactionService IDataFormView.TransactionService
         {
             get { return this.TransactionService; }
@@ -414,6 +422,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         object IDataFormView.CreateGroupContainer(string groupKey)
         {
             RadExpanderControl groupHeader = new RadExpanderControl();
+            groupHeader.UseSystemFocusVisuals = true;
             groupHeader.IsExpanded = true;
             groupHeader.ExpandableContent = this.LayoutDefinition.CreateGroupLayoutPanel(groupKey);
 

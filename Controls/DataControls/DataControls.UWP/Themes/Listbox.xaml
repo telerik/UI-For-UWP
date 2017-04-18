@@ -26,6 +26,13 @@
                 <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
     <Style x:Key="ShiftButtonStyle"  TargetType="Button">
@@ -492,6 +499,7 @@
     </Style>
 
     <Style TargetType="local:RadDataBoundListBoxItem">
+        <Setter Property="TabNavigation" Value="Local" />
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
@@ -533,7 +541,7 @@
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ContainerHolder" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ApplicationForegroundThemeBrush}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TelerikSelectedBrush}"/>
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -827,7 +835,7 @@
                             <Grid 
                                 x:Name="PART_ContainerLayout"
                                 Grid.Column="1">
-                                <ContentControl
+                                <ContentControl 
                                     FontSize="{TemplateBinding FontSize}"
                                     FontFamily="{TemplateBinding FontFamily}"
                                     FontWeight="{TemplateBinding FontWeight}"

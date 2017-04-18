@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
@@ -547,22 +549,46 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             this.EnsureAllValuesInRange();
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadBulletGraphAutomationPeer(this);
+        }
+
         private static void OnStartValuePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             RadBulletGraph bulletGraph = sender as RadBulletGraph;
             bulletGraph.EnsureAllValuesInRange();
+
+            RadBulletGraphAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(bulletGraph) as RadBulletGraphAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseMinimumPropertyChangedEvent((double)args.OldValue, (double)args.NewValue);
+            }
         }
 
         private static void OnEndValuePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             RadBulletGraph bulletGraph = sender as RadBulletGraph;
             bulletGraph.EnsureAllValuesInRange();
+
+            RadBulletGraphAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(bulletGraph) as RadBulletGraphAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseMaximumPropertyChangedEvent((double)args.OldValue, (double)args.NewValue);
+            }
         }
 
         private static void OnFeaturedMeasurePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             RadBulletGraph bulletGraph = sender as RadBulletGraph;
             bulletGraph.EnsureAllValuesInRange();
+
+            RadBulletGraphAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(bulletGraph) as RadBulletGraphAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseValuePropertyChangedEvent((double)args.OldValue, (double)args.NewValue);
+            }
         }
 
         private static void OnFeaturedMeasureStartValuePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

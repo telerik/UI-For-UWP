@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Reflection;
 using Telerik.Core.Data;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Data.DataBoundListBox;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
@@ -187,9 +189,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.checkedItems = new CheckedItemsCollection<object>(this);
             this.PrepareCheckboxesSupport();
             this.SizeChanged += this.RadDataBoundListBox_SizeChanged;
-
-            // TODO:CONTEXTMENU
-            //// RadContextMenu.SetFocusedElementType(this, typeof(RadDataBoundListBoxItem));
         }
 
         /// <summary>
@@ -989,6 +988,12 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 eh(this, new ListBoxItemTapEventArgs(item, container, originalSource, hitPoint));
             }
+
+            AutomationPeer itemPeer = FrameworkElementAutomationPeer.FromElement(item);
+            if (itemPeer != null)
+            {
+                itemPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+            }
         }
 
         /// <summary>
@@ -1413,6 +1418,12 @@ namespace Telerik.UI.Xaml.Controls.Data
         protected override RadVirtualizingDataControlItem GetContainerForItemOverride()
         {
             return new RadDataBoundListBoxItem();
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadDataBoundListBoxAutomationPeer(this);
         }
 
         private static void OnSelectedValuePathChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

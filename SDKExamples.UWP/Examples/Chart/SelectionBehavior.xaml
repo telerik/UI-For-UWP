@@ -1,0 +1,83 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Chart.SelectionBehavior"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localChart="using:SDKExamples.UWP.Chart"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="selectionResult.(Grid.Row)" Value="2" />
+                        <Setter Target="selectionResult.(Grid.Column)" Value="0" />
+                        <Setter Target="selectionResult.Width" Value="NaN" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="selectionResult.(Grid.Row)" Value="1" />
+                        <Setter Target="selectionResult.(Grid.Column)" Value="1" />
+                        <Setter Target="selectionResult.Width" Value="300" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" Grid.ColumnSpan="2"/>
+
+        <chart:RadCartesianChart SelectionPaletteName="DefaultDarkSelected" PaletteName="DefaultDark" Grid.Row="1">
+            <chart:RadCartesianChart.DataContext>
+                <localChart:ViewModelSelection/>
+            </chart:RadCartesianChart.DataContext>
+            <chart:RadCartesianChart.HorizontalAxis>
+                <chart:CategoricalAxis/>
+            </chart:RadCartesianChart.HorizontalAxis>
+            <chart:RadCartesianChart.VerticalAxis>
+                <chart:LinearAxis/>
+            </chart:RadCartesianChart.VerticalAxis>
+            <chart:RadCartesianChart.Behaviors>
+                <chart:ChartSelectionBehavior DataPointSelectionMode="Single"
+                                                     SelectionChanged="DataPointSelectionChanged" />
+            </chart:RadCartesianChart.Behaviors>
+            <chart:BarSeries ItemsSource="{Binding Source}"
+                                    PaletteMode="DataPoint">
+                <chart:BarSeries.ValueBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Value"/>
+                </chart:BarSeries.ValueBinding>
+                <chart:BarSeries.CategoryBinding>
+                    <chart:PropertyNameDataPointBinding PropertyName="Category"/>
+                </chart:BarSeries.CategoryBinding>
+            </chart:BarSeries>
+        </chart:RadCartesianChart>
+
+        <StackPanel x:Name="selectionResult">
+            <TextBlock x:Name="textblock1" FontSize="20" TextWrapping="Wrap" Margin="10" Text="No point selected"/>
+            <TextBlock x:Name="textblock2" FontSize="20" TextWrapping="Wrap" Margin="10" Text="No point selected"/>
+            <TextBlock x:Name="textblock3" FontSize="20" TextWrapping="Wrap" Margin="10" Text="No point selected"/>
+        </StackPanel>
+    </Grid>
+</local:ExamplePageBase>

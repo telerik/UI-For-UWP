@@ -1,5 +1,7 @@
-﻿using Telerik.UI.Xaml.Controls.Primitives.HubTile;
+﻿using Telerik.UI.Automation.Peers;
+using Telerik.UI.Xaml.Controls.Primitives.HubTile;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -202,6 +204,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             applied = applied && this.flipControl != null;
 
             return applied;
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadSlideHubTileAutomationPeer(this);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace Telerik.UI.Xaml.Controls.DataVisualization
@@ -375,6 +377,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             return result;
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new GaugeIndicatorAutomationPeer(this);
+        }
+
         private static void OnValuePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             double newVal = (double)args.NewValue;
@@ -404,6 +411,12 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             else
             {
                 indicator.ActualValue = value;
+            }
+
+            var peer = FrameworkElementAutomationPeer.FromElement(indicator) as GaugeIndicatorAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseValueChangedAutomationEvent(args.OldValue.ToString(), args.NewValue.ToString());
             }
         }
 

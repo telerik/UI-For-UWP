@@ -1,0 +1,67 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.DataGrid.PriorityColumns"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:localDataGrid="using:SDKExamples.UWP.DataGrid"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="FirstName.IsVisible" Value="False" />
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <localDataGrid:GridAdaptiveTrigger Owner="{Binding ElementName=grid}" MinWidth="346"  />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="MiddleName.IsVisible" Value="False" />
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <localDataGrid:GridAdaptiveTrigger Owner="{Binding ElementName=grid}" MinWidth="244" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.Setters>
+                        <Setter Target="LastName.IsVisible" Value="False" />
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <localDataGrid:GridAdaptiveTrigger Owner="{Binding ElementName=grid}" MinWidth="142" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <grid:RadDataGrid Grid.Row="2" x:Name="grid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <grid:RadDataGrid.Columns>
+                <grid:DataGridTextColumn PropertyName="FirstName" SizeMode="Fixed" Width="100" x:Name="FirstName" />
+                <grid:DataGridTextColumn PropertyName="MiddleName" SizeMode="Fixed" Width="100" x:Name="MiddleName"  />
+                <grid:DataGridTextColumn PropertyName="LastName" SizeMode="Fixed" Width="100" x:Name="LastName"   />
+                <grid:DataGridNumericalColumn PropertyName="Age" SizeMode="Fixed" Width="100" x:Name="Age"  />
+            </grid:RadDataGrid.Columns>
+        </grid:RadDataGrid>
+
+        <Slider Grid.Row="1" Grid.Column="2" Margin="10" Minimum="141" Maximum="448" Value="448"
+                ValueChanged="Slider_ValueChanged" VerticalAlignment="Center" Header="Change Grid's Width" />
+    </Grid>
+</local:ExamplePageBase>

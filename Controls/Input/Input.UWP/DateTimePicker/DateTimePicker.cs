@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.LoopingList;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Globalization;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Input
 {
@@ -516,6 +519,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             return baseSize;
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DateTimePickerAutomationPeer(this);
+        }
+
         private static void OnCalendarNumeralSystemChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             var picker = sender as DateTimePicker;
@@ -581,6 +589,15 @@ namespace Telerik.UI.Xaml.Controls.Input
             var oldValue = (DateTime?)args.OldValue;
 
             picker.HandleValueChange(oldValue, newValue);
+
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+            {
+                var peer = FrameworkElementAutomationPeer.FromElement(picker) as DateTimePickerAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseSelectionAutomationEvent(oldValue.ToString(), newValue.ToString());
+                }
+            }
         }
 
         private static void OnMinValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

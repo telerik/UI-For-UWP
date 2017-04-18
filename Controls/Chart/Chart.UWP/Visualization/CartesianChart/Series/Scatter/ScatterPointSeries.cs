@@ -2,9 +2,11 @@
 using System.Linq;
 using Telerik.Charting;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
@@ -187,6 +189,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     }
                 }
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new ScatterPointSeriesAutomationPeer(this);
         }
 
         private static void OnXValueBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

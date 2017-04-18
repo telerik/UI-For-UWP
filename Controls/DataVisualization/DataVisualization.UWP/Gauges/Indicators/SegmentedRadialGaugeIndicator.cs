@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
@@ -114,6 +116,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
 
                 currentstartAngle = angle;
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SegmentedRadialGaugeIndicatorAutomationPeer(this);
         }
 
         private void PrepareReset(Size availableSize)

@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using Telerik.UI.Automation.Peers;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
@@ -142,6 +144,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             }
 
             return applied;
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new BarIndicatorSegmentAutomationPeer(this);
         }
 
         private static void OnLengthPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

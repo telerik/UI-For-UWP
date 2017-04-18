@@ -1,5 +1,7 @@
-﻿using Windows.Foundation;
+﻿using Telerik.UI.Automation.Peers;
+using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.DataVisualization
@@ -76,6 +78,11 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         {
             this.UpdateAngle(this.ActualValue - this.Owner.OwnerGauge.MinValue);
             return base.ArrangeOverride(finalSize);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new NeedleGaugeIndicatorAutomationPeer(this);
         }
 
         private void UpdateAngle(double value)

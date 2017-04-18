@@ -36,7 +36,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal CalendarDecadeViewModel decadeViewModel;
         internal CalendarCenturyViewModel centuryViewModel;
 
-        private CalendarViewModel currentViewModel;
+        internal CalendarViewModel currentViewModel;
 
         public CalendarModel(IView calendar)
         {
@@ -244,6 +244,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             get
             {
                 return this.currentViewModel.ColumnCount;
+            }
+        }
+
+        public int RowCount
+        {
+            get
+            {
+                return this.currentViewModel.RowCount;
             }
         }
 

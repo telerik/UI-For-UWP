@@ -275,8 +275,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return this.CreateContainer(rowItem);
             }
 
-            // return this.CreateEditorContentVisual();
-
             ////TODO: Create value proxy to provide option for delayed update of the values in the VM behind.
             FrameworkElement content = this.CreateEditorContentVisual();
 
@@ -397,7 +395,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (grid != null)
             {
-                ////TODO: Context
                 this.RaiseValidateCommands(grid, new ValidateCellContext(errors, new DataGridCellInfo(item, this)));
             }
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
@@ -251,6 +253,11 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             this.OnItemTap();
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SuggestionItemAutomationPeer(this, this.owner);
+        }
+
         private static Run GetRunFromStyle(HighlightStyle style)
         {
             Run runToHighlight = new Run();
@@ -371,5 +378,6 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
                 this.RestoreRunHighlightedForegroundValue();
             }
         }
+        
     }
 }

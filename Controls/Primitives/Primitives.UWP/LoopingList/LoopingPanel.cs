@@ -916,7 +916,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             if (this.isLoopingEnabled)
             {
                 var wheelLength = this.logicalCount * this.itemLength;
-                var scrolleedWheels = this.isLoopingEnabled ? (int)(this.visualOffset / wheelLength) * wheelLength : 0;
+                var scrolleedWheels = (int)(this.visualOffset / wheelLength) * wheelLength;
                 var current = this.visualOffset > 0 ? (this.logicalCount - topIndex) * this.itemLength : -topIndex * this.itemLength;
                 var difference = this.FindClosestIndexDistance(topIndex, index, this.logicalCount);
 

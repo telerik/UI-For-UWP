@@ -2,10 +2,13 @@
 using System.ComponentModel;
 using System.Globalization;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.NumericBox;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
@@ -31,7 +34,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(Object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged)); // TODO: double? is not supported as PropertyType, check with next WinRT versions
+            DependencyProperty.Register(nameof(Value), typeof(Object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged));
 
         /// <summary>
         /// Identifies the <see cref="AllowNullValue"/> dependency property.
@@ -49,7 +52,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="ValueString"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueStringProperty =
-            DependencyProperty.Register("FormattedValueString", typeof(string), typeof(RadNumericBox), new PropertyMetadata(null, OnValueStringChanged));
+            DependencyProperty.Register(nameof(ValueString), typeof(string), typeof(RadNumericBox), new PropertyMetadata(null, OnValueStringChanged));
 
         /// <summary>
         /// Identifies the <see cref="IncreaseButtonStyle"/> dependency property.
@@ -121,7 +124,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private bool updatingValue;
         private bool allowNullValueCache;
         private double? valueCache;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RadNumericBox" /> class.
         /// </summary>
@@ -138,7 +141,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Occurs when the current value has changed.
         /// </summary>
         public event EventHandler ValueChanged;
-
+        
         /// <summary>
         /// Gets or sets the context for input used by this RadNumericBox.
         /// </summary>
@@ -454,6 +457,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.RadNumericBoxAutomationPeer(this);
+        }
+
         private static bool IsAzertyKeyboard
         {
             get
@@ -477,6 +485,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             base.OnMaximumChanged(oldMaximum, newMaximum);
 
             this.CoerceValue(this.Value);
+
+            RadNumericBoxAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RadNumericBoxAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseMaximumPropertyChangedEvent((double)oldMaximum, (double)newMaximum);
+            }
         }
 
         internal override void OnMinimumChanged(double oldMinimum, double newMinimum)
@@ -484,6 +498,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             base.OnMinimumChanged(oldMinimum, newMinimum);
 
             this.CoerceValue(this.Value);
+
+            RadNumericBoxAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RadNumericBoxAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaiseMaximumPropertyChangedEvent((double)oldMinimum, (double)newMinimum);
+            }
         }
 
         /// <summary>
@@ -609,6 +629,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.IncrementValue(this.LargeChange);
                         break;
                 }
+
+                if (key == VirtualKey.Down || key == VirtualKey.Up
+                    || key == VirtualKey.PageDown || key == VirtualKey.PageUp)
+                {
+                    this.UpdateTextBoxText();
+                }
             }
 
             return false;
@@ -688,7 +714,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             base.OnGotFocus(e);
-
+            
             this.IsTabStop = false;
         }
 
@@ -844,6 +870,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                 
                 numericBox.OnValueChanged();
             }
+
+            RadNumericBoxAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(numericBox) as RadNumericBoxAutomationPeer;
+            if (peer != null && oldValue != null && newDoubleValue != null)
+            {
+                peer.RaiseValuePropertyChangedEvent(oldValue, newDoubleValue);
+            }
         }
 
         private static void OnAllowNullValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -894,6 +926,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 return this.currentCulture.NumberFormat.NumberDecimalSeparator == ",";
             }
+
             return false;
         }
 
@@ -935,6 +968,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.GetBindingExpression(ValueProperty)?.ParentBinding.UpdateSourceTrigger == UpdateSourceTrigger.PropertyChanged)
             {
                 this.Value = this.TryParseValue();
+            }
+
+            var peer = FrameworkElementAutomationPeer.FromElement(this.textBox) as NumericTextBoxAutomationPeer;
+            if (peer != null)
+            {
+                peer.RaisePropertyChangedEvent(AutomationElementIdentifiers.ItemStatusProperty, string.Empty, this.TextBox.Text);
             }
         }
 

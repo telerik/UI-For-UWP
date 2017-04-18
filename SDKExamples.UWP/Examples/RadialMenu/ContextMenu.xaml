@@ -1,0 +1,47 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.RadialMenu.ContextMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    mc:Ignorable="d" x:Name="page" >
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+		<StackPanel Grid.Row="1">
+			<TextBlock Text="Focus any of the textboxes below to trigger the Context Menu" Margin="10" />
+			<TextBox x:Name="text" Margin="20 45" Width="136" HorizontalAlignment="Left" VerticalAlignment="Center">
+				<primitives:RadRadialContextMenu.Behavior>
+					<primitives:RadialMenuTriggerBehavior AttachTriggers="Focused" />
+				</primitives:RadRadialContextMenu.Behavior>
+				<primitives:RadRadialContextMenu.Menu>
+					<primitives:RadRadialMenu Margin="10" >
+						<primitives:RadialMenuItem Header="item 1" />
+						<primitives:RadialMenuItem Header="item 2" />
+						<primitives:RadialMenuItem Header="item 3" />
+					</primitives:RadRadialMenu>
+				</primitives:RadRadialContextMenu.Menu>
+			</TextBox>
+			<TextBox x:Name="text2" Margin="20 45" Width="136" HorizontalAlignment="Left" VerticalAlignment="Center">
+				<primitives:RadRadialContextMenu.Behavior>
+					<primitives:RadialMenuTriggerBehavior AttachTriggers="Focused" />
+				</primitives:RadRadialContextMenu.Behavior>
+				<primitives:RadRadialContextMenu.Menu>
+					<primitives:RadRadialMenu Margin="10" >
+						<primitives:RadialMenuItem Header="item 1" />
+						<primitives:RadialMenuItem Header="item 2" />
+						<primitives:RadialMenuItem Header="item 3" />
+					</primitives:RadRadialMenu>
+				</primitives:RadRadialContextMenu.Menu>
+			</TextBox>
+		</StackPanel>
+
+	</Grid>
+</local:ExamplePageBase>

@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Telerik.UI.Automation.Peers;
+using Windows.UI.Xaml.Automation.Peers;
+using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
 {
@@ -13,6 +15,11 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
         public DateTimePickerButton()
         {
             this.DefaultStyleKey = typeof(DateTimePickerButton);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DateTimePickerButtonAutomationPeer(this);
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using Telerik.UI.Xaml.Controls.Primitives.HubTile;
+﻿using Telerik.UI.Automation.Peers;
+using Telerik.UI.Xaml.Controls.Primitives.HubTile;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
@@ -179,6 +181,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
 
             base.OnTapped(e);
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadHexHubTileAutomationPeer(this);
         }
 
         private static void OnLengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

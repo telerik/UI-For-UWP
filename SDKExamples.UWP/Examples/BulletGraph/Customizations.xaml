@@ -1,0 +1,57 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.BulletGraph.Customizations"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dataViz="using:Telerik.UI.Xaml.Controls.DataVisualization"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Phone">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="orientationCombo.HorizontalAlignment" Value="Stretch" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="orientationCombo.HorizontalAlignment" Value="Left" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+
+        <ComboBox Margin="10" PlaceholderText="Select Orientation" MinWidth="200" Grid.Row="1"
+                  x:Name="orientationCombo" SelectionChanged="orientationCombo_SelectionChanged"/>
+
+        <dataViz:RadBulletGraph StartValue="50" EndValue="200" TickStep="20" LabelStep="40" Grid.Row="2"
+                                FeaturedMeasure="95" FeaturedMeasureStartValue="60" FeaturedMeasureBrush="Red"
+                                ProjectedMeasure="150" ProjectedMeasureBrush="Green"
+                                ComparativeMeasure="170" x:Name="bullet" Margin="10">
+            <dataViz:RadBulletGraph.LabelTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Red" />
+                </DataTemplate>
+            </dataViz:RadBulletGraph.LabelTemplate>
+        </dataViz:RadBulletGraph>
+    </Grid>
+</local:ExamplePageBase>

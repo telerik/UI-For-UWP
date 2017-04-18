@@ -208,12 +208,10 @@ namespace Telerik.Charting
 
         protected override void ArrangeLabelMultiline(AxisLabelModel label, RadRect rect)
         {
-            // TODO:
         }
 
         protected override void ArrangeLabelNone(AxisLabelModel label, RadRect rect)
         {
-            // TODO:
         }
     }
 }

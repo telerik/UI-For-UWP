@@ -24,6 +24,12 @@
                 <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
     <ResourceDictionary.MergedDictionaries>
@@ -437,7 +443,7 @@
                             <localPrimitives:DataGridServicePanel Position="{TemplateBinding GroupPanelPosition}" x:Name="PART_ServicePanel" IsTabStop="False"/>
                             <localPrimitives:DataGridColumnReorderServicePanel x:Name="PART_ColumnReorderServicePanel" Margin="{Binding BorderThickness, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BorderThicknessToMarginConverter}}" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed"/>
                             <Canvas x:Name="PART_AdornerHost" IsHitTestVisible="False"/>
-                            <localPrimitives:DataGridContentFlyout x:Name="PART_GridFlyout" />
+                            <localPrimitives:DataGridContentFlyout x:Name="PART_GridFlyout" IsTabStop="False"/>
                         </localPrimitives:DataGridRootPanel>
                     </Border>
                 </ControlTemplate>
@@ -683,7 +689,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid Background="{TemplateBinding Background}" x:Name="Fill" Margin="{TemplateBinding Padding}">
-                            <Image x:Name="OpenImage" Source="{ThemeResource TelerikGridColumnChooserOpen}" Height="42" Width="42" VerticalAlignment="Center"   />
+                            <Image x:Name="OpenImage" Source="{ThemeResource TelerikGridColumnChooserOpen}" Height="42" Width="42" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw"/>
                             <Image x:Name="OpenMouseOverImage" IsHitTestVisible="False" Source="{ThemeResource TelerikGridColumnChooserOpenMouseOver}" Visibility="Collapsed" Height="42" Width="42" VerticalAlignment="Center"   />
                         </Grid>
                     </Border>
@@ -810,13 +816,13 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="1" Grid.Row="0" x:Name="BorderElement" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <Grid>
+                            <Grid >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <localPrimitives:FlyoutHeaderControl Style="{TemplateBinding HeaderStyle}"/>
-                                <Image x:Name="PART_CloseButton" Source="{ThemeResource TelerikGridColumnChooserClose}" Height="42" Width="42" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.RowSpan="2" />
+                                <Image x:Name="PART_CloseButton" Source="{ThemeResource TelerikGridColumnChooserClose}" Height="42" Width="42" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.RowSpan="2"/>
                                 <Image x:Name="CloseMouseOverButton" IsHitTestVisible="False" Source="{ThemeResource TelerikGridColumnChooserCloseMouseOver}" Visibility="Collapsed" Height="42" Width="42" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top"  />
                                 <localPrimitives:DataGridFlyoutPanel VerticalAlignment="{TemplateBinding VerticalAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" x:Name="PART_HeadersContainer"/>
                             </Grid>
@@ -1111,13 +1117,6 @@
                 <ControlTemplate TargetType="localPrimitives:SelectionRegionBorderControl">
                     <Grid>
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        <!--TODO: This is the top-left gripper (selection handler) UI-->
-                        <!--<Border Width="16" Height="16" BorderBrush="#2D2D2D"  BorderThickness="2 2 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                        <Border x:Name="TopLeft_Thumb"  Width="14" Height="14"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="4 4 0 0" VerticalAlignment="Top" HorizontalAlignment="Left"/>-->
-
-                        <!--TODO: This is the bottom-right gripper (selection handler) UI-->
-                        <!--<Border Width="16" Height="16" BorderBrush="#2D2D2D"  BorderThickness="0 0 2 2" VerticalAlignment="Bottom" HorizontalAlignment="Right" />-->
-                        <!--<Border x:Name="BottomRight_Thumb"  Width="14" Height="14"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0 0 4 4" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>-->
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -2140,6 +2139,7 @@
         <Setter Property="MinWidth" Value="50"/>
         <Setter Property="MinHeight" Value="20"/>
         <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localPrimitives:DataGridBusyOverlayControl">

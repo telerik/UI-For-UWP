@@ -2,9 +2,11 @@
 using System.Collections.Specialized;
 using System.Diagnostics;
 using Telerik.Data.Core;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Grid.Commands;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
@@ -270,6 +272,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.UpdatePositionVisualState(this.Position);
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridServicePanelAutomationPeer(this);
+        }
+
         private void UpdatePositionVisualState(GroupPanelPosition position)
         {
             var stateName = position.ToString();
@@ -366,6 +373,12 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         {
             this.isGroupFlyoutOpen = true;
             this.UpdateVisualState(this.IsTemplateApplied);
+
+            var dataGridServicePanelPeer = FrameworkElementAutomationPeer.FromElement(this) as DataGridServicePanelAutomationPeer;
+            if (dataGridServicePanelPeer != null)
+            {
+                dataGridServicePanelPeer.RaiseExpandCollapseAutomationEvent(false, true);
+            }
         }
 
         private void OnGroupFlyoutClosed(object sender, object e)
@@ -373,6 +386,12 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.isGroupFlyoutOpen = false;
             this.groupFlyoutContent.ClearUI();
             this.UpdateVisualState(this.IsTemplateApplied);
+
+            var dataGridServicePanelPeer = FrameworkElementAutomationPeer.FromElement(this) as DataGridServicePanelAutomationPeer;
+            if (dataGridServicePanelPeer != null)
+            {
+                dataGridServicePanelPeer.RaiseExpandCollapseAutomationEvent(true, false);
+            }
         }
 
         private void OnGroupDescriptorsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

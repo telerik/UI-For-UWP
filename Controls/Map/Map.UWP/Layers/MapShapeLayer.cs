@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using Telerik.Core;
 using Telerik.Geospatial;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Drawing;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Map
 {
@@ -551,6 +553,12 @@ namespace Telerik.UI.Xaml.Controls.Map
             {
                 this.ScheduleUpdate();
             }
+        }
+
+        ///<inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new MapShapeLayerAutomationPeer(this);
         }
 
         private static void OnSourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
