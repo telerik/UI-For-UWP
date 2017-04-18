@@ -207,11 +207,6 @@ namespace Telerik.UI.Automation.Peers
             return nameof(Telerik.UI.Xaml.Controls.Primitives.SliderBase);
         }
 
-        //protected override string GetItemStatusCore()
-        //{
-        //    return IValueProvider.va
-        //}
-
         /// <inheritdoc />
         protected override string GetAutomationIdCore()
         {
