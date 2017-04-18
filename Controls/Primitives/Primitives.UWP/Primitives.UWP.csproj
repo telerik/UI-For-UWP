@@ -87,6 +87,7 @@
     <Compile Include="Pagination\PaginationListControl.cs" />
     <Compile Include="Pagination\PaginationListControlItem.cs" />
     <Compile Include="Pagination\RadPaginationControl.cs" />
+    <Compile Include="RadialMenu\AutomationPeers\NavigationItemButtonAutomationPeer.cs" />
     <Compile Include="RadialMenu\AutomationPeers\RadialMenuItemControlAutomationPeer.cs" />
     <Compile Include="RadialMenu\AutomationPeers\RadRadialMenuAutomationPeer.cs" />
     <Compile Include="RadialMenu\Common\CoordinatesUtils.cs" />

@@ -79,7 +79,6 @@
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikAutoCompleteBoxBorderBrush}" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="DropDownMaxHeight" Value="328" />
-        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="HeaderStyle">
             <Setter.Value>
                 <Style TargetType="ContentControl">
@@ -277,7 +276,6 @@
         <Setter Property="MinWidth" Value="180"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
-        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikNumericBoxBorderBrush}" />
         <Setter Property="DecreaseButtonStyle" Value="{StaticResource NumericButtonDecreaseStyle}"/>
@@ -382,7 +380,8 @@
         </Setter>
     </Style>
     <Style TargetType="local:EntityPropertyControl">
-        <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property="AutomationProperties.AccessibilityView" Value="Raw"/>
+        <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="Margin" Value="0 5 0 5" />
         <Setter Property="Template">
             <Setter.Value>

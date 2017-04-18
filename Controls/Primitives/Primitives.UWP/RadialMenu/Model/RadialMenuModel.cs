@@ -53,6 +53,14 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             }
         }
 
+        internal RadRadialMenu Owner
+        {
+            get
+            {
+                return this.owner;
+            }
+        }
+
         public void ShowView()
         {
             this.UpdateRingsRadius();

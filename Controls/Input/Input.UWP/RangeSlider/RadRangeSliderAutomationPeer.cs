@@ -2,6 +2,7 @@
 using System.Linq;
 using Telerik.UI.Xaml.Controls.Input;
 using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
@@ -15,6 +16,14 @@ namespace Telerik.UI.Automation.Peers
         public RadRangeSliderAutomationPeer(RadRangeSlider owner)
             : base(owner)
         {
+        }
+
+        private RadRangeSlider RadRangeSlider
+        {
+            get
+            {
+                return (RadRangeSlider)this.Owner;
+            }
         }
 
         /// <inheritdoc />
@@ -33,6 +42,27 @@ namespace Telerik.UI.Automation.Peers
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.Group;
+        }
+
+        public override string Value
+        {
+            get
+            {
+                var selectionString = base.Value;
+                AutomationProperties.SetItemStatus(this.RadRangeSlider, selectionString);
+                return selectionString;
+            }
+        }
+
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.Value)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
         }
 
         /// <inheritdoc />

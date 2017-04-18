@@ -314,7 +314,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             RangeSliderPrimitiveAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RangeSliderPrimitiveAutomationPeer;
             if (peer != null)
             {
-                peer.RaiseMaximumPropertyChangedEvent((double)oldMinimum, (double)newMinimum);
+                peer.RaiseMinimumPropertyChangedEvent((double)oldMinimum, (double)newMinimum);
             }
         }
 

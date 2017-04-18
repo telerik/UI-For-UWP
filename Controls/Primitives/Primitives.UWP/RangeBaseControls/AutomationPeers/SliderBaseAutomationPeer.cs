@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
-    public class SliderBaseAutomationPeer : RangeInputBaseAutomationPeer, IRangeValueProvider
+    public class SliderBaseAutomationPeer : RangeInputBaseAutomationPeer, IRangeValueProvider, IValueProvider
     {
         private bool hasMaximumDirection;
 
@@ -27,6 +27,18 @@ namespace Telerik.UI.Automation.Peers
             get
             {
                 return (SliderBase)this.Owner;
+            }
+        }
+
+        /// <summary>
+        /// IValueProvider implementation.
+        /// </summary>
+        public virtual string Value
+        {
+            get
+            {
+                var selectionString = "Selection Start: " + this.SliderBase.SelectionStart + "Selection End: " + this.SliderBase.SelectionEnd;
+                return selectionString;
             }
         }
 
@@ -111,7 +123,7 @@ namespace Telerik.UI.Automation.Peers
         /// <returns>
         /// The value of the control or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.Value"/>.
         /// </returns>
-        public virtual double Value
+        double IRangeValueProvider.Value
         {
             get
             {
@@ -213,6 +225,19 @@ namespace Telerik.UI.Automation.Peers
             return "slider base";
         }
 
+        /// <summary>
+        /// IValueProvider implementation.
+        /// </summary>
+        public void SetValue(string value)
+        {
+            double parsedValue;
+            if (double.TryParse(value, out parsedValue))
+            {
+                this.SetValue(parsedValue);
+            }
+        }
+        
+
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal void RaiseMaximumPropertyChangedEvent(double oldValue, double newValue)
         {
@@ -228,6 +253,7 @@ namespace Telerik.UI.Automation.Peers
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal void RaiseValuePropertyChangedEvent(double? oldValue, double? newValue)
         {
+            this.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue.ToString(), newValue.ToString());
             this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, oldValue, newValue);
         }
     }

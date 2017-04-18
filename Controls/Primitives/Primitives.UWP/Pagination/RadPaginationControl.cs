@@ -272,6 +272,19 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             return new RadPaginationControlAutomationPeer(this);
         }
 
+        protected override void OnGotFocus(RoutedEventArgs e)
+        {
+            if (e.OriginalSource is RadPaginationControl)
+            {
+                var peer = FrameworkElementAutomationPeer.FromElement(this) as RadPaginationControlAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+                }
+            }
+            base.OnGotFocus(e);
+        }
+
         private static void OnPageProviderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RadPaginationControl control = d as RadPaginationControl;

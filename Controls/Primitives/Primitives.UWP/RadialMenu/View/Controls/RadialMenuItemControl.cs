@@ -142,11 +142,36 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
 
         private bool HandleKeyDown(VirtualKey key)
         {
-            if ((key == VirtualKey.Enter || key == VirtualKey.Space) && this.Segment != null
-                && this.Segment.TargetItem.Selectable)
+            if (this.Segment != null)
             {
-                this.Segment.TargetItem.IsSelected = !this.Segment.TargetItem.IsSelected;
-                return true;
+                switch (key)
+                {
+                    case VirtualKey.Enter:
+                    case VirtualKey.Space:
+                        if (this.Segment.TargetItem.Selectable)
+                        {
+                            this.Segment.TargetItem.IsSelected = !this.Segment.TargetItem.IsSelected;
+                        }
+
+                        return true;
+                    case VirtualKey.Left:
+                        var canNavigateToNextItem = this.Segment.TargetItem.ParentItem != null
+                            ? this.Segment.TargetItem.Index + 1 < this.Segment.TargetItem.ParentItem.ChildItems.Count
+                            : this.Segment.TargetItem.Index + 1 < this.Segment.TargetItem.Owner.MenuItems.Count;
+                        if (canNavigateToNextItem)
+                        {
+                            FocusManager.TryMoveFocus(FocusNavigationDirection.Next);
+                        }
+
+                        return true;
+                    case VirtualKey.Right:
+                        if (this.Segment.TargetItem.Index != 0)
+                        {
+                            FocusManager.TryMoveFocus(FocusNavigationDirection.Previous);
+                        }
+
+                        return true;
+                }
             }
 
             return false;

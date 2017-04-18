@@ -327,7 +327,34 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     }
                     break;
                 case VirtualKey.Tab:
+                    if (e.OriginalSource is RadDataGrid)
+                    {
+                        if (!this.editService.IsEditing)
+                        {
+                            e.Handled = true;
+                            info = this.CurrencyService.CurrentItemInfo == null ?
+                                this.model.FindFirstDataItemInView()
+                                : this.CurrencyService.CurrentItemInfo;
+
+#pragma warning disable CS4014 
+                            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Low, () =>
+                             {
+                                 var xamlVisualStateLayer = this.visualStateLayerCache as XamlVisualStateLayer;
+                                 if (xamlVisualStateLayer != null)
+                                 {
+                                     var currencyVisual = xamlVisualStateLayer.CurrencyVisual as DataGridCurrencyControl;
+                                     if (currencyVisual != null && currencyVisual.Visibility == Visibility.Visible)
+                                     {
+                                         currencyVisual.Focus(FocusState.Keyboard);
+                                         this.RaiseCellPeerFocusChangedEvent(info);
+                                     }
+                                 }
+                             });
+#pragma warning restore CS4014
+                        }
+                    }
                     break;
+
                 case VirtualKey.Down:
                     if (!this.editService.IsEditing)
                     {
@@ -382,14 +409,33 @@ namespace Telerik.UI.Xaml.Controls.Grid
                         info = this.model.FindPreviousOrNextDataItem(this.CurrentItem, !shiftPressed);
                     }
                     break;
+                case VirtualKey.Space:
+                    if (this.SelectionUnit == DataGridSelectionUnit.Row)
+                    {
+                        info = this.model.FindItemInfo(this.CurrentItem);
+                        if (info != null)
+                        {
+                            var cell = this.model.CellsController.GetCellsForRow(info.Value.Slot).First();
+                            if (cell != null)
+                            {
+                                this.OnCellTap(new DataGridCellInfo(cell));
+                            }
+                        }
+                    }
+                    break;
             }
 
             if (info != null)
             {
                 this.CurrencyService.ChangeCurrentItem(info.Value.Item, true, true);
+
+                if (e.Key != VirtualKey.Tab)
+                {
+                    this.RaiseCellPeerFocusChangedEvent(info);
+                }
             }
         }
-
+        
         /// <summary>
         /// Called before the KeyDown event occurs.
         /// </summary>
@@ -433,6 +479,24 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 frozenHost.PointerExited -= this.FrozenContentHost_PointerExited;
                 frozenHost.PointerPressed -= this.FrozenContentHost_PointerPressed;
                 frozenHost.KeyDown -= this.FrozenContentHost_KeyDown;
+            }
+        }
+
+        private void RaiseCellPeerFocusChangedEvent(ItemInfo? info)
+        {
+            var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this) as RadDataGridAutomationPeer;
+            if (dataGridPeer != null && dataGridPeer.childrenCache != null)
+            {
+                if (dataGridPeer.childrenCache.Count == 0)
+                {
+                    dataGridPeer.GetChildren();
+                }
+
+                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == info.Value.Slot && a.Column == 0).FirstOrDefault() as DataGridCellInfoAutomationPeer;
+                if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
+                {
+                    cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                }
             }
         }
 

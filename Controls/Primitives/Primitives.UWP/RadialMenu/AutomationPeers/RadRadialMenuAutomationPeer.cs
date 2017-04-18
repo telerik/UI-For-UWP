@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Telerik.UI.Xaml.Controls.Primitives.Menu;
@@ -8,7 +9,7 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
-    public class RadRadialMenuAutomationPeer : RadControlAutomationPeer, IExpandCollapseProvider
+    public class RadRadialMenuAutomationPeer : RadControlAutomationPeer, IExpandCollapseProvider, ISelectionProvider
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RadRadialMenuAutomationPeer"/> class.
@@ -33,7 +34,16 @@ namespace Telerik.UI.Automation.Peers
                     : ExpandCollapseState.Collapsed;
             }
         }
+        /// <summary>
+        /// ISelectionProvider implementation.
+        /// </summary>
+        public bool CanSelectMultiple => true;
 
+        /// <summary>
+        /// ISelectionProvider implementation.
+        /// </summary>
+        public bool IsSelectionRequired => false;
+        
         private RadRadialMenu RadRadialMenuOwner
         {
             get
@@ -49,7 +59,7 @@ namespace Telerik.UI.Automation.Peers
         /// <returns>The object that implements the pattern interface, or null.</returns>
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.ExpandCollapse)
+            if (patternInterface == PatternInterface.ExpandCollapse || patternInterface == PatternInterface.Selection)
             {
                 return this;
             }
@@ -59,7 +69,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.Menu;
+            return AutomationControlType.List;
         }
 
         /// <inheritdoc />
@@ -108,8 +118,7 @@ namespace Telerik.UI.Automation.Peers
             var children = base.GetChildrenCore().ToList();
             if (children != null && children.Count > 0)
             {
-                children.RemoveAll(x => x.GetClassName() == nameof(DecorationItemButton) 
-                || x.GetClassName() == nameof(NavigationItemButton));
+                children.RemoveAll(x => x.GetClassName() == nameof(DecorationItemButton));
             }
 
             return children;
@@ -131,6 +140,39 @@ namespace Telerik.UI.Automation.Peers
             this.RadRadialMenuOwner.IsOpen = true;
         }
 
+        /// <summary>
+        /// ISelectionProvider implementation.
+        /// </summary>
+        public IRawElementProviderSimple[] GetSelection()
+        {
+            var providerSamples = new List<IRawElementProviderSimple>();
+            var radialMenuModel = this.RadRadialMenuOwner.model;
+            if (radialMenuModel != null && radialMenuModel.contentRing != null 
+                && radialMenuModel.contentRing.Segments != null)
+            {
+                var radialMenuItems = radialMenuModel.contentRing.Segments.OfType<RadialSegment>();
+                if (radialMenuItems != null)
+                {
+                    foreach (var item in radialMenuItems)
+                    {
+                        var radialMenuItemControl = item.Visual as RadialMenuItemControl;
+                        if (radialMenuItemControl != null && item.TargetItem != null 
+                            && item.TargetItem.IsSelected)
+                        {
+                            var radialMenuItemControlPeer = FrameworkElementAutomationPeer.CreatePeerForElement(radialMenuItemControl) as RadialMenuItemControlAutomationPeer;
+                            if (radialMenuItemControlPeer != null)
+                            {
+                                providerSamples.Add(this.ProviderFromPeer(radialMenuItemControlPeer));
+                            }
+                        }
+                    }
+                }
+               
+            }
+
+            return providerSamples.ToArray();
+        }
+        
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
         internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
         {
