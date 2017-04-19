@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Telerik.Charting;
+using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Shapes;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -105,6 +109,52 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     this.AxisModel.AttachAxis(newAxis.model, AxisType.Second);
                 }
             }
+        }
+        internal void UpdateSeriesClip()
+        {
+            if (!this.ClipToPlotArea || !this.IsRendered || !RadChartBase.IsRedstone2())
+            {
+                return;
+            }
+
+            foreach (var path in this.renderSurface.Children.OfType<Path>())
+            {
+                Point topLeft;
+                if (path.Data.Bounds != new Rect())
+                {
+                    topLeft = new Point(path.Data.Bounds.X, path.Data.Bounds.Y);
+                }
+                else
+                {
+                    topLeft = path.GetTopLeft();
+                    topLeft.X = topLeft.X - this.GetStrokeThicknessAdjustment();
+                    topLeft.Y = topLeft.Y - this.GetStrokeThicknessAdjustment();
+                }
+
+                TransformGroup transform = path.RenderTransform as TransformGroup;
+                Point translate = new Point();
+
+                if (transform != null)
+                {
+
+                    foreach (var tr in (transform as TransformGroup).Children)
+                    {
+                        TranslateTransform translateTransform = tr as TranslateTransform;
+                        if (translateTransform != null)
+                        {
+                            translate.X += translateTransform.X;
+                            translate.Y += translateTransform.Y;
+                        }
+                    }
+                }
+
+                path.Clip = new RectangleGeometry() { Rect = new Rect(0, 0, this.chart.PlotAreaClip.Width + this.chart.PlotAreaClip.X - topLeft.X - translate.X, this.chart.PlotAreaClip.Height + this.chart.PlotAreaClip.Y - topLeft.Y - translate.Y) };
+            }
+        }
+
+        internal virtual double GetStrokeThicknessAdjustment()
+        {
+            return 0d;
         }
 
         /// <summary>

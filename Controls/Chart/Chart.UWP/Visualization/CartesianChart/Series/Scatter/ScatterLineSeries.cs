@@ -1,6 +1,5 @@
 ﻿using Telerik.Charting;
 using Telerik.UI.Automation.Peers;
-using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
@@ -37,7 +36,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             DependencyProperty.Register(nameof(StrokeLineJoin), typeof(PenLineJoin), typeof(ScatterLineSeries), new PropertyMetadata(PenLineJoin.Miter, OnStrokeLineJoinChanged));
 
         internal LineRenderer renderer;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ScatterLineSeries"/> class.
         /// </summary>
@@ -155,6 +154,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
             base.UpdateUICore(context);
 
             this.renderer.Render();
+            this.IsRendered = true;
+
+            this.UpdateSeriesClip();
+        }
+
+        internal override double GetStrokeThicknessAdjustment()
+        {
+            return this.StrokeThickness / 2;
         }
 
         internal override void ApplyPaletteCore()

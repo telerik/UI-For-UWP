@@ -137,9 +137,18 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// </summary>
         internal override void UpdateUICore(ChartLayoutContext context)
         {
+            this.IsRendered = false;
             base.UpdateUICore(context);
 
             this.renderer.Render();
+            this.IsRendered = true;
+
+            this.UpdateSeriesClip();
+        }
+
+        internal override double GetStrokeThicknessAdjustment()
+        {
+            return this.StrokeThickness / 2;
         }
 
         internal override void ApplyPaletteCore()
