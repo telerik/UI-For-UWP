@@ -679,7 +679,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 currentWidth = 0;
             }
 
-            if (GridModel.DoubleArithmetics.IsLessThan(currentWidth, width))
+            if (GridModel.DoubleArithmetics.IsLessThanOrEqual(currentWidth, width))
             {
                 this.columnWidth[level] = width;
             }
