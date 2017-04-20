@@ -159,7 +159,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Raises the <see cref="E:PropertyChanged" /> event.
         /// </summary>
-        /// <param name="args">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="args">The <see cref="System.ComponentModel.PropertyChangedEventArgs"/> instance containing the event data.</param>
         protected internal virtual void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;

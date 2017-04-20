@@ -188,6 +188,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             }
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             if (e.Handled)
@@ -228,6 +232,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new NavigationItemButtonAutomationPeer(this);

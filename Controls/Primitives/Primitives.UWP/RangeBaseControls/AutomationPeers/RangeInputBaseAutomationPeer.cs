@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RangeInputBase class.
+    /// </summary>
     public class RangeInputBaseAutomationPeer : RangeControlBaseAutomationPeer
     {
         /// <summary>

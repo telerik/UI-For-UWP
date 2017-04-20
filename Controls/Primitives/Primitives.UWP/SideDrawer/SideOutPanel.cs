@@ -17,6 +17,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
     {
         internal RadSideDrawer Owner { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SideOutPanel"/> class.
+        /// </summary>
         public SideOutPanel()
         {
             this.Loaded += SideOutPanel_Loaded;

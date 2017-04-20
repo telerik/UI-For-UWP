@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
-using Telerik.Core;
-using Windows.UI.Xaml.Data;
 
 namespace Telerik.Data.Core
 {
@@ -16,6 +14,9 @@ namespace Telerik.Data.Core
         private Entity entity;
         private PropertyIteratorMode iteratorMode = PropertyIteratorMode.Declared;
 
+        /// <summary>
+        /// Occurs when property changes its value.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>

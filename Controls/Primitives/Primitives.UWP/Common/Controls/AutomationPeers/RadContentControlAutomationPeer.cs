@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadContentControl class.
+    /// </summary>
     public class RadContentControlAutomationPeer : FrameworkElementAutomationPeer
     {
         /// <summary>

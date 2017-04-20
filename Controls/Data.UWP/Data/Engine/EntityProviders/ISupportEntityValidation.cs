@@ -3,8 +3,17 @@ using System.Threading.Tasks;
 
 namespace Telerik.Data.Core
 {
+    /// <summary>
+    /// Represents an <see cref="INotifyDataErrorInfo"/> implementation.
+    /// </summary>
     public interface ISupportEntityValidation : INotifyDataErrorInfo
     {
+        /// <summary>
+        /// Validates a specific property asynchronous.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
         Task ValidatePropertyAsync(Entity entity, string propertyName);
     }
 }

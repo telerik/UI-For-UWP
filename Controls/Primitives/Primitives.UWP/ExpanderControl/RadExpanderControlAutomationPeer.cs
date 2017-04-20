@@ -5,6 +5,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadExpanderControl class.
+    /// </summary>
     public class RadExpanderControlAutomationPeer : RadContentControlAutomationPeer, IExpandCollapseProvider
     {
         /// <summary>

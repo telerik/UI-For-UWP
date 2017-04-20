@@ -11,6 +11,9 @@ using Windows.UI.Xaml.Shapes;
 
 namespace Telerik.UI.Xaml.Controls.Input
 {
+    /// <summary>
+    /// Represents the list control that holds the <see cref="Segment"/>.
+    /// </summary>
     [TemplatePart(Name = "DecorationLayerTemplatePartName", Type = typeof(Canvas))]
     public class SegmentedItemsControl : ItemsControl
     {

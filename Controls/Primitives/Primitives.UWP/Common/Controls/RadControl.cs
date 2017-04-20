@@ -136,6 +136,7 @@ namespace Telerik.UI.Xaml.Controls
             return true;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new Automation.Peers.RadControlAutomationPeer(this);

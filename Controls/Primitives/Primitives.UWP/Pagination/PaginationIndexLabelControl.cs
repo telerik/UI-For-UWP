@@ -151,6 +151,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Pagination
             this.SetValue(CurrentIndexDisplayValueProperty, indexValue);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new PaginationIndexLabelControlAutomationPeer(this);

@@ -123,12 +123,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             return commonVisualState;
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             e.Handled = this.HandleKeyDown(e.Key);
             base.OnKeyDown(e);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             var parent = ElementTreeHelper.FindVisualAncestor<RadRadialMenu>(this);

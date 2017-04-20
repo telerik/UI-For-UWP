@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Telerik.UI.Xaml.Controls.Primitives.Menu;
@@ -9,6 +8,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadRadialMenu class.
+    /// </summary>
     public class RadRadialMenuAutomationPeer : RadControlAutomationPeer, IExpandCollapseProvider, ISelectionProvider
     {
         /// <summary>

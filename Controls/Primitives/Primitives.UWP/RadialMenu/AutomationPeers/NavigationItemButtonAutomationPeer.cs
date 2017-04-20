@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the NavigationItemButton class.
+    /// </summary>
     public class NavigationItemButtonAutomationPeer : RadControlAutomationPeer, IInvokeProvider
     {
         /// <summary>

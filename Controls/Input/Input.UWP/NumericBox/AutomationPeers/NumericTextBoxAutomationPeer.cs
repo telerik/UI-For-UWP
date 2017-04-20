@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls.Input;
-using Windows.Foundation;
+﻿using Telerik.UI.Xaml.Controls.Input;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the NumericTextBox class.
+    /// </summary>
     public class NumericTextBoxAutomationPeer : TextBoxAutomationPeer
     {
         /// <summary>

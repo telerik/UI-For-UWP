@@ -21,8 +21,7 @@ namespace Telerik.UI.Automation.Peers
                 return (CalendarViewHost)this.Owner;
             }            
         }
-
-        /// <summary>
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarViewHostAutomationPeer"/> class.
         /// </summary>
@@ -30,8 +29,7 @@ namespace Telerik.UI.Automation.Peers
         public CalendarViewHostAutomationPeer(CalendarViewHost owner) : base(owner)
         {
         }
-
-        /// <summary>
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarViewHostAutomationPeer"/> class.
         /// </summary>

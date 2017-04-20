@@ -69,6 +69,9 @@ namespace Telerik.UI.Automation.Peers
             return "rad rating item";
         }
 
+        /// <summary>
+        /// IInvokeProvider implementation.
+        /// </summary>
         public void Invoke()
         {
             RadRating rating = this.RatingItem.Owner;

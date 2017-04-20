@@ -33,6 +33,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.DefaultStyleKey = typeof(RadCustomHubTile);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadCustomHubTileAutomationPeer(this);

@@ -253,6 +253,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             this.OnItemTap();
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new SuggestionItemAutomationPeer(this, this.owner);

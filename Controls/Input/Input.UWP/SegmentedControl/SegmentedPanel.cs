@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input
 {
+    /// <summary>
+    /// A custom panel that holds the elements in a <see cref="SegmentedItemsControl"/> control.
+    /// </summary>
     public class SegmentedPanel : Panel
     {
         /// <summary>

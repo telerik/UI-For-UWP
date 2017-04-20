@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls;
-using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RangeControlBase class.
+    /// </summary>
     public class RangeControlBaseAutomationPeer : RadHeaderedControlAutomationPeer
     {
         /// <summary>

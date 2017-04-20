@@ -1168,6 +1168,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new Automation.Peers.RadLoopingListAutomationPeer(this);

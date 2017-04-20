@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the SliderBase class.
+    /// </summary>
     public class SliderBaseAutomationPeer : RangeInputBaseAutomationPeer, IRangeValueProvider, IValueProvider
     {
         private bool hasMaximumDirection;

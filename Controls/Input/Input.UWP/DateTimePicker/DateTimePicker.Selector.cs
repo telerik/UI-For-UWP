@@ -267,7 +267,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets an instance of the <see cref="DateTime"/> struct that represents
+        /// Gets or sets an instance of the <see cref="System.DateTime"/> struct that represents
         /// the default value displayed in the selector part when opened. The default value is shown
         /// when the <see cref="DateTimePicker.Value"/> property is set to <c>null</c>.
         /// </summary>

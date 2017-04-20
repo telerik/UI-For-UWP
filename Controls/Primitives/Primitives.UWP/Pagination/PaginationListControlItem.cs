@@ -47,6 +47,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Pagination
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new PaginationListControlItemAutomationPeer(this);

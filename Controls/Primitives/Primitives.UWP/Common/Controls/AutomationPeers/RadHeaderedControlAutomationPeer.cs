@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadHeaderedControl class.
+    /// </summary>
     public class RadHeaderedControlAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>

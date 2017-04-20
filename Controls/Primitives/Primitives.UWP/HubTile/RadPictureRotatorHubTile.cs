@@ -225,6 +225,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.secondImage.Source = this.GetRandomImageSource();
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadPictureRotatorHubTileAutomationPeer(this);

@@ -227,6 +227,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new SliderBaseAutomationPeer(this);

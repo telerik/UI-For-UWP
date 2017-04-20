@@ -5,8 +5,14 @@ using Telerik.UI.Xaml.Controls.Primitives;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadMosaicHubTile class.
+    /// </summary>
     public class RadMosaicHubTileAutomationPeer : HubTileBaseAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RadMosaicHubTileAutomationPeer" /> class.
+        /// </summary>
         public RadMosaicHubTileAutomationPeer(RadMosaicHubTile owner) 
             : base(owner)
         {

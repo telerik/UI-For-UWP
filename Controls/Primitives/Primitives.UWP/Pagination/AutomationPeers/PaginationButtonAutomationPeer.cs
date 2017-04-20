@@ -3,6 +3,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the PaginationButton class.
+    /// </summary>
     public class PaginationButtonAutomationPeer : ButtonAutomationPeer
     {
         /// <summary>

@@ -23,6 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
             this.DefaultStyleKey = typeof(DateTimeListItem);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new Automation.Peers.DateTimeListItemAutomationPeer(this);

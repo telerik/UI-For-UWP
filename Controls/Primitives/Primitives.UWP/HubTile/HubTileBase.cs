@@ -449,6 +449,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.UpdateTimerState();
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new HubTileBaseAutomationPeer(this);

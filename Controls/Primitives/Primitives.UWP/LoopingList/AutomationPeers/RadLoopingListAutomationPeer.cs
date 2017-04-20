@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadLoopingList class.
+    /// </summary>
     public class RadLoopingListAutomationPeer : RadControlAutomationPeer, ISelectionProvider, IExpandCollapseProvider
     {
         /// <summary>

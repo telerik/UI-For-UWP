@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls;
-using Windows.UI.Xaml;
+﻿using Telerik.UI.Xaml.Controls;
 using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadControl class.
+    /// </summary>
     public class RadControlAutomationPeer : FrameworkElementAutomationPeer
     {
         /// <summary>
-		/// Initializes a new instance of the RadControlAutomationPeer class.
-		/// </summary>
-		/// <param name="owner">The owner.</param>
+        /// Initializes a new instance of the RadControlAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
         public RadControlAutomationPeer(RadControl owner) 
             : base(owner)
         {

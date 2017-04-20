@@ -1,7 +1,4 @@
-﻿using System;
-using Windows.UI.Xaml;
-
-namespace Telerik.UI.Xaml.Controls.Primitives
+﻿namespace Telerik.UI.Xaml.Controls.Primitives
 {
     /// <summary>
     /// Represents an object that is attached to an owning object.

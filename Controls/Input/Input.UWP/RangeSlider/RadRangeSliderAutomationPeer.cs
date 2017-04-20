@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadRangeSlider class.
+    /// </summary>
     public class RadRangeSliderAutomationPeer : SliderBaseAutomationPeer
     {
         /// <summary>
@@ -44,6 +47,7 @@ namespace Telerik.UI.Automation.Peers
             return AutomationControlType.Group;
         }
 
+        /// <inheritdoc />
         public override string Value
         {
             get

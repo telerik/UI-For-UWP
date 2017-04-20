@@ -6,8 +6,15 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the SlideControl class.
+    /// </summary>
     public class SlideControlAutomationPeer : RadControlAutomationPeer, IExpandCollapseProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the SlideControlAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
         public SlideControlAutomationPeer(SlideControl owner) 
             : base(owner)
         {

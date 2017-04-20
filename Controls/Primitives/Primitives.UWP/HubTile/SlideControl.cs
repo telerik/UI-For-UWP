@@ -156,6 +156,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.HubTile
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new SlideControlAutomationPeer(this);

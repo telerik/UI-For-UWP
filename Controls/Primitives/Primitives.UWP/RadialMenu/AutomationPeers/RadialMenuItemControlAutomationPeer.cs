@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadialMenuItemControl class.
+    /// </summary>
     public class RadialMenuItemControlAutomationPeer : RadControlAutomationPeer, IToggleProvider, IInvokeProvider, ISelectionItemProvider
     {
         private RadRadialMenu parent;
@@ -17,6 +20,7 @@ namespace Telerik.UI.Automation.Peers
         /// Automation Peer for the <see cref="Telerik.UI.Xaml.Controls.Primitives.Menu.RadialMenuItemControl"/> class.
         /// </summary>
         /// <param name="owner">The object that is associated with this AutomationPeer.</param>
+        /// <param name="parent">The parent RadialMenu of the RadialMenuItem.</param>
         public RadialMenuItemControlAutomationPeer(RadialMenuItemControl owner, RadRadialMenu parent) 
             : base(owner)
         {

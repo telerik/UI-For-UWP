@@ -227,6 +227,7 @@ namespace Telerik.Data.Core
             return null;
         }
 
+        /// <inheritdoc />
         protected override INumericalRange GetValueRange(object property)
         {
             var propertyInfo = property as PropertyInfo;

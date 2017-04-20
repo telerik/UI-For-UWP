@@ -392,6 +392,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.skipBackState = true;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadCycleHubTileAutomationPeer(this);

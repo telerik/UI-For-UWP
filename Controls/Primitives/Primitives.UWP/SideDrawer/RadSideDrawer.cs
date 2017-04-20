@@ -103,7 +103,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             DependencyProperty.Register(nameof(DrawerClip), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnDrawerClipChanged));
 
         /// <summary>
-        /// Identifies the <see cref="AnimationClip"/> dependency property.
+        /// Identifies the <see cref="SlideoutSeekedAnimationClip"/> dependency property.
         /// </summary>
         private static readonly DependencyProperty SlideoutSeekedAnimationClipProperty =
             DependencyProperty.Register(nameof(SlideoutSeekedAnimationClip), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnSlideoutSeekedAnimationClipChanged));

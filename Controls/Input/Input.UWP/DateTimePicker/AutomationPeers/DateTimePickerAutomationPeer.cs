@@ -9,6 +9,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the DateTimePicker class.
+    /// </summary>
     public class DateTimePickerAutomationPeer : RadHeaderedControlAutomationPeer, IValueProvider, IExpandCollapseProvider
     {
         /// <summary>

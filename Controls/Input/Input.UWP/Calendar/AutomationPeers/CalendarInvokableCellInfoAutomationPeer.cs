@@ -10,12 +10,11 @@ namespace Telerik.UI.Automation.Peers
     public class CalendarInvokableCellInfoAutomationPeer : CalendarCellInfoBaseAutomationPeer, IInvokeProvider
     {
         internal CalendarCellModel CalendarCellModel { get; set; }
-
-        /// <summary>
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarInvokableCellInfoAutomationPeer"/> class.
         /// </summary>
-        /// <param name="parentPeer">Parent CalendarViewHostAutomationPeer.</param>
+        /// <param name="parent">Parent CalendarViewHostAutomationPeer.</param>
         /// <param name="cellModel">The model of the calendar cell.</param>
         internal CalendarInvokableCellInfoAutomationPeer(CalendarViewHostAutomationPeer parent, CalendarCellModel cellModel) : base(parent, cellModel)
         {
@@ -33,6 +32,9 @@ namespace Telerik.UI.Automation.Peers
             return base.GetPatternCore(patternInterface);
         }
 
+        /// <summary>
+        /// IInvokeProvider implementation.
+        /// </summary>
         public void Invoke()
         {
             if (this.CalendarViewHostPeer.CalendarOwner != null)

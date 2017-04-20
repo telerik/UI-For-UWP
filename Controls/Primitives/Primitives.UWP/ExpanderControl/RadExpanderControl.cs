@@ -383,6 +383,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 #pragma warning restore 4014
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadExpanderControlAutomationPeer(this);
@@ -421,6 +422,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             e.Handled = this.HandleKeyDown(e.Key);

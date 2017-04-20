@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadNumericBox class.
+    /// </summary>
     public class RadNumericBoxAutomationPeer : RangeInputBaseAutomationPeer, IRangeValueProvider
     {
         /// <summary>
@@ -118,6 +121,7 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.RangeValue)

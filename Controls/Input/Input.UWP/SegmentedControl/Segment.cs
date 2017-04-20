@@ -8,11 +8,20 @@ using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Input
 {
+    /// <summary>
+    /// Represents a item in a <see cref="SegmentedItemsControl"/>.
+    /// </summary>
     public class Segment : ButtonBase
     {
+        /// <summary>
+        /// Identifies the <see cref="CornerRadius"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(Segment), new PropertyMetadata(new CornerRadius(0d)));
 
+        /// <summary>
+        /// Identifies the <see cref="IsSelected"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty IsSelectedProperty =
             DependencyProperty.Register(nameof(IsSelected), typeof(bool), typeof(Segment), new PropertyMetadata(false, OnIsSelectedChanged));
 
@@ -34,6 +43,9 @@ namespace Telerik.UI.Xaml.Controls.Input
             groups = new Dictionary<string, List<Segment>>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Segment"/> class.
+        /// </summary>
         public Segment()
         {
             this.DefaultStyleKey = typeof(Segment);
@@ -51,7 +63,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public event EventHandler Selected;
 
         /// <summary>
-        /// Occurs when the <see cref="LayoutSlot"/> or the <see cref="VisualStateName"/> of the segment has changed.
+        /// Occurs when the <see cref="LayoutSlot"/> or the VisualStateName of the segment has changed.
         /// </summary>
         public event EventHandler AnimationContextChanged;
 

@@ -3,6 +3,9 @@ using Telerik.UI.Xaml.Controls.Primitives.Pagination;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the PaginationIndexLabelControl class.
+    /// </summary>
     public class PaginationIndexLabelControlAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>

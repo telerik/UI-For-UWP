@@ -524,6 +524,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.InvalidateThumbsPanelArrange();
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             e.Handled = this.HandleKeyDown(e.Key);

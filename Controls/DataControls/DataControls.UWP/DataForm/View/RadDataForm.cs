@@ -12,6 +12,9 @@ using Telerik.UI.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Represents a RadDataForm control.
+    /// </summary>
     [TemplatePart(Name = "PART_ChildrensPanelPresenter", Type = typeof(ContentControl))]
     public class RadDataForm : RadControl, IDataFormView
     {

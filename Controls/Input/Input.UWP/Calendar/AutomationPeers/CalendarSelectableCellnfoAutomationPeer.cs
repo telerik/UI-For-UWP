@@ -15,10 +15,9 @@ namespace Telerik.UI.Automation.Peers
         internal CalendarCellModel CellModel { get; set; }
 
         /// <summary>
-        /// <summary>
         /// Initializes a new instance of the <see cref="CalendarSelectableCellnfoAutomationPeer"/> class.
         /// </summary>
-        /// <param name="parentPeer">Parent CalendarViewHostAutomationPeer.</param>
+        /// <param name="parent">Parent CalendarViewHostAutomationPeer.</param>
         /// <param name="cellModel">The model of the calendar cell.</param>
         internal CalendarSelectableCellnfoAutomationPeer(CalendarViewHostAutomationPeer parent, CalendarCellModel cellModel) : base(parent, cellModel)
         {

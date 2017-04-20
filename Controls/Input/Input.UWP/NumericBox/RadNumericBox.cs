@@ -457,6 +457,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new Automation.Peers.RadNumericBoxAutomationPeer(this);

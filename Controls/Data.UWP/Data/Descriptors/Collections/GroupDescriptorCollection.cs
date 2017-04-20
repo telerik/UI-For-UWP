@@ -19,6 +19,7 @@ namespace Telerik.Data.Core
         {
         }
 
+        /// <inheritdoc />
         protected override void SetItem(int index, GroupDescriptorBase item)
         {
             var oldItem = this[index];
@@ -30,6 +31,7 @@ namespace Telerik.Data.Core
             base.SetItem(index, item);
         }
 
+        /// <inheritdoc />
         protected override void InsertItem(int index, GroupDescriptorBase item)
         {
             if (index == 0 && this.Count > 0 && this[0] is CollectionViewGroupDescriptor)
@@ -40,6 +42,7 @@ namespace Telerik.Data.Core
             base.InsertItem(index, item);
         }
 
+        /// <inheritdoc />
         protected override void RemoveItem(int index)
         {
             var item = this[index];
@@ -69,6 +72,7 @@ namespace Telerik.Data.Core
             return false;
         }
 
+        /// <inheritdoc />
         protected override void ClearItems()
         {
             if (this.Count == 0)

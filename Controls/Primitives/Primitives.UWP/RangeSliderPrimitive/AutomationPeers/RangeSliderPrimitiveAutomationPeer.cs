@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RangeSliderPrimitive class.
+    /// </summary>
     public class RangeSliderPrimitiveAutomationPeer : SliderBaseAutomationPeer
     {
         /// <summary>

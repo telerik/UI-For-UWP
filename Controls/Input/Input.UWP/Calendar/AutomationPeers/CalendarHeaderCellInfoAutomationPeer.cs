@@ -10,8 +10,7 @@ namespace Telerik.UI.Automation.Peers
     {
         private string automationId;
         internal CalendarHeaderCellModel HeaderCellModel { get; set; }
-
-        /// <summary>
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarHeaderCellInfoAutomationPeer"/> class.
         /// </summary>

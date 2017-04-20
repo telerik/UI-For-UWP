@@ -22,12 +22,15 @@ namespace Telerik.Data.Core
 
         private INumericalRange range;
 
+        /// <summary>
+        /// Gets the property info.
+        /// </summary>
         protected object PropertyContext { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityProperty"/> class.
         /// </summary>
-        /// <param name="property">The property info that object is accosiated with.</param>
+        /// <param name="propertyContext">The property info that object is accosiated with.</param>
         /// <param name="item">The data item.</param>
         /// <param name="converter">The converter. Optionally you can convert your source property to a different format depending on the UI and scenario.</param>
         public EntityProperty(object propertyContext, object item, IPropertyConverter converter)

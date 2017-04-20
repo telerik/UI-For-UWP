@@ -31,6 +31,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             set { SetValue(TouchTargetThresholdProperty, value); }
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             base.OnKeyDown(e);

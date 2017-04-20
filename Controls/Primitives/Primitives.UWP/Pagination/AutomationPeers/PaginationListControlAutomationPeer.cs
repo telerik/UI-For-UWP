@@ -3,6 +3,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the PaginationListControl class.
+    /// </summary>
     public class PaginationListControlAutomationPeer : ListBoxAutomationPeer
     {
         /// <summary>

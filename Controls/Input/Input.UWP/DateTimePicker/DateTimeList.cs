@@ -438,6 +438,7 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
             this.DetachCharacterReceived();
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DateTimeListAutomationPeer(this);

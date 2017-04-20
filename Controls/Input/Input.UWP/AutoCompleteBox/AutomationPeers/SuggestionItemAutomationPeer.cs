@@ -5,6 +5,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the SuggestionItem class.
+    /// </summary>
     public class SuggestionItemAutomationPeer : ListBoxItemAutomationPeer, IInvokeProvider
     {
         private SuggestionItemsControl suggestionItemsControl;

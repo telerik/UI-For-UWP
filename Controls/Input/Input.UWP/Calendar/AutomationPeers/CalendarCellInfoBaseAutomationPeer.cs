@@ -18,8 +18,7 @@ namespace Telerik.UI.Automation.Peers
         private TextBlockAutomationPeer childTextBlockPeer;
         internal CalendarViewHostAutomationPeer CalendarViewHostPeer { get; set; }
         internal CalendarNode CellNode { get; set; }
-
-        /// <summary>
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarCellInfoBaseAutomationPeer"/> class.
         /// </summary>

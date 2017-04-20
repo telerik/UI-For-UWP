@@ -86,7 +86,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
-        /// Gets or sets an instance of the <see cref="TimeSpan"/> struct that
+        /// Gets or sets an instance of the <see cref="System.TimeSpan"/> struct that
         /// determines the initial delay before the <see cref="RadBusyIndicator"/> is
         /// shown and the animation is started.
         /// </summary>

@@ -373,7 +373,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets an instance of the <see cref="TimeSpan"/> struct
+        /// Gets or sets an instance of the <see cref="System.TimeSpan"/> struct
         /// that represents the time interval between the last end user input action and
         /// a filter pass operation. 
         /// </summary>
@@ -403,11 +403,11 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         /// <example>
         /// <para>
-        /// This example demonstrates how to filter items, that have a <see cref="DateTime"/> property, by
+        /// This example demonstrates how to filter items, that have a <see cref="System.DateTime"/> property, by
         /// year while the displayed text is the full date.
         /// </para>
         /// <para>
-        /// First, create a sample class that has a property of type <see cref="DateTime"/>:
+        /// First, create a sample class that has a property of type <see cref="System.DateTime"/>:
         /// </para>
         /// <code language="c#">
         ///     public class Birthday
@@ -1051,7 +1051,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Raises the <see cref="E:PropertyChanged" /> event.
         /// </summary>
-        /// <param name="args">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
+        /// <param name="args">The <see cref="System.ComponentModel.PropertyChangedEventArgs" /> instance containing the event data.</param>
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             if (this.PropertyChanged != null)

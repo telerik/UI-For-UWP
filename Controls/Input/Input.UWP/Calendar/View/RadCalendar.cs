@@ -144,7 +144,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(DayNameCellStyleSelector), typeof(CalendarDayNameCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnDayNameCellStyleSelectorPropertyChanged));
 
         /// <summary>
-        /// Identifies the <see cref="WeekNumberStyleSelector"/> dependency property.
+        /// Identifies the <see cref="WeekNumberCellStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WeekNumberCellStyleSelectorProperty =
             DependencyProperty.Register(nameof(WeekNumberCellStyleSelector), typeof(CalendarWeekNumberCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnWeekNumberStyleSelectorPropertyChanged));
@@ -469,7 +469,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Gets or sets the current date to display.
         /// </summary>
         /// <value>
-        /// The default value is <see cref="DateTime.Today"/>.
+        /// The default value is <see cref="System.DateTime.Today"/>.
         /// </value>
         /// <example>
         /// <code language="xaml">
