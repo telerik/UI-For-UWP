@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Telerik.Core;
 using Telerik.UI.Automation.Peers;
@@ -1538,6 +1539,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportWidth
         {
             get
@@ -1546,6 +1548,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportHeight
         {
             get
@@ -1554,6 +1557,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IElementPresenter.IsVisible
         {
             get
@@ -1621,11 +1625,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.Invalidate();
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         void IElementPresenter.RefreshNode(object node)
         {
             this.Invalidate();
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         RadSize IElementPresenter.MeasureContent(object owner, object content)
         {
             // we know how to measure only header cells content

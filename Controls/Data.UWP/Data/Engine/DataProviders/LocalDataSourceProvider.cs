@@ -17,7 +17,7 @@ namespace Telerik.Data.Core
     /// <summary>
     /// Provides a data grouping access to local source such as an IList of instances of user defined classes.
     /// </summary>
-    internal class LocalDataSourceProvider : DataProviderBase
+    internal class LocalDataSourceProvider : DataProviderBase, IDisposable
     {
         protected bool refreshRequested;
         protected object itemsSource;
@@ -901,6 +901,11 @@ namespace Telerik.Data.Core
             };
 
             return initalState;
+        }
+
+        public void Dispose()
+        {
+            this.manualResetEventSlim.Dispose();
         }
 
         private class LocalSourceValueProvider : IValueProvider

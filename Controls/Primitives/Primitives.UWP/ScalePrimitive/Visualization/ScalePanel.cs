@@ -11,7 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Scale
     /// <summary>
     /// Represents a custom panel which hosts scale control ticks and axis. It is used to arrange and measure all its children in a specific way.
     /// </summary>
-    public class ScalePanel : Panel, IView
+    public sealed class ScalePanel : Panel, IView
     {
         private static readonly Size InfinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
 

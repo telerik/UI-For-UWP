@@ -1,4 +1,6 @@
-﻿namespace Telerik.UI.Xaml.Controls.Primitives
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Telerik.UI.Xaml.Controls.Primitives
 {
     /// <summary>
     /// Represents an object that is attached to an owning object.
@@ -12,6 +14,7 @@
         /// Initializes a new instance of the <see cref="AttachableObject{T}" /> class.
         /// </summary>
         /// <param name="owner">The object instance that owns this one.</param>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         internal AttachableObject(T owner)
             : this()
         {

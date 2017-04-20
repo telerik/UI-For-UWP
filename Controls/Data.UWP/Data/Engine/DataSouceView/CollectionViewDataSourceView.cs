@@ -98,7 +98,7 @@ namespace Telerik.Data.Core
 
         public IBatchLoadingProvider BatchDataProvider { get; private set; }
 
-        protected virtual IList<object> ListStorage
+        protected IList<object> ListStorage
         {
             get
             {

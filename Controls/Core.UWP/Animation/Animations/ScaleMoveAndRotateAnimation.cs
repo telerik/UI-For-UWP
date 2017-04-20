@@ -15,7 +15,7 @@ namespace Telerik.Core
         /// <summary>
         /// Initializes a new instance of the RadScaleMoveAndRotateAnimation class.
         /// </summary>
-        [SuppressMessage("CA2214", "Remove virtual calls from constructor.", Justification = "These virtual calls do not rely on uninitialized base state.")]
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "Call stack reviewed.")]
         public RadScaleMoveAndRotateAnimation()
         {
             this.scale = this.CreateScaleAnimation();
