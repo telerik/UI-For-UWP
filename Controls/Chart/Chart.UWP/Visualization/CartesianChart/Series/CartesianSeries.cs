@@ -82,12 +82,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
-        internal override void UpdateUICore(ChartLayoutContext context)
-        {
-            this.IsRendered = false;    
-            base.UpdateUICore(context);
-        }
-
         /// <summary>
         /// Occurs when one of the axes of the owning <see cref="RadCartesianChart"/> has been changed.
         /// </summary>

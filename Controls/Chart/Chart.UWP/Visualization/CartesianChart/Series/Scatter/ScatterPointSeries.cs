@@ -150,6 +150,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         internal override void UpdateUICore(ChartLayoutContext context)
         {
+            this.IsRendered = false;
             base.UpdateUICore(context);
             this.IsRendered = true;
             this.UpdateSeriesClip();
