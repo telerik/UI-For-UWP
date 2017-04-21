@@ -149,6 +149,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             return finalSize;
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadialBarGaugeIndicatorAutomationPeer(this);

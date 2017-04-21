@@ -2,8 +2,14 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="SegmentedLinearGaugeIndicator"/>.
+    /// </summary>
     public class SegmentedLinearGaugeIndicatorAutomationPeer : SegmentedGaugeIndicatorAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the SegmentedLinearGaugeIndicatorAutomationPeer class.
+        /// </summary>
         public SegmentedLinearGaugeIndicatorAutomationPeer(SegmentedLinearGaugeIndicator owner) 
             : base(owner)
         {

@@ -2,8 +2,14 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="BarGaugeIndicator"/>.
+    /// </summary>
     public class BarGaugeIndicatorAutomationPeer : GaugeIndicatorAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the BarGaugeIndicatorAutomationPeer class.
+        /// </summary>
         public BarGaugeIndicatorAutomationPeer(BarGaugeIndicator owner) 
             : base(owner)
         {

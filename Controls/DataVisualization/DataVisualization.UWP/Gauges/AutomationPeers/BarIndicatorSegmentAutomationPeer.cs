@@ -2,8 +2,14 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="BarIndicatorSegment"/>.
+    /// </summary>
     public class BarIndicatorSegmentAutomationPeer : RadControlAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the BarIndicatorSegmentAutomationPeer class.
+        /// </summary>
         public BarIndicatorSegmentAutomationPeer(BarIndicatorSegment owner) 
             : base(owner)
         {

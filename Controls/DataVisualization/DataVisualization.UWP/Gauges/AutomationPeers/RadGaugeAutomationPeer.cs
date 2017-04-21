@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadGauge"/>.
+    /// </summary>
     public class RadGaugeAutomationPeer : RadControlAutomationPeer, IRangeValueProvider
     {
         /// <summary>

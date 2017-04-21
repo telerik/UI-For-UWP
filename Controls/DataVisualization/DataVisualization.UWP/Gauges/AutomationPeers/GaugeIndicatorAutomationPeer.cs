@@ -5,8 +5,14 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="GaugeIndicator"/>.
+    /// </summary>
     public class GaugeIndicatorAutomationPeer : RadControlAutomationPeer, IValueProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the GaugeIndicatorAutomationPeer class.
+        /// </summary>
         public GaugeIndicatorAutomationPeer(GaugeIndicator owner) 
             : base(owner)
         {

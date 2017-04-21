@@ -377,6 +377,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             return result;
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new GaugeIndicatorAutomationPeer(this);

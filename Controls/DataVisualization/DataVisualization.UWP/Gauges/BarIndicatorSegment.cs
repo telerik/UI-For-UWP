@@ -146,6 +146,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             return applied;
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new BarIndicatorSegmentAutomationPeer(this);

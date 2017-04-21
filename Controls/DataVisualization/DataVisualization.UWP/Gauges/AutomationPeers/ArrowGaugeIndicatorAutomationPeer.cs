@@ -2,8 +2,14 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="ArrowGaugeIndicator"/>.
+    /// </summary>
     public class ArrowGaugeIndicatorAutomationPeer : NeedleGaugeIndicatorAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the ArrowGaugeIndicatorAutomationPeer class.
+        /// </summary>
         public ArrowGaugeIndicatorAutomationPeer(ArrowGaugeIndicator owner) 
             : base(owner)
         {

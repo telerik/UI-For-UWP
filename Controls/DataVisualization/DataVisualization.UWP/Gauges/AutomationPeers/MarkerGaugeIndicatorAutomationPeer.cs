@@ -5,8 +5,14 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="MarkerGaugeIndicator"/>.
+    /// </summary>
     public class MarkerGaugeIndicatorAutomationPeer : GaugeIndicatorAutomationPeer, IToggleProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the MarkerGaugeIndicatorAutomationPeer class.
+        /// </summary>
         public MarkerGaugeIndicatorAutomationPeer(MarkerGaugeIndicator owner) 
             : base(owner)
         {

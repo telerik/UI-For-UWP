@@ -437,6 +437,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             this.panel.Indicators.Clear();
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadGaugeAutomationPeer(this);
