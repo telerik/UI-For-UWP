@@ -133,8 +133,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
-        internal bool IsRendered { get; set; }
-
         /// <summary>
         /// Gets a value indicating whether a valid DataTemplate instance to present each DataPoint exists.
         /// </summary>
@@ -228,7 +226,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 return;
             }
 
-            this.IsRendered = false;
             base.UpdateUICore(context);
 
             this.UpdatePresenters(context);

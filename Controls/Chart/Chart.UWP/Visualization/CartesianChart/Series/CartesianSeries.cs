@@ -68,6 +68,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        internal bool IsRendered { get; set; }
+
         private IPlotAreaElementModelWithAxes AxisModel
         {
             get
@@ -78,6 +80,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
                 return this.axisModel;
             }
+        }
+
+        internal override void UpdateUICore(ChartLayoutContext context)
+        {
+            this.IsRendered = false;    
+            base.UpdateUICore(context);
         }
 
         /// <summary>
