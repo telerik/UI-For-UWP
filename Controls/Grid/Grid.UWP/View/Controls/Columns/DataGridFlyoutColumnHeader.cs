@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.UI.Xaml.Controls.Primitives.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
+    /// <summary>
+    /// Represents a DataGridFlyoutColumnHeader control.
+    /// </summary>
     [TemplatePart(Name = "PART_SelectCheckBox", Type = typeof(CheckBox))]
     public partial class DataGridFlyoutColumnHeader : DataGridFlyoutHeader
     {
@@ -18,6 +16,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         private CheckBox selectCheckBox;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridFlyoutColumnHeader"/> class.
+        /// </summary>
         public DataGridFlyoutColumnHeader()
         {
             this.DefaultStyleKey = typeof(DataGridFlyoutColumnHeader);
@@ -90,6 +91,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.selectCheckBox.Unchecked -= SelectCheckBox_Unchecked;
         }
 
+        /// <inheritdoc/>
         protected override DataGridFlyoutHeader CreateHeader()
         {
             DataGridFlyoutColumnHeader header = new DataGridFlyoutColumnHeader();

@@ -8,8 +8,14 @@ using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Commands
 {
+    /// <summary>
+    /// Represents the execution context of a <see cref="CommandId.CellFlyoutAction"/> command.
+    /// </summary>
     public class CellFlyoutActionContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CellFlyoutActionContext"/> class.
+        /// </summary>
         public CellFlyoutActionContext(DataGridCellInfo cellInfo, bool isOpen, CellFlyoutGesture gesture)
         {
             this.CellInfo = cellInfo;

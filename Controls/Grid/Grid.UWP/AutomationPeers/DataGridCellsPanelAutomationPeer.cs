@@ -7,15 +7,24 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridCellsPanel"/>.
+    /// </summary>
     public class DataGridCellsPanelAutomationPeer : FrameworkElementAutomationPeer
     {
         private readonly RadDataGrid dataGrid;
 
+        /// <summary>
+        /// Initializes a new instance of the DataGridCellsPanelAutomationPeer class.
+        /// </summary>
         public DataGridCellsPanelAutomationPeer(DataGridCellsPanel owner)
             : base(owner)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the DataGridCellsPanelAutomationPeer class.
+        /// </summary>
         public DataGridCellsPanelAutomationPeer(DataGridCellsPanel owner, RadDataGrid dataGrid) 
             : this(owner)
         {

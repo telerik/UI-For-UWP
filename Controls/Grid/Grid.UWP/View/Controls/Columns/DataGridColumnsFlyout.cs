@@ -85,6 +85,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        /// <inheritdoc/>
         protected override string ComposeVisualStateName()
         {
             string state = "";
@@ -150,6 +151,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }     
         }
 
+        /// <summary>
+        /// Called when the Framework <see cref="M:OnApplyTemplate"/> is called. Inheritors should override this method should they have some custom template-related logic.
+        /// This is done to ensure that the <see cref="P:IsTemplateApplied"/> property is properly initialized.
+        /// </summary>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -178,6 +183,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.UpdateVisualState(false);
         }
 
+        /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
             this.closeButton.PointerEntered -= this.CloseButton_PointerEntered;

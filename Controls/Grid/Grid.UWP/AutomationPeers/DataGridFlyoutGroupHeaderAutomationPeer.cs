@@ -4,8 +4,14 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridFlyoutGroupHeader"/>.
+    /// </summary>
     public class DataGridFlyoutGroupHeaderAutomationPeer : RadControlAutomationPeer, IInvokeProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the DataGridFlyoutGroupHeaderAutomationPeer class.
+        /// </summary>
         public DataGridFlyoutGroupHeaderAutomationPeer(DataGridFlyoutGroupHeader owner) 
             : base(owner)
         {

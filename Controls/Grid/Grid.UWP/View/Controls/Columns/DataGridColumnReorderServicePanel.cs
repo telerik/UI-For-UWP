@@ -54,6 +54,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.columnReorderFlyoutContent.Owner = this;
         }
 
+        /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
             base.UnapplyTemplateCore();
@@ -63,6 +64,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
             this.columnReorderFlyoutContent.Owner = null;
         }
+
         /// <summary>
         /// Called before the Tapped event occurs.
         /// </summary>
@@ -79,6 +81,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.OpenColumnsFlyout();
         }
 
+        /// <summary>
+        /// Called before the PointerEntered event occurs.
+        /// </summary>
+        /// <param name="e">Event data for the event.</param>
         protected override void OnPointerEntered(PointerRoutedEventArgs e)
         {
             base.OnPointerEntered(e);
@@ -86,6 +92,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.UpdateVisualState(false);
         }
 
+        /// <summary>
+        /// Called before the PointerExited event occurs.
+        /// </summary>
+        /// <param name="e">Event data for the event.</param>
         protected override void OnPointerExited(PointerRoutedEventArgs e)
         {
             base.OnPointerExited(e);
@@ -93,6 +103,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.UpdateVisualState(false);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridColumnReorderServicePanelAutomationPeer(this);
@@ -113,6 +124,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.Owner.ContentFlyout.Hide(DataGridFlyoutId.ColumnChooser);
         }
 
+        /// <inheritdoc/>
         protected override string ComposeVisualStateName()
         {
             if (this.isMouseOver)

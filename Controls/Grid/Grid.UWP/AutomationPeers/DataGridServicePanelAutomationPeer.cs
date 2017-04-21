@@ -5,8 +5,14 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridServicePanel"/>.
+    /// </summary>
     public class DataGridServicePanelAutomationPeer : RadControlAutomationPeer, IExpandCollapseProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the DataGridServicePanelAutomationPeer class.
+        /// </summary>
         public DataGridServicePanelAutomationPeer(DataGridServicePanel owner)
             : base(owner)
         {

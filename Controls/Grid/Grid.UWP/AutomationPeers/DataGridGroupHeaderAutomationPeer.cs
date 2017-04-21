@@ -7,8 +7,14 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridGroupHeader"/>.
+    /// </summary>
     public class DataGridGroupHeaderAutomationPeer : RadControlAutomationPeer, IExpandCollapseProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the DataGridGroupHeader class.
+        /// </summary>
         public DataGridGroupHeaderAutomationPeer(DataGridGroupHeader owner) 
             : base(owner)
         {
@@ -23,6 +29,9 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
         public ExpandCollapseState ExpandCollapseState
         {
             get

@@ -24,9 +24,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// The resize exposed to the user through the column header UI is through thumb at the end of the header visible always.
         /// </summary>
         Always,
-
+        
         /// <summary>
-        /// The resize exposed to the user through the column header UI is through thumb at the end of the header visible when <see cref="ColumnHeaderActionMode"/> is Flyout and  column flyout is open. 
+        /// The resize exposed to the user through the column header UI is through thumb at the end of the header visible when ColumnHeaderActionMode is Flyout and  column flyout is open. 
         /// </summary>
         OnColumnHeaderActionFlyoutOpen
     }

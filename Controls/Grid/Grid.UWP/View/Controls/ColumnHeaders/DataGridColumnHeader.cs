@@ -217,6 +217,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return applied;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridColumnHeaderAutomationPeer(this);

@@ -19,7 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DependencyProperty.Register(nameof(AutoGenerateColumns), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(true, OnAutoGenerateColumnsChanged));
 
         /// <summary>
-        /// Identifies the <see cref="ColumnHeaderActionMode"/> dependency property. 
+        /// Identifies the <see cref="ColumnDataOperationsMode"/> dependency property. 
         /// </summary> 
         public static readonly DependencyProperty ColumnDataOperationsModeProperty =
             DependencyProperty.Register(nameof(ColumnDataOperationsMode), typeof(ColumnDataOperationsMode), typeof(RadDataGrid), new PropertyMetadata(ColumnDataOperationsMode.Inline, OnColumnDataOperationsModeChanged));

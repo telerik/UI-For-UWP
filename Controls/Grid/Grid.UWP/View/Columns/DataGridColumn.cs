@@ -367,6 +367,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        /// <summary>
+        /// Gets or sets the DataTemplate for the DataOperations's flyout.
+        /// </summary>
         public DataTemplate DataOperationsFlyoutTemplate
         {
             get
@@ -498,6 +501,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        /// <summary>
+        /// Method that updates the VisualState of the Header after filtering.
+        /// </summary>
         public void UpdateFilterVisualState(bool isFiltered)
         {
             if (this.HeaderControl != null)

@@ -10,6 +10,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadDataGrid"/>.
+    /// </summary>
     public class RadDataGridAutomationPeer : RadControlAutomationPeer, IGridProvider, ISelectionProvider, ITableProvider
     {
         internal List<DataGridCellInfoAutomationPeer> childrenCache;

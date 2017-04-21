@@ -28,6 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.clipGeometry.Rect = new Rect(new Point(), e.NewSize);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new FrozenGroupsPanelAutomationPeer(this);

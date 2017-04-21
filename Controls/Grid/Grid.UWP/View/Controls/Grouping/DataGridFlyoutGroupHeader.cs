@@ -100,6 +100,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.RaiseCloseButtonClick();
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridFlyoutGroupHeaderAutomationPeer(this);

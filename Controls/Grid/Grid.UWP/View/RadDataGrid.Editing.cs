@@ -40,6 +40,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
             set { this.SetValue(UserEditModeProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets external editor of the DataGrid.
+        /// </summary>
         public IGridExternalEditor ExternalEditor
         {
             get { return (IGridExternalEditor)GetValue(ExternalEditorProperty); }

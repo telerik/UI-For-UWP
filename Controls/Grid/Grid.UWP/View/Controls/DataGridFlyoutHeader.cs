@@ -26,6 +26,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         private FrameworkElement descriptorContent;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridFlyoutHeader"/> class.
+        /// </summary>
         public DataGridFlyoutHeader()
         {
             this.DefaultStyleKey = typeof(DataGridFlyoutHeader);

@@ -3,8 +3,14 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="EditRowHostPanel"/>.
+    /// </summary>
     public class EditRowHostPanelAutomationPeer : FrameworkElementAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the EditRowHostPanel class.
+        /// </summary>
         public EditRowHostPanelAutomationPeer(EditRowHostPanel owner)
             : base(owner)
         {

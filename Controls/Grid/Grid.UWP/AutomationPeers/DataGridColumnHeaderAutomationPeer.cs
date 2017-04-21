@@ -4,8 +4,14 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridColumnHeader"/>.
+    /// </summary>
     public class DataGridColumnHeaderAutomationPeer : RadControlAutomationPeer, IInvokeProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the DataGridColumnHeaderAutomationPeer class.
+        /// </summary>
         public DataGridColumnHeaderAutomationPeer(DataGridColumnHeader owner) 
             : base(owner)
         {
@@ -73,6 +79,7 @@ namespace Telerik.UI.Automation.Peers
             return false;
         }
 
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.Invoke)
@@ -83,6 +90,9 @@ namespace Telerik.UI.Automation.Peers
             return base.GetPatternCore(patternInterface);
         }
 
+        /// <summary>
+        /// IInvokeProvider implementation.
+        /// </summary>
         public void Invoke()
         {
             if (this.OwnerDataGridColumnHeader.Owner != null)

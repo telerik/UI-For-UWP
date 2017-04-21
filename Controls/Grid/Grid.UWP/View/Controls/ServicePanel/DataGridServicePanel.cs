@@ -47,6 +47,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             DragDrop.SetAllowDrop(this, true);
         }
 
+        /// <summary>
+        /// Gets or set the position of the Group's panel.
+        /// </summary>
         public GroupPanelPosition Position
         {
             get { return (GroupPanelPosition)GetValue(PositionProperty); }
@@ -272,6 +275,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.UpdatePositionVisualState(this.Position);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridServicePanelAutomationPeer(this);

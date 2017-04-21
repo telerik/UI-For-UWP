@@ -165,6 +165,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         }
 
+        /// <summary>
+        /// Creates an instance of the <see cref="DataGridFlyoutGroupHeader"/>.
+        /// </summary>
         protected virtual DataGridFlyoutHeader CreateHeader()
         {
             DataGridFlyoutGroupHeader header = new DataGridFlyoutGroupHeader();

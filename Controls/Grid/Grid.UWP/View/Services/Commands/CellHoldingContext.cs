@@ -2,8 +2,14 @@
 
 namespace Telerik.UI.Xaml.Controls.Grid.Commands
 {
+    /// <summary>
+    /// Represents an ActionContext class.
+    /// </summary>
     public class CellHoldingContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CellHoldingContext"/> class.
+        /// </summary>
         public CellHoldingContext(DataGridCellInfo cellInfo, HoldingState holdingState)
         {
             this.CellInfo = cellInfo;

@@ -43,6 +43,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             set { this.SetValue(LoadingDataProperty, value); }
         }
 
+        /// <summary>
+        /// The Text used for visualization when the more rows are loaded.
+        /// </summary>
         public string LoadMoreRowsText
         {
             get

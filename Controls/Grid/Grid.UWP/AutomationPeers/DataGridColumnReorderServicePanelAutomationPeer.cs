@@ -10,8 +10,14 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridColumnReorderServicePanel"/>.
+    /// </summary>
     public class DataGridColumnReorderServicePanelAutomationPeer : RadControlAutomationPeer, IInvokeProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the DataGridColumnReorderServicePanelAutomationPeer class.
+        /// </summary>
         public DataGridColumnReorderServicePanelAutomationPeer(DataGridColumnReorderServicePanel owner) 
             : base(owner)
         {

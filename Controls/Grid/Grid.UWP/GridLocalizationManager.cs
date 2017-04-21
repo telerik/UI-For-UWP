@@ -10,9 +10,15 @@ namespace Telerik.UI.Xaml.Controls.Grid
     /// </summary>
     public sealed class GridLocalizationManager : LocalizationManager
     {
+        /// <summary>
+        /// Identifies the PropertyName dependency property. 
+        /// </summary>
         public static readonly DependencyProperty PropertyNameProperty =
             DependencyProperty.RegisterAttached("PropertyName", typeof(string), typeof(GridLocalizationManager), new PropertyMetadata(null, OnPropertyNameChanged));
-
+        
+        /// <summary>
+        /// Identifies the Key dependency property. 
+        /// </summary>
         public static readonly DependencyProperty KeyProperty =
             DependencyProperty.RegisterAttached("Key", typeof(string), typeof(GridLocalizationManager), new PropertyMetadata(null, OnKeyChanged));
 
@@ -20,11 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private GridLocalizationManager()
         {
-#if WINDOWS_PHONE_APP || WINDOWS_APP
-            this.DefaultResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("Telerik.UI.Xaml.Grid/Neutral");
-#else
             this.DefaultResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("Telerik.UI.Xaml.Grid.UWP/Neutral");
-#endif
         }
 
         /// <summary>
@@ -66,21 +68,34 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        /// <summary>
+        /// Gets the key of a specific object
+        /// </summary>
         public static string GetKey(DependencyObject obj)
         {
             return (string)obj.GetValue(KeyProperty);
         }
 
+        /// <summary>
+        /// Sets a key for a specific object
+        /// </summary>
         public static void SetKey(DependencyObject obj, string value)
         {
             obj.SetValue(KeyProperty, value);
         }
 
+
+        /// <summary>
+        /// Gets the proeprty name of a specific object
+        /// </summary>
         public static string GetPropertyName(DependencyObject obj)
         {
             return (string)obj.GetValue(PropertyNameProperty);
         }
 
+        /// <summary>
+        /// Sets property name for a specific object
+        /// </summary>
         public static void SetPropertyName(DependencyObject obj, string value)
         {
             obj.SetValue(PropertyNameProperty, value);

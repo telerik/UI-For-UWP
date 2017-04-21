@@ -128,6 +128,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return finalSize;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RotatedContainerAutomationPeer(this);

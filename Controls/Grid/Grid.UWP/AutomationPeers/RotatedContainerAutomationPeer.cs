@@ -2,8 +2,14 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RotatedContainer"/>.
+    /// </summary>
     public class RotatedContainerAutomationPeer : RadControlAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the RotatedContainerAutomationPeer class.
+        /// </summary>
         public RotatedContainerAutomationPeer(RotatedContainer owner) 
             : base(owner)
         {

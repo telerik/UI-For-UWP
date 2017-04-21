@@ -43,7 +43,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
             set { SetValue(RealizedItemsBufferScaleProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for RealizedItemsBufferScale. 
+        /// <summary>
+        /// Identifies the <see cref="RealizedItemsVerticalBufferScale"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty RealizedItemsBufferScaleProperty =
             DependencyProperty.Register(nameof(RealizedItemsVerticalBufferScale), typeof(double), typeof(RadDataGrid), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
 
@@ -313,7 +315,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="DataGridUserColumnResizeMode"/> value that defines how User Input 
+        /// Gets or sets the <see cref="DataGridColumnResizeHandleDisplayMode"/> value that defines how User Input 
         /// (dragging column resize thumb) affects the current column size in the grid.
         /// The default value is <c>DataGridColumnResizeHandleDisplayMode.OnHold</c>
         /// </summary>
@@ -947,12 +949,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
 #endif
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadDataGridAutomationPeer(this);
         }
-
-
+        
         private static void OnDragBehaviorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var oldBehavior = e.OldValue as DataGridDragBehavior;

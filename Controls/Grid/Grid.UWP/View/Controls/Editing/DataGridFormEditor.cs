@@ -1,38 +1,56 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Telerik.UI.Xaml.Controls.Data;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
+    /// <summary>
+    /// Represents a DataGridFormEditor control.
+    /// </summary>
     public class DataGridFormEditor : RadControl, IGridExternalEditor
     {
         private RadDataForm dataForm;
 
+        /// <summary>
+        /// Identifies the <see cref="Item"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ItemProperty =
             DependencyProperty.Register(nameof(Item), typeof(object), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="DataFormStyle"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty DataFormStyleProperty =
             DependencyProperty.Register(nameof(DataFormStyle), typeof(Style), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="Position"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty PositionProperty =
             DependencyProperty.Register(nameof(Position), typeof(ExternalEditorPosition), typeof(DataGridFormEditor), new PropertyMetadata(ExternalEditorPosition.Right, OnPositionChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="HeaderStyle"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty HeaderStyleProperty =
             DependencyProperty.Register(nameof(HeaderStyle), typeof(Style), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="CancelCommand"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty CancelCommandProperty =
            DependencyProperty.Register(nameof(CancelCommand), typeof(ICommand), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="SaveCommand"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty SaveCommandProperty =
           DependencyProperty.Register(nameof(SaveCommand), typeof(ICommand), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridFormEditor"/> class.
+        /// </summary>
         public DataGridFormEditor()
         {
             this.SaveCommand = new ExternalEditorActionCommand(this, Commands.ExternalEditorCommandId.Save);
@@ -42,43 +60,64 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         internal RadDataGrid Owner { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="CancelCommand"/> for the <see cref="DataGridFormEditor"/>.
+        /// </summary>
         public ICommand CancelCommand
         {
             get { return (ICommand)GetValue(CancelCommandProperty); }
             set { SetValue(CancelCommandProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="SaveCommand"/> for the <see cref="DataGridFormEditor"/>.
+        /// </summary>
         public ICommand SaveCommand
         {
             get { return (ICommand)GetValue(SaveCommandProperty); }
             set { SetValue(SaveCommandProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the Style of the Header for the <see cref="DataGridFormEditor"/>.
+        /// </summary>
         public Style HeaderStyle
         {
             get { return (Style)GetValue(HeaderStyleProperty); }
             set { SetValue(HeaderStyleProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the Item of the <see cref="DataGridFormEditor"/>.
+        /// </summary>
         public object Item
         {
             get { return (object)GetValue(ItemProperty); }
             set { SetValue(ItemProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the Style for th DataForm.
+        /// </summary>
         public Style DataFormStyle
         {
             get { return (Style)GetValue(DataFormStyleProperty); }
             set { SetValue(DataFormStyleProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the external position of the <see cref="DataGridFormEditor"/>.
+        /// </summary>
         public ExternalEditorPosition Position
         {
             get { return (ExternalEditorPosition)GetValue(PositionProperty); }
             set { SetValue(PositionProperty, value); }
         }
-
-
+        
+        /// <summary>
+        /// Called when the Framework <see cref="M:OnApplyTemplate"/> is called. Inheritors should override this method should they have some custom template-related logic.
+        /// This is done to ensure that the <see cref="P:IsTemplateApplied"/> property is properly initialized.
+        /// </summary>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -89,6 +128,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return applied;
         }
 
+        /// <inheritdoc/>
         protected override void OnTemplateApplied()
         {
             base.OnTemplateApplied();
@@ -100,16 +140,20 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.UpdateVisualState(false);
         }
 
+        /// <inheritdoc/>
         public event EventHandler EditCancelled;
 
+        /// <inheritdoc/>
         public event EventHandler EditCommitted;
 
+        /// <inheritdoc/>
         public void BeginEdit(object item, RadDataGrid owner)
         {
             this.Owner = owner;
             this.Item = item;
         }
 
+        /// <inheritdoc/>
         public void CancelEdit()
         {
             this.Item = null;
@@ -121,6 +165,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        /// <inheritdoc/>
         public void CommitEdit()
         {
             if (this.IsTemplateApplied)
@@ -149,6 +194,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        /// <inheritdoc/>
         protected override string ComposeVisualStateName()
         {
             if (this.Position == ExternalEditorPosition.Left)

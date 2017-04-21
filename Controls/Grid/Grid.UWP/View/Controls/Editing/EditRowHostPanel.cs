@@ -45,6 +45,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return base.MeasureOverride(availableSize);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new EditRowHostPanelAutomationPeer(this);

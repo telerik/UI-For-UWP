@@ -9,6 +9,9 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
+    /// <summary>
+    /// Represents a DataGridContentFlyout control.
+    /// </summary>
     public sealed class DataGridContentFlyout : RadControl
     {
         /// <summary>
@@ -35,7 +38,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public static readonly DependencyProperty ChildProperty =
             DependencyProperty.Register(nameof(Child), typeof(FrameworkElement), typeof(DataGridContentFlyout), new PropertyMetadata(null, OnChildChanged));
 
-        // Using a DependencyProperty as the backing store for Id.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="Id"/> dependency property. 
+        /// </summary>
         internal static readonly DependencyProperty IdProperty = 
             DependencyProperty.Register(nameof(Id), typeof(DataGridFlyoutId), typeof(DataGridContentFlyout), new PropertyMetadata(DataGridFlyoutId.All, OnIdChanged));
 
@@ -51,32 +56,54 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         internal RadDataGrid Owner { get; set; }
 
+        /// <summary>
+        /// Occurs when the <see cref="DataGridContentFlyout"/> is closed.
+        /// </summary>
         public event EventHandler<object> Closed;
+
+        /// <summary>
+        /// Occurs when the <see cref="DataGridContentFlyout"/> is opened.
+        /// </summary>
         public event EventHandler<object> Opened;
-        
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridContentFlyout"/> class.
+        /// </summary>
         public DataGridContentFlyout()
         {
             this.DefaultStyleKey = typeof(DataGridContentFlyout);
         }
 
+        /// <summary>
+        /// Gets or set the horizontal offset of the <see cref="DataGridContentFlyout"/> class.
+        /// </summary>
         public double HorizontalOffset
         {
             get { return (double)GetValue(HorizontalOffsetProperty); }
             set { SetValue(HorizontalOffsetProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or set the vertical offset of the <see cref="DataGridContentFlyout"/> class.
+        /// </summary>
         public double VerticalOffset
         {
             get { return (double)GetValue(VerticalOffsetProperty); }
             set { SetValue(VerticalOffsetProperty, value); }
         }
 
+        /// <summary>
+        /// Gets the child of the <see cref="DataGridContentFlyout"/> class.
+        /// </summary>
         public FrameworkElement Child
         {
             get { return (FrameworkElement)GetValue(ChildProperty); }
             private set { SetValue(ChildProperty, value); }
         }
 
+        /// <summary>
+        /// Gets information if the <see cref="DataGridContentFlyout"/> is opened.
+        /// </summary>
         public bool IsOpen
         {
             get
@@ -152,6 +179,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        /// <summary>
+        /// Called when the Framework <see cref="M:OnApplyTemplate"/> is called. Inheritors should override this method should they have some custom template-related logic.
+        /// This is done to ensure that the <see cref="P:IsTemplateApplied"/> property is properly initialized.
+        /// </summary>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -162,6 +193,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return applied;
         }
 
+        /// <inheritdoc/>
         protected override void OnTemplateApplied()
         {
             base.OnTemplateApplied();
@@ -200,6 +232,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.Hide(DataGridFlyoutId.All);
         }
 
+        /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
             base.UnapplyTemplateCore();

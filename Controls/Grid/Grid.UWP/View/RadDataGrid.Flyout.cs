@@ -10,9 +10,15 @@ namespace Telerik.UI.Xaml.Controls.Grid
     {
         private bool isListeningCurrentViewBackRequested = false;
 
+        /// <summary>
+        /// Identifies the <see cref="HideFlyoutOnBackButtonPressed"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty HideFlyoutOnBackButtonPressedProperty =
             DependencyProperty.Register(nameof(HideFlyoutOnBackButtonPressed), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false, OnHideFlyoutOnBackButtonPressedChanged));
 
+        /// <summary>
+        /// Gets or sets information if the flyout should be hidden when the back Button gets pressed.
+        /// </summary>
         public bool HideFlyoutOnBackButtonPressed
         {
             get { return (bool)GetValue(HideFlyoutOnBackButtonPressedProperty); }

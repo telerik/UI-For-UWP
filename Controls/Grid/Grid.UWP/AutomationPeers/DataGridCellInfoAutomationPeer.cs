@@ -10,7 +10,10 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
-    public class DataGridCellInfoAutomationPeer : AutomationPeer, ISelectionItemProvider, IGridItemProvider, IInvokeProvider
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridCellInfo"/>.
+    /// </summary>
+    public sealed class DataGridCellInfoAutomationPeer : AutomationPeer, ISelectionItemProvider, IGridItemProvider, IInvokeProvider
     {
         private readonly int column;
         private readonly RadDataGrid radDataGrid;
@@ -68,6 +71,9 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the DataGridCellInfoAutomationPeer class.
+        /// </summary>
         public DataGridCellInfoAutomationPeer(int row, int column, RadDataGridAutomationPeer radDataGridAutomationPeer, object item)
             : base()
         {
@@ -134,14 +140,6 @@ namespace Telerik.UI.Automation.Peers
 
                 }
                 return null;
-            }
-        }
-
-        public bool IsReadOnly
-        {
-            get
-            {
-                return false;
             }
         }
 

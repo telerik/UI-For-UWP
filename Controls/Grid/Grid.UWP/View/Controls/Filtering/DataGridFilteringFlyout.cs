@@ -77,15 +77,27 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public static readonly DependencyProperty HeaderStyleProperty =
             DependencyProperty.Register(nameof(HeaderStyle), typeof(Style), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="FilterCommand"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty FilterCommandProperty =
             DependencyProperty.Register(nameof(FilterCommand), typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="ExpandCommand"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ExpandCommandProperty =
             DependencyProperty.Register(nameof(ExpandCommand), typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="CancelCommand"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty CancelCommandProperty =
             DependencyProperty.Register(nameof(CancelCommand), typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="ClearFilterCommand"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ClearFilterCommandProperty =
             DependencyProperty.Register(nameof(ClearFilterCommand), typeof(ICommand), typeof(DataGridFilteringFlyout), new PropertyMetadata(null));
 
@@ -93,24 +105,36 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         private RadDataGrid owner;
         private FilterButtonTapContext context;
 
+        /// <summary>
+        /// Gets or sets the Command that will be invoked when filtering is requested
+        /// </summary>
         public ICommand FilterCommand
         {
             get { return (ICommand)GetValue(FilterCommandProperty); }
             set { SetValue(FilterCommandProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the Command that will be invoked when expand is requested
+        /// </summary>
         public ICommand ExpandCommand
         {
             get { return (ICommand)GetValue(ExpandCommandProperty); }
             set { SetValue(ExpandCommandProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the Command that will be invoked when cancel is requested
+        /// </summary>
         public ICommand CancelCommand
         {
             get { return (ICommand)GetValue(CancelCommandProperty); }
             set { SetValue(CancelCommandProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the Command that will be invoked when clearing of the filter is requested
+        /// </summary>
         public ICommand ClearFilterCommand
         {
             get { return (ICommand)GetValue(ClearFilterCommandProperty); }
@@ -243,6 +267,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        /// <summary>
+        /// Gets the owner of the <see cref="DataGridFilteringFlyout"/> control.
+        /// </summary>
         public RadDataGrid Owner
         {
             get
@@ -450,21 +477,43 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         }
     }
 
-
-
+    /// <summary>
+    /// DataGrid's filter UI command IDs.
+    /// </summary>
     public enum DataGridFilterUIActionCommandID
     {
+        /// <summary>
+        /// Specifies a "Filter" DataGrid filter UI action.
+        /// </summary>
         Filter,
+
+        /// <summary>
+        /// Specifies a "ExpandCollapse" DataGrid filter UI action.
+        /// </summary>
         ExpandCollapse,
+
+        /// <summary>
+        /// Specifies a "Cancel" DataGrid filter UI action.
+        /// </summary>
         Cancel,
+
+        /// <summary>
+        /// Specifies a "ClearFilter" DataGrid filter UI action.
+        /// </summary>
         ClearFilter,
     }
 
+    /// <summary>
+    /// Represents a command that can perform a given action.
+    /// </summary>
     public class DataGridFilterUICommand : ICommand
     {
         private DataGridFilteringFlyout owner;
         private DataGridFilterUIActionCommandID id;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridFilterUICommand"/> class.
+        /// </summary>
         public DataGridFilterUICommand(DataGridFilteringFlyout owner, DataGridFilterUIActionCommandID id)
         {
             this.owner = owner;
@@ -472,14 +521,32 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         }
 
 #pragma warning disable 0067
+        /// <summary>
+        /// Occurs when changes occur that affect whether or not the command should execute.
+        /// </summary>
         public event EventHandler CanExecuteChanged;
 #pragma warning restore 0067
 
+        /// <summary>
+        /// Defines the method that determines whether the command can execute in its current state.
+        /// </summary>
+        /// <param name="parameter">
+        /// The parameter used by the command.
+        /// </param>
+        /// <returns>
+        /// Returns a value indicating whether this command can be executed.
+        /// </returns>
         public bool CanExecute(object parameter)
         {
             return true;
         }
 
+        /// <summary>
+        /// Defines the method to be called when the command is invoked.
+        /// </summary>
+        /// <param name="parameter">
+        /// The parameter used by the command.
+        /// </param>
         public void Execute(object parameter)
         {
             switch (this.id)

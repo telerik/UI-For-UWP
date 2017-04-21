@@ -1,24 +1,30 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Data.Core;
-using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
+    /// <summary>
+    /// Represents a DataGridFormEntityProvider provider.
+    /// </summary>
     public class DataGridFormEntityProvider : RuntimeEntityProvider
     {
+        /// <summary>
+        /// Gets or sets a collection with the provider's Columns.
+        /// </summary>
         public IEnumerable<DataGridColumn> Columns { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridFormEntityProvider"/> class.
+        /// </summary>
         public DataGridFormEntityProvider(IEnumerable<DataGridColumn> columns)
         {
             this.Columns = columns;
         }
 
+        /// <inheritdoc/>
         public override Entity GenerateEntity()
         {
             Entity entity = new Entity();
@@ -62,11 +68,13 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return entity;
         }
 
+        /// <inheritdoc/>
         protected override Type GetEntityPropertyType(object property)
         {
             return typeof(GridFormEntityProperty); 
         }
 
+        /// <inheritdoc/>
         protected override bool ShouldGenerateEntityProperty(object property)
         {
             var propertyInfo = property as PropertyInfo;
