@@ -295,7 +295,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Initiates a hit test on the specified <see cref="Point"/> location.
+        /// Initiates a hit test on the specified <see cref="Windows.Foundation.Point(double, double)"/> location.
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="shapeLayer">The <see cref="MapShapeLayer"/> instance whose shapes to hit test. 

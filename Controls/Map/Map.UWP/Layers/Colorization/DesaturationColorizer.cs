@@ -98,7 +98,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Color"/> value from which the rest desaturated values will be generated. This value will represent the range, containing the shapes with maximum values, as defined by the <see cref="P:AttributeName"/> property.
+        /// Gets or sets the Color value from which the rest desaturated values will be generated. This value will represent the range, containing the shapes with maximum values, as defined by the <see cref="P:AttributeName"/> property.
         /// Defaults to 7.
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed.")]

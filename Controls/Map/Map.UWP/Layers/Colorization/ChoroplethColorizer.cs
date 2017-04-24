@@ -45,6 +45,7 @@ namespace Telerik.UI.Xaml.Controls.Map
             this.distribution = new LinearRangeDistribution();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
             add

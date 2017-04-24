@@ -92,6 +92,7 @@ namespace Telerik.UI.Automation.Peers
                 }
             }
         }
+        /// <inheritdoc/>
 
         protected override string GetLocalizedControlTypeCore()
         {
