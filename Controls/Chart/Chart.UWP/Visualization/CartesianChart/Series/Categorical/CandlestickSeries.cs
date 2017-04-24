@@ -82,6 +82,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             // Implement this when the legend start to makes sense for this series.
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new CandlestickSeriesAutomationPeer(this);

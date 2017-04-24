@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadChartBase"/>.
+    /// </summary>
     public class RadChartBaseAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>

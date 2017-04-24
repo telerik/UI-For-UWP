@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Data;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
-    internal partial class ListViewModel
+    internal partial class ListViewModel : IDisposable
     {
         internal static readonly DoubleArithmetics DoubleArithmetics = new DoubleArithmetics(IndexStorage.PrecisionMultiplier);
 
@@ -711,6 +711,11 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal void RecycleAllContainers()
         {
             this.layoutController.strategy.FullyRecycle();
+        }
+
+        public void Dispose()
+        {
+            this.localDataProvider.Dispose();
         }
 
         internal int ItemsCount

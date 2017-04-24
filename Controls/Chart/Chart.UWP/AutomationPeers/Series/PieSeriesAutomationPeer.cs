@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="PieSeries"/>.
+    /// </summary>
     public class PieSeriesAutomationPeer : ChartSeriesAutomationPeer
     {
         /// <summary>

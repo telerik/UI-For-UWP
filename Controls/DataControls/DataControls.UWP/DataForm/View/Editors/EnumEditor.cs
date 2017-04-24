@@ -9,13 +9,22 @@ using Windows.UI.Xaml.Data;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Represents an EnumEditor control.
+    /// </summary>
     public class EnumEditor : ComboBox, ITypeEditor
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumEditor"/> class.
+        /// </summary>
         public EnumEditor()
         {
             this.DefaultStyleKey = typeof(EnumEditor);
         }
 
+        /// <summary>
+        /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
+        /// </summary>
         public void BindEditor()
         {
             Binding b = new Binding() { Mode = BindingMode.TwoWay };

@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadCartesianChart"/>.
+    /// </summary>
     public class RadCartesianChartAutomationPeer : RadChartBaseAutomationPeer
     {
         /// <summary>

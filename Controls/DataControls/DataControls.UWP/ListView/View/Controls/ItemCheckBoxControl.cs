@@ -1,33 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView
 {
-     [TemplatePart(Name = "PART_CheckBox", Type = typeof(CheckBox))]
+    /// <summary>
+    /// Represents an ItemCheckBoxControl control.
+    /// </summary>
+    [TemplatePart(Name = "PART_CheckBox", Type = typeof(CheckBox))]
     public class ItemCheckBoxControl : RadControl
     {
-
+        /// <summary>
+        /// Gets or sets the style for the <see cref="CheckBox"/>.
+        /// </summary>
         public Style CheckBoxStyle
         {
             get { return (Style)GetValue(CheckBoxStyleProperty); }
             set { SetValue(CheckBoxStyleProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CheckBoxStyle.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="CheckBoxStyle"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty CheckBoxStyleProperty =
             DependencyProperty.Register(nameof(CheckBoxStyle), typeof(Style), typeof(ItemCheckBoxControl), new PropertyMetadata(null));
 
-
+        /// <summary>
+        /// Gets or set the the possition of the CheckBox.
+        /// </summary>
         public CheckBoxPosition CheckBoxPosition
         {
             get { return (CheckBoxPosition)GetValue(CheckBoxPositionProperty); }
             set { SetValue(CheckBoxPositionProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CheckBoxPosition.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="CheckBoxPosition"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty CheckBoxPositionProperty =
             DependencyProperty.Register(nameof(CheckBoxPosition), typeof(CheckBoxPosition), typeof(ItemCheckBoxControl), new PropertyMetadata(CheckBoxPosition.BeforeItem));
 
@@ -44,6 +53,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         private bool isChecked;
         private EventHandler isCheckedChanged;
 
+        /// <summary>
+        /// Occurs when the <see cref="CheckBox"/> is checked.
+        /// </summary>
         public event EventHandler IsCheckedChanged
         {
             add
@@ -57,12 +69,19 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         }
 
         internal CheckBox checkBox;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemCheckBoxControl"/> class.
+        /// </summary>
         public ItemCheckBoxControl()
         {
             this.DefaultStyleKey = typeof(ItemCheckBoxControl);
         }
 
-
+        /// <summary>
+        /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
+        /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
+        /// </summary>
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -71,6 +90,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             checkBox.Unchecked += checkBox_Checked;
         }
 
+        /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
             base.UnapplyTemplateCore();
@@ -86,6 +106,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <inheritdoc/>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();

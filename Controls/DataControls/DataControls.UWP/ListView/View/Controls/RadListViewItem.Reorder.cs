@@ -10,6 +10,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 {
     public partial class RadListViewItem : IReorderItem
     {
+        /// <summary>
+        /// Gets the path of the hanle icon.
+        /// </summary>
         public string HandleIconPath
         {
             get
@@ -18,13 +21,18 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <summary>
+        /// Gets or sets information if handling is enabled.
+        /// </summary>
         public bool IsHandleEnabled
         {
             get { return (bool)GetValue(IsHandleEnabledProperty); }
             set { SetValue(IsHandleEnabledProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsHandleEnabled.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="IsHandleEnabled"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty IsHandleEnabledProperty =
             DependencyProperty.Register(nameof(IsHandleEnabled), typeof(bool), typeof(RadListViewItem), new PropertyMetadata(false, OnIsHandleEnabled));
 
@@ -37,14 +45,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         private ReorderItemsCoordinator reorderCoordinator;
         private int logicalIndex;
-
-#if WINDOWS_UWP
+        
         private string defaultHandleIconPathLight = "ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-light.png";
         private string defaultHandleIconPathDark = "ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-dark.png";
-#else
-        private string defaultHandleIconPathLight = "ms-appx:///Telerik.UI.Xaml.Controls.Data/ListView/Resources/reorder-handle-light.png";
-        private string defaultHandleIconPathDark = "ms-appx:///Telerik.UI.Xaml.Controls.Data/ListView/Resources/reorder-handle-dark.png";
-#endif
 
         DependencyObject IReorderItem.Visual
         {

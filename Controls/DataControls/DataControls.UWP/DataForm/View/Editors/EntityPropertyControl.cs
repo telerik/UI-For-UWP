@@ -1,12 +1,13 @@
 ﻿using Telerik.Data.Core;
-using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Represents an EntityPropertyControl control.
+    /// </summary>
     [TemplatePart(Name = "PART_Content", Type = typeof(Grid))]
     public class EntityPropertyControl : RadControl, IEntityPropertyEditor
     {
@@ -22,17 +23,21 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.property = value;
             }
         }
-
-
+        
         internal Grid container;
-
+        
+        /// <summary>
+        /// Gets or sets number of rows in the control.
+        /// </summary>
         public int RowCount
         {
             get { return (int)GetValue(RowCountProperty); }
             set { SetValue(RowCountProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for RowCount.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="RowCount"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty RowCountProperty =
             DependencyProperty.Register(nameof(RowCount), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(2, OnRowCountChanged));
 
@@ -55,13 +60,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets number of columns in the control.
+        /// </summary>
         public int ColumnCount
         {
             get { return (int)GetValue(ColumnCountProperty); }
             set { SetValue(ColumnCountProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ColumnCount.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ColumnCount"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ColumnCountProperty =
             DependencyProperty.Register(nameof(ColumnCount), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(2, OnColumnCountChanged));
 
@@ -83,13 +93,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the row index where the view is visualized.
+        /// </summary>
         public int ViewRow
         {
             get { return (int)GetValue(ViewRowProperty); }
             set { SetValue(ViewRowProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ViewRow.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ViewRow"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ViewRowProperty =
             DependencyProperty.Register(nameof(ViewRow), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnViewRowChanged));
 
@@ -104,13 +119,18 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         }
 
+        /// <summary>
+        /// Gets or sets the column index where the view is visualized.
+        /// </summary>
         public int ViewColumn
         {
             get { return (int)GetValue(ViewColumnProperty); }
             set { SetValue(ViewColumnProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ViewColumn.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ViewColumn"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ViewColumnProperty =
             DependencyProperty.Register(nameof(ViewColumn), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnViewColumnChanged));
 
@@ -123,13 +143,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the row index where the label is visualized.
+        /// </summary>
         public int LabelRow
         {
             get { return (int)GetValue(LabelRowProperty); }
             set { SetValue(LabelRowProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for LabelRow.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="LabelRow"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty LabelRowProperty =
             DependencyProperty.Register(nameof(LabelRow), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnLabelRowChanged));
 
@@ -142,13 +167,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the column index where the label is visualized.
+        /// </summary>
         public int LabelColumn
         {
             get { return (int)GetValue(LabelColumnProperty); }
             set { SetValue(LabelColumnProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for LabelColumn.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="LabelColumn"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty LabelColumnProperty =
             DependencyProperty.Register(nameof(LabelColumn), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnLabelColumnChanged));
 
@@ -161,13 +191,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the row index where the error is visualized.
+        /// </summary>
         public int ErrorViewRow
         {
             get { return (int)GetValue(ErrorViewRowProperty); }
             set { SetValue(ErrorViewRowProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ErrorViewRow.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ErrorViewRow"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ErrorViewRowProperty =
             DependencyProperty.Register(nameof(ErrorViewRow), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnErrorViewRowChanged));
 
@@ -180,13 +215,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the column index where the error is visualized.
+        /// </summary>
         public int ErrorViewColumn
         {
             get { return (int)GetValue(ErrorViewColumnProperty); }
             set { SetValue(ErrorViewColumnProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ErrorViewColumn.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ErrorViewColumn"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ErrorViewColumnProperty =
             DependencyProperty.Register(nameof(ErrorViewColumn), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, OnErrorViewColumnChanged));
 
@@ -199,13 +239,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the row index where the positive message is visualized.
+        /// </summary>
         public int PositiveMessageViewRow
         {
             get { return (int)GetValue(PositiveMessageViewRowProperty); }
             set { SetValue(PositiveMessageViewRowProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ErrorViewRow.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="PositiveMessageViewRow"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty PositiveMessageViewRowProperty =
             DependencyProperty.Register(nameof(PositiveMessageViewRow), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, PositiveMessageViewRowChanged));
 
@@ -218,13 +263,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the column index where the positive message is visualized.
+        /// </summary>
         public int PositiveMessageViewColumn
         {
             get { return (int)GetValue(PositiveMessageViewColumnProperty); }
             set { SetValue(PositiveMessageViewColumnProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ErrorViewColumn.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="PositiveMessageViewColumn"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty PositiveMessageViewColumnProperty =
             DependencyProperty.Register(nameof(PositiveMessageViewColumn), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, PositiveMessageViewColumnChanged));
 
@@ -237,11 +287,15 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityPropertyControl"/> class.
+        /// </summary>
         public EntityPropertyControl()
         {
             this.DefaultStyleKey = typeof(EntityPropertyControl);
         }
 
+        /// <inheritdoc/>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -252,6 +306,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             return applied;
         }
 
+        /// <inheritdoc/>
         protected override void OnTemplateApplied()
         {
             base.OnTemplateApplied();
@@ -278,11 +333,30 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.UpdateRowCount(this.RowCount);
         }
 
+        /// <summary>
+        /// Gets or sets the view of the <see cref="EntityPropertyControl"/>
+        /// </summary>
         public FrameworkElement View { get; set; }
+
+        /// <summary>
+        /// Gets or sets the label of the <see cref="EntityPropertyControl"/>
+        /// </summary>
         public FrameworkElement Label { get; set; }
+
+        /// <summary>
+        /// Gets or sets the error view of the <see cref="EntityPropertyControl"/>
+        /// </summary>
         public FrameworkElement ErrorView { get; set; }
+
+        /// <summary>
+        /// Gets or sets the positive message view of the <see cref="EntityPropertyControl"/>
+        /// </summary>
         public FrameworkElement PositiveMessageView { get; set; }
 
+        /// <summary>
+        /// Adds a view to the container of the control.
+        /// </summary>
+        /// <param name="view"></param>
         public virtual void AddView(FrameworkElement view)
         {
             if (this.container != null)

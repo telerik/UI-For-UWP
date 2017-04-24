@@ -15,6 +15,7 @@ namespace Telerik.Data.Core.Layouts
     {
         private StaggeredLayout layout;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public StaggeredLayoutStrategy(ItemModelGenerator generator, IOrientedParentView view, double defaultItemHeight, int stackCount)
             : base(generator, view)
         {

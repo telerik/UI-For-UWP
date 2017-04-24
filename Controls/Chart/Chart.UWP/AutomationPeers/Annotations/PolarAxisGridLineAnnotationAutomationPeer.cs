@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="PolarAxisGridLineAnnotation"/>.
+    /// </summary>
     public class PolarAxisGridLineAnnotationAutomationPeer : ChartAnnotationAutomationPeer, IValueProvider
     {
         /// <summary>

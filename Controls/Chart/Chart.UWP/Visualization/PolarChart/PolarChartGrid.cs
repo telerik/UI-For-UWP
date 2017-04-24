@@ -243,6 +243,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             // TODO: Consider rasing exception.
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new PolarChartGridAutomationPeer(this);

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Data.Core.Layouts;
+﻿using Telerik.Data.Core.Layouts;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
 using Telerik.UI.Xaml.Controls.Data.ListView.Model;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView
 {
+    /// <summary>
+    /// Represents an StaggeredLayoutDefinition layout definition.
+    /// </summary>
     public class StaggeredLayoutDefinition : LayoutDefinitionBase
     {
         private int spanCount = 2;

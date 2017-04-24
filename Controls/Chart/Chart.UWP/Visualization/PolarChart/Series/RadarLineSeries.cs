@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Charting;
 using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
@@ -42,6 +43,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Initializes a new instance of the <see cref="RadarLineSeries"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public RadarLineSeries()
         {
             this.DefaultStyleKey = typeof(RadarLineSeries);
@@ -53,6 +55,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets a value indicating whether the <see cref="Stroke"/> property has been set locally.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IStrokedSeries.IsStrokeSetLocally
         {
             get
@@ -167,6 +170,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadarLineSeriesAutomationPeer(this);

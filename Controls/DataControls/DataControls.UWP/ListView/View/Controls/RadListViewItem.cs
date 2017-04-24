@@ -84,6 +84,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <summary>
+        /// Gets or sets the swipe direction of the item.
+        /// </summary>
         public ListViewItemSwipeDirection SwipeDirection
         {
             get
@@ -334,6 +337,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <inheritdoc/>
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             object currentItem = this.ListView.CurrentItem;
@@ -513,6 +517,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <inheritdoc/>
         protected virtual void ChangeVisualState(bool useTransitions)
         {
             if (!this.IsEnabled)
@@ -541,6 +546,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <inheritdoc/>
         protected void GoToState(bool useTransitions, params string[] stateNames)
         {
             if (stateNames != null)

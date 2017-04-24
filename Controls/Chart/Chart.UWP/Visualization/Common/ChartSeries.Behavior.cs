@@ -132,6 +132,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        /// <inheritdoc/>
         protected virtual Point[] SelectRectPoints(ref Rect touchRect)
         {
             var points = new Point[] 

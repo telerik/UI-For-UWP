@@ -20,13 +20,18 @@ namespace Telerik.UI.Xaml.Controls.Data
     {
         internal Panel RootPanel;
 
+        /// <summary>
+        /// Gets or set the layout definition of the control.
+        /// </summary>
         public DataFormLayoutDefinition LayoutDefinition
         {
             get { return (DataFormLayoutDefinition)GetValue(LayoutDefinitionProperty); }
             set { SetValue(LayoutDefinitionProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for LayoutDefinition.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="LayoutDefinition"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty LayoutDefinitionProperty =
             DependencyProperty.Register(nameof(LayoutDefinition), typeof(DataFormLayoutDefinition), typeof(RadDataForm), new PropertyMetadata(null, OnLayoutDefinitionChanged));
 
@@ -50,60 +55,89 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="ValidationMode"/> of the control.
+        /// </summary>
         public ValidationMode ValidationMode
         {
             get { return (ValidationMode)GetValue(ValidationModeProperty); }
             set { SetValue(ValidationModeProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ValidationMode.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ValidationMode"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ValidationModeProperty =
             DependencyProperty.Register(nameof(ValidationMode), typeof(ValidationMode), typeof(RadDataForm), new PropertyMetadata(ValidationMode.OnCommit));
 
-        // Using a DependencyProperty as the backing store for PropertyIteratorMode.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="PropertyIteratorMode"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty PropertyIteratorModeProperty =
             DependencyProperty.Register(nameof(PropertyIteratorMode), typeof(PropertyIteratorMode), typeof(RadDataForm), new PropertyMetadata(PropertyIteratorMode.All, OnPropertyIteratorModeChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="Item"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ItemProperty =
             DependencyProperty.Register(nameof(Item), typeof(object), typeof(RadDataForm), new PropertyMetadata(null, OnItemChanged));
-
-
-
+        
+        /// <summary>
+        /// Gets or sets the factory used for generation of the editors used by the control.
+        /// </summary>
         public EditorFactory EditorFactory
         {
             get { return (EditorFactory)GetValue(EditorFactoryProperty); }
             set { SetValue(EditorFactoryProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for EditorFactory.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="EditorFactory"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty EditorFactoryProperty =
             DependencyProperty.Register(nameof(EditorFactory), typeof(EditorFactory), typeof(RadDataForm), new PropertyMetadata(null, OnEditorFactoryChanged));
 
-        // Using a DependencyProperty as the backing store for IsReadOnly.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="IsReadOnly"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty IsReadOnlyProperty =
             DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(RadDataForm), new PropertyMetadata(false, OnIsReadOnlyChanged));
 
+        /// <summary>
+        /// Gets or sets the Windows.UI.Xaml.Controls.DataTemplateSelector used to choose DataTemplate to display the group headers that are part of the control. 
+        /// This is a dependency property.
+        /// </summary>
         public DataTemplateSelector GroupHeaderTemplateSelector
         {
             get { return (DataTemplateSelector)GetValue(GroupHeaderTemplateSelectorProperty); }
             set { SetValue(GroupHeaderTemplateSelectorProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for GroupHeaderTemplateSelector.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="GroupHeaderTemplateSelector"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty GroupHeaderTemplateSelectorProperty =
             DependencyProperty.Register(nameof(GroupHeaderTemplateSelector), typeof(DataTemplateSelector), typeof(RadDataForm), new PropertyMetadata(null));
 
-        // Using a DependencyProperty as the backing store for EditorStyleSelector.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="EditorStyleSelector"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty EditorStyleSelectorProperty =
             DependencyProperty.Register(nameof(EditorStyleSelector), typeof(StyleSelector), typeof(RadDataForm), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets or sets the Windows.UI.Xaml.Controls.StyleSelector used to choose Style to display each editor of the control. 
+        /// This is a dependency property.
+        /// </summary>
         public StyleSelector EditorStyleSelector
         {
             get { return (StyleSelector)GetValue(EditorStyleSelectorProperty); }
             set { SetValue(EditorStyleSelectorProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ValidatorProvider.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="EntityProvider"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty EntityProviderProperty =
             DependencyProperty.Register(nameof(EntityProvider), typeof(EntityProvider), typeof(RadDataForm), new PropertyMetadata(null, OnEntityProviderChanged));
 
@@ -112,6 +146,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             (d as RadDataForm).Model.OnEntityProviderChanged(e.NewValue as EntityProvider);
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="EntityProvider"/> of the control.
+        /// </summary>
         public EntityProvider EntityProvider
         {
             get { return (EntityProvider)GetValue(EntityProviderProperty); }
@@ -141,12 +178,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="CommitMode"/> of the control.
+        /// </summary>
         public CommitMode CommitMode
         {
             get { return (CommitMode)GetValue(CommitModeProperty); }
             set { SetValue(CommitModeProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets a value that indicates whether the control is read-only
+        /// </summary>
         public bool IsReadOnly
         {
             get { return (bool)GetValue(IsReadOnlyProperty); }
@@ -171,7 +214,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             df.Model.OnEditorFactoryChanged(df.EditorFactory);
         }
 
-        // Using a DependencyProperty as the backing store for ValidationMode.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="CommitMode"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty CommitModeProperty =
             DependencyProperty.Register(nameof(CommitMode), typeof(CommitMode), typeof(RadDataForm), new PropertyMetadata(CommitMode.Immediate, OnCommitModeChanged));
 
@@ -181,6 +226,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             owner.Model.OnCommitModeChanged((CommitMode)e.NewValue, (CommitMode)e.OldValue);
         }
 
+        /// <summary>
+        /// Gets or sets the item of the <see cref="RadDataForm"/>.
+        /// </summary>
         public object Item
         {
             get { return (object)GetValue(ItemProperty); }
@@ -191,6 +239,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal DataFormModel Model { get; set; }
         private TransactionService transactionService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RadDataForm"/> class.
+        /// </summary>
         public RadDataForm()
         {
             this.DefaultStyleKey = (typeof(RadDataForm));
@@ -199,6 +250,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.commandService = new CommandService(this);
         }
 
+        /// <summary>
+        /// Gets the <see cref="TransactionService"/> used by the <see cref="RadDataForm"/>.
+        /// </summary>
         public TransactionService TransactionService
         {
             get
@@ -207,6 +261,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="PropertyIteratorMode"/> used by the <see cref="RadDataForm"/>.
+        /// </summary>
         public PropertyIteratorMode PropertyIteratorMode
         {
             get
@@ -234,12 +291,19 @@ namespace Telerik.UI.Xaml.Controls.Data
             form.iteratorMode = (PropertyIteratorMode)e.NewValue;
         }
 
+        /// <summary>
+        /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
+        /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
+        /// </summary>
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             this.Model.OnItemChanged(this.Item);
         }
+
         internal ContentControl childrensPanelPresenter;
+
+        /// <inheritdoc/>
         protected override bool ApplyTemplateCore()
         {
 
@@ -256,6 +320,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             return applied && this.RootPanel != null;
         }
 
+        /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
             if (this.childrensPanelPresenter != null)
@@ -266,51 +331,67 @@ namespace Telerik.UI.Xaml.Controls.Data
             base.UnapplyTemplateCore();
         }
 
+        /// <summary>
+        /// Method that returns the current root panel of the control.
+        /// </summary>
+        /// <returns></returns>
         public Panel GetRootPanel()
         {
             return this.RootPanel;
         }
 
+        /// <inheritdoc/>
         public void RegisterTypeEditor(Type propertyType, Type editorType)
         {
             this.Model.EditorFactory.RegisterTypeEditor(propertyType, editorType);
         }
 
+        /// <inheritdoc/>
         public void RegisterPropertyEditor(string propertyName, Type editorType)
         {
             this.Model.EditorFactory.RegisterPropertyEditor(propertyName, editorType);
         }
 
+        /// <inheritdoc/>
         public void RegisterTypeView(Type propertyType, Type viewType)
         {
             this.Model.EditorFactory.RegisterTypeView(propertyType, viewType);
         }
 
+        /// <inheritdoc/>
         public void RegisterPropertyView(string propertyName, Type viewType)
         {
             this.Model.EditorFactory.RegisterPropertyView(propertyName, viewType);
         }
 
+        /// <inheritdoc/>
         public void UnRegisterTypeEditor(Type propertyType = null)
         {
             this.Model.EditorFactory.UnRegisterTypeEditor(propertyType);
         }
 
+        /// <inheritdoc/>
         public void UnRegisterPropertyEditor(string propertyName = null)
         {
             this.Model.EditorFactory.UnRegisterPropertyEditor(propertyName);
         }
 
+        /// <inheritdoc/>
         public void UnRegisterTypeView(Type propertyType = null)
         {
             this.Model.EditorFactory.UnRegisterTypeView(propertyType);
         }
 
+        /// <inheritdoc/>
         public void UnRegisterPropertyView(string propertyName = null)
         {
             this.Model.EditorFactory.UnRegisterPropertyView(propertyName);
         }
 
+        /// <summary>
+        /// Mehtod used for adding an editor to the root panel of hte control.
+        /// </summary>
+        /// <param name="element"></param>
         public void AddEditor(object element)
         {
             if (this.IsTemplateApplied)
@@ -319,6 +400,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Clears the editors of the control.
+        /// </summary>
         public void ClearEditors()
         {
             if (this.IsTemplateApplied)
@@ -327,6 +411,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <inheritdoc/>
         public void RefreshFormLayout()
         {
             this.Model.RefreshLayout();

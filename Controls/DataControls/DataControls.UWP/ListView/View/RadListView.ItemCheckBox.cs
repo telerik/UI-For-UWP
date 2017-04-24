@@ -13,28 +13,34 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public static readonly DependencyProperty IsCheckModeActiveProperty =
             DependencyProperty.Register(nameof(IsCheckModeActive), typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsCheckModeActiveChanged));
-
-
-
+        
+        /// <summary>
+        /// Gets or sets the position of the CheckBox.
+        /// </summary>
         public CheckBoxPosition ItemCheckBoxPosition
         {
             get { return (CheckBoxPosition)GetValue(ItemCheckBoxPositionProperty); }
             set { SetValue(ItemCheckBoxPositionProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ItemCheckBoxPosition.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ItemCheckBoxPosition"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ItemCheckBoxPositionProperty =
             DependencyProperty.Register(nameof(ItemCheckBoxPosition), typeof(CheckBoxPosition), typeof(RadListView), new PropertyMetadata(CheckBoxPosition.BeforeItem));
 
-        
-
+        /// <summary>
+        /// Gets or sets the style for the CheckBox.
+        /// </summary>
         public Style ItemCheckBoxStyle
         {
             get { return (Style)GetValue(ItemCheckBoxStyleProperty); }
             set { SetValue(ItemCheckBoxStyleProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ItemCheckBoxStyle.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ItemCheckBoxStyle"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ItemCheckBoxStyleProperty =
             DependencyProperty.Register(nameof(ItemCheckBoxStyle), typeof(Style), typeof(RadListView), new PropertyMetadata(null));
     
@@ -55,6 +61,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Occurs when an item has been checked or unchecked.
+        /// </summary>
         public event EventHandler<ItemCheckedStateChangedEventArgs> ItemCheckedStateChanged
         {
             add

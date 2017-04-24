@@ -29,6 +29,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         private double itemSwipeThreshold = 40;
         private Thickness itemSwipeOffset = new Thickness(100);
 
+        /// <summary>
+        /// Gets or set the item's swipe threshold.
+        /// </summary>
         public double ItemSwipeThreshold
         {
             get
@@ -44,6 +47,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or set the item's swipe offset.
+        /// </summary>
         public Thickness ItemSwipeOffset
         {
             get

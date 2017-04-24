@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadarLineSeries"/>.
+    /// </summary>
     public class RadarLineSeriesAutomationPeer : RadarPointSeriesAutomationPeer
     {
         /// <summary>

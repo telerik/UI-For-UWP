@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Telerik.Core;
 using Telerik.Core.Data;
@@ -48,6 +49,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// <summary>
         /// Initializes a new instance of the <see cref="RadVirtualizingDataControl" /> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public RadVirtualizingDataControl()
         {
             this.DefaultStyleKey = typeof(RadVirtualizingDataControl);

@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="CartesianGridLineAnnotation"/>.
+    /// </summary>
     public class CartesianGridLineAnnotationAutomationPeer : ChartAnnotationAutomationPeer, IValueProvider
     {
         /// <summary>

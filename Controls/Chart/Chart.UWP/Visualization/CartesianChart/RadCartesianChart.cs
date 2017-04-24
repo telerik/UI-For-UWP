@@ -227,6 +227,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return new CartesianChartAreaModel();
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadCartesianChartAutomationPeer(this);

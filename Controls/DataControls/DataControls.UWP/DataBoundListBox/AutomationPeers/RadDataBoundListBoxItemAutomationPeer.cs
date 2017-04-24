@@ -61,7 +61,10 @@ namespace Telerik.UI.Automation.Peers
                 return null;
             }
         }
-        
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
         public void AddToSelection()
         {
             if (!IsEnabled())
@@ -78,6 +81,9 @@ namespace Telerik.UI.Automation.Peers
             this.Select();
         }
 
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
         public void RemoveFromSelection()
         {
             if (!IsEnabled())

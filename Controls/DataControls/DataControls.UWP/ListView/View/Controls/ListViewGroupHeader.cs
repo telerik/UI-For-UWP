@@ -21,6 +21,8 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
 
         internal Size ArrangeSize;
         private Size lastDesiredSize = Size.Empty;
+
+        /// <inheritdoc/>
         public Rect arrangeRect;
 
         /// <summary>
@@ -53,6 +55,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             }
         }
 
+        /// <summary>
+        /// Gets or set the <see cref="RadListView"/> owner.
+        /// </summary>
         internal protected RadListView Owner { get; set; }
 
         internal bool IsFrozen { get; set; }

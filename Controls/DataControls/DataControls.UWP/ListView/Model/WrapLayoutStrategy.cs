@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Telerik.Core;
 using Telerik.Data.Core.Layouts;
@@ -12,6 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
         private WrapLayout layout;
         private HashSet<object> generatedContainerItems = new HashSet<object>();
 
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public WrapLayoutStrategy(ItemModelGenerator generator, IOrientedParentView owner, double defaultItemLength, double defaultItemOppositeLength) : base(generator, owner)
         {
             this.layout = new WrapLayout(new GroupHierarchyAdapter(), defaultItemLength, defaultItemOppositeLength);

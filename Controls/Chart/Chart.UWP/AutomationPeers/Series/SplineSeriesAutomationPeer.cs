@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="SplineSeries"/>.
+    /// </summary>
     public class SplineSeriesAutomationPeer : LineSeriesAutomationPeer
     {
         /// <summary>

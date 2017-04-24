@@ -6,15 +6,23 @@ using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Represents a RadListView control.
+    /// </summary>
     public partial class RadListView : IReorderItemsHost
     {
+        /// <summary>
+        /// Gets or sets the reorder mode of the <see cref="RadListView"/>.
+        /// </summary>
         public ListViewReorderMode ReorderMode
         {
             get { return (ListViewReorderMode)GetValue(ReorderModeProperty); }
             set { SetValue(ReorderModeProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ReorderMode.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ReorderMode"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ReorderModeProperty =
             DependencyProperty.Register(nameof(ReorderMode), typeof(ListViewReorderMode), typeof(RadListView), new PropertyMetadata(ListViewReorderMode.Default, OnReorderModeChanged));
 

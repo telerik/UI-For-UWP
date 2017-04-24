@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="PolarCustomAnnotation"/>.
+    /// </summary>
     public class PolarCustomAnnotationAutomationPeer : ChartAnnotationAutomationPeer
     {
         /// <summary>

@@ -165,7 +165,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
 
             /// <summary>
-            /// Determines whether two <see cref="RadRect"/> structures are not equal.
+            /// Determines whether two RadRect structures are not equal.
             /// </summary>
             public static bool operator !=(ItemLayoutInfo rect1, ItemLayoutInfo rect2)
             {

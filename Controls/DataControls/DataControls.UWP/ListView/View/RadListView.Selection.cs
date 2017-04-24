@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public partial class RadListView
     {
         /// <summary>

@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data.DataForm
 {
+    /// <summary>
+    /// Represents an StackDataFormLayoutDefinition layout definition.
+    /// </summary>
     public class StackDataFormLayoutDefinition : DataFormLayoutDefinition
     {
+        /// <summary>
+        /// Gets or sets the orientation of the StackDataFrom definition.
+        /// </summary>
         public Orientation Orientation
         {
             get { return (Orientation)GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Orientation.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="Orientation"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(StackDataFormLayoutDefinition), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
 
@@ -38,17 +43,19 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
 
         }
 
+        /// <inheritdoc/>
         protected internal override Panel CreateGroupLayoutPanel(string groupKey)
         {
             return new StackPanel() { Orientation = this.Orientation };
         }
 
-
+        /// <inheritdoc/>
         protected internal override Panel CreateDataFormPanel()
         {
             return new StackPanel() { Orientation = this.Orientation };
         }
 
+        /// <inheritdoc/>
         protected internal override void SetEditorArrangeMetadata(EntityPropertyControl editorElement, Telerik.Data.Core.EntityProperty entityProperty, Panel parentPanel)
         {
             var stackPanel = parentPanel as StackPanel;
@@ -61,7 +68,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             base.SetEditorArrangeMetadata(editorElement, entityProperty, parentPanel);
         }
 
-
+        /// <inheritdoc/>
         protected internal override void SetEditorElementsArrangeMetadata(EntityPropertyControl editorElement, Telerik.Data.Core.EntityProperty entityProperty)
         {
             editorElement.ColumnCount = 0;

@@ -75,6 +75,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return new DoughnutSeriesDataSource();
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DoughnutSeriesAutomationPeer(this);

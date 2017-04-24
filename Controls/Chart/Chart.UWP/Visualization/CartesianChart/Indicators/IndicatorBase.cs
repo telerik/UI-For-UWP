@@ -83,6 +83,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             this.UpdateUICore(context);
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new IndicatorBaseAutomationPeer(this);

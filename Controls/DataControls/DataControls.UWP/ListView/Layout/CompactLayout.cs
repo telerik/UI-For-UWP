@@ -14,6 +14,7 @@ namespace Telerik.Data.Core.Layouts
         private IRenderInfo renderInfo;
         internal double averageItemLength;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public CompactLayout(IHierarchyAdapter adapter, double defaultItemLength)
         {
             if (adapter == null)

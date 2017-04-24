@@ -22,6 +22,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return new SplineRenderer();
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new SplineSeriesAutomationPeer(this);

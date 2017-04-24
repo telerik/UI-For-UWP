@@ -493,6 +493,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return base.GetDistanceToPoint(dataPoint, tapLocation, pointDistanceMode);
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new PieSeriesAutomationPeer(this);

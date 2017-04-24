@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Core;
 using Telerik.Core.Data;
 using Telerik.Data.Core;
@@ -47,7 +48,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             set { SetValue(RealizedItemsBufferScaleProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for RealizedItemsBufferScale. 
+        /// <summary>
+        /// Identifies the <see cref="RealizedItemsBufferScale"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty RealizedItemsBufferScaleProperty =
             DependencyProperty.Register(nameof(RealizedItemsBufferScale), typeof(double), typeof(RadListView), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
 
@@ -632,6 +635,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportWidth
         {
             get
@@ -640,6 +644,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportHeight
         {
             get
@@ -648,6 +653,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IElementPresenter.IsVisible
         {
             get
@@ -744,15 +750,24 @@ namespace Telerik.UI.Xaml.Controls.Data
             return new RadListViewAutomationPeer(this);
         }
 
+        /// <summary>
+        /// Prepare the <see cref="ListViewLoadDataControl"/>.
+        /// </summary>
         protected internal virtual void PrepareLoadDataControl(ListViewLoadDataControl control)
         {
         }
 
+        /// <summary>
+        /// Invalidate the <see cref="ListViewLoadDataControl"/>.
+        /// </summary>
         protected internal void InvalidateLoadDataControl()
         {
             this.PrepareLoadDataControl(this.loadMoreDataControl);
         }
 
+        /// <summary>
+        /// Prepare the element to act as the ItemUI for the corresponding item.
+        /// </summary>
         protected internal virtual void PrepareContainerForItem(RadListViewItem item, object context)
         {
             item.DataContext = context;
@@ -795,6 +810,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Prepare the element to act as the ItemUI for the corresponding group header.
+        /// </summary>
         protected internal virtual void PrepareContainerForGroupHeader(ListViewGroupHeader groupHeader, GroupHeaderContext context)
         {
             groupHeader.DataContext = context;
@@ -836,16 +854,25 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Return the element used to display the given item.
+        /// </summary>
         protected internal virtual RadListViewItem GetContainerForItem()
         {
             return new RadListViewItem();
         }
 
+        /// <summary>
+        /// Return the element used to display the group header.
+        /// </summary>
         protected internal virtual ListViewGroupHeader GetContainerForGroupHeader()
         {
             return new ListViewGroupHeader();
         }
 
+        /// <summary>
+        /// Return the element used to display the group header.
+        /// </summary>
         protected internal virtual ListViewGroupHeader GetContainerForGroupHeader(bool isFrozen)
         {
             var header = this.GetContainerForGroupHeader();
@@ -855,11 +882,17 @@ namespace Telerik.UI.Xaml.Controls.Data
             return header;
         }
 
+        /// <summary>
+        ///  Undoes the effects of the PrepareContainerForItem method.
+        /// </summary>
         protected internal virtual void ClearContainerForItem(RadListViewItem item)
         {
             item.ClearValue(FrameworkElement.DataContextProperty);
         }
 
+        /// <summary>
+        ///  Undoes the effects of the PrepareContainerForGroupHeader method.
+        /// </summary>
         protected internal virtual void ClearContainerForGroupHeader(ListViewGroupHeader item)
         {
             item.ClearValue(FrameworkElement.DataContextProperty);
@@ -920,6 +953,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.contentPanel.InvalidateMeasure();
         }
 
+        /// <inheritdoc/>
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         public void ChangeDataLoadingStatus(BatchLoadingStatus status)
         {
@@ -1038,10 +1072,12 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.SetVerticalOffset(point.Y, updateUI, updateScrollViewer);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         void IElementPresenter.RefreshNode(object node)
         {
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         RadSize IElementPresenter.MeasureContent(object owner, object content)
         {
             return RadSize.Empty;

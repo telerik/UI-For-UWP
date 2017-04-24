@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Charting;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -40,6 +41,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Initializes a new instance of the <see cref="PolarLineSeries"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public PolarLineSeries()
         {
             this.DefaultStyleKey = typeof(PolarLineSeries);
@@ -51,6 +53,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets a value indicating whether the <see cref="Stroke"/> property has been set locally.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IStrokedSeries.IsStrokeSetLocally
         {
             get

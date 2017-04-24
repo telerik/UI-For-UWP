@@ -8,6 +8,9 @@ using Telerik.UI.Xaml.Controls.Primitives;
 
 namespace Telerik.UI.Xaml.Controls.Data.DataForm
 {
+    /// <summary>
+    /// Represents an TransactionService transaction service.
+    /// </summary>
     public class TransactionService : ServiceBase<RadDataForm>, ITransactionService
     {
         private Dictionary<string, List<object>> errors = new Dictionary<string, List<object>>();
@@ -51,6 +54,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             return false;
         }
 
+        /// <inheritdoc/>
         public bool CommitProperty(string propertyName)
         {
             var entityProperty = this.Owner.Entity.GetEntityProperty(propertyName);
@@ -61,6 +65,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             return false;
         }
 
+        /// <inheritdoc/>
         public bool CommitAll()
         {
             if (this.ValidateAll())
@@ -75,6 +80,9 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             return false;
         }
 
+        /// <summary>
+        /// Asynchronous validation for a specific property.
+        /// </summary>
         public async Task<bool> ValidatePropertyAsync(string propertyName)
         {
             var isValid = true;
@@ -104,6 +112,9 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             }
         }
 
+        /// <summary>
+        /// Asynchronous validation for all properties in the service.
+        /// </summary>
         public async Task<bool> ValidateAllAsync()
         {
             bool isValid = true;

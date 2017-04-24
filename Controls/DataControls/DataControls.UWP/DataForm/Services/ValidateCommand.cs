@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Xaml.Controls.Data.DataForm.Commands
 {
+    /// <summary>
+    /// Represents a command that can perform a given action.
+    /// </summary>
     public class ValidateCommand : DataFormCommand
     {
         /// <summary>
