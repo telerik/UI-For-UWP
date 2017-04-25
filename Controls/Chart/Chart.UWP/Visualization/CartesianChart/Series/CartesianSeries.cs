@@ -25,6 +25,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
         public static readonly DependencyProperty VerticalAxisProperty =
             DependencyProperty.Register(nameof(VerticalAxis), typeof(CartesianAxis), typeof(CartesianSeries), new PropertyMetadata(null, OnVerticalAxisChanged));
 
+        private static readonly Rect defaultRect = new Rect();
+
         private CartesianAxis horizontalAxisCache;
         private CartesianAxis verticalAxisCache;
         private List<CartesianAxis> unattachedAxes;
@@ -122,7 +124,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             foreach (var path in this.renderSurface.Children.OfType<Path>())
             {
                 Point topLeft;
-                if (path.Data.Bounds != new Rect())
+                if (path.Data.Bounds != defaultRect)
                 {
                     topLeft = new Point(path.Data.Bounds.X, path.Data.Bounds.Y);
                 }
@@ -134,7 +136,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 TransformGroup transform = path.RenderTransform as TransformGroup;
-                Point translate = new Point();
+                Point translatePoint = new Point();
 
                 if (transform != null)
                 {
@@ -144,13 +146,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
                         TranslateTransform translateTransform = tr as TranslateTransform;
                         if (translateTransform != null)
                         {
-                            translate.X += translateTransform.X;
-                            translate.Y += translateTransform.Y;
+                            translatePoint.X += translateTransform.X;
+                            translatePoint.Y += translateTransform.Y;
                         }
                     }
                 }
 
-                path.Clip = new RectangleGeometry() { Rect = new Rect(0, 0, this.chart.PlotAreaClip.Width + this.chart.PlotAreaClip.X - topLeft.X - translate.X, this.chart.PlotAreaClip.Height + this.chart.PlotAreaClip.Y - topLeft.Y - translate.Y) };
+                path.Clip = new RectangleGeometry()
+                {
+                    Rect = new Rect(0, 0, this.chart.PlotAreaClip.Width + this.chart.PlotAreaClip.X - topLeft.X - translatePoint.X, this.chart.PlotAreaClip.Height + this.chart.PlotAreaClip.Y - topLeft.Y - translatePoint.Y)
+                };
             }
         }
 
