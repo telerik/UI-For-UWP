@@ -357,7 +357,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (this.labelLayer != null)
             {
-                this.chart.ApplyPlotAreaClip(this.labelLayer, this.ClipToPlotArea);
+                this.chart.ApplyPlotAreaClip(this.labelLayer, this.ClipToPlotArea, false);
             }
         }
 

@@ -90,6 +90,7 @@
     <Compile Include="AutomationPeers\Series\SplineAreaSeriesAutomationPeer.cs" />
     <Compile Include="AutomationPeers\Series\SplineSeriesAutomationPeer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Visualization\PathExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core.UWP\Core.UWP.csproj">

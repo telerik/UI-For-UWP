@@ -148,6 +148,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return visual is Path;
         }
 
+        internal override void UpdateUICore(ChartLayoutContext context)
+        {
+            this.IsRendered = false;
+            base.UpdateUICore(context);
+            this.IsRendered = true;
+            this.UpdateSeriesClip();
+        }
+
         internal override void ApplyPaletteToDefaultVisual(FrameworkElement visual, DataPoint point)
         {
             int index = this.ActualPaletteIndex;
@@ -179,7 +187,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             if (visual != null && this.IsVisibleInLegend)
             {
                 var item = this.LegendItems.FirstOrDefault();
-                
+
                 if (item != null)
                 {
                     this.UpdateLegendItemProperties((Brush)visual.GetValue(Path.FillProperty), (Brush)visual.GetValue(Path.StrokeProperty));
