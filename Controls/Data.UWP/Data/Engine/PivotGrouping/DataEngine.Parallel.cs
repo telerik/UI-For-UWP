@@ -63,7 +63,7 @@ namespace Telerik.Data.Core.Engine
 
             Task.WaitAll(tasks.ToArray());
             GroupingResults result = tasks[0].Result;
-            for (int i = 1; i < maxDegreeOfParallelism; i++)
+            for (int i = 1; i < tasks.Count; i++)
             {
                 result.Merge(tasks[i].Result);
             }

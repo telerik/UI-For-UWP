@@ -114,6 +114,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
         }
+
         internal void UpdateSeriesClip()
         {
             if (!this.ClipToPlotArea || !this.IsRendered || !RadChartBase.IsRedstone2())
@@ -140,8 +141,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
                 if (transform != null)
                 {
-
-                    foreach (var tr in (transform as TransformGroup).Children)
+                    foreach (var tr in transform.Children)
                     {
                         TranslateTransform translateTransform = tr as TranslateTransform;
                         if (translateTransform != null)

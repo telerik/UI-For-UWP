@@ -24,7 +24,7 @@ namespace Telerik.Core
         /// <param name="description">The appointment description.</param>
         public DateTimeAppointment(DateTime start, DateTime end, string description)
         {
-            if (start >= end)
+            if (start > end)
             {
                 throw new ArgumentException("Start date must be earlier than end date.");
             }
@@ -50,7 +50,7 @@ namespace Telerik.Core
         public string Description { get; private set; }
 
         /// <summary>
-        /// Gets or sets the subject of this appointment.
+        /// Gets or sets the description of this appointment.
         /// </summary>
         public string Subject { get; set; }
     }
