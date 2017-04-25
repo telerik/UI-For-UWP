@@ -8,11 +8,6 @@ namespace Telerik.Data.Core
     /// </summary>
     public class Entity
     {
-        /// <summary>
-        /// Gets the value indicating whether <see cref="Entity"/> is readonly or not.
-        /// </summary>
-        public bool IsReadOnly { get; internal set; }
-
         private EntityPropertyCollection properties;
 
         /// <summary>
@@ -24,7 +19,12 @@ namespace Telerik.Data.Core
         }
 
         /// <summary>
-        /// A collection that contains all properties of the <see cref="Entity"/> class.
+        /// Gets a value indicating whether <see cref="Entity"/> is readonly or not.
+        /// </summary>
+        public bool IsReadOnly { get; internal set; }
+
+        /// <summary>
+        /// Gets a collection that contains all properties of the <see cref="Entity"/> class.
         /// </summary>
         public IList<EntityProperty> Properties
         {

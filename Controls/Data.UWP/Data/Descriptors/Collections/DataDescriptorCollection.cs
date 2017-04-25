@@ -42,6 +42,13 @@ namespace Telerik.Data.Core
             }
         }
 
+        internal void RemoveDescriptor(T descriptor)
+        {
+            descriptor.PropertyChanged -= this.OnItemPropertyChanged;
+            descriptor.Detach();
+            this.RemoveDescription(descriptor);
+        }
+
         /// <summary>
         /// Sets the item.
         /// </summary>
@@ -103,13 +110,6 @@ namespace Telerik.Data.Core
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             this.host.OnDataDescriptorPropertyChanged(sender as DataDescriptor);
-        }
-
-        internal void RemoveDescriptor(T descriptor)
-        {
-            descriptor.PropertyChanged -= this.OnItemPropertyChanged;
-            descriptor.Detach();
-            this.RemoveDescription(descriptor);
         }
 
         private void AddDescriptor(T descriptor, int index)

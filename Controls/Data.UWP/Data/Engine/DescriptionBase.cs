@@ -42,8 +42,8 @@ namespace Telerik.Data.Core
                 if (this.customName != value)
                 {
                     this.customName = value;
-                    this.OnPropertyChanged(nameof(CustomName));
-                    this.OnPropertyChanged(nameof(DisplayName));
+                    this.OnPropertyChanged(nameof(this.CustomName));
+                    this.OnPropertyChanged(nameof(this.DisplayName));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }
@@ -64,8 +64,8 @@ namespace Telerik.Data.Core
                 if (this.propertyName != value)
                 {
                     this.propertyName = value;
-                    this.OnPropertyChanged(nameof(PropertyName));
-                    this.OnPropertyChanged(nameof(DisplayName));
+                    this.OnPropertyChanged(nameof(this.PropertyName));
+                    this.OnPropertyChanged(nameof(this.DisplayName));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }
@@ -82,7 +82,7 @@ namespace Telerik.Data.Core
                 if (this.memberAccess != value)
                 {
                     this.memberAccess = value;
-                    this.OnPropertyChanged(nameof(MemberAccess));
+                    this.OnPropertyChanged(nameof(this.MemberAccess));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }

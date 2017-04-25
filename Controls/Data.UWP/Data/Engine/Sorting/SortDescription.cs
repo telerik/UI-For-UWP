@@ -44,7 +44,7 @@ namespace Telerik.Data.Core
                 if (this.comparer != value)
                 {
                     this.comparer = value;
-                    this.OnPropertyChanged(nameof(Comparer));
+                    this.OnPropertyChanged(nameof(this.Comparer));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }

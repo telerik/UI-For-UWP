@@ -9,16 +9,16 @@ namespace Telerik.Data.Core
     public class ValueRangeAttribute : Attribute
     {
         /// <summary>
-        /// Gets or sets the range of the value.
-        /// </summary>
-        public INumericalRange Range { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ValueRangeAttribute"/> class.
         /// </summary>
         public ValueRangeAttribute(double min, double max, double step)
         {
-            this.Range = new NumericalRange(min, max,step);
+            this.Range = new NumericalRange(min, max, step);
         }
+
+        /// <summary>
+        /// Gets or sets the range of the value.
+        /// </summary>
+        public INumericalRange Range { get; set; }
     }
 }

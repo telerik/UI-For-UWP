@@ -7,7 +7,6 @@ namespace Telerik.Data.Core
     /// </summary>
     public interface IValueOptionsProvider
     {
-
         /// <summary>
         /// Gets a list of options using a passed <see cref="EntityProperty"/>.
         /// </summary>

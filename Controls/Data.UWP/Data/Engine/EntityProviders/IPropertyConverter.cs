@@ -15,14 +15,12 @@ namespace Telerik.Data.Core
         /// Converts the specified value.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
         object Convert(object value);
 
         /// <summary>
         /// Converts back the specified value.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
         object ConvertBack(object value);
     }
 }

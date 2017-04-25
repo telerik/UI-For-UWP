@@ -30,6 +30,14 @@ namespace Telerik.Data.Core
             }
         }
 
+        internal override bool IsDelegate
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         internal override bool Equals(DescriptionBase description)
         {
             var propertyDescription = description as CollectionViewGroupDescription;
@@ -56,14 +64,5 @@ namespace Telerik.Data.Core
 
             base.PropertyChangedOverride(changedPropertyName);
         }
-
-        internal override bool IsDelegate
-        {
-            get
-            {
-                return true;
-            }
-        }
     }
-
 }
