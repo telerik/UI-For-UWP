@@ -104,7 +104,8 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (itemsWidthMode == SegmentWidthMode.Equal)
             {
-                itemWidth = (availableSize.Width - separatorsTotalWidth) / this.Children.Count;
+                var availableWidth = Double.IsInfinity(availableSize.Width) ? this.DesiredSize.Width : availableSize.Width;
+                itemWidth = (availableWidth - separatorsTotalWidth) / this.Children.Count;
             }
 
             foreach (var child in this.Children)
