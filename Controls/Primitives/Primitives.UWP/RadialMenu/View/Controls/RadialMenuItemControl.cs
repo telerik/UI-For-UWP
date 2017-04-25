@@ -145,6 +145,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             return base.OnCreateAutomationPeer();
         }
 
+        private static void OnLoadingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as RadialMenuItemControl;
+
+            control.UpdateVisualState(true);
+        }
+
         private bool HandleKeyDown(VirtualKey key)
         {
             if (this.Segment != null)
@@ -180,13 +187,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             }
 
             return false;
-        }
-
-        private static void OnLoadingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var control = d as RadialMenuItemControl;
-
-            control.UpdateVisualState(true);
         }
     }
 }

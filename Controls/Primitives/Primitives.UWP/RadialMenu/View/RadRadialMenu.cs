@@ -664,7 +664,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 {
                     peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
                 }
-                
             }
         }
 

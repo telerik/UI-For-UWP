@@ -36,6 +36,7 @@ namespace Telerik.UI.Automation.Peers
                     : ExpandCollapseState.Collapsed;
             }
         }
+
         /// <summary>
         /// ISelectionProvider implementation.
         /// </summary>
@@ -52,6 +53,63 @@ namespace Telerik.UI.Automation.Peers
             {
                 return this.Owner as RadRadialMenu;
             }
+        }
+
+        /// <summary>
+        /// Hides all nodes, controls, or content that are descendants of the <see cref="Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu" /> control.
+        /// </summary>
+        public void Collapse()
+        {
+            this.RadRadialMenuOwner.IsOpen = false;
+        }
+
+        /// <summary>
+        /// Displays all child nodes, controls, or content of the <see cref="Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu" /> control.
+        /// </summary>
+        public void Expand()
+        {
+            this.RadRadialMenuOwner.IsOpen = true;
+        }
+
+        /// <summary>
+        /// ISelectionProvider implementation.
+        /// </summary>
+        public IRawElementProviderSimple[] GetSelection()
+        {
+            var providerSamples = new List<IRawElementProviderSimple>();
+            var radialMenuModel = this.RadRadialMenuOwner.model;
+            if (radialMenuModel != null && radialMenuModel.contentRing != null
+                && radialMenuModel.contentRing.Segments != null)
+            {
+                var radialMenuItems = radialMenuModel.contentRing.Segments.OfType<RadialSegment>();
+                if (radialMenuItems != null)
+                {
+                    foreach (var item in radialMenuItems)
+                    {
+                        var radialMenuItemControl = item.Visual as RadialMenuItemControl;
+                        if (radialMenuItemControl != null && item.TargetItem != null
+                            && item.TargetItem.IsSelected)
+                        {
+                            var radialMenuItemControlPeer = FrameworkElementAutomationPeer.CreatePeerForElement(radialMenuItemControl) as RadialMenuItemControlAutomationPeer;
+                            if (radialMenuItemControlPeer != null)
+                            {
+                                providerSamples.Add(this.ProviderFromPeer(radialMenuItemControlPeer));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return providerSamples.ToArray();
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
+        {
+            this.RaisePropertyChangedEvent(
+                ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
+                oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
+                newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
         }
 
         /// <summary>
@@ -91,7 +149,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(RadRadialMenu);
         }
@@ -124,64 +184,6 @@ namespace Telerik.UI.Automation.Peers
             }
 
             return children;
-        }
-
-        /// <summary>
-        /// Hides all nodes, controls, or content that are descendants of the <see cref="Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu" /> control.
-        /// </summary>
-        public void Collapse()
-        {
-            this.RadRadialMenuOwner.IsOpen = false;
-        }
-
-        /// <summary>
-        /// Displays all child nodes, controls, or content of the <see cref="Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu" /> control.
-        /// </summary>
-        public void Expand()
-        {
-            this.RadRadialMenuOwner.IsOpen = true;
-        }
-
-        /// <summary>
-        /// ISelectionProvider implementation.
-        /// </summary>
-        public IRawElementProviderSimple[] GetSelection()
-        {
-            var providerSamples = new List<IRawElementProviderSimple>();
-            var radialMenuModel = this.RadRadialMenuOwner.model;
-            if (radialMenuModel != null && radialMenuModel.contentRing != null 
-                && radialMenuModel.contentRing.Segments != null)
-            {
-                var radialMenuItems = radialMenuModel.contentRing.Segments.OfType<RadialSegment>();
-                if (radialMenuItems != null)
-                {
-                    foreach (var item in radialMenuItems)
-                    {
-                        var radialMenuItemControl = item.Visual as RadialMenuItemControl;
-                        if (radialMenuItemControl != null && item.TargetItem != null 
-                            && item.TargetItem.IsSelected)
-                        {
-                            var radialMenuItemControlPeer = FrameworkElementAutomationPeer.CreatePeerForElement(radialMenuItemControl) as RadialMenuItemControlAutomationPeer;
-                            if (radialMenuItemControlPeer != null)
-                            {
-                                providerSamples.Add(this.ProviderFromPeer(radialMenuItemControlPeer));
-                            }
-                        }
-                    }
-                }
-               
-            }
-
-            return providerSamples.ToArray();
-        }
-        
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
-        {
-            this.RaisePropertyChangedEvent(
-                ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
-                oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
-                newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
         }
     }
 }

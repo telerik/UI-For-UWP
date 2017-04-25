@@ -19,8 +19,8 @@ namespace Telerik.UI.Automation.Peers
         public RangeInputBaseAutomationPeer(RangeInputBase owner)
             : base(owner)
         {
-
         }
+
         internal RangeInputBase RangeInputBase
         {
             get
@@ -46,7 +46,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
         }

@@ -26,18 +26,8 @@ namespace Telerik.UI.Automation.Peers
         {
             this.parent = parent;
         }
-        
-        private RadialMenuItemControl OwnerAsRadialMenuItemControl
-        {
-            get
-            {
-                return this.Owner as RadialMenuItemControl;
-            }
-        }
 
-        /// <summary>
-        /// IToggleProvider implementation.
-        /// </summary>
+        /// <inheritdoc/>
         public ToggleState ToggleState
         {
             get
@@ -53,24 +43,113 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
+        /// <inheritdoc/>
         public bool IsSelected => this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected;
 
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
+        /// <inheritdoc/>
         public IRawElementProviderSimple SelectionContainer
         {
             get
             {
                 if (this.parent != null)
                 {
-                    return this.ProviderFromPeer(CreatePeerForElement(this.parent));
+                    return this.ProviderFromPeer(FrameworkElementAutomationPeer.CreatePeerForElement(this.parent));
                 }
                 return null;
             }
+        }
+
+        private RadialMenuItemControl OwnerAsRadialMenuItemControl
+        {
+            get
+            {
+                return this.Owner as RadialMenuItemControl;
+            }
+        }
+
+        /// <summary>
+        /// IInvokeProvider implementation.
+        /// </summary>
+        public void Invoke()
+        {
+            if (this.OwnerAsRadialMenuItemControl != null && this.OwnerAsRadialMenuItemControl.Segment != null
+                && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.CanNavigate && this.parent != null)
+            {
+                this.parent.RaiseNavigateCommand(
+                    this.OwnerAsRadialMenuItemControl.Segment.TargetItem,
+                    this.parent.model.viewState.MenuLevels.FirstOrDefault(),
+                    this.OwnerAsRadialMenuItemControl.Segment.LayoutSlot.StartAngle);
+            }
+        }
+
+        /// <summary>
+        /// IToggleProvider implementation.
+        /// </summary>
+        public void Toggle()
+        {
+            if (this.OwnerAsRadialMenuItemControl != null && this.OwnerAsRadialMenuItemControl.Segment != null
+                && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.Selectable)
+            {
+                this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected = !this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected;
+            }
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public void AddToSelection()
+        {
+            if (this.OwnerAsRadialMenuItemControl.Segment != null && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.Selectable
+                && !this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected)
+            {
+                this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected = true;
+            }
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public void RemoveFromSelection()
+        {
+            if (this.OwnerAsRadialMenuItemControl.Segment != null && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.Selectable
+                 && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected)
+            {
+                this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected = false;
+            }
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public void Select()
+        {
+            var radialMenuModel = this.parent.model;
+            if (radialMenuModel != null && radialMenuModel.contentRing != null
+                && radialMenuModel.contentRing.Segments != null)
+            {
+                var radialMenuItems = radialMenuModel.contentRing.Segments.OfType<RadialSegment>();
+                if (radialMenuItems != null)
+                {
+                    foreach (var item in radialMenuItems)
+                    {
+                        if (item.TargetItem != null && item.TargetItem.IsSelected)
+                        {
+                            item.TargetItem.IsSelected = !item.TargetItem.IsSelected;
+                        }
+                    }
+                }
+            }
+
+            this.AddToSelection();
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseToggleStatePropertyChangedEvent(bool oldValue, bool newValue)
+        {
+            this.RaisePropertyChangedEvent(
+                TogglePatternIdentifiers.ToggleStateProperty,
+                oldValue ? ToggleState.On : ToggleState.Off,
+                newValue ? ToggleState.On : ToggleState.Off);
         }
 
         /// <inheritdoc />
@@ -131,89 +210,6 @@ namespace Telerik.UI.Automation.Peers
             }
 
             return nameof(RadialMenuItemControl);
-        }
-
-        /// <summary>
-        /// IInvokeProvider implementation.
-        /// </summary>
-        public void Invoke()
-        {
-            if (this.OwnerAsRadialMenuItemControl != null && this.OwnerAsRadialMenuItemControl.Segment != null
-                && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.CanNavigate && this.parent != null)
-            {
-                this.parent.RaiseNavigateCommand(this.OwnerAsRadialMenuItemControl.Segment.TargetItem, this.parent.model.viewState.MenuLevels.FirstOrDefault(),
-                    this.OwnerAsRadialMenuItemControl.Segment.LayoutSlot.StartAngle);
-            }
-        }
-
-        /// <summary>
-        /// IToggleProvider implementation.
-        /// </summary>
-        public void Toggle()
-        {
-            if (this.OwnerAsRadialMenuItemControl != null && this.OwnerAsRadialMenuItemControl.Segment != null
-                && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.Selectable)
-            {
-                this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected = !this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected;
-            }
-        }
-        
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
-        public void AddToSelection()
-        {
-            if (this.OwnerAsRadialMenuItemControl.Segment != null && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.Selectable
-                && !this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected)
-            {
-                this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected = true;
-            }
-        }
-
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
-        public void RemoveFromSelection()
-        {
-            if (this.OwnerAsRadialMenuItemControl.Segment != null && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.Selectable
-                 && this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected)
-            {
-                this.OwnerAsRadialMenuItemControl.Segment.TargetItem.IsSelected = false;
-            }
-        }
-
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
-        public void Select()
-        {
-            var radialMenuModel = this.parent.model;
-            if (radialMenuModel != null && radialMenuModel.contentRing != null
-                && radialMenuModel.contentRing.Segments != null)
-            {
-                var radialMenuItems = radialMenuModel.contentRing.Segments.OfType<RadialSegment>();
-                if (radialMenuItems != null)
-                {
-                    foreach (var item in radialMenuItems)
-                    {
-                        if (item.TargetItem != null && item.TargetItem.IsSelected)
-                        {
-                            item.TargetItem.IsSelected = !item.TargetItem.IsSelected;
-                        }
-                    }
-                }
-            }
-
-            this.AddToSelection();
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseToggleStatePropertyChangedEvent(bool oldValue, bool newValue)
-        {
-            this.RaisePropertyChangedEvent(
-                TogglePatternIdentifiers.ToggleStateProperty,
-                oldValue ? ToggleState.On : ToggleState.Off,
-                newValue ? ToggleState.On : ToggleState.Off);
         }
     }
 }

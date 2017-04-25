@@ -15,7 +15,6 @@ namespace Telerik.UI.Automation.Peers
         public RadControlAutomationPeer(RadControl owner) 
             : base(owner)
         {
-            
         }
         
         private RadControl Control
@@ -43,7 +42,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
         }

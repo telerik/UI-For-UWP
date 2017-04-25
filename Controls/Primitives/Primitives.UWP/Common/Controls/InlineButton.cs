@@ -327,7 +327,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(IconSourceProperty, value);
+                this.SetValue(IconSourceProperty, value);
             }
         }
 
@@ -342,7 +342,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(PressedIconSourceProperty, value);
+                this.SetValue(PressedIconSourceProperty, value);
             }
         }
 
@@ -357,7 +357,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(PointerOverIconSourceProperty, value);
+                this.SetValue(PointerOverIconSourceProperty, value);
             }
         }
 
@@ -372,7 +372,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(DisabledIconSourceProperty, value);
+                this.SetValue(DisabledIconSourceProperty, value);
             }
         }
 
@@ -387,7 +387,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(IconStyleProperty, value);
+                this.SetValue(IconStyleProperty, value);
             }
         }
 

@@ -9,13 +9,12 @@ namespace Telerik.UI.Automation.Peers
     public class RangeControlBaseAutomationPeer : RadHeaderedControlAutomationPeer
     {
         /// <summary>
-        /// Initializes a new instance of the RangeControlBase class.
+        /// Initializes a new instance of the <see cref="RangeControlBaseAutomationPeer"/> class.
         /// </summary>
         /// <param name="owner">The owner.</param>
         public RangeControlBaseAutomationPeer(RangeControlBase owner) 
             : base(owner)
         {
-
         }
 
         private RangeControlBase RangeControlBase
@@ -43,7 +42,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
         }

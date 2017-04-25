@@ -33,12 +33,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.DefaultStyleKey = typeof(RadCustomHubTile);
         }
 
-        /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RadCustomHubTileAutomationPeer(this);
-        }
-
         /// <summary>
         /// Gets or sets the front content of the custom hub tile.
         /// </summary>
@@ -69,6 +63,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             {
                 this.SetValue(RadCustomHubTile.FrontContentTemplateProperty, value);
             }
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadCustomHubTileAutomationPeer(this);
         }
     }
 }

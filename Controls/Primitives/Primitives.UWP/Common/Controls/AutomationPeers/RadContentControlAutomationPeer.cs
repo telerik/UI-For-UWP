@@ -18,7 +18,6 @@ namespace Telerik.UI.Automation.Peers
         public RadContentControlAutomationPeer(RadContentControl owner) 
             : base(owner)
         {
-
         }
 
         private RadContentControl Control
@@ -55,7 +54,9 @@ namespace Telerik.UI.Automation.Peers
 
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
         }

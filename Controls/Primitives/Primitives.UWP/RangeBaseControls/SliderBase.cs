@@ -226,13 +226,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 this.SetValue(ToolTipFormatProperty, value);
             }
         }
-
-        /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new SliderBaseAutomationPeer(this);
-        }
-
+        
         internal virtual void OnSelectionStartChanged(double oldSelectionStart, double newSelectionStart)
         {
         }
@@ -255,6 +249,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
         internal virtual void OnShowValueToolTipPropertyChanged(bool oldShowValueToolTip, bool newShowValueToolTip)
         {
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SliderBaseAutomationPeer(this);
         }
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

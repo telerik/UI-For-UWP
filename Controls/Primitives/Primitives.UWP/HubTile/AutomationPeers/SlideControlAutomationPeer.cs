@@ -20,17 +20,7 @@ namespace Telerik.UI.Automation.Peers
         {
         }
 
-        private SlideControl SlideControl
-        {
-            get
-            {
-                return (SlideControl)this.Owner;
-            }
-        }
-
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
+        /// <inheritdoc/>
         public ExpandCollapseState ExpandCollapseState
         {
             get
@@ -48,6 +38,14 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        private SlideControl SlideControl
+        {
+            get
+            {
+                return (SlideControl)this.Owner;
+            }
+        }
+
         /// <summary>
         /// IExpandCollapseProvider implementation.
         /// </summary>
@@ -62,6 +60,14 @@ namespace Telerik.UI.Automation.Peers
         public void Expand()
         {
             this.SlideControl.ExpandedState = Xaml.Controls.Primitives.SlideTileExpandedState.Expanded;
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseExpandCollapseAutomationEvent(SlideTileExpandedState oldValue, SlideTileExpandedState newValue)
+        {
+            ExpandCollapseState oldState = this.SlideTileExpandedStateIntoExpandCollapse(oldValue);
+            ExpandCollapseState newState = this.SlideTileExpandedStateIntoExpandCollapse(newValue);
+            this.RaisePropertyChangedEvent(ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty, oldState, newState);
         }
 
         /// <inheritdoc />
@@ -98,17 +104,11 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return "SlideControl";
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseExpandCollapseAutomationEvent(SlideTileExpandedState oldValue, SlideTileExpandedState newValue)
-        {
-            ExpandCollapseState oldState = SlideTileExpandedStateIntoExpandCollapse(oldValue);
-            ExpandCollapseState newState = SlideTileExpandedStateIntoExpandCollapse(newValue);
-            this.RaisePropertyChangedEvent(ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty, oldState, newState);
         }
 
         private ExpandCollapseState SlideTileExpandedStateIntoExpandCollapse(SlideTileExpandedState state)

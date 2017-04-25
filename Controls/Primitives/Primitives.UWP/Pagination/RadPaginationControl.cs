@@ -272,8 +272,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             return new RadPaginationControlAutomationPeer(this);
         }
-
-
+        
         /// <summary>
         /// Called before the GotFocus event occurs.
         /// </summary>

@@ -11,6 +11,24 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadSideDrawerAutomationPeer : RadControlAutomationPeer, IExpandCollapseProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the RadSideDrawerAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The RadSideDrawer that is associated with this RadSideDrawerAutomationPeer.</param>
+        public RadSideDrawerAutomationPeer(RadSideDrawer owner) 
+            : base(owner)
+        {
+        }
+
+        /// <inheritdoc/>
+        public ExpandCollapseState ExpandCollapseState
+        {
+            get
+            {
+                return this.ConvertDrawerToExpandCollapseState(this.SideDrawerOwner.DrawerState);
+            }
+        }
+
         private RadSideDrawer SideDrawerOwner
         {
             get
@@ -19,14 +37,26 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the RadSideDrawerAutomationPeer class.
-        /// </summary>
-        /// <param name="owner">The RadSideDrawer that is associated with this RadSideDrawerAutomationPeer.</param>
-        public RadSideDrawerAutomationPeer(RadSideDrawer owner) 
-            : base(owner)
+        /// <inheritdoc/>
+        public void Collapse()
         {
+            this.SideDrawerOwner.ToggleDrawer();
+        }
 
+        /// <inheritdoc/>
+        public void Expand()
+        {
+            this.SideDrawerOwner.ToggleDrawer();
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseExpandCollapseAutomationEvent(DrawerState oldValue, DrawerState newValue)
+        {
+            var oldConvertedValue = this.ConvertDrawerToExpandCollapseState(oldValue);
+            var newConvertedValue = this.ConvertDrawerToExpandCollapseState(newValue);
+
+            this.RaisePropertyChangedEvent(ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty, oldConvertedValue.ToString(), newConvertedValue.ToString());
+            this.RaisePropertyChangedEvent(AutomationElementIdentifiers.ItemStatusProperty, oldConvertedValue.ToString(), newConvertedValue.ToString());
         }
 
         /// <inheritdoc />
@@ -43,7 +73,9 @@ namespace Telerik.UI.Automation.Peers
 
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
         }
@@ -69,43 +101,6 @@ namespace Telerik.UI.Automation.Peers
         protected override string GetLocalizedControlTypeCore()
         {
             return "rad side drawer";
-        }
-
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
-        public void Collapse()
-        {
-            this.SideDrawerOwner.ToggleDrawer();
-        }
-
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
-        public void Expand()
-        {
-            this.SideDrawerOwner.ToggleDrawer();
-        }
-
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
-        public ExpandCollapseState ExpandCollapseState
-        {
-            get
-            {
-                return ConvertDrawerToExpandCollapseState(this.SideDrawerOwner.DrawerState);
-            }
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseExpandCollapseAutomationEvent(DrawerState oldValue, DrawerState newValue)
-        {
-            var oldConvertedValue = this.ConvertDrawerToExpandCollapseState(oldValue);
-            var newConvertedValue = this.ConvertDrawerToExpandCollapseState(newValue);
-
-            this.RaisePropertyChangedEvent(ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty, oldConvertedValue.ToString(), newConvertedValue.ToString());
-            this.RaisePropertyChangedEvent(AutomationElementIdentifiers.ItemStatusProperty, oldConvertedValue.ToString(), newConvertedValue.ToString());
         }
 
         private ExpandCollapseState ConvertDrawerToExpandCollapseState(DrawerState drawerState)

@@ -530,18 +530,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
                 this.offsetAnimation.EasingFunction = easing;
 
                 this.animating = true;
-                this.offsetStoryboard.Completed += OffsetStoryboard_Completed;
+                this.offsetStoryboard.Completed += this.OffsetStoryboard_Completed;
                 this.offsetStoryboard.Begin();
             }
         }
-
-        private void OffsetStoryboard_Completed(object sender, object e)
-        {
-            this.offsetStoryboard.Completed -= OffsetStoryboard_Completed;
-
-            this.owner.UpdateSelection(this.owner.SelectedIndex, this.owner.GetVisualIndex(this.owner.SelectedIndex), LoopingListSelectionChangeReason.VisualItemSnappedToMiddle);
-        }
-
+        
         /// <summary>
         /// Ensures that the visual item, associated with the specified logical index is currently displayed.
         /// </summary>
@@ -881,7 +874,8 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
                 this.UpdateWheel(offset, false);
 
                 this.UpdateLayout();
-                //Force items to be remeasured as occasionalli there is no measure for items and they desapear.
+
+                // Force items to be remeasured as occasionalli there is no measure for items and they desapear.
                 this.InvalidateMeasure();
             }
         }
@@ -933,6 +927,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             }
 
             return offset;
+        }
+        
+        private void OffsetStoryboard_Completed(object sender, object e)
+        {
+            this.offsetStoryboard.Completed -= this.OffsetStoryboard_Completed;
+
+            this.owner.UpdateSelection(this.owner.SelectedIndex, this.owner.GetVisualIndex(this.owner.SelectedIndex), LoopingListSelectionChangeReason.VisualItemSnappedToMiddle);
         }
 
         /// <summary>
@@ -1099,7 +1100,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
         {
             this.isLoaded = false;
             this.centeringDuringLayout = false;
-            this.offsetStoryboard.Completed -= OffsetStoryboard_Completed;
+            this.offsetStoryboard.Completed -= this.OffsetStoryboard_Completed;
             this.StopOffsetAnimation(false);
         }
 

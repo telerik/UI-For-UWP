@@ -339,7 +339,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             {
                 AutomationPeer peer = FrameworkElementAutomationPeer.CreatePeerForElement(this);
                 if (peer != null)
+                {
                     peer.RaiseAutomationEvent(AutomationEvents.InvokePatternOnInvoked);
+                }
             }
 
             if (this.Command == null)

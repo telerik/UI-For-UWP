@@ -1,6 +1,5 @@
 namespace Telerik.UI.Xaml.Controls.Primitives
 {
-
     /// <summary>
     /// Specifies the zoom mode of the image.
     /// </summary>

@@ -47,7 +47,9 @@ namespace Telerik.UI.Automation.Peers
         {
             string name = base.GetNameCore();
             if (!string.IsNullOrEmpty(name))
+            {
                 return name;
+            }
 
             name = this.RadHubTile.Message as string;
             if (!string.IsNullOrEmpty(name))
