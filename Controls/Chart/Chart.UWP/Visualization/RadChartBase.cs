@@ -948,7 +948,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
         private void OnInvalidated()
         {
             if (!this.rendered)
+            {
                 return;
+            }
 
             this.rendered = false;
             this.InvalidateLayout();
@@ -1000,8 +1002,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             CompositionTarget.Rendering -= this.CompositionTarget_Rendering;
             this.invalidateScheduled = this.InvokeAsync(this.OnInvalidated);
         }
-
-
+        
         partial void OnUnloadedPartial();
         partial void OnLoadedPartial();
         partial void InitManipulation();

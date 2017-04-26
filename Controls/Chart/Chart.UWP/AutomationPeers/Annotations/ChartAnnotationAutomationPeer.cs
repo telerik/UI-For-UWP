@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(ChartAnnotation);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ChartAnnotation);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(ChartAnnotation);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ChartAnnotation);
         }
 
         /// <inheritdoc />

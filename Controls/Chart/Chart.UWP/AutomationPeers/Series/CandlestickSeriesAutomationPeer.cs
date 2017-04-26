@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(CandlestickSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.CandlestickSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(CandlestickSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.CandlestickSeries);
         }
 
         /// <inheritdoc />

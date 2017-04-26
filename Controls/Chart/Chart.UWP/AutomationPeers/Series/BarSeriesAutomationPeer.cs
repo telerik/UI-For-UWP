@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(BarSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.BarSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(BarSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.BarSeries);
         }
 
         /// <inheritdoc />

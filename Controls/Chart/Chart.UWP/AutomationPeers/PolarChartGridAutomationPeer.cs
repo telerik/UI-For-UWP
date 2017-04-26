@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(PolarChartGrid);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.PolarChartGrid);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(PolarChartGrid);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.PolarChartGrid);
         }
 
         /// <inheritdoc />

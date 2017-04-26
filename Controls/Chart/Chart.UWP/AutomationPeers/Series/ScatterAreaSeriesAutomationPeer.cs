@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(ScatterAreaSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ScatterAreaSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(ScatterAreaSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ScatterAreaSeries);
         }
 
         /// <inheritdoc />

@@ -33,7 +33,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 this.valueSelector = value;
-                this.OnPropertyChanged(nameof(ValueSelector));
+                this.OnPropertyChanged(nameof(this.ValueSelector));
             }
         }
 

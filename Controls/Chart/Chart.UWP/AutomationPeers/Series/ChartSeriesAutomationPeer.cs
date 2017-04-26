@@ -20,21 +20,23 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
-            return nameof(ChartSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ChartSeries);
         }
 
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(ChartSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ChartSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(ChartSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ChartSeries);
         }
 
         /// <inheritdoc />

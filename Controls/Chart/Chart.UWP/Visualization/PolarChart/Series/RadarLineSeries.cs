@@ -170,12 +170,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
-        /// <inheritdoc/>
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RadarLineSeriesAutomationPeer(this);
-        }
-
         internal virtual RadarLineRenderer CreateRenderer()
         {
             return new RadarLineRenderer();
@@ -201,6 +195,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override void UpdateLegendItem(FrameworkElement visual, DataPoint dataPoint)
         {
             this.UpdateLegendItemProperties((Brush)visual.GetValue(Path.FillProperty) ?? (Brush)visual.GetValue(Path.StrokeProperty), (Brush)visual.GetValue(Path.StrokeProperty));
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadarLineSeriesAutomationPeer(this);
         }
 
         /// <inheritdoc/>

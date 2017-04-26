@@ -26,7 +26,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 return;
             }
 
-
             if (elementTransform is TransformGroup)
             {
                 TranslateTransform translateTransform = (elementTransform as TransformGroup).Children.FirstOrDefault(t => t is TranslateTransform) as TranslateTransform;

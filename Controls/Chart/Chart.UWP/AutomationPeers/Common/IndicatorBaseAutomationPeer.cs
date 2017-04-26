@@ -18,7 +18,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(IndicatorBase);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.IndicatorBase);
         }
 
         /// <inheritdoc />
@@ -26,7 +26,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = this.Owner.GetType().Name;
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return base.GetNameCore();
         }
@@ -34,7 +36,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(IndicatorBase);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.IndicatorBase);
         }
 
         /// <inheritdoc />

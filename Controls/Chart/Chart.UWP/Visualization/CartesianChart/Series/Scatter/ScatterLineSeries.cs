@@ -175,15 +175,15 @@ namespace Telerik.UI.Xaml.Controls.Chart
             this.UpdateLegendItemProperties(this.renderer.strokeShape.Fill, this.renderer.strokeShape.Stroke);
         }
 
+        internal virtual LineRenderer CreateRenderer()
+        {
+            return new LineRenderer();
+        }
+
         /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new ScatterLineSeriesAutomationPeer(this);
-        }
-
-        internal virtual LineRenderer CreateRenderer()
-        {
-            return new LineRenderer();
         }
 
         /// <inheritdoc/>

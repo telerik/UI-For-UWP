@@ -424,7 +424,10 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 var presenter = this.realizedDataPointPresenters[index];
                 if (presenter.Visibility == Visibility.Visible)
+                {
                     presenter.Visibility = Visibility.Collapsed;
+                }
+
                 index++;
             }
         }

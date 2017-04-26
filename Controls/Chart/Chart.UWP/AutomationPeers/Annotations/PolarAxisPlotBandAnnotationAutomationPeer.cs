@@ -8,7 +8,7 @@ namespace Telerik.UI.Automation.Peers
     public class PolarAxisPlotBandAnnotationAutomationPeer : ChartAnnotationAutomationPeer
     {
         /// <summary>
-        /// Initializes a new instance of the ChartAnnotationAutomationPeer class.
+        /// Initializes a new instance of the <see cref="PolarAxisPlotBandAnnotationAutomationPeer"/> class.
         /// </summary>
         public PolarAxisPlotBandAnnotationAutomationPeer(PolarAxisPlotBandAnnotation owner) 
             : base(owner)
@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(PolarAxisPlotBandAnnotation);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.PolarAxisPlotBandAnnotation);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(PolarAxisPlotBandAnnotation);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.PolarAxisPlotBandAnnotation);
         }
 
         /// <inheritdoc />

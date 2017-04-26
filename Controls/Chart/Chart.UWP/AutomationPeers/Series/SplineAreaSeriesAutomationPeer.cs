@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(SplineAreaSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.SplineAreaSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(SplineAreaSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.SplineAreaSeries);
         }
 
         /// <inheritdoc />

@@ -264,7 +264,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 this.SetInteractionPointCore(args.GetCurrentPoint(this.chart).Position);
             }
-
         }
 
         /// <summary>
@@ -344,7 +343,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         }
 
         /// <summary>
-        /// Updates and opens the tooltip
+        /// Updates and opens the tooltip.
         /// </summary>
         protected void ShowToolTip()
         {
@@ -418,7 +417,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Sets the interaction point which will be used to calculate the tooltip's position.
         /// </summary>
-        /// <param name="position"></param>
         protected void SetInteractionPoint(Point position)
         {
             if (this.HandleTooltipManually)

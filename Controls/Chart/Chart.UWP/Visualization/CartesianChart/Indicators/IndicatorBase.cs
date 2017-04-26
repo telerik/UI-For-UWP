@@ -83,12 +83,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             this.UpdateUICore(context);
         }
 
-        /// <inheritdoc/>
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new IndicatorBaseAutomationPeer(this);
-        }
-
         /// <summary>
         /// Occurs when one of the axes of the owning <see cref="RadCartesianChart"/> has been changed.
         /// </summary>
@@ -104,6 +98,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 this.model.AttachAxis(newAxis.model, newAxis.type);
             }
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new IndicatorBaseAutomationPeer(this);
         }
 
         /// <summary>

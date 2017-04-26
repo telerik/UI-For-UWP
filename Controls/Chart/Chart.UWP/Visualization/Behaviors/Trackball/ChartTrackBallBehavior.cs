@@ -559,8 +559,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                         // select points only with the same category. TODO: Refactor this.
                         points = context.DataPoints.Where(c => 
                                 c.DataPoint is CategoricalDataPoint &&
-                                point.Category.Equals(((CategoricalDataPoint)c.DataPoint).Category)
-                            ).ToList();
+                                point.Category.Equals(((CategoricalDataPoint)c.DataPoint).Category)).ToList();
                     }
 
                     context = new ChartDataContext(points, context.ClosestDataPoint);

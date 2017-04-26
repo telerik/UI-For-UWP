@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadarLineSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.RadarLineSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadarLineSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.RadarLineSeries);
         }
 
         /// <inheritdoc />

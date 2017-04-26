@@ -493,12 +493,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return base.GetDistanceToPoint(dataPoint, tapLocation, pointDistanceMode);
         }
 
-        /// <inheritdoc/>
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new PieSeriesAutomationPeer(this);
-        }
-
         internal virtual PieUpdateContext SetupUpdateContext(RadSize availableSize, Size updatedAvailableSize, PieUpdateContext context)
         {
             context.Diameter = Math.Min(updatedAvailableSize.Width, updatedAvailableSize.Height) * this.RadiusFactor;
@@ -524,6 +518,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal virtual PieSegment CreateSegment()
         {
             return new PieSegment();
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new PieSeriesAutomationPeer(this);
         }
 
         /// <inheritdoc/>

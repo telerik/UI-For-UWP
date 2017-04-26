@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Dynamic;
 using System.Runtime.CompilerServices;
 using Microsoft.CSharp.RuntimeBinder;
 using Telerik.Core;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -59,7 +59,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 this.getter = null;
                 this.callSite = null;
                 this.propertyName = value;
-                this.OnPropertyChanged(nameof(PropertyName));
+                this.OnPropertyChanged(nameof(this.PropertyName));
             }
         }
 

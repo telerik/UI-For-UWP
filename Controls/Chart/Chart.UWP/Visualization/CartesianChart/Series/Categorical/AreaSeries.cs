@@ -158,7 +158,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected override Point[] SelectRectPoints(ref Rect touchRect)
         {
             if (touchRect.Width == 0)
+            {
                 return new Point[] { new Point(touchRect.Left, touchRect.Top) };
+            }
             else
             {
                 return new Point[] 
@@ -169,7 +171,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     new Point(touchRect.Left, touchRect.Top),
                     new Point((touchRect.Left + touchRect.Right) / 2, (touchRect.Top + touchRect.Bottom) / 2)
                 };
-            };
+            }
         }
 
         /// <inheritdoc/>
