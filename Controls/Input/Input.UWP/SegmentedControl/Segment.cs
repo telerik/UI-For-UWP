@@ -73,7 +73,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public CornerRadius CornerRadius
         {
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
+            set { this.SetValue(CornerRadiusProperty, value); }
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public bool IsSelected
         {
             get { return (bool)GetValue(IsSelectedProperty); }
-            set { SetValue(IsSelectedProperty, value); }
+            set { this.SetValue(IsSelectedProperty, value); }
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 if (this.layoutSlot != value)
                 {
                     this.layoutSlot = value;
-                    OnAnimationContextChanged();
+                    this.OnAnimationContextChanged();
                 }
             }
         }
@@ -126,7 +126,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 if (this.isParentEnabled != value)
                 {
                     this.isParentEnabled = value;
-                    UpdateVisualState(false);
+                    this.UpdateVisualState(false);
                 }
             }
         }
@@ -141,7 +141,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 if (this.group != value)
                 {
-                    UpdateGroups(this.group, value);
+                    this.UpdateGroups(this.group, value);
                     this.group = value;
                 }
             }
@@ -157,12 +157,12 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal void UpdateVisualState(bool useTransitions)
         {
-            var state = CreateVisualState();
+            var state = this.CreateVisualState();
 
             if (VisualStateManager.GoToState(this, state.ToString(), useTransitions))
             {
                 this.visualStateCache = state;
-                OnAnimationContextChanged();
+                this.OnAnimationContextChanged();
             }
         }
 
@@ -171,7 +171,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             base.OnApplyTemplate();
 
-            UpdateVisualState(true);
+            this.UpdateVisualState(true);
         }
 
         /// <inheritdoc/>
@@ -197,7 +197,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 case VirtualKey.Space:
                 case VirtualKey.Enter:
-                    isKeyDown = true;
+                    this.isKeyDown = true;
                     this.UpdateVisualState(true);
                     break;
             }
@@ -206,7 +206,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <inheritdoc/>
         protected override void OnKeyUp(KeyRoutedEventArgs e)
         {
-            isKeyDown = false;
+            this.isKeyDown = false;
             base.OnKeyUp(e);
             switch (e.Key)
             {
@@ -325,7 +325,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     state = SegmentVisualState.SelectedDisabled;
                 }
-                else if (this.IsPressed || isKeyDown)
+                else if (this.IsPressed || this.isKeyDown)
                 {
                     state = SegmentVisualState.SelectedPressed;
                 }
@@ -344,7 +344,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     state = SegmentVisualState.Disabled;
                 }
-                else if (this.IsPressed || isKeyDown)
+                else if (this.IsPressed || this.isKeyDown)
                 {
                     state = SegmentVisualState.Pressed;
                 }

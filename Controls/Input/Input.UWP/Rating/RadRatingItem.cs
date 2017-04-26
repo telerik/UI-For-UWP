@@ -173,25 +173,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
-        /// <inheritdoc/>
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RadRatingItemAutomationPeer(this);
-        }
-
-        /// <inheritdoc/>
-        protected override void OnKeyDown(KeyRoutedEventArgs e)
-        {
-            base.OnKeyDown(e);
-
-            switch (e.Key)
-            {
-                case Windows.System.VirtualKey.Space:
-                    this.Select();
-                    break;
-            }            
-        }
-
         internal RadRating Owner { get; set; }
 
         internal double FillRatio
@@ -262,6 +243,25 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             this.Initialize();
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadRatingItemAutomationPeer(this);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            switch (e.Key)
+            {
+                case Windows.System.VirtualKey.Space:
+                    this.Select();
+                    break;
+            }
         }
 
         /// <inheritdoc/>

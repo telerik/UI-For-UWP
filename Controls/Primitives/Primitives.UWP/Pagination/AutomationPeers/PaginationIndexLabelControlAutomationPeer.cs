@@ -28,13 +28,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(PaginationIndexLabelControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.Pagination.PaginationIndexLabelControl);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(PaginationIndexLabelControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.Pagination.PaginationIndexLabelControl);
         }
 
         /// <inheritdoc />

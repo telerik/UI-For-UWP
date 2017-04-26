@@ -11,62 +11,20 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadRatingItemAutomationPeer : RadContentControlAutomationPeer, IInvokeProvider
     {
-        private RadRatingItem RatingItem
-        {
-            get
-            {
-                return (RadRatingItem)this.Owner;
-            }
-        }
-
         /// <summary>
         ///  Initializes a new instance of the RadRatingItemAutomationPeer class.
         /// </summary>
         /// <param name="owner">The RadRatingItem that is associated with this RadRatingItemAutomationPeer.</param>
         public RadRatingItemAutomationPeer(RadRatingItem owner) : base(owner)
         {
-
-        }
-        
-        /// <inheritdoc />	
-        protected override AutomationControlType GetAutomationControlTypeCore()
-        {
-            return AutomationControlType.Custom;
         }
 
-        /// <inheritdoc />	
-        protected override object GetPatternCore(PatternInterface patternInterface)
+        private RadRatingItem RatingItem
         {
-            if (patternInterface == PatternInterface.Invoke)
+            get
             {
-                return this;
+                return (RadRatingItem)this.Owner;
             }
-
-            return base.GetPatternCore(patternInterface);
-        }
-
-        /// <summary>
-        /// Returns the name of the RadRatingItem. 
-        /// </summary>
-        protected override string GetNameCore()
-        {
-            string baseName = base.GetNameCore();
-            if (!string.IsNullOrEmpty(baseName))
-                return baseName;
-
-            int index = this.RatingItem.Owner.GetIndexOf(this.RatingItem);
-            if (index != -1)
-            {
-                return (index + 1).ToString(CultureInfo.CurrentUICulture);
-            }
-
-            return string.Empty;
-        }
-
-        /// <inheritdoc />
-        protected override string GetLocalizedControlTypeCore()
-        {
-            return "rad rating item";
         }
 
         /// <summary>
@@ -84,6 +42,49 @@ namespace Telerik.UI.Automation.Peers
             {
                 this.RatingItem.Select();
             }
+        }
+
+        /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Custom;
+        }
+
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.Invoke)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
+        }
+
+        /// <summary>
+        /// Returns the name of the RadRatingItem. 
+        /// </summary>
+        protected override string GetNameCore()
+        {
+            string baseName = base.GetNameCore();
+            if (!string.IsNullOrEmpty(baseName))
+            {
+                return baseName;
+            }
+
+            int index = this.RatingItem.Owner.GetIndexOf(this.RatingItem);
+            if (index != -1)
+            {
+                return (index + 1).ToString(CultureInfo.CurrentUICulture);
+            }
+
+            return string.Empty;
+        }
+
+        /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
+        {
+            return "rad rating item";
         }
     }
 }

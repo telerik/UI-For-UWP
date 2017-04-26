@@ -11,6 +11,27 @@ namespace Telerik.UI.Automation.Peers
     public class SuggestionItemAutomationPeer : ListBoxItemAutomationPeer, IInvokeProvider
     {
         private SuggestionItemsControl suggestionItemsControl;
+       
+        /// <summary>
+        /// Initializes a new instance of the SuggestionItemAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The SuggestionItem that is associated with this SuggestionItemAutomationPeer.</param>
+        public SuggestionItemAutomationPeer(SuggestionItem owner) 
+            : base(owner)
+        {
+        }
+    
+        /// <summary>
+        /// Initializes a new instance of the SuggestionItemAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The SuggestionItem that is associated with this SuggestionItemAutomationPeer.</param>
+        /// <param name="parent">The SuggestionItemsControl that is parent of SuggestionItem.</param>
+        public SuggestionItemAutomationPeer(SuggestionItem owner, SuggestionItemsControl parent) 
+            : this(owner)
+        {
+            this.suggestionItemsControl = parent;
+        }
+
         private RadAutoCompleteBox parentAutoCompleteBox
         {
             get
@@ -24,49 +45,12 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the SuggestionItemAutomationPeer class.
-        /// </summary>
-        /// <param name="owner">The SuggestionItem that is associated with this SuggestionItemAutomationPeer.</param>
-        public SuggestionItemAutomationPeer(SuggestionItem owner) 
-            : base(owner)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the SuggestionItemAutomationPeer class.
-        /// </summary>
-        /// <param name="owner">The SuggestionItem that is associated with this SuggestionItemAutomationPeer.</param>
-        /// <param name="parent">The SuggestionItemsControl that is parent of SuggestionItem.</param>
-        public SuggestionItemAutomationPeer(SuggestionItem owner, SuggestionItemsControl parent) 
-            : this(owner)
-        {
-            this.suggestionItemsControl = parent;
-        }
-
         private SuggestionItem SuggestionItem
         {
             get
             {
                 return (SuggestionItem)this.Owner;
             }
-        }
-
-        /// <inheritdoc />
-        protected override object GetPatternCore(PatternInterface patternInterface)
-        {
-            if (patternInterface == PatternInterface.Invoke)
-            {
-                return this;
-            }
-
-            return base.GetPatternCore(patternInterface);
-        }
-
-        /// <inheritdoc />
-        protected override bool HasKeyboardFocusCore()
-        {
-            return true;
         }
 
         /// <summary>
@@ -85,6 +69,23 @@ namespace Telerik.UI.Automation.Peers
                     autoCompleteTextBoxPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
                 }
             }
+        }
+
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.Invoke)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
+        }
+
+        /// <inheritdoc />
+        protected override bool HasKeyboardFocusCore()
+        {
+            return true;
         }
     }
 }

@@ -301,8 +301,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private CalendarCellModel highlightedCellCache;
         private DateTime pointerOverDateCache;
-
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="RadCalendar"/> class.
         /// </summary>
@@ -319,21 +318,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.inputService = new InputService(this);
             this.CurrencyService = new CurrencyService(this);
         }
-
-        ///// <summary>
-        ///// Occurs when the collection returned by the <see cref="SelectedDateRanges"/> property is changed.
-        ///// </summary>
-        //public event EventHandler SelectionChanged
-        //{
-        //    add
-        //    {
-        //        this.SelectionService.SelectionChanged += value;
-        //    }
-        //    remove
-        //    {
-        //        this.SelectionService.SelectionChanged -= value;
-        //    }
-        //}
 
         /// <summary>
         /// Occurs when the collection returned by the <see cref="SelectedDateRanges"/> property is changed.
@@ -2461,8 +2445,10 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private CalendarCellStateContext CreateCurrentCellStateContext(CalendarCellModel cell)
         {
-            if (cell.Date == pointerOverDateCache)
+            if (cell.Date == this.pointerOverDateCache)
+            {
                 cell.IsPointerOver = true;
+            }
 
             if (this.highlightedCellCache != null && this.highlightedCellCache.Date != DateTime.Today)
             {
@@ -2610,16 +2596,16 @@ namespace Telerik.UI.Xaml.Controls.Input
                     var defaultDayNameCellStyle = this.DayNameCellStyle.ContentStyle;
                     var userDefinedDayNameCellStyle = this.DayNameCellStyleSelector.SelectStyle(cell.Label, this);
 
-					if (userDefinedDayNameCellStyle == null)
-					{
-						context.CalculatedContentCellStyle = defaultDayNameCellStyle;
-					}
-					else
-					{
-						//Merge user-defined style and default style
-						userDefinedDayNameCellStyle.BasedOn = defaultDayNameCellStyle;
-						context.CalculatedContentCellStyle = userDefinedDayNameCellStyle;
-					}
+                    if (userDefinedDayNameCellStyle == null)
+                    {
+                        context.CalculatedContentCellStyle = defaultDayNameCellStyle;
+                    }
+                    else
+                    {
+                        // Merge user-defined style and default style
+                        userDefinedDayNameCellStyle.BasedOn = defaultDayNameCellStyle;
+                        context.CalculatedContentCellStyle = userDefinedDayNameCellStyle;
+                    }
                 }
                 else if (this.DayNameCellStyle != null)
                 {
@@ -2634,16 +2620,16 @@ namespace Telerik.UI.Xaml.Controls.Input
                     var defaultWeekNumberCellStyle = this.WeekNumberCellStyle.ContentStyle;
                     var userDefinedWeekNumberCellStyle = this.WeekNumberCellStyleSelector.SelectStyle(cell.Label, this);
 
-					if (userDefinedWeekNumberCellStyle == null)
-					{
-						context.CalculatedContentCellStyle = defaultWeekNumberCellStyle;
-					}
-					else
-					{
-						//Merge user-defined style and default style
-						userDefinedWeekNumberCellStyle.BasedOn = defaultWeekNumberCellStyle;
-						context.CalculatedContentCellStyle = userDefinedWeekNumberCellStyle;
-					}
+                    if (userDefinedWeekNumberCellStyle == null)
+                    {
+                        context.CalculatedContentCellStyle = defaultWeekNumberCellStyle;
+                    }
+                    else
+                    {
+                        // Merge user-defined style and default style
+                        userDefinedWeekNumberCellStyle.BasedOn = defaultWeekNumberCellStyle;
+                        context.CalculatedContentCellStyle = userDefinedWeekNumberCellStyle;
+                    }
                 }
                 else if (this.WeekNumberCellStyle != null)
                 {

@@ -172,13 +172,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadialMenuItemControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.Menu.RadialMenuItemControl);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadialMenuItemControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.Menu.RadialMenuItemControl);
         }
 
         /// <inheritdoc />
@@ -209,7 +209,7 @@ namespace Telerik.UI.Automation.Peers
                 return automationId;
             }
 
-            return nameof(RadialMenuItemControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.Menu.RadialMenuItemControl);
         }
     }
 }

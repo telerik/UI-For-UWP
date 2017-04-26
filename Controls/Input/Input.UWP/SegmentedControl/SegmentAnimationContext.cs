@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private SegmentVisualState visualState;
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the SegmentAnimationContextEventArgs class.
         /// </summary>
         /// <param name="segment">The segment that has initiated the event.</param>
         public SegmentAnimationContextEventArgs(Segment segment)
@@ -22,7 +22,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// The segment <see cref="Segment.LayoutSlot"/>.
+        /// Gets the segment <see cref="Segment.LayoutSlot"/>.
         /// </summary>
         public Rect LayoutSlot
         {
@@ -33,7 +33,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// The segment <see cref="Segment.VisualState"/>.
+        /// Gets the segment <see cref="Segment.VisualState"/>.
         /// </summary>
         public SegmentVisualState VisualState
         {

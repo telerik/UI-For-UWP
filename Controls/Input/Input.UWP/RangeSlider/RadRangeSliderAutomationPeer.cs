@@ -21,6 +21,16 @@ namespace Telerik.UI.Automation.Peers
         {
         }
 
+        /// <inheritdoc />
+        public override string Value
+        {
+            get
+            {
+                var selectionString = base.Value;
+                AutomationProperties.SetItemStatus(this.RadRangeSlider, selectionString);
+                return selectionString;
+            }
+        }
         private RadRangeSlider RadRangeSlider
         {
             get
@@ -46,18 +56,7 @@ namespace Telerik.UI.Automation.Peers
         {
             return AutomationControlType.Group;
         }
-
-        /// <inheritdoc />
-        public override string Value
-        {
-            get
-            {
-                var selectionString = base.Value;
-                AutomationProperties.SetItemStatus(this.RadRangeSlider, selectionString);
-                return selectionString;
-            }
-        }
-
+        
         /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
@@ -75,7 +74,7 @@ namespace Telerik.UI.Automation.Peers
             var children = base.GetChildrenCore().ToList();
             if (children != null && children.Count > 0)
             {
-                children.RemoveAll(x => x.GetClassName() == nameof(ScalePrimitive));
+                children.RemoveAll(x => x.GetClassName() == nameof(Telerik.UI.Xaml.Controls.Primitives.ScalePrimitive));
             }
 
             return children;

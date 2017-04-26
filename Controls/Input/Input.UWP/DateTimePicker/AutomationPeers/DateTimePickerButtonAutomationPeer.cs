@@ -67,7 +67,9 @@ namespace Telerik.UI.Automation.Peers
             }
 
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
         }

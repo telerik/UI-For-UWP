@@ -26,13 +26,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadAutoCompleteBox);
+            return nameof(Telerik.UI.Xaml.Controls.Input.RadAutoCompleteBox);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadAutoCompleteBox);
+            return nameof(Telerik.UI.Xaml.Controls.Input.RadAutoCompleteBox);
         }
 
         /// <inheritdoc />
@@ -40,9 +40,11 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
-            return nameof(RadAutoCompleteBox);
+            return nameof(Telerik.UI.Xaml.Controls.Input.RadAutoCompleteBox);
         }
 
         /// <summary>

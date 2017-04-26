@@ -135,13 +135,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadRadialMenu);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadRadialMenu);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu);
         }
         
         /// <inheritdoc />
@@ -153,7 +153,7 @@ namespace Telerik.UI.Automation.Peers
                 return nameCore;
             }
 
-            return nameof(RadRadialMenu);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu);
         }
 
         /// <inheritdoc />
@@ -171,7 +171,7 @@ namespace Telerik.UI.Automation.Peers
                 return automationId;
             }
 
-            return nameof(RadRadialMenu);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu);
         }
 
         /// <inheritdoc />
@@ -180,7 +180,7 @@ namespace Telerik.UI.Automation.Peers
             var children = base.GetChildrenCore().ToList();
             if (children != null && children.Count > 0)
             {
-                children.RemoveAll(x => x.GetClassName() == nameof(DecorationItemButton));
+                children.RemoveAll(x => x.GetClassName() == nameof(Telerik.UI.Xaml.Controls.Primitives.Menu.DecorationItemButton));
             }
 
             return children;

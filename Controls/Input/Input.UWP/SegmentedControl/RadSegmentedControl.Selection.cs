@@ -48,7 +48,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public int SelectedIndex
         {
             get { return (int)GetValue(SelectedIndexProperty); }
-            set { SetValue(SelectedIndexProperty, value); }
+            set { this.SetValue(SelectedIndexProperty, value); }
         }
 
         /// <summary>
@@ -56,8 +56,8 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         public object SelectedItem
         {
-            get { return GetValue(SelectedItemProperty); }
-            set { SetValue(SelectedItemProperty, value); }
+            get { return this.GetValue(SelectedItemProperty); }
+            set { this.SetValue(SelectedItemProperty, value); }
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         public object SelectedValue
         {
-            get { return GetValue(SelectedValueProperty); }
-            set { SetValue(SelectedValueProperty, value); }
+            get { return this.GetValue(SelectedValueProperty); }
+            set { this.SetValue(SelectedValueProperty, value); }
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public string SelectedValuePath
         {
             get { return (string)GetValue(SelectedValuePathProperty); }
-            set { SetValue(SelectedValuePathProperty, value); }
+            set { this.SetValue(SelectedValuePathProperty, value); }
         }
 
         internal void OnSegmentChecked(Segment segment)
@@ -278,7 +278,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 this.isInternalChange = true;
 
-                this.SelectedIndex = GetIndexByItem(selectedItem);
+                this.SelectedIndex = this.GetIndexByItem(selectedItem);
                 this.SelectedItem = selectedItem;
                 this.SelectedValue = selectedItem.GetPropertyValue(this.SelectedValuePath);
 
@@ -298,7 +298,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 this.isInternalChange = true;
 
-                this.SelectedIndex = GetIndexByItem(selectedItem);
+                this.SelectedIndex = this.GetIndexByItem(selectedItem);
                 this.SelectedItem = selectedItem;
                 this.SelectedValue = selectedItem.GetPropertyValue(this.SelectedValuePath);
 

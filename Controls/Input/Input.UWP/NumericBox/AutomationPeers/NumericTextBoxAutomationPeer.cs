@@ -9,6 +9,8 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class NumericTextBoxAutomationPeer : TextBoxAutomationPeer
     {
+        private RadNumericBoxAutomationPeer parentPeer;
+
         /// <summary>
         /// Initializes a new instance of the NumericTextBoxAutomationPeer class.
         /// </summary>
@@ -24,9 +26,7 @@ namespace Telerik.UI.Automation.Peers
             get;
             set;
         }
-
-        private RadNumericBoxAutomationPeer parentPeer;
-
+        
         private RadNumericBoxAutomationPeer NumericBoxPeer
         {
             get

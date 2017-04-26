@@ -379,6 +379,5 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
                 this.RestoreRunHighlightedForegroundValue();
             }
         }
-        
     }
 }

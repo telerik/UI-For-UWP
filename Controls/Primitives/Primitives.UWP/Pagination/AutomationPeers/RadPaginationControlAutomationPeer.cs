@@ -21,13 +21,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadPaginationControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadPaginationControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl);
         }
 
         /// <inheritdoc />
@@ -39,7 +39,7 @@ namespace Telerik.UI.Automation.Peers
                 return automationId;
             }
 
-            return nameof(RadPaginationControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl);
         }
 
         /// <inheritdoc />
