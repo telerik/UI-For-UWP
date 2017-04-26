@@ -10,7 +10,6 @@ namespace Telerik.Data.Core.Layouts
 
         private int totalItemsCount;
 
-
         // private Dictionary<GroupInfo, double> groupPendingLengthChanges = new Dictionary<GroupInfo, double>();
 
         // groups by key
@@ -22,14 +21,16 @@ namespace Telerik.Data.Core.Layouts
 
         // generally group adapter
         private IHierarchyAdapter hierarchyAdapter;
+
         private IRenderInfo renderInfo;
 
         private double averageItemLength;
         private double availableOppositeLength = -1;
         private IRenderInfo columnSlotsRenderInfo;
 
-        //Represents the blank space in each row.
+        // Represents the blank space in each row.
         private IRenderInfo paddingRenderInfo;
+
         private bool isInitialized;
         private double removedItemsLength;
 
@@ -62,20 +63,7 @@ namespace Telerik.Data.Core.Layouts
                 }
             }
         }
-
-        protected override IRenderInfo RenderInfo
-        {
-            get
-            {
-                if (this.renderInfo == null)
-                {
-                    this.Initialize();
-                }
-
-                return this.renderInfo;
-            }
-        }
-
+        
         public override int GroupCount
         {
             get
@@ -94,6 +82,19 @@ namespace Telerik.Data.Core.Layouts
                 }
 
                 return this.columnSlotsRenderInfo;
+            }
+        }
+
+        protected override IRenderInfo RenderInfo
+        {
+            get
+            {
+                if (this.renderInfo == null)
+                {
+                    this.Initialize();
+                }
+
+                return this.renderInfo;
             }
         }
 
@@ -289,10 +290,9 @@ namespace Telerik.Data.Core.Layouts
                 this.averageItemLength = (this.RenderInfo.OffsetFromIndex(endIndex) - this.RenderInfo.OffsetFromIndex(startIndex)) / generated;
             }
 
-
             if (this.AvailableOppositeLength > 0 && this.ItemsSource != null && this.ItemsSource.Count > 0)
             {
-                //Round to int but exclude calculation error due to rendering not on device pixels.
+                // Round to int but exclude calculation error due to rendering not on device pixels.
                 var estimatedSlots = (int)((this.ColumnSlotsRenderInfo.OffsetFromIndex(this.totalItemsCount - 1) + this.paddingRenderInfo.OffsetFromIndex(this.TotalSlotCount - 1)) / this.AvailableOppositeLength + 0.9);
 
                 if (estimatedSlots > this.TotalSlotCount)
@@ -428,32 +428,7 @@ namespace Telerik.Data.Core.Layouts
             // return result indexes so that changed can be reflected to UI.
             return layoutResult;
         }
-
-        private int CalculateNextRowPosition(int index)
-        {
-            var offset = 0.0;
-            int currentRow = 0;
-
-            for (int i = 0; i <= index; i++)
-            {
-                List<ItemInfo> items = new List<ItemInfo>();
-                var length = this.ColumnSlotsRenderInfo.ValueForIndex(i);
-                if (length == 0)
-                    length = this.DefaultItemOppositeLength;
-
-                if (offset + length + this.paddingRenderInfo.ValueForIndex(currentRow) > this.AvailableOppositeLength)
-                {
-                    currentRow++;
-                    offset = length;
-                }
-                else
-                {
-                    offset += length;
-                }
-            }
-            return currentRow;
-        }
-
+        
         internal override AddRemoveLayoutResult RemoveItem(object changedItem, object addRemoveItem, int addRemoveItemIndex)
         {
             int totalRemovedLines = 0;
@@ -534,7 +509,7 @@ namespace Telerik.Data.Core.Layouts
                     if (isVisible)
                     {
                         var columnsCount = Math.Floor(this.availableOppositeLength / this.DefaultItemOppositeLength);
-                        totalRemovedLines = (int)Math.Ceiling((this.totalItemsCount) / (double)columnsCount) - (int)Math.Ceiling((this.totalItemsCount - count) / columnsCount);
+                        totalRemovedLines = (int)Math.Ceiling(this.totalItemsCount / (double)columnsCount) - (int)Math.Ceiling((this.totalItemsCount - count) / columnsCount);
                     }
 
                     // slot should be already correct.
@@ -675,106 +650,6 @@ namespace Telerik.Data.Core.Layouts
             }
         }
 
-        private bool TryGetGroupedItemsAtColumnSlot(int visibleLine, int slot, int columnSlot, ref List<ItemInfo> items)
-        {
-            ItemInfo itemInfo = new ItemInfo();
-            itemInfo.IsDisplayed = true;
-
-            GroupInfo groupInfo;
-            int lowerBound;
-
-            if (this.groupHeadersTable.TryGetValue(columnSlot, out groupInfo, out lowerBound))
-            {
-                if (lowerBound != columnSlot)
-                {
-                    var avalaibleLength = 2 * this.availableOppositeLength;
-                    double itemsWidth = 0;
-
-                    while (itemsWidth < avalaibleLength && columnSlot < this.ColumnSlotsRenderInfo.Count)
-                    {
-                        if (visibleLine < this.VisibleLineCount)
-                        {
-                            int childIndex = columnSlot - lowerBound - 1;
-
-                            if (groupInfo.LastSubItemSlot - groupInfo.Index <= childIndex)
-                            {
-                                break;
-                            }
-
-                            var childItem = this.hierarchyAdapter.GetItemAt(groupInfo.Item, childIndex);
-                            itemInfo.Item = childItem;
-
-                            itemInfo.Level = groupInfo.Level + 1;
-                            itemInfo.Id = groupInfo.Index + childIndex + 1;
-                            itemInfo.Slot = slot;
-
-                            itemInfo.IsCollapsible = false;
-                            itemInfo.IsCollapsed = false;
-                            itemInfo.ItemType = BaseLayout.GetItemType(itemInfo.Item);
-
-                            itemsWidth += this.ColumnSlotsRenderInfo.ValueForIndex(columnSlot);
-                            columnSlot++;
-
-                            items.Add(itemInfo);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-
-                    var parentItemInfo = new ItemInfo();
-                    parentItemInfo.IsDisplayed = false;
-                    parentItemInfo.Id = groupInfo.Index;
-                    parentItemInfo.Item = groupInfo.Item;
-                    parentItemInfo.Level = groupInfo.Level;
-                    parentItemInfo.Slot = CalculateNextRowPosition(groupInfo.Index);
-                    parentItemInfo.IsCollapsed = !groupInfo.IsExpanded;
-                    parentItemInfo.ItemType = BaseLayout.GetItemType(groupInfo.Item);
-                    parentItemInfo.IsSummaryVisible = parentItemInfo.ItemType == GroupType.Subtotal && groupInfo.Parent != null && this.IsCollapsed(groupInfo.Parent.Item);
-                    items.Insert(0, parentItemInfo);
-                }
-                else
-                {
-                    itemInfo.Id = groupInfo.Index;
-                    itemInfo.Item = groupInfo.Item;
-                    itemInfo.Level = groupInfo.Level;
-                    itemInfo.Slot = slot;
-
-                    itemInfo.IsCollapsed = !groupInfo.IsExpanded;
-                    itemInfo.ItemType = BaseLayout.GetItemType(itemInfo.Item);
-
-                    //// Denote the current slot as a group header as it will be stretched to  fill the entire opposite length
-                    this.ColumnSlotsRenderInfo.Update(itemInfo.Id, this.AvailableOppositeLength);
-
-                    itemInfo.IsSummaryVisible = itemInfo.ItemType == GroupType.Subtotal && groupInfo.Parent != null && this.IsCollapsed(groupInfo.Parent.Item);
-                    items.Add(itemInfo);
-                }
-
-                var parentGroupInfo = groupInfo.Parent;
-                while (parentGroupInfo != null)
-                {
-                    var parentItemInfo = new ItemInfo();
-                    parentItemInfo.IsDisplayed = false;
-                    parentItemInfo.Id = parentGroupInfo.Index;
-                    parentItemInfo.Item = parentGroupInfo.Item;
-                    parentItemInfo.Level = parentGroupInfo.Level;
-                    parentItemInfo.Slot = CalculateNextRowPosition(groupInfo.Index);
-                    parentItemInfo.IsCollapsed = !parentGroupInfo.IsExpanded;
-                    parentItemInfo.ItemType = BaseLayout.GetItemType(parentGroupInfo.Item);
-                    parentItemInfo.IsSummaryVisible = parentItemInfo.ItemType == GroupType.Subtotal && parentGroupInfo.Parent != null && this.IsCollapsed(parentGroupInfo.Parent.Item);
-
-                    items.Insert(0, parentItemInfo);
-                    parentGroupInfo = parentGroupInfo.Parent;
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2233:OperationsShouldNotOverflow", Justification = "Not a real issue.")]
         internal override int CountAndPopulateTables(object item, int rootSlot, int level, int levels, GroupInfo parent, bool shouldIndexItem, List<GroupInfo> insert, ref int totalLines)
         {
@@ -861,6 +736,26 @@ namespace Telerik.Data.Core.Layouts
             if (this.paddingRenderInfo != null)
             {
                 this.paddingRenderInfo.Update(generatedSlot, Math.Min(rowSpacing, this.availableOppositeLength));
+            }
+        }
+
+        protected override void SetItemsSourceOverride(IReadOnlyList<object> source, bool restoreCollapsed)
+        {
+            if (this.availableOppositeLength <= 0)
+            {
+                return;
+            }
+
+            this.UpdateTotalCount(source);
+        }
+
+        private static void UpdateParentGroupInfosLastSlot(int count, GroupInfo groupInfo)
+        {
+            GroupInfo parentGroupInfo = groupInfo != null ? groupInfo.Parent : null;
+            while (parentGroupInfo != null)
+            {
+                parentGroupInfo.LastSubItemSlot += count;
+                parentGroupInfo = parentGroupInfo.Parent;
             }
         }
 
@@ -953,27 +848,136 @@ namespace Telerik.Data.Core.Layouts
                 this.TotalSlotCount = totalLines;
                 this.VisibleLineCount = totalLines;
 
-                //TODO find a better way to update this.
+                // TODO find a better way to update this.
                 this.renderInfo = new IndexStorage(this.TotalSlotCount, IndexStorage.UnknownItemLength);
             }
         }
 
-        protected override void SetItemsSourceOverride(IReadOnlyList<object> source, bool restoreCollapsed)
+        private bool TryGetGroupedItemsAtColumnSlot(int visibleLine, int slot, int columnSlot, ref List<ItemInfo> items)
         {
-            if (this.availableOppositeLength <= 0)
-                return;
+            ItemInfo itemInfo = new ItemInfo();
+            itemInfo.IsDisplayed = true;
 
-            this.UpdateTotalCount(source);
+            GroupInfo groupInfo;
+            int lowerBound;
+
+            if (this.groupHeadersTable.TryGetValue(columnSlot, out groupInfo, out lowerBound))
+            {
+                if (lowerBound != columnSlot)
+                {
+                    var avalaibleLength = 2 * this.availableOppositeLength;
+                    double itemsWidth = 0;
+
+                    while (itemsWidth < avalaibleLength && columnSlot < this.ColumnSlotsRenderInfo.Count)
+                    {
+                        if (visibleLine < this.VisibleLineCount)
+                        {
+                            int childIndex = columnSlot - lowerBound - 1;
+
+                            if (groupInfo.LastSubItemSlot - groupInfo.Index <= childIndex)
+                            {
+                                break;
+                            }
+
+                            var childItem = this.hierarchyAdapter.GetItemAt(groupInfo.Item, childIndex);
+                            itemInfo.Item = childItem;
+
+                            itemInfo.Level = groupInfo.Level + 1;
+                            itemInfo.Id = groupInfo.Index + childIndex + 1;
+                            itemInfo.Slot = slot;
+
+                            itemInfo.IsCollapsible = false;
+                            itemInfo.IsCollapsed = false;
+                            itemInfo.ItemType = BaseLayout.GetItemType(itemInfo.Item);
+
+                            itemsWidth += this.ColumnSlotsRenderInfo.ValueForIndex(columnSlot);
+                            columnSlot++;
+
+                            items.Add(itemInfo);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    var parentItemInfo = new ItemInfo();
+                    parentItemInfo.IsDisplayed = false;
+                    parentItemInfo.Id = groupInfo.Index;
+                    parentItemInfo.Item = groupInfo.Item;
+                    parentItemInfo.Level = groupInfo.Level;
+                    parentItemInfo.Slot = this.CalculateNextRowPosition(groupInfo.Index);
+                    parentItemInfo.IsCollapsed = !groupInfo.IsExpanded;
+                    parentItemInfo.ItemType = BaseLayout.GetItemType(groupInfo.Item);
+                    parentItemInfo.IsSummaryVisible = parentItemInfo.ItemType == GroupType.Subtotal && groupInfo.Parent != null && this.IsCollapsed(groupInfo.Parent.Item);
+                    items.Insert(0, parentItemInfo);
+                }
+                else
+                {
+                    itemInfo.Id = groupInfo.Index;
+                    itemInfo.Item = groupInfo.Item;
+                    itemInfo.Level = groupInfo.Level;
+                    itemInfo.Slot = slot;
+
+                    itemInfo.IsCollapsed = !groupInfo.IsExpanded;
+                    itemInfo.ItemType = BaseLayout.GetItemType(itemInfo.Item);
+
+                    //// Denote the current slot as a group header as it will be stretched to  fill the entire opposite length
+                    this.ColumnSlotsRenderInfo.Update(itemInfo.Id, this.AvailableOppositeLength);
+
+                    itemInfo.IsSummaryVisible = itemInfo.ItemType == GroupType.Subtotal && groupInfo.Parent != null && this.IsCollapsed(groupInfo.Parent.Item);
+                    items.Add(itemInfo);
+                }
+
+                var parentGroupInfo = groupInfo.Parent;
+                while (parentGroupInfo != null)
+                {
+                    var parentItemInfo = new ItemInfo();
+                    parentItemInfo.IsDisplayed = false;
+                    parentItemInfo.Id = parentGroupInfo.Index;
+                    parentItemInfo.Item = parentGroupInfo.Item;
+                    parentItemInfo.Level = parentGroupInfo.Level;
+                    parentItemInfo.Slot = this.CalculateNextRowPosition(groupInfo.Index);
+                    parentItemInfo.IsCollapsed = !parentGroupInfo.IsExpanded;
+                    parentItemInfo.ItemType = BaseLayout.GetItemType(parentGroupInfo.Item);
+                    parentItemInfo.IsSummaryVisible = parentItemInfo.ItemType == GroupType.Subtotal && parentGroupInfo.Parent != null && this.IsCollapsed(parentGroupInfo.Parent.Item);
+
+                    items.Insert(0, parentItemInfo);
+                    parentGroupInfo = parentGroupInfo.Parent;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        private static void UpdateParentGroupInfosLastSlot(int count, GroupInfo groupInfo)
+        private int CalculateNextRowPosition(int index)
         {
-            GroupInfo parentGroupInfo = groupInfo != null ? groupInfo.Parent : null;
-            while (parentGroupInfo != null)
+            var offset = 0.0;
+            int currentRow = 0;
+
+            for (int i = 0; i <= index; i++)
             {
-                parentGroupInfo.LastSubItemSlot += count;
-                parentGroupInfo = parentGroupInfo.Parent;
+                List<ItemInfo> items = new List<ItemInfo>();
+                var length = this.ColumnSlotsRenderInfo.ValueForIndex(i);
+                if (length == 0)
+                {
+                    length = this.DefaultItemOppositeLength;
+                }
+
+                if (offset + length + this.paddingRenderInfo.ValueForIndex(currentRow) > this.AvailableOppositeLength)
+                {
+                    currentRow++;
+                    offset = length;
+                }
+                else
+                {
+                    offset += length;
+                }
             }
+            return currentRow;
         }
 
         private void UpdateTotalCount(IReadOnlyList<object> source)
@@ -1003,7 +1007,6 @@ namespace Telerik.Data.Core.Layouts
                     totalLines = (int)Math.Ceiling(this.totalItemsCount / Math.Max(1d, (int)(this.availableOppositeLength / this.DefaultItemOppositeLength)));
                     this.totalItemsCount = this.ItemsSource.Count;
                 }
-
 
                 slotsCount += totalLines;
 

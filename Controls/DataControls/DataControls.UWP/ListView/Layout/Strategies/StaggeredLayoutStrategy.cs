@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Telerik.Core;
-using Telerik.Data.Core.Layouts;
 using Telerik.UI.Xaml.Controls.Data;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
 using Telerik.UI.Xaml.Controls.Data.ListView;
 using Telerik.UI.Xaml.Controls.Data.ListView.Model;
-using System.Linq;
 
 namespace Telerik.Data.Core.Layouts
 {
@@ -21,7 +19,6 @@ namespace Telerik.Data.Core.Layouts
         {
             this.layout = new StaggeredLayout(new GroupHierarchyAdapter(), defaultItemHeight, stackCount);
             this.StackCount = stackCount;
-
         }
 
         internal int StackCount
@@ -62,10 +59,8 @@ namespace Telerik.Data.Core.Layouts
 
         public override void ArrangeContent(RadSize adjustedfinalSize, double topOffset)
         {
-
             bool initialized = false;
             var topLeft = new RadPoint(0, 0);
-
 
             foreach (var pair in this.GetDisplayedElements())
             {
@@ -78,10 +73,8 @@ namespace Telerik.Data.Core.Layouts
 
                 int elementSequenceNumber = 0;
 
-
                 foreach (var decorator in decorators)
                 {
-
                     elementSequenceNumber = this.layout.ColumnRenderInfo.GetColumnForId(decorator.ItemInfo.Id);
 
                     var offset = decorator.ItemInfo.Slot != 0 ? this.layout.ColumnRenderInfo.PhysicalOffsetFromSlot(decorator.ItemInfo.Id) : 0;
@@ -89,18 +82,15 @@ namespace Telerik.Data.Core.Layouts
                     if (!initialized)
                     {
                         initialized = true;
-                        // var offset = decorator.ItemInfo.Slot != 0 ? this.layout.PhysicalOffsetFromSlot(decorator.ItemInfo.Slot - 1) : 0;
-                        
 
                         if (this.IsHorizontal)
                         {
-                          //  topLeft.X = offset;
+                            // topLeft.X = offset;
                         }
                         else
                         {
-                            topLeft.Y =  topOffset;
+                            topLeft.Y = topOffset;
                         }
-
                     }
 
                     if (this.IsHorizontal)
@@ -112,9 +102,7 @@ namespace Telerik.Data.Core.Layouts
                         topLeft.Y = offset;
                     }
 
-
                     itemlength = this.layout.PhysicalLengthForSlot(decorator.ItemInfo.Slot);
-                
 
                     if (this.IsHorizontal)
                     {
@@ -134,9 +122,7 @@ namespace Telerik.Data.Core.Layouts
                     decorator.LayoutSlot = arrangeRect;
                     this.Owner.Arrange(decorator);
 
-                  //  elementSequenceNumber++;
-
-
+                    // elementSequenceNumber++;
                 }
 
                 if (this.IsHorizontal)
@@ -150,6 +136,29 @@ namespace Telerik.Data.Core.Layouts
 
                 this.ArrangeFrozenDecorators();
             }
+        }
+
+        public override GeneratedItemModel GetDisplayedElement(int slot, int id)
+        {
+            List<GeneratedItemModel> containers;
+            if (this.generatedContainers.TryGetValue(slot, out containers))
+            {
+                var visibleContainers = containers.Where((model) =>
+                {
+                    return model.ItemInfo.Id == id;
+                });
+                if (visibleContainers.Count() > 0)
+                {
+                    return visibleContainers.First();
+                }
+            }
+
+            return null;
+        }
+
+        public override int GetElementFlatIndex(int index)
+        {
+            return index;
         }
 
         internal override RadSize GenerateContainer(IList<ItemInfo> itemInfos, BaseLayoutStrategy.MeasureContext context)
@@ -215,7 +224,6 @@ namespace Telerik.Data.Core.Layouts
 
                 this.Layout.UpdateSlotLength(decorator.ItemInfo.Slot, largestLength);
                 this.layout.ColumnRenderInfo.Update(decorator.ItemInfo.Id, largestLength);
-             
             }
 
             this.UpdateAverageContainerLength(largestLength);
@@ -228,7 +236,6 @@ namespace Telerik.Data.Core.Layouts
                 return new RadSize(cumulativeStackLength, largestLength);
             }
         }
-
 
         internal override RadSize ComputeDesiredSize(MeasureContext context)
         {
@@ -247,34 +254,9 @@ namespace Telerik.Data.Core.Layouts
 
             return desiredSize;
         }
-
-        public override GeneratedItemModel GetDisplayedElement(int slot, int id)
-        {
-            List<GeneratedItemModel> containers;
-            if (this.generatedContainers.TryGetValue(slot, out containers))
-            {
-                var visibleContainers = containers.Where((model) =>
-                {
-                    return model.ItemInfo.Id == id;
-                });
-                if (visibleContainers.Count() > 0)
-                {
-                    return visibleContainers.First();
-                }
-            }
-
-            return null;
-        }
-
-        public override int GetElementFlatIndex(int index)
-        {
-            return index;
-        //    return index / this.StackCount;
-        }
-
+        
         private RadSize GetContainerAvailableSize(ItemInfo info)
         {
-
             if (info.Item is Telerik.Data.Core.IGroup)
             {
                 return this.IsHorizontal ? new RadSize(double.PositiveInfinity, this.AvailableSize.Height) : new RadSize(this.AvailableSize.Width, double.PositiveInfinity);

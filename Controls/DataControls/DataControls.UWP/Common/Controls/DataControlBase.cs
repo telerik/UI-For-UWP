@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(DataControlBase), new PropertyMetadata(null, OnItemsSourceChanged));
-        
+
         internal RadListSource listSource;
 
         /// <summary>

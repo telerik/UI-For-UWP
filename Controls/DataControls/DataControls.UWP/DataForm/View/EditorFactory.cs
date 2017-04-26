@@ -5,7 +5,6 @@ using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 
-
 namespace Telerik.UI.Xaml.Controls.Data
 {
     /// <summary>
@@ -13,10 +12,12 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// </summary>
     public class EditorFactory
     {
-        /// <summary>
-        /// Gets information if the editable controls are restricted.
-        /// </summary>
-        public bool RestrictEditableControls { get; internal set; }
+        internal Dictionary<Type, Type> defaultEditorTypeRegistry = new Dictionary<Type, Type>();
+        internal Dictionary<Type, Type> defaultViewTypeRegistry = new Dictionary<Type, Type>();
+        internal Dictionary<Type, Type> editorTypeRegistry = new Dictionary<Type, Type>();
+        internal Dictionary<string, Type> editorPropertyRegistry = new Dictionary<string, Type>();
+        internal Dictionary<Type, Type> viewTypeRegistry = new Dictionary<Type, Type>();
+        internal Dictionary<string, Type> viewPropertyRegistry = new Dictionary<string, Type>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EditorFactory"/> class.
@@ -27,12 +28,47 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.RegisterDefaultViews();
         }
 
-        internal Dictionary<Type, Type> defaultEditorTypeRegistry = new Dictionary<Type, Type>();
-        internal Dictionary<Type, Type> defaultViewTypeRegistry = new Dictionary<Type, Type>();
-        internal Dictionary<Type, Type> editorTypeRegistry = new Dictionary<Type, Type>();
-        internal Dictionary<string, Type> editorPropertyRegistry = new Dictionary<string, Type>();
-        internal Dictionary<Type, Type> viewTypeRegistry = new Dictionary<Type, Type>();
-        internal Dictionary<string, Type> viewPropertyRegistry = new Dictionary<string, Type>();
+        /// <summary>
+        /// Gets a value indicating whether information if the editable controls are restricted.
+        /// </summary>
+        public bool RestrictEditableControls { get; internal set; }
+
+        /// <summary>
+        /// Method that generates <see cref="ITypeEditor"/> type of editor controls.
+        /// </summary>
+        public EntityPropertyControl CreateEditor(EntityProperty property)
+        {
+            EntityPropertyControl editor = this.GenerateContainerForEntityProperty(property);
+            var view = this.GenerateContainerForEditor(property);
+            if (view != null)
+            {
+                editor.View = view;
+                if ((view as ITypeEditor) != null)
+                {
+                    (view as ITypeEditor).BindEditor();
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            var label = this.GenerateContainerForLabel(property);
+            editor.Label = label;
+
+            var errorView = this.GenerateContainerForErrors(property);
+            editor.ErrorView = errorView;
+
+            var positiveMessageView = this.GenerateContainerForPositiveMessage(property);
+            editor.PositiveMessageView = positiveMessageView;
+
+            if (property.Label != null)
+            {
+                AutomationProperties.SetName(editor.View, property.Label);
+            }
+
+            return editor;
+        }
 
         internal void RegisterDefaultEditors()
         {
@@ -138,43 +174,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
-        /// Method that generates <see cref="ITypeEditor"/> type of editor controls.
-        /// </summary>
-        public EntityPropertyControl CreateEditor(EntityProperty property)
-        {
-            EntityPropertyControl editor = this.GenerateContainerForEntityProperty(property);
-            var view = this.GenerateContainerForEditor(property);
-            if (view != null)
-            {
-                editor.View = view;
-                if ((view as ITypeEditor) != null)
-                {
-                    (view as ITypeEditor).BindEditor();
-                }
-            }
-            else
-            {
-                return null;
-            }
-
-            var label = this.GenerateContainerForLabel(property);
-            editor.Label = label;
-
-            var errorView = this.GenerateContainerForErrors(property);
-            editor.ErrorView = errorView;
-
-            var positiveMessageView = this.GenerateContainerForPositiveMessage(property);
-            editor.PositiveMessageView = positiveMessageView;
-
-            if (property.Label != null)
-            {
-                AutomationProperties.SetName(editor.View, property.Label);
-            }
-            
-            return editor;
-        }
-
-        /// <summary>
         /// Method that generates a container for an editor by creating <see cref="PositiveMessageControl"/> control.
         /// </summary>
         protected virtual FrameworkElement GenerateContainerForEditor(EntityProperty property)
@@ -262,7 +261,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     }
                 }
             }
-            
+
             return editorType;
         }
 

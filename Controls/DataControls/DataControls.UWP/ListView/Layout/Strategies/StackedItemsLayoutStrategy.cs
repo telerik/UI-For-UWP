@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Data.Core.Layouts;
 
 namespace Telerik.Data.Core.Layouts
 {
     internal class StackedItemsLayoutStrategy : ItemsLayoutStrategy
     {
-
         public int StackCount { get; set; }
 
         public override int CalculateAppendedSlotsCount(BaseLayout layout, int startSlot, ref int totalLines)
@@ -44,7 +40,7 @@ namespace Telerik.Data.Core.Layouts
 
         public override void OnItemRemoved(AddRemoveLayoutResult layoutResult)
         {
-            //   throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
     }
 }

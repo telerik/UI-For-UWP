@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telerik.UI.Xaml.Controls.Data.ListView
+﻿namespace Telerik.UI.Xaml.Controls.Data.ListView
 {
     /// <summary>
     /// Defines the pull to refresh mode that will be used.

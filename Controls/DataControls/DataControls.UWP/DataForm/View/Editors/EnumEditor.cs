@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls.Data.DataForm;
-using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;

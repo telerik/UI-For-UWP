@@ -3,7 +3,6 @@ using Telerik.Core;
 using Telerik.Data.Core;
 using Telerik.Data.Core.Layouts;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
-using Telerik.UI.Xaml.Controls.Data.ListView.Model.ContainerGeneration;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
@@ -120,12 +119,12 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
             if (oldLayoutDefinition != null)
             {
-                oldLayoutDefinition.PropertyChanged -= LayoutDefinition_PropertyChanged;
+                oldLayoutDefinition.PropertyChanged -= this.LayoutDefinition_PropertyChanged;
             }
 
             if (newLayoutDefinition != null)
             {
-                newLayoutDefinition.PropertyChanged += LayoutDefinition_PropertyChanged;
+                newLayoutDefinition.PropertyChanged += this.LayoutDefinition_PropertyChanged;
             }
 
             if (this.strategy != null)
@@ -145,13 +144,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             this.owner.UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
 
             // TODO: add callback for orientation changed
-        }
-
-        private void LayoutDefinition_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            (sender as LayoutDefinitionBase).UpdateStrategy(this.strategy);
-            this.strategy.FullyRecycle();
-            this.owner.UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
         }
 
         internal void OnOrientationChanged(Orientation orientation)
@@ -201,6 +193,13 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
         {
             this.strategy.SetSource(null, 0, false);
             this.owner.UpdateService.RegisterUpdate((int)ListView.UpdateFlags.AllButData);
+        }
+
+        private void LayoutDefinition_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            (sender as LayoutDefinitionBase).UpdateStrategy(this.strategy);
+            this.strategy.FullyRecycle();
+            this.owner.UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
         }
     }
 }

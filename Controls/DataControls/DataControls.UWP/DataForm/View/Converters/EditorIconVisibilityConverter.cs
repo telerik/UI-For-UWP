@@ -2,7 +2,6 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-
 namespace Telerik.UI.Xaml.Controls.Data.DataForm
 {
     /// <summary>
@@ -24,10 +23,10 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             {
                 if (value != null)
                 {
-                   var i = System.Convert.ToInt32(value);
+                    var i = System.Convert.ToInt32(value);
                     return i > 0;
                 }
-            }     
+            }
 
             if (value != null)
             {
@@ -55,7 +54,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
                         return Visibility.Collapsed;
                     }
                 }
-            }  
+            }
 
             return Visibility.Collapsed;
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Data.Core.Layouts;
-using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace Telerik.Data.Core.Layouts
 {
@@ -10,15 +6,15 @@ namespace Telerik.Data.Core.Layouts
     {
         private double averageItemlength;
 
-        List<double> columnsLength = new List<double>();
-        Dictionary<int, List<int>> slots = new Dictionary<int, List<int>>();
-        List<double> itemLength = new List<double>();
+        private List<double> columnsLength = new List<double>();
+        private Dictionary<int, List<int>> slots = new Dictionary<int, List<int>>();
+        private List<double> itemLength = new List<double>();
 
         internal StaggeredRenderInfo(int stackCount)
         {
             for (int i = 0; i < stackCount; i++)
             {
-                columnsLength.Add(0);
+                this.columnsLength.Add(0);
             }
         }
 
@@ -30,58 +26,22 @@ namespace Telerik.Data.Core.Layouts
                 this.Update(i, this.averageItemlength);
             }
         }
-
-        private void Insert(int id, double length)
-        {
-            if (itemLength.Count > id)
-            {
-                itemLength[id] = length;
-            }
-            else
-            {
-                for (int i = itemLength.Count; i < id; i++)
-                {
-                    itemLength.Add(this.averageItemlength);
-                    this.ArrangeItem(i, this.averageItemlength);
-                }
-
-                itemLength.Add(length);
-            }
-
-            this.ArrangeItem(id, length);
-        }
-
-        private void ArrangeItem(int id, double length)
-        {
-            int columnKey = this.GetShortestColumnKey();
-            if (!slots.ContainsKey(columnKey))
-            {
-                slots.Add(columnKey, new List<int>() { id });
-            }
-            else
-            {
-                slots[columnKey].Add(id);
-            }
-
-            columnsLength[columnKey] += length;
-        }
-
+        
         internal void Update(int id, double length)
         {
-            if (itemLength.Count > id)
+            if (this.itemLength.Count > id)
             {
-                var oldvalue = itemLength[id];
+                var oldvalue = this.itemLength[id];
                 if (oldvalue != length)
                 {
-                    itemLength[id] = length;
+                    this.itemLength[id] = length;
                     this.RefreshColumns(id);
                 }
             }
             else
-            {               
+            {
                 this.Insert(id, length);
             }
-           
         }
 
         internal int SlotFromPhysicalOffset(double offset)
@@ -93,7 +53,7 @@ namespace Telerik.Data.Core.Layouts
                 foreach (int id in pair.Value)
                 {
                     generatedLength += this.itemLength[id];
-                    if(generatedLength >= offset)
+                    if (generatedLength >= offset)
                     {
                         slotsPerOffset.Add(id);
                         break;
@@ -112,7 +72,7 @@ namespace Telerik.Data.Core.Layouts
             double minValue = double.PositiveInfinity;
             for (int i = 0; i <= this.columnsLength.Count - 1; i++)
             {
-                if(this.columnsLength[i] < minValue)
+                if (this.columnsLength[i] < minValue)
                 {
                     minKey = i;
                     minValue = this.columnsLength[i];
@@ -124,8 +84,7 @@ namespace Telerik.Data.Core.Layouts
 
         internal void RefreshColumns(int startIndex)
         {
-          
-            foreach(var columnKey in this.slots)
+            foreach (var columnKey in this.slots)
             {
                 double currentColumnLength = 0;
                 var indexList = columnKey.Value;
@@ -134,7 +93,7 @@ namespace Telerik.Data.Core.Layouts
                 for (int i = 0; i < indexList.Count; i++)
                 {
                     int currentId = columnKey.Value[i];
-                    if(currentId < startIndex)
+                    if (currentId < startIndex)
                     {
                         currentColumnLength += this.itemLength[currentId];
                     }
@@ -148,9 +107,9 @@ namespace Telerik.Data.Core.Layouts
                 this.columnsLength[columnKey.Key] = currentColumnLength;
             }
 
-            for (int i = startIndex; i < itemLength.Count; i++)
+            for (int i = startIndex; i < this.itemLength.Count; i++)
             {
-                this.Insert(i, itemLength[i]);
+                this.Insert(i, this.itemLength[i]);
             }
         }
 
@@ -159,11 +118,11 @@ namespace Telerik.Data.Core.Layouts
             int column = 1;
             foreach (var slotPair in this.slots)
             {
-               if(slotPair.Value.Contains(slot))
-               {
+                if (slotPair.Value.Contains(slot))
+                {
                     column = slotPair.Key;
                     break;
-               }
+                }
             }
 
             double offset = 0;
@@ -171,7 +130,7 @@ namespace Telerik.Data.Core.Layouts
             slotColl.Sort();
             for (int i = 0; i < slotColl.Count - 1; i++)
             {
-                if(slotColl[i] < slot)
+                if (slotColl[i] < slot)
                 {
                     offset += this.itemLength[slotColl[i]];
                 }
@@ -184,12 +143,11 @@ namespace Telerik.Data.Core.Layouts
         {
             foreach (var pair in this.slots)
             {
-                if(pair.Value.Contains(id))
+                if (pair.Value.Contains(id))
                 {
                     return pair.Key;
                 }
             }
-
 
             return 0;
         }
@@ -200,7 +158,7 @@ namespace Telerik.Data.Core.Layouts
 
             foreach (var length in this.columnsLength)
             {
-                if(length > maxLength)
+                if (length > maxLength)
                 {
                     maxLength = length;
                 }
@@ -210,12 +168,47 @@ namespace Telerik.Data.Core.Layouts
 
         internal double GetLengthForSlot(int slot)
         {
-            if(this.itemLength.Count > slot)
+            if (this.itemLength.Count > slot)
             {
                 return this.itemLength[slot];
             }
 
             return 0;
+        }
+
+        private void Insert(int id, double length)
+        {
+            if (this.itemLength.Count > id)
+            {
+                this.itemLength[id] = length;
+            }
+            else
+            {
+                for (int i = this.itemLength.Count; i < id; i++)
+                {
+                    this.itemLength.Add(this.averageItemlength);
+                    this.ArrangeItem(i, this.averageItemlength);
+                }
+
+                this.itemLength.Add(length);
+            }
+
+            this.ArrangeItem(id, length);
+        }
+
+        private void ArrangeItem(int id, double length)
+        {
+            int columnKey = this.GetShortestColumnKey();
+            if (!this.slots.ContainsKey(columnKey))
+            {
+                this.slots.Add(columnKey, new List<int>() { id });
+            }
+            else
+            {
+                this.slots[columnKey].Add(id);
+            }
+
+            this.columnsLength[columnKey] += length;
         }
     }
 }

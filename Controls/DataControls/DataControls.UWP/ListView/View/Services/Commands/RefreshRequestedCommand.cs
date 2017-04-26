@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
+﻿namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 {
     /// <summary>
     /// Command that is invoked when Pull to refresh is initiated.

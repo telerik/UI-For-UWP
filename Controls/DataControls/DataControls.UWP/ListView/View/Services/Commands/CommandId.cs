@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
+﻿namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 {
     /// <summary>
     /// Defines the known commands that are available within a <see cref="RadListView"/> control.
@@ -33,12 +29,12 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
         /// A command associated with the completion of a item reorder action on an item.
         /// </summary>
         ItemReorderComplete,
-       
+
         /// <summary>
         /// A command associated with the swiping action on an item.
         /// </summary>
         ItemSwiping,
-       
+
         /// <summary>
         /// A command associated with the completion of a item swipe action on an item.
         /// </summary>

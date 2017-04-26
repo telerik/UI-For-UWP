@@ -26,14 +26,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 if (this.spanCount != value)
                 {
                     this.spanCount = value;
-                    this.OnPropertyChanged(nameof(SpanCount));
+                    this.OnPropertyChanged(nameof(this.SpanCount));
                 }
             }
         }
 
         internal override BaseLayoutStrategy CreateStrategy(ItemModelGenerator generator, IOrientedParentView view)
         {
-            return new StaggeredLayoutStrategy(generator, view, IndexStorage.UnknownItemLength, SpanCount) { IsHorizontal = view.Orientation == Orientation.Horizontal};
+            return new StaggeredLayoutStrategy(generator, view, IndexStorage.UnknownItemLength, this.SpanCount) { IsHorizontal = view.Orientation == Orientation.Horizontal };
         }
 
         internal override void UpdateStrategy(BaseLayoutStrategy strategy)

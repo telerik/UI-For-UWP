@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.UI.Xaml.Controls.Primitives;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 {
-     /// <summary>
+    /// <summary>
     /// Represents a command abstraction that is associated with a particular <see cref="RadListView"/> instance.
     /// </summary>
     public abstract class ListViewCommand : ControlCommandBase<RadListView>

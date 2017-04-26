@@ -643,6 +643,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             base.BringIntoView(item);
             this.CheckFireDataRequested();
         }
+
         internal override int GetItemCount()
         {
             int count = base.GetItemCount();
@@ -916,7 +917,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.ShowCheckboxesPressIndicator(item);
             }
         }
-        
+
         /// <summary>
         /// Handles a click from a child visual item.
         /// </summary>
@@ -1610,6 +1611,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         this.lastItemCache.Content = this.itemLoadingContentCache;
                         this.lastItemCache.ContentTemplate = this.itemLoadingTemplateCache;
                         break;
+
                     case BatchLoadingStatus.ItemsLoaded:
                         if (this.IncrementalLoadingMode == BatchLoadingMode.Explicit)
                         {
@@ -1630,6 +1632,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         }
 
                         break;
+
                     case BatchLoadingStatus.ItemsLoadFailed:
                         if (this.IncrementalLoadingMode == BatchLoadingMode.Explicit)
                         {

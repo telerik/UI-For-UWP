@@ -7,11 +7,13 @@
 
         // Keeps the row position considering collapsed item indices.
         public int Slot;
+
         public int Level;
         public GroupType ItemType;
 
         // Expand/Collapse state        
         public bool IsCollapsible;
+
         public bool IsCollapsed;
         public bool IsSummaryVisible;
 

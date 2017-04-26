@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using Telerik.Data.Core;
-using Telerik.UI.Xaml.Controls.Data.DataForm;
-using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -26,7 +23,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public void BindEditor()
         {
-
             Binding b1 = new Binding();
             b1.Path = new PropertyPath("ValueOptions");
             this.SetBinding(ListEditor.ItemsSourceProperty, b1);

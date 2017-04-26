@@ -8,7 +8,6 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// <summary>
     /// Represents a CustomEditorBase control.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     public abstract class CustomEditorBase<T> : RadControl, ITypeEditor where T : FrameworkElement
     {
         /// <summary>
@@ -48,6 +47,5 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.EditorControl = this.GetTemplatePartField<T>(this.ControlPartName);
             return base.ApplyTemplateCore();
         }
-
     }
 }

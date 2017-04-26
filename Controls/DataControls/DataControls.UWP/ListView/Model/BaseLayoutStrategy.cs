@@ -2,33 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Core;
+using Telerik.Data.Core;
 using Telerik.Data.Core.Layouts;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
-using Telerik.Data.Core;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 {
     // TODO: there exist another LayoutStrategyBase in Telerik.Data.Core.Layouts
+
     /// <summary>
-    /// Enables the IOrientedParent to layout its elements in a specified order
+    /// Enables the IOrientedParent to layout its elements in a specified order.
     /// </summary>
     /// <remarks>
-    /// Use the following terms throught the layout module:
+    /// Use the following terms through the layout module:
     ///  - Id - uniquely identifies the index of an item in the source view
     ///  - Slot - identifies the row/column index depending on the orientation in the layout. Takes into account and skips collapsed items.
-    ///  - Stack - identivies the columns/row (opposite) index depending on the orientation in hte layout.
+    ///  - Stack - identifies the columns/row (opposite) index depending on the orientation in the layout.
     /// </remarks>
     internal abstract class BaseLayoutStrategy
     {
-        private static double defaultGroupHeaderLength = 40;
-
         internal bool shouldGenerateFrozenContainer;
-
-        private readonly ItemModelGenerator generator;
         internal IDictionary<int, List<GeneratedItemModel>> generatedContainers = new Dictionary<int, List<GeneratedItemModel>>();
-
-        private Dictionary<object, GeneratedItemModel> recycledDecorators = new Dictionary<object, GeneratedItemModel>();
-
+       
         internal Dictionary<int, GeneratedItemModel> recycledFrozenDecorators = new Dictionary<int, GeneratedItemModel>();
         internal IDictionary<int, List<GeneratedItemModel>> generatedFrozenContainers = new SortedDictionary<int, List<GeneratedItemModel>>();
 
@@ -39,22 +34,10 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
         internal int viewportItemsCount;
         internal double FrozenContainersLength;
 
-        public ItemModelGenerator Generator
-        {
-            get
-            {
-                return this.generator;
-            }
-        }
+        private static double defaultGroupHeaderLength = 40;
+        private readonly ItemModelGenerator generator;
 
-        /// <summary>
-        /// Gets the pixels that correspond to the offset of the first visible item in the viewport.
-        /// </summary>
-        internal double HiddenPixels { get; set; }
-
-        internal double АverageContainerLength { get; set; }
-
-        internal bool EnableFrozenDecorators { get; set; }
+        private Dictionary<object, GeneratedItemModel> recycledDecorators = new Dictionary<object, GeneratedItemModel>();
 
         public BaseLayoutStrategy(ItemModelGenerator generator, IOrientedParentView owner)
         {
@@ -62,11 +45,13 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             this.Owner = owner;
             this.IsBufferNeeded = true;
         }
-
-        /// <summary>
-        /// Used for test purposes.
-        /// </summary>
-        private bool IsBufferNeeded { get; set; }
+        public ItemModelGenerator Generator
+        {
+            get
+            {
+                return this.generator;
+            }
+        }
 
         public IOrientedParentView Owner { get; private set; }
 
@@ -78,7 +63,23 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
         internal virtual bool IsItemsSourceChanging { get; set; }
 
+        /// <summary>
+        /// Gets or sets the pixels that correspond to the offset of the first visible item in the viewport.
+        /// </summary>
+        internal double HiddenPixels { get; set; }
+
+        internal double АverageContainerLength { get; set; }
+
+        internal bool EnableFrozenDecorators { get; set; }
+
         internal abstract BaseLayout Layout { get; }
+        
+        internal abstract IGenerateLayoutLength GeneratedLengthContext { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether if buffer is needed - used for test purposes.
+        /// </summary>
+        private bool IsBufferNeeded { get; set; }
 
         public abstract void ArrangeContent(RadSize adjustedfinalSize, double initialOffset);
 
@@ -90,7 +91,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
             this.InitializeForMeasure();
 
-
             int visibleItemCount = this.Layout.VisibleLineCount;
             if (visibleItemCount == 0)
             {
@@ -101,34 +101,19 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             if (this.IsHorizontal)
             {
                 var resultSize = this.MeasureHorizontally(availableSize, offset, bufferScale);
-                //   var width = this.Layout.TotalSlotCount > 0 ? this.Layout.PhysicalOffsetFromSlot(this.Layout.TotalSlotCount - 1) : 0;
                 var width = this.Layout.GetTotalLength();
                 var height = double.IsPositiveInfinity(availableSize.Height) ? resultSize.Height : availableSize.Height;
-
 
                 return new RadSize(width, height);
             }
             else
             {
                 var resultSize = this.MeasureVertically(availableSize, offset, bufferScale);
-                //  var height = this.Layout.TotalSlotCount > 0 ? this.Layout.PhysicalOffsetFromSlot(this.Layout.TotalSlotCount - 1) : 0;
                 var height = this.Layout.GetTotalLength();
                 var width = double.IsPositiveInfinity(availableSize.Width) ? resultSize.Width : availableSize.Width;
 
                 return new RadSize(width, height);
             }
-        }
-
-        internal virtual void OnOrientationChanged()
-        {
-        }
-
-        internal abstract RadSize GenerateContainer(IList<ItemInfo> list, MeasureContext context);
-
-        internal abstract RadSize ComputeDesiredSize(MeasureContext context);
-
-        internal virtual void InitializeForMeasure()
-        {
         }
 
         public virtual IEnumerable<KeyValuePair<int, List<GeneratedItemModel>>> GetDisplayedElements()
@@ -143,7 +128,17 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
         public abstract int GetElementFlatIndex(int index);
 
-        internal abstract IGenerateLayoutLength GeneratedLengthContext { get;}
+        internal virtual void OnOrientationChanged()
+        {
+        }
+
+        internal abstract RadSize GenerateContainer(IList<ItemInfo> list, MeasureContext context);
+
+        internal abstract RadSize ComputeDesiredSize(MeasureContext context);
+
+        internal virtual void InitializeForMeasure()
+        {
+        }
 
         internal virtual AddRemoveLayoutResult AddItem(object changedItem, object addRemovedItem, int index)
         {
@@ -284,118 +279,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             this.АverageContainerLength = (this.АverageContainerLength * (this.generatedContainers.Count - 1) + length) / this.generatedContainers.Count;
         }
 
-        private RadSize MeasureVertically(RadSize availableSize, double offset, double bufferScale)
-        {
-            var context = new MeasureContext()
-            {
-                Offset = offset,
-                BufferScale = bufferScale
-            };
-
-            context.InitializeForVerticalMeasure(this.Layout, availableSize);
-            this.AvailableLength = context.AvailableLength;
-
-            var initialFirstVisibleIndex = context.FirstVisibleIndex;
-            if (this.IsBufferNeeded)
-            {
-                context.FirstVisibleIndex = this.GenerateTopBufferItems(context.FirstVisibleIndex, context.AvailableLength, context.Offset, context);
-                context.LastVisibleIndex = context.FirstVisibleIndex;
-            }
-
-            this.MeasureForward(ref context);
-
-            //TODO: Investigate the case with maximizing and incorrect scroll offset.
-            if (context.AvailableLength - context.ForwardGeneratedLength > ListViewModel.DoubleArithmetics.Ceiling(1d / IndexStorage.PrecisionMultiplier))
-            {
-                if (this.viewportItemsCount < this.Layout.VisibleLineCount)
-                {
-                    // perform the measure logic again, since this difference will most probably occur when the Index tree is cleared before the measure pass
-                    this.RecycleLocally();
-                    context.InitializeForVerticalMeasure(this.Layout, availableSize);
-
-                    if (this.IsBufferNeeded)
-                    {
-                        context.FirstVisibleIndex = this.GenerateTopBufferItems(context.FirstVisibleIndex, context.AvailableLength, context.Offset, context);
-                        context.LastVisibleIndex = context.FirstVisibleIndex;
-                    }
-
-                    this.MeasureForward(ref context);
-                }
-            }
-
-            this.MeasureBackwards(ref context);
-
-            if (this.IsBufferNeeded)
-            {
-                this.GenerateBottomBufferItems(context.LastVisibleIndex, context.AvailableLength, context);
-            }
-
-            var desiredSize = new RadSize(context.MaxLength, context.GeneratedLength);
-            desiredSize.Width = Math.Min(desiredSize.Width, ListViewModel.DoubleArithmetics.Ceiling(availableSize.Width));
-            desiredSize.Height = Math.Min(desiredSize.Height, context.AvailableLength);
-
-            this.Layout.UpdateAverageLength(context.FirstVisibleIndex, context.LastVisibleIndex);
-            if (Math.Floor(context.Index) > initialFirstVisibleIndex)
-            {
-                (this.Owner as RadListView).updateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
-            }
-            return desiredSize;
-        }
-
-        private RadSize MeasureHorizontally(RadSize availableSize, double offset, double bufferScale)
-        {
-            //TODO: add buffer here
-            var context = new MeasureContext()
-            {
-                Offset = offset,
-                BufferScale = bufferScale
-            };
-
-            context.InitializeForHorizontalMeasure(this.Layout, availableSize);
-
-            this.AvailableLength = context.AvailableLength;
-
-
-            if (this.IsBufferNeeded)
-            {
-                context.FirstVisibleIndex = this.GenerateTopBufferItems(context.FirstVisibleIndex, context.AvailableLength, context.Offset, context);
-                context.LastVisibleIndex = context.FirstVisibleIndex;
-            }
-
-            this.MeasureForward(ref context);
-
-            //TODO: Investigate the case with maximizing and incorrect scroll offset.
-            if (context.AvailableLength - context.ForwardGeneratedLength > ListViewModel.DoubleArithmetics.Ceiling(1d / IndexStorage.PrecisionMultiplier))
-            {
-                if (this.viewportItemsCount < this.Layout.VisibleLineCount)
-                {
-                    // perform the measure logic again, since this difference will most probably occur when the Index tree is cleared before the measure pass
-                    this.RecycleLocally();
-                    context.InitializeForHorizontalMeasure(this.Layout, availableSize);
-
-                    if (this.IsBufferNeeded)
-                    {
-                        context.FirstVisibleIndex = this.GenerateTopBufferItems(context.FirstVisibleIndex, context.AvailableLength, context.Offset, context);
-                        context.LastVisibleIndex = context.FirstVisibleIndex;
-                    }
-
-                    this.MeasureForward(ref context);
-                }
-            }
-
-            this.MeasureBackwards(ref context);
-
-            if (this.IsBufferNeeded)
-            {
-                this.GenerateBottomBufferItems(context.LastVisibleIndex, context.AvailableLength, context);
-            }
-
-            var desiredSize = this.ComputeDesiredSize(context);
-            this.Layout.UpdateAverageLength(context.FirstVisibleIndex, context.LastVisibleIndex);
-
-            return desiredSize;
-        }
-
         internal void GenerateFrozenContainers()
         {
             if (!this.EnableFrozenDecorators)
@@ -445,10 +328,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                     this.generatedFrozenContainers[itemInfo.Id].Add(frozenDecorator);
                 }
 
-
                 if (!realized)
                 {
-                    this.Owner.Measure(frozenDecorator, new RadSize(Double.PositiveInfinity, Double.PositiveInfinity));
+                    this.Owner.Measure(frozenDecorator, new RadSize(double.PositiveInfinity, double.PositiveInfinity));
 
                     desiredLength = this.IsHorizontal ? frozenDecorator.DesiredSize.Width : frozenDecorator.DesiredSize.Height;
                 }
@@ -457,7 +339,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                     desiredLength = this.IsHorizontal ? frozenDecorator.DesiredSize.Width : frozenDecorator.DesiredSize.Height;
                 }
 
-                //Workaround for the optimizations of the measure in cases where desiredsize is 0,0.
+                // Workaround for the optimizations of the measure in cases where desiredsize is 0,0.
                 desiredLength = RadMath.AreClose(desiredLength, 0) ? defaultGroupHeaderLength : desiredLength;
 
                 this.frozenDecoratorLengthPerLevel[itemInfo.Level] = desiredLength;
@@ -499,7 +381,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                         if (layoutSlot.X - physicalHorizontalOffset < topLeft.X + frozenDecoratorDesiredSize.Width)
                         {
                             topLeft.X = layoutSlot.X - physicalHorizontalOffset - frozenDecoratorDesiredSize.Width;
-
                         }
                     }
                     else
@@ -508,21 +389,18 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                         if (layoutSlot.Y - physicalVertivalOffset < topLeft.Y + frozenDecoratorDesiredSize.Height)
                         {
                             topLeft.Y = layoutSlot.Y - physicalVertivalOffset - frozenDecoratorDesiredSize.Height;
-
                         }
                     }
                 }
 
                 // TODO: Get the Pixel VerticalOffset and check the size of the first decorator.
                 // If it doesn't fit - then we need to offset and clip the decorator.
-
                 double stretchLength = this.IsHorizontal ? this.AvailableSize.Height : this.AvailableSize.Width;
                 double length = this.frozenDecoratorLengthPerLevel[frozenGroupLevel];
                 var arrangeRect = new RadRect();
 
                 foreach (var decorator in decorators)
                 {
-
                     if (this.IsHorizontal)
                     {
                         arrangeRect = new RadRect(topLeft.X, topLeft.Y, length, stretchLength);
@@ -618,6 +496,117 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             }
         }
 
+        private RadSize MeasureVertically(RadSize availableSize, double offset, double bufferScale)
+        {
+            var context = new MeasureContext()
+            {
+                Offset = offset,
+                BufferScale = bufferScale
+            };
+
+            context.InitializeForVerticalMeasure(this.Layout, availableSize);
+            this.AvailableLength = context.AvailableLength;
+
+            var initialFirstVisibleIndex = context.FirstVisibleIndex;
+            if (this.IsBufferNeeded)
+            {
+                context.FirstVisibleIndex = this.GenerateTopBufferItems(context.FirstVisibleIndex, context.AvailableLength, context.Offset, context);
+                context.LastVisibleIndex = context.FirstVisibleIndex;
+            }
+
+            this.MeasureForward(ref context);
+
+            // TODO: Investigate the case with maximizing and incorrect scroll offset.
+            if (context.AvailableLength - context.ForwardGeneratedLength > ListViewModel.DoubleArithmetics.Ceiling(1d / IndexStorage.PrecisionMultiplier))
+            {
+                if (this.viewportItemsCount < this.Layout.VisibleLineCount)
+                {
+                    // perform the measure logic again, since this difference will most probably occur when the Index tree is cleared before the measure pass
+                    this.RecycleLocally();
+                    context.InitializeForVerticalMeasure(this.Layout, availableSize);
+
+                    if (this.IsBufferNeeded)
+                    {
+                        context.FirstVisibleIndex = this.GenerateTopBufferItems(context.FirstVisibleIndex, context.AvailableLength, context.Offset, context);
+                        context.LastVisibleIndex = context.FirstVisibleIndex;
+                    }
+
+                    this.MeasureForward(ref context);
+                }
+            }
+
+            this.MeasureBackwards(ref context);
+
+            if (this.IsBufferNeeded)
+            {
+                this.GenerateBottomBufferItems(context.LastVisibleIndex, context.AvailableLength, context);
+            }
+
+            var desiredSize = new RadSize(context.MaxLength, context.GeneratedLength);
+            desiredSize.Width = Math.Min(desiredSize.Width, ListViewModel.DoubleArithmetics.Ceiling(availableSize.Width));
+            desiredSize.Height = Math.Min(desiredSize.Height, context.AvailableLength);
+
+            this.Layout.UpdateAverageLength(context.FirstVisibleIndex, context.LastVisibleIndex);
+            if (Math.Floor(context.Index) > initialFirstVisibleIndex)
+            {
+                (this.Owner as RadListView).updateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
+            }
+            return desiredSize;
+        }
+
+        private RadSize MeasureHorizontally(RadSize availableSize, double offset, double bufferScale)
+        {
+            // TODO: add buffer here
+            var context = new MeasureContext()
+            {
+                Offset = offset,
+                BufferScale = bufferScale
+            };
+
+            context.InitializeForHorizontalMeasure(this.Layout, availableSize);
+
+            this.AvailableLength = context.AvailableLength;
+
+            if (this.IsBufferNeeded)
+            {
+                context.FirstVisibleIndex = this.GenerateTopBufferItems(context.FirstVisibleIndex, context.AvailableLength, context.Offset, context);
+                context.LastVisibleIndex = context.FirstVisibleIndex;
+            }
+
+            this.MeasureForward(ref context);
+
+            // TODO: Investigate the case with maximizing and incorrect scroll offset.
+            if (context.AvailableLength - context.ForwardGeneratedLength > ListViewModel.DoubleArithmetics.Ceiling(1d / IndexStorage.PrecisionMultiplier))
+            {
+                if (this.viewportItemsCount < this.Layout.VisibleLineCount)
+                {
+                    // perform the measure logic again, since this difference will most probably occur when the Index tree is cleared before the measure pass
+                    this.RecycleLocally();
+                    context.InitializeForHorizontalMeasure(this.Layout, availableSize);
+
+                    if (this.IsBufferNeeded)
+                    {
+                        context.FirstVisibleIndex = this.GenerateTopBufferItems(context.FirstVisibleIndex, context.AvailableLength, context.Offset, context);
+                        context.LastVisibleIndex = context.FirstVisibleIndex;
+                    }
+
+                    this.MeasureForward(ref context);
+                }
+            }
+
+            this.MeasureBackwards(ref context);
+
+            if (this.IsBufferNeeded)
+            {
+                this.GenerateBottomBufferItems(context.LastVisibleIndex, context.AvailableLength, context);
+            }
+
+            var desiredSize = this.ComputeDesiredSize(context);
+            this.Layout.UpdateAverageLength(context.FirstVisibleIndex, context.LastVisibleIndex);
+
+            return desiredSize;
+        }
+
         private GeneratedItemModel GetPreviouslyVisibleFrozenDecorator(int id)
         {
             GeneratedItemModel decorator;
@@ -662,7 +651,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                 if (itemInfos.MoveNext())
                 {
                     firstContainerDesiredSize = this.GenerateContainer(itemInfos.Current, context);
-                    //   context.ForwardGeneratedLength += context.GetLength(firstContainerDesiredSize);
                     context.ForwardGeneratedLength += lengthContext.GenerateLength(context.GetLength(firstContainerDesiredSize));
 
                     context.MaxLength = Math.Max(context.MaxLength, context.GetOppositeLength(firstContainerDesiredSize));
@@ -677,11 +665,10 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                     this.viewportItemsCount++;
                 }
 
-                while ((ListViewModel.DoubleArithmetics.IsLessThan(context.ForwardGeneratedLength, context.AvailableLength) /*|| double.IsInfinity(context.AvailableLength)*/) && itemInfos.MoveNext())
+                while (ListViewModel.DoubleArithmetics.IsLessThan(context.ForwardGeneratedLength, context.AvailableLength) && itemInfos.MoveNext())
                 {
                     context.LastVisibleIndex++;
                     lastContainerDesiredSize = this.GenerateContainer(itemInfos.Current, context);
-                    //   context.ForwardGeneratedLength += context.GetLength(lastContainerDesiredSize);
                     context.ForwardGeneratedLength += lengthContext.GenerateLength(context.GetLength(lastContainerDesiredSize));
                     context.MaxLength = Math.Max(context.MaxLength, context.GetOppositeLength(lastContainerDesiredSize));
 
@@ -704,7 +691,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                     {
                         context.FirstVisibleIndex--;
                         firstContainerDesiredSize = this.GenerateContainer(itemInfos.Current, context);
-                        // context.BackwardGeneratedLength += context.GetLength(firstContainerDesiredSize);
                         context.BackwardGeneratedLength += lengthGenerationContext.GenerateLength(context.GetLength(firstContainerDesiredSize));
 
                         context.MaxLength = Math.Max(context.MaxLength, context.GetOppositeLength(firstContainerDesiredSize));
@@ -741,7 +727,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                 while (ListViewModel.DoubleArithmetics.IsLessThan(generatedLength, buffer) && itemInfos.MoveNext())
                 {
                     var size = this.GenerateContainer(itemInfos.Current, context);
-                    //   generatedLength += this.IsHorizontal ? size.Width : size.Height;
                     generatedLength += generatedLengthContext.GenerateLength(context.GetLength(size));
                     endIndex++;
                 }
@@ -765,8 +750,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                 while (ListViewModel.DoubleArithmetics.IsLessThan(generatedLength - generatedLengthForward, buffer) && itemInfos.MoveNext())
                 {
                     var size = this.GenerateContainer(itemInfos.Current, context);
-
-                    //   generatedLength += this.IsHorizontal ? size.Width : size.Height;
+                    
                     generatedLength += generatedLengthContext.GenerateLength(context.GetLength(size));
 
                     lastGeneratedIndex++;

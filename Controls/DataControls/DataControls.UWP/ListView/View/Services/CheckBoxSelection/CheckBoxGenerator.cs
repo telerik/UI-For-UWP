@@ -18,16 +18,16 @@ namespace Telerik.UI.Xaml.Controls.Data
             return container;
         }
 
+        internal override object ContainerTypeForItem(ItemInfo context)
+        {
+            return typeof(ItemCheckBoxControl);
+        }
+
         protected override GeneratedItemModel GenerateContainerForItem(ItemInfo context, object containerType)
         {
             var uiContainer = this.Owner.GenerateContainerForItem(context, containerType);
 
             return new GeneratedItemModel { Container = uiContainer, ContainerType = containerType, ItemInfo = context };
-        }
-
-        internal override object ContainerTypeForItem(ItemInfo context)
-        {
-            return typeof(ItemCheckBoxControl);
         }
     }
 }

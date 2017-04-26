@@ -10,7 +10,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         private Entity entity;
 
         private EntityEditorGenerator containerGenerator;
-        
+
         internal DataFormModel(IDataFormView view)
         {
             this.View = view;

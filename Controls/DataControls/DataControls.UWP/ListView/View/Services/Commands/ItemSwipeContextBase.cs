@@ -6,7 +6,7 @@
     public class ItemSwipeContextBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ItemSwipeActionCompleteContext"/> class.
+        /// Initializes a new instance of the <see cref="ItemSwipeContextBase"/> class.
         /// </summary>
         public ItemSwipeContextBase(object dataItem, RadListViewItem container, double dragDelta)
         {

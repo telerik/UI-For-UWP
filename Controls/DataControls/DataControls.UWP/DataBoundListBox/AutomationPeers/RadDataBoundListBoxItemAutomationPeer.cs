@@ -94,7 +94,7 @@ namespace Telerik.UI.Automation.Peers
 
             RadDataBoundListBox listbox = this.ListBoxItemOwner.typedOwner;
             if (listbox != null)
-            { 
+            {
                 this.SetSelection(listbox, true, false);
             }
         }

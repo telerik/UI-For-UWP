@@ -36,17 +36,17 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(RadListViewItem), new PropertyMetadata(Orientation.Vertical));
-
-        private FrameworkElement reorderHandle;
-        private bool needUpdate = true;
-
+        
         internal bool isDraggedForAction = false;
         internal RadListViewItem dragVisual;
         internal Size lastDesiredSize = Size.Empty;
         internal Rect arrangeRect;
+        private FrameworkElement reorderHandle;
+        private bool needUpdate = true;
 
         // TODO: add weakrefernce list for the images and measure/arrange item when the image is loaded/failed.
         private bool isTemplateApplied;
+
         private double dragX;
         private double dragY;
         private bool isDragContent;
@@ -55,14 +55,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         private bool isSelectedCache;
         private Orientation orientationCache = Orientation.Vertical;
-
-        /// <summary>
-        /// Exposed for testing purposes.
-        /// </summary>
-        internal FrameworkElement ReodredHandle
-        {
-            get { return this.reorderHandle; }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RadListViewItem" /> class.
@@ -85,7 +77,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         }
 
         /// <summary>
-        /// Gets or sets the swipe direction of the item.
+        /// Gets the swipe direction of the item.
         /// </summary>
         public ListViewItemSwipeDirection SwipeDirection
         {
@@ -140,7 +132,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
-
         internal RadListView ListView { get; set; }
 
         internal IListView Owner
@@ -151,13 +142,51 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <inheritdoc/>
+        internal FrameworkElement ReodredHandle
+        {
+            get { return this.reorderHandle; }
+        }
+
+        // This is needed because sometimes the contentpanel is not notified when the listviewitem has changed its size(Downsize animations).
+        bool IArrangeChild.TryInvalidateOwner()
+        {
+            bool isInvalidated = false;
+            if (this.ListView.LayoutDefinition.GetType() == typeof(StackLayoutDefinition))
+            {
+                if (this.needUpdate)
+                {
+                    if (this.ListView.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical)
+                    {
+                        if (!ListViewModel.DoubleArithmetics.AreClose(this.arrangeRect.Height, this.lastDesiredSize.Height) && this.arrangeRect.Height > this.lastDesiredSize.Height)
+                        {
+                            this.ListView.contentPanel.InvalidateMeasure();
+                            isInvalidated = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!ListViewModel.DoubleArithmetics.AreClose(this.arrangeRect.Width, this.lastDesiredSize.Width) && this.arrangeRect.Width > this.lastDesiredSize.Width)
+                        {
+                            this.ListView.contentPanel.InvalidateMeasure();
+                            isInvalidated = true;
+                        }
+                    }
+
+                    this.needUpdate = false;
+                }
+            }
+
+            return isInvalidated;
+        }
+        
         internal void InitializeDragHandles()
         {
             this.firstHandle = this.GetTemplateChild("PART_FirstHandle") as Border;
             if (this.firstHandle != null)
             {
                 this.firstHandle.ManipulationMode = ManipulationModes.None;
-                DragDrop.SetAllowDrag(this.firstHandle, true);              
+                DragDrop.SetAllowDrag(this.firstHandle, true);
             }
 
             this.secondHandle = this.GetTemplateChild("PART_SecondHandle") as Border;
@@ -174,7 +203,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             var owner = this.ListView;
             var dragContent = owner.DragBehavior.GetDragVisual(this);
-
 
             this.dragVisual = this.ListView.GetContainerForItem();
 
@@ -241,7 +269,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             var size = base.MeasureOverride(availableSize);
             if (this.lastDesiredSize != size)
             {
-                needUpdate = true;
+                this.needUpdate = true;
             }
 
             this.lastDesiredSize = size;
@@ -289,9 +317,8 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             if (this.isTemplateApplied)
             {
-                this.reorderHandle.PointerPressed += OnReorderHandlePointerPressed;
+                this.reorderHandle.PointerPressed += this.OnReorderHandlePointerPressed;
             }
-
 
             this.InitializeDragHandles();
             this.ChangeVisualState();
@@ -361,163 +388,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         }
 
         /// <inheritdoc/>
-        protected override void OnKeyDown(KeyRoutedEventArgs e)
-        {
-            base.OnKeyDown(e);
-
-            bool success = false;
-            this.ListView.currentLogicalIndex = this.logicalIndex;
-
-            switch (e.Key)
-            {
-                case VirtualKey.Right:
-                    {
-                        if (this.Owner.Orientation == Orientation.Horizontal)
-                        {
-                            success = this.Owner.CurrencyService.MoveCurrentToNext();
-                        }
-                    }
-                    break;
-                case VirtualKey.Down:
-                    {
-                        if (this.Owner.Orientation == Orientation.Vertical)
-                        {
-                            success = this.Owner.CurrencyService.MoveCurrentToNext();
-                        }
-                    }
-                    break;
-                case VirtualKey.Left:
-                    {
-                        if (this.Owner.Orientation == Orientation.Horizontal)
-                        {
-                            success = this.Owner.CurrencyService.MoveCurrentToPrevious();
-                        }
-                    }
-                    break;
-                case VirtualKey.Up:
-                    {
-                        if (this.Owner.Orientation == Orientation.Vertical)
-                        {
-                            success = this.Owner.CurrencyService.MoveCurrentToPrevious();
-                        }
-                    }
-                    break;
-                case VirtualKey.Home:
-                    {
-                        success = this.Owner.CurrencyService.MoveCurrentToFirst();
-                    }
-                    break;
-                case VirtualKey.End:
-                    {
-                        success = this.Owner.CurrencyService.MoveCurrentToLast();
-                    }
-                    break;
-                case VirtualKey.Space:
-                case VirtualKey.Enter:
-                    {
-                        if (this.ListView != null)
-                        {
-                            this.ListView.OnItemTap(this, new Point());
-                        }
-                        e.Handled = true;
-                    }
-                    break;
-            }
-
-            if (success)
-            {
-                this.ListView.FocusCurrentContainer();
-                e.Handled = true;
-            }
-        }
-
-        private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RadListViewItem item = d as RadListViewItem;
-            item.isSelectedCache = (bool)e.NewValue;
-            item.ChangeVisualState(true);
-        }       
-
-        private void OnReorderHandlePointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            this.ListView.OnItemReorderHandlePressed(this, e, sender);
-        }
-
-        private void UpdateActionContentClipping(double offset)
-        {
-            double x = 0;
-            double y = 0;
-            double width = this.ListView.swipeActionContentControl.ActualWidth;
-            double height = this.ListView.swipeActionContentControl.ActualHeight;
-
-            var dragMode = DragDrop.GetDragPositionMode(this);
-
-            if (offset > 0)
-            {
-                if (this.ListView.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal)
-                {
-                    if(dragMode.HasFlag(DragPositionMode.RailYForward))
-                    {
-                        height = Math.Max(offset, 0);
-                    }
-                    else
-                    {
-                        height = 0;
-                    }
-                }
-                else
-                {
-                    if(dragMode.HasFlag(DragPositionMode.RailXForward))
-                    {
-                        width = Math.Max(offset, 0);
-                    } 
-                    else
-                    {
-                        width = 0;
-                    }
-                }
-            }
-            else
-            {
-                if (this.ListView.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal)
-                {
-                    if(dragMode.HasFlag(DragPositionMode.RailYBackwards))
-                    {
-                        y = Math.Max(0, height + offset);
-                    }
-                    else
-                    {
-                        y = height;
-                    }
-                }
-                else
-                {
-                    if (dragMode.HasFlag(DragPositionMode.RailXBackwards))
-                    {
-                        x = Math.Max(0, width + offset);
-                    }
-                    else
-                    {
-                        x = width;
-                    }
-                }
-            }
-
-            this.ListView.swipeActionContentControl.Clip = new Windows.UI.Xaml.Media.RectangleGeometry() { Rect = new Rect(x, y, width, height) };
-        }
-
-        private void RadListViewItem_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
-        {
-            var aritmetics = new DoubleArithmetics(1);
-
-            if (!aritmetics.AreClose(e.PreviousSize, e.NewSize) && !this.isDragContent)
-            {
-                this.Owner.UpdateService.RegisterUpdate(new DelegateUpdate<UpdateFlags>(() => this.ListView.contentPanel.InvalidateMeasure()));
-                this.needUpdate = false;
-            }
-        }
-
-        /// <inheritdoc/>
         protected virtual void ChangeVisualState(bool useTransitions)
         {
             if (!this.IsEnabled)
@@ -558,6 +428,169 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                         return;
                     }
                 }
+            }
+        }
+
+        /// <inheritdoc/>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            bool success = false;
+            this.ListView.currentLogicalIndex = this.logicalIndex;
+
+            switch (e.Key)
+            {
+                case VirtualKey.Right:
+                    {
+                        if (this.Owner.Orientation == Orientation.Horizontal)
+                        {
+                            success = this.Owner.CurrencyService.MoveCurrentToNext();
+                        }
+                    }
+                    break;
+
+                case VirtualKey.Down:
+                    {
+                        if (this.Owner.Orientation == Orientation.Vertical)
+                        {
+                            success = this.Owner.CurrencyService.MoveCurrentToNext();
+                        }
+                    }
+                    break;
+
+                case VirtualKey.Left:
+                    {
+                        if (this.Owner.Orientation == Orientation.Horizontal)
+                        {
+                            success = this.Owner.CurrencyService.MoveCurrentToPrevious();
+                        }
+                    }
+                    break;
+
+                case VirtualKey.Up:
+                    {
+                        if (this.Owner.Orientation == Orientation.Vertical)
+                        {
+                            success = this.Owner.CurrencyService.MoveCurrentToPrevious();
+                        }
+                    }
+                    break;
+
+                case VirtualKey.Home:
+                    {
+                        success = this.Owner.CurrencyService.MoveCurrentToFirst();
+                    }
+                    break;
+
+                case VirtualKey.End:
+                    {
+                        success = this.Owner.CurrencyService.MoveCurrentToLast();
+                    }
+                    break;
+
+                case VirtualKey.Space:
+                case VirtualKey.Enter:
+                    {
+                        if (this.ListView != null)
+                        {
+                            this.ListView.OnItemTap(this, new Point());
+                        }
+                        e.Handled = true;
+                    }
+                    break;
+            }
+
+            if (success)
+            {
+                this.ListView.FocusCurrentContainer();
+                e.Handled = true;
+            }
+        }
+
+        private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RadListViewItem item = d as RadListViewItem;
+            item.isSelectedCache = (bool)e.NewValue;
+            item.ChangeVisualState(true);
+        }
+
+        private void OnReorderHandlePointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            this.ListView.OnItemReorderHandlePressed(this, e, sender);
+        }
+
+        private void UpdateActionContentClipping(double offset)
+        {
+            double x = 0;
+            double y = 0;
+            double width = this.ListView.swipeActionContentControl.ActualWidth;
+            double height = this.ListView.swipeActionContentControl.ActualHeight;
+
+            var dragMode = DragDrop.GetDragPositionMode(this);
+
+            if (offset > 0)
+            {
+                if (this.ListView.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal)
+                {
+                    if (dragMode.HasFlag(DragPositionMode.RailYForward))
+                    {
+                        height = Math.Max(offset, 0);
+                    }
+                    else
+                    {
+                        height = 0;
+                    }
+                }
+                else
+                {
+                    if (dragMode.HasFlag(DragPositionMode.RailXForward))
+                    {
+                        width = Math.Max(offset, 0);
+                    }
+                    else
+                    {
+                        width = 0;
+                    }
+                }
+            }
+            else
+            {
+                if (this.ListView.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal)
+                {
+                    if (dragMode.HasFlag(DragPositionMode.RailYBackwards))
+                    {
+                        y = Math.Max(0, height + offset);
+                    }
+                    else
+                    {
+                        y = height;
+                    }
+                }
+                else
+                {
+                    if (dragMode.HasFlag(DragPositionMode.RailXBackwards))
+                    {
+                        x = Math.Max(0, width + offset);
+                    }
+                    else
+                    {
+                        x = width;
+                    }
+                }
+            }
+
+            this.ListView.swipeActionContentControl.Clip = new Windows.UI.Xaml.Media.RectangleGeometry() { Rect = new Rect(x, y, width, height) };
+        }
+
+        private void RadListViewItem_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
+        {
+            var aritmetics = new DoubleArithmetics(1);
+
+            if (!aritmetics.AreClose(e.PreviousSize, e.NewSize) && !this.isDragContent)
+            {
+                this.Owner.UpdateService.RegisterUpdate(new DelegateUpdate<UpdateFlags>(() => this.ListView.contentPanel.InvalidateMeasure()));
+                this.needUpdate = false;
             }
         }
 
@@ -649,38 +682,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             {
                 this.secondHandle.Visibility = (this.IsActionOnSwipeEnabled && (this.SwipeDirection == ListViewItemSwipeDirection.All || this.SwipeDirection == ListViewItemSwipeDirection.Backwards)) ? Visibility.Visible : Visibility.Collapsed;
             }
-        }
-
-        // This is needed because sometimes the contentpanel is not notified when the listviewitem has changed its size(Downsize animations).
-        bool IArrangeChild.TryInvalidateOwner()
-        {
-            bool isInvalidated = false;
-            if (this.ListView.LayoutDefinition.GetType() == typeof(StackLayoutDefinition))
-            {
-                if (needUpdate)
-                {
-                    if (this.ListView.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical)
-                    {
-                        if (!ListViewModel.DoubleArithmetics.AreClose(arrangeRect.Height, this.lastDesiredSize.Height) && arrangeRect.Height > this.lastDesiredSize.Height)
-                        {
-                            this.ListView.contentPanel.InvalidateMeasure();
-                            isInvalidated = true;
-                        }
-                    }
-                    else
-                    {
-                        if (!ListViewModel.DoubleArithmetics.AreClose(arrangeRect.Width, this.lastDesiredSize.Width) && arrangeRect.Width > this.lastDesiredSize.Width)
-                        {
-                            this.ListView.contentPanel.InvalidateMeasure();
-                            isInvalidated = true;
-                        }
-                    }
-                    needUpdate = false;
-                }
-
-            }
-
-            return isInvalidated;
         }
     }
 }

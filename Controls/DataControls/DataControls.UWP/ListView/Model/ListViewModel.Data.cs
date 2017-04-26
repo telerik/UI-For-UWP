@@ -202,11 +202,13 @@ namespace Telerik.UI.Xaml.Controls.Data
                             this.View.UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
 
                             break;
+
                         case CollectionChange.ItemRemoved:
                             result = this.layoutController.RemoveItem(changedItem, addRemoveItem, index);
 
                             this.View.UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
                             break;
+
                         default:
                             System.Diagnostics.Debug.Assert(true, "Not expected action. Only Add, Remove or Reset are supported");
                             break;

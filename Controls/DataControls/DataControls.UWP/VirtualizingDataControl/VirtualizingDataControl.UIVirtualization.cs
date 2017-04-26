@@ -417,12 +417,6 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             this.waitingForBalance = false;
 
-            //// we have balance scheduled, do nothing
-            //if (this.waitingForBalance)
-            //{
-            //    return;
-            //}
-
             if (this.useAsyncBalance)
             {
                 this.EndAsyncBalance();
@@ -482,7 +476,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             if (this.itemAddedBatchAnimationScheduled && !this.useAsyncBalance)
             {
-                var _ = this.Dispatcher.RunAsync(
+                var temp = this.Dispatcher.RunAsync(
                     CoreDispatcherPriority.Normal,
                     () =>
                     {
@@ -619,7 +613,6 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         private void OnCompositionTarget_Rendering(object sender, object e)
         {
-          //  this.OnScrollOffsetChanged(false);
         }
 
         private double GetBottomMostAnimatedItemPosition()

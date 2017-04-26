@@ -13,6 +13,14 @@ namespace Telerik.UI.Xaml.Controls.Data
     public partial class RadListView
     {
         /// <summary>
+        /// Identifies the <see cref="ItemSwipeDirection"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty ItemSwipeDirectionProperty =
+            DependencyProperty.Register(nameof(ItemSwipeDirection), typeof(ListViewItemSwipeDirection), typeof(RadListView), new PropertyMetadata(ListViewItemSwipeDirection.All, OnItemSwipeDirectionChanged));
+
+        private const double CheckBoxSelectionTouchTargetThreshold = 20;
+
+                /// <summary>
         /// Gets or sets the swipe direction of the item.
         /// </summary>
         public ListViewItemSwipeDirection ItemSwipeDirection
@@ -20,14 +28,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             get { return (ListViewItemSwipeDirection)GetValue(ItemSwipeDirectionProperty); }
             set { SetValue(ItemSwipeDirectionProperty, value); }
         }
-
-        /// <summary>
-        /// Identifies the <see cref="ItemSwipeDirection"/> dependency property. 
-        /// </summary>
-        public static readonly DependencyProperty ItemSwipeDirectionProperty =
-            DependencyProperty.Register(nameof(ItemSwipeDirection), typeof(ListViewItemSwipeDirection), typeof(RadListView), new PropertyMetadata(ListViewItemSwipeDirection.All, OnItemSwipeDirectionChanged));
-
-        private const double CheckBoxSelectionTouchTargetThreshold = 20;
 
         /// <summary>
         /// Ends all currently running drag operations.

@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 
 namespace Telerik.Data.Core.Layouts
 {
     internal class StackedCompactLayout : CompactLayout
     {
         private int stackCount;
+
+        public StackedCompactLayout(IHierarchyAdapter adapter, double defaultItemLength, int stackCount)
+            : base(adapter, defaultItemLength)
+        {
+            this.StackCount = stackCount;
+        }
 
         public int StackCount
         {
@@ -20,15 +24,8 @@ namespace Telerik.Data.Core.Layouts
                 this.stackCount = value;
                 this.LayoutStrategies.Clear();
                 this.LayoutStrategies.Add(new StackedItemsLayoutStrategy { StackCount = this.StackCount });
-                this.SetSource(this.ItemsSource, GroupLevels, 0, 0, 0, true);
+                this.SetSource(this.ItemsSource, this.GroupLevels, 0, 0, 0, true);
             }
-        }
-
-        public StackedCompactLayout(IHierarchyAdapter adapter, double defaultItemLength, int stackCount)
-            : base(adapter, defaultItemLength)
-        {
-            this.StackCount = stackCount;
-
         }
 
         internal override int CalculateFlatRowCount()
@@ -62,20 +59,17 @@ namespace Telerik.Data.Core.Layouts
                     totalChildrenCount += childrenSlotsCount;
 
                     subtotalItemsCount += childrenSlotsCount;
-
-
                 }
 
-                //Only if last group level
+                // Only if last group level
                 if (level == levels - 1)
                 {
                     totalLines += (int)Math.Ceiling(totalChildrenCount / (double)this.StackCount) + 1; // total slots for a group including its children
                 }
                 else
                 {
-                    totalLines += 1;// only group header
+                    totalLines += 1; // only group header
                 }
-
             }
 
             shouldIndexItem = shouldIndexItem || subtotalItemsCount > 1;
@@ -100,60 +94,15 @@ namespace Telerik.Data.Core.Layouts
                     insert.Insert(0, itemGroupInfo);
                 }
 
-
                 this.ItemInfoTable.Add(item, itemGroupInfo);
             }
 
             return subtotalItemsCount;
         }
-
-        protected override void SetItemsSourceOverride(IReadOnlyList<object> source, bool restoreCollapsed)
-        {
-            int slotsCount = 0;
-
-            int linesCount = 0;
-
-            this.collapsedSlotsTable.Clear();
-            this.GroupHeadersTable.Clear();
-
-            var canRestoreCollapsedState = this.itemInfoTable != null && restoreCollapsed;
-
-            if (this.itemInfoTable != null)
-            {
-                ////if (restoreCollapsed)
-                ////{
-                ////    collapsedGroups = this.CopyCollapsedStates();
-                ////}
-                this.itemInfoTable.Clear();
-            }
-
-
-            foreach (var strategy in this.LayoutStrategies)
-            {
-                slotsCount += strategy.CalculateAppendedSlotsCount(this, slotsCount, ref linesCount);
-            }
-
-
-            this.TotalSlotCount = linesCount;
-
-            if (this.GroupLevels == 0)
-            {
-                this.VisibleLineCount = this.CalculateFlatRowCount();
-            }
-            else
-            {
-                this.VisibleLineCount = linesCount;
-            }
-
-
-
-            this.RefreshRenderInfo(false);
-        }
-
+        
         internal override IList<ItemInfo> GetItemInfosAtSlot(int visibleLine, int rowSlot)
         {
             List<ItemInfo> items = new List<ItemInfo>();
-
 
             GroupInfo groupInfo;
             int lowerBound;
@@ -164,23 +113,23 @@ namespace Telerik.Data.Core.Layouts
                 itemsCount = Math.Max(item.Value.LastSubItemSlot, itemsCount);
             }
 
-            int stackSlot = GetFirstStackSlotOnRow(rowSlot, itemsCount);
+            int stackSlot = this.GetFirstStackSlotOnRow(rowSlot, itemsCount);
 
             if (this.GroupHeadersTable.TryGetValue(stackSlot, out groupInfo, out lowerBound) && stackSlot <= itemsCount)
             {
                 if (lowerBound != stackSlot)
                 {
-                    //Children item inside the group
+                    // Children item inside the group
                     int childSlotIndex = stackSlot - lowerBound - 1;
 
-                    //TODO find more effition
+                    // TODO find more effition
                     for (int i = 0; i < this.StackCount; i++)
                     {
                         var item = this.HierarchyAdapter.GetItemAt(groupInfo.Item, childSlotIndex + i);
 
                         if (item == null)
                         {
-                            //End of child collection - the stack row/column is not full.
+                            // End of child collection - the stack row/column is not full.
                             break;
                         }
 
@@ -189,7 +138,7 @@ namespace Telerik.Data.Core.Layouts
                         itemInfo.Id = groupInfo.Index + childSlotIndex + 1 + i;
                         itemInfo.Item = item;
                         itemInfo.Level = groupInfo.Level + 1;
-                        itemInfo.Slot = rowSlot;//groupInfo.Index + (int)Math.Ceiling(childSlotIndex/(double)this.StackCount) + 1;
+                        itemInfo.Slot = rowSlot; // groupInfo.Index + (int)Math.Ceiling(childSlotIndex/(double)this.StackCount) + 1;
 
                         itemInfo.IsCollapsible = false;
                         itemInfo.IsCollapsed = false;
@@ -199,14 +148,14 @@ namespace Telerik.Data.Core.Layouts
                         items.Add(itemInfo);
                     }
 
-                    //Add parent (group) for lookup
+                    // Add parent (group) for lookup
                     var parentItemInfo = new ItemInfo();
                     parentItemInfo.IsDisplayed = false;
                     parentItemInfo.Id = groupInfo.Index;
                     parentItemInfo.Item = groupInfo.Item;
                     parentItemInfo.Level = groupInfo.Level;
-                    parentItemInfo.Slot = rowSlot;//groupInfo.Index;
-                    //  parentItemInfo.IsCollapsible = this.IsCollapsible(groupInfo);
+                    parentItemInfo.Slot = rowSlot;
+                    
                     parentItemInfo.IsCollapsed = !groupInfo.IsExpanded;
                     parentItemInfo.ItemType = BaseLayout.GetItemType(groupInfo.Item);
                     parentItemInfo.IsSummaryVisible = parentItemInfo.ItemType == GroupType.Subtotal && groupInfo.Parent != null && this.IsCollapsed(groupInfo.Parent.Item);
@@ -215,14 +164,13 @@ namespace Telerik.Data.Core.Layouts
                 }
                 else
                 {
-                    //Group header
+                    // Group header
                     ItemInfo itemInfo = new ItemInfo();
                     itemInfo.IsDisplayed = true;
                     itemInfo.Id = groupInfo.Index;
                     itemInfo.Item = groupInfo.Item;
                     itemInfo.Level = groupInfo.Level;
                     itemInfo.Slot = rowSlot;
-                    // itemInfo.IsCollapsible = this.IsCollapsible(groupInfo);
                     itemInfo.IsCollapsed = !groupInfo.IsExpanded;
                     itemInfo.ItemType = BaseLayout.GetItemType(itemInfo.Item);
                     itemInfo.IsSummaryVisible = itemInfo.ItemType == GroupType.Subtotal && groupInfo.Parent != null && this.IsCollapsed(groupInfo.Parent.Item);
@@ -230,7 +178,7 @@ namespace Telerik.Data.Core.Layouts
                     items.Add(itemInfo);
                 }
 
-                //Add parent path to root
+                // Add parent path to root
                 int line = visibleLine - 1;
                 var parentGroupInfo = groupInfo.Parent;
                 while (parentGroupInfo != null)
@@ -241,7 +189,6 @@ namespace Telerik.Data.Core.Layouts
                     parentItemInfo.Item = parentGroupInfo.Item;
                     parentItemInfo.Level = parentGroupInfo.Level;
                     parentItemInfo.Slot = parentGroupInfo.Index;
-                    //  parentItemInfo.IsCollapsible = this.IsCollapsible(parentGroupInfo);
                     parentItemInfo.IsCollapsed = !parentGroupInfo.IsExpanded;
                     parentItemInfo.ItemType = BaseLayout.GetItemType(parentGroupInfo.Item);
                     parentItemInfo.IsSummaryVisible = parentItemInfo.ItemType == GroupType.Subtotal && parentGroupInfo.Parent != null && this.IsCollapsed(parentGroupInfo.Parent.Item);
@@ -254,7 +201,6 @@ namespace Telerik.Data.Core.Layouts
             }
             else
             {
-                //flat scenario
                 for (int stackIndex = 0; stackIndex < this.StackCount; stackIndex++)
                 {
                     var position = this.StackCount * visibleLine + stackIndex;
@@ -283,17 +229,14 @@ namespace Telerik.Data.Core.Layouts
         }
 
         /// <summary>
-        /// Gets the slot as if in flat scenario (without stacks)
+        /// Gets the slot as if in flat scenario (without stacks).
         /// </summary>
-        /// <param name="targetRowSlot"></param>
-        /// <param name="totalItemsCount"></param>
-        /// <returns>-1 if the targetRowSlot negative or postive number that represents that last slot in a row</returns>
+        /// <returns> Returns-1 if the targetRowSlot negative or positive number that represents that last slot in a row.</returns>
         internal int GetFirstStackSlotOnRow(int targetRowSlot, int totalItemsCount)
         {
             var prevRow = targetRowSlot - 1;
 
             int currentSlotIndex = -1;
-            // int nextSlotIndex = currentSlotIndex + 1;
             int currentRowIndex = -1;
             GroupInfo groupInfo;
             int lowerBound;
@@ -314,7 +257,7 @@ namespace Telerik.Data.Core.Layouts
                 {
                     if (groupInfo.Level == this.GroupLevels - 1 && currentSlotIndex + 1 > lowerBound)
                     {
-                        //lowest level group - we need to calculate the number of rows inside it.
+                        // lowest level group - we need to calculate the number of rows inside it.
                         var itemsCount = groupInfo.LastSubItemSlot - groupInfo.Index;
 
                         var groupRows = (int)Math.Ceiling(itemsCount / (double)this.StackCount);
@@ -326,20 +269,20 @@ namespace Telerik.Data.Core.Layouts
                         }
                         else
                         {
-                            //the row is in this group as leaf
+                            // the row is in this group as leaf
                             var innerRowIndex = prevRow - currentRowIndex;
                             currentSlotIndex += Math.Min(innerRowIndex * this.StackCount, itemsCount);
                             break;
                         }
-
                     }
                     else
                     {
-                        //high level group - add only its slot
+                        // high level group - add only its slot
                         currentSlotIndex++;
                         currentRowIndex++;
 
-                        if (currentRowIndex == prevRow) /* row is over a group header*/
+                        // row is over a group header
+                        if (currentRowIndex == prevRow) 
                         {
                             break;
                         }
@@ -357,13 +300,11 @@ namespace Telerik.Data.Core.Layouts
 
         internal override AddRemoveLayoutResult AddItem(object changedItem, object addRemoveItem, int addRemoveItemIndex)
         {
-            // return base.AddItem(changedItem, addRemoveItem, addRemoveItemIndex);
-
             int addedItemsCount = 1;
             bool isVisible = true;
             var groupInfo = this.GetGroupInfo(changedItem);
             bool changedGroupIsRoot = groupInfo == null;
-            int flatSlot = -1;// = addRemoveItemIndex;
+            int flatSlot = -1; // = addRemoveItemIndex;
             int rowSlot = -1;
             int addedLinesCount = 0;
 
@@ -478,7 +419,7 @@ namespace Telerik.Data.Core.Layouts
             rowSlot = this.GetRowSlotFromFlatSlot(flatSlot);
 
             // Update parent groups last slot.
-            UpdateParentGroupInfosLastSlot(addedItemsCount, groupInfo);
+            CompactLayout.UpdateParentGroupInfosLastSlot(addedItemsCount, groupInfo);
 
             // Update TotalCount.
             this.TotalSlotCount += addedLinesCount;
@@ -489,7 +430,6 @@ namespace Telerik.Data.Core.Layouts
             if (addedLinesCount >= 0)
             {
                 this.InsertToRenderInfo(rowSlot, null, addedLinesCount);
-
             }
             var layoutResult = new AddRemoveLayoutResult(rowSlot, addedLinesCount);
 
@@ -500,79 +440,6 @@ namespace Telerik.Data.Core.Layouts
 
             // return result indexes so that changed can be reflected to UI.
             return layoutResult;
-        }
-
-        private int GetRowSlotFromFlatSlot(int flatSlot)
-        {
-            int currentRowIndex = -1;
-            int currentFlatSlotIndex = 0;
-            GroupInfo groupInfo;
-            int lowerBound;
-
-
-            while (currentFlatSlotIndex < this.TotalSlotCount)
-            {
-                if (this.GroupHeadersTable.TryGetValue(currentFlatSlotIndex, out groupInfo, out lowerBound))
-                {
-                    if (groupInfo.Level == this.GroupLevels - 1 && currentFlatSlotIndex > lowerBound)
-                    {
-                        //lowest level group
-
-                        if (flatSlot > groupInfo.LastSubItemSlot)
-                        {
-                            //slot is not in this group
-
-                            var itemsCount = groupInfo.LastSubItemSlot - groupInfo.Index;
-                            var groupRows = (int)Math.Ceiling(itemsCount / (double)this.StackCount);
-                            currentRowIndex += groupRows;
-                            currentFlatSlotIndex += itemsCount;
-
-                        }
-                        else
-                        {
-                            //slot is in this group
-                            var itemsCount = flatSlot - groupInfo.Index;
-                            var rows = (int)Math.Ceiling(itemsCount / (double)this.StackCount);
-                            currentRowIndex += rows;
-                            currentFlatSlotIndex += itemsCount;
-                            break;
-
-                        }
-                    }
-                    else
-                    {
-                        //high level group - add only its slot
-                        currentFlatSlotIndex++;
-                        currentRowIndex++;
-                    }
-                }
-                else
-                {
-                    currentRowIndex = (int)Math.Ceiling((flatSlot + 1) / (double)this.StackCount) - 1;
-                    currentFlatSlotIndex = flatSlot;
-                    break;
-                }
-            }
-
-            return Math.Max(currentRowIndex, 0);
-        }
-
-        private int GetAddedSlots(int totalCount, int addedCount)
-        {
-            return (int)(Math.Ceiling((totalCount) / (double)this.StackCount) - Math.Ceiling((totalCount - addedCount) / (double)this.StackCount));
-        }
-
-        private int GetRemovedSlots(int totalCount, int removedCount)
-        {
-            return (int)(Math.Ceiling((totalCount + removedCount) / (double)this.StackCount) - Math.Ceiling(totalCount / (double)this.StackCount));
-        }
-
-        private void InsertToRenderInfo(int slot, double? value, int addedSlotsCount)
-        {
-            if (this.RenderInfo.Count != this.TotalSlotCount)
-            {
-                this.RenderInfo.InsertRange(slot, value, addedSlotsCount);
-            }
         }
 
         internal override AddRemoveLayoutResult RemoveItem(object changedItem, object addRemoveItem, int addRemoveItemIndex)
@@ -593,8 +460,6 @@ namespace Telerik.Data.Core.Layouts
             // We added/removed group so we need to index all subgroups.
             if (removedGroup != null && changedItem != addRemoveItem)
             {
-
-
                 GroupInfo groupInfo = this.GetGroupInfo(addRemoveItem);
                 System.Diagnostics.Debug.Assert(groupInfo != null, "Cannot remove group that are not indexed.");
                 flatSlot = groupInfo.Index;
@@ -666,11 +531,10 @@ namespace Telerik.Data.Core.Layouts
                 {
                     var children = (changedGroupInfo.Item as IGroup).Items.Count;
 
-                    //Be carefull that this represents lines/slots rather than items. Also consider if collapsed table should use this
+                    // Be carefull that this represents lines/slots rather than items. Also consider if collapsed table should use this
                     removedLinesCount = this.GetRemovedSlots(children, removedItemsCount);
 
                     flatSlot = changedGroupInfo.Index + 1 + addRemoveItemIndex;
-
 
                     // Update the group last slot.
                     changedGroupInfo.LastSubItemSlot -= removedItemsCount;
@@ -694,7 +558,7 @@ namespace Telerik.Data.Core.Layouts
             rowSlot = this.GetRowSlotFromFlatSlot(flatSlot);
 
             // Update parent groups last slot.
-            UpdateParentGroupInfosLastSlot(-removedItemsCount, changedGroupInfo);
+            CompactLayout.UpdateParentGroupInfosLastSlot(-removedItemsCount, changedGroupInfo);
 
             // Update TotalCount.
             this.TotalSlotCount -= removedLinesCount;
@@ -711,6 +575,113 @@ namespace Telerik.Data.Core.Layouts
             return layoutResult;
         }
 
+        protected override void SetItemsSourceOverride(IReadOnlyList<object> source, bool restoreCollapsed)
+        {
+            int slotsCount = 0;
+
+            int linesCount = 0;
+
+            this.collapsedSlotsTable.Clear();
+            this.GroupHeadersTable.Clear();
+
+            var canRestoreCollapsedState = this.itemInfoTable != null && restoreCollapsed;
+
+            if (this.itemInfoTable != null)
+            {
+                ////if (restoreCollapsed)
+                ////{
+                ////    collapsedGroups = this.CopyCollapsedStates();
+                ////}
+                this.itemInfoTable.Clear();
+            }
+
+            foreach (var strategy in this.LayoutStrategies)
+            {
+                slotsCount += strategy.CalculateAppendedSlotsCount(this, slotsCount, ref linesCount);
+            }
+
+            this.TotalSlotCount = linesCount;
+
+            if (this.GroupLevels == 0)
+            {
+                this.VisibleLineCount = this.CalculateFlatRowCount();
+            }
+            else
+            {
+                this.VisibleLineCount = linesCount;
+            }
+
+            this.RefreshRenderInfo(false);
+        }
+
+        private int GetRowSlotFromFlatSlot(int flatSlot)
+        {
+            int currentRowIndex = -1;
+            int currentFlatSlotIndex = 0;
+            GroupInfo groupInfo;
+            int lowerBound;
+
+            while (currentFlatSlotIndex < this.TotalSlotCount)
+            {
+                if (this.GroupHeadersTable.TryGetValue(currentFlatSlotIndex, out groupInfo, out lowerBound))
+                {
+                    if (groupInfo.Level == this.GroupLevels - 1 && currentFlatSlotIndex > lowerBound)
+                    {
+                        // lowest level group
+                        if (flatSlot > groupInfo.LastSubItemSlot)
+                        {
+                            // slot is not in this group
+                            var itemsCount = groupInfo.LastSubItemSlot - groupInfo.Index;
+                            var groupRows = (int)Math.Ceiling(itemsCount / (double)this.StackCount);
+                            currentRowIndex += groupRows;
+                            currentFlatSlotIndex += itemsCount;
+                        }
+                        else
+                        {
+                            // slot is in this group
+                            var itemsCount = flatSlot - groupInfo.Index;
+                            var rows = (int)Math.Ceiling(itemsCount / (double)this.StackCount);
+                            currentRowIndex += rows;
+                            currentFlatSlotIndex += itemsCount;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        // high level group - add only its slot
+                        currentFlatSlotIndex++;
+                        currentRowIndex++;
+                    }
+                }
+                else
+                {
+                    currentRowIndex = (int)Math.Ceiling((flatSlot + 1) / (double)this.StackCount) - 1;
+                    currentFlatSlotIndex = flatSlot;
+                    break;
+                }
+            }
+
+            return Math.Max(currentRowIndex, 0);
+        }
+
+        private int GetAddedSlots(int totalCount, int addedCount)
+        {
+            return (int)(Math.Ceiling(totalCount / (double)this.StackCount) - Math.Ceiling((totalCount - addedCount) / (double)this.StackCount));
+        }
+
+        private int GetRemovedSlots(int totalCount, int removedCount)
+        {
+            return (int)(Math.Ceiling((totalCount + removedCount) / (double)this.StackCount) - Math.Ceiling(totalCount / (double)this.StackCount));
+        }
+
+        private void InsertToRenderInfo(int slot, double? value, int addedSlotsCount)
+        {
+            if (this.RenderInfo.Count != this.TotalSlotCount)
+            {
+                this.RenderInfo.InsertRange(slot, value, addedSlotsCount);
+            }
+        }
+        
         private void RemoveFromRenderInfo(int removedItemsCount, int slot)
         {
             if (this.RenderInfo.Count != this.TotalSlotCount)

@@ -29,48 +29,11 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// </summary>
     public partial class RadListView : RadControl, IListView
     {
-        private const string StaggeredLayoutGroupingExceptionMessage = "Staggered Layout does not support grouping.";
-
-        private static bool ShouldExecuteOperationsSyncroniously
-        {
-            get
-            {
-                return RadControl.IsInTestMode || DesignMode.DesignModeEnabled;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the relative to viewport size buffer scale that will be used to realize items outside viewport. Default value is 1.
-        /// </summary>
-        public double RealizedItemsBufferScale
-        {
-            get { return (double)GetValue(RealizedItemsBufferScaleProperty); }
-            set { SetValue(RealizedItemsBufferScaleProperty, value); }
-        }
-
         /// <summary>
         /// Identifies the <see cref="RealizedItemsBufferScale"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty RealizedItemsBufferScaleProperty =
             DependencyProperty.Register(nameof(RealizedItemsBufferScale), typeof(double), typeof(RadListView), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
-
-        private static void OnRealizedItemsBufferScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var list = d as RadListView;
-            var scale = (double)e.NewValue;
-
-
-            if (scale < 0)
-            {
-                throw new ArgumentException("The realized items buffer scale must positive number");
-            }
-
-            list.Model.BufferScale = scale;
-
-            list.InvalidatePanelMeasure(list.panelAvailableSize);
-        }
-
-
 
         /// <summary>
         /// Identifies the <see cref="IncrementalLoadingMode"/> dependency property.
@@ -119,8 +82,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public static readonly DependencyProperty GroupHeaderDisplayModeProperty =
             DependencyProperty.Register(nameof(GroupHeaderDisplayMode), typeof(ListViewGroupHeaderDisplayMode), typeof(RadListView), new PropertyMetadata(ListViewGroupHeaderDisplayMode.Frozen, OnGroupHeaderDisplayModeChanged));
-
-        /**/
 
         /// <summary>
         /// Identifies the <see cref="ItemStyle"/> dependency property.
@@ -208,6 +169,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal ListViewLoadDataControl loadMoreDataControl;
         internal Panel frozenGroupHeadersHost;
 
+        private const string StaggeredLayoutGroupingExceptionMessage = "Staggered Layout does not support grouping.";
         private PullToRefreshIndicator pullToRefreshIndicator;
         private Panel rootScrollPanel;
 
@@ -254,6 +216,15 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             this.model.layoutController.strategy.EnableFrozenDecorators = true;
             this.InitializeReorder();
+        }
+
+        /// <summary>
+        /// Gets or sets the relative to viewport size buffer scale that will be used to realize items outside viewport. Default value is 1.
+        /// </summary>
+        public double RealizedItemsBufferScale
+        {
+            get { return (double)GetValue(RealizedItemsBufferScaleProperty); }
+            set { this.SetValue(RealizedItemsBufferScaleProperty, value); }
         }
 
         /// <summary>
@@ -460,12 +431,12 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
-        /// Gets the <see cref="ListViewGroupHeaderDisplayMode"/> instance.
+        /// Gets or sets the <see cref="ListViewGroupHeaderDisplayMode"/> instance.
         /// </summary>
         public ListViewGroupHeaderDisplayMode GroupHeaderDisplayMode
         {
             get { return (ListViewGroupHeaderDisplayMode)GetValue(GroupHeaderDisplayModeProperty); }
-            set { SetValue(GroupHeaderDisplayModeProperty, value); }
+            set { this.SetValue(GroupHeaderDisplayModeProperty, value); }
         }
 
         /// <summary>
@@ -503,7 +474,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         public int IncrementalLoadingBufferItemsCount
         {
             get { return (int)GetValue(IncrementalLoadingBufferItemsCountProperty); }
-            set { SetValue(IncrementalLoadingBufferItemsCountProperty, value); }
+            set { this.SetValue(IncrementalLoadingBufferItemsCountProperty, value); }
         }
 
         /// <summary>
@@ -670,7 +641,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
             set
             {
-                this.SetValue(DragBehaviorProperty, value);
+                this.SetValue(RadListView.DragBehaviorProperty, value);
             }
         }
 
@@ -703,6 +674,14 @@ namespace Telerik.UI.Xaml.Controls.Data
             get
             {
                 return this.model;
+            }
+        }
+
+        private static bool ShouldExecuteOperationsSyncroniously
+        {
+            get
+            {
+                return RadControl.IsInTestMode || DesignMode.DesignModeEnabled;
             }
         }
 
@@ -744,160 +723,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
-        /// <inheritdoc/>
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RadListViewAutomationPeer(this);
-        }
-
-        /// <summary>
-        /// Prepare the <see cref="ListViewLoadDataControl"/>.
-        /// </summary>
-        protected internal virtual void PrepareLoadDataControl(ListViewLoadDataControl control)
-        {
-        }
-
-        /// <summary>
-        /// Invalidate the <see cref="ListViewLoadDataControl"/>.
-        /// </summary>
-        protected internal void InvalidateLoadDataControl()
-        {
-            this.PrepareLoadDataControl(this.loadMoreDataControl);
-        }
-
-        /// <summary>
-        /// Prepare the element to act as the ItemUI for the corresponding item.
-        /// </summary>
-        protected internal virtual void PrepareContainerForItem(RadListViewItem item, object context)
-        {
-            item.DataContext = context;
-            item.Content = context;
-
-            var style = this.ItemStyle;
-            if (style == null)
-            {
-                if (this.ItemStyleSelector != null)
-                {
-                    style = this.ItemStyleSelector.SelectStyle(context, item);
-                }
-            }
-
-            if (style != null)
-            {
-                item.Style = style;
-            }
-            else
-            {
-                item.ClearValue(RadListViewItem.StyleProperty);
-            }
-
-            var dataTemplate = this.ItemTemplate;
-            if (dataTemplate == null)
-            {
-                if (this.ItemTemplateSelector != null)
-                {
-                    dataTemplate = this.ItemTemplateSelector.SelectTemplate(context, item);
-                }
-            }
-
-            if (dataTemplate != null)
-            {
-                item.ContentTemplate = dataTemplate;
-            }
-            else
-            {
-                item.ClearValue(RadListViewItem.ContentTemplateProperty);
-            }
-        }
-
-        /// <summary>
-        /// Prepare the element to act as the ItemUI for the corresponding group header.
-        /// </summary>
-        protected internal virtual void PrepareContainerForGroupHeader(ListViewGroupHeader groupHeader, GroupHeaderContext context)
-        {
-            groupHeader.DataContext = context;
-
-            var style = this.GroupHeaderStyle;
-            if (style == null)
-            {
-                if (this.GroupHeaderStyleSelector != null)
-                {
-                    style = this.GroupHeaderStyleSelector.SelectStyle(context, groupHeader);
-                }
-            }
-
-            if (style != null)
-            {
-                groupHeader.Style = style;
-            }
-            else
-            {
-                groupHeader.ClearValue(ListViewGroupHeader.StyleProperty);
-            }
-
-            var dataTemplate = this.GroupHeaderTemplate;
-            if (dataTemplate == null)
-            {
-                if (this.GroupHeaderTemplateSelector != null)
-                {
-                    dataTemplate = this.GroupHeaderTemplateSelector.SelectTemplate(context, groupHeader);
-                }
-            }
-
-            if (dataTemplate != null)
-            {
-                groupHeader.ContentTemplate = dataTemplate;
-            }
-            else
-            {
-                groupHeader.ClearValue(ListViewGroupHeader.ContentTemplateProperty);
-            }
-        }
-
-        /// <summary>
-        /// Return the element used to display the given item.
-        /// </summary>
-        protected internal virtual RadListViewItem GetContainerForItem()
-        {
-            return new RadListViewItem();
-        }
-
-        /// <summary>
-        /// Return the element used to display the group header.
-        /// </summary>
-        protected internal virtual ListViewGroupHeader GetContainerForGroupHeader()
-        {
-            return new ListViewGroupHeader();
-        }
-
-        /// <summary>
-        /// Return the element used to display the group header.
-        /// </summary>
-        protected internal virtual ListViewGroupHeader GetContainerForGroupHeader(bool isFrozen)
-        {
-            var header = this.GetContainerForGroupHeader();
-
-            header.IsFrozen = isFrozen;
-
-            return header;
-        }
-
-        /// <summary>
-        ///  Undoes the effects of the PrepareContainerForItem method.
-        /// </summary>
-        protected internal virtual void ClearContainerForItem(RadListViewItem item)
-        {
-            item.ClearValue(FrameworkElement.DataContextProperty);
-        }
-
-        /// <summary>
-        ///  Undoes the effects of the PrepareContainerForGroupHeader method.
-        /// </summary>
-        protected internal virtual void ClearContainerForGroupHeader(ListViewGroupHeader item)
-        {
-            item.ClearValue(FrameworkElement.DataContextProperty);
-        }
-
         /// <summary>
         /// Attempts to bring the specified data item into view asynchronously.
         /// </summary>
@@ -922,7 +747,6 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             var action = (Action)(() =>
             {
-
                 var info = this.model.FindItemInfo(item);
 
                 if (info != null)
@@ -934,16 +758,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             this.updateService.RegisterUpdate(new DelegateUpdate<UpdateFlags>(action));
         }
-
-        /// <summary>
-        /// Recycles all containers and rebuilds the UI.
-        /// </summary>
-        protected virtual void InvalidateUI()
-        {
-            this.model.RecycleAllContainers();
-            this.RebuildUI();
-        }
-
+        
         /// <summary>
         /// Invalidates the measure of the <see cref="RadListView"/> content panel.
         /// </summary>
@@ -1037,7 +852,6 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             if (listItem != null)
             {
-                // listItem.lastArrangeSize = new Size(container.LayoutSlot.Width, container.LayoutSlot.Height);
                 listItem.arrangeRect = container.LayoutSlot.ToRect();
             }
 
@@ -1163,7 +977,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             if (size.Height > 0 || size.Width > 0)
             {
-                itemsMeasured = true;
+                this.itemsMeasured = true;
             }
 
             return size;
@@ -1198,6 +1012,169 @@ namespace Telerik.UI.Xaml.Controls.Data
             header.IsExpanded = context.IsExpanded;
         }
 
+        /// <summary>
+        /// Return the element used to display the given item.
+        /// </summary>
+        protected internal virtual RadListViewItem GetContainerForItem()
+        {
+            return new RadListViewItem();
+        }
+
+        /// <summary>
+        /// Return the element used to display the group header.
+        /// </summary>
+        protected internal virtual ListViewGroupHeader GetContainerForGroupHeader()
+        {
+            return new ListViewGroupHeader();
+        }
+        
+        /// <summary>
+        /// Prepare the <see cref="ListViewLoadDataControl"/>.
+        /// </summary>
+        protected internal virtual void PrepareLoadDataControl(ListViewLoadDataControl control)
+        {
+        }
+
+        /// <summary>
+        /// Invalidate the <see cref="ListViewLoadDataControl"/>.
+        /// </summary>
+        protected internal void InvalidateLoadDataControl()
+        {
+            this.PrepareLoadDataControl(this.loadMoreDataControl);
+        }
+
+        /// <summary>
+        /// Prepare the element to act as the ItemUI for the corresponding item.
+        /// </summary>
+        protected internal virtual void PrepareContainerForItem(RadListViewItem item, object context)
+        {
+            item.DataContext = context;
+            item.Content = context;
+
+            var style = this.ItemStyle;
+            if (style == null)
+            {
+                if (this.ItemStyleSelector != null)
+                {
+                    style = this.ItemStyleSelector.SelectStyle(context, item);
+                }
+            }
+
+            if (style != null)
+            {
+                item.Style = style;
+            }
+            else
+            {
+                item.ClearValue(RadListViewItem.StyleProperty);
+            }
+
+            var dataTemplate = this.ItemTemplate;
+            if (dataTemplate == null)
+            {
+                if (this.ItemTemplateSelector != null)
+                {
+                    dataTemplate = this.ItemTemplateSelector.SelectTemplate(context, item);
+                }
+            }
+
+            if (dataTemplate != null)
+            {
+                item.ContentTemplate = dataTemplate;
+            }
+            else
+            {
+                item.ClearValue(RadListViewItem.ContentTemplateProperty);
+            }
+        }
+
+        /// <summary>
+        /// Return the element used to display the group header.
+        /// </summary>
+        protected internal virtual ListViewGroupHeader GetContainerForGroupHeader(bool isFrozen)
+        {
+            var header = this.GetContainerForGroupHeader();
+
+            header.IsFrozen = isFrozen;
+
+            return header;
+        }
+
+        /// <summary>
+        ///  Undoes the effects of the PrepareContainerForItem method.
+        /// </summary>
+        protected internal virtual void ClearContainerForItem(RadListViewItem item)
+        {
+            item.ClearValue(FrameworkElement.DataContextProperty);
+        }
+
+        /// <summary>
+        ///  Undoes the effects of the PrepareContainerForGroupHeader method.
+        /// </summary>
+        protected internal virtual void ClearContainerForGroupHeader(ListViewGroupHeader item)
+        {
+            item.ClearValue(FrameworkElement.DataContextProperty);
+        }
+        
+        /// <summary>
+        /// Prepare the element to act as the ItemUI for the corresponding group header.
+        /// </summary>
+        protected internal virtual void PrepareContainerForGroupHeader(ListViewGroupHeader groupHeader, GroupHeaderContext context)
+        {
+            groupHeader.DataContext = context;
+
+            var style = this.GroupHeaderStyle;
+            if (style == null)
+            {
+                if (this.GroupHeaderStyleSelector != null)
+                {
+                    style = this.GroupHeaderStyleSelector.SelectStyle(context, groupHeader);
+                }
+            }
+
+            if (style != null)
+            {
+                groupHeader.Style = style;
+            }
+            else
+            {
+                groupHeader.ClearValue(ListViewGroupHeader.StyleProperty);
+            }
+
+            var dataTemplate = this.GroupHeaderTemplate;
+            if (dataTemplate == null)
+            {
+                if (this.GroupHeaderTemplateSelector != null)
+                {
+                    dataTemplate = this.GroupHeaderTemplateSelector.SelectTemplate(context, groupHeader);
+                }
+            }
+
+            if (dataTemplate != null)
+            {
+                groupHeader.ContentTemplate = dataTemplate;
+            }
+            else
+            {
+                groupHeader.ClearValue(ListViewGroupHeader.ContentTemplateProperty);
+            }
+        }
+
+        /// <summary>
+        /// Recycles all containers and rebuilds the UI.
+        /// </summary>
+        protected virtual void InvalidateUI()
+        {
+            this.model.RecycleAllContainers();
+            this.RebuildUI();
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadListViewAutomationPeer(this);
+        }
+
         /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
@@ -1209,7 +1186,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             if (this.scrollViewer != null)
             {
                 this.scrollViewer.ViewChanged -= this.ScrollViewer_ViewChanged;
-                this.scrollViewer.SizeChanged -= OnScrollViewer_SizeChanged;
+                this.scrollViewer.SizeChanged -= this.OnScrollViewer_SizeChanged;
             }
 
             base.UnapplyTemplateCore();
@@ -1233,7 +1210,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             this.scrollViewer.ViewChanged += this.ScrollViewer_ViewChanged;
             this.pullToRefreshIndicator.SizeChanged += this.PullToRefreshIndicator_SizeChanged;
-            this.scrollViewer.SizeChanged += OnScrollViewer_SizeChanged;
+            this.scrollViewer.SizeChanged += this.OnScrollViewer_SizeChanged;
 
             this.UpdateLayersOnTemplateApplied();
 
@@ -1391,6 +1368,21 @@ namespace Telerik.UI.Xaml.Controls.Data
             listView.updateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
         }
 
+        private static void OnRealizedItemsBufferScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var list = d as RadListView;
+            var scale = (double)e.NewValue;
+
+            if (scale < 0)
+            {
+                throw new ArgumentException("The realized items buffer scale must positive number");
+            }
+
+            list.Model.BufferScale = scale;
+
+            list.InvalidatePanelMeasure(list.panelAvailableSize);
+        }
+
         private static void OnGroupHeaderDisplayModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var listView = d as RadListView;
@@ -1540,12 +1532,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             layer.Owner = this;
             layer.AttachUI(parent);
         }
-
-        //// private static void RemoveLayer(ListViewLayer layer, Panel parent)
-        //// {
-        ////     layer.DetachUI(parent);
-        ////     layer.Owner = null;
-        //// }
 
         private void UpdateLayersOnTemplateApplied()
         {
@@ -1738,6 +1724,5 @@ namespace Telerik.UI.Xaml.Controls.Data
             // hide/show the frozen group headers panel
             this.frozenGroupHeadersHost.Visibility = this.GroupHeaderDisplayMode == ListViewGroupHeaderDisplayMode.Frozen ? Visibility.Visible : Visibility.Collapsed;
         }
-
     }
 }

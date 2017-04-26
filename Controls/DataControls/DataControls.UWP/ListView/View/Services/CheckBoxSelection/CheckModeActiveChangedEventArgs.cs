@@ -9,7 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     public class CheckModeActiveChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsCheckModeActiveChangedEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="CheckModeActiveChangedEventArgs"/> class.
         /// </summary>
         /// <param name="isCheckModeActive">True if the check mode is about to be activated. False otherwise.</param>
         /// <param name="tappedItem">The data item from the source collection that has been tapped to activate the check mode.</param>
@@ -43,7 +43,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
-        /// Gets the check mode. True if the check mode is activated. False otherwise
+        /// Gets a value indicating whether check mode is on. True if the check mode is activated. False otherwise.
         /// </summary>
         public bool IsCheckModeActive
         {

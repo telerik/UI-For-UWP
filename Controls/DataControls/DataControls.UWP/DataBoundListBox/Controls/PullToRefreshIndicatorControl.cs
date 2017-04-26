@@ -79,7 +79,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataBoundListBox
             }
             this.refreshTime.Text = string.Format(this.RefreshTimeLabelFormat, time);
         }
-     
+
         /// <summary>
         /// Starts the loading progress by displaying a progress bar in the control.
         /// </summary>
@@ -165,7 +165,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataBoundListBox
             }
             else
             {
-                VisualStateManager.GoToState(indicator, "Vertical", false); 
+                VisualStateManager.GoToState(indicator, "Vertical", false);
             }
         }
     }

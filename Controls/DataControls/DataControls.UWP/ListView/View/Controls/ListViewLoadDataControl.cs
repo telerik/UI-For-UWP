@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows.Input;
-using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
+﻿using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -17,6 +15,8 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         public static readonly DependencyProperty ContentProperty =
             DependencyProperty.Register(nameof(Content), typeof(object), typeof(ListViewLoadDataControl), new PropertyMetadata(null, OnContentChanged));
 
+        private ContentControl contentControl;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ListViewLoadDataControl" /> class.
         /// </summary>
@@ -26,14 +26,10 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             this.LoadDataUICommand = new ListViewLoadDataUICommand(this);
         }
 
-        private ContentControl contentControl;
-
         /// <summary>
-        /// Gets or sets the commond invoked by the LoadDataUI.
+        /// Gets or sets the command invoked by the LoadDataUI.
         /// </summary>
         public ICommand LoadDataUICommand { get; set; }
-
-        internal RadListView Owner { get; set; }
 
         /// <summary>
         /// Gets the text visualized when more items are loading.
@@ -52,8 +48,10 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         public object Content
         {
             get { return (object)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            set { this.SetValue(ContentProperty, value); }
         }
+
+        internal RadListView Owner { get; set; }
 
         /// <inheritdoc/>
         protected override bool ApplyTemplateCore()
@@ -85,57 +83,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             {
                 control.contentControl.Content = e.NewValue;
             }
-        }
-    }
-
-    /// <summary>
-    /// Represents a command that can perform a given action.
-    /// </summary>
-    public class ListViewLoadDataUICommand : ICommand
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ListViewLoadDataUICommand"/> class.
-        /// </summary>
-        public ListViewLoadDataUICommand(ListViewLoadDataControl owner)
-        {
-            this.LoadDataControl = owner;
-        }
-
-        /// <summary>
-        /// Gets or sets the <see cref="ListViewLoadDataControl"/>.
-        /// </summary>
-        public ListViewLoadDataControl LoadDataControl { get; set; }
-
-#pragma warning disable 0067
-        /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute.
-        /// </summary>
-        public event EventHandler CanExecuteChanged;
-#pragma warning restore 0067
-
-        /// <summary>
-        /// Defines the method that determines whether the command can execute in its current state.
-        /// </summary>
-        /// <param name="parameter">
-        /// The parameter used by the command.
-        /// </param>
-        /// <returns>
-        /// Returns a value indicating whether this command can be executed.
-        /// </returns>
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Defines the method to be called when the command is invoked.
-        /// </summary>
-        /// <param name="parameter">
-        /// The parameter used by the command.
-        /// </param>
-        public void Execute(object parameter)
-        {
-            this.LoadDataControl.Owner.CommandService.ExecuteCommand(Commands.CommandId.LoadMoreData, new LoadMoreDataContext());
         }
     }
 }

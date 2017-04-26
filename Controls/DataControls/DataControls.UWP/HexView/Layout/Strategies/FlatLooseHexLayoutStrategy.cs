@@ -13,11 +13,11 @@ namespace Telerik.UI.Xaml.Controls.Data.HexView
         }
 
         /// <summary>
-        ///    _   _   _ 
-        ///   /0\_/1\ /2\
-        ///   \_/3\_/ \_/  oppositeLength
-        ///     \_/      
-        ///      length
+        /// Example   _   _   _ 
+        ///          /0\_/1\ /2\
+        ///          \_/3\_/ \_/  oppositeLength
+        ///            \_/      
+        ///             length
         /// <availableLength>
         /// </availableLength>
         /// </summary>

@@ -1,6 +1,5 @@
 ﻿using Telerik.Core;
 using Telerik.Data.Core;
-using Telerik.Data.Core.Layouts;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
 using Telerik.UI.Xaml.Controls.Data.ListView;
 using Telerik.UI.Xaml.Controls.Data.ListView.Commands;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView

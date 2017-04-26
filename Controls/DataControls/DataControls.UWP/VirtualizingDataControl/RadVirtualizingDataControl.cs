@@ -35,6 +35,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal double availableHeight;
         internal double balanceCounter = 0;
         internal ScrollUpdateService scrollUpdateService;
+        internal bool scrollScheduled;
 
         private const double DefaultItemLength = 200;
 
@@ -326,7 +327,8 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 // If the item is realized, calculate the smallest amount that the item can be offset so that it is fully visible in the viewport.
                 double offset = this.GetRealizedItemBringIntoViewOffset(foundItem);
-                this.virtualizationStrategy.ScrollToOffset(offset,
+                this.virtualizationStrategy.ScrollToOffset(
+                    offset,
                     () =>
                     {
                         // Perform a balance to ensure that all buffers are filled.
@@ -367,8 +369,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
-        internal bool scrollScheduled;
-
         internal void ApplyScrollOffsetForItem(IDataSourceItem item, double lastAverageLength)
         {
             if (lastAverageLength <= 0)
@@ -381,15 +381,15 @@ namespace Telerik.UI.Xaml.Controls.Data
                 }
             }
 
-            double offset = this.virtualizationStrategy.CalculateItemOffset(item, lastAverageLength);// ((this.virtualizationStrategy.ScrollableContentLength - this.virtualizationStrategy.ViewportLength) / this.GetItemCount()) * item.Index;
-            scrollScheduled = true;
+            double offset = this.virtualizationStrategy.CalculateItemOffset(item, lastAverageLength);
+            this.scrollScheduled = true;
 
             this.virtualizationStrategy.ScrollToOffset(
                 offset,
                 () =>
                 {
-                    //this.virtualizationStrategy.SetElementCanvasOffset(this.itemsPanel, this.virtualizationStrategy.ScrollOffset);
-                    ////Perform a balance to ensure that all buffers are filled.
+                    // this.virtualizationStrategy.SetElementCanvasOffset(this.itemsPanel, this.virtualizationStrategy.ScrollOffset);
+                    //// Perform a balance to ensure that all buffers are filled.
                     this.SubscribeRendering();
                     this.BalanceVisualSpace();
                     scrollScheduled = false;

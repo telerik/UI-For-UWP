@@ -10,7 +10,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// <summary>
         /// Identifies the <see cref="RadVirtualizingDataControl.ItemAnimationMode"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty ItemAnimationModeProperty = 
+        public static readonly DependencyProperty ItemAnimationModeProperty =
             DependencyProperty.Register(nameof(ItemAnimationMode), typeof(ItemAnimationMode), typeof(RadVirtualizingDataControl), new PropertyMetadata(ItemAnimationMode.PlayAll, OnItemAnimationModeChanged));
 
         /// <summary>
@@ -209,10 +209,10 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             if (context != null)
             {
-                  this.scheduledAddAnimations.Remove(context);
-                  context.AssociatedItem.scheduledForBatchAnimation = false;
+                this.scheduledAddAnimations.Remove(context);
+                context.AssociatedItem.scheduledForBatchAnimation = false;
             }
- 
+
             if (this.scheduledAddAnimations.Count == 0 && !this.IsLoaded)
             {
                 this.itemAddedAnimationCache.Ended -= this.OnItemAddedAnimation_Ended;
@@ -231,7 +231,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             // In case the animated container is already recycled - we hide it. This happens
             // when a single item remove animation has been started, not a batch one.
-            if (!this.itemRemovedBatchAnimationScheduled && context != null) 
+            if (!this.itemRemovedBatchAnimationScheduled && context != null)
             {
                 if (this.realizedItems.Count > 0)
                 {
@@ -385,7 +385,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         private void OnItemRemovedAnimation_Ended(object sender, AnimationEndedEventArgs e)
         {
             SingleItemAnimationContext endedAnimation = this.GetAnimationContextForTarget(e.AnimationInfo.Target as RadVirtualizingDataControlItem, false);
-            this.OnItemRemovedAnimationEnded(sender as RadAnimation, endedAnimation); 
+            this.OnItemRemovedAnimationEnded(sender as RadAnimation, endedAnimation);
         }
 
         private SingleItemAnimationContext GetAnimationContextForTarget(RadVirtualizingDataControlItem target, bool lookInAdded)

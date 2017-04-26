@@ -30,15 +30,15 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         internal void PlayCheckBoxLayerAnimation(UIElement element, bool forward, bool beforeItem, double itemLength)
         {
-           var checkBoxanimation = new RadMoveAnimation() { Duration = TimeSpan.FromSeconds(0.3), FillBehavior = AnimationFillBehavior.HoldEnd };
-           checkBoxanimation.EndPoint = new Point(0, 0); 
-           itemLength = itemLength == 0 ? 29 : itemLength;
-           var offset = beforeItem ? itemLength : -itemLength;
-           checkBoxanimation.StartPoint = this.Owner.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical ? new Point(-offset, 0) : new Point(0, -offset);
+            var checkBoxanimation = new RadMoveAnimation() { Duration = TimeSpan.FromSeconds(0.3), FillBehavior = AnimationFillBehavior.HoldEnd };
+            checkBoxanimation.EndPoint = new Point(0, 0);
+            itemLength = itemLength == 0 ? 29 : itemLength;
+            var offset = beforeItem ? itemLength : -itemLength;
+            checkBoxanimation.StartPoint = this.Owner.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical ? new Point(-offset, 0) : new Point(0, -offset);
 
-            if(!forward)
+            if (!forward)
             {
-               checkBoxanimation = checkBoxanimation.CreateOpposite() as RadMoveAnimation;
+                checkBoxanimation = checkBoxanimation.CreateOpposite() as RadMoveAnimation;
             }
 
             RadAnimationManager.Play(element, checkBoxanimation);
@@ -46,43 +46,26 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         internal void PlayCheckModeAnimation(UIElement element, bool forward, bool beforeItem, double itemLength)
         {
-           var animation = new RadMoveAnimation() { Duration = TimeSpan.FromSeconds(0.3), FillBehavior = AnimationFillBehavior.HoldEnd};
-           animation.StartPoint = new Point(0, 0);
-           itemLength = itemLength == 0 ? 29 : itemLength;
-           var offset = beforeItem ? itemLength : -itemLength;
+            var animation = new RadMoveAnimation() { Duration = TimeSpan.FromSeconds(0.3), FillBehavior = AnimationFillBehavior.HoldEnd };
+            animation.StartPoint = new Point(0, 0);
+            itemLength = itemLength == 0 ? 29 : itemLength;
+            var offset = beforeItem ? itemLength : -itemLength;
 
-           animation.EndPoint = this.Owner.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical ? new Point(offset, 0) : new Point(0, offset);
+            animation.EndPoint = this.Owner.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical ? new Point(offset, 0) : new Point(0, offset);
 
-           if (forward)
-           {
-               animation.Ended += this.ForwardCheckModeAnimationEnded;
-           }
-           else
-           {
-               animation = animation.CreateOpposite() as RadMoveAnimation;
-               animation.Ended += this.BackwardsCheckModeAnimationEnded;
-           }
+            if (forward)
+            {
+                animation.Ended += this.ForwardCheckModeAnimationEnded;
+            }
+            else
+            {
+                animation = animation.CreateOpposite() as RadMoveAnimation;
+                animation.Ended += this.BackwardsCheckModeAnimationEnded;
+            }
 
-           RadAnimationManager.Play(element, animation);
-           
+            RadAnimationManager.Play(element, animation);
+        }
         
-        }
-
-        private void BackwardsCheckModeAnimationEnded(object sender, AnimationEndedEventArgs e)
-        {
-            (sender as RadAnimation).Ended -= this.BackwardsCheckModeAnimationEnded;
-            this.Owner.itemCheckBoxService.itemsAnimated = true;
-            this.Owner.itemCheckBoxService.OnIsCheckModeActiveChanged();
-        }
-
-        private void ForwardCheckModeAnimationEnded(object sender, AnimationEndedEventArgs e)
-        {
-
-            (sender as RadAnimation).Ended -= this.ForwardCheckModeAnimationEnded;
-            this.Owner.itemCheckBoxService.itemsAnimated = true;
-        }
-
-
         internal bool IsAnimating(ItemInfo? info)
         {
             var models = this.runningAnimations.Values.Where((tuple) =>
@@ -137,22 +120,22 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         internal void PlayItemAddedAnimations(Action<object> callback)
         {
-             foreach (var scheduledItem in this.scheduledItemsForAnimation)
+            foreach (var scheduledItem in this.scheduledItemsForAnimation)
+            {
+                foreach (var displayedItem in this.Owner.Model.ForEachDisplayedElement())
                 {
-                    foreach (var displayedItem in this.Owner.Model.ForEachDisplayedElement())
+                    if (displayedItem.ItemInfo.Item.Equals(scheduledItem))
                     {
-                        if (displayedItem.ItemInfo.Item.Equals(scheduledItem))
-                        {
-                            var animation = this.CreateAnimation(AnimationTrigger.AddedItem);
-                            displayedItem.IsAnimating = true;
-                            RadAnimationManager.Play(displayedItem.Container as FrameworkElement, animation);
+                        var animation = this.CreateAnimation(AnimationTrigger.AddedItem);
+                        displayedItem.IsAnimating = true;
+                        RadAnimationManager.Play(displayedItem.Container as FrameworkElement, animation);
 
-                            this.runningAnimations.Add(animation, new Tuple<object, Action<object>>(displayedItem, callback));
-                        }
+                        this.runningAnimations.Add(animation, new Tuple<object, Action<object>>(displayedItem, callback));
                     }
                 }
+            }
 
-                this.scheduledItemsForAnimation.Clear();
+            this.scheduledItemsForAnimation.Clear();
         }
 
         internal void PlayItemRemovedAnimation(IList changedItems, Action<object> callback)
@@ -168,22 +151,22 @@ namespace Telerik.UI.Xaml.Controls.Data
                             var currencyVisual = this.Owner.currencyLayerCache.CurrencyVisual as IAnimated;
                             if (currencyVisual != null)
                             {
-                               currencyVisual.IsAnimating = true;
-                               var animation = this.Owner.ItemRemovedAnimation.Clone();
-                               animation.FillBehavior = AnimationFillBehavior.Stop;
-                               animation.Ended += this.CurrentItemAnimationEnded;
-                               RadAnimationManager.Play(currencyVisual.Container as FrameworkElement, animation);
-                               this.runningAnimations.Add(animation, new Tuple<object, Action<object>>(currencyVisual, callback));
-                            }            
+                                currencyVisual.IsAnimating = true;
+                                var animation = this.Owner.ItemRemovedAnimation.Clone();
+                                animation.FillBehavior = AnimationFillBehavior.Stop;
+                                animation.Ended += this.CurrentItemAnimationEnded;
+                                RadAnimationManager.Play(currencyVisual.Container as FrameworkElement, animation);
+                                this.runningAnimations.Add(animation, new Tuple<object, Action<object>>(currencyVisual, callback));
+                            }
                         }
 
                         this.scheduledModelsForRecycle.Add(displayedItem);
                         displayedItem.IsAnimating = true;
 
-                         if (displayedItem != null)
+                        if (displayedItem != null)
                         {
                             var animation = this.CreateAnimation(AnimationTrigger.RemovedItem);
-                
+
                             this.runningAnimations.Add(animation, new Tuple<object, Action<object>>(displayedItem, callback));
 
                             RadAnimationManager.Play(displayedItem.Container as FrameworkElement, animation);
@@ -200,7 +183,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal void StopAnimations()
         {
             while (this.runningAnimations.Count > 0)
-            { 
+            {
                 RadAnimationManager.StopIfRunning(this.GetContainerForItem(this.runningAnimations.Values.First().Item1) as FrameworkElement, this.runningAnimations.Keys.First());
             }
         }
@@ -227,33 +210,37 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
 
             return item;
-        }  
-     
+        }
+
         private RadAnimation CreateAnimation(AnimationTrigger change)
         {
             RadAnimation animation;
             switch (change)
             {
-                case AnimationTrigger.ResetSource: 
+                case AnimationTrigger.ResetSource:
                     animation = this.Owner.ItemRemovedAnimation.Clone();
                     animation.FillBehavior = AnimationFillBehavior.Stop;
                     animation.Ended += this.ResetSourceAnimationEnded;
-                    return animation;        
-                case AnimationTrigger.NullSource: 
+                    return animation;
+
+                case AnimationTrigger.NullSource:
                     animation = this.Owner.ItemRemovedAnimation.Clone();
                     animation.FillBehavior = AnimationFillBehavior.Stop;
                     animation.Ended += this.NullSourceAnimationEnded;
                     return animation;
+
                 case AnimationTrigger.NewSource:
                     animation = this.Owner.ItemAddedAnimation.Clone();
                     animation.FillBehavior = AnimationFillBehavior.Stop;
                     animation.Ended += this.AnimationEndedOnNewSource;
                     return animation;
+
                 case AnimationTrigger.AddedItem:
                     animation = this.Owner.ItemAddedAnimation.Clone();
                     animation.Ended += this.AnimationEndedOnAddedItem;
                     animation.FillBehavior = AnimationFillBehavior.Stop;
                     return animation;
+
                 case AnimationTrigger.RemovedItem:
                     animation = this.Owner.ItemRemovedAnimation.Clone();
                     animation.FillBehavior = AnimationFillBehavior.Stop;
@@ -283,7 +270,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 var itemForRecycle = this.scheduledModelsForRecycle.First();
                 itemForRecycle.IsAnimating = false;
-                this.scheduledModelsForRecycle.Remove(itemForRecycle);   
+                this.scheduledModelsForRecycle.Remove(itemForRecycle);
 
                 if (this.runningAnimations.Keys.Count > 0)
                 {
@@ -308,7 +295,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             var item = this.runningAnimations[animation].Item1;
             if (item is IAnimated)
             {
-               (item as IAnimated).IsAnimating = false;
+                (item as IAnimated).IsAnimating = false;
             }
 
             this.runningAnimations.Remove(animation);
@@ -320,6 +307,19 @@ namespace Telerik.UI.Xaml.Controls.Data
             var callback = this.runningAnimations[sender as RadAnimation].Item2;
             this.runningAnimations.Remove(sender as RadAnimation);
             callback(null);
+        }
+
+        private void BackwardsCheckModeAnimationEnded(object sender, AnimationEndedEventArgs e)
+        {
+            (sender as RadAnimation).Ended -= this.BackwardsCheckModeAnimationEnded;
+            this.Owner.itemCheckBoxService.itemsAnimated = true;
+            this.Owner.itemCheckBoxService.OnIsCheckModeActiveChanged();
+        }
+
+        private void ForwardCheckModeAnimationEnded(object sender, AnimationEndedEventArgs e)
+        {
+            (sender as RadAnimation).Ended -= this.ForwardCheckModeAnimationEnded;
+            this.Owner.itemCheckBoxService.itemsAnimated = true;
         }
 
         private void ResetSourceAnimationEnded(object sender, AnimationEndedEventArgs e)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Telerik.Core;
 using Telerik.Core.Data;
 using Windows.Foundation;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -15,10 +14,10 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// </summary>
     internal abstract class VirtualizationStrategy
     {
-        internal Dictionary<int, double> generatedItemsLength = new Dictionary<int, double>();
-
         internal const double Epsilon = 0.001;
         internal const double MaxScrollableLength = 0;
+
+        internal Dictionary<int, double> generatedItemsLength = new Dictionary<int, double>();
 
         internal Orientation orientationCache = Orientation.Vertical;
         internal Size lastViewportSize;
@@ -246,7 +245,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                 }
             }
 
-
             return new Size(this.owner.availableWidth, this.owner.availableHeight);
         }
 
@@ -376,8 +374,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             if (setVisibility)
             {
                 item.Visibility = Visibility.Collapsed;
-                //   item.SetHorizontalOffset(0);
-                //  item.SetVerticalOffset(0);
             }
             this.owner.realizedItems.Remove(item);
             this.owner.recycledItems.Enqueue(item);
@@ -415,7 +411,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal virtual void CheckBottomScrollableBounds()
         {
             if (this.owner.RealizedItems.Length == 0)
+            {
                 return;
+            }
 
             double lastItemBottom = this.GetRealizedItemsBottom();
             double scrollableContentBottom = this.GetScrollableContentEnd();
@@ -465,6 +463,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 case Orientation.Horizontal:
                     this.owner.scrollableContent.Width += value;
                     break;
+
                 case Orientation.Vertical:
                     this.owner.scrollableContent.Height += value;
                     break;
@@ -478,6 +477,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 case Orientation.Vertical:
                     return this.owner.scrollableContent.Height;
+
                 case Orientation.Horizontal:
                     return this.owner.scrollableContent.Width;
             }
@@ -518,7 +518,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                     {
                         // if (newOffset < 0 || (firstItemTop < 0 && RadMath.AreClose(0, this.ScrollOffset, Epsilon)))
                         {
-
                             this.EnsureCorrectLayout();
                         }
                     }
@@ -535,7 +534,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             var firstRealizedItem = this.GetTopVisibleContainer();
 
             if (firstRealizedItem == null)
+            {
                 return;
+            }
 
             var startPosition = firstRealizedItem.CurrentOffset;
 
@@ -549,7 +550,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             if ((startPosition != 0 && firstRealizedItem.AssociatedDataItem.Index == 0) ||
      (startPosition + manipulationOffset < 0 && manipulationOffset < this.averageItemLength))
             {
-                //reposition all
+                // reposition all
                 this.owner.firstItemCache = this.owner.realizedItems[0];
                 var container = this.owner.firstItemCache;
 
@@ -670,7 +671,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal abstract void ReorderViewportItemsOnItemAdded(int physicalChangeLocation, RadVirtualizingDataControlItem addedItem);
 
         internal abstract void ReorderViewportItemsOnItemRemovedFromTop(IDataSourceItem removedItem);
-
 
         internal virtual void ReorderViewportItemsOnItemAddedOnTop(IDataSourceItem addedItem)
         {
@@ -884,6 +884,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     this.owner.manipulationContainer.HorizontalScrollBarVisibility = this.owner.horizontalScrollBarVisibilityCache;
                     this.owner.manipulationContainer.HorizontalScrollMode = ScrollMode.Enabled;
                     break;
+
                 case Orientation.Vertical:
                     this.owner.manipulationContainer.VerticalScrollBarVisibility = this.owner.verticalScrollBarVisibilityCache;
                     this.owner.manipulationContainer.VerticalScrollMode = ScrollMode.Enabled;
@@ -979,13 +980,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                 {
                     this.RecycleTop(ref visibleItemsTop);
                 }
-
-                //if (this.owner.firstItemCache != null &&
-                //    this.owner.firstItemCache == this.owner.lastItemCache &&
-                //    !(this.owner.IsFirstItemFirstInListSource() || this.owner.IsLastItemLastInListSource()))
-                //{
-                //    this.ResetRealizationStartWhenUpperUIBufferRecycled(visibleItemsTop);
-                //}
             }
 
             bool processed = false;

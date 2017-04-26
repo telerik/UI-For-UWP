@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Telerik.Data.Core.Layouts
 {
     internal class StaggeredGeneratedLength : IGenerateLayoutLength
     {
         internal Dictionary<int, double> columnsLength = new Dictionary<int, double>();
-        public int StackCount { get; set; }
+
         public StaggeredGeneratedLength(int columns)
         {
             this.StackCount = columns;
 
             for (int i = 1; i <= this.StackCount; i++)
             {
-                columnsLength.Add(i, 0);
+                this.columnsLength.Add(i, 0);
             }
         }
+
+        public int StackCount { get; set; }
 
         public int GetShortestColumnKey()
         {

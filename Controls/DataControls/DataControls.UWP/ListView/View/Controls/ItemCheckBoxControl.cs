@@ -11,48 +11,29 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
     public class ItemCheckBoxControl : RadControl
     {
         /// <summary>
-        /// Gets or sets the style for the <see cref="CheckBox"/>.
-        /// </summary>
-        public Style CheckBoxStyle
-        {
-            get { return (Style)GetValue(CheckBoxStyleProperty); }
-            set { SetValue(CheckBoxStyleProperty, value); }
-        }
-
-        /// <summary>
         /// Identifies the <see cref="CheckBoxStyle"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty CheckBoxStyleProperty =
             DependencyProperty.Register(nameof(CheckBoxStyle), typeof(Style), typeof(ItemCheckBoxControl), new PropertyMetadata(null));
 
         /// <summary>
-        /// Gets or set the the possition of the CheckBox.
-        /// </summary>
-        public CheckBoxPosition CheckBoxPosition
-        {
-            get { return (CheckBoxPosition)GetValue(CheckBoxPositionProperty); }
-            set { SetValue(CheckBoxPositionProperty, value); }
-        }
-
-        /// <summary>
         /// Identifies the <see cref="CheckBoxPosition"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty CheckBoxPositionProperty =
             DependencyProperty.Register(nameof(CheckBoxPosition), typeof(CheckBoxPosition), typeof(ItemCheckBoxControl), new PropertyMetadata(CheckBoxPosition.BeforeItem));
-
-  
-        internal void SetIsChecked(bool isChecked)
-        {
-            this.isChecked = isChecked;
-            if (this.checkBox != null)
-            {
-                this.checkBox.IsChecked = isChecked;
-            }
-        }
-
-        private bool isChecked;
+        
+        internal CheckBox checkBox;
         private EventHandler isCheckedChanged;
+        private bool isChecked;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemCheckBoxControl"/> class.
+        /// </summary>
+        public ItemCheckBoxControl()
+        {
+            this.DefaultStyleKey = typeof(ItemCheckBoxControl);
+        }
+        
         /// <summary>
         /// Occurs when the <see cref="CheckBox"/> is checked.
         /// </summary>
@@ -68,14 +49,31 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
-        internal CheckBox checkBox;
+        /// <summary>
+        /// Gets or sets the style for the <see cref="CheckBox"/>.
+        /// </summary>
+        public Style CheckBoxStyle
+        {
+            get { return (Style)GetValue(CheckBoxStyleProperty); }
+            set { this.SetValue(CheckBoxStyleProperty, value); }
+        }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ItemCheckBoxControl"/> class.
+        /// Gets or sets the the position of the CheckBox.
         /// </summary>
-        public ItemCheckBoxControl()
+        public CheckBoxPosition CheckBoxPosition
         {
-            this.DefaultStyleKey = typeof(ItemCheckBoxControl);
+            get { return (CheckBoxPosition)GetValue(CheckBoxPositionProperty); }
+            set { this.SetValue(CheckBoxPositionProperty, value); }
+        }
+
+                internal void SetIsChecked(bool isChecked)
+        {
+            this.isChecked = isChecked;
+            if (this.checkBox != null)
+            {
+                this.checkBox.IsChecked = isChecked;
+            }
         }
 
         /// <summary>
@@ -85,25 +83,17 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            checkBox.IsChecked = this.isChecked;
-            checkBox.Checked += checkBox_Checked;
-            checkBox.Unchecked += checkBox_Checked;
+            this.checkBox.IsChecked = this.isChecked;
+            this.checkBox.Checked += this.checkBox_Checked;
+            this.checkBox.Unchecked += this.checkBox_Checked;
         }
 
         /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
             base.UnapplyTemplateCore();
-            checkBox.Checked -= checkBox_Checked;
-            checkBox.Unchecked -= checkBox_Checked;
-        }
-        private void checkBox_Checked(object sender, RoutedEventArgs e)
-        {
-            var handler = this.isCheckedChanged;
-            if (handler != null)
-            {
-                handler(sender, null);
-            }
+            this.checkBox.Checked -= this.checkBox_Checked;
+            this.checkBox.Unchecked -= this.checkBox_Checked;
         }
 
         /// <inheritdoc/>
@@ -115,6 +105,15 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             applied = applied && this.checkBox != null;
 
             return applied;
+        }
+
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+            var handler = this.isCheckedChanged;
+            if (handler != null)
+            {
+                handler(sender, null);
+            }
         }
     }
 }

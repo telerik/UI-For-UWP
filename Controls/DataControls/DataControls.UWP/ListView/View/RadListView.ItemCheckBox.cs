@@ -1,27 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Telerik.UI.Xaml.Controls.Data.ListView;
 using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
-   public partial class RadListView
+    public partial class RadListView
     {
         /// <summary>
         /// Identifies the <see cref="IsCheckModeActive"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsCheckModeActiveProperty =
             DependencyProperty.Register(nameof(IsCheckModeActive), typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsCheckModeActiveChanged));
-        
-        /// <summary>
-        /// Gets or sets the position of the CheckBox.
-        /// </summary>
-        public CheckBoxPosition ItemCheckBoxPosition
-        {
-            get { return (CheckBoxPosition)GetValue(ItemCheckBoxPositionProperty); }
-            set { SetValue(ItemCheckBoxPositionProperty, value); }
-        }
 
         /// <summary>
         /// Identifies the <see cref="ItemCheckBoxPosition"/> dependency property. 
@@ -30,20 +19,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             DependencyProperty.Register(nameof(ItemCheckBoxPosition), typeof(CheckBoxPosition), typeof(RadListView), new PropertyMetadata(CheckBoxPosition.BeforeItem));
 
         /// <summary>
-        /// Gets or sets the style for the CheckBox.
-        /// </summary>
-        public Style ItemCheckBoxStyle
-        {
-            get { return (Style)GetValue(ItemCheckBoxStyleProperty); }
-            set { SetValue(ItemCheckBoxStyleProperty, value); }
-        }
-
-        /// <summary>
         /// Identifies the <see cref="ItemCheckBoxStyle"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty ItemCheckBoxStyleProperty =
             DependencyProperty.Register(nameof(ItemCheckBoxStyle), typeof(Style), typeof(RadListView), new PropertyMetadata(null));
-    
+
         internal readonly ListViewItemCheckBoxService itemCheckBoxService;
 
         /// <summary>
@@ -76,6 +56,50 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the position of the CheckBox.
+        /// </summary>
+        public CheckBoxPosition ItemCheckBoxPosition
+        {
+            get { return (CheckBoxPosition)GetValue(ItemCheckBoxPositionProperty); }
+            set { SetValue(ItemCheckBoxPositionProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the style for the CheckBox.
+        /// </summary>
+        public Style ItemCheckBoxStyle
+        {
+            get { return (Style)GetValue(ItemCheckBoxStyleProperty); }
+            set { SetValue(ItemCheckBoxStyleProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether checkboxes are be shown
+        /// next to the visual items allowing multiple selection of items.
+        /// </summary>
+        public bool IsCheckModeActive
+        {
+            get
+            {
+                return (bool)this.GetValue(IsCheckModeActiveProperty);
+            }
+            set
+            {
+                this.SetValue(IsCheckModeActiveProperty, value);
+            }
+        }
+
+        ListViewItemCheckBoxService IItemCheckBoxService.ItemCheckBoxService
+        {
+            get { return this.itemCheckBoxService; }
+        }
+
+        internal void OnCheckBoxChecked(object sender)
+        {
+            this.itemCheckBoxService.OnCheckBoxChecked(sender);
+        }
+
         private static void OnIsCheckModeActiveChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var listView = d as RadListView;
@@ -96,41 +120,13 @@ namespace Telerik.UI.Xaml.Controls.Data
                 if (isActive)
                 {
                     listView.itemCheckBoxService.OnIsCheckModeActiveChanged();
-
                 }
                 else
                 {
                     listView.animationSurvice.PlayCheckModeAnimation(listView.childrenPanel, isActive, listView.ItemCheckBoxPosition == CheckBoxPosition.BeforeItem, listView.itemCheckBoxService.VisualLength);
                     listView.animationSurvice.PlayCheckBoxLayerAnimation(listView.checkBoxLayerCache.VisualElement, isActive, listView.ItemCheckBoxPosition == CheckBoxPosition.BeforeItem, listView.itemCheckBoxService.VisualLength);
-
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether checkboxes are be shown
-        /// next to the visual items allowing multiple selection of items.
-        /// </summary>
-        public bool IsCheckModeActive
-        {
-            get
-            {
-                 return (bool)this.GetValue(IsCheckModeActiveProperty);
-            }
-            set
-            {
-                this.SetValue(IsCheckModeActiveProperty, value);
-            }
-        }
-
-        ListViewItemCheckBoxService IItemCheckBoxService.ItemCheckBoxService
-        {
-            get { return this.itemCheckBoxService; }
-        }
-
-        internal void OnCheckBoxChecked(object sender)
-        {
-            this.itemCheckBoxService.OnCheckBoxChecked(sender);
         }
     }
 }

@@ -24,36 +24,6 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             }
         }
 
-        internal bool CommitPropertyCore(EntityProperty property)
-        {
-            if (this.Owner.ValidationMode == ValidationMode.OnCommit)
-            {
-                if (this.ValidateProperty(property))
-                {
-                    property.Commit();
-                    return true;
-                }
-            }
-            else
-            {
-                if (this.errors.ContainsKey(property.PropertyName))
-                {
-                    if (this.errors[property.PropertyName].Count == 0)
-                    {
-                        property.Commit();
-                        return true;
-                    }
-                }
-                else
-                {
-                    property.Commit();
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         /// <inheritdoc/>
         public bool CommitProperty(string propertyName)
         {
@@ -97,19 +67,9 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
                 isValid = validator.GetErrors(propertyName).OfType<string>().ToList().Count == 0;
             }
 
-            this.Owner.InvokeAsync(()=> UpdateEntityPropertyDisplayMessage(isValid, propertyName));
+            this.Owner.InvokeAsync(() => this.UpdateEntityPropertyDisplayMessage(isValid, propertyName));
 
             return isValid;
-        }
-
-        private void UpdateEntityPropertyDisplayMessage(bool isValid, string propertyName)
-        {
-            var property = this.Owner.Entity.GetEntityProperty(propertyName);
-
-            if (property != null)
-            {
-                property.DisplayPositiveMessage = isValid;
-            }
         }
 
         /// <summary>
@@ -129,6 +89,67 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             return isValid;
         }
 
+        void ITransactionService.ValidateProperty(EntityProperty property)
+        {
+            this.ValidateProperty(property);
+        }
+
+        void ITransactionService.CommitPropertyCore(EntityProperty property)
+        {
+            this.CommitPropertyCore(property);
+        }
+
+        void ITransactionService.ErrorsChanged(object sender, string propertyName)
+        {
+            var property = this.Owner.Entity.GetEntityProperty(propertyName);
+            var list = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToList();
+            this.errors[propertyName] = list;
+
+            var temp = this.Dispatcher.RunAsync(
+                Windows.UI.Core.CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    var errorsList = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToList();
+
+                    property.Errors.Clear();
+
+                    foreach (var error in errorsList)
+                    {
+                        property.Errors.Add(error);
+                    }
+                });
+        }
+
+        internal bool CommitPropertyCore(EntityProperty property)
+        {
+            if (this.Owner.ValidationMode == ValidationMode.OnCommit)
+            {
+                if (this.ValidateProperty(property))
+                {
+                    property.Commit();
+                    return true;
+                }
+            }
+            else
+            {
+                if (this.errors.ContainsKey(property.PropertyName))
+                {
+                    if (this.errors[property.PropertyName].Count == 0)
+                    {
+                        property.Commit();
+                        return true;
+                    }
+                }
+                else
+                {
+                    property.Commit();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         internal bool ValidateProperty(EntityProperty property)
         {
             bool isValid = true;
@@ -146,7 +167,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
                 isValid = validator.GetErrors(property.PropertyName).OfType<string>().ToList().Count == 0;
             }
 
-            this.Owner.InvokeAsync(() => UpdateEntityPropertyDisplayMessage(isValid, property.PropertyName));
+            this.Owner.InvokeAsync(() => this.UpdateEntityPropertyDisplayMessage(isValid, property.PropertyName));
 
             return isValid;
         }
@@ -174,34 +195,14 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             }
         }
 
-        void ITransactionService.ValidateProperty(EntityProperty property)
-        {
-            this.ValidateProperty(property);
-        }
-
-        void ITransactionService.CommitPropertyCore(EntityProperty property)
-        {
-            this.CommitPropertyCore(property);
-        }
-
-        void ITransactionService.ErrorsChanged(object sender, string propertyName)
+        private void UpdateEntityPropertyDisplayMessage(bool isValid, string propertyName)
         {
             var property = this.Owner.Entity.GetEntityProperty(propertyName);
-            var list = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToList();
-            this.errors[propertyName] = list;
 
-            var temp = this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    var errorsList = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToList();
-
-                    property.Errors.Clear();
-
-                    foreach (var error in errorsList)
-                    {
-                        property.Errors.Add(error);
-                    }
-                });
+            if (property != null)
+            {
+                property.DisplayPositiveMessage = isValid;
+            }
         }
     }
 }
