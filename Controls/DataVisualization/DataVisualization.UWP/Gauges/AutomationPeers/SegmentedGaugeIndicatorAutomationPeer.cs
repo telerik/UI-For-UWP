@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(SegmentedGaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.SegmentedGaugeIndicator);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(SegmentedGaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.SegmentedGaugeIndicator);
         }
 
         /// <inheritdoc />

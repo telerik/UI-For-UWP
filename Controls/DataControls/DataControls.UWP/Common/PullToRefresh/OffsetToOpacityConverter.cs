@@ -10,7 +10,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
     /// </summary>
     public class OffsetToOpacityConverter : IValueConverter
     {
-        ///<inheritdoc/>
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             double maxValue = System.Convert.ToDouble(parameter);
@@ -20,7 +20,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             return Math.Min(1, offset / maxValue);
         }
 
-        ///<inheritdoc/>
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

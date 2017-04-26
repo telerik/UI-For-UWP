@@ -31,7 +31,7 @@ namespace Telerik.Data.Core
                 if (this.groupComparer != value)
                 {
                     this.ChangeSettingsProperty(ref this.groupComparer, value);
-                    this.OnPropertyChanged(nameof(GroupComparer));
+                    this.OnPropertyChanged(nameof(Telerik.Data.Core.GroupComparer));
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
             }

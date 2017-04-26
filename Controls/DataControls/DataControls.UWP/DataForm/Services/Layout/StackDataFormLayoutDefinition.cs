@@ -9,38 +9,18 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
     public class StackDataFormLayoutDefinition : DataFormLayoutDefinition
     {
         /// <summary>
-        /// Gets or sets the orientation of the StackDataFrom definition.
-        /// </summary>
-        public Orientation Orientation
-        {
-            get { return (Orientation)GetValue(OrientationProperty); }
-            set { SetValue(OrientationProperty, value); }
-        }
-
-        /// <summary>
         /// Identifies the <see cref="Orientation"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(StackDataFormLayoutDefinition), new PropertyMetadata(Orientation.Vertical, OnOrientationChanged));
 
-        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /// <summary>
+        /// Gets or sets the orientation of the StackDataFrom definition.
+        /// </summary>
+        public Orientation Orientation
         {
-            var definition = d as StackDataFormLayoutDefinition;
-
-
-            if (definition.Owner == null)
-            {
-                return;
-            }
-
-            var panel = definition.Owner.GetRootPanel() as StackPanel;
-
-            if (panel != null)
-            {
-                panel.Orientation = definition.Orientation;
-                definition.Owner.RefreshFormLayout();
-            }
-
+            get { return (Orientation)GetValue(OrientationProperty); }
+            set { this.SetValue(OrientationProperty, value); }
         }
 
         /// <inheritdoc/>
@@ -77,6 +57,24 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             editorElement.ViewRow = 1;
             editorElement.ErrorViewRow = 2;
             editorElement.PositiveMessageViewRow = 2;
+        }
+
+        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var definition = d as StackDataFormLayoutDefinition;
+
+            if (definition.Owner == null)
+            {
+                return;
+            }
+
+            var panel = definition.Owner.GetRootPanel() as StackPanel;
+
+            if (panel != null)
+            {
+                panel.Orientation = definition.Orientation;
+                definition.Owner.RefreshFormLayout();
+            }
         }
     }
 }

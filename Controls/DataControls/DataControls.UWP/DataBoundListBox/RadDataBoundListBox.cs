@@ -920,7 +920,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// <summary>
         /// Handles a click from a child visual item.
         /// </summary>
-        protected async internal virtual void OnItemTap(RadDataBoundListBoxItem item, UIElement container, UIElement originalSource, Point hitPoint)
+        protected internal async virtual void OnItemTap(RadDataBoundListBoxItem item, UIElement container, UIElement originalSource, Point hitPoint)
         {
             if (item.checkBoxVisible && item.isItemCheckable)
             {

@@ -453,7 +453,6 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             {
                 gauge.panel.UpdateOnMinMaxValueChange();
             }
-
             
             if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
             {

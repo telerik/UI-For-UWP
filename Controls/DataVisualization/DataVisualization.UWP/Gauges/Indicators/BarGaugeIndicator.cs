@@ -56,12 +56,6 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             }
         }
 
-        /// <inheritdoc/>
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new BarGaugeIndicatorAutomationPeer(this);
-        }
-
         /// <summary>
         /// A virtual method that is called when the thickness of this indicator changes.
         /// </summary>
@@ -76,6 +70,12 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// <param name="newColor">The new color.</param>
         internal virtual void OnBrushChanged(Brush newColor)
         {
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new BarGaugeIndicatorAutomationPeer(this);
         }
 
         private static void OnThicknessPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

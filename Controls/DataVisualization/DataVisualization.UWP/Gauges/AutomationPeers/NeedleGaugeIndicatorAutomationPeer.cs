@@ -18,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(NeedleGaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.NeedleGaugeIndicator);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(NeedleGaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.NeedleGaugeIndicator);
         }
 
         /// <inheritdoc />

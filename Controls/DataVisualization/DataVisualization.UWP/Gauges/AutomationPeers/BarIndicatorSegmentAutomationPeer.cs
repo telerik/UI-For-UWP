@@ -14,18 +14,17 @@ namespace Telerik.UI.Automation.Peers
             : base(owner)
         {
         }
-
-
+        
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(BarIndicatorSegment);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.BarIndicatorSegment);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(BarIndicatorSegment);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.BarIndicatorSegment);
         }
 
         /// <inheritdoc />
@@ -37,7 +36,7 @@ namespace Telerik.UI.Automation.Peers
                 return automationId;
             }
 
-            return nameof(BarIndicatorSegment);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.BarIndicatorSegment);
         }
 
         /// <inheritdoc />

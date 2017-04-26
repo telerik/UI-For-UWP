@@ -27,7 +27,7 @@ namespace Telerik.Data.Core
             if (this.Count > 0 && this[0] is CollectionViewGroupDescriptor)
             {
                 this.allowRemoveCollectionViewDescriptor = true;
-                base.RemoveAt(0);
+                this.RemoveAt(0);
                 this.allowRemoveCollectionViewDescriptor = false;
 
                 return true;

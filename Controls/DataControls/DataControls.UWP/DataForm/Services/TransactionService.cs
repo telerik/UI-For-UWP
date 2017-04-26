@@ -190,7 +190,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
             var list = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToList();
             this.errors[propertyName] = list;
 
-            var _ = this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+            var temp = this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
                 () =>
                 {
                     var errorsList = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToList();
