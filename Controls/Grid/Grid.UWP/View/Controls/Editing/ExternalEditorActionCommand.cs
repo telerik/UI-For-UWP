@@ -9,13 +9,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
     /// </summary>
     public class ExternalEditorActionCommand : ICommand
     {
-        private ExternalEditorCommandId Id { get; set; }
-
-        /// <summary>
-        /// The owner of the Command.
-        /// </summary>
-        public IGridExternalEditor Owner { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalEditorActionCommand"/> class.
         /// </summary>
@@ -24,6 +17,20 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.Owner = owner;
             this.Id = id;
         }
+
+#pragma warning disable 0067
+        /// <summary>
+        /// Occurs when changes occur that affect whether or not the command should execute.
+        /// </summary>
+        public event EventHandler CanExecuteChanged;
+#pragma warning restore 0067
+
+        /// <summary>
+        /// Gets or sets the owner of the Command.
+        /// </summary>
+        public IGridExternalEditor Owner { get; set; }
+
+        private ExternalEditorCommandId Id { get; set; }
 
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
@@ -38,13 +45,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         {
             return this.Owner != null;
         }
-
-#pragma warning disable 0067
-        /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute.
-        /// </summary>
-        public event EventHandler CanExecuteChanged;
-#pragma warning restore 0067
 
         /// <summary>
         /// Defines the method to be called when the command is invoked.

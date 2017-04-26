@@ -27,6 +27,15 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <inheritdoc />
+        public void Invoke()
+        {
+            if (this.OwnerDataGridColumnHeader.Owner != null)
+            {
+                this.OwnerDataGridColumnHeader.Owner.OnColumnHeaderTap(this.OwnerDataGridColumnHeader, new Windows.UI.Xaml.Input.TappedRoutedEventArgs());
+            }
+        }
+
+        /// <inheritdoc />
         protected override string GetNameCore()
         {
             if (this.OwnerDataGridColumnHeader != null && this.OwnerDataGridColumnHeader.Content != null)
@@ -46,13 +55,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(DataGridColumnHeader);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridColumnHeader);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(DataGridColumnHeader);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridColumnHeader);
         }
 
         /// <inheritdoc />
@@ -70,7 +79,7 @@ namespace Telerik.UI.Automation.Peers
                 return automationId;
             }
 
-            return nameof(DataGridColumnHeader);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridColumnHeader);
         }
 
         /// <inheritdoc />
@@ -88,17 +97,6 @@ namespace Telerik.UI.Automation.Peers
             }
 
             return base.GetPatternCore(patternInterface);
-        }
-
-        /// <summary>
-        /// IInvokeProvider implementation.
-        /// </summary>
-        public void Invoke()
-        {
-            if (this.OwnerDataGridColumnHeader.Owner != null)
-            {
-                this.OwnerDataGridColumnHeader.Owner.OnColumnHeaderTap(this.OwnerDataGridColumnHeader, new Windows.UI.Xaml.Input.TappedRoutedEventArgs());
-            }
         }
     }
 }

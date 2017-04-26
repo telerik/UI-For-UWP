@@ -11,9 +11,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
     [TemplatePart(Name = "PART_SelectCheckBox", Type = typeof(CheckBox))]
     public partial class DataGridFlyoutColumnHeader : DataGridFlyoutHeader
     {
-        internal event EventHandler SelectionCheck;
-        internal event EventHandler SelectionUncheck;
-
         private CheckBox selectCheckBox;
 
         /// <summary>
@@ -23,6 +20,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         {
             this.DefaultStyleKey = typeof(DataGridFlyoutColumnHeader);
         }
+
+        internal event EventHandler SelectionCheck;
+        internal event EventHandler SelectionUncheck;
 
         /// <summary>
         /// Raises the <see cref="SelectionCheck"/> event. Exposed for testing purposes, do not call elsewhere but in test projects.
@@ -69,8 +69,25 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         {
             base.OnTemplateApplied();
 
-            this.selectCheckBox.Checked += SelectCheckBox_Checked;
-            this.selectCheckBox.Unchecked += SelectCheckBox_Unchecked;
+            this.selectCheckBox.Checked += this.SelectCheckBox_Checked;
+            this.selectCheckBox.Unchecked += this.SelectCheckBox_Unchecked;
+        }
+        
+        /// <inheritdoc/>
+        protected override void UnapplyTemplateCore()
+        {
+            base.UnapplyTemplateCore();
+            this.selectCheckBox.Checked -= this.SelectCheckBox_Checked;
+            this.selectCheckBox.Unchecked -= this.SelectCheckBox_Unchecked;
+        }
+
+        /// <inheritdoc/>
+        protected override DataGridFlyoutHeader CreateHeader()
+        {
+            DataGridFlyoutColumnHeader header = new DataGridFlyoutColumnHeader();
+            header.Width = this.ActualWidth;
+            header.OuterBorderVisibility = Visibility.Visible;
+            return header;
         }
 
         private void SelectCheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -83,28 +100,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.RaiseSelectionCheck();
         }
 
-        /// <inheritdoc/>
-        protected override void UnapplyTemplateCore()
-        {
-            base.UnapplyTemplateCore();
-            this.selectCheckBox.Checked -= SelectCheckBox_Checked;
-            this.selectCheckBox.Unchecked -= SelectCheckBox_Unchecked;
-        }
-
-        /// <inheritdoc/>
-        protected override DataGridFlyoutHeader CreateHeader()
-        {
-            DataGridFlyoutColumnHeader header = new DataGridFlyoutColumnHeader();
-            header.Width = this.ActualWidth;
-            header.OuterBorderVisibility = Visibility.Visible;
-            return header;
-        }
-
         private void OnContentTapped(object sender, TappedRoutedEventArgs e)
         {
             this.RaiseDescriptorContentTap();
         }
-
     }
 }
-

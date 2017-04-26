@@ -43,6 +43,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
         }
 
+        public double VerticalBufferScale { get; internal set; }
+
         internal IFieldInfoData FieldInfoData
         {
             get
@@ -61,11 +63,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             get
             {
                 return this.columns.Where(col => col.IsVisible);
-
             }
         }
-
-        public double VerticalBufferScale { get; internal set; }
 
         internal static void UpdateFilterMemberAccess(IFieldInfoData data, IEnumerable<FilterDescriptorBase> descriptors)
         {

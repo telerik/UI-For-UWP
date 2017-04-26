@@ -18,7 +18,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RotatedContainer);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.RotatedContainer);
         }
 
         /// <inheritdoc />
@@ -32,9 +32,11 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
-            return nameof(RotatedContainer);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.RotatedContainer);
         }
     }
 }

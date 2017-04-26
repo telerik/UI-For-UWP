@@ -19,7 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.View
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var canGroupBy = (bool)value;
-            if(canGroupBy)
+            if (canGroupBy)
             {
                 return GridLocalizationManager.Instance.GetString("DataOperationsButtonGroup");
             }

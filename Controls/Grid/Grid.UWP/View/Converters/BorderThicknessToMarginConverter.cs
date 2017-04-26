@@ -20,7 +20,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.View
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var margin = (Thickness)value;
-            if(margin != null)
+            if (margin != null)
             {
                 return new Thickness(0, 0, -margin.Right, 0);
             }

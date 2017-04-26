@@ -48,49 +48,12 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         }
 
         /// <summary>
-        /// Gets or set the position of the Group's panel.
+        /// Gets or sets the position of the Group's panel.
         /// </summary>
         public GroupPanelPosition Position
         {
             get { return (GroupPanelPosition)GetValue(PositionProperty); }
-            set { SetValue(PositionProperty, value); }
-        }
-
-        private static void OnPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var panel = d as DataGridServicePanel;
-            var position = (GroupPanelPosition)e.NewValue;
-
-            if (panel != null)
-            {
-                if (panel.IsTemplateApplied)
-                {
-                    panel.OnPositionChanged(position);
-                    panel.UpdatePositionVisualState(position);
-                    panel.PositionGroupFlyout();
-                }
-            }
-        }
-
-        internal void OnPositionChanged(GroupPanelPosition position)
-        {
-            switch (position)
-            {
-                case GroupPanelPosition.Left:
-                    this.HorizontalAlignment = HorizontalAlignment.Left;
-                    this.VerticalAlignment = VerticalAlignment.Stretch;
-                    this.Width = 40;
-                    this.Height = double.NaN;
-                    break;
-                case GroupPanelPosition.Bottom:
-                    this.HorizontalAlignment = HorizontalAlignment.Stretch;
-                    this.VerticalAlignment = VerticalAlignment.Top;
-                    this.Height = 40;
-                    this.Width = double.NaN;
-                    break;
-                default:
-                    break;
-            }
+            set { this.SetValue(PositionProperty, value); }
         }
         
         /// <summary>
@@ -160,6 +123,27 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 }
             }
         }
+        
+        internal void OnPositionChanged(GroupPanelPosition position)
+        {
+            switch (position)
+            {
+                case GroupPanelPosition.Left:
+                    this.HorizontalAlignment = HorizontalAlignment.Left;
+                    this.VerticalAlignment = VerticalAlignment.Stretch;
+                    this.Width = 40;
+                    this.Height = double.NaN;
+                    break;
+                case GroupPanelPosition.Bottom:
+                    this.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    this.VerticalAlignment = VerticalAlignment.Top;
+                    this.Height = 40;
+                    this.Width = double.NaN;
+                    break;
+                default:
+                    break;
+            }
+        }
 
         internal void HandleGroupFlyoutHeaderClosed(object sender, EventArgs e)
         {
@@ -170,7 +154,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 return;
             }
 
-            if(descriptor is CollectionViewGroupDescriptor)
+            if (descriptor is CollectionViewGroupDescriptor)
             {
                 Debug.Assert(false, "CollectionViewGroupDescriptor cannot be removed by the user.");
                 return;
@@ -281,17 +265,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return new DataGridServicePanelAutomationPeer(this);
         }
 
-        private void UpdatePositionVisualState(GroupPanelPosition position)
-        {
-            var stateName = position.ToString();
-            this.SetVisualState(stateName, false);
-        }
-
-        private void OnGroupFlyoutSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            this.PositionGroupFlyout();
-        }
-
         /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
@@ -353,6 +326,22 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.OpenGroupingFlyout();
         }
 
+        private static void OnPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var panel = d as DataGridServicePanel;
+            var position = (GroupPanelPosition)e.NewValue;
+
+            if (panel != null)
+            {
+                if (panel.IsTemplateApplied)
+                {
+                    panel.OnPositionChanged(position);
+                    panel.UpdatePositionVisualState(position);
+                    panel.PositionGroupFlyout();
+                }
+            }
+        }
+
         private void PositionGroupFlyout()
         {
             if (this.Position == GroupPanelPosition.Left)
@@ -373,6 +362,17 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
          }
 
+        private void UpdatePositionVisualState(GroupPanelPosition position)
+        {
+            var stateName = position.ToString();
+            this.SetVisualState(stateName, false);
+        }
+
+        private void OnGroupFlyoutSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.PositionGroupFlyout();
+        }
+        
         private void OnGroupFlyoutOpened(object sender, object e)
         {
             this.isGroupFlyoutOpen = true;

@@ -9,6 +9,21 @@ namespace Telerik.UI.Xaml.Controls.Grid
     public interface IGridExternalEditor
     {
         /// <summary>
+        /// Occurs when an edit operation on the item is cancelled.
+        /// </summary>
+        event EventHandler EditCancelled;
+
+        /// <summary>
+        /// Occurs when an edit operation on the item is committed.
+        /// </summary>
+        event EventHandler EditCommitted;
+
+        /// <summary>
+        /// Gets or sets the position of the ExternalEditor.
+        /// </summary>
+        ExternalEditorPosition Position { get; set; }
+
+        /// <summary>
         /// Begins edit on the passed item.
         /// </summary>
         void BeginEdit(object item, RadDataGrid owner);
@@ -22,20 +37,5 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Commits edit on the passed item.
         /// </summary>
         void CommitEdit();
-
-        /// <summary>
-        /// Occurs when an edit operation on the item is cancelled.
-        /// </summary>
-        event EventHandler EditCancelled;
-
-        /// <summary>
-        /// Occurs when an edit operation on the item is committed.
-        /// </summary>
-        event EventHandler EditCommitted;
-        
-        /// <summary>
-        /// Gets or sets the position of the ExternalEditor.
-        /// </summary>
-        ExternalEditorPosition Position { get; set; }
     }
 }

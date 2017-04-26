@@ -19,7 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
         }
 
         /// <summary>
-        /// Gets or sets the visibility of the Column. When set to true the Column is Visible. When set to false it is Collapsed.
+        /// Gets or sets a value indicating whether the visibility of the Column. When set to true the Column is Visible. When set to false it is Collapsed.
         /// </summary>
         public bool IsColumnVisible
         {

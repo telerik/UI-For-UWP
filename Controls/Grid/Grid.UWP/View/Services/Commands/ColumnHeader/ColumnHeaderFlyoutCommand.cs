@@ -10,16 +10,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
     public class ColumnHeaderFlyoutCommand : ICommand
     {
         /// <summary>
-        /// Gets or sets the Tapped Header of the DataGrid.
-        /// </summary>
-        public DataGridColumnHeader ColumnHeader { get; set; }
-
-        /// <summary>
-        /// Gets or sets the grouping of the Column.
-        /// </summary>
-        public bool IsGrouped { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="ColumnHeaderFlyoutCommand"/> class.
         /// </summary>
         public ColumnHeaderFlyoutCommand(DataGridColumnHeader owner)
@@ -27,6 +17,23 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
             this.ColumnHeader = owner;
             this.IsGrouped = owner.Column.CanGroupBy;
         }
+        
+#pragma warning disable 0067
+        /// <summary>
+        /// Occurs when changes occur that affect whether or not the command should execute.
+        /// </summary>
+        public event EventHandler CanExecuteChanged;
+#pragma warning restore 0067
+
+        /// <summary>
+        /// Gets or sets the Tapped Header of the DataGrid.
+        /// </summary>
+        public DataGridColumnHeader ColumnHeader { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the grouping of the Column.
+        /// </summary>
+        public bool IsGrouped { get; set; }
 
         /// <summary>
         /// Defines the method that determines whether the command can execute in its current state.
@@ -41,13 +48,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
         {
             return parameter != null;
         }
-
-#pragma warning disable 0067
-        /// <summary>
-        /// Occurs when changes occur that affect whether or not the command should execute.
-        /// </summary>
-        public event EventHandler CanExecuteChanged;
-#pragma warning restore 0067
 
         /// <summary>
         /// Defines the method to be called when the command is invoked.

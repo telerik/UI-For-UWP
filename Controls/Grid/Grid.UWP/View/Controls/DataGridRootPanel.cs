@@ -208,7 +208,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 }
                 else
                 {
-                    //top -= this.Owner.ServicePanel.DesiredSize.Height;
                     height -= this.Owner.ServicePanel.DesiredSize.Height;
                 }
             }

@@ -12,17 +12,17 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
     public class DataGridFormEntityProvider : RuntimeEntityProvider
     {
         /// <summary>
-        /// Gets or sets a collection with the provider's Columns.
-        /// </summary>
-        public IEnumerable<DataGridColumn> Columns { get; set; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="DataGridFormEntityProvider"/> class.
         /// </summary>
         public DataGridFormEntityProvider(IEnumerable<DataGridColumn> columns)
         {
             this.Columns = columns;
         }
+
+        /// <summary>
+        /// Gets or sets a collection with the provider's Columns.
+        /// </summary>
+        public IEnumerable<DataGridColumn> Columns { get; set; }
 
         /// <inheritdoc/>
         public override Entity GenerateEntity()
@@ -40,14 +40,14 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 foreach (var column in this.Columns)
                 {
                     var comboColumn = column as DataGridComboBoxColumn;
-                    if(comboColumn != null)
+                    if (comboColumn != null)
                     {
                         if (entityProperty.PropertyName.Equals(comboColumn.PropertyName))
                         {
                             entityProperty.DisplayMemberPath = comboColumn.DisplayMemberPath;
                             entityProperty.SelectedValuePath = comboColumn.SelectedValuePath;
 
-                            if (!String.IsNullOrEmpty(comboColumn.ItemsSourcePath))
+                            if (!string.IsNullOrEmpty(comboColumn.ItemsSourcePath))
                             {
                                 var info = this.Context.GetType().GetRuntimeProperty(comboColumn.ItemsSourcePath);
                                 entityProperty.ValueOptions = info.GetMethod.Invoke(this.Context, new object[0]) as IList;

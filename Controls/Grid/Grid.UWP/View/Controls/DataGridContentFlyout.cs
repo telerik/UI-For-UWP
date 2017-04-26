@@ -53,8 +53,14 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         private DoubleAnimation cellFlyoutHideTimeOutAnimation;
         private Storyboard cellFlyoutHideTimeOutAnimationBoard;
         private bool automaticallyHideFlyout = false;
-
-        internal RadDataGrid Owner { get; set; }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridContentFlyout"/> class.
+        /// </summary>
+        public DataGridContentFlyout()
+        {
+            this.DefaultStyleKey = typeof(DataGridContentFlyout);
+        }
 
         /// <summary>
         /// Occurs when the <see cref="DataGridContentFlyout"/> is closed.
@@ -67,29 +73,21 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public event EventHandler<object> Opened;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataGridContentFlyout"/> class.
-        /// </summary>
-        public DataGridContentFlyout()
-        {
-            this.DefaultStyleKey = typeof(DataGridContentFlyout);
-        }
-
-        /// <summary>
-        /// Gets or set the horizontal offset of the <see cref="DataGridContentFlyout"/> class.
+        /// Gets or sets the horizontal offset of the <see cref="DataGridContentFlyout"/> class.
         /// </summary>
         public double HorizontalOffset
         {
             get { return (double)GetValue(HorizontalOffsetProperty); }
-            set { SetValue(HorizontalOffsetProperty, value); }
+            set { this.SetValue(HorizontalOffsetProperty, value); }
         }
 
         /// <summary>
-        /// Gets or set the vertical offset of the <see cref="DataGridContentFlyout"/> class.
+        /// Gets or sets the vertical offset of the <see cref="DataGridContentFlyout"/> class.
         /// </summary>
         public double VerticalOffset
         {
             get { return (double)GetValue(VerticalOffsetProperty); }
-            set { SetValue(VerticalOffsetProperty, value); }
+            set { this.SetValue(VerticalOffsetProperty, value); }
         }
 
         /// <summary>
@@ -98,11 +96,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public FrameworkElement Child
         {
             get { return (FrameworkElement)GetValue(ChildProperty); }
-            private set { SetValue(ChildProperty, value); }
+            private set { this.SetValue(ChildProperty, value); }
         }
 
         /// <summary>
-        /// Gets information if the <see cref="DataGridContentFlyout"/> is opened.
+        /// Gets a value indicating whether information if the <see cref="DataGridContentFlyout"/> is opened.
         /// </summary>
         public bool IsOpen
         {
@@ -112,14 +110,16 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
             private set
             {
-                SetValue(IsOpenProperty, value);
+                this.SetValue(IsOpenProperty, value);
             }
         }
+
+        internal RadDataGrid Owner { get; set; }
 
         internal DataGridFlyoutId Id
         {
             get { return (DataGridFlyoutId)GetValue(IdProperty); }
-            set { SetValue(IdProperty, value); }
+            set { this.SetValue(IdProperty, value); }
         }
 
         internal void Show(DataGridFlyoutId id, FrameworkElement content, bool automaticallyHideFlyout = false)
@@ -130,44 +130,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.Id = id;
             this.UpdateFlyoutPosition();
             this.IsOpen = true;
-        }
-
-        private void UpdateFlyoutPosition()
-        {
-            switch (this.Id)
-            {
-                case DataGridFlyoutId.Cell:
-                    var cell = this.Child.DataContext as GridCellModel;
-                    var groupPanelWidth = this.Owner.GroupPanelPosition == GroupPanelPosition.Left ? this.Owner.ServicePanel.ActualWidth - 2 : 0;
-
-                    var offsetY = cell.LayoutSlot.Y + cell.Column.HeaderControl.ActualHeight - this.Owner.ScrollViewer.VerticalOffset;
-                    var offsetX = cell.layoutSlot.X + groupPanelWidth - this.Owner.ScrollViewer.HorizontalOffset;
-
-                    this.HorizontalOffset = offsetX;
-                    this.VerticalOffset = offsetY;
-                    break;
-                case DataGridFlyoutId.ColumnChooser:
-                    this.HorizontalOffset = this.Owner.ActualWidth - this.Child.ActualWidth - this.Owner.BorderThickness.Left;
-                    this.VerticalOffset = 0;
-                    break;
-                case DataGridFlyoutId.ColumnHeader:
-                    this.PositionColumnDataOperationsFlyout();
-                    break;
-                case DataGridFlyoutId.EditorLeft:
-                    this.HorizontalOffset = 0 - this.Owner.BorderThickness.Left;
-                    this.VerticalOffset = 0;
-                    break;
-                case DataGridFlyoutId.EditorRight:
-                    this.HorizontalOffset = this.Owner.ActualWidth - this.Child.ActualWidth - this.Owner.BorderThickness.Left;
-                    this.VerticalOffset = 0;
-                    break;
-                case DataGridFlyoutId.FilterButton:
-                case DataGridFlyoutId.FlyoutFilterButton:
-                    this.PositionFilterFlyout();
-                    break;
-                default:
-                    break;
-            }
         }
 
         internal void Hide(DataGridFlyoutId id)
@@ -191,6 +153,17 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             applied = applied && this.content != null;
 
             return applied;
+        }
+
+        /// <inheritdoc/>
+        protected override void UnapplyTemplateCore()
+        {
+            base.UnapplyTemplateCore();
+
+            this.popup.Closed -= this.PopupClosed;
+            this.popup.Opened -= this.PopupOpened;
+            this.Owner.SizeChanged -= this.OwnerSizeChanged;
+            this.content = null;
         }
 
         /// <inheritdoc/>
@@ -221,28 +194,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.cellFlyoutHideTimeOutAnimationBoard.Children.Add(this.cellFlyoutHideTimeOutAnimation);
         }
 
-        private void CellTimeOutAnimationCompleted(object sender, object e)
-        {
-            this.cellFlyoutHideTimeOutAnimationBoard.Completed -= this.CellTimeOutAnimationCompleted;
-            this.Hide(DataGridFlyoutId.All);
-        }
-
-        private void OwnerSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            this.Hide(DataGridFlyoutId.All);
-        }
-
-        /// <inheritdoc/>
-        protected override void UnapplyTemplateCore()
-        {
-            base.UnapplyTemplateCore();
-
-            this.popup.Closed -= this.PopupClosed;
-            this.popup.Opened -= this.PopupOpened;
-            this.Owner.SizeChanged -= this.OwnerSizeChanged;
-            this.content = null;
-        }
-
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as DataGridContentFlyout;
@@ -254,19 +205,13 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                     control.cellFlyoutHideTimeOutAnimationBoard.Completed -= control.CellTimeOutAnimationCompleted;
                     control.cellFlyoutHideTimeOutAnimationBoard.Stop();
                 }
-                else if (control.Id == DataGridFlyoutId.Cell) 
+                else if (control.Id == DataGridFlyoutId.Cell)
                 {
                     control.opacityAnimationStoryboard.Stop();
                     control.opacityAnimationStoryboard.Begin();
                 }
                 control.popup.IsOpen = (bool)e.NewValue;
             }
-        }
-
-        private void DataOperationsStoryBoardCompleted(object sender, object e)
-        {
-            this.popup.IsOpen = false;
-            (sender as Storyboard).Completed -= this.DataOperationsStoryBoardCompleted;
         }
 
         private static void OnIdChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -287,11 +232,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
 
             control.UpdateTransitions();
-        }
-
-        private void GridColumnsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            this.Hide(DataGridFlyoutId.All);
         }
 
         private static void OnHorizontalOffsetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -337,6 +277,66 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                     (e.OldValue as FrameworkElement).PointerExited -= control.Child_PointerExited;
                 }
             }
+        }
+
+        private void CellTimeOutAnimationCompleted(object sender, object e)
+        {
+            this.cellFlyoutHideTimeOutAnimationBoard.Completed -= this.CellTimeOutAnimationCompleted;
+            this.Hide(DataGridFlyoutId.All);
+        }
+
+        private void UpdateFlyoutPosition()
+        {
+            switch (this.Id)
+            {
+                case DataGridFlyoutId.Cell:
+                    var cell = this.Child.DataContext as GridCellModel;
+                    var groupPanelWidth = this.Owner.GroupPanelPosition == GroupPanelPosition.Left ? this.Owner.ServicePanel.ActualWidth - 2 : 0;
+
+                    var offsetY = cell.LayoutSlot.Y + cell.Column.HeaderControl.ActualHeight - this.Owner.ScrollViewer.VerticalOffset;
+                    var offsetX = cell.layoutSlot.X + groupPanelWidth - this.Owner.ScrollViewer.HorizontalOffset;
+
+                    this.HorizontalOffset = offsetX;
+                    this.VerticalOffset = offsetY;
+                    break;
+                case DataGridFlyoutId.ColumnChooser:
+                    this.HorizontalOffset = this.Owner.ActualWidth - this.Child.ActualWidth - this.Owner.BorderThickness.Left;
+                    this.VerticalOffset = 0;
+                    break;
+                case DataGridFlyoutId.ColumnHeader:
+                    this.PositionColumnDataOperationsFlyout();
+                    break;
+                case DataGridFlyoutId.EditorLeft:
+                    this.HorizontalOffset = 0 - this.Owner.BorderThickness.Left;
+                    this.VerticalOffset = 0;
+                    break;
+                case DataGridFlyoutId.EditorRight:
+                    this.HorizontalOffset = this.Owner.ActualWidth - this.Child.ActualWidth - this.Owner.BorderThickness.Left;
+                    this.VerticalOffset = 0;
+                    break;
+                case DataGridFlyoutId.FilterButton:
+                case DataGridFlyoutId.FlyoutFilterButton:
+                    this.PositionFilterFlyout();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OwnerSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.Hide(DataGridFlyoutId.All);
+        }
+
+        private void DataOperationsStoryBoardCompleted(object sender, object e)
+        {
+            this.popup.IsOpen = false;
+            (sender as Storyboard).Completed -= this.DataOperationsStoryBoardCompleted;
+        }
+
+        private void GridColumnsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            this.Hide(DataGridFlyoutId.All);
         }
 
         private void Child_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
@@ -395,7 +395,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                     transform = filteringFlyout.TransformToVisual(this.Owner);
                     rect = transform.TransformBounds(new Rect(0, 0, filteringFlyout.ActualWidth, 0));
 
-                    this.HorizontalOffset = - thickness;
+                    this.HorizontalOffset = -thickness;
                     this.VerticalOffset = 0;
 
                     break;
@@ -415,19 +415,17 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.HorizontalOffset = offsetX;
             this.VerticalOffset = offsetY;
 
-
             if (this.popup.IsOpen)
             {
-                var currentOffsetX = (this.Owner).TransformToVisual(Window.Current.Content).TransformPoint(new Point(0, 0)).X + this.HorizontalOffset;
+                var currentOffsetX = this.Owner.TransformToVisual(Window.Current.Content).TransformPoint(new Point(0, 0)).X + this.HorizontalOffset;
 
                 if (currentOffsetX < 0)
                 {
                     this.HorizontalOffset += -currentOffsetX;
                 }
-
                 else if (currentOffsetX + this.Child.ActualWidth > Window.Current.Bounds.Width)
                 {
-                    this.HorizontalOffset -= (currentOffsetX + this.Child.ActualWidth - Window.Current.Bounds.Width);
+                    this.HorizontalOffset -= currentOffsetX + this.Child.ActualWidth - Window.Current.Bounds.Width;
                 }
 
                 if (this.HorizontalOffset + this.Child.ActualWidth > this.Owner.ActualWidth)

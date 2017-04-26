@@ -37,10 +37,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
         T GetDisplayedElement(int slot);
 
         /// <summary>
-        /// Gets the layout slot accosiated with the displayed elements. This method reliably returns the last valid displayed state even if nodepool is currently recycled.
+        /// Gets the layout slot associated with the displayed elements. This method reliably returns the last valid displayed state even if node pool is currently recycled.
         /// </summary>
-        /// <param name="slot"></param>
-        /// <returns></returns>
         RadRect GetPreviousDisplayedLayoutSlot(int slot);
 
         bool IsItemCollapsed(int cellSlot);

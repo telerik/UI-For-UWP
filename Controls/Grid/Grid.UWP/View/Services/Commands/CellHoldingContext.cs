@@ -22,7 +22,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
         public HoldingState HoldingState { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="DataGridCellInfo"/> instance over which a holding event has occured.
+        /// Gets or sets the <see cref="DataGridCellInfo"/> instance over which a holding event has occurred.
         /// </summary>
         public DataGridCellInfo CellInfo { get; set; }
     }

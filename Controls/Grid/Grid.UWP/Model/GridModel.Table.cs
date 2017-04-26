@@ -202,7 +202,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         {
             this.availableSize = newAvailableSize;
 
-            var cellsDesiredSize = this.RowPool.OnMeasure(this.availableSize, this.PhysicalVerticalOffset, this.FrozenColumnCount,this.VerticalBufferScale);
+            var cellsDesiredSize = this.RowPool.OnMeasure(this.availableSize, this.PhysicalVerticalOffset, this.FrozenColumnCount, this.VerticalBufferScale);
 
             this.RecycleDecorations();
             this.ColumnPool.RecycleAfterMeasure();
@@ -252,7 +252,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             this.UpdateEditRow();
 
             this.ArrangeEditorsPool(finalSize);
-
 
             // Wait for cell to be arranged since arranging the frozen decorators need the cells lyaoutslot to arrange.
             this.RowPool.ArrangeFrozenDecorators();

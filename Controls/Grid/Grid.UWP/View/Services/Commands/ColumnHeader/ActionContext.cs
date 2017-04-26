@@ -18,27 +18,27 @@
         }
         
         /// <summary>
-        /// Gets or set the Column that uses the action context.
+        /// Gets or sets the Column that uses the action context.
         /// </summary>
         public DataGridColumn Column { get; set; }
 
         /// <summary>
-        /// Gets or set the Command used by the ColumnHeader.
+        /// Gets or sets the Command used by the ColumnHeader.
         /// </summary>
         public ColumnHeaderFlyoutCommand Command { get; set; }
 
         /// <summary>
-        /// Gets or sets information if column can be sorted.
+        /// Gets or sets a value indicating whether information if column can be sorted.
         /// </summary>
         public bool CanSort { get; set; }
 
         /// <summary>
-        /// Gets or sets information if column can be grouped.
+        /// Gets or sets a value indicating whether column can be grouped.
         /// </summary>
         public bool CanGroup { get; set; }
 
         /// <summary>
-        /// Gets or sets information if column can be filtered.
+        /// Gets or sets a value indicating whether column can be filtered.
         /// </summary>
         public bool CanFilter { get; set; }
     }

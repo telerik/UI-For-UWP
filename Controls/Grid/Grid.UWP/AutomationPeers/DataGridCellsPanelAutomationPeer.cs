@@ -62,11 +62,12 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(DataGridCellsPanel);
         }
-
 
         /// <inheritdoc />
         protected override IList<AutomationPeer> GetChildrenCore()
@@ -125,7 +126,7 @@ namespace Telerik.UI.Automation.Peers
 
             if (dataGridContentLayerPanelChildren.Count > 0)
             {
-                dataGridContentLayerPanelChildren.RemoveAll(a => a.GetClassName() == nameof(TextBlock));
+                dataGridContentLayerPanelChildren.RemoveAll(a => a.GetClassName() == nameof(Windows.UI.Xaml.Controls.TextBlock));
                 children.AddRange(dataGridContentLayerPanelChildren);
             }
 

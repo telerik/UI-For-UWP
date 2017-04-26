@@ -6,12 +6,12 @@
     public enum ExternalEditorPosition
     {
         /// <summary>
-        /// Specifies a "Right" position for the extednal editor.
+        /// Specifies a "Right" position for the external editor.
         /// </summary>
         Right,
 
         /// <summary>
-        /// Specifies a "Left" position for the extednal editor.
+        /// Specifies a "Left" position for the external editor.
         /// </summary>
         Left,
     }

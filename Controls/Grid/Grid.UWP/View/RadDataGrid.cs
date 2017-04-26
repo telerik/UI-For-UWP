@@ -35,35 +35,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
     public partial class RadDataGrid : RadControl, IGridView
     {
         /// <summary>
-        /// Gets or sets the relative to viewport size buffer scale that will be used to realize items outside viewport. Default value is 1.
-        /// </summary>
-        public double RealizedItemsVerticalBufferScale
-        {
-            get { return (double)GetValue(RealizedItemsBufferScaleProperty); }
-            set { SetValue(RealizedItemsBufferScaleProperty, value); }
-        }
-
-        /// <summary>
         /// Identifies the <see cref="RealizedItemsVerticalBufferScale"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty RealizedItemsBufferScaleProperty =
             DependencyProperty.Register(nameof(RealizedItemsVerticalBufferScale), typeof(double), typeof(RadDataGrid), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
-
-        private static void OnRealizedItemsBufferScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var grid = d as RadDataGrid;
-            var scale = (double)e.NewValue;
-
-
-            if (scale < 0)
-            {
-                throw new ArgumentException("The realized items buffer scale must positive number");
-            }
-
-            grid.Model.VerticalBufferScale = scale;
-
-            grid.InvalidatePanelsMeasure();
-        }
 
         /// <summary>
         /// Identifies the <see cref="IsBusyIndicatorEnabled"/> dependency property. 
@@ -246,6 +221,15 @@ namespace Telerik.UI.Xaml.Controls.Grid
         }
 
         /// <summary>
+        /// Gets or sets the relative to viewport size buffer scale that will be used to realize items outside viewport. Default value is 1.
+        /// </summary>
+        public double RealizedItemsVerticalBufferScale
+        {
+            get { return (double)GetValue(RealizedItemsBufferScaleProperty); }
+            set { this.SetValue(RealizedItemsBufferScaleProperty, value); }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the built-in BusyIndicator control is enabled. 
         /// If true, the Grid will display an indeterminate progress indicator while it is processing some background requests like filtering, sorting or grouping.
         /// </summary>
@@ -340,7 +324,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 this.SetValue(ColumnResizeHandleDisplayModeProperty, value);
             }
         }
-
 
         /// <summary>
         /// Gets or sets the <see cref="DataGridUserSortMode"/> value that defines how User Input (column header tap) affects the current Sort state of the grid.
@@ -596,7 +579,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         public GroupPanelPosition GroupPanelPosition
         {
             get { return (GroupPanelPosition)GetValue(GroupPanelPositionProperty); }
-            set { SetValue(GroupPanelPositionProperty, value); }
+            set { this.SetValue(GroupPanelPositionProperty, value); }
         }
 
         internal bool IsServicePanelVisible
@@ -615,8 +598,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return this.rootPanel.CellsHostAvailableSize.ToRadSize();
             }
         }
-
-
+        
         internal DataGridColumn LastSelectedColumn
         {
             get;
@@ -969,6 +951,21 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 newBehavior.Owner = d as RadDataGrid;
             }
+        }
+
+        private static void OnRealizedItemsBufferScaleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var grid = d as RadDataGrid;
+            var scale = (double)e.NewValue;
+            
+            if (scale < 0)
+            {
+                throw new ArgumentException("The realized items buffer scale must positive number");
+            }
+
+            grid.Model.VerticalBufferScale = scale;
+
+            grid.InvalidatePanelsMeasure();
         }
 
         private static void OnGroupPanelPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

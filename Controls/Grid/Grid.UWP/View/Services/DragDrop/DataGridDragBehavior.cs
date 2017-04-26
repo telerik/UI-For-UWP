@@ -59,7 +59,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return false;
             }
 
-            return (this.Owner.UserColumnReorderMode == DataGridUserColumnReorderMode.Interactive && column.CanUserReorder);
+            return this.Owner.UserColumnReorderMode == DataGridUserColumnReorderMode.Interactive && column.CanUserReorder;
         }
 
         /// <summary>
@@ -89,7 +89,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             column.SizeMode = DataGridColumnSizeMode.Fixed;
             column.Width = column.ActualWidth;
-
         }
 
         /// <summary>
@@ -101,7 +100,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
         public virtual void OnColumnResizing(DataGridColumn column, double initialColumnSize, double totalResizeChange)
         {
             column.Width = Math.Max(DataGridColumn.DefaultWidth, initialColumnSize + totalResizeChange);
-
         }
 
         /// <summary>
@@ -110,7 +108,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// <param name="column">The resized column.</param>
         /// <param name="widthChange">The column width change. Can be negative when the column size has been reduced.</param>
         public virtual void OnColumnResizeEnded(DataGridColumn column, double widthChange)
-        { }
+        {
+        }
 
         /// <inheritdoc/>
         public virtual void OnColumnResizeHandleDoubleTapped(DataGridColumn column)
@@ -295,24 +294,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.Owner.Columns.Move(sourceIndex, destinationIndex);
         }
 
-        private int GetIndexInFullColumnsCollection(int sourceIndex)
-        {
-            int result = sourceIndex;
-
-            foreach (var column in this.Owner.Columns)
-            {
-                if (!column.IsVisible)
-                    result++;
-                else
-                    sourceIndex--;
-
-                if (sourceIndex < 0)
-                    break;
-            }
-
-            return result;
-        }
-
         internal void OnDragStarted(DataGridColumnHeader header)
         {
             if (this.CanGroupBy(header.Column))
@@ -327,6 +308,30 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
 
             this.OnDragStarted(header.Column);
+        }
+
+        private int GetIndexInFullColumnsCollection(int sourceIndex)
+        {
+            int result = sourceIndex;
+
+            foreach (var column in this.Owner.Columns)
+            {
+                if (!column.IsVisible)
+                {
+                    result++;
+                }
+                else
+                {
+                    sourceIndex--;
+                }
+
+                if (sourceIndex < 0)
+                {
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }

@@ -87,7 +87,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
         public static readonly DependencyProperty NameProperty =
             DependencyProperty.Register(nameof(Name), typeof(string), typeof(DataGridColumn), new PropertyMetadata(null));
 
-
         /// <summary>
         /// Identifies the <see cref="DataOperationsFlyoutTemplate"/> dependency property.
         /// </summary>
@@ -98,20 +97,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="IsVisible"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsVisibleProperty =
-            DependencyProperty.Register(nameof(IsVisible), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true, OnIsVisibleChanged));    
-        
-
-        internal int CollectionIndex;
-
-        internal bool IsFiltered
-        {
-            get
-            {
-                return this.isFiltered;
-            }
-        }
+            DependencyProperty.Register(nameof(IsVisible), typeof(bool), typeof(DataGridColumn), new PropertyMetadata(true, OnIsVisibleChanged));
 
         internal static double DefaultWidth = 100;
+        internal int CollectionIndex;
         
         private Style headerStyleCache;
         private object headerCache;
@@ -133,7 +122,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.canSortCache = true;
             this.CollectionIndex = -1;
         }
-
+        
         /// <summary>
         /// Gets or sets the unique name of the column. Typically this is used as an identifier for this particular instance.
         /// <remarks>
@@ -259,12 +248,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
         }
 
         /// <summary>
-        /// Gets or sets a value indicating if the current column is visible or not.
+        /// Gets or sets a value indicating whether if the current column is visible or not.
         /// </summary>   
         public bool IsVisible
         {
             get { return (bool)GetValue(IsVisibleProperty); }
-            set { SetValue(IsVisibleProperty, value); }
+            set { this.SetValue(IsVisibleProperty, value); }
         }
 
         /// <summary>
@@ -368,7 +357,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         }
 
         /// <summary>
-        /// Gets or sets the DataTemplate for the DataOperations's flyout.
+        /// Gets or sets the DataTemplate for the DataOperations' flyout.
         /// </summary>
         public DataTemplate DataOperationsFlyoutTemplate
         {
@@ -378,7 +367,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
             set
             {
-                SetValue(DataOperationsFlyoutTemplateProperty, value);
+                this.SetValue(DataOperationsFlyoutTemplateProperty, value);
             }
         }
 
@@ -399,6 +388,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get;
             set;
+        }
+        
+        internal bool IsFiltered
+        {
+            get
+            {
+                return this.isFiltered;
+            }
         }
 
         /// <summary>

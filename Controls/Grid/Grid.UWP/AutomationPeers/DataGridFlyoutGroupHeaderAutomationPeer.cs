@@ -25,6 +25,14 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        /// <summary>
+        /// IInvokeProvider implementation.
+        /// </summary>
+        public void Invoke()
+        {
+            this.DataGridFlyoutGroupHeader.RaiseDescriptorContentTap();
+        }
+
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
@@ -42,7 +50,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(DataGridFlyoutGroupHeader);
         }
@@ -61,14 +71,6 @@ namespace Telerik.UI.Automation.Peers
                 return this;
             }
             return base.GetPatternCore(patternInterface);
-        }
-
-        /// <summary>
-        /// IInvokeProvider implementation.
-        /// </summary>
-        public void Invoke()
-        {
-            this.DataGridFlyoutGroupHeader.RaiseDescriptorContentTap();
         }
     }
 }

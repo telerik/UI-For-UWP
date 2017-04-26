@@ -9,7 +9,7 @@ namespace Telerik.UI.Automation.Peers
     public class EditRowHostPanelAutomationPeer : FrameworkElementAutomationPeer
     {
         /// <summary>
-        /// Initializes a new instance of the EditRowHostPanel class.
+        /// Initializes a new instance of the <see cref="EditRowHostPanelAutomationPeer"/> class.
         /// </summary>
         public EditRowHostPanelAutomationPeer(EditRowHostPanel owner)
             : base(owner)
@@ -47,7 +47,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(EditRowHostPanel);
         }

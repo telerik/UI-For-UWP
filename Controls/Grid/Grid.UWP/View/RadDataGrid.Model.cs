@@ -193,7 +193,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
                 this.FrozenColumnsContentLayer.ApplyClip(adjustedFrozenClip);
                 this.frozenDecorationLayer.ApplyClip(frozendecorationClip);
-                this.GroupHeadersContentLayer.ApplyClip(new RadRect(0, adjustedFrozenClip.Y, this.CellsPanel.ActualWidth, this.CellsPanel.ActualHeight),false);
+                this.GroupHeadersContentLayer.ApplyClip(new RadRect(0, adjustedFrozenClip.Y, this.CellsPanel.ActualWidth, this.CellsPanel.ActualHeight), false);
             }
             else
             {
@@ -332,7 +332,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
                 var element = this.Model.RowPool.GetDisplayedElement(line + 1);
 
-                if (element!=null && line != visibleLines - 1 && this.HasHorizontalGridLines && element.ContainerType != typeof(DataGridGroupHeader))
+                if (element != null && line != visibleLines - 1 && this.HasHorizontalGridLines && element.ContainerType != typeof(DataGridGroupHeader))
                 {
                     height += this.GridLinesThickness;
                 }

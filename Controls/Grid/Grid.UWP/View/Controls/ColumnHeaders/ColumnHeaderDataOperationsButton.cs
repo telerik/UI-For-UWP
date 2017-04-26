@@ -9,15 +9,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
     public class ColumnHeaderDataOperationsButton : InlineButton
     {
         /// <summary>
-        /// Gets or sets the text of the Button's Icon.
-        /// </summary>
-        public string IconText
-        {
-            get { return (string)GetValue(IconTextProperty); }
-            set { SetValue(IconTextProperty, value); }
-        }
-
-        /// <summary>
         /// Identifies the <see cref="IconText"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty IconTextProperty =
@@ -29,6 +20,15 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public ColumnHeaderDataOperationsButton()
         {
             this.DefaultStyleKey = typeof(ColumnHeaderDataOperationsButton);
+        }
+
+        /// <summary>
+        /// Gets or sets the text of the Button's Icon.
+        /// </summary>
+        public string IconText
+        {
+            get { return (string)GetValue(IconTextProperty); }
+            set { this.SetValue(IconTextProperty, value); }
         }
     }
 }

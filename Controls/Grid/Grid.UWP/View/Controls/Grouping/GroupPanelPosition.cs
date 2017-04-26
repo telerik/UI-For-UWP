@@ -1,5 +1,4 @@
-﻿
-namespace Telerik.UI.Xaml.Controls.Grid
+﻿namespace Telerik.UI.Xaml.Controls.Grid
 {
     /// <summary>
     /// Positions for the panel of the group.

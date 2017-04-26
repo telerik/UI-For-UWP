@@ -202,6 +202,7 @@
     <Compile Include="View\Controls\Filtering\DataGridFilterComboBoxItem.cs" />
     <Compile Include="View\Controls\Filtering\DataGridFilterControlBase.cs" />
     <Compile Include="View\Controls\Filtering\DataGridFilteringFlyout.cs" />
+    <Compile Include="View\Controls\Filtering\DataGridFilterUICommand.cs" />
     <Compile Include="View\Controls\Filtering\DataGridNestedPropertyTextFilterControl.cs" />
     <Compile Include="View\Controls\Filtering\DataGridNumericalFilterControl.cs" />
     <Compile Include="View\Controls\Filtering\DataGridTextFilterControl.cs" />

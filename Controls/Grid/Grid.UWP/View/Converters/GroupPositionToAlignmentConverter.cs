@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Data;
 namespace Telerik.UI.Xaml.Controls.Grid.View
 {
     /// <summary>
-    /// Value converter that convertsa <see cref="GroupPanelPosition"/> value to a <see cref="VerticalAlignment"/>.
+    /// Value converter that converts a <see cref="GroupPanelPosition"/> value to a <see cref="VerticalAlignment"/>.
     /// </summary>
     public class GroupPositionToAlignmentConverter : IValueConverter
     {
@@ -21,11 +21,12 @@ namespace Telerik.UI.Xaml.Controls.Grid.View
         {
             var position = (GroupPanelPosition)value;
             
-            if(position == GroupPanelPosition.Left)
+            if (position == GroupPanelPosition.Left)
             {
                 return VerticalAlignment.Stretch;
             }
-            if(position == GroupPanelPosition.Bottom)
+
+            if (position == GroupPanelPosition.Bottom)
             {
                 return VerticalAlignment.Bottom;
             }

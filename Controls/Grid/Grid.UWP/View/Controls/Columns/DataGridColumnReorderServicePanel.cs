@@ -41,6 +41,21 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        internal void OpenColumnsFlyout()
+        {
+            this.columnReorderFlyoutContent.ClearUI();
+
+            this.columnReorderFlyoutContent.PrepareUI();
+            this.PositionColumnsFlyout();
+            this.columnReorderFlyoutContent.UpdateVisualState(false);
+            this.Owner.ContentFlyout.Show(DataGridFlyoutId.ColumnChooser, this.columnReorderFlyoutContent);
+        }
+
+        internal void CloseColumnsFlyout()
+        {
+            this.Owner.ContentFlyout.Hide(DataGridFlyoutId.ColumnChooser);
+        }
+
         /// <summary>
         /// Occurs when the <see cref="M:OnApplyTemplate" /> method has been called and the template is already successfully applied.
         /// </summary>
@@ -107,21 +122,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridColumnReorderServicePanelAutomationPeer(this);
-        }
-
-        internal void OpenColumnsFlyout()
-        {
-            this.columnReorderFlyoutContent.ClearUI();
-
-            this.columnReorderFlyoutContent.PrepareUI();
-            this.PositionColumnsFlyout();
-            this.columnReorderFlyoutContent.UpdateVisualState(false);
-            this.Owner.ContentFlyout.Show(DataGridFlyoutId.ColumnChooser, this.columnReorderFlyoutContent);
-        }
-
-        internal void CloseColumnsFlyout()
-        {
-            this.Owner.ContentFlyout.Hide(DataGridFlyoutId.ColumnChooser);
         }
 
         /// <inheritdoc/>

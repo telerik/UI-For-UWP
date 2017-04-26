@@ -59,11 +59,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         {
             get
             {
-                return GetValue(ContentProperty);
+                return this.GetValue(ContentProperty);
             }
             set
             {
-                SetValue(ContentProperty, value);
+                this.SetValue(ContentProperty, value);
             }
         }
 
@@ -72,8 +72,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// </summary>
         public object Icon
         {
-            get { return GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
+            get { return this.GetValue(IconProperty); }
+            set { this.SetValue(IconProperty, value); }
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public Style IconStyle
         {
             get { return (Style)GetValue(IconStyleProperty); }
-            set { SetValue(IconStyleProperty, value); }
+            set { this.SetValue(IconStyleProperty, value); }
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public Style ContentStyle
         {
             get { return (Style)GetValue(ContentStyleProperty); }
-            set { SetValue(ContentStyleProperty, value); }
+            set { this.SetValue(ContentStyleProperty, value); }
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public Style ButtonStyle
         {
             get { return (Style)GetValue(ButtonStyleProperty); }
-            set { SetValue(ButtonStyleProperty, value); }
+            set { this.SetValue(ButtonStyleProperty, value); }
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
             set
             {
-                SetValue(CommandProperty, value);
+                this.SetValue(CommandProperty, value);
             }
         }
 

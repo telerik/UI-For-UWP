@@ -39,6 +39,38 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return instance;
             }
         }
+        
+        /// <summary>
+        /// Gets the key of a specific object.
+        /// </summary>
+        public static string GetKey(DependencyObject obj)
+        {
+            return (string)obj.GetValue(KeyProperty);
+        }
+
+        /// <summary>
+        /// Sets a key for a specific object.
+        /// </summary>
+        public static void SetKey(DependencyObject obj, string value)
+        {
+            obj.SetValue(KeyProperty, value);
+        }
+
+        /// <summary>
+        /// Gets the property name of a specific object.
+        /// </summary>
+        public static string GetPropertyName(DependencyObject obj)
+        {
+            return (string)obj.GetValue(PropertyNameProperty);
+        }
+
+        /// <summary>
+        /// Sets property name for a specific object.
+        /// </summary>
+        public static void SetPropertyName(DependencyObject obj, string value)
+        {
+            obj.SetValue(PropertyNameProperty, value);
+        }
 
         private static void OnKeyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -66,39 +98,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     property.SetValue(obj, GridLocalizationManager.Instance.GetString(key));
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets the key of a specific object
-        /// </summary>
-        public static string GetKey(DependencyObject obj)
-        {
-            return (string)obj.GetValue(KeyProperty);
-        }
-
-        /// <summary>
-        /// Sets a key for a specific object
-        /// </summary>
-        public static void SetKey(DependencyObject obj, string value)
-        {
-            obj.SetValue(KeyProperty, value);
-        }
-
-
-        /// <summary>
-        /// Gets the proeprty name of a specific object
-        /// </summary>
-        public static string GetPropertyName(DependencyObject obj)
-        {
-            return (string)obj.GetValue(PropertyNameProperty);
-        }
-
-        /// <summary>
-        /// Sets property name for a specific object
-        /// </summary>
-        public static void SetPropertyName(DependencyObject obj, string value)
-        {
-            obj.SetValue(PropertyNameProperty, value);
         }
     }        
 }

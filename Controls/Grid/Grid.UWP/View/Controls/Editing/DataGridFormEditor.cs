@@ -10,8 +10,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
     /// </summary>
     public class DataGridFormEditor : RadControl, IGridExternalEditor
     {
-        private RadDataForm dataForm;
-
         /// <summary>
         /// Identifies the <see cref="Item"/> dependency property. 
         /// </summary>
@@ -48,6 +46,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public static readonly DependencyProperty SaveCommandProperty =
           DependencyProperty.Register(nameof(SaveCommand), typeof(ICommand), typeof(DataGridFormEditor), new PropertyMetadata(null));
 
+        private RadDataForm dataForm;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridFormEditor"/> class.
         /// </summary>
@@ -58,7 +58,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.DefaultStyleKey = typeof(DataGridFormEditor);
         }
 
-        internal RadDataGrid Owner { get; set; }
+        /// <inheritdoc/>
+        public event EventHandler EditCancelled;
+
+        /// <inheritdoc/>
+        public event EventHandler EditCommitted;
 
         /// <summary>
         /// Gets or sets the <see cref="CancelCommand"/> for the <see cref="DataGridFormEditor"/>.
@@ -66,7 +70,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public ICommand CancelCommand
         {
             get { return (ICommand)GetValue(CancelCommandProperty); }
-            set { SetValue(CancelCommandProperty, value); }
+            set { this.SetValue(CancelCommandProperty, value); }
         }
 
         /// <summary>
@@ -75,7 +79,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public ICommand SaveCommand
         {
             get { return (ICommand)GetValue(SaveCommandProperty); }
-            set { SetValue(SaveCommandProperty, value); }
+            set { this.SetValue(SaveCommandProperty, value); }
         }
 
         /// <summary>
@@ -84,7 +88,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public Style HeaderStyle
         {
             get { return (Style)GetValue(HeaderStyleProperty); }
-            set { SetValue(HeaderStyleProperty, value); }
+            set { this.SetValue(HeaderStyleProperty, value); }
         }
 
         /// <summary>
@@ -93,7 +97,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public object Item
         {
             get { return (object)GetValue(ItemProperty); }
-            set { SetValue(ItemProperty, value); }
+            set { this.SetValue(ItemProperty, value); }
         }
 
         /// <summary>
@@ -102,7 +106,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public Style DataFormStyle
         {
             get { return (Style)GetValue(DataFormStyleProperty); }
-            set { SetValue(DataFormStyleProperty, value); }
+            set { this.SetValue(DataFormStyleProperty, value); }
         }
 
         /// <summary>
@@ -111,40 +115,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public ExternalEditorPosition Position
         {
             get { return (ExternalEditorPosition)GetValue(PositionProperty); }
-            set { SetValue(PositionProperty, value); }
-        }
-        
-        /// <summary>
-        /// Called when the Framework <see cref="M:OnApplyTemplate"/> is called. Inheritors should override this method should they have some custom template-related logic.
-        /// This is done to ensure that the <see cref="P:IsTemplateApplied"/> property is properly initialized.
-        /// </summary>
-        protected override bool ApplyTemplateCore()
-        {
-            bool applied = base.ApplyTemplateCore();
-
-            this.dataForm = this.GetTemplatePartField<RadDataForm>("PART_DataForm");
-            applied = this.dataForm != null;
-
-            return applied;
+            set { this.SetValue(PositionProperty, value); }
         }
 
-        /// <inheritdoc/>
-        protected override void OnTemplateApplied()
-        {
-            base.OnTemplateApplied();
-
-            this.dataForm.EntityProvider = new DataGridFormEntityProvider(this.Owner.Columns);
-
-            this.RegisterCustomEditors();
-
-            this.UpdateVisualState(false);
-        }
-
-        /// <inheritdoc/>
-        public event EventHandler EditCancelled;
-
-        /// <inheritdoc/>
-        public event EventHandler EditCommitted;
+        internal RadDataGrid Owner { get; set; }
 
         /// <inheritdoc/>
         public void BeginEdit(object item, RadDataGrid owner)
@@ -180,20 +154,32 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
-        private static void OnPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /// <summary>
+        /// Called when the Framework <see cref="M:OnApplyTemplate"/> is called. Inheritors should override this method should they have some custom template-related logic.
+        /// This is done to ensure that the <see cref="P:IsTemplateApplied"/> property is properly initialized.
+        /// </summary>
+        protected override bool ApplyTemplateCore()
         {
-            var editor = d as DataGridFormEditor;
-            if(editor != null)
-            {
-                if(editor.Owner != null)
-                {
-                    var flyoutId = (ExternalEditorPosition)e.OldValue == ExternalEditorPosition.Left ? DataGridFlyoutId.EditorLeft : DataGridFlyoutId.EditorRight;
-                    editor.Owner.ContentFlyout.Hide(flyoutId);
-                }
-                editor.UpdateVisualState(false);
-            }
+            bool applied = base.ApplyTemplateCore();
+
+            this.dataForm = this.GetTemplatePartField<RadDataForm>("PART_DataForm");
+            applied = this.dataForm != null;
+
+            return applied;
         }
 
+        /// <inheritdoc/>
+        protected override void OnTemplateApplied()
+        {
+            base.OnTemplateApplied();
+
+            this.dataForm.EntityProvider = new DataGridFormEntityProvider(this.Owner.Columns);
+
+            this.RegisterCustomEditors();
+
+            this.UpdateVisualState(false);
+        }
+        
         /// <inheritdoc/>
         protected override string ComposeVisualStateName()
         {
@@ -206,7 +192,21 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 return "LeftBorder";
             }
 
-            return "";
+            return string.Empty;
+        }
+
+        private static void OnPositionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var editor = d as DataGridFormEditor;
+            if (editor != null)
+            {
+                if (editor.Owner != null)
+                {
+                    var flyoutId = (ExternalEditorPosition)e.OldValue == ExternalEditorPosition.Left ? DataGridFlyoutId.EditorLeft : DataGridFlyoutId.EditorRight;
+                    editor.Owner.ContentFlyout.Hide(flyoutId);
+                }
+                editor.UpdateVisualState(false);
+            }
         }
 
         private void RegisterCustomEditors()
