@@ -9,7 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Map
     public interface IMapDataItem
     {
         /// <summary>
-        /// The geographic location where the item needs to be displayed.
+        /// Gets the geographic location where the item needs to be displayed.
         /// </summary>
         Location Location
         {
@@ -17,7 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The minimum of the zoom range in which the item is visible.
+        /// Gets the minimum of the zoom range in which the item is visible.
         /// </summary>
         double MinZoom
         {
@@ -25,7 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The maximum of the zoom range in which the item is visible.
+        /// Gets the maximum of the zoom range in which the item is visible.
         /// </summary>
         double MaxZoom
         {
@@ -33,7 +33,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Defines how the visual representation of the data item is aligned with the physical coordinates of the <see cref="Location"/> property.
+        /// Gets how the visual representation of the data item is aligned with the physical coordinates of the <see cref="Location"/> property.
         /// A value of (0.5, 0.5) will center the visual representation over the geographic location.
         /// </summary>
         Point LocationOrigin

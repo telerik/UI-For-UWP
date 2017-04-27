@@ -117,7 +117,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Gets the count of the ranges that will be generated.
         /// </summary>
-        /// <returns></returns>
         protected override int GetRangeCount()
         {
             return this.rangeCountCache;
@@ -126,7 +125,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Sets the <see cref="D2DBrush" /> instance that defines the fill for each shape falling within the range.
         /// </summary>
-        /// <param name="range"></param>
         protected override void SetFillForRange(ColorRange range)
         {
             if (range == null)

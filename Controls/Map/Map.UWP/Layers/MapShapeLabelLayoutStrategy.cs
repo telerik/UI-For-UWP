@@ -12,8 +12,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Applies the custom layout logic given the provided layout context and layer.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="container"></param>
         public void Process(MapShapeLabelLayoutContext context, MapShapeLayer container)
         {
             this.ProcessCore(context, container);
@@ -22,8 +20,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Performs the core logic behind the <see cref="Process"/> routine.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="container"></param>
         protected virtual void ProcessCore(MapShapeLabelLayoutContext context, MapShapeLayer container)
         {
         }

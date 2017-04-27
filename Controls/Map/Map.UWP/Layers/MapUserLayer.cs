@@ -335,7 +335,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
         /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
         /// </summary>
-        /// <returns></returns>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();

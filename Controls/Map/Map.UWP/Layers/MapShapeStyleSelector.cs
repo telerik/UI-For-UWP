@@ -23,8 +23,6 @@
         /// <summary>
         /// Provides the core implementation of the <see cref="M:SelectStyle"/> method.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="container"></param>
         protected virtual void SelectStyleCore(MapShapeStyleContext context, MapShapeLayer container)
         {
         }

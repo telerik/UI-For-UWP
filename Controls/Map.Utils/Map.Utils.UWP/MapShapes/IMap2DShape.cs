@@ -8,7 +8,7 @@ namespace Telerik.Geospatial
     public interface IMap2DShape : IMapShape
     {
         /// <summary>
-        /// Get the collection of collections of <see cref="Location"/> values that represent the shape.
+        /// Gets the collection of collections of <see cref="Location"/> values that represent the shape.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
         IEnumerable<IEnumerable<Location>> Locations

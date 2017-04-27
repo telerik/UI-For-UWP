@@ -199,7 +199,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.ManipulationStarted" /> event of the owning <see cref="RadMap" /> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal override void OnManipulationStarted(ManipulationStartedRoutedEventArgs args)
         {
             base.OnManipulationStarted(args);
@@ -210,7 +209,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.ManipulationCompleted" /> event of the owning <see cref="RadMap" /> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal override void OnManipulationCompleted(ManipulationCompletedRoutedEventArgs args)
         {
             base.OnManipulationCompleted(args);
@@ -222,7 +220,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Processes the Scale and Translation properties of the Delta manipulation.
         /// The event is handled if the owning map is not in "Hold" state.
         /// </summary>
-        /// <param name="args"></param>
         protected internal override void OnManipulationDelta(ManipulationDeltaRoutedEventArgs args)
         {
             base.OnManipulationDelta(args);
@@ -258,7 +255,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.PointerWheelChanged"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal override void OnPointerWheelChanged(PointerRoutedEventArgs args)
         {
             base.OnPointerWheelChanged(args);

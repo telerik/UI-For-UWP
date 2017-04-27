@@ -73,8 +73,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Provides the core logic behind range generation. Allows inheritors to provide custom range generation routine.
         /// </summary>
-        /// <param name="shapes"></param>
-        /// <returns></returns>
         protected override IEnumerable<ColorRange> BuildRanges(IEnumerable<IMapShape> shapes)
         {
             if (this.rangeStops.Count == 0)
@@ -107,7 +105,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Gets the count of the ranges that will be generated.
         /// </summary>
-        /// <returns></returns>
         protected override int GetRangeCount()
         {
             int rangeCount = this.rangeStops.Count;
@@ -122,7 +119,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Sets the <see cref="D2DBrush" /> instance that defines the fill for each shape falling within the range.
         /// </summary>
-        /// <param name="range"></param>
         protected override void SetFillForRange(ColorRange range)
         {
             if (range == null)
@@ -141,8 +137,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Gets the <see cref="ColorRange" /> instance where the specified value falls.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
         protected override ColorRange GetRangeForValue(double value)
         {
             if (this.rangeStops.Count == 0)

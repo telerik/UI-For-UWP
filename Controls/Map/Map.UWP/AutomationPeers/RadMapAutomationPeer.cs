@@ -9,20 +9,19 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadMapAutomationPeer : RadControlAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RadMapAutomationPeer"/> class.
+        /// </summary>
+        public RadMapAutomationPeer(RadMap owner) : base(owner)
+        {
+        }
+
         internal RadMap MapOwner
         {
             get
             {
                 return (RadMap)this.Owner;
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RadMapAutomationPeer"/> class.
-        /// </summary>
-        public RadMapAutomationPeer(RadMap owner) : base(owner)
-        {
-
         }
 
         /// <inheritdoc />
@@ -52,5 +51,3 @@ namespace Telerik.UI.Automation.Peers
         }
     }
 }
-
-
