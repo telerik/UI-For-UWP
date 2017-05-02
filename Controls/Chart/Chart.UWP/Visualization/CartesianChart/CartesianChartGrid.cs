@@ -579,37 +579,17 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 double offset = line.StrokeThickness % 2 == 0 ? 0 : 0.5;
                 if (this.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical)
                 {
-                    var xCoordinatePoint = rect.X + offset;
-                    if (RadChartBase.IsRedstone2())
-                    {
-                        Canvas.SetLeft(line, xCoordinatePoint);
-                    }
-                    else
-                    {
-                        line.X1 = xCoordinatePoint;
-                        line.X2 = xCoordinatePoint;
-                        line.Y1 = rect.Y;
-                    }
-
+                    line.X1 = rect.X + offset;
+                    line.X2 = rect.X + offset;
+                    line.Y1 = rect.Y;
                     line.Y2 = rect.Bottom;
                 }
                 else
                 {
-                    var yCoordinatePoint = rect.Bottom + offset;
-                    if (RadChartBase.IsRedstone2())
-                    {
-                        Canvas.SetTop(line, rect.X);
-                        line.Y1 = yCoordinatePoint - rect.X;
-                        line.Y2 = yCoordinatePoint - rect.X;
-                    }
-                    else
-                    {
-                        line.X1 = rect.X;
-                        line.Y1 = yCoordinatePoint;
-                        line.Y2 = yCoordinatePoint;
-                    }
-
+                    line.X1 = rect.X;
                     line.X2 = rect.Right;
+                    line.Y1 = rect.Bottom + offset;
+                    line.Y2 = rect.Bottom + offset;
                 }
             }
         }
