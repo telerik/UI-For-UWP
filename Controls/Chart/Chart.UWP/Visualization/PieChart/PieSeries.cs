@@ -750,7 +750,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             // do not apply automatic offset if a radius factor is applied
             double offsetFromCenter = radiusFactor == 1d ? this.model.MaxOffsetFromCenter : 0;
 
-            Size available = new Size(availableSize.Width - (2 * ArcPadding), availableSize.Height - (2 * ArcPadding));
+            Size available = new Size(Math.Max(0, availableSize.Width - (2 * ArcPadding)), Math.Max(0, availableSize.Height - (2 * ArcPadding)));
 
             // TODO: Calculation revisit for the offset
             available.Width -= (int)(available.Width * offsetFromCenter);
