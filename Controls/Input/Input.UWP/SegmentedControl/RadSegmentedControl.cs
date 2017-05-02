@@ -86,6 +86,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private const string AnimationLayerTemplatePartName = "PART_AnimationLayer";
         private const string ItemsPanelTemplatePartName = "PART_ItemsPanel";
         private readonly IList<object> itemsCache;
+        private IList<int> disabledItemsCache;
 
         private bool isInternalChange;
         private SegmentedItemsControl itemsControl;
@@ -98,6 +99,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             this.DefaultStyleKey = typeof(RadSegmentedControl);
             this.itemsCache = new List<object>();
+            this.disabledItemsCache = new List<int>();
         }
 
         /// <summary>
@@ -227,8 +229,36 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return this.animationLayer;
             }
         }
+        
+        public void SetSegmentEnabled(int index, bool isEnabled)
+        {
+            if(this.IsTemplateApplied)
+            {
+                this.UpdateSegmentIsEnabled(index, isEnabled);
+            }
+            else
+            {
+                bool containsItem = this.disabledItemsCache.Contains(index);
 
-        /// <inheritdoc />
+                if (!containsItem && !isEnabled)
+                {
+                    this.disabledItemsCache.Add(index);
+                }
+                else if(containsItem && isEnabled)
+                {
+                    this.disabledItemsCache.Remove(index);
+                }
+            }
+        }
+
+        public bool IsSegmentEnabled(int index)
+        {
+            return this.IsTemplateApplied ? this.GetContainerForIndex(index).IsEnabled : !this.disabledItemsCache.Contains(index);
+        }
+
+        /// <summary>
+        /// Exposed for testing purposes.
+        /// </summary>
         internal ItemsControl ItemsControl
         {
             get
@@ -292,6 +322,16 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.itemsCache.Clear();
 
             this.itemsControl.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = this, Path = new PropertyPath("ItemsSource") });
+
+            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                foreach (var disabledItem in this.disabledItemsCache)
+                {
+                    this.UpdateSegmentIsEnabled(disabledItem, false);
+                }
+
+                this.disabledItemsCache.Clear();
+            });
         }
 
         /// <inheritdoc/>
@@ -341,6 +381,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 observableCollection.CollectionChanged += control.ItemsSourceCollectionChanged;
             }
+        }
+
+        private void UpdateSegmentIsEnabled(int index, bool isEnabled)
+        {
+            var item = this.GetContainerForIndex(index);
+            item.IsEnabled = isEnabled;
+            item.UpdateVisualState(true);
+        }
+
+        private Segment GetContainerForIndex(int index)
+        {
+            return this.GetContainerForValue(this.GetItemByIndex(index));
         }
 
         private Segment GetContainerForValue(object value)

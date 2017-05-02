@@ -225,6 +225,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 return;
             }
+
             base.UpdateUICore(context);
 
             this.UpdatePresenters(context);

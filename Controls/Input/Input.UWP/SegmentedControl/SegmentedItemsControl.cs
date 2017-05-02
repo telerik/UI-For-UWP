@@ -18,25 +18,25 @@ namespace Telerik.UI.Xaml.Controls.Input
     public class SegmentedItemsControl : ItemsControl
     {
         /// <summary>
-        /// Identifies the <see cref="CornerRadius"/> dependency property.
+        /// Identifies the <see cref="CornerRadius" /> dependency property. 
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(SegmentedItemsControl), new PropertyMetadata(new CornerRadius(0d), OnCornerRadiusChanged));
 
         /// <summary>
-        /// Identifies the <see cref="SegmentWidthMode"/> dependency property.
+        /// Identifies the <see cref="SegmentWidthMode" /> dependency property. 
         /// </summary>
         public static readonly DependencyProperty SegmentWidthModeProperty =
             DependencyProperty.Register(nameof(SegmentWidthMode), typeof(SegmentWidthMode), typeof(SegmentedItemsControl), new PropertyMetadata(SegmentWidthMode.Equal, OnSegmentWidthModeChanged));
 
         /// <summary>
-        /// Identifies the <see cref="SeparatorWidth"/> dependency property.
+        /// Identifies the <see cref="SeparatorWidth" /> dependency property. 
         /// </summary>
         public static readonly DependencyProperty SeparatorWidthProperty =
             DependencyProperty.Register(nameof(SeparatorWidth), typeof(double), typeof(SegmentedItemsControl), new PropertyMetadata(0d, OnSeparatorStyleChanged));
 
         /// <summary>
-        /// Identifies the <see cref="SeparatorBrush"/> dependency property.
+        /// Identifies the <see cref="SeparatorBrush" /> dependency property. 
         /// </summary>
         public static readonly DependencyProperty SeparatorBrushProperty =
             DependencyProperty.Register(nameof(SeparatorBrush), typeof(Brush), typeof(SegmentedItemsControl), new PropertyMetadata(null, OnSeparatorStyleChanged));
@@ -56,7 +56,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the corner radius of the control outer border.
+        /// Gets or sets the corner radius of the control outer border. 
         /// </summary>
         public CornerRadius CornerRadius
         {
@@ -65,7 +65,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the width mode of the segments.
+        /// Gets or sets the width mode of the segments. 
         /// </summary>
         public SegmentWidthMode SegmentWidthMode
         {
@@ -74,7 +74,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the width of the separators between the segments.
+        /// Gets or sets the width of the separators between the segments. 
         /// </summary>
         public double SeparatorWidth
         {
@@ -83,7 +83,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the brush that defines the background of the separators between the segments.
+        /// Gets or sets the brush that defines the background of the separators between the segments. 
         /// </summary>
         public Brush SeparatorBrush
         {
@@ -94,7 +94,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal RadSegmentedControl Owner { get; set; }
 
         /// <summary>
-        /// Gets the layer where the separators are arranged.
+        /// Gets the layer where the separators are arranged. 
         /// </summary>
         protected Canvas DecorationLayer
         {
@@ -105,11 +105,13 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Arranges the separators in the <see cref="DecorationLayer"/>.
+        /// Arranges the separators in the <see cref="DecorationLayer" />. 
         /// </summary>
-        /// <param name="decoratorsContext">The canvas position of each separator.</param>
+        /// <param name="decoratorsContext">
+        /// The canvas position of each separator. 
+        /// </param>
         /// <param name="finalContainerSize">
-        /// The final size of the container in which separators are arranged.
+        /// The final size of the container in which separators are arranged. 
         /// </param>
         public virtual void ArrangeSeparators(List<Point> decoratorsContext, Size finalContainerSize)
         {
@@ -150,6 +152,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal void UnapplyTemplate()
         {
+            // TODO
             var segmentedPanel = this.ItemsPanelRoot as SegmentedPanel;
             if (segmentedPanel != null)
             {
@@ -159,7 +162,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.selectedContainer = null;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
+        ///
         protected override void ClearContainerForItemOverride(DependencyObject element, object item)
         {
             var segment = element as Segment;
@@ -184,19 +188,22 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
+        ///
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new Segment(true);
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
+        ///
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is Segment;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
+        ///
         protected override Size MeasureOverride(Size availableSize)
         {
             if (this.ItemsPanelRoot == null)
@@ -215,7 +222,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             return base.MeasureOverride(availableSize);
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
+        ///
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -231,7 +239,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.SynchronizeSeparators();
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
+        ///
         protected override void OnItemsChanged(object e)
         {
             base.OnItemsChanged(e);
@@ -258,7 +267,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.InvalidateMeasure();
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
+        ///
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
             var segment = element as Segment;
@@ -268,9 +278,17 @@ namespace Telerik.UI.Xaml.Controls.Input
                 segment.DataContext = item;
                 segment.Content = this.GetSegmentContent(item);
 
-                segment.ContentTemplate = this.ItemTemplate ?? (this.ItemTemplateSelector != null ? this.ItemTemplateSelector.SelectTemplate(item) : null);
+                var segmentTemplate = this.ItemTemplate ?? (this.ItemTemplateSelector != null ? this.ItemTemplateSelector.SelectTemplate(item, segment) : null);
+                if (segmentTemplate != null)
+                {
+                    segment.ContentTemplate = segmentTemplate;
+                }
 
-                segment.Style = this.ItemContainerStyle ?? (this.ItemContainerStyleSelector != null ? this.ItemContainerStyleSelector.SelectStyle(item, segment) : null);
+                var segmentStyle = this.ItemContainerStyle ?? (this.ItemContainerStyleSelector != null ? this.ItemContainerStyleSelector.SelectStyle(item, segment) : null);
+                if (segmentStyle != null)
+                {
+                    segment.Style = segmentStyle;
+                }
                 segment.CommandParameter = item;
                 segment.SetBinding(Segment.CommandProperty, new Binding() { Source = this.Owner, Path = new PropertyPath("ItemCommand") });
             }
@@ -286,7 +304,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Synchronizes the separators count in the <see cref="DecorationLayer"/> with the items count.
+        /// Synchronizes the separators count in the <see cref="DecorationLayer" /> with the items count. 
         /// </summary>
         protected virtual void SynchronizeSeparators()
         {
@@ -323,7 +341,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private static void OnSegmentWidthModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as SegmentedItemsControl;
-            if (control.isTemplateApplied)
+            if (control.ItemsPanelRoot != null)
             {
                 control.ItemsPanelRoot.InvalidateMeasure();
             }
@@ -332,7 +350,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private static void OnSeparatorStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as SegmentedItemsControl;
-            if (control.isTemplateApplied)
+            if (control.ItemsPanelRoot != null)
             {
                 control.ItemsPanelRoot.InvalidateMeasure();
             }
