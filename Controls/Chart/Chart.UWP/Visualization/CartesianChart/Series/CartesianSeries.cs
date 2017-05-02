@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Telerik.Charting;
-using Windows.Foundation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Shapes;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -24,8 +20,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// </summary>
         public static readonly DependencyProperty VerticalAxisProperty =
             DependencyProperty.Register(nameof(VerticalAxis), typeof(CartesianAxis), typeof(CartesianSeries), new PropertyMetadata(null, OnVerticalAxisChanged));
-
-        private static readonly Rect defaultRect = new Rect();
 
         private CartesianAxis horizontalAxisCache;
         private CartesianAxis verticalAxisCache;
@@ -70,8 +64,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
-        internal bool IsRendered { get; set; }
-
         private IPlotAreaElementModelWithAxes AxisModel
         {
             get
@@ -113,55 +105,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     this.AxisModel.AttachAxis(newAxis.model, AxisType.Second);
                 }
             }
-        }
-
-        internal void UpdateSeriesClip()
-        {
-            if (!this.ClipToPlotArea || !this.IsRendered || !RadChartBase.IsRedstone2())
-            {
-                return;
-            }
-
-            foreach (var path in this.renderSurface.Children.OfType<Path>())
-            {
-                Point topLeft;
-                if (path.Data.Bounds != defaultRect)
-                {
-                    topLeft = new Point(path.Data.Bounds.X, path.Data.Bounds.Y);
-                }
-                else
-                {
-                    topLeft = path.GetTopLeft();
-                    topLeft.X = topLeft.X - this.GetStrokeThicknessAdjustment();
-                    topLeft.Y = topLeft.Y - this.GetStrokeThicknessAdjustment();
-                }
-
-                TransformGroup transform = path.RenderTransform as TransformGroup;
-                Point translatePoint = new Point();
-
-                if (transform != null)
-                {
-                    foreach (var tr in transform.Children)
-                    {
-                        TranslateTransform translateTransform = tr as TranslateTransform;
-                        if (translateTransform != null)
-                        {
-                            translatePoint.X += translateTransform.X;
-                            translatePoint.Y += translateTransform.Y;
-                        }
-                    }
-                }
-
-                path.Clip = new RectangleGeometry()
-                {
-                    Rect = new Rect(0, 0, this.chart.PlotAreaClip.Width + this.chart.PlotAreaClip.X - topLeft.X - translatePoint.X, this.chart.PlotAreaClip.Height + this.chart.PlotAreaClip.Y - topLeft.Y - translatePoint.Y)
-                };
-            }
-        }
-
-        internal virtual double GetStrokeThicknessAdjustment()
-        {
-            return 0d;
         }
 
         /// <summary>

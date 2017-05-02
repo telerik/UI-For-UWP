@@ -9,12 +9,10 @@ using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel;
 using Windows.Foundation;
-using Windows.System.Profile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Shapes;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -371,16 +369,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return ChartLocalizationManager.Instance.GetString(key);
         }
 
-        // Utilized to detect Redstone 2 update, needed for fix in clipping Paths in Canvas
-        internal static bool IsRedstone2()
-        {
-            string sv = AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
-            ulong versionToCompare = 15063;
-            ulong version = ulong.Parse(sv);
-            version = (version & 0x00000000FFFF0000L) >> 16;
-            return version >= versionToCompare;
-        }
-
         internal Brush GetPaletteBrush(int index, PaletteVisualPart part, string seriesFamily, bool selected)
         {
             Brush paletteBrush = null;
@@ -435,9 +423,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
             this.chartArea.OnPlotOriginChanged();
         }
 
-        internal void ApplyPlotAreaClip(FrameworkElement visual, bool clip, bool isSeries = true)
+        internal void ApplyPlotAreaClip(FrameworkElement visual, bool clip)
         {
-            if (clip && !IsRedstone2())
+            if (clip)
             {
                 // clip to the actual plot area bounds
                 RectangleGeometry clipGeometry = new RectangleGeometry();
