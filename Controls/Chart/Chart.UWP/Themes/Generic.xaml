@@ -45,7 +45,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ChartElementPresenter">
-                    <!--The CompositionMode is set to SourceOver as a temporary fix for the incorrect applied clip issue of the Canvas introduced with the Creators Update.-->
+                    <!--The CompositeMode is set to SourceOver as a temporary fix for the incorrect applied clip issue of the Canvas introduced with the Creators Update.-->
                     <Canvas x:Name="PART_RenderSurface" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CompositeMode="SourceOver"/>
                 </ControlTemplate>
             </Setter.Value>
