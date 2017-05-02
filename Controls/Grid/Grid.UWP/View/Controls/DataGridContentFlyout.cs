@@ -65,11 +65,13 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// <summary>
         /// Occurs when the <see cref="DataGridContentFlyout"/> is closed.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event EventHandler<object> Closed;
 
         /// <summary>
         /// Occurs when the <see cref="DataGridContentFlyout"/> is opened.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event EventHandler<object> Opened;
 
         /// <summary>

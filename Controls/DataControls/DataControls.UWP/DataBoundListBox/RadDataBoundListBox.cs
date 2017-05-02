@@ -205,11 +205,13 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// <summary>
         /// Occurs when the <see cref="SelectedItem"/> property is changed.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event SelectionChangedEventHandler SelectionChanged;
 
         /// <summary>
         /// Occurs before the <see cref="SelectedItem"/> property is about to change.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event EventHandler<SelectionChangingEventArgs> SelectionChanging;
 
         /// <summary>

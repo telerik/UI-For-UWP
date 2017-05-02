@@ -40,6 +40,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Occurs when the selection changes.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event SelectionChangedEventHandler SelectionChanged;
 
         /// <summary>

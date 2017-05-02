@@ -229,10 +229,24 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return this.animationLayer;
             }
         }
-        
+
+        /// <summary>
+        /// Gets the <see cref="ItemsControl"/>. Exposed for testing purposes.
+        /// </summary>
+        internal ItemsControl ItemsControl
+        {
+            get
+            {
+                return this.itemsControl;
+            }
+        }
+
+        /// <summary>
+        /// Set the Enable state of the Segment.
+        /// </summary>
         public void SetSegmentEnabled(int index, bool isEnabled)
         {
-            if(this.IsTemplateApplied)
+            if (this.IsTemplateApplied)
             {
                 this.UpdateSegmentIsEnabled(index, isEnabled);
             }
@@ -244,29 +258,21 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     this.disabledItemsCache.Add(index);
                 }
-                else if(containsItem && isEnabled)
+                else if (containsItem && isEnabled)
                 {
                     this.disabledItemsCache.Remove(index);
                 }
             }
         }
 
+        /// <summary>
+        /// Returns <see cref="Boolean"/> value that indicates if the Segment is enabled.
+        /// </summary>
         public bool IsSegmentEnabled(int index)
         {
             return this.IsTemplateApplied ? this.GetContainerForIndex(index).IsEnabled : !this.disabledItemsCache.Contains(index);
         }
-
-        /// <summary>
-        /// Exposed for testing purposes.
-        /// </summary>
-        internal ItemsControl ItemsControl
-        {
-            get
-            {
-                return this.itemsControl;
-            }
-        }
-
+        
         internal void OnSegmentAnimationContextChanged(Segment segment)
         {
             var handler = this.SegmentAnimationContextChanged;
@@ -323,15 +329,17 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             this.itemsControl.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = this, Path = new PropertyPath("ItemsSource") });
 
-            this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                foreach (var disabledItem in this.disabledItemsCache)
+            var temp = this.Dispatcher.RunAsync(
+                Windows.UI.Core.CoreDispatcherPriority.Normal, 
+                () =>
                 {
-                    this.UpdateSegmentIsEnabled(disabledItem, false);
-                }
+                    foreach (var disabledItem in this.disabledItemsCache)
+                    {
+                        this.UpdateSegmentIsEnabled(disabledItem, false);
+                    }
 
-                this.disabledItemsCache.Clear();
-            });
+                    this.disabledItemsCache.Clear();
+                });
         }
 
         /// <inheritdoc/>
