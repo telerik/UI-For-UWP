@@ -125,35 +125,17 @@ namespace Telerik.UI.Xaml.Controls.Chart
             double offset = this.StrokeThickness % 2 == 0 ? 0 : 0.5;
             if (this.Axis.type == AxisType.First)
             {
-                if (RadChartBase.IsRedstone2())
-                {
-                    Canvas.SetLeft(this.presenter, this.model.line.X1 + offset);
-                }
-                else
-                {
-                    this.presenter.X1 = this.model.line.X1 + offset;
-                    this.presenter.Y1 = this.model.line.Y1;
-                    this.presenter.X2 = this.model.line.X2 + offset;
-                }
-
+                this.presenter.X1 = this.model.line.X1 + offset;
+                this.presenter.Y1 = this.model.line.Y1;
+                this.presenter.X2 = this.model.line.X2 + offset;
                 this.presenter.Y2 = this.model.line.Y2;
             }
             else
             {
-                if (RadChartBase.IsRedstone2())
-                {
-                    Canvas.SetTop(this.presenter, this.model.line.X1);
-                    this.presenter.Y1 = this.model.line.Y1 + offset - this.model.line.X1;
-                    this.presenter.Y2 = this.model.line.Y2 + offset - this.model.line.X1;
-                }
-                else
-                {
-                    this.presenter.X1 = this.model.line.X1;
-                    this.presenter.Y1 = this.model.line.Y1 + offset;
-                    this.presenter.Y2 = this.model.line.Y2 + offset;
-                }
-
+                this.presenter.X1 = this.model.line.X1;
+                this.presenter.Y1 = this.model.line.Y1 + offset;
                 this.presenter.X2 = this.model.line.X2;
+                this.presenter.Y2 = this.model.line.Y2 + offset;
             }
         }
 

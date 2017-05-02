@@ -148,14 +148,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return visual is Path;
         }
 
-        internal override void UpdateUICore(ChartLayoutContext context)
-        {
-            this.IsRendered = false;
-            base.UpdateUICore(context);
-            this.IsRendered = true;
-            this.UpdateSeriesClip();
-        }
-
         internal override void ApplyPaletteToDefaultVisual(FrameworkElement visual, DataPoint point)
         {
             int index = this.ActualPaletteIndex;
