@@ -423,7 +423,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
-            e.Handled = this.HandleKeyDown(e.Key);
+            if (e.OriginalSource is RadExpanderControl)
+            {
+                e.Handled = this.HandleKeyDown(e.Key);
+            }
+           
             base.OnKeyDown(e);
         }
         
