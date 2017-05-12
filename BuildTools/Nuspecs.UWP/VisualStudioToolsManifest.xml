@@ -25,7 +25,6 @@
       <Item Type = "Telerik.UI.Xaml.Controls.Input.RadRating"/>
       <Item Type = "Telerik.UI.Xaml.Controls.Input.RadNumericBox"/>
       <Item Type = "Telerik.UI.Xaml.Controls.Input.RadRangeSlider"/>
-	  <Item Type = "Telerik.UI.Xaml.Controls.Input.MyCustomControl"/>
     </ToolboxItems>
   </File>
   <File Reference="Telerik.UI.Xaml.Chart.UWP.dll">
