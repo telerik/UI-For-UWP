@@ -410,15 +410,18 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     }
                     break;
                 case VirtualKey.Space:
-                    if (this.SelectionUnit == DataGridSelectionUnit.Row)
+                    if (e.OriginalSource is RadDataGrid)
                     {
-                        info = this.model.FindItemInfo(this.CurrentItem);
-                        if (info != null)
+                        if (this.SelectionUnit == DataGridSelectionUnit.Row)
                         {
-                            var cell = this.model.CellsController.GetCellsForRow(info.Value.Slot).First();
-                            if (cell != null)
+                            info = this.model.FindItemInfo(this.CurrentItem);
+                            if (info != null)
                             {
-                                this.OnCellTap(new DataGridCellInfo(cell));
+                                var cell = this.model.CellsController.GetCellsForRow(info.Value.Slot).First();
+                                if (cell != null)
+                                {
+                                    this.OnCellTap(new DataGridCellInfo(cell));
+                                }
                             }
                         }
                     }
