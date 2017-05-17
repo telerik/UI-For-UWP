@@ -639,9 +639,9 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
 
                     this.SetValuesInRange(FeaturedMeasureStartValueProperty, startValue, endValue);
                     this.SetValuesInRange(ComparativeMeasureProperty, startValue, endValue);
-                    this.SetValuesInRange(ProjectedMeasureProperty, this.FeaturedMeasureStartValue, endValue);
-                    this.SetValuesInRange(FeaturedMeasureProperty, this.FeaturedMeasureStartValue, endValue);
-                    this.SetValuesInRange(FeaturedMeasureStartValueProperty, startValue, this.FeaturedMeasure);
+                    this.SetValuesInRange(ProjectedMeasureProperty, startValue, endValue);
+                    this.SetValuesInRange(FeaturedMeasureProperty, startValue, endValue);
+                    this.SetValuesInRange(FeaturedMeasureStartValueProperty, startValue, endValue);
 
                     this.isValueCoerceScheduled = false;
                 });
