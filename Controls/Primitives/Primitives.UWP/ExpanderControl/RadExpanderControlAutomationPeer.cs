@@ -106,7 +106,6 @@ namespace Telerik.UI.Automation.Peers
             if (this.RadExpanderControl.IsExpandable)
             {
                 this.RadExpanderControl.IsExpanded = false;
-                this.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
             }
         }
 
@@ -118,7 +117,6 @@ namespace Telerik.UI.Automation.Peers
             if (this.RadExpanderControl.IsExpandable)
             {
                 this.RadExpanderControl.IsExpanded = true;
-                this.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
             }
         }
 
