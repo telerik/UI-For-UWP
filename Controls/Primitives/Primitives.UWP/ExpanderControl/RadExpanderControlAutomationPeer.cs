@@ -39,42 +39,7 @@ namespace Telerik.UI.Automation.Peers
                 return (RadExpanderControl)this.Owner;
             }
         }
-
-        /// <inheritdoc/>
-        public void Expand()
-        {
-            if (this.RadExpanderControl.IsExpandable)
-            {
-                this.RadExpanderControl.IsExpanded = true;
-                this.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
-            }
-        }
-
-        /// <inheritdoc/>
-        public void Collapse()
-        {
-            if (this.RadExpanderControl.IsExpandable)
-            {
-                this.RadExpanderControl.IsExpanded = false;
-                this.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
-            }
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
-        {
-            this.RaisePropertyChangedEvent(
-                ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
-                oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
-                newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
-        }
-
-        /// <inheritdoc />
-        protected override AutomationControlType GetAutomationControlTypeCore()
-        {
-            return AutomationControlType.Group;
-        }
-
+        
         /// <summary>
         /// Gets a control pattern that is associated with this AutomationPeer.
         /// </summary>
@@ -127,6 +92,43 @@ namespace Telerik.UI.Automation.Peers
             }
 
             return nameof(Telerik.UI.Xaml.Controls.Primitives.RadExpanderControl);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Group;
+        }
+
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
+        public void Collapse()
+        {
+            if (this.RadExpanderControl.IsExpandable)
+            {
+                this.RadExpanderControl.IsExpanded = false;
+            }
+        }
+
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
+        public void Expand()
+        {
+            if (this.RadExpanderControl.IsExpandable)
+            {
+                this.RadExpanderControl.IsExpanded = true;
+            }
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
+        {
+            this.RaisePropertyChangedEvent(
+                ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
+                oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
+                newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
         }
     }
 }

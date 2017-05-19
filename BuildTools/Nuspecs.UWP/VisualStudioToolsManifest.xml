@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FileList>
+  <File Reference="Telerik.UI.Xaml.Primitives.UWP.dll">
+    <ToolboxItems VSCategory="Telerik UI For Universal Windows Platform" BlendCategory="Telerik UI For Universal Windows Platform">
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadBusyIndicator"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadSlideHubTile"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadPictureRotatorHubTile"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadMosaicHubTile"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadHubTile"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadCustomHubTile"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadSideDrawer"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.LoopingList.RadLoopingList"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadHexHubTile"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadExpanderControl"/>
+    </ToolboxItems>
+  </File>
+  <File Reference="Telerik.UI.Xaml.Input.UWP.dll">
+    <ToolboxItems VSCategory="Telerik UI For Universal Windows Platform" BlendCategory="Telerik UI For Universal Windows Platform">
+      <Item Type = "Telerik.UI.Xaml.Controls.Input.RadDatePicker"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Input.RadTimePicker"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Input.RadAutoCompleteBox"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Input.RadCalendar"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Input.RadRating"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Input.RadNumericBox"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Input.RadRangeSlider"/>
+    </ToolboxItems>
+  </File>
+  <File Reference="Telerik.UI.Xaml.Chart.UWP.dll">
+    <ToolboxItems VSCategory="Telerik UI For Universal Windows Platform" BlendCategory="UI For Universal Windows Platform">
+      <Item Type = "Telerik.UI.Xaml.Controls.Chart.RadCartesianChart"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Chart.RadPieChart"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Chart.RadPolarChart"/>
+    </ToolboxItems>
+  </File>
+  <File Reference="Telerik.UI.Xaml.DataVisualization.UWP.dll">
+    <ToolboxItems VSCategory="Telerik UI For Universal Windows Platform" BlendCategory="Telerik UI For Universal Windows Platform">
+      <Item Type = "Telerik.UI.Xaml.Controls.DataVisualization.RadBulletGraph"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.DataVisualization.RadRadialGauge"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.DataVisualization.RadLinearGauge"/>
+    </ToolboxItems>
+  </File>
+  <File Reference="Telerik.UI.Xaml.Controls.Data.UWP.dll">
+    <ToolboxItems VSCategory="Telerik UI For Universal Windows Platform" BlendCategory="Telerik UI For Universal Windows Platform">
+      <Item Type = "Telerik.UI.Xaml.Controls.Data.RadDataBoundListBox"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Data.RadListView"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Data.RadHexView"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Data.RadDataForm"/>
+    </ToolboxItems>
+  </File>
+  <File Reference="Telerik.UI.Xaml.Grid.UWP.dll">
+    <ToolboxItems VSCategory="Telerik UI For Universal Windows Platform" BlendCategory="Telerik UI For Universal Windows Platform">
+      <Item Type = "Telerik.UI.Xaml.Controls.Grid.RadDataGrid"/>
+    </ToolboxItems>
+  </File>
+</FileList>

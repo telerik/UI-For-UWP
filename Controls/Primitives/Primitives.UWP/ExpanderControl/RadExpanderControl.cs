@@ -408,17 +408,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 this.ToggleExpandedOnTap();
                 this.useTransitions = false;
             }
-
-            if (this.IsTabStop && this.FocusState == FocusState.Unfocused)
-            {
-                this.Focus(FocusState.Programmatic);
-            }
-
-            var expanderControlPeer = FrameworkElementAutomationPeer.FromElement(this) as RadExpanderControlAutomationPeer;
-            if (expanderControlPeer != null)
-            {
-                expanderControlPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
-            }
         }
 
         /// <summary>
@@ -427,7 +416,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
-            e.Handled = this.HandleKeyDown(e.Key);
+            if (e.OriginalSource is RadExpanderControl)
+            {
+                e.Handled = this.HandleKeyDown(e.Key);
+            }
+           
             base.OnKeyDown(e);
         }
         
@@ -575,6 +568,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             if (expanderControlPeer != null)
             {
                 expanderControlPeer.RaiseExpandCollapseAutomationEvent((bool)args.OldValue, (bool)args.NewValue);
+                expanderControlPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
             }
         }
 
