@@ -97,7 +97,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         {
             get
             {
-				if (this.FrozenColumnCount > 0 && this.ColumnPool.GetFrozenDisplayedElements().Any())
+                if (this.FrozenColumnCount > 0 && this.ColumnPool.GetFrozenDisplayedElements().Any())
                 {
                     return this.ColumnPool.GetFrozenDisplayedElements().Last().Value.First().LayoutSlot.Right;  
                 }

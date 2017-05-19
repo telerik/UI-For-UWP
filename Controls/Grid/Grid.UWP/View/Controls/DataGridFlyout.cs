@@ -9,8 +9,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
     /// </summary>
     public partial class DataGridFlyout : RadControl
     {
-        private DataGridFlyoutPanel container;
         internal Canvas adorner;
+        private DataGridFlyoutPanel container;
 
         internal DataGridFlyoutPanel Container
         {
@@ -22,12 +22,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         internal virtual void PrepareUI()
         {
-
         }
 
         internal virtual void ClearUI()
         {
-
         }
 
         /// <summary>
@@ -41,6 +39,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.PrepareUI();
         }
 
+        /// <summary>
+        /// Called when the Framework <see cref="M:OnApplyTemplate"/> is called. Inheritors should override this method should they have some custom template-related logic.
+        /// This is done to ensure that the <see cref="P:IsTemplateApplied"/> property is properly initialized.
+        /// </summary>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -49,7 +51,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             applied = applied && this.Container != null;
 
             if (this.Container != null)
+            {
                 this.Container.Flyout = this;
+            }
 
             this.adorner = this.GetTemplatePartField<Canvas>("PART_AdornerHost");
             applied = applied && this.adorner != null;

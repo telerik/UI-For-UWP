@@ -68,8 +68,16 @@ namespace Telerik.Data.Core
         }
 
         public IBatchLoadingProvider BatchDataProvider { get; private set; }
+        
+        public List<Tuple<object, int, int>> SourceGroups
+        {
+            get
+            {
+                return this.sourceGroups;
+            }
+        }
 
-        protected virtual IList<object> ListStorage
+        protected IList<object> ListStorage
         {
             get
             {
@@ -77,12 +85,9 @@ namespace Telerik.Data.Core
             }
         }
 
-        public List<Tuple<object, int, int>> SourceGroups
+        object IDataSourceView.GetGroupKey(object item, int level)
         {
-            get
-            {
-                return this.sourceGroups;
-            }
+            return null;
         }
 
         public void ProcessPendingCollectionChange()
@@ -92,11 +97,6 @@ namespace Telerik.Data.Core
                 this.ProcessCollectionChanged(this.pendingCollectionChanges[0].Item1, this.pendingCollectionChanges[0].Item2);
                 this.pendingCollectionChanges.RemoveAt(0);
             }
-        }
-
-        object IDataSourceView.GetGroupKey(object item, int level)
-        {
-            return null;
         }
 
         void IDataSourceView.Dispose()

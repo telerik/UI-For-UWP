@@ -10,10 +10,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
     public partial class DataGridFlyout : IDragDropElement, IReorderItemsHost
     {
-        private IDragSurface dragSurface;
-
         internal ReorderItemsCoordinator reorderCoordinator;
-
+        private IDragSurface dragSurface;
         private bool skipHitTest;
 
         bool IDragDropElement.SkipHitTest
@@ -41,11 +39,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         {
             this.CommitReorderOperation(sourceIndex, destinationIndex);
         }
-
-        internal virtual void CommitReorderOperation(int sourceIndex, int destinationIndex)
-        {
-        }
-
+        
         bool IDragDropElement.CanStartDrag(DragDropTrigger trigger, object initializeContext)
         {
             return false;
@@ -101,6 +95,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         }
 
         void IDragDropElement.OnDragVisualCleared(DragCompleteContext dragContext)
+        {
+        }
+
+        internal virtual void CommitReorderOperation(int sourceIndex, int destinationIndex)
         {
         }
 

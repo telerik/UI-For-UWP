@@ -3,11 +3,10 @@
 namespace Telerik.UI.Automation.Peers
 {
     /// <summary>
-    /// AutomationPeer clas for CalendarNavigationControl.
+    /// AutomationPeer class for CalendarNavigationControl.
     /// </summary>
     public class CalendarNavigationControlAutomationPeer : RadControlAutomationPeer
     {
-        /// <summary>
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarNavigationControlAutomationPeer"/> class.
         /// </summary>

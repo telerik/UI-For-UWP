@@ -115,7 +115,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 var collView = e.NewValue as ICollectionView;
                 if (collView != null && collView.CollectionGroups != null)
                 {
-                   grid.GroupDescriptors.Insert(0,new CollectionViewGroupDescriptor());
+                   grid.GroupDescriptors.Insert(0, new CollectionViewGroupDescriptor());
                 }
 
                 grid.model.OnItemsSourceChanged(e.NewValue);

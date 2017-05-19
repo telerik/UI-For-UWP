@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadContentControl class.
+    /// </summary>
     public class RadContentControlAutomationPeer : FrameworkElementAutomationPeer
     {
         /// <summary>
@@ -15,7 +18,6 @@ namespace Telerik.UI.Automation.Peers
         public RadContentControlAutomationPeer(RadContentControl owner) 
             : base(owner)
         {
-
         }
 
         private RadContentControl Control
@@ -52,7 +54,9 @@ namespace Telerik.UI.Automation.Peers
 
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
         }

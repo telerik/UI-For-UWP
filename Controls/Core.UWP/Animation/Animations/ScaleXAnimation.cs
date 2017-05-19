@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
@@ -12,6 +13,7 @@ namespace Telerik.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="RadScaleXAnimation"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public RadScaleXAnimation()
         {
             this.StartScaleX = 0.5;

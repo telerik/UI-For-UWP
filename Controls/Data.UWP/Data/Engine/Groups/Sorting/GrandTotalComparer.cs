@@ -24,7 +24,7 @@ namespace Telerik.Data.Core
                 if (this.aggregateIndex != value)
                 {
                     this.aggregateIndex = value;
-                    this.OnPropertyChanged(nameof(AggregateIndex));
+                    this.OnPropertyChanged(nameof(this.AggregateIndex));
                 }
             }
         }

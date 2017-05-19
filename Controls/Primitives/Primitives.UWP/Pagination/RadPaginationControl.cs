@@ -267,11 +267,16 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.UpdateDisplayMode(this.DisplayMode);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadPaginationControlAutomationPeer(this);
         }
-
+        
+        /// <summary>
+        /// Called before the GotFocus event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             if (e.OriginalSource is RadPaginationControl)

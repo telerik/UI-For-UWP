@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataForm\EntityPropertyTests.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListView\Layout\GridLayoutTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestApp.xaml.cs">

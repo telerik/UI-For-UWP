@@ -1,5 +1,4 @@
-﻿using System;
-using Telerik.UI.Xaml.Controls.Data.ListView.View.Controls;
+﻿using Telerik.UI.Xaml.Controls.Data.ListView.View.Controls;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder;
 using Windows.Foundation;
@@ -10,6 +9,21 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 {
     public partial class RadListViewItem : IReorderItem
     {
+        /// <summary>
+        /// Identifies the <see cref="IsHandleEnabled"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty IsHandleEnabledProperty =
+            DependencyProperty.Register(nameof(IsHandleEnabled), typeof(bool), typeof(RadListViewItem), new PropertyMetadata(false, OnIsHandleEnabled));
+
+        private ReorderItemsCoordinator reorderCoordinator;
+        private int logicalIndex;
+
+        private string defaultHandleIconPathLight = "ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-light.png";
+        private string defaultHandleIconPathDark = "ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-dark.png";
+
+        /// <summary>
+        /// Gets the path of the handle icon.
+        /// </summary>
         public string HandleIconPath
         {
             get
@@ -18,33 +32,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether if handling is enabled.
+        /// </summary>
         public bool IsHandleEnabled
         {
             get { return (bool)GetValue(IsHandleEnabledProperty); }
             set { SetValue(IsHandleEnabledProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for IsHandleEnabled.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsHandleEnabledProperty =
-            DependencyProperty.Register(nameof(IsHandleEnabled), typeof(bool), typeof(RadListViewItem), new PropertyMetadata(false, OnIsHandleEnabled));
-
-        private static void OnIsHandleEnabled(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RadListViewItem item = d as RadListViewItem;
-            item.IsHandleEnabled = (bool)e.NewValue;
-            item.ChangeVisualState(true);
-        }
-
-        private ReorderItemsCoordinator reorderCoordinator;
-        private int logicalIndex;
-
-#if WINDOWS_UWP
-        private string defaultHandleIconPathLight = "ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-light.png";
-        private string defaultHandleIconPathDark = "ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-dark.png";
-#else
-        private string defaultHandleIconPathLight = "ms-appx:///Telerik.UI.Xaml.Controls.Data/ListView/Resources/reorder-handle-light.png";
-        private string defaultHandleIconPathDark = "ms-appx:///Telerik.UI.Xaml.Controls.Data/ListView/Resources/reorder-handle-dark.png";
-#endif
 
         DependencyObject IReorderItem.Visual
         {
@@ -123,6 +118,13 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             this.ListView.DragBehavior.OnReorderStarted(this.DataContext);
 
             return new DragStartingContext { DragVisual = dragVisual, Payload = payload, DragSurface = surface, HitTestStrategy = new ReorderListViewItemHitTestStrategy(this, surface.RootElement) };
+        }
+
+        private static void OnIsHandleEnabled(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RadListViewItem item = d as RadListViewItem;
+            item.IsHandleEnabled = (bool)e.NewValue;
+            item.ChangeVisualState(true);
         }
 
         private void FinalizeReorder(DragCompleteContext context)

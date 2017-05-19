@@ -28,7 +28,7 @@ namespace Telerik.Data.Core.Layouts
             {
                 return true;
             }
-            
+
             double delta = value1 - value2;
             return (delta < EPSILON) && (delta > -EPSILON);
         }

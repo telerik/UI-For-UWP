@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
+﻿namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 {
     /// <summary>
     /// Represents the context that is passed as a parameter of a <see cref="ItemDragStartingCommand"/>.
@@ -32,7 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
         /// Gets or sets the item that is being dragged.
         /// </summary>
         public object Item { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the drag action type.
         /// </summary>

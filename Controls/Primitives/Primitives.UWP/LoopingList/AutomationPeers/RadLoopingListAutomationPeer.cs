@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadLoopingList class.
+    /// </summary>
     public class RadLoopingListAutomationPeer : RadControlAutomationPeer, ISelectionProvider, IExpandCollapseProvider
     {
         /// <summary>
@@ -17,17 +20,7 @@ namespace Telerik.UI.Automation.Peers
         {
         }
 
-        private RadLoopingList LoopingList
-        {
-            get
-            {
-                return (RadLoopingList)this.Owner;
-            }
-        }
-
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
+        /// <inheritdoc/>
         public ExpandCollapseState ExpandCollapseState
         {
             get
@@ -35,9 +28,9 @@ namespace Telerik.UI.Automation.Peers
                 return this.LoopingList.IsExpanded ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed;
             }
         }
-
+        
         /// <summary>
-        ///  Gets a value that specifies whether the UI Automation provider allows more than one child element to be selected concurrently.
+        ///  Gets a value indicating whether the UI Automation provider allows more than one child element to be selected concurrently.
         /// </summary>
         public bool CanSelectMultiple
         {
@@ -48,7 +41,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Gets a value that specifies whether the UI Automation provider requires at least one child element to be selected.
+        /// Gets a value indicating whether the UI Automation provider requires at least one child element to be selected.
         /// </summary>
         public bool IsSelectionRequired
         {
@@ -58,12 +51,75 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        private RadLoopingList LoopingList
+        {
+            get
+            {
+                return (RadLoopingList)this.Owner;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves a UI Automation provider for each child element that is selected.
+        /// </summary>
+        public IRawElementProviderSimple[] GetSelection()
+        {
+            var selectedIndex = this.LoopingList.SelectedIndex;
+            var providerSamples = new List<IRawElementProviderSimple>();
+
+            if (this.LoopingList.ItemsPanel != null)
+            {
+                var item = this.LoopingList.ItemsPanel.ItemFromVisualIndex(selectedIndex);
+                if (item != null)
+                {
+                    var loopingItemPeer = FrameworkElementAutomationPeer.CreatePeerForElement(item) as LoopingListItemAutomationPeer;
+                    if (loopingItemPeer != null)
+                    {
+                        providerSamples.Add(this.ProviderFromPeer(loopingItemPeer));
+                    }
+                }
+            }
+
+            return providerSamples.ToArray();
+        }
+
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
+        public void Collapse()
+        {
+            this.LoopingList.IsExpanded = false;
+        }
+
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
+        public void Expand()
+        {
+            this.LoopingList.Focus(Windows.UI.Xaml.FocusState.Programmatic);
+            if (!this.LoopingList.IsExpanded)
+            {
+                this.LoopingList.IsExpanded = true;
+            }
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
+        {
+            this.RaisePropertyChangedEvent(
+                ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
+                oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
+                newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
+        }
+
         /// <inheritdoc />
         protected override string GetNameCore()
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return "RadLoopingList";
         }
@@ -128,59 +184,5 @@ namespace Telerik.UI.Automation.Peers
 
             return children;
         }
-
-        /// <summary>
-        /// Retrieves a UI Automation provider for each child element that is selected.
-        /// </summary>
-        public IRawElementProviderSimple[] GetSelection()
-        {
-            var selectedIndex = this.LoopingList.SelectedIndex;
-            var providerSamples = new List<IRawElementProviderSimple>();
-
-            if (this.LoopingList.ItemsPanel != null)
-            {
-                var item = this.LoopingList.ItemsPanel.ItemFromVisualIndex(selectedIndex);
-                if (item != null)
-                {
-                    var loopingItemPeer = FrameworkElementAutomationPeer.CreatePeerForElement(item) as LoopingListItemAutomationPeer;
-                    if (loopingItemPeer != null)
-                    {
-                        providerSamples.Add(this.ProviderFromPeer(loopingItemPeer));
-                    }
-                }
-            }
-
-            return providerSamples.ToArray();
-        }
-
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
-        public void Collapse()
-        {
-            this.LoopingList.IsExpanded = false;
-        }
-
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
-        public void Expand()
-        {
-            this.LoopingList.Focus(Windows.UI.Xaml.FocusState.Programmatic);
-            if (!this.LoopingList.IsExpanded)
-            {
-                this.LoopingList.IsExpanded = true;
-            }
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
-        {
-            this.RaisePropertyChangedEvent(
-                ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
-                oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
-                newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
-        }
-
     }
 }

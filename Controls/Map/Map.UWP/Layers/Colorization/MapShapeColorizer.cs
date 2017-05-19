@@ -55,7 +55,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Gets the <see cref="D2DShapeStyle"/> instance that defines the appearance of the specified <see cref="IMapShape"/> instance.
         /// </summary>
         /// <param name="shape">The <see cref="IMapShape"/> instance for which the style is to be retrieved.</param>
-        /// <returns></returns>
         protected internal abstract D2DShapeStyle GetShapeStyle(IMapShape shape);
 
         /// <summary>
@@ -66,8 +65,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Provides an extension methods to inheritors to perform the core initialization logic given a set of shapes.
         /// </summary>
-        /// <param name="shapes"></param>
-        /// <returns></returns>
         protected abstract bool InitializeOverride(IEnumerable<IMapShape> shapes);
 
         /// <summary>

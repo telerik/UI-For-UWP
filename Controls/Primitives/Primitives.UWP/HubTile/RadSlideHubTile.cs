@@ -206,6 +206,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             return applied;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadSlideHubTileAutomationPeer(this);

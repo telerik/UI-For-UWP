@@ -295,6 +295,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.rangeSlider.SelectionOffsetChanged -= this.OnSelectionOffsetChanged;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadRangeSliderAutomationPeer(this);

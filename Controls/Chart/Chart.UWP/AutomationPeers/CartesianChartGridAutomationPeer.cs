@@ -2,10 +2,13 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="CartesianChartGrid"/>.
+    /// </summary>
     public class CartesianChartGridAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>
-        /// Initializes a new instance of the ChartAnnotationAutomationPeer class.
+        /// Initializes a new instance of the <see cref="CartesianChartGridAutomationPeer"/> class.
         /// </summary>
         public CartesianChartGridAutomationPeer(CartesianChartGrid owner) 
             : base(owner)
@@ -15,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(CartesianChartGrid);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.CartesianChartGrid);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(CartesianChartGrid);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.CartesianChartGrid);
         }
 
         /// <inheritdoc />

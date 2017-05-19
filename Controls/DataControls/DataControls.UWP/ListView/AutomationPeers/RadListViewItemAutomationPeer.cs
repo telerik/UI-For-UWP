@@ -7,7 +7,6 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
-
     /// <summary>
     /// AutomationPeer class for <see cref="RadListViewItem"/>.
     /// </summary>
@@ -20,19 +19,10 @@ namespace Telerik.UI.Automation.Peers
         public RadListViewItemAutomationPeer(RadListViewItem owner)
             : base(owner)
         {
-
-        }
-
-        private RadListViewItem ListViewItemOwner
-        {
-            get
-            {
-                return (RadListViewItem)this.Owner;
-            }
         }
 
         /// <summary>
-        /// Indicates whether an item is selected.
+        /// Gets a value indicating whether an item is selected.
         /// </summary>
         public bool IsSelected
         {
@@ -47,7 +37,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Specifies the provider that implements ISelectionProvider and acts as the container for the calling object.
+        /// Gets the provider that implements ISelectionProvider and acts as the container for the calling object.
         /// </summary>
         public IRawElementProviderSimple SelectionContainer
         {
@@ -56,16 +46,29 @@ namespace Telerik.UI.Automation.Peers
                 RadListView parentListView = this.ListViewItemOwner.ListView;
                 if (parentListView != null)
                 {
-                    return this.ProviderFromPeer(CreatePeerForElement(parentListView));
+                    return this.ProviderFromPeer(FrameworkElementAutomationPeer.CreatePeerForElement(parentListView));
                 }
                 return null;
             }
         }
 
+        private RadListViewItem ListViewItemOwner
+        {
+            get
+            {
+                return (RadListViewItem)this.Owner;
+            }
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
         public void AddToSelection()
         {
-            if (!IsEnabled())
+            if (!this.IsEnabled())
+            {
                 throw new ElementNotEnabledException();
+            }
 
             var selector = this.ListViewItemOwner.ListView;
             if ((selector == null) || (!this.CanParentSelectMultiple(selector) && selector.SelectedItem != null && selector.SelectedItem != this.ListViewItemOwner.Content))
@@ -78,10 +81,15 @@ namespace Telerik.UI.Automation.Peers
             this.Select();
         }
 
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
         public void RemoveFromSelection()
         {
-            if (!IsEnabled())
+            if (!this.IsEnabled())
+            {
                 throw new ElementNotEnabledException();
+            }
 
             this.UnSelect();
         }
@@ -101,13 +109,13 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.ListItem;
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.SelectionItem)

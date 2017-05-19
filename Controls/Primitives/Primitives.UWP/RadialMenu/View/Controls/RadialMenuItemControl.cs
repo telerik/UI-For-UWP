@@ -123,12 +123,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             return commonVisualState;
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             e.Handled = this.HandleKeyDown(e.Key);
             base.OnKeyDown(e);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             var parent = ElementTreeHelper.FindVisualAncestor<RadRadialMenu>(this);
@@ -138,6 +143,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             }
 
             return base.OnCreateAutomationPeer();
+        }
+
+        private static void OnLoadingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as RadialMenuItemControl;
+
+            control.UpdateVisualState(true);
         }
 
         private bool HandleKeyDown(VirtualKey key)
@@ -175,13 +187,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             }
 
             return false;
-        }
-
-        private static void OnLoadingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var control = d as RadialMenuItemControl;
-
-            control.UpdateVisualState(true);
         }
     }
 }

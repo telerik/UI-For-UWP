@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Data;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
-    internal partial class ListViewModel
+    internal partial class ListViewModel : IDisposable
     {
         internal static readonly DoubleArithmetics DoubleArithmetics = new DoubleArithmetics(IndexStorage.PrecisionMultiplier);
 
@@ -33,6 +33,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         private BatchLoadingMode dataLoadingMode;
         private int dataLoadingBufferSize = 10;
         private bool executeOperationsSyncroniously;
+        private bool isCurrentItemSynchronizing = false;
 
         public ListViewModel(IListView view, bool shouldExecuteSyncroniously)
         {
@@ -130,6 +131,14 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         internal double CurrentOffset { get; set; }
 
+        internal int ItemsCount
+        {
+            get
+            {
+                return this.layoutController.strategy.Layout.GetLines(0, true).Count();
+            }
+        }
+
         public GeneratedItemModel GetDisplayedElement(int slot, int id)
         {
             return this.layoutController.strategy.GetDisplayedElement(slot, id);
@@ -144,6 +153,11 @@ namespace Telerik.UI.Xaml.Controls.Data
                     yield return model;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            this.localDataProvider.Dispose();
         }
 
         internal void OnItemsSourceChanged(object newSource)
@@ -202,7 +216,6 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             int groupDescriptionCount = this.CurrentDataProvider.Settings.RowGroupDescriptions.Count;
             bool keepCollapsedState = (this.dataChangeFlags & DataChangeFlags.Group) == DataChangeFlags.None;
-
 
             if (this.ShouldDisplayIncrementalLoadingIndicator)
             {
@@ -461,6 +474,39 @@ namespace Telerik.UI.Xaml.Controls.Data
             return isIndexIntoView;
         }
 
+        internal ItemInfo? FindDataItemFromIndex(int index, object dataItem = null)
+        {
+            var enumerator = this.layoutController.strategy.Layout.GetLines(index, true).GetEnumerator();
+
+            ItemInfo? info = null;
+            while (enumerator.MoveNext())
+            {
+                foreach (var item in enumerator.Current)
+                {
+                    if (item.ItemType == GroupType.BottomLevel)
+                    {
+                        if (dataItem == null || object.Equals(item.Item, dataItem))
+                        {
+                            info = item;
+                            break;
+                        }
+                    }
+                }
+
+                if (info != null)
+                {
+                    break;
+                }
+            }
+
+            return info;
+        }
+
+        internal void RecycleAllContainers()
+        {
+            this.layoutController.strategy.FullyRecycle();
+        }
+
         internal void ScrollIndexIntoView(ScrollIntoViewOperation<ItemInfo?> operation)
         {
             var index = operation.RequestedItem.Value.Slot;
@@ -497,7 +543,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             provider.ViewChanging += this.OnDataProviderViewChanging;
             provider.CurrentChanged += this.OnDataProviderCurrentItemChanged;
 
-            this.View.CurrencyService.CurrentChanged += CurrencyService_CurrentChanged;
+            this.View.CurrencyService.CurrentChanged += this.CurrencyService_CurrentChanged;
 
             this.sortDescriptors.DescriptionCollection = provider.SortDescriptions;
             this.groupDescriptors.DescriptionCollection = provider.GroupDescriptions;
@@ -511,10 +557,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.UpdateProviderField(this.localDataProvider as IDataProvider);
         }
 
-        private bool isCurrentItemSynchronizing = false;
         private void CurrencyService_CurrentChanged(object sender, EventArgs e)
         {
-            if (!isCurrentItemSynchronizing)
+            if (!this.isCurrentItemSynchronizing)
             {
                 IDataSourceCurrency dsc = this.CurrentDataProvider.DataView as IDataSourceCurrency;
                 if (dsc != null)
@@ -577,7 +622,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             if (!this.isDataProviderUpdating)
             {
-                //  System.Diagnostics.Debug.Assert(false, "Flag not raised properly.");
+                // System.Diagnostics.Debug.Assert(false, "Flag not raised properly.");
                 return;
             }
 
@@ -676,49 +721,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 return indexToRequest;
             }
 
-
             return (this.CurrentDataProvider.Results.Root.RowGroup == null || this.CurrentDataProvider.Results.Root.RowGroup.Items.Count == 0) && this.DataLoadingMode == BatchLoadingMode.Auto ? 0 : -1;
-        }
-
-        internal ItemInfo? FindDataItemFromIndex(int index, object dataItem = null)
-        {
-            var enumerator = this.layoutController.strategy.Layout.GetLines(index, true).GetEnumerator();
-
-            ItemInfo? info = null;
-            while (enumerator.MoveNext())
-            {
-                foreach (var item in enumerator.Current)
-                {
-                    if (item.ItemType == GroupType.BottomLevel)
-                    {
-                        if (dataItem == null || object.Equals(item.Item, dataItem))
-                        {
-                            info = item;
-                            break;
-                        }
-                    }
-                }
-
-                if (info != null)
-                {
-                    break;
-                }
-            }
-
-            return info;
-        }
-
-        internal void RecycleAllContainers()
-        {
-            this.layoutController.strategy.FullyRecycle();
-        }
-
-        internal int ItemsCount
-        {
-            get
-            {
-                return this.layoutController.strategy.Layout.GetLines(0, true).Count();
-            }
         }
     }
 }

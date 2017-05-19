@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Telerik.UI.Xaml.Controls.Data
+﻿namespace Telerik.UI.Xaml.Controls.Data
 {
 #if WINDOWS_PHONE_APP
     public partial class RadDataBoundListBox

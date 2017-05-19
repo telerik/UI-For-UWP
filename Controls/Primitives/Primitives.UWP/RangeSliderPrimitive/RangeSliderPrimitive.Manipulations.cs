@@ -129,6 +129,16 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.StartTimer();
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            e.Handled = this.HandleKeyDown(e.Key);
+            base.OnKeyDown(e);
+        }
+
         private void HandleHorizontalTrackBarPressed(double pointerPositionValue)
         {
             double delta = 0d;
@@ -271,7 +281,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             {
                 this.UpdateSelectionEnd(delta);
             }
-            else handled = false;
+            else
+            {
+                handled = false;
+            }
 
             return handled && delta != 0;
         }
@@ -523,13 +536,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             this.InvalidateThumbsPanelArrange();
         }
-
-        protected override void OnKeyDown(KeyRoutedEventArgs e)
-        {
-            e.Handled = this.HandleKeyDown(e.Key);
-            base.OnKeyDown(e);
-        }
-
+        
         private void OnSliderPointerReleased(object sender, PointerRoutedEventArgs e)
         {
             this.UpdateSelectionStart(0, true);

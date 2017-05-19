@@ -92,7 +92,7 @@ namespace Telerik.Data.Core
                 if (this.deferUpdates != value)
                 {
                     this.deferUpdates = value;
-                    this.OnPropertyChanged(nameof(DeferUpdates));
+                    this.OnPropertyChanged(nameof(this.DeferUpdates));
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace Telerik.Data.Core
                 if (this.status != value)
                 {
                     this.status = value;
-                    this.OnPropertyChanged(nameof(Status));
+                    this.OnPropertyChanged(nameof(this.Status));
                 }
             }
         }
@@ -226,7 +226,7 @@ namespace Telerik.Data.Core
         /// </summary>
         internal virtual void OnFieldDescriptionsProviderChanged(IFieldDescriptionProvider oldProvider, IFieldDescriptionProvider newProvider)
         {
-            this.OnPropertyChanged(nameof(FieldDescriptionsProvider));
+            this.OnPropertyChanged(nameof(this.FieldDescriptionsProvider));
             if (this.deferLevel == 0 && !this.deferUpdates)
             {
                 this.Refresh();
@@ -314,7 +314,7 @@ namespace Telerik.Data.Core
         protected void RaiseCurrentChanged(object sender, object e)
         {
             var handler = this.CurrentChanged;
-            if(handler != null)
+            if (handler != null)
             {
                 handler(sender, e);
             }
@@ -365,10 +365,10 @@ namespace Telerik.Data.Core
                 switch (e.PropertyName)
                 {
                     case "AggregatesPosition":
-                        this.OnPropertyChanged(nameof(AggregatesPosition));
+                        this.OnPropertyChanged(nameof(this.AggregatesPosition));
                         break;
                     case "AggregatesLevel":
-                        this.OnPropertyChanged(nameof(AggregatesLevel));
+                        this.OnPropertyChanged(nameof(this.AggregatesLevel));
                         break;
                 }
             }

@@ -276,6 +276,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(ValueProperty, value);
+
                 // raise the change for UIA 
                 if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
                 {
@@ -914,7 +915,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void RemoveItemOnCollectionChanged(int index)
         {
-            var ratingItem = (this.ratingPanel.Children[index] as RadRatingItem);
+            var ratingItem = this.ratingPanel.Children[index] as RadRatingItem;
             ratingItem.Owner = null;
             this.ratingPanel.Children.Remove(ratingItem);
 

@@ -22,12 +22,7 @@ namespace Telerik.Data.Core.Layouts
         public event EventHandler ItemsSourceChanged;
 
         public SortedSet<LayoutStrategyBase> LayoutStrategies { get; private set; }
-
-        protected abstract IRenderInfo RenderInfo
-        {
-            get;
-        }
-
+        
         public abstract int GroupCount { get; }
 
         public virtual int VisibleLineCount
@@ -71,13 +66,6 @@ namespace Telerik.Data.Core.Layouts
             }
         }
 
-        // source
-        //internal int TotalsCount
-        //{
-        //    get;
-        //    private set;
-        //}
-
         internal int AggregatesLevel
         {
             get;
@@ -108,6 +96,11 @@ namespace Telerik.Data.Core.Layouts
             private set;
         }
 
+        protected abstract IRenderInfo RenderInfo
+        {
+            get;
+        }
+
         public abstract IEnumerable<Group> GetGroupsByKey(object key);
 
         public void SetSource(IEnumerable source)
@@ -136,7 +129,6 @@ namespace Telerik.Data.Core.Layouts
 
             this.TotalsPosition = totalsPosition;
             this.AggregatesLevel = aggregatesLevel;
-            // this.TotalsCount = totalsCount;
             this.ShowAggregateValuesInline = showAggregateValuesInline;
 
             this.SetItemsSource(source);
@@ -171,11 +163,15 @@ namespace Telerik.Data.Core.Layouts
         internal abstract GroupInfo GetGroupInfo(object item);
 
         internal abstract int GetVisibleSlot(int index);
+
         internal abstract int GetCollapsedSlotsCount(int startSlot, int endSlot);
+
         internal abstract int GetNextVisibleSlot(int slot);
 
         internal abstract void RefreshRenderInfo(bool force);
+
         internal abstract double SlotFromPhysicalOffset(double physicalOffset, bool includeCollapsed = false);
+
         internal abstract void UpdateAverageLength(int startIndex, int endIndex);
 
         internal virtual double PhysicalOffsetFromSlot(int slot)
@@ -194,6 +190,7 @@ namespace Telerik.Data.Core.Layouts
         }
 
         internal abstract AddRemoveLayoutResult AddItem(object changedItem, object addRemoveItem, int addRemoveItemIndex);
+
         internal abstract AddRemoveLayoutResult RemoveItem(object changedItem, object addRemoveItem, int addRemoveItemIndex);
 
         internal void AddStrategy(IncrementalLoadingStrategy incrementalLoadingStrategy)
@@ -201,6 +198,33 @@ namespace Telerik.Data.Core.Layouts
             this.LayoutStrategies.Add(incrementalLoadingStrategy);
 
             this.UpdateStrategiesCount();
+        }
+        
+        internal virtual int CalculateFlatRowCount()
+        {
+            return this.ItemsSource.Count;
+        }
+
+        internal void RemoveWhere(Predicate<LayoutStrategyBase> condition)
+        {
+            this.LayoutStrategies.RemoveWhere(condition);
+
+            this.UpdateStrategiesCount();
+        }
+
+        internal abstract bool IsItemCollapsed(int slot);
+
+        internal abstract int IndexFromSlot(int slotToRequest);
+
+        internal abstract IRenderInfoState GetRenderLoadState();
+
+        internal abstract IList<ItemInfo> GetItemInfosAtSlot(int visibleLine, int slot);
+
+        internal abstract int CountAndPopulateTables(object item, int rootSlot, int level, int levels, GroupInfo parent, bool shouldIndexItem, List<GroupInfo> insert, ref int totalLines);
+
+        internal virtual void UpdateSlotLength(int slot, double length)
+        {
+            this.RenderInfo.Update(slot, length);
         }
 
         protected virtual void UpdateStrategiesCount()
@@ -221,30 +245,6 @@ namespace Telerik.Data.Core.Layouts
                     this.RenderInfo.InsertRange(0, IndexStorage.UnknownItemLength, calculatedCount);
                 }
             }
-        }
-
-        internal virtual int CalculateFlatRowCount()
-        {
-            return this.ItemsSource.Count;
-        }
-
-        internal void RemoveWhere(Predicate<LayoutStrategyBase> condition)
-        {
-            this.LayoutStrategies.RemoveWhere(condition);
-
-            this.UpdateStrategiesCount();
-        }
-
-        internal abstract bool IsItemCollapsed(int slot);
-        internal abstract int IndexFromSlot(int slotToRequest);
-        internal abstract IRenderInfoState GetRenderLoadState();
-
-        internal abstract IList<ItemInfo> GetItemInfosAtSlot(int visibleLine, int slot);
-        internal abstract int CountAndPopulateTables(object item, int rootSlot, int level, int levels, GroupInfo parent, bool shouldIndexItem, List<GroupInfo> insert, ref int totalLines);
-
-        internal virtual void UpdateSlotLength(int slot, double length)
-        {
-            this.RenderInfo.Update(slot, length);
         }
 
         protected void RaiseCollapsed(ExpandCollapseEventArgs e)

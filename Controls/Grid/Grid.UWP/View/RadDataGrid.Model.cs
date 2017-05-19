@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Telerik.Core;
 using Telerik.Data.Core;
@@ -16,6 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
     {
         private GridModel model;
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportWidth
         {
             get
@@ -24,6 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportHeight
         {
             get
@@ -32,6 +35,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IElementPresenter.IsVisible
         {
             get
@@ -65,6 +69,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.visualStateService.UpdateDataLoadingStatus(status);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         void IElementPresenter.RefreshNode(object node)
         {
         }
@@ -188,7 +193,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
                 this.FrozenColumnsContentLayer.ApplyClip(adjustedFrozenClip);
                 this.frozenDecorationLayer.ApplyClip(frozendecorationClip);
-                this.GroupHeadersContentLayer.ApplyClip(new RadRect(0, adjustedFrozenClip.Y, this.CellsPanel.ActualWidth, this.CellsPanel.ActualHeight),false);
+                this.GroupHeadersContentLayer.ApplyClip(new RadRect(0, adjustedFrozenClip.Y, this.CellsPanel.ActualWidth, this.CellsPanel.ActualHeight), false);
             }
             else
             {
@@ -213,6 +218,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         RadSize IElementPresenter.MeasureContent(object owner, object content)
         {
             GridRowModel row = owner as GridRowModel;
@@ -326,7 +332,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
                 var element = this.Model.RowPool.GetDisplayedElement(line + 1);
 
-                if (element!=null && line != visibleLines - 1 && this.HasHorizontalGridLines && element.ContainerType != typeof(DataGridGroupHeader))
+                if (element != null && line != visibleLines - 1 && this.HasHorizontalGridLines && element.ContainerType != typeof(DataGridGroupHeader))
                 {
                     height += this.GridLinesThickness;
                 }

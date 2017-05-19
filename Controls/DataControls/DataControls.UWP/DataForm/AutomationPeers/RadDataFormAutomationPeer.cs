@@ -8,6 +8,14 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadDataFormAutomationPeer : RadControlAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RadDataFormAutomationPeer"/> class.
+        /// </summary>
+        /// <param name="owner">RadDataForm owner.</param>
+        public RadDataFormAutomationPeer(RadDataForm owner) : base(owner)
+        {
+        }
+
         private RadDataForm DataFormOwner
         {
             get
@@ -16,22 +24,13 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RadDataFormAutomationPeer"/> class.
-        /// </summary>
-        /// <param name="owner">RadDataForm owner.</param>
-        public RadDataFormAutomationPeer(RadDataForm owner) : base(owner)
-        {
-
-        }
-
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.Custom;
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override string GetLocalizedControlTypeCore()
         {
             return "rad data form";

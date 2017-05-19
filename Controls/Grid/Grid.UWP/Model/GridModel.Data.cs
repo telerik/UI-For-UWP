@@ -27,6 +27,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         private GroupDescriptorCollection groupDescriptors;
         private FilterDescriptorCollection filterDescriptors;
         private AggregateDescriptorCollection aggregateDescriptors;
+        private bool isCurrentItemSynchronizing = false;
 
         public object ItemsSource
         {
@@ -309,18 +310,17 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             provider.ViewChanged += this.OnDataProviderViewChanged;
             provider.CurrentChanged += this.OnDataProviderCurrentItemChanged;
             provider.FieldDescriptionsChanged += this.OnFieldDescriptionsChanged;
-            this.GridView.CurrencyService.CurrentChanged += CurrencyService_CurrentChanged;
+            this.GridView.CurrencyService.CurrentChanged += this.CurrencyService_CurrentChanged;
 
             this.sortDescriptors.DescriptionCollection = provider.SortDescriptions;
             this.groupDescriptors.DescriptionCollection = provider.GroupDescriptions;
             this.filterDescriptors.DescriptionCollection = provider.FilterDescriptions;
             this.aggregateDescriptors.DescriptionCollection = provider.AggregateDescriptions;
         }
-
-        private bool isCurrentItemSynchronizing = false;
+        
         private void CurrencyService_CurrentChanged(object sender, EventArgs e)
         {
-            if(!isCurrentItemSynchronizing)
+            if (!this.isCurrentItemSynchronizing)
             {
                 IDataSourceCurrency dsc = this.CurrentDataProvider.DataView as IDataSourceCurrency;
                 if (dsc != null)
@@ -333,7 +333,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         private void OnDataProviderCurrentItemChanged(object sender, object e)
         {
             ICollectionView view = sender as ICollectionView;
-            if(view != null)
+            if (view != null)
             {
                 this.isCurrentItemSynchronizing = true;
                 this.GridView.CurrencyService.MoveCurrentTo(view.CurrentItem);

@@ -21,7 +21,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                     child.TryInvalidateOwner();
                     arrangeRect = child.LayoutSlot;
                 }
-                 
+
                 item.Arrange(arrangeRect);
             }
 

@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadGauge"/>.
+    /// </summary>
     public class RadGaugeAutomationPeer : RadControlAutomationPeer, IRangeValueProvider
     {
         /// <summary>
@@ -18,117 +21,8 @@ namespace Telerik.UI.Automation.Peers
             : base(owner)
         {
         }
-
-        private RadGauge Gauge
-        {
-            get
-            {
-                return (RadGauge)this.Owner;
-            }
-        }
-
+        
         /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return nameof(RadGauge);
-        }
-
-        /// <inheritdoc />
-        protected override string GetHelpTextCore()
-        {
-            return nameof(RadGauge);
-        }
-
-        /// <inheritdoc />
-        protected override string GetLocalizedControlTypeCore()
-        {
-            return "rad gauge";
-        }
-
-        /// <inheritdoc />
-        protected override bool HasKeyboardFocusCore()
-        {
-            return true;
-        }
-
-        /// <inheritdoc />
-        protected override string GetAutomationIdCore()
-        {
-            var automationId = base.GetAutomationIdCore();
-            if (!string.IsNullOrEmpty(automationId))
-            {
-                return automationId;
-            }
-
-            return nameof(RadGauge);
-        }
-
-        /// <inheritdoc />
-        protected override AutomationControlType GetAutomationControlTypeCore()
-        {
-            return AutomationControlType.Spinner;
-        }
-
-        /// <inheritdoc />
-        protected override object GetPatternCore(PatternInterface patternInterface)
-        {
-            if (patternInterface == PatternInterface.RangeValue)
-            {
-                return this;
-            }
-
-            return base.GetPatternCore(patternInterface);
-        }
-
-        /// <summary>
-        /// IRangeValueProvider implementation.
-        /// </summary>
-        public void SetValue(double value)
-        {
-            if (!this.IsEnabled())
-            {
-                throw new ElementNotEnabledException();
-            }
-            
-            if ((value < this.Gauge.MinValue) || (value > this.Gauge.MaxValue))
-            {
-                throw new ArgumentOutOfRangeException("value");
-            }
-
-            foreach (var indicator in this.Gauge.Indicators)
-            {
-                indicator.Value = value;
-            }
-        }
-
-        /// <summary>
-        /// IRangeValueProvider implementation.
-        /// </summary>
-        public bool IsReadOnly => !this.Gauge.IsEnabled;
-
-        /// <summary>
-        /// IRangeValueProvider implementation.
-        /// </summary>
-        public double LargeChange => this.Gauge.MajorTickStep;
-
-        /// <summary>
-        /// IRangeValueProvider implementation.
-        /// </summary>
-        public double Maximum => this.Gauge.MaxValue;
-
-        /// <summary>
-        /// IRangeValueProvider implementation.
-        /// </summary>
-        public double Minimum => this.Gauge.MinValue;
-
-        /// <summary>
-        /// IRangeValueProvider implementation.
-        /// </summary>
-        public double SmallChange => this.Gauge.TickStep;
-
-        /// <summary>
-        /// IRangeValueProvider implementation.
-        /// </summary>
         public double Value
         {
             get
@@ -173,6 +67,60 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        /// <summary>
+        /// IRangeValueProvider implementation.
+        /// </summary>
+        public bool IsReadOnly => !this.Gauge.IsEnabled;
+
+        /// <summary>
+        /// IRangeValueProvider implementation.
+        /// </summary>
+        public double LargeChange => this.Gauge.MajorTickStep;
+
+        /// <summary>
+        /// IRangeValueProvider implementation.
+        /// </summary>
+        public double Maximum => this.Gauge.MaxValue;
+
+        /// <summary>
+        /// IRangeValueProvider implementation.
+        /// </summary>
+        public double Minimum => this.Gauge.MinValue;
+
+        /// <summary>
+        /// IRangeValueProvider implementation.
+        /// </summary>
+        public double SmallChange => this.Gauge.TickStep;
+
+        private RadGauge Gauge
+        {
+            get
+            {
+                return (RadGauge)this.Owner;
+            }
+        }
+
+        /// <summary>
+        /// IRangeValueProvider implementation.
+        /// </summary>
+        public void SetValue(double value)
+        {
+            if (!this.IsEnabled())
+            {
+                throw new ElementNotEnabledException();
+            }
+
+            if ((value < this.Gauge.MinValue) || (value > this.Gauge.MaxValue))
+            {
+                throw new ArgumentOutOfRangeException("value");
+            }
+
+            foreach (var indicator in this.Gauge.Indicators)
+            {
+                indicator.Value = value;
+            }
+        }
+
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal void RaiseMaximumPropertyChangedEvent(double oldValue, double newValue)
         {
@@ -183,6 +131,59 @@ namespace Telerik.UI.Automation.Peers
         internal void RaiseMinimumPropertyChangedEvent(double oldValue, double newValue)
         {
             this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MinimumProperty, oldValue, newValue);
+        }
+
+        /// <inheritdoc />
+        protected override string GetClassNameCore()
+        {
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.RadGauge);
+        }
+
+        /// <inheritdoc />
+        protected override string GetHelpTextCore()
+        {
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.RadGauge);
+        }
+
+        /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
+        {
+            return "rad gauge";
+        }
+
+        /// <inheritdoc />
+        protected override bool HasKeyboardFocusCore()
+        {
+            return true;
+        }
+
+        /// <inheritdoc />
+        protected override string GetAutomationIdCore()
+        {
+            var automationId = base.GetAutomationIdCore();
+            if (!string.IsNullOrEmpty(automationId))
+            {
+                return automationId;
+            }
+
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.RadGauge);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Spinner;
+        }
+
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.RangeValue)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
         }
     }
 }

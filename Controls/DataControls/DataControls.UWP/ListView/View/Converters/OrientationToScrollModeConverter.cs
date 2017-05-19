@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
@@ -22,7 +20,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// <param name="targetType">The parameter is not used.</param>
         /// <param name="parameter">The scroll bar orientation.</param>
         /// <param name="language">The parameter is not used.</param>
-        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var controlOrientation = (Orientation)value;

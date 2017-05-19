@@ -97,7 +97,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Thickness"/> that defines the offset of each label from the four box edges.
+        /// Gets or sets the <see cref="Windows.UI.Xaml.Thickness(double)"/> that defines the offset of each label from the four box edges.
         /// </summary>
         public Thickness Margin
         {

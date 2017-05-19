@@ -8,7 +8,7 @@ namespace Telerik.UI.Xaml.Controls.Chart.Tests
     {
         internal bool tunnelMessageReceived;
         internal bool bubbleMessageReceived;
-        internal bool stopMessage;
+        internal bool stopMessage = false;
 
         public TestChartElement()
         {

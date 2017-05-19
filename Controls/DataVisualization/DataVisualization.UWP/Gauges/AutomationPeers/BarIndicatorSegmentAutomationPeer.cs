@@ -2,24 +2,29 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="BarIndicatorSegment"/>.
+    /// </summary>
     public class BarIndicatorSegmentAutomationPeer : RadControlAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the BarIndicatorSegmentAutomationPeer class.
+        /// </summary>
         public BarIndicatorSegmentAutomationPeer(BarIndicatorSegment owner) 
             : base(owner)
         {
         }
-
-
+        
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(BarIndicatorSegment);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.BarIndicatorSegment);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(BarIndicatorSegment);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.BarIndicatorSegment);
         }
 
         /// <inheritdoc />
@@ -31,7 +36,7 @@ namespace Telerik.UI.Automation.Peers
                 return automationId;
             }
 
-            return nameof(BarIndicatorSegment);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.BarIndicatorSegment);
         }
 
         /// <inheritdoc />

@@ -24,7 +24,7 @@ namespace Telerik.Geospatial
         }
 
         /// <summary>
-        /// Gets the latitude value of the location.
+        /// Gets or sets the latitude value of the location.
         /// </summary>
         public double Latitude
         {
@@ -33,7 +33,7 @@ namespace Telerik.Geospatial
         }
 
         /// <summary>
-        /// Gets the longitude value of the location.
+        /// Gets or sets the longitude value of the location.
         /// </summary>
         public double Longitude
         {
@@ -44,9 +44,6 @@ namespace Telerik.Geospatial
         /// <summary>
         /// Checks whether two <see cref="Location"/> values are equal.
         /// </summary>
-        /// <param name="location1"></param>
-        /// <param name="location2"></param>
-        /// <returns></returns>
         public static bool operator ==(Location location1, Location location2)
         {
             return location1.Equals(location2);
@@ -55,9 +52,6 @@ namespace Telerik.Geospatial
         /// <summary>
         /// Checks whether two <see cref="Location"/> values are not equal.
         /// </summary>
-        /// <param name="location1"></param>
-        /// <param name="location2"></param>
-        /// <returns></returns>
         public static bool operator !=(Location location1, Location location2)
         {
             return !location1.Equals(location2);
@@ -66,9 +60,6 @@ namespace Telerik.Geospatial
         /// <summary>
         /// Checks whether two <see cref="Location"/> values are equal.
         /// </summary>
-        /// <param name="location1"></param>
-        /// <param name="location2"></param>
-        /// <returns></returns>
         public static bool Equals(Location location1, Location location2)
         {
             return location1.Latitude == location2.Latitude && location1.Longitude == location2.Longitude;

@@ -135,6 +135,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return "Collapsed";
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridGroupHeaderAutomationPeer(this);

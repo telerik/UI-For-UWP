@@ -220,6 +220,7 @@ namespace Telerik.UI.Xaml.Controls
             this.IsFocused = false;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new Automation.Peers.RadContentControlAutomationPeer(this);

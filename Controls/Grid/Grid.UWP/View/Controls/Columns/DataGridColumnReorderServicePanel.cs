@@ -41,6 +41,21 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        internal void OpenColumnsFlyout()
+        {
+            this.columnReorderFlyoutContent.ClearUI();
+
+            this.columnReorderFlyoutContent.PrepareUI();
+            this.PositionColumnsFlyout();
+            this.columnReorderFlyoutContent.UpdateVisualState(false);
+            this.Owner.ContentFlyout.Show(DataGridFlyoutId.ColumnChooser, this.columnReorderFlyoutContent);
+        }
+
+        internal void CloseColumnsFlyout()
+        {
+            this.Owner.ContentFlyout.Hide(DataGridFlyoutId.ColumnChooser);
+        }
+
         /// <summary>
         /// Occurs when the <see cref="M:OnApplyTemplate" /> method has been called and the template is already successfully applied.
         /// </summary>
@@ -54,6 +69,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.columnReorderFlyoutContent.Owner = this;
         }
 
+        /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
             base.UnapplyTemplateCore();
@@ -63,6 +79,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
             this.columnReorderFlyoutContent.Owner = null;
         }
+
         /// <summary>
         /// Called before the Tapped event occurs.
         /// </summary>
@@ -79,6 +96,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.OpenColumnsFlyout();
         }
 
+        /// <summary>
+        /// Called before the PointerEntered event occurs.
+        /// </summary>
+        /// <param name="e">Event data for the event.</param>
         protected override void OnPointerEntered(PointerRoutedEventArgs e)
         {
             base.OnPointerEntered(e);
@@ -86,6 +107,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.UpdateVisualState(false);
         }
 
+        /// <summary>
+        /// Called before the PointerExited event occurs.
+        /// </summary>
+        /// <param name="e">Event data for the event.</param>
         protected override void OnPointerExited(PointerRoutedEventArgs e)
         {
             base.OnPointerExited(e);
@@ -93,26 +118,13 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.UpdateVisualState(false);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridColumnReorderServicePanelAutomationPeer(this);
         }
 
-        internal void OpenColumnsFlyout()
-        {
-            this.columnReorderFlyoutContent.ClearUI();
-
-            this.columnReorderFlyoutContent.PrepareUI();
-            this.PositionColumnsFlyout();
-            this.columnReorderFlyoutContent.UpdateVisualState(false);
-            this.Owner.ContentFlyout.Show(DataGridFlyoutId.ColumnChooser, this.columnReorderFlyoutContent);
-        }
-
-        internal void CloseColumnsFlyout()
-        {
-            this.Owner.ContentFlyout.Hide(DataGridFlyoutId.ColumnChooser);
-        }
-
+        /// <inheritdoc/>
         protected override string ComposeVisualStateName()
         {
             if (this.isMouseOver)

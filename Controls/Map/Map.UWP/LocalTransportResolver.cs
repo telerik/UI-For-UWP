@@ -17,7 +17,6 @@ Implement the ITransportResolver interface and assign it to the ShapefileDataSou
         /// Loads the <see cref="StorageFile" /> containing the Map Shapes definition.
         /// </summary>
         /// <param name="uri">The <see cref="Uri" /> pointing to the file location.</param>
-        /// <returns></returns>
         /// <exception cref="System.NotSupportedException">The NotSupportedException in case the Uri does not start with 'ms-appx' or 'ms-appdata'.</exception>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed.")]
         public async Task<StorageFile> GetStorageFile(Uri uri)

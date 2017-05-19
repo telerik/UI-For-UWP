@@ -29,7 +29,7 @@ namespace Telerik.Data.Core
         /// <summary>
         /// Raised when current item has changed.
         /// </summary>
-        event System.EventHandler<System.Object> CurrentChanged;
+        event System.EventHandler<object> CurrentChanged;
 
         /// <summary>
         /// Occurs when field descriptions is changed.

@@ -1,23 +1,28 @@
-﻿using System.Collections;
-using Telerik.Data.Core;
-using Telerik.UI.Xaml.Controls.Data.DataForm;
-using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Represents a ListEditor control.
+    /// </summary>
     public class ListEditor : ComboBox, ITypeEditor
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListEditor"/> class.
+        /// </summary>
         public ListEditor()
         {
             this.DefaultStyleKey = typeof(ListEditor);
         }
 
+        /// <summary>
+        /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
+        /// </summary>
         public void BindEditor()
         {
-
             Binding b1 = new Binding();
             b1.Path = new PropertyPath("ValueOptions");
             this.SetBinding(ListEditor.ItemsSourceProperty, b1);

@@ -543,12 +543,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
                     var loopingListItem = this.ItemsPanel.ItemFromLogicalIndex(this.selectedIndex) as LoopingListItem;
                     if (loopingListItem != null)
                     {
-                        loopingListItem.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementAddedToSelection,
-                                                             AutomationEvents.SelectionItemPatternOnElementRemovedFromSelection,
-                                                             AutomationEvents.SelectionItemPatternOnElementSelected,
-                                                             AutomationEvents.SelectionPatternOnInvalidated,
-                                                             AutomationEvents.AutomationFocusChanged);
-
+                        loopingListItem.RaiseAutomationEvent(
+                            AutomationEvents.SelectionItemPatternOnElementAddedToSelection,
+                            AutomationEvents.SelectionItemPatternOnElementRemovedFromSelection,
+                            AutomationEvents.SelectionItemPatternOnElementSelected,
+                            AutomationEvents.SelectionPatternOnInvalidated,
+                            AutomationEvents.AutomationFocusChanged);
                     }
                 }
             }
@@ -881,9 +881,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             if (this.itemsPanel != null)
             {
                 this.itemsPanel.BringIntoView(this.selectedIndex, this.selectedVisualIndex);
-
-             //   Debug.Assert(this.IsIndexInView(this.selectedIndex), "Index should be in view.");
-
+                
                 var item = this.itemsPanel.ItemFromVisualIndex(this.selectedVisualIndex);
                 if (item != null)
                 {
@@ -973,6 +971,22 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             {
                 this.selectedVisualIndex = this.GetVisualIndex(this.selectedIndex);
                 this.UpdateItemsIsSelectedState();
+            }
+        }
+
+        internal void SelectNext(int indexToSelect)
+        {
+            if (this.IsIndexSelectable(indexToSelect))
+            {
+                this.SelectedIndex = indexToSelect >= this.itemsPanel.LogicalCount ? 0 : indexToSelect;
+            }
+        }
+
+        internal void SelectPrev(int indexToSelect)
+        {
+            if (this.IsIndexSelectable(indexToSelect))
+            {
+                this.SelectedIndex = indexToSelect < 0 ? this.itemsPanel.LogicalCount - 1 : indexToSelect;
             }
         }
 
@@ -1168,6 +1182,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new Automation.Peers.RadLoopingListAutomationPeer(this);
@@ -1359,23 +1374,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
 
             return false;
         }
-
-        internal void SelectNext(int indexToSelect)
-        {
-            if (this.IsIndexSelectable(indexToSelect))
-            {
-                this.SelectedIndex = indexToSelect >= this.itemsPanel.LogicalCount ? 0 : indexToSelect;
-            }
-        }
-
-        internal void SelectPrev(int indexToSelect)
-        {
-            if (this.IsIndexSelectable(indexToSelect))
-            {
-                this.SelectedIndex = indexToSelect < 0 ? this.itemsPanel.LogicalCount - 1 : indexToSelect;
-            }
-        }
-
+        
         private bool IsIndexSelectable(int index)
         {
             if (this.IsLoopingEnabled || (index < this.itemsPanel.LogicalCount && index > -1))

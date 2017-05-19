@@ -1,4 +1,5 @@
-﻿using Telerik.Charting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Telerik.Charting;
 using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -37,10 +38,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
             DependencyProperty.Register(nameof(StrokeLineJoin), typeof(PenLineJoin), typeof(ScatterLineSeries), new PropertyMetadata(PenLineJoin.Miter, OnStrokeLineJoinChanged));
 
         internal LineRenderer renderer;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ScatterLineSeries"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public ScatterLineSeries()
         {
             this.DefaultStyleKey = typeof(ScatterLineSeries);
@@ -51,6 +53,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets a value indicating whether the <see cref="Stroke"/> property has been set locally.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IStrokedSeries.IsStrokeSetLocally
         {
             get
@@ -172,14 +175,15 @@ namespace Telerik.UI.Xaml.Controls.Chart
             this.UpdateLegendItemProperties(this.renderer.strokeShape.Fill, this.renderer.strokeShape.Stroke);
         }
 
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new ScatterLineSeriesAutomationPeer(this);
-        }
-
         internal virtual LineRenderer CreateRenderer()
         {
             return new LineRenderer();
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new ScatterLineSeriesAutomationPeer(this);
         }
 
         /// <inheritdoc/>

@@ -10,7 +10,10 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
-    public class DataGridCellInfoAutomationPeer : AutomationPeer, ISelectionItemProvider, IGridItemProvider, IInvokeProvider
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridCellInfo"/>.
+    /// </summary>
+    public sealed class DataGridCellInfoAutomationPeer : AutomationPeer, ISelectionItemProvider, IGridItemProvider, IInvokeProvider
     {
         private readonly int column;
         private readonly RadDataGrid radDataGrid;
@@ -19,55 +22,10 @@ namespace Telerik.UI.Automation.Peers
 
         private TextBlockAutomationPeer childTextBlockPeer;
         private string automationId;
-        
-        /// <summary>
-        /// The Row index of the Cell.
-        /// </summary>
-        internal int Row
-        {
-            get
-            {
-                return this.row;
-            }
-        }
 
         /// <summary>
-        /// The Column index of the Cell.
+        /// Initializes a new instance of the DataGridCellInfoAutomationPeer class.
         /// </summary>
-        internal int Column
-        {
-            get
-            {
-                return this.column;
-            }
-        }
-
-        /// <summary>
-        /// The TextBlock peer of the Cell.
-        /// </summary>
-        internal TextBlockAutomationPeer ChildTextBlockPeer
-        {
-            get
-            {
-                return this.childTextBlockPeer;
-            }
-            set
-            {
-                this.childTextBlockPeer = value;
-            }
-        }
-
-        /// <summary>
-        /// The item of the cell.
-        /// </summary>
-        internal object Item
-        {
-            get
-            {
-                return this.item;
-            }
-        }
-
         public DataGridCellInfoAutomationPeer(int row, int column, RadDataGridAutomationPeer radDataGridAutomationPeer, object item)
             : base()
         {
@@ -76,10 +34,8 @@ namespace Telerik.UI.Automation.Peers
             this.column = column;
             this.item = item;
         }
-
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
+        
+        /// <inheritdoc />
         public bool IsSelected
         {
             get
@@ -89,7 +45,7 @@ namespace Telerik.UI.Automation.Peers
                 {
                     if (this.radDataGrid.SelectionMode == DataGridSelectionMode.Single)
                     {
-                        if (this.radDataGrid.SelectionUnit == DataGridSelectionUnit.Row && this.radDataGrid.SelectedItem!= null 
+                        if (this.radDataGrid.SelectionUnit == DataGridSelectionUnit.Row && this.radDataGrid.SelectedItem != null 
                             && this.radDataGrid.SelectedItem == cell.ParentRow.ItemInfo.Item)
                         {
                             return true;
@@ -121,9 +77,7 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         public IRawElementProviderSimple SelectionContainer
         {
             get
@@ -131,23 +85,13 @@ namespace Telerik.UI.Automation.Peers
                 if (this.radDataGrid != null)
                 {
                     return this.ProviderFromPeer(FrameworkElementAutomationPeer.CreatePeerForElement(this.radDataGrid));
-
                 }
+
                 return null;
             }
         }
 
-        public bool IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// IGridItemProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         int IGridItemProvider.Column
         {
             get
@@ -156,9 +100,7 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// IGridItemProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         public int ColumnSpan
         {
             get
@@ -167,9 +109,7 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// IGridItemProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         public IRawElementProviderSimple ContainingGrid
         {
             get
@@ -177,15 +117,13 @@ namespace Telerik.UI.Automation.Peers
                 if (this.radDataGrid != null)
                 {
                     return this.ProviderFromPeer(FrameworkElementAutomationPeer.CreatePeerForElement(this.radDataGrid));
-
                 }
+
                 return null;
             }
         }
 
-        /// <summary>
-        /// IGridItemProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         int IGridItemProvider.Row
         {
             get
@@ -194,15 +132,114 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// IGridItemProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         public int RowSpan
         {
             get
             {
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// Gets the item of the cell.
+        /// </summary>
+        internal object Item
+        {
+            get
+            {
+                return this.item;
+            }
+        }
+
+        /// <summary>
+        /// Gets the Row index of the Cell.
+        /// </summary>
+        internal int Row
+        {
+            get
+            {
+                return this.row;
+            }
+        }
+
+        /// <summary>
+        /// Gets the Column index of the Cell.
+        /// </summary>
+        internal int Column
+        {
+            get
+            {
+                return this.column;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the TextBlock peer of the Cell.
+        /// </summary>
+        internal TextBlockAutomationPeer ChildTextBlockPeer
+        {
+            get
+            {
+                return this.childTextBlockPeer;
+            }
+            set
+            {
+                this.childTextBlockPeer = value;
+            }
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public void AddToSelection()
+        {
+            this.SelectCell();
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public void RemoveFromSelection()
+        {
+            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
+            if (cell != null)
+            {
+                if (this.radDataGrid.SelectionUnit == DataGridSelectionUnit.Row)
+                {
+                    this.radDataGrid.DeselectItem(cell.ParentRow.ItemInfo.Item);
+                }
+                else
+                {
+                    this.radDataGrid.DeselectCell(new DataGridCellInfo(cell));
+                }
+            }
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
+        public void Select()
+        {
+            this.SelectCell();
+        }
+
+        /// <summary>
+        /// IInvokeProvider implementation.
+        /// </summary>
+        public void Invoke()
+        {
+            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
+            if (cell != null)
+            {
+                this.radDataGrid.BeginEdit(new DataGridCellInfo(cell), ActionTrigger.DoubleTap, null);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        internal void RaiseValuePropertyChangedEvent(bool oldValue, bool newValue)
+        {
+            this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, oldValue, newValue);
         }
 
         /// <inheritdoc />
@@ -261,7 +298,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(DataGridCellInfo);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.DataGridCellInfo);
         }
 
         /// <inheritdoc />
@@ -379,41 +416,6 @@ namespace Telerik.UI.Automation.Peers
             return false;
         }
 
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
-        public void AddToSelection()
-        {
-            this.SelectCell();
-        }
-
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
-        public void RemoveFromSelection()
-        {
-            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
-            if (cell != null)
-            {
-                if (this.radDataGrid.SelectionUnit == DataGridSelectionUnit.Row)
-                {
-                    this.radDataGrid.DeselectItem(cell.ParentRow.ItemInfo.Item);
-                }
-                else
-                {
-                    this.radDataGrid.DeselectCell(new DataGridCellInfo(cell));
-                }
-            }
-        }
-
-        /// <summary>
-        /// ISelectionItemProvider implementation.
-        /// </summary>
-        public void Select()
-        {
-            this.SelectCell();
-        }
-
         private void SelectCell()
         {
             var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
@@ -421,24 +423,6 @@ namespace Telerik.UI.Automation.Peers
             {
                 this.radDataGrid.OnCellTap(new DataGridCellInfo(cell));
             }
-        }
-
-        /// <summary>
-        /// IInvokeProvider implementation.
-        /// </summary>
-        public void Invoke()
-        {
-            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
-            if (cell != null)
-            {
-                this.radDataGrid.BeginEdit(new DataGridCellInfo(cell), ActionTrigger.DoubleTap, null);
-            }
-        }
-           
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        internal void RaiseValuePropertyChangedEvent(bool oldValue, bool newValue)
-        {
-            this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, oldValue, newValue);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Telerik.Charting
         internal delegate AxisModel ValueAxesExtractor(IPlotAreaElementModelWithAxes seriesModel);
 
         /// <summary>
-        /// Gets the combined bar series count. Exposed for testing purposes.
+        /// Gets or sets the combined bar series count. Exposed for testing purposes.
         /// </summary>
         internal int CombinedBarSeriesCount
         {
@@ -40,7 +40,7 @@ namespace Telerik.Charting
         }
 
         /// <summary>
-        /// Gets the combined stroked series count. Exposed for testing purposes.
+        /// Gets or sets the combined stroked series count. Exposed for testing purposes.
         /// </summary>
         internal int CombinedStrokedSeriesCount
         {

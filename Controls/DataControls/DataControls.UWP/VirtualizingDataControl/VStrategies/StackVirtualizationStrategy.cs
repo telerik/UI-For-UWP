@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using Telerik.Core.Data;
 using Windows.Foundation;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data
@@ -496,7 +495,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal override double CalculateItemOffset(IDataSourceItem item, double lastAverageLength)
         {
             if (item == null)
+            {
                 return 0;
+            }
 
             var index = item.Index;
 
@@ -566,7 +567,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.owner.BeginAsyncBalance();
                 this.owner.BalanceVisualSpace();
             }
-        } 
+        }
 
         private void TranslateRemoveAnimatedItemsWithOffset(double startingFrom, double offset)
         {

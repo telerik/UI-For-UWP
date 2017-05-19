@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives.BusyIndicator;
 using Windows.Foundation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
-using System.Linq;
-using Windows.UI.Xaml.Automation.Peers;
-using Telerik.UI.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
 {
@@ -86,7 +86,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
-        /// Gets or sets an instance of the <see cref="TimeSpan"/> struct that
+        /// Gets or sets an instance of the <see cref="System.TimeSpan"/> struct that
         /// determines the initial delay before the <see cref="RadBusyIndicator"/> is
         /// shown and the animation is started.
         /// </summary>
@@ -306,13 +306,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             if (this.stylesCache[styleCacheIndex] == null)
             {
-                var resourceName = typeof(RadBusyIndicator).GetTypeInfo().Assembly.GetManifestResourceNames().Where(c => c.Contains(newValue.ToString()) ).First();
-//#if WINDOWS_UWP
-//                Stream stream = typeof(RadBusyIndicator).GetTypeInfo().Assembly.GetManifestResourceStream("Telerik.UI.Xaml.Controls.Primitives.Shared.BusyIndicator.Animations." + newValue.ToString() + ".xaml");
-//#else
-
+                var resourceName = typeof(RadBusyIndicator).GetTypeInfo().Assembly.GetManifestResourceNames().Where(c => c.Contains(newValue.ToString())).First();
+                
                 Stream stream = typeof(RadBusyIndicator).GetTypeInfo().Assembly.GetManifestResourceStream(resourceName);
-//#endif
+
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     string styleText = reader.ReadToEnd();

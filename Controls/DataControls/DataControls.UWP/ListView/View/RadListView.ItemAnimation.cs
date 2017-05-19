@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Core;
+﻿using Telerik.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

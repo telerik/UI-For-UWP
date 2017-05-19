@@ -31,6 +31,16 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             set { SetValue(TouchTargetThresholdProperty, value); }
         }
 
+        internal AnimationContext Context
+        {
+            get { return (AnimationContext)GetValue(ContextProperty); }
+            set { SetValue(ContextProperty, value); }
+        }
+
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             base.OnKeyDown(e);
@@ -40,12 +50,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 this.ToggleDrawer();
                 e.Handled = true;
             }
-        }
-
-        internal AnimationContext Context
-        {
-            get { return (AnimationContext)GetValue(ContextProperty); }
-            set { SetValue(ContextProperty, value); }
         }
 
         private static void OnContextChanged(DependencyObject owner, DependencyPropertyChangedEventArgs args)
@@ -305,7 +309,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
         private void MainContent_ManipulationStarted(object sender, Windows.UI.Xaml.Input.ManipulationStartedRoutedEventArgs e)
         {
-
             var owner = sender as FrameworkElement;
             bool isInArea = false;
             switch (this.DrawerLocation)

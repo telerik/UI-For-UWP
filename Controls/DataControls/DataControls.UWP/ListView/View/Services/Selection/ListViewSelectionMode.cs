@@ -8,13 +8,13 @@
         /// <summary>
         /// No selection is allowed.
         /// </summary>
-        None, 
+        None,
 
         /// <summary>
         /// The user can select only one item at a time.
         /// </summary> 
         Single,
-        
+
         /// <summary>
         ///  The user can select multiple items.
         /// </summary>

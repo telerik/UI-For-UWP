@@ -1,18 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Diagnostics;
 using System.Linq;
 using Telerik.Core;
 using Telerik.Data.Core;
 using Telerik.Data.Core.Fields;
-using Telerik.UI.Xaml.Controls.Grid;
 using Telerik.UI.Xaml.Controls.Grid.Commands;
-using Telerik.UI.Xaml.Controls.Grid.Model;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Model
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Will refactor at a later stage by using Aggregation")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     internal partial class GridModel
     {
         internal static readonly int AutoGenerateColumnsPropertyKey = PropertyKeys.Register(typeof(GridModel), "AutoGenerateColumns");
@@ -46,6 +43,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
         }
 
+        public double VerticalBufferScale { get; internal set; }
+
         internal IFieldInfoData FieldInfoData
         {
             get
@@ -64,11 +63,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             get
             {
                 return this.columns.Where(col => col.IsVisible);
-
             }
         }
-
-        public double VerticalBufferScale { get; internal set; }
 
         internal static void UpdateFilterMemberAccess(IFieldInfoData data, IEnumerable<FilterDescriptorBase> descriptors)
         {

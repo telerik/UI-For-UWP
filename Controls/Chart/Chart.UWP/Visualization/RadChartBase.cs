@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Telerik.Charting;
 using Telerik.Core;
@@ -117,6 +118,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Initializes a new instance of the <see cref="RadChartBase"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         protected RadChartBase()
         {
             this.clipToBounds = true;
@@ -276,6 +278,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         LegendItemCollection ILegendInfoProvider.LegendInfos
         {
             get
@@ -287,6 +290,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets the actual width of the chart.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportWidth
         {
             get
@@ -298,6 +302,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets the actual height of the chart.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportHeight
         {
             get
@@ -746,6 +751,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return finalSize;
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadChartBaseAutomationPeer(this);
@@ -942,7 +948,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
         private void OnInvalidated()
         {
             if (!this.rendered)
+            {
                 return;
+            }
 
             this.rendered = false;
             this.InvalidateLayout();
@@ -994,8 +1002,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             CompositionTarget.Rendering -= this.CompositionTarget_Rendering;
             this.invalidateScheduled = this.InvokeAsync(this.OnInvalidated);
         }
-
-
+        
         partial void OnUnloadedPartial();
         partial void OnLoadedPartial();
         partial void InitManipulation();

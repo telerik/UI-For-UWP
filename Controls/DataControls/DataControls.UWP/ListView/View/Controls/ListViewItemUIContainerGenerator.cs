@@ -1,6 +1,5 @@
 ﻿using System;
 using Telerik.Data.Core;
-using Telerik.Data.Core.Layouts;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
 using Telerik.UI.Xaml.Controls.Data.ListView.Model;
 using Telerik.UI.Xaml.Controls.Data.ListView.Primitives;
@@ -84,7 +83,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.View.Controls
             {
                 var item = element.Container as RadListViewItem;
 
-
                 this.owner.swipeActionContentControl.Tapped -= item.SwipeActionContentControl_Tapped;
                 item.ClearValue(RadListViewItem.IsSelectedProperty);
                 item.isDraggedForAction = false;
@@ -163,7 +161,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.View.Controls
 
                 return groupHeader;
             }
-
             else
             {
                 if (containerType != null)

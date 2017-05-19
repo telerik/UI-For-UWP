@@ -17,7 +17,7 @@ namespace Telerik.Data.Core
     /// <summary>
     /// Provides a data grouping access to local source such as an IList of instances of user defined classes.
     /// </summary>
-    internal class LocalDataSourceProvider : DataProviderBase
+    internal class LocalDataSourceProvider : DataProviderBase, IDisposable
     {
         protected bool refreshRequested;
         protected object itemsSource;
@@ -315,6 +315,11 @@ namespace Telerik.Data.Core
             return this.settings.ColumnGroupDescriptions;
         }
 
+        public void Dispose()
+        {
+            this.manualResetEventSlim.Dispose();
+        }
+
         /// <inheritdoc />
         internal override IFieldDescriptionProvider CreateFieldDescriptionsProvider()
         {
@@ -369,47 +374,12 @@ namespace Telerik.Data.Core
                 throw new ArgumentNullException(nameof(description));
             }
 
-            ////if (FieldInfoHelper.IsNumericType(description.DataType))
-            ////{
-            ////    return new DoubleGroupDescription() { PropertyName = description.Name };
-            ////}
-
-            ////if (description.DataType == typeof(DateTime) || description.DataType == typeof(Nullable<DateTime>))
-            ////{
-            ////    return new DateTimeGroupDescription() { PropertyName = description.Name };
-            ////}
-
             return new PropertyGroupDescription() { PropertyName = description.Name };
         }
 
         /// <inheritdoc />
         internal override IEnumerable<object> GetAggregateFunctionsForAggregateDescription(IAggregateDescription aggregateDescription)
         {
-            ////PropertyAggregateDescriptionBase padb = aggregateDescription as PropertyAggregateDescriptionBase;
-            ////if (padb != null)
-            ////{
-            ////    // Try to get the MemberAccess if it is not set yet
-            ////    IDataFieldInfo pfi = padb.MemberAccess as IDataFieldInfo;
-            ////    if (pfi != null)
-            ////    {
-            ////        if (PrecisionHelpers.GetPrecision(pfi.DataType) != Precision.Unknown)
-            ////        {
-            ////            yield return AggregateFunctions.Sum;
-            ////            yield return AggregateFunctions.Count;
-            ////            yield return AggregateFunctions.Average;
-            ////            yield return AggregateFunctions.Max;
-            ////            yield return AggregateFunctions.Min;
-            ////            yield return AggregateFunctions.Product;
-            ////            yield return AggregateFunctions.StdDev;
-            ////            yield return AggregateFunctions.StdDevP;
-            ////            yield return AggregateFunctions.Var;
-            ////            yield return AggregateFunctions.VarP;
-            ////            yield break;
-            ////        }
-            ////    }
-            ////    yield return AggregateFunctions.Count;
-            ////    yield break;
-            ////}
             yield break;
         }
 
@@ -521,7 +491,7 @@ namespace Telerik.Data.Core
                 this.DataView.CollectionChanging -= this.DataView_CollectionChanging;
                 this.DataView.ItemPropertyChanged -= this.DataView_ItemPropertyChanged;
                 IDataSourceCurrency dataViewCurrency = this.DataView as IDataSourceCurrency;
-                if(dataViewCurrency != null)
+                if (dataViewCurrency != null)
                 {
                     dataViewCurrency.CurrentChanged -= this.DataView_CurrentChanged;
                 }

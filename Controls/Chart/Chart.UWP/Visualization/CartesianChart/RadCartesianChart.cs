@@ -227,17 +227,18 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return new CartesianChartAreaModel();
         }
 
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RadCartesianChartAutomationPeer(this);
-        }
-
         /// <summary>
         /// Exposed for testing purposes.
         /// </summary>
         internal void SetTestChartArea(CartesianChartAreaModel testModel)
         {
             this.chartArea = testModel;
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadCartesianChartAutomationPeer(this);
         }
 
         private static void OnHorizontalAxisChanged(DependencyObject target, DependencyPropertyChangedEventArgs args)

@@ -20,8 +20,6 @@ namespace Telerik.Geospatial
         /// <summary>
         /// Gets the attribute value associated with the provided key.
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
         object GetAttribute(string key);
 
         /// <summary>

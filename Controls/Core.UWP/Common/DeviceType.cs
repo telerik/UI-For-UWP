@@ -5,14 +5,59 @@ using Windows.UI.ViewManagement;
 namespace Telerik.Core
 {
     /// <summary>
-    /// Helper class to get device type
+    /// Device type.
+    /// </summary>
+    public enum DeviceType
+    {
+        /// <summary>
+        /// Phone.
+        /// </summary>
+        Phone,
+
+        /// <summary>
+        /// Desktop.
+        /// </summary>
+        Desktop,
+
+        /// <summary>
+        /// Tablet.
+        /// </summary>
+        Tablet,
+
+        /// <summary>
+        /// IOT.
+        /// </summary>
+        IoT,
+
+        /// <summary>
+        /// Xbox.
+        /// </summary>
+        Xbox,
+
+        /// <summary>
+        /// SurfaceHub.
+        /// </summary>
+        SurfaceHub,
+
+        /// <summary>
+        /// Continuum.
+        /// </summary>
+        Continuum,
+
+        /// <summary>
+        /// Other.
+        /// </summary>
+        Other
+    }
+
+    /// <summary>
+    /// Helper class to get device type.
     /// </summary>
     public static class DeviceTypeHelper
     {
         /// <summary>
-        /// Get the device type (XBox, Continuum, Tablet, Desktop, Iot...)
+        /// Get the device type (XBox, Continuum, Tablet, Desktop, IoT...).
         /// </summary>
-        /// <returns></returns>
         public static DeviceType GetDeviceType()
         {
             switch (AnalyticsInfo.VersionInfo.DeviceFamily)
@@ -31,44 +76,5 @@ namespace Telerik.Core
                     return DeviceType.Other;
             }
         }
-    }
-
-    /// <summary>
-    /// Device type
-    /// </summary>
-    public enum DeviceType
-    {
-        /// <summary>
-        /// Phone
-        /// </summary>
-        Phone,
-        /// <summary>
-        /// Desktop
-        /// </summary>
-        Desktop,
-        /// <summary>
-        /// Tablet
-        /// </summary>
-        Tablet,
-        /// <summary>
-        /// IOT
-        /// </summary>
-        IoT,
-        /// <summary>
-        /// Xbox
-        /// </summary>
-        Xbox,
-        /// <summary>
-        /// SurfaceHub
-        /// </summary>
-        SurfaceHub,
-        /// <summary>
-        /// Continuum
-        /// </summary>
-        Continuum,
-        /// <summary>
-        /// Other
-        /// </summary>
-        Other
     }
 }

@@ -2,8 +2,15 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadCustomHubTile class.
+    /// </summary>
     public class RadCustomHubTileAutomationPeer : HubTileBaseAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the RadCustomHubTileAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
         public RadCustomHubTileAutomationPeer(RadCustomHubTile owner) 
             : base(owner)
         {

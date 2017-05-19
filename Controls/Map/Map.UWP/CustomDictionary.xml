@@ -16,5 +16,8 @@
     <Recognized>
       <Word>shapefile</Word>
     </Recognized>
+	 <Recognized>
+      <Word>dbf</Word>
+    </Recognized>
   </Words>
 </Dictionary>

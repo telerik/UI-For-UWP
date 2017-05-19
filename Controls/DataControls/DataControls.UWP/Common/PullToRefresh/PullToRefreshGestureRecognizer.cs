@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -214,8 +212,8 @@ this.IsHorizontal && this.listener.ScrollViewer.HorizontalOffset == 0;
                 {
                     if (this.listener.CompressedChildToTranslate != this.listener.MainElementToTranslate)
                     {
-                    Canvas.SetLeft(this.listener.CompressedChildToTranslate, 0);
-                    Canvas.SetTop(this.listener.CompressedChildToTranslate, 0);
+                        Canvas.SetLeft(this.listener.CompressedChildToTranslate, 0);
+                        Canvas.SetTop(this.listener.CompressedChildToTranslate, 0);
                     }
 
                     if (this.IsHorizontal)

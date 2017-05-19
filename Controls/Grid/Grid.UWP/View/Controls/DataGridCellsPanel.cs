@@ -190,6 +190,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return size;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridCellsPanelAutomationPeer(this, this.Owner);

@@ -11,8 +11,10 @@ namespace Telerik.UI.Xaml.Controls.Chart
         public Point Center;
         public double Radius;
         public double Diameter;
-        public double StartAngle { get; set; }
+        
         public SweepDirection SweepDirection;
+
+        public double StartAngle { get; set; }
 
         public Point CalculateArcPoint(double angle)
         {

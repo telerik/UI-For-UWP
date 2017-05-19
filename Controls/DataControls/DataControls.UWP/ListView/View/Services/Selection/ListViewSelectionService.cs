@@ -65,13 +65,16 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 case DataControlsSelectionMode.Single:
                     this.SelectSingleItem(item, select);
                     break;
+
                 case DataControlsSelectionMode.Multiple:
                     this.SelectMultipleItems(item, select, uiSelect);
                     break;
-                case DataControlsSelectionMode.MultipleWithCheckBoxes: 
+
+                case DataControlsSelectionMode.MultipleWithCheckBoxes:
                     this.SelectMultipleItems(item, select, uiSelect);
                     this.Owner.itemCheckBoxService.SelectItem(item, select);
                     break;
+
                 default:
                     break;
             }
@@ -143,28 +146,30 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         internal void Select(ItemTapContext tapContext)
         {
             // TODO refactor to not use visual.
-            if(this.Owner.SelectionMode != DataControlsSelectionMode.MultipleWithCheckBoxes)
-            {          
-                 this.SelectItem(tapContext.Item, !tapContext.Container.IsSelected, true);
+            if (this.Owner.SelectionMode != DataControlsSelectionMode.MultipleWithCheckBoxes)
+            {
+                this.SelectItem(tapContext.Item, !tapContext.Container.IsSelected, true);
             }
         }
 
         internal void OnDataChanged(CollectionChange action, IList changedItems)
         {
-            switch(action)
+            switch (action)
             {
                 case CollectionChange.Reset:
                     this.ClearSelection();
                     break;
+
                 case CollectionChange.ItemRemoved:
                     foreach (var removedItem in changedItems)
                     {
-                        if(this.SelectedItems.Contains(removedItem))
+                        if (this.SelectedItems.Contains(removedItem))
                         {
                             this.SelectedItems.Remove(removedItem);
                         }
                     }
                     break;
+
                 default:
                     break;
             }
@@ -256,9 +261,11 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 case NotifyCollectionChangedAction.Replace:
                     this.UpdateItemsSet(e.OldItems, e.NewItems);
                     break;
+
                 case NotifyCollectionChangedAction.Reset:
                     this.Refresh();
                     break;
+
                 case NotifyCollectionChangedAction.Move:
                 default:
                     break;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Data.Core;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
@@ -14,6 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// <summary>
         /// Gets or sets a value indicating whether this is the First filtering control in the UI.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IFilterControl.IsFirst
         {
             get
@@ -29,6 +31,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// <summary>
         /// Gets or sets the <see cref="FilterDescriptorBase"/> associated with the filtering operation.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         FilterDescriptorBase IFilterControl.AssociatedDescriptor
         {
             get

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Charting;
 using Telerik.Core;
 using Windows.Foundation;
@@ -129,6 +130,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets the current scale applied along the X direction.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IChartView.ZoomWidth
         {
             get
@@ -140,6 +142,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets the current scale applied along the Y direction.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IChartView.ZoomHeight
         {
             get
@@ -151,6 +154,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets the X-coordinate of the top-left corner where the layout should start from.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IChartView.PlotOriginX
         {
             get
@@ -162,6 +166,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets the Y-coordinate of the top-left corner where the layout should start from.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IChartView.PlotOriginY
         {
             get

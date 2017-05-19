@@ -1,6 +1,5 @@
 ﻿using System;
 using Telerik.UI.Xaml.Controls.Data.DataBoundListBox;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;

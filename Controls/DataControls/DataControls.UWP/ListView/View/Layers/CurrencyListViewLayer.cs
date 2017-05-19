@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using Telerik.Core;
-using Telerik.UI.Xaml.Controls.Data.ListView.Model;
+﻿using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Data.ListView.Primitives;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -52,7 +47,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             // TODO CURRENCY REVIEW Z INDEX: 
             Canvas.SetZIndex(this.currencyVisual, CurrentItemZIndex);
             this.currencyVisual.Width = rect.Width;
-            this.currencyVisual.Height = rect.Height; 
+            this.currencyVisual.Height = rect.Height;
         }
 
         private void ClearCurrencyState()

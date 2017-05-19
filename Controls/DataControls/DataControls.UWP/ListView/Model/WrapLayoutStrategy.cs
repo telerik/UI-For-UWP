@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Telerik.Core;
 using Telerik.Data.Core.Layouts;
@@ -12,12 +13,12 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
         private WrapLayout layout;
         private HashSet<object> generatedContainerItems = new HashSet<object>();
 
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public WrapLayoutStrategy(ItemModelGenerator generator, IOrientedParentView owner, double defaultItemLength, double defaultItemOppositeLength) : base(generator, owner)
         {
             this.layout = new WrapLayout(new GroupHierarchyAdapter(), defaultItemLength, defaultItemOppositeLength);
             this.ItemWidth = defaultItemOppositeLength;
         }
-
 
         internal double ItemWidth
         {
@@ -55,17 +56,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             }
         }
 
-        internal override void InitializeForMeasure()
-        {
-            var oppositeLength = this.IsHorizontal ? this.AvailableSize.Height : this.AvailableSize.Width;
-            if (oppositeLength > 0)
-            {
-                this.layout.AvailableOppositeLength = oppositeLength;
-                //this.layout.DefaultItemOppositeLength += (this.layout.AvailableOppositeLength % this.layout.DefaultItemOppositeLength) / Math.Floor(this.layout.AvailableOppositeLength / this.layout.DefaultItemOppositeLength);
-                this.layout.Initialize();
-            }
-        }
-
         public override void ArrangeContent(RadSize adjustedfinalSize, double topOffset)
         {
             bool initialized = false;
@@ -99,7 +89,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
                     itemEnd = this.layout.PhysicalOffsetFromSlot(decorator.ItemInfo.Slot);
 
-                    var shouldStretch = decorator.ItemInfo.Item is Telerik.Data.Core.IGroup; /*|| decorator.ItemInfo.Item is Telerik.Data.Core.PlaceholderInfo - reconsider whether we need to include load more items button in the layout*/ 
+                    var shouldStretch = decorator.ItemInfo.Item is Telerik.Data.Core.IGroup; /*|| decorator.ItemInfo.Item is Telerik.Data.Core.PlaceholderInfo - reconsider whether we need to include load more items button in the layout*/
 
                     if (this.IsHorizontal)
                     {
@@ -162,14 +152,26 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
         public override int GetElementFlatIndex(int index)
         {
-            return (int) Math.Ceiling(this.layout.ColumnSlotsRenderInfo.OffsetFromIndex(index) / ((int) (this.layout.AvailableOppositeLength / this.layout.DefaultItemOppositeLength) * this.layout.DefaultItemOppositeLength)) - 1;
+            return (int)Math.Ceiling(this.layout.ColumnSlotsRenderInfo.OffsetFromIndex(index) / ((int)(this.layout.AvailableOppositeLength / this.layout.DefaultItemOppositeLength) * this.layout.DefaultItemOppositeLength)) - 1;
+        }
+
+        internal override void InitializeForMeasure()
+        {
+            var oppositeLength = this.IsHorizontal ? this.AvailableSize.Height : this.AvailableSize.Width;
+            if (oppositeLength > 0)
+            {
+                this.layout.AvailableOppositeLength = oppositeLength;
+                this.layout.Initialize();
+            }
         }
 
         internal override void OnOrientationChanged()
         {
             base.OnOrientationChanged();
             if (this.layout == null)
+            {
                 return;
+            }
 
             var newLayout = new WrapLayout(new GroupHierarchyAdapter(), this.layout.DefaultItemLength, this.ItemWidth);
             newLayout.SetSource(this.layout.ItemsSource, this.layout.GroupLevels, this.layout.TotalsPosition, this.layout.AggregatesLevel, 0, this.layout.ShowAggregateValuesInline);
@@ -194,13 +196,18 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             }
             else
             {
-
                 desiredSize = new RadSize(context.MaxLength, context.GeneratedLength);
                 desiredSize.Width = Math.Min(desiredSize.Width, ListViewModel.DoubleArithmetics.Ceiling(this.AvailableSize.Width));
                 desiredSize.Height = Math.Min(desiredSize.Height, context.AvailableLength);
             }
 
             return desiredSize;
+        }
+        
+        internal override void RecycleLocally()
+        {
+            base.RecycleLocally();
+            this.generatedContainerItems.Clear();
         }
 
         internal override RadSize GenerateContainer(IList<ItemInfo> itemInfos, MeasureContext context)
@@ -288,7 +295,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                     this.layout.UpdateSlotLength(decorator.ItemInfo.Slot, largestLength);
                     this.layout.ColumnSlotsRenderInfo.Update(decorator.ItemInfo.Id, oppositeLength);
 
-
                     if (cumulativeOppositeScrollLength > context.OppositeAvailableLength && Math.Abs(cumulativeOppositeScrollLength - context.OppositeAvailableLength) > 1)
                     {
                         this.RecycleLocallyContainer(decorator);
@@ -325,13 +331,5 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
         {
             return this.IsHorizontal ? new RadSize(double.PositiveInfinity, this.ItemWidth) : new RadSize(this.ItemWidth, double.PositiveInfinity);
         }
-
-        internal override void RecycleLocally()
-        {
-            base.RecycleLocally();
-            this.generatedContainerItems.Clear();
-        }
-
-
     }
 }

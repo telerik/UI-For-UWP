@@ -100,6 +100,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.OperatorCombo.SelectedItem = selectedItem;
         }
 
+        /// <inheritdoc/>
         protected override IEnumerable<string> GetOperators()
         {
             foreach (var op in Enum.GetValues(typeof(NumericalOperator)))

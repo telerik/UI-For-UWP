@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Telerik.Core;
 
@@ -43,6 +44,7 @@ namespace Telerik.Charting
         internal bool isPrimary;
         private RadSize lastMeasureSize;
 
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public AxisModel()
         {
             this.TrackPropertyChanged = true;
@@ -182,7 +184,7 @@ namespace Telerik.Charting
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(MajorTickOffset));
+                    throw new ArgumentOutOfRangeException(nameof(this.MajorTickOffset));
                 }
 
                 this.SetValue(MajorTickOffsetPropertyKey, value);
@@ -202,7 +204,7 @@ namespace Telerik.Charting
             {
                 if (value < 0 || value > 360)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(NormalizedLabelRotationAngle));
+                    throw new ArgumentOutOfRangeException(nameof(this.NormalizedLabelRotationAngle));
                 }
 
                 this.SetValue(NormalizedLabelRotationAnglePropertyKey, value);

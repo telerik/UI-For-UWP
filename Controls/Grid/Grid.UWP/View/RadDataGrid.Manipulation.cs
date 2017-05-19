@@ -136,7 +136,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         internal void OnCellsPanelPointerOver(PointerRoutedEventArgs e)
         {
-            this.cellFlyoutShowTimeOutAnimationBoard.Completed -= CellFlyoutTimerAnimationBoardCompleted;
+            this.cellFlyoutShowTimeOutAnimationBoard.Completed -= this.CellFlyoutTimerAnimationBoardCompleted;
             this.cellFlyoutShowTimeOutAnimationBoard.Stop();
 
             var hitPoint = e.GetCurrentPoint(this.cellsPanel).Position;
@@ -149,7 +149,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
                 if (cell.Column.IsCellFlyoutEnabled && !(this.ContentFlyout.IsOpen && this.ContentFlyout.Id != DataGridFlyoutId.Cell))
                 {
-                    this.cellFlyoutShowTimeOutAnimationBoard.Completed += CellFlyoutTimerAnimationBoardCompleted;
+                    this.cellFlyoutShowTimeOutAnimationBoard.Completed += this.CellFlyoutTimerAnimationBoardCompleted;
                     this.hoveredCell = cell;
                     this.cellFlyoutShowTimeOutAnimationBoard.Begin();
                 }
@@ -158,17 +158,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 this.visualStateService.UpdateHoverDecoration(null);
             }
-        }
-
-        void CellFlyoutTimerAnimationBoardCompleted(object sender, object e)
-        {
-            this.cellFlyoutShowTimeOutAnimationBoard.Completed -= this.CellFlyoutTimerAnimationBoardCompleted;
-            // If another flyout is opened it should prevent showing the cell tooltip by design.
-            if (this.ContentFlyout.IsOpen && this.ContentFlyout.Id != DataGridFlyoutId.Cell)
-            {
-                return;
-            }
-            this.CommandService.ExecuteCommand(CommandId.CellFlyoutAction, new CellFlyoutActionContext(new DataGridCellInfo(this.hoveredCell), true, CellFlyoutGesture.PointerOver));
         }
 
         internal void OnCellsPanelPointerExited()
@@ -337,19 +326,21 @@ namespace Telerik.UI.Xaml.Controls.Grid
                                 : this.CurrencyService.CurrentItemInfo;
 
 #pragma warning disable CS4014 
-                            Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Low, () =>
-                             {
-                                 var xamlVisualStateLayer = this.visualStateLayerCache as XamlVisualStateLayer;
-                                 if (xamlVisualStateLayer != null)
-                                 {
-                                     var currencyVisual = xamlVisualStateLayer.CurrencyVisual as DataGridCurrencyControl;
-                                     if (currencyVisual != null && currencyVisual.Visibility == Visibility.Visible)
-                                     {
-                                         currencyVisual.Focus(FocusState.Keyboard);
-                                         this.RaiseCellPeerFocusChangedEvent(info);
-                                     }
-                                 }
-                             });
+                            Dispatcher.RunAsync(
+                                Windows.UI.Core.CoreDispatcherPriority.Low, 
+                                () =>
+                                {
+                                    var xamlVisualStateLayer = this.visualStateLayerCache as XamlVisualStateLayer;
+                                    if (xamlVisualStateLayer != null)
+                                    {
+                                        var currencyVisual = xamlVisualStateLayer.CurrencyVisual as DataGridCurrencyControl;
+                                        if (currencyVisual != null && currencyVisual.Visibility == Visibility.Visible)
+                                        {
+                                            currencyVisual.Focus(FocusState.Keyboard);
+                                            this.RaiseCellPeerFocusChangedEvent(info);
+                                        }
+                                    }
+                                });
 #pragma warning restore CS4014
                         }
                     }
@@ -448,6 +439,18 @@ namespace Telerik.UI.Xaml.Controls.Grid
             base.OnKeyDown(e);
 
             this.ExecuteKeyDown(e);
+        }
+
+        private void CellFlyoutTimerAnimationBoardCompleted(object sender, object e)
+        {
+            this.cellFlyoutShowTimeOutAnimationBoard.Completed -= this.CellFlyoutTimerAnimationBoardCompleted;
+
+            // If another flyout is opened it should prevent showing the cell tooltip by design.
+            if (this.ContentFlyout.IsOpen && this.ContentFlyout.Id != DataGridFlyoutId.Cell)
+            {
+                return;
+            }
+            this.CommandService.ExecuteCommand(CommandId.CellFlyoutAction, new CellFlyoutActionContext(new DataGridCellInfo(this.hoveredCell), true, CellFlyoutGesture.PointerOver));
         }
 
         private void OnScrollViewerKeyDown(object sender, KeyRoutedEventArgs e)

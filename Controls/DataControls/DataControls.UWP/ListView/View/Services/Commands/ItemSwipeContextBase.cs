@@ -1,12 +1,12 @@
-﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-
-namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
+﻿namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 {
+    /// <summary>
+    /// Represents an ItemSwipeContextBase class.
+    /// </summary>
     public class ItemSwipeContextBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ItemSwipeActionCompleteContext"/> class.
+        /// Initializes a new instance of the <see cref="ItemSwipeContextBase"/> class.
         /// </summary>
         public ItemSwipeContextBase(object dataItem, RadListViewItem container, double dragDelta)
         {

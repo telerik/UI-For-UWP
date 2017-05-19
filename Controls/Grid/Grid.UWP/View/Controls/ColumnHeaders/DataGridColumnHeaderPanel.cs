@@ -120,6 +120,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return this.Owner.OnHeaderRowArrange(this.lastArrangeSize.ToRadSize()).ToSize();
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridColumnHeaderPanelAutomationPeer(this);

@@ -87,8 +87,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Gets the <see cref="DataTemplate"/> instance associated with the specified <see cref="DependencyObject"/> instance.
         /// </summary>
-        /// <param name="instance"></param>
-        /// <returns></returns>
         public static DataTemplate GetContentTemplate(DependencyObject instance)
         {
             if (instance == null)
@@ -102,8 +100,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Sets the provided <see cref="DataTemplate"/> instance to the the specified <see cref="DependencyObject"/> instance.
         /// </summary>
-        /// <param name="instance"></param>
-        /// <param name="template"></param>
         public static void SetContentTemplate(DependencyObject instance, DataTemplate template)
         {
             if (instance == null)
@@ -206,10 +202,9 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Initiates a hit test on the specified <see cref="Point" /> location.
+        /// Initiates a hit test on the specified <see cref="Windows.Foundation.Point(double, double)" /> location.
         /// </summary>
         /// <param name="location">The location.</param>
-        /// <returns></returns>
         /// <remarks>
         /// The default <see cref="MapBehavior" /> logic returns only the top-most <see cref="D2DShape" /> from the <see cref="MapShapeLayer" /> that matches the specific behavior requirements;
         /// you can override the default logic and return multiple <see cref="D2DShape" /> instances (e.g. from layers that overlay one another) and the specific <see cref="MapBehavior" /> will
@@ -257,7 +252,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.Tapped" /> event of the owning <see cref="RadMap" /> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal override void OnTapped(TappedRoutedEventArgs args)
         {
             base.OnTapped(args);

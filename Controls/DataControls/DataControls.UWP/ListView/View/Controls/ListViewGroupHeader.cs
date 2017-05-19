@@ -1,7 +1,6 @@
 ﻿using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
@@ -9,7 +8,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
     /// <summary>
     /// Allows a user to view a header and expand that header to see further details, or to collapse a section up to a header.
     /// </summary>
-    public class ListViewGroupHeader : RadContentControl , IArrangeChild
+    public class ListViewGroupHeader : RadContentControl, IArrangeChild
     {
         /// <summary>
         /// Identifies the IsExpanded dependency property.
@@ -17,11 +16,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
         public static readonly DependencyProperty IsExpandedProperty =
             DependencyProperty.Register(nameof(IsExpanded), typeof(bool), typeof(ListViewGroupHeader), new PropertyMetadata(true, OnIsExpandedPropertyChanged));
 
+        /// <inheritdoc/>
+        public Rect arrangeRect;
+        
         internal bool OwnerArranging;
 
         internal Size ArrangeSize;
+
         private Size lastDesiredSize = Size.Empty;
-        public Rect arrangeRect;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListViewGroupHeader"/> class.
@@ -29,7 +31,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
         public ListViewGroupHeader()
         {
             this.DefaultStyleKey = typeof(ListViewGroupHeader);
-            this.SizeChanged += ListViewGroupHeader_SizeChanged;
+            this.SizeChanged += this.ListViewGroupHeader_SizeChanged;
         }
 
         internal ListViewGroupHeader(bool isFrozen)
@@ -53,16 +55,24 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             }
         }
 
-        internal protected RadListView Owner { get; set; }
-
-        internal bool IsFrozen { get; set; }
-
         Rect IArrangeChild.LayoutSlot
         {
             get
             {
                 return this.arrangeRect;
             }
+        }
+
+        internal bool IsFrozen { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="RadListView"/> owner.
+        /// </summary>
+        protected internal RadListView Owner { get; set; }
+
+        bool IArrangeChild.TryInvalidateOwner()
+        {
+            return false;
         }
 
         /// <summary>
@@ -118,7 +128,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             return "Collapsed";
         }
 
-         /// <inheritdoc/>
+        /// <inheritdoc/>
         protected override Size ArrangeOverride(Size finalSize)
         {
             var width = Math.Max(0, this.arrangeRect.Width - this.Margin.Left - this.Margin.Right);
@@ -134,14 +144,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             }
 
             return resultSize;
-        }
-
-        private void ListViewGroupHeader_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (!ListViewModel.DoubleArithmetics.AreClose(e.PreviousSize, e.NewSize))
-            {
-                (this.Owner as IListView).UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
-            }
         }
 
         private static void OnIsExpandedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -160,9 +162,12 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             }
         }
 
-        bool IArrangeChild.TryInvalidateOwner()
+        private void ListViewGroupHeader_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            return false;
+            if (!ListViewModel.DoubleArithmetics.AreClose(e.PreviousSize, e.NewSize))
+            {
+                (this.Owner as IListView).UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
+            }
         }
     }
 }

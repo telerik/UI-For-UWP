@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadPieChart"/>.
+    /// </summary>
     public class RadPieChartAutomationPeer : RadChartBaseAutomationPeer
     {
         /// <summary>
@@ -15,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadPieChart);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.RadPieChart);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadPieChart);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.RadPieChart);
         }
 
         /// <inheritdoc />

@@ -220,6 +220,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return applied;
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadPolarChartAutomationPeer(this);

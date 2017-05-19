@@ -9,7 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     {
         internal DataSourceItem topVisibleItem;
         internal double itemOffsetFromTopEdge;
-        
+
         internal ScrollOffsetContext(DataSourceItem topItem, double itemOffset)
         {
             this.topVisibleItem = topItem;

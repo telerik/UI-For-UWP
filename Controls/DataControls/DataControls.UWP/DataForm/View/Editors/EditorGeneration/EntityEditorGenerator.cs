@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml;
@@ -10,18 +9,16 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm.View
 {
     internal class EntityEditorGenerator
     {
-        internal EditorFactory EditorFactory { get; set; }
+        private readonly IDataFormView owner;
 
         private HashSet<IEntityPropertyEditor> elements = new HashSet<IEntityPropertyEditor>();
-        Dictionary<string, object> groups = new Dictionary<string, object>();
-
-        private readonly IDataFormView owner;
+        private Dictionary<string, object> groups = new Dictionary<string, object>();
 
         public EntityEditorGenerator(IDataFormView view)
         {
             if (view == null)
             {
-                throw new ArgumentNullException(nameof(owner));
+                throw new ArgumentNullException(nameof(this.owner));
             }
 
             this.owner = view;
@@ -29,14 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm.View
             this.EditorFactory = new EditorFactory();
         }
 
-        internal void OnCommitModeChanged(CommitMode newValue, CommitMode oldValue)
-        {
-            foreach (var element in this.elements)
-            {
-                this.owner.UnSubscribeFromEditorEvents(element, element.Property);
-                this.owner.SubscribeToEditorEvents(element, element.Property);
-            }
-        }
+        internal EditorFactory EditorFactory { get; set; }
 
         public object CreateContainer(EntityProperty entityProperty)
         {
@@ -66,6 +56,15 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm.View
             this.owner.ClearEditors();
         }
 
+        internal void OnCommitModeChanged(CommitMode newValue, CommitMode oldValue)
+        {
+            foreach (var element in this.elements)
+            {
+                this.owner.UnSubscribeFromEditorEvents(element, element.Property);
+                this.owner.SubscribeToEditorEvents(element, element.Property);
+            }
+        }
+
         internal object GetGroupContainer(string groupKey)
         {
             object container;
@@ -79,11 +78,11 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm.View
         {
             object groupVisual;
 
-            if (!groups.TryGetValue(groupKey, out groupVisual))
+            if (!this.groups.TryGetValue(groupKey, out groupVisual))
             {
                 groupVisual = this.owner.CreateGroupContainer(groupKey);
                 this.owner.AddEditor(groupVisual);
-                groups[groupKey] = groupVisual;
+                this.groups[groupKey] = groupVisual;
             }
 
             return groupVisual;

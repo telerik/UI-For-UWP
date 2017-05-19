@@ -3,16 +3,21 @@ using Windows.ApplicationModel;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
-
 namespace Telerik.UI.Xaml.Controls.Grid
 {
     public partial class RadDataGrid
     {
-        private bool isListeningCurrentViewBackRequested = false;
-
+        /// <summary>
+        /// Identifies the <see cref="HideFlyoutOnBackButtonPressed"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty HideFlyoutOnBackButtonPressedProperty =
             DependencyProperty.Register(nameof(HideFlyoutOnBackButtonPressed), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false, OnHideFlyoutOnBackButtonPressedChanged));
 
+        private bool isListeningCurrentViewBackRequested = false;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether information if the flyout should be hidden when the back Button gets pressed.
+        /// </summary>
         public bool HideFlyoutOnBackButtonPressed
         {
             get { return (bool)GetValue(HideFlyoutOnBackButtonPressedProperty); }

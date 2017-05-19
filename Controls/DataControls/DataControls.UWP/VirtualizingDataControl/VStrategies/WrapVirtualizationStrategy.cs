@@ -149,6 +149,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 case Orientation.Horizontal:
                     container.Measure(new Size(availableWidth, double.PositiveInfinity));
                     break;
+
                 case Orientation.Vertical:
                     container.Measure(new Size(double.PositiveInfinity, availableHeight));
                     break;
@@ -210,7 +211,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 this.CheckBottomScrollableBounds();
             }
-
         }
 
         internal virtual void OnWrapLineAlignmentChanged(WrapLineAlignment oldValue, WrapLineAlignment newValue)
@@ -255,6 +255,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 case Orientation.Horizontal:
                     return item.verticalOffsetCache;
+
                 case Orientation.Vertical:
                     return item.horizontalOffsetCache;
             }
@@ -264,14 +265,12 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         internal override void EnsureCorrectLayout()
         {
-
-
-
-
             var firstRealizedItem = this.GetTopVisibleContainer();
 
             if (firstRealizedItem == null)
+            {
                 return;
+            }
 
             var startPosition = firstRealizedItem.CurrentOffset;
 
@@ -287,42 +286,16 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 this.owner.RecycleAllItems();
             }
-
-            //TODO: refactor to avoid missarangement on fast scrolling that leaves the last item realized.
-            //       {
-            //           //reposition all
-            //           this.owner.firstItemCache = this.owner.realizedItems[0];
-            //           var container = this.owner.firstItemCache;
-
-            //           var size = 0.0;
-
-            //           while (container != null)
-            //           {
-            //               container.horizontalOffsetCache = 0;
-            //               container.verticalOffsetCache = 0;
-            //               container = container.next;
-            //           }
-
-            //           this.wrapRows.Clear();
-
-            //           container = this.owner.firstItemCache;
-
-            //           while (container != null)
-            //           {
-            //               this.PositionBottomRealizedItem(container, ref size);
-            //               container = container.next;
-            //           }
-            //       }
         }
 
         internal override RadVirtualizingDataControlItem GetTopVisibleContainer()
         {
-            ////The approach here is to calculate the possible
-            ////index of the topmost item by considering the upper buffer size
-            ////and the average item height. In the ideal case of having equal height
-            ////containers, the index will be calculated exactly. In case of wrong index calculation
-            ////we estimate the direction we have to take in order to find the topmost item and
-            ////interate to it.
+            //// The approach here is to calculate the possible
+            //// index of the topmost item by considering the upper buffer size
+            //// and the average item height. In the ideal case of having equal height
+            //// containers, the index will be calculated exactly. In case of wrong index calculation
+            //// we estimate the direction we have to take in order to find the topmost item and
+            //// interate to it.
             if (this.wrapRows.Count == 0)
             {
                 return null;
@@ -348,26 +321,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                     topRow = this.wrapRows[i];
                     relativeOffset = this.GetItemRelativeOffset(topRow.firstItem);
                 }
-
-                //if (deltaFactor < 0)
-                //{
-                //    if (Math.Round(this.GetItemRelativeOffset(topRow.firstItem), 1) <= 0)
-                //    {
-                //        return topRow.firstItem;
-                //    }
-                //}
-                //else
-                //{
-                //    if (Math.Round(this.GetItemRelativeOffset(topRow.firstItem), 1) == 0)
-                //    {
-                //        return topRow.firstItem;
-                //    }
-
-                //    if (Math.Round(this.GetItemRelativeOffset(topRow.firstItem), 1) > 0)
-                //    {
-                //        return topRow.previous != null ? topRow.previous.firstItem : topRow.firstItem;
-                //    }
-                //}
             }
 
             return topRow.firstItem;
@@ -385,6 +338,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 case Orientation.Horizontal:
                     return Canvas.GetTop(this.owner.lastItemCache) + lastRow.rowLength;
+
                 case Orientation.Vertical:
                     return Canvas.GetLeft(lastRow.firstItem) + lastRow.rowLength;
             }
@@ -402,6 +356,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 case Orientation.Horizontal:
                     return Canvas.GetTop(firstRow.firstItem);
+
                 case Orientation.Vertical:
                     return Canvas.GetLeft(firstRow.firstItem);
             }
@@ -549,6 +504,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         realizedItem.SetHorizontalOffset(lastWrapRow.lastItem.horizontalOffsetCache + lastWrapRow.lastItem.width);
                     }
                     break;
+
                 case Orientation.Vertical:
                     if (currentRowLength < realizedItem.width)
                     {
@@ -668,6 +624,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         }
                     }
                     break;
+
                 case Orientation.Vertical:
                     difference = firstRealizedItem.width - currentRowLength;
                     if (currentRowLength < firstRealizedItem.width)
@@ -748,8 +705,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 {
                     this.generatedItemsLength[item.AssociatedDataItem.Index] = row.rowLength;
                 }
-
-            };
+            }
         }
 
         internal virtual double GetRowExtent(WrapRow row)
@@ -835,7 +791,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal override double CalculateItemOffset(IDataSourceItem item, double lastAverageLength)
         {
             if (item == null)
+            {
                 return 0;
+            }
 
             var index = item.Index;
 
@@ -971,6 +929,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         }
                     }
                     break;
+
                 case Orientation.Vertical:
                     while (true)
                     {
@@ -1003,6 +962,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     case Orientation.Horizontal:
                         processedItem.SetHorizontalOffset(currentRowPosition);
                         break;
+
                     case Orientation.Vertical:
                         processedItem.SetVerticalOffset(currentRowPosition);
                         break;
@@ -1061,6 +1021,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 case Orientation.Horizontal:
                     this.SynchRowItemsHorizontalStartPosition(row);
                     break;
+
                 case Orientation.Vertical:
                     this.SynchRowItemsVerticalStartPosition(row);
                     break;

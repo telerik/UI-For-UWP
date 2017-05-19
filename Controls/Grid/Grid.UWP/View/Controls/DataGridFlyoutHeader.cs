@@ -22,14 +22,17 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             DependencyProperty.Register(nameof(OuterBorderVisibility), typeof(Visibility), typeof(DataGridFlyoutHeader), new PropertyMetadata(Visibility.Collapsed));
 
         internal RadDataGrid ParentGrid;
-        internal event EventHandler DescriptorContentTap;
-
         private FrameworkElement descriptorContent;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridFlyoutHeader"/> class.
+        /// </summary>
         public DataGridFlyoutHeader()
         {
             this.DefaultStyleKey = typeof(DataGridFlyoutHeader);
         }
+
+        internal event EventHandler DescriptorContentTap;
 
         /// <summary>
         /// Gets or sets the visibility of the outer border of the control. This border is displayed when the control is being dragged to reorder within the flyout.

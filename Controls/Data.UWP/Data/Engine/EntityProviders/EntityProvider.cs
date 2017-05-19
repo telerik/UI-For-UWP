@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
-using Telerik.Core;
-using Windows.UI.Xaml.Data;
 
 namespace Telerik.Data.Core
 {
@@ -16,6 +14,9 @@ namespace Telerik.Data.Core
         private Entity entity;
         private PropertyIteratorMode iteratorMode = PropertyIteratorMode.Declared;
 
+        /// <summary>
+        /// Occurs when property changes its value.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -33,12 +34,12 @@ namespace Telerik.Data.Core
             set
             {
                 this.context = value;
-                this.OnPropertyChanged(nameof(Context));
+                this.OnPropertyChanged(nameof(this.Context));
             }
         }
 
         /// <summary>
-        /// Gets or sets the entit modely.
+        /// Gets or sets the entity model.
         /// </summary>
         /// <value>
         /// The entity.
@@ -77,7 +78,6 @@ namespace Telerik.Data.Core
         /// <summary>
         /// Generates the entity.
         /// </summary>
-        /// <returns></returns>
         public virtual Entity GenerateEntity()
         {
             Entity entity = new Entity();
@@ -89,9 +89,8 @@ namespace Telerik.Data.Core
                 {
                     continue;
                 }
-                EntityProperty entityProperty = GenerateEntityProperty(property);
-
-
+                EntityProperty entityProperty = this.GenerateEntityProperty(property);
+                
                 entity.Properties.Add(entityProperty);
             }
 
@@ -100,11 +99,15 @@ namespace Telerik.Data.Core
             return entity;
         }
 
+        internal void OnItemChanged(object newItem)
+        {
+            this.Context = newItem;
+        }
+
         /// <summary>
         /// Generates the entity property.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected virtual EntityProperty GenerateEntityProperty(object property)
         {
             var entityProperty = Activator.CreateInstance(this.GetEntityPropertyType(property), new object[2] { property, this.Context }) as EntityProperty;
@@ -114,36 +117,27 @@ namespace Telerik.Data.Core
             return entityProperty;
         }
 
-        internal void OnItemChanged(object newItem)
-        {
-            this.Context = newItem;
-        }
-
         /// <summary>
         /// Gets the properties.
         /// </summary>
-        /// <returns></returns>
         protected abstract IEnumerable GetProperties();
 
         /// <summary>
-        /// Determines whther an entity property should be generated.
+        /// Determines whether an entity property should be generated.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract bool ShouldGenerateEntityProperty(object property);
 
         /// <summary>
         /// Gets the item validator.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <returns></returns>
         protected abstract ISupportEntityValidation GetItemValidator(Entity entity);
 
         /// <summary>
         /// Gets the type of the entity property.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract Type GetEntityPropertyType(object property);
 
         /// <inheritdoc/>

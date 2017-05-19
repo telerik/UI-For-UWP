@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Telerik.Data.Core
+﻿namespace Telerik.Data.Core
 {
+    /// <summary>
+    /// Represents a numerical range.
+    /// </summary>
     public interface INumericalRange
     {
+        /// <summary>
+        /// Gets the lowest possible value of the range element. 
+        /// </summary>
         double Min { get; }
 
+        /// <summary>
+        /// Gets the highest possible value of the range element. 
+        /// </summary>
         double Max { get; }
 
+        /// <summary>
+        /// Gets a value to be added to or subtracted from the value.
+        /// </summary>
         double Step { get; }
     }
 }

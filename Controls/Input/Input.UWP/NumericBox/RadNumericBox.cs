@@ -34,7 +34,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(Object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged));
+            DependencyProperty.Register(nameof(Value), typeof(object), typeof(RadNumericBox), new PropertyMetadata(null, OnValueChanged));
 
         /// <summary>
         /// Identifies the <see cref="AllowNullValue"/> dependency property.
@@ -193,7 +193,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public int DecimalSeparatorKey
         {
             get { return (int)GetValue(DecimalSeparatorKeyProperty); }
-            set { SetValue(DecimalSeparatorKeyProperty, value); }
+            set { this.SetValue(DecimalSeparatorKeyProperty, value); }
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             set
             {
-                SetValue(ValueFormatSelectorProperty, value);
+                this.SetValue(ValueFormatSelectorProperty, value);
             }
         }
 
@@ -457,16 +457,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new Automation.Peers.RadNumericBoxAutomationPeer(this);
-        }
-
         private static bool IsAzertyKeyboard
         {
             get
             {
-                return Windows.Globalization.Language.CurrentInputMethodLanguageTag.StartsWith("fr-"); ;
+                return Windows.Globalization.Language.CurrentInputMethodLanguageTag.StartsWith("fr-");
             }
         }
 
@@ -479,7 +474,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.currentCulture = CultureInfo.CurrentCulture;
             }
         }
-
+        
         internal override void OnMaximumChanged(double oldMaximum, double newMaximum)
         {
             base.OnMaximumChanged(oldMaximum, newMaximum);
@@ -650,6 +645,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 eh(this, EventArgs.Empty);
             }
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.RadNumericBoxAutomationPeer(this);
         }
 
         /// <summary>

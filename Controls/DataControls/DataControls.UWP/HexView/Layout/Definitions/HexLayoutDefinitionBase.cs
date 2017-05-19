@@ -106,25 +106,25 @@ namespace Telerik.UI.Xaml.Controls.Data.HexView
         private static void OnItemLengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as HexLayoutDefinitionBase;
-            definition.OnPropertyChanged(nameof(ItemLength));
+            definition.OnPropertyChanged(nameof(HexLayoutDefinitionBase.ItemLength));
         }
 
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as HexLayoutDefinitionBase;
-            definition.OnPropertyChanged(nameof(Orientation));
+            definition.OnPropertyChanged(nameof(HexLayoutDefinitionBase.Orientation));
         }
 
         private static void OnItemsSpacingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as HexLayoutDefinitionBase;
-            definition.OnPropertyChanged(nameof(ItemsSpacing));
+            definition.OnPropertyChanged(nameof(HexLayoutDefinitionBase.ItemsSpacing));
         }
 
         private static void OnViewPortExtensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as HexLayoutDefinitionBase;
-            definition.OnPropertyChanged(nameof(ViewPortExtension));
+            definition.OnPropertyChanged(nameof(HexLayoutDefinitionBase.ViewPortExtension));
         }
 
         private void OnPropertyChanged(string propertyName)

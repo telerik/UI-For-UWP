@@ -3,6 +3,9 @@ using Telerik.UI.Xaml.Controls.Chart;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="Axis"/>.
+    /// </summary>
     public class AxisAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>
@@ -43,7 +46,9 @@ namespace Telerik.UI.Automation.Peers
 
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return this.Owner.GetType().Name;
         }

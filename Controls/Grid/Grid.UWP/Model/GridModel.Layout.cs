@@ -216,8 +216,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         internal bool IsIndexInView(ScrollIntoViewOperation<int> operation)
         {
-            //   var itenInfo
-
             var layoutSlot = this.RowPool.GetPreviousDisplayedLayoutSlot(operation.RequestedItem);
             if (layoutSlot == RadRect.Invalid)
             {

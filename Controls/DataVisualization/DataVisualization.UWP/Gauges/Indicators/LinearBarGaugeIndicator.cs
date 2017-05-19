@@ -135,6 +135,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             this.UpdateBarThickness(this.Thickness);
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new LinearBarGaugeIndicatorAutomationPeer(this);

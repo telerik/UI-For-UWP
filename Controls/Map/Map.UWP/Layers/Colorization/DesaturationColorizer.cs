@@ -98,7 +98,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Color"/> value from which the rest desaturated values will be generated. This value will represent the range, containing the shapes with maximum values, as defined by the <see cref="P:AttributeName"/> property.
+        /// Gets or sets the Color value from which the rest desaturated values will be generated. This value will represent the range, containing the shapes with maximum values, as defined by the <see cref="P:AttributeName"/> property.
         /// Defaults to 7.
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed.")]
@@ -117,7 +117,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Gets the count of the ranges that will be generated.
         /// </summary>
-        /// <returns></returns>
         protected override int GetRangeCount()
         {
             return this.rangeCountCache;
@@ -126,7 +125,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Sets the <see cref="D2DBrush" /> instance that defines the fill for each shape falling within the range.
         /// </summary>
-        /// <param name="range"></param>
         protected override void SetFillForRange(ColorRange range)
         {
             if (range == null)

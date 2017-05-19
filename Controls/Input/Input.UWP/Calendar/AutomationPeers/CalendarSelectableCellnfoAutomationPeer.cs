@@ -12,56 +12,45 @@ namespace Telerik.UI.Automation.Peers
     public class CalendarSelectableCellnfoAutomationPeer : CalendarCellInfoBaseAutomationPeer, ISelectionItemProvider
     {
         private string automationId;       
-        internal CalendarCellModel CellModel { get; set; }
 
-        /// <summary>
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarSelectableCellnfoAutomationPeer"/> class.
         /// </summary>
-        /// <param name="parentPeer">Parent CalendarViewHostAutomationPeer.</param>
+        /// <param name="parent">Parent CalendarViewHostAutomationPeer.</param>
         /// <param name="cellModel">The model of the calendar cell.</param>
         internal CalendarSelectableCellnfoAutomationPeer(CalendarViewHostAutomationPeer parent, CalendarCellModel cellModel) : base(parent, cellModel)
         {
             this.CellModel = cellModel;
-        }      
-
-        /// <inheritdoc />
-        protected override string GetLocalizedControlTypeCore()
-        {
-            return "calendar cell";
         }
-
-        /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return nameof(CalendarCellModel);
-        }
-
-        /// <inheritdoc />
-        protected override string GetAutomationIdCore()
-        {
-            if (this.automationId == null)
-            {
-                this.automationId = string.Format(nameof(CalendarCellModel) + "_{0}_{1}_{2}", this.CellModel.RowIndex, this.CellModel.ColumnIndex, this.CellModel.Date);
-            }
-
-            return this.automationId;
-        }   
-
-        /// <inheritdoc />
-        protected override object GetPatternCore(PatternInterface patternInterface)
-        {
-            if (patternInterface == PatternInterface.SelectionItem || patternInterface == PatternInterface.TableItem)
-            {
-                return this;
-            }
-
-            return base.GetPatternCore(patternInterface);
-        }
-
+        
         #region ISelectionItemProvider
         /// <summary>
-        /// Selectes the date of the CellModel of the peer.
+        /// Gets a value indicating whether an item is selected.
+        /// </summary>
+        public bool IsSelected
+        {
+            get
+            {
+                return this.CellModel.IsSelected;
+            }
+        }
+
+        /// <summary>
+        /// Gets the IRawElementProviderSimple - provider of the RadCalendar.
+        /// </summary>
+        public IRawElementProviderSimple SelectionContainer
+        {
+            get
+            {
+                return this.ContainingGrid;
+            }
+        }
+
+        internal CalendarCellModel CellModel { get; set; }
+        #endregion
+
+        /// <summary>
+        /// Selects the date of the CellModel of the peer.
         /// </summary>
         public void AddToSelection()
         {
@@ -86,7 +75,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Selectes the date of the CellModel of the peer.
+        /// Selects the date of the CellModel of the peer.
         /// </summary>
         public void Select()
         {
@@ -97,27 +86,38 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// Indicates whether an item is selected.
-        /// </summary>
-        public bool IsSelected
+        /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
         {
-            get
-            {
-                return this.CellModel.IsSelected;
-            }
+            return "calendar cell";
         }
 
-        /// <summary>
-        /// Gets the IRawElementProviderSimple - provider of the RadCalendar.
-        /// </summary>
-        public IRawElementProviderSimple SelectionContainer
+        /// <inheritdoc />
+        protected override string GetClassNameCore()
         {
-            get
-            {
-                return this.ContainingGrid;
-            }
+            return nameof(Telerik.UI.Xaml.Controls.Input.Calendar.CalendarCellModel);
         }
-        #endregion      
+
+        /// <inheritdoc />
+        protected override string GetAutomationIdCore()
+        {
+            if (this.automationId == null)
+            {
+                this.automationId = string.Format(nameof(Telerik.UI.Xaml.Controls.Input.Calendar.CalendarCellModel) + "_{0}_{1}_{2}", this.CellModel.RowIndex, this.CellModel.ColumnIndex, this.CellModel.Date);
+            }
+
+            return this.automationId;
+        }   
+
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.SelectionItem || patternInterface == PatternInterface.TableItem)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
+        }
     }
 }

@@ -32,105 +32,105 @@ namespace Telerik.UI.Xaml.Controls.Map
     public interface ISpatialReference
     {
         /// <summary>
-        /// The measurement units used to define the angles of a spheroid or ellipse associated with a specific datum.
+        /// Gets or sets the measurement units used to define the angles of a spheroid or ellipse associated with a specific datum.
         /// The datum is usually WGS (World Geodetic System) 1984 and the unit of measurement is a degree.
         /// </summary>
         double AngularUnitOfMeasurement { get; set; }
 
         /// <summary>
-        /// The authority body that defines the standards for the spatial reference parameters.
+        /// Gets or sets the authority body that defines the standards for the spatial reference parameters.
         /// Spatial Reference is usually WGS 1984 and the authority is EPSG:4326.
         /// </summary>
         string Authority { get; set; }
 
         /// <summary>
-        /// The line of longitude at the center of a map projection generally used as the basis for constructing the projection.
+        /// Gets or sets the line of longitude at the center of a map projection generally used as the basis for constructing the projection.
         /// </summary>
         double CentralMeridian { get; set; }
 
         /// <summary>
-        /// This indicates the horizontal datum,
+        /// Gets or sets the horizontal datum,
         /// which corresponds to the procedure used to measure positions on the surface of the Earth. 
         /// </summary>
         string Datum { get; set; }
 
         /// <summary>
-        /// This indicates the horizontal datum,
+        /// Gets or sets the horizontal datum,
         /// which corresponds to the procedure used to measure positions on the surface of the Earth.
         /// </summary>
         string DatumAuthority { get; set; }
 
         /// <summary>
-        /// The value added to all "x" values in the rectangular coordinate for a map projection. 
+        /// Gets or sets the value added to all "x" values in the rectangular coordinate for a map projection. 
         /// This value frequently is assigned to eliminate negative numbers.
         /// Expressed in the unit of measure identified in Planar Coordinate Units.
         /// </summary>
         double FalseEasting { get; set; }
 
         /// <summary>
-        /// The value added to all "y" values in the rectangular coordinates for a map projection. 
+        /// Gets or sets the value added to all "y" values in the rectangular coordinates for a map projection. 
         /// This value frequently is assigned to eliminate negative numbers. 
         /// Expressed in the unit of measure identified in Planar Coordinate Units.
         /// </summary>
         double FalseNorthing { get; set; }
 
         /// <summary>
-        /// A coordinate system based on latitude and longitude. Some geographic coordinate systems are Latitude/Longitude, 
+        /// Gets or sets a coordinate system based on latitude and longitude. Some geographic coordinate systems are Latitude/Longitude, 
         /// and some are Longitude/Latitude. You can find out which this is by examining the axes. 
         /// You should also check the angular units, since not all geographic coordinate systems use degrees.
         /// </summary>
         string GeoGcs { get; set; }
 
         /// <summary>
-        /// The latitude chosen as the origin of rectangular coordinate for a map projection.
+        /// Gets or sets the latitude chosen as the origin of rectangular coordinate for a map projection.
         /// </summary>
         double LatitudeOfOrigin { get; set; }
 
         /// <summary>
-        /// This defines the meridian used to take longitude measurements from. 
+        /// Gets or sets the meridian used to take longitude measurements from. 
         /// The units of the longitude must be inferred from the context.
         /// </summary>
         double Primem { get; set; }
 
         /// <summary>
-        /// This defines the meridian used to take longitude measurements from. 
+        /// Gets or sets the meridian used to take longitude measurements from. 
         /// The units of the longitude must be inferred from the context.
         /// </summary>
         string PrimemAuthority { get; set; }
 
         /// <summary>
-        /// This describes a projection from geographic coordinates to projected coordinates.
+        /// Gets or sets a projection from geographic coordinates to projected coordinates.
         /// </summary>
         string ProjectionAuthority { get; set; }
 
         /// <summary>
-        /// This describes a spheroid, which is an approximation of the Earth's surface as a squashed sphere.
+        /// Gets or sets a spheroid, which is an approximation of the Earth's surface as a squashed sphere.
         /// </summary>
         double SpheroidRadius { get; set; }
 
         /// <summary>
-        /// This describes a spheroid, which is an approximation of the Earth's surface as a squashed sphere.
+        /// Gets or sets a spheroid, which is an approximation of the Earth's surface as a squashed sphere.
         /// </summary>
         double SpheroidFlattening { get; set; }
 
         /// <summary>
-        /// This describes a spheroid, which is an approximation of the Earth's surface as a squashed sphere.
+        /// Gets or sets a spheroid, which is an approximation of the Earth's surface as a squashed sphere.
         /// </summary>
         string SpheroidAuthority { get; set; }
 
         /// <summary>
-        /// The line of constant latitude at which the surface of the Earth and the plane or developable surface intersect.
+        /// Gets or sets the line of constant latitude at which the surface of the Earth and the plane or developable surface intersect.
         /// </summary>
         double StandardParallel { get; set; }
 
         /// <summary>
-        /// The authority body that defines the unit of measurement i.e. European Petroleum Survey Group (EPSG).
+        /// Gets or sets the authority body that defines the unit of measurement i.e. European Petroleum Survey Group (EPSG).
         /// The unit of measurement is usually degrees and the authority for the datum the map uses, WGS 1984 is EPSG:4326.
         /// </summary>
         string UnitAuthority { get; set; }
 
         /// <summary>
-        /// The minimum Latitude this tile source supports.
+        /// Gets or sets the minimum Latitude this tile source supports.
         /// </summary>
         double MinLatitude
         {
@@ -139,7 +139,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The maximum Latitude this tile source supports.
+        /// Gets or sets the maximum Latitude this tile source supports.
         /// </summary>
         double MaxLatitude
         {
@@ -148,7 +148,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The minimum Longitude this tile source supports.
+        /// Gets or sets the minimum Longitude this tile source supports.
         /// </summary>
         double MinLongitude
         {
@@ -157,7 +157,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The maximum Longitude this tile source supports.
+        /// Gets or sets the maximum Longitude this tile source supports.
         /// </summary>
         double MaxLongitude
         {

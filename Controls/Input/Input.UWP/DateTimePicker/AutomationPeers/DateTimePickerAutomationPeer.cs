@@ -9,6 +9,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the DateTimePicker class.
+    /// </summary>
     public class DateTimePickerAutomationPeer : RadHeaderedControlAutomationPeer, IValueProvider, IExpandCollapseProvider
     {
         /// <summary>
@@ -20,17 +23,7 @@ namespace Telerik.UI.Automation.Peers
         {
         }
 
-        private DateTimePicker DateTimePicker
-        {
-            get
-            {
-                return (DateTimePicker)this.Owner;
-            }
-        }
-
-        /// <summary>
-        /// IValueProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         public bool IsReadOnly
         {
             get
@@ -39,9 +32,7 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// IValueProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         public string Value
         {
             get
@@ -50,14 +41,20 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         public ExpandCollapseState ExpandCollapseState
         {
             get
-            { 
+            {
                 return this.DateTimePicker.IsOpen ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed;
+            }
+        }
+
+        private DateTimePicker DateTimePicker
+        {
+            get
+            {
+                return (DateTimePicker)this.Owner;
             }
         }
         
@@ -82,6 +79,37 @@ namespace Telerik.UI.Automation.Peers
                 var oldValue = this.DateTimePicker == null ? string.Empty : this.DateTimePicker.Value.ToString();
                 this.DateTimePicker.Value = parsedValue;
             }
+        }
+
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
+        public void Collapse()
+        {
+            this.DateTimePicker.IsOpen = false;
+        }
+
+        /// <summary>
+        /// IExpandCollapseProvider implementation.
+        /// </summary>
+        public void Expand()
+        {
+            this.DateTimePicker.IsOpen = true;
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
+        {
+            this.RaisePropertyChangedEvent(
+                ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
+                oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
+                newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseSelectionAutomationEvent(string oldValue, string newValue)
+        {
+            this.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue, newValue);
         }
 
         /// <inheritdoc />
@@ -170,40 +198,11 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
-        }
-
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
-        public void Collapse()
-        {
-            this.DateTimePicker.IsOpen = false;
-        }
-
-        /// <summary>
-        /// IExpandCollapseProvider implementation.
-        /// </summary>
-        public void Expand()
-        {
-            this.DateTimePicker.IsOpen = true;
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
-        {
-            this.RaisePropertyChangedEvent(
-                ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
-                oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
-                newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseSelectionAutomationEvent(string oldValue, string newValue)
-        {
-            this.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue, newValue );
         }
     }
 }

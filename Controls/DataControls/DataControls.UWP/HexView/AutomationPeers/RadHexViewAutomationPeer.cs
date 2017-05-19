@@ -12,13 +12,12 @@ namespace Telerik.UI.Automation.Peers
         /// Initializes a new instance of the RadHexViewAutomationPeer class.
         /// </summary>
         /// <param name="owner">The RadHexView that is associated with this RadHexViewAutomationPeer.</param>
-        public RadHexViewAutomationPeer(RadHexView owner) 
+        public RadHexViewAutomationPeer(RadHexView owner)
             : base(owner)
         {
-
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.List;

@@ -9,39 +9,14 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
     internal class ComboBoxEditor : ComboBox, ITypeEditor
     {
-        public object Source
-        {
-            get { return (object)GetValue(SourceProperty); }
-            set { SetValue(SourceProperty, value); }
-        }
-
         // Using a DependencyProperty as the backing store for Source.  This enables animation, styling, binding, etc...    
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.Register(nameof(Source), typeof(object), typeof(ComboBoxEditor), new PropertyMetadata(null, OnSourceChanged));
-
-        private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        
+        public object Source
         {
-            var combo = d as ComboBox;
-            if (combo != null)
-            {
-                Binding b1 = new Binding();
-                b1.Mode = BindingMode.TwoWay;
-
-                var property = combo.DataContext as GridFormEntityProperty;
-                if (property != null)
-                {
-                    if (!String.IsNullOrEmpty(property.SelectedValuePath))
-                    {
-                        b1.Path = new PropertyPath("PropertyValue");
-                        combo.SetBinding(ComboBoxEditor.SelectedValueProperty, b1);
-                    }
-                    else
-                    {
-                        b1.Path = new PropertyPath("PropertyValue");
-                        combo.SetBinding(ComboBoxEditor.SelectedItemProperty, b1);
-                    }      
-                }
-            }
+            get { return (object)GetValue(SourceProperty); }
+            set { this.SetValue(SourceProperty, value); }
         }
 
         public void BindEditor()
@@ -71,6 +46,31 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             Binding b5 = new Binding();
             b5.Path = new PropertyPath("SelectedValuePath");
             this.SetBinding(ComboBoxEditor.SelectedValuePathProperty, b5);
+        }
+
+        private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var combo = d as ComboBox;
+            if (combo != null)
+            {
+                Binding b1 = new Binding();
+                b1.Mode = BindingMode.TwoWay;
+
+                var property = combo.DataContext as GridFormEntityProperty;
+                if (property != null)
+                {
+                    if (!string.IsNullOrEmpty(property.SelectedValuePath))
+                    {
+                        b1.Path = new PropertyPath("PropertyValue");
+                        combo.SetBinding(ComboBoxEditor.SelectedValueProperty, b1);
+                    }
+                    else
+                    {
+                        b1.Path = new PropertyPath("PropertyValue");
+                        combo.SetBinding(ComboBoxEditor.SelectedItemProperty, b1);
+                    }
+                }
+            }
         }
     }
 }

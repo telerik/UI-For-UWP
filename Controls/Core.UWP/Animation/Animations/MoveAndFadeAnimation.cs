@@ -16,7 +16,7 @@ namespace Telerik.Core
         /// <summary>
         /// Initializes a new instance of the RadMoveAndFadeAnimation class.
         /// </summary>
-        [SuppressMessage("CA2214", "Remove virtual calls from constructor.")] // These virtual calls do not rely on uninitialized base state.
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")] // These virtual calls do not rely on uninitialized base state.
         public RadMoveAndFadeAnimation()
         {
             this.move = this.CreateMoveAnimation();

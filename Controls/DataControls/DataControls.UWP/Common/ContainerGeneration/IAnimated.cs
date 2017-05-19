@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Windows.UI.Xaml;
-
-namespace Telerik.UI.Xaml.Controls.Data.ContainerGeneration
+﻿namespace Telerik.UI.Xaml.Controls.Data.ContainerGeneration
 {
     internal interface IAnimated
     {

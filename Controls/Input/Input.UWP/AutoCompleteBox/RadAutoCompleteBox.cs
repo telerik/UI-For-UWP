@@ -194,6 +194,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private bool setProgrammaticFocus;
         private bool noResultsFound;
         private bool textChangedWhileDropDownClosed = false;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RadAutoCompleteBox" /> class.
         /// </summary>
@@ -373,7 +374,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets an instance of the <see cref="TimeSpan"/> struct
+        /// Gets or sets an instance of the <see cref="System.TimeSpan"/> struct
         /// that represents the time interval between the last end user input action and
         /// a filter pass operation. 
         /// </summary>
@@ -403,11 +404,11 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         /// <example>
         /// <para>
-        /// This example demonstrates how to filter items, that have a <see cref="DateTime"/> property, by
+        /// This example demonstrates how to filter items, that have a <see cref="System.DateTime"/> property, by
         /// year while the displayed text is the full date.
         /// </para>
         /// <para>
-        /// First, create a sample class that has a property of type <see cref="DateTime"/>:
+        /// First, create a sample class that has a property of type <see cref="System.DateTime"/>:
         /// </para>
         /// <code language="c#">
         ///     public class Birthday
@@ -745,17 +746,16 @@ namespace Telerik.UI.Xaml.Controls.Input
         public object NoResultsContent
         {
             get { return (object)GetValue(NoResultsContentProperty); }
-            set { SetValue(NoResultsContentProperty, value); }
+            set { this.SetValue(NoResultsContentProperty, value); }
         }
-
-
+        
         /// <summary>
-        /// Gets or sets a value which indicates whether the  <see cref="RadAutoCompleteBox.NoResultsContentProperty"/> will be shown when its criteria is matched.
+        /// Gets or sets a value indicating whether the  <see cref="RadAutoCompleteBox.NoResultsContentProperty"/> will be shown when its criteria is matched.
         /// </summary>
         public bool IsNoResultsContentEnabled
         {
             get { return (bool)GetValue(IsNoResultsContentEnabledProperty); }
-            set { SetValue(IsNoResultsContentEnabledProperty, value); }
+            set { this.SetValue(IsNoResultsContentEnabledProperty, value); }
         }
 
         /// <summary>
@@ -764,7 +764,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public DataTemplate NoResultsContentTemplate
         {
             get { return (DataTemplate)GetValue(NoResultsContentTemplateProperty); }
-            set { SetValue(NoResultsContentTemplateProperty, value); }
+            set { this.SetValue(NoResultsContentTemplateProperty, value); }
         }
 
         private double DropDownClampedHeight
@@ -950,6 +950,40 @@ namespace Telerik.UI.Xaml.Controls.Input
             return handled;
         }
 
+        internal void UpdateTextFromPopupInteraction(object suggestionItem)
+        {
+            this.textChangedByPopupInteraction = true;
+            this.textbox.Text = this.suggestionsProvider.GetFilterKey(suggestionItem);
+            this.UpdateCaretPosition();
+
+            this.SelectedItem = suggestionItem;
+            this.OnSelectionChanged(new SelectionChangedEventArgs(new List<object>(), new List<object> { suggestionItem }));
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="SuggestionItem" /> when needed.
+        /// </summary>
+        protected internal virtual DependencyObject GetContainerForSuggestionItem()
+        {
+            return this.suggestionsControl.GetContainerForSuggestionItem();
+        }
+
+        /// <summary>
+        /// Prepares the <see cref="SuggestionItem" /> for further usage.
+        /// </summary>
+        protected internal virtual void PrepareContainerForSuggestionItem(DependencyObject element, object item)
+        {
+            this.suggestionsControl.PrepareContainerForSuggestionItem(element, item);
+        }
+
+        /// <summary>
+        /// Undoes the effects of the PrepareContainerForSuggestionItem method.
+        /// </summary>
+        protected internal virtual void ClearContainerForSuggestionItem(DependencyObject element, object item)
+        {
+            this.suggestionsControl.ClearContainerForSuggestionItem(element, item);
+        }
+
         /// <summary>
         /// Called before the KeyDown event occurs.
         /// </summary>
@@ -1004,7 +1038,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.suggestionsControl.SizeChanged += this.OnSuggestionsControlSizeChanged;
             this.suggestionsControl.ItemTapped += this.OnSuggestionsControlItemTapped;
 
-            if(this.NoResultsContent != null)
+            if (this.NoResultsContent != null)
             {
                 this.noResultsControl.Content = this.NoResultsContent;
             }
@@ -1051,7 +1085,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Raises the <see cref="E:PropertyChanged" /> event.
         /// </summary>
-        /// <param name="args">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
+        /// <param name="args">The <see cref="System.ComponentModel.PropertyChangedEventArgs" /> instance containing the event data.</param>
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             if (this.PropertyChanged != null)
@@ -1083,31 +1117,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.SelectionChanged(this, args);
             }
         }
-
-        /// <summary>
-        /// Creates a new <see cref="SuggestionItem" /> when needed.
-        /// </summary>
-        protected internal virtual DependencyObject GetContainerForSuggestionItem()
-        {
-            return this.suggestionsControl.GetContainerForSuggestionItem();
-        }
-
-        /// <summary>
-        /// Prepares the <see cref="SuggestionItem" /> for further usage.
-        /// </summary>
-        protected internal virtual void PrepareContainerForSuggestionItem(DependencyObject element, object item)
-        {
-            this.suggestionsControl.PrepareContainerForSuggestionItem(element, item);
-        }
-
-        /// <summary>
-        /// Undoes the effects of the PrepareContainerForSuggestionItem method.
-        /// </summary>
-        protected internal virtual void ClearContainerForSuggestionItem(DependencyObject element, object item)
-        {
-            this.suggestionsControl.ClearContainerForSuggestionItem(element, item);
-        }
-
+        
         private static void OnAutoCompleteBoxTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             RadAutoCompleteBox autoCompleteBox = sender as RadAutoCompleteBox;
@@ -1228,7 +1238,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 // NOTE: Implicit style for the popup child not applied on time unless we invoke this asynchronously. 
                 // We cannot use the Popup.Opened/Closed events to perform this logic instead as the width changes visibly (as the popup is actually already open).
-
                 if (autoCompleteBox.IsNoResultsContentEnabled && autoCompleteBox.noResultsFound)
                 {
                     autoCompleteBox.InvokeAsync(() =>
@@ -1314,7 +1323,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void OnTextBoxTextChanged(object sender, TextChangedEventArgs args)
         {
-            if(!this.IsDropDownOpen)
+            if (!this.IsDropDownOpen)
             {
                 this.textChangedWhileDropDownClosed = true;
             }
@@ -1408,7 +1417,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
                 if (this.suggestionsProvider.HasItems)
                 {
-                        if(this.IsDropDownOpen)
+                        if (this.IsDropDownOpen)
                         {
                             this.IsDropDownOpen = false;
                         }
@@ -1423,7 +1432,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 }
                 else
                 {
-                    if(!String.IsNullOrEmpty(this.suggestionsProvider.InputString) && this.IsNoResultsContentEnabled)
+                    if (!string.IsNullOrEmpty(this.suggestionsProvider.InputString) && this.IsNoResultsContentEnabled)
                     {
                         this.IsDropDownOpen = false;
                         this.noResultsFound = true;
@@ -1633,16 +1642,6 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             this.setProgrammaticFocus = true;
             this.textbox.Focus(FocusState.Programmatic);
-        }
-
-        internal void UpdateTextFromPopupInteraction(object suggestionItem)
-        {
-            this.textChangedByPopupInteraction = true;
-            this.textbox.Text = this.suggestionsProvider.GetFilterKey(suggestionItem);
-            this.UpdateCaretPosition();
-
-            this.SelectedItem = suggestionItem;
-            this.OnSelectionChanged(new SelectionChangedEventArgs(new List<object>(), new List<object> { suggestionItem }));
         }
     }
 }

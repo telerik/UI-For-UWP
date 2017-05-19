@@ -2,7 +2,7 @@
 
 namespace Telerik.UI.Xaml.Controls.Data.DataForm.Commands
 {
-      /// <summary>
+    /// <summary>
     /// Represents a command abstraction that is associated with a particular <see cref="RadDataForm"/> instance.
     /// </summary>
     public abstract class DataFormCommand : ControlCommandBase<RadDataForm>

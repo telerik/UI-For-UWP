@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media.Animation;
@@ -18,6 +19,7 @@ namespace Telerik.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="RadAnimationGroup"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public RadAnimationGroup()
         {
             this.Duration = new Duration(TimeSpan.FromSeconds(1));

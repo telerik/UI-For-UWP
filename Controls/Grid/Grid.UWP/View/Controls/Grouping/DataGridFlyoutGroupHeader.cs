@@ -11,7 +11,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
     /// <summary>
     /// Defines the UI that represents a <see cref="DataGridFlyoutGroupHeader"/> within the Grouping Flyout in a <see cref="RadDataGrid"/> instance.
     /// </summary>
-    
     [TemplatePart(Name = "PART_CloseButton", Type = typeof(InlineButton))]   
     public partial class DataGridFlyoutGroupHeader : DataGridFlyoutHeader
     {
@@ -30,6 +29,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.DefaultStyleKey = typeof(DataGridFlyoutGroupHeader);
         }
 
+        internal event EventHandler CloseButtonClick;
+
         /// <summary>
         /// Gets or sets the visibility of the Glyph at the bottom of the control. This glyph visually emphasizes the order of the headers within the flyout control.
         /// </summary>
@@ -37,15 +38,13 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         {
             get
             {
-                return (double) this.GetValue(BottomGlyphOpacityProperty);
+                return (double)this.GetValue(BottomGlyphOpacityProperty);
             }
             set
             {
                 this.SetValue(BottomGlyphOpacityProperty, value);
             }
         }
-
-        internal event EventHandler CloseButtonClick;
 
         /// <summary>
         /// Raises the <see cref="CloseButtonClick"/> event. Exposed for testing purposes, do not call elsewhere but in test projects.
@@ -90,6 +89,12 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.closeButton.Click -= this.OnCloseButtonClick;
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DataGridFlyoutGroupHeaderAutomationPeer(this);
+        }
+
         private void OnContentTapped(object sender, TappedRoutedEventArgs e)
         {
             this.RaiseDescriptorContentTap();
@@ -98,11 +103,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
             this.RaiseCloseButtonClick();
-        }
-
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new DataGridFlyoutGroupHeaderAutomationPeer(this);
         }
     }
 }

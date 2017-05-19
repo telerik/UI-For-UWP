@@ -23,6 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return new OhlcStick();
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new OhlcSeriesAutomationPeer(this);

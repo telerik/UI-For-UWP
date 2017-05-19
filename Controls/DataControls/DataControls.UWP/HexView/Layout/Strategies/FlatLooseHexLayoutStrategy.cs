@@ -13,12 +13,13 @@ namespace Telerik.UI.Xaml.Controls.Data.HexView
         }
 
         /// <summary>
-        ///    _   _   _ 
-        ///   /0\_/1\ /2\
-        ///   \_/3\_/ \_/  oppositeLength
-        ///     \_/      
-        ///      length
-        ///    < availableLength >
+        /// Example   _   _   _ 
+        ///          /0\_/1\ /2\
+        ///          \_/3\_/ \_/  oppositeLength
+        ///            \_/      
+        ///             length
+        /// <availableLength>
+        /// </availableLength>
         /// </summary>
         /// <returns>The top left position of the i-th element.</returns>
         protected override Point GetAbsolutePositionFromIndex(int index, double length, double oppositeLength, double offset, double oppositeOffset, double availableLength)

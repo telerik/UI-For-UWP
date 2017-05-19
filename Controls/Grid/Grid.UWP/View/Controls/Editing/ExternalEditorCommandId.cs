@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Telerik.UI.Xaml.Controls.Grid.Commands
+﻿namespace Telerik.UI.Xaml.Controls.Grid.Commands
 {
+    /// <summary>
+    /// IDs for the commands of the ExternalEditor.
+    /// </summary>
     public enum ExternalEditorCommandId
     {
+        /// <summary>
+        /// Specifies a "Save" command.
+        /// </summary>
         Save,
+
+        /// <summary>
+        /// Specifies a "Cancel" command.
+        /// </summary>
         Cancel,
     }
 }

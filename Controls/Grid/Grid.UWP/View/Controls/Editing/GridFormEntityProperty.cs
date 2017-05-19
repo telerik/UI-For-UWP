@@ -1,20 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Telerik.Data.Core;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
+    /// <summary>
+    /// Represents a GridFormEntityProperty entity property.
+    /// </summary>
     public class GridFormEntityProperty : RuntimeEntityProperty
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GridFormEntityProperty"/> class.
+        /// </summary>
         public GridFormEntityProperty(PropertyInfo property, object item)
         : base(property, item)
-    {
-    }
+        {
+        }
 
+        /// <summary>
+        /// Gets or sets a path to a value on the source object to provide the visual representation of the object. 
+        /// </summary>
+        public string DisplayMemberPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that indicates the path used to get the value. 
+        /// </summary>
+        public string SelectedValuePath { get; set; }
+
+        /// <inheritdoc/>
         protected override string GetLabel(object property)
         {
             var label = base.GetLabel(property);
@@ -29,8 +41,5 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
             return label;
         }
-
-        public string DisplayMemberPath { get; set; }
-        public string SelectedValuePath { get; set; }
     }
 }

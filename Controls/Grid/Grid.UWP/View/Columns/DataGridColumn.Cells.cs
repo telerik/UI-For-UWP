@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Grid.Primitives;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder;
@@ -7,13 +8,11 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Shapes;
-using System.Linq;
 
 namespace Telerik.UI.Xaml.Controls.Grid
 {
     public partial class DataGridColumn
     {
-
         /// <summary>
         /// Identifies the <see cref="IsCellFlyoutEnabled"/> dependency property.
         /// </summary>
@@ -234,8 +233,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (cell.ItemInfo.LayoutInfo.Line == this.Model.ColumnPool.Layout.ItemsSource.Count - 1)
             {
-                //Apply padding when last column to offset from column chooser button.
-
+                // Apply padding when last column to offset from column chooser button.
                 if (header.Owner.CanUserChooseColumns)
                 {
                     if (this.headerStyleCache != null && this.headerStyleCache.Setters.OfType<Setter>().Any(c => c.Property == DataGridColumnHeader.PaddingProperty))
@@ -260,7 +258,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
                         header.Padding = new Thickness(0);
                     }
                 }
-               
             }
         }
 

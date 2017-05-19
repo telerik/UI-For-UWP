@@ -13,16 +13,6 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class CalendarViewHostAutomationPeer : FrameworkElementAutomationPeer
     {
-        internal RadCalendar CalendarOwner { get; set; }
-        internal CalendarViewHost OwnerCalendarHost
-        {
-            get
-            {
-                return (CalendarViewHost)this.Owner;
-            }            
-        }
-
-        /// <summary>
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarViewHostAutomationPeer"/> class.
         /// </summary>
@@ -30,8 +20,7 @@ namespace Telerik.UI.Automation.Peers
         public CalendarViewHostAutomationPeer(CalendarViewHost owner) : base(owner)
         {
         }
-
-        /// <summary>
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarViewHostAutomationPeer"/> class.
         /// </summary>
@@ -40,6 +29,15 @@ namespace Telerik.UI.Automation.Peers
         public CalendarViewHostAutomationPeer(CalendarViewHost owner, RadCalendar calendarOwner) : this(owner)
         {
             this.CalendarOwner = calendarOwner;
+        }
+
+        internal RadCalendar CalendarOwner { get; set; }
+        internal CalendarViewHost OwnerCalendarHost
+        {
+            get
+            {
+                return (CalendarViewHost)this.Owner;
+            }
         }
 
         /// <inheritdoc />
@@ -59,9 +57,11 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
-            return nameof(CalendarViewHost);
+            return nameof(Telerik.UI.Xaml.Controls.Input.Calendar.CalendarViewHost);
         }
 
         /// <inheritdoc />

@@ -1,7 +1,6 @@
 ﻿using Telerik.Core.Data;
 using Windows.Foundation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data
@@ -13,6 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     {
         // fields are internal for performance sake as they are accessed multiple times during balance
         internal double verticalOffsetCache = -1;
+
         internal double horizontalOffsetCache = -1;
         internal double height = 0;
         internal double width = 0;
@@ -38,14 +38,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.DefaultStyleKey = typeof(RadVirtualizingDataControlItem);
         }
 
-        internal double CurrentOffset
-        {
-            get
-            {
-                return this.scrollingOrientation == Orientation.Horizontal ? this.horizontalOffsetCache : this.verticalOffsetCache;
-            }
-        }
-
         /// <summary>
         /// Gets an implementation of the <see cref="IDataSourceItem"/> interface that wraps
         /// the data source item currently associated with this visual container.
@@ -64,6 +56,14 @@ namespace Telerik.UI.Xaml.Controls.Data
             get
             {
                 return this.owner;
+            }
+        }
+
+        internal double CurrentOffset
+        {
+            get
+            {
+                return this.scrollingOrientation == Orientation.Horizontal ? this.horizontalOffsetCache : this.verticalOffsetCache;
             }
         }
 
@@ -126,19 +126,16 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             Canvas.SetLeft(this, offset);
             this.horizontalOffsetCache = offset;
-            //   this.CurrentOffset = offset;
         }
 
         internal void InvalidateVerticalOffset()
         {
             this.verticalOffsetCache = Canvas.GetTop(this);
-            //  this.CurrentOffset = this.verticalOffsetCache;
         }
 
         internal void InvalidateHorizontalOffset()
         {
             this.horizontalOffsetCache = Canvas.GetLeft(this);
-            //      this.CurrentOffset = this.horizontalOffsetCache;
         }
 
         internal void InvalidateCachedSize()

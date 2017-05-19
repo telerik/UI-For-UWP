@@ -70,6 +70,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.RangeInputBaseAutomationPeer(this);
+        }
+
         private static void OnSmallChangeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RangeInputBase sender = d as RangeInputBase;
@@ -92,11 +98,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             RangeControlBase.VerifyValidDoubleValue((double)e.NewValue);
             sender.OnLargeChangeChanged((double)e.OldValue, (double)e.NewValue);
-        }
-
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new Automation.Peers.RangeInputBaseAutomationPeer(this);
         }
     }
 }

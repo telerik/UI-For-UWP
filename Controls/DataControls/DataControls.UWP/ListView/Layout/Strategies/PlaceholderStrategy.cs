@@ -19,7 +19,7 @@ namespace Telerik.Data.Core.Layouts
         {
             return new List<ItemInfo>();
         }
-        
+
         public override int CalculateAppendedSlotsCount(BaseLayout layout, int startSlot, ref int totalLines)
         {
             return 1;

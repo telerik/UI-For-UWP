@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Windows.Foundation;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView
 {
@@ -14,29 +9,20 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
     /// </summary>
     public class PullToRefreshIndicator : RadControl
     {
+        /// <summary>
+        /// Identifies the <see cref="CurrentPullOffset"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty CurrentPullOffsetProperty =
+            DependencyProperty.Register(nameof(CurrentPullOffset), typeof(double), typeof(PullToRefreshIndicator), new PropertyMetadata(0d));
+
         private const string VerticalState = "Vertical";
         private const string HorizontalState = "Horizontal";
 
         private const string ContentAndIndicatorState = "ContentAndIndicator";
         private const string IndicatorOnlyState = "IndicatorOnly";
 
-        private const string pullLabelName = "PART_PullLabel";
-        private const string refreshLabelName = "PART_RefreshLabel";
-
-        /// <summary>
-        /// Gets or sets the current pull offset applied to the control.
-        /// </summary>
-        public double CurrentPullOffset
-        {
-            get { return (double)GetValue(CurrentPullOffsetProperty); }
-            set { SetValue(CurrentPullOffsetProperty, value); }
-        }
-
-        /// <summary>
-        /// Identifies the <see cref="CurrentPullOffset"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty CurrentPullOffsetProperty =
-            DependencyProperty.Register(nameof(CurrentPullOffset), typeof(double), typeof(PullToRefreshIndicator), new PropertyMetadata(0d));
+        private const string PullLabelName = "PART_PullLabel";
+        private const string RefreshLabelName = "PART_RefreshLabel";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PullToRefreshIndicator" /> class.
@@ -44,6 +30,15 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         public PullToRefreshIndicator()
         {
             this.DefaultStyleKey = typeof(PullToRefreshIndicator);
+        }
+
+        /// <summary>
+        /// Gets or sets the current pull offset applied to the control.
+        /// </summary>
+        public double CurrentPullOffset
+        {
+            get { return (double)GetValue(CurrentPullOffsetProperty); }
+            set { this.SetValue(CurrentPullOffsetProperty, value); }
         }
 
         internal void GoToState(bool useTransitions, params string[] stateNames)
@@ -91,6 +86,5 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             return base.ApplyTemplateCore() && applied;
         }
-
     }
 }

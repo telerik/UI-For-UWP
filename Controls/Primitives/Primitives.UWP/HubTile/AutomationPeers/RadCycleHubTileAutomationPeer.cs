@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.UI.Xaml.Controls.Primitives;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadCycleHubTile class.
+    /// </summary>
     public class RadCycleHubTileAutomationPeer : HubTileBaseAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the RadCycleHubTileAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
         public RadCycleHubTileAutomationPeer(RadCycleHubTile owner) 
             : base(owner)
         {

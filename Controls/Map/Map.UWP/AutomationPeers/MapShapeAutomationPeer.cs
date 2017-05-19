@@ -12,6 +12,39 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class MapShapeAutomationPeer : AutomationPeer, ISelectionItemProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MapShapeAutomationPeer"/> class.
+        /// </summary>
+        /// <param name="layerPeer">The parent shape layer.</param>
+        /// <param name="shapeModel">The underlying shape model.</param>
+        public MapShapeAutomationPeer(MapShapeLayerAutomationPeer layerPeer, IMapShape shapeModel) : base()
+        {
+            this.LayerPeer = layerPeer;
+            this.ShapeModel = shapeModel;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this shape is selected.
+        /// </summary>
+        public bool IsSelected
+        {
+            get
+            {
+                return this.LayerPeer.SelectionBehavior.SelectedShapes.ToList().Contains(this.ShapeModel);
+            }
+        }
+
+        /// <summary>
+        /// Gets the parent ISelectionProvider performing the selection.
+        /// </summary>
+        public IRawElementProviderSimple SelectionContainer
+        {
+            get
+            {
+                return this.ProviderFromPeer(this.LayerPeer);
+            }
+        }
+
         private MapShapeLayerAutomationPeer LayerPeer
         {
             get;
@@ -25,40 +58,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Initializes a new instance of the MapShapeLayerAutomationPeer class.
-        /// </summary>
-        /// <param name="layerPeer">The parent shape layer.</param>
-        /// <param name="shapeModel">The underlying shape model.</param>
-        public MapShapeAutomationPeer(MapShapeLayerAutomationPeer layerPeer, IMapShape shapeModel) : base()
-        {
-            this.LayerPeer = layerPeer;
-            this.ShapeModel = shapeModel;
-        }
-
-        /// <summary>
-        /// Returns a value indicating wheather this shape is selected.
-        /// </summary>
-        public bool IsSelected
-        {
-            get
-            {
-                return this.LayerPeer.SelectionBehavior.SelectedShapes.ToList().Contains(this.ShapeModel);
-            }
-        }
-
-        /// <summary>
-        /// The parent ISelectionProvider performing the selection.
-        /// </summary>
-        public IRawElementProviderSimple SelectionContainer
-        {
-            get
-            {
-                return this.ProviderFromPeer(this.LayerPeer);
-            }
-        }
-
-        /// <summary>
-        /// Selets the shape.
+        /// Selects the shape.
         /// </summary>
         public void AddToSelection()
         {
@@ -93,6 +93,7 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        /// <inheritdoc/>
         protected override string GetLocalizedControlTypeCore()
         {
             return "map shape";

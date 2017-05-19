@@ -171,7 +171,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// A value of (0.5, 0.5) will center the visual representation of each item over its geographical location.
         /// </summary>
         /// <remarks>
-        /// The expected return value of the property is of type <see cref="Windows.Foundation.Point"/>.
+        /// The expected return value of the property is of type <see cref="Windows.Foundation.Point(double, double)"/>.
         /// </remarks>
         public string LocationOriginPropertyName
         {
@@ -335,7 +335,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
         /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
         /// </summary>
-        /// <returns></returns>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();

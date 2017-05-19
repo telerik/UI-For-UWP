@@ -99,7 +99,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         internal void UpdateSelectedHeader(DataGridColumnHeader header, bool isSelected)
         {
-            if (this.LastSelectedColumn != null && this.LastSelectedColumn.HeaderControl!=null && this.LastSelectedColumn != header.Column)
+            if (this.LastSelectedColumn != null && this.LastSelectedColumn.HeaderControl != null && this.LastSelectedColumn != header.Column)
             {
                 this.LastSelectedColumn.HeaderControl.IsSelected = false;
             }
@@ -289,7 +289,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
             layer.Owner = this;
             layer.AttachUI(parent);
         }
-
 
         private void OnContentLayersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

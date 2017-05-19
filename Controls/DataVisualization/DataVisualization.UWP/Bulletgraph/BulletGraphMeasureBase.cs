@@ -18,6 +18,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         /// <summary>
         /// Initializes a new instance of the BulletGraphMeasureBase class.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         protected BulletGraphMeasureBase()
         {
             this.Visual = this.CreateVisual();

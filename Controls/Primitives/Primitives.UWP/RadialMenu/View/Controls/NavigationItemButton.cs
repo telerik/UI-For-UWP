@@ -121,6 +121,23 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             this.UpdateVisualState(true);
         }
 
+        internal void ExecuteNavigation()
+        {
+            var navigateItem = this.Model as RadialNavigateItem;
+            if (navigateItem != null && navigateItem.TargetItem.CanNavigate)
+            {
+                var radialMenuModel = navigateItem.TargetItem.Owner as RadialMenuModel;
+                if (radialMenuModel != null)
+                {
+                    var radialMenu = radialMenuModel.Owner as RadRadialMenu;
+                    if (radialMenu != null)
+                    {
+                        radialMenu.RaiseNavigateCommand(navigateItem.TargetItem, radialMenu.model.viewState.MenuLevels.FirstOrDefault(), navigateItem.LayoutSlot.StartAngle);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
         /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
@@ -188,6 +205,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             }
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             if (e.Handled)
@@ -200,34 +221,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             base.OnKeyDown(e);
         }
 
-        private bool HandleKeyDown(VirtualKey key)
-        {
-            if (key == VirtualKey.Enter)
-            {
-                this.ExecuteNavigation();
-                return true;
-            }
-
-            return false;
-        }
-
-        internal void ExecuteNavigation()
-        {
-            var navigateItem = this.Model as RadialNavigateItem;
-            if (navigateItem != null && navigateItem.TargetItem.CanNavigate)
-            {
-                var radialMenuModel = navigateItem.TargetItem.Owner as RadialMenuModel;
-                if (radialMenuModel != null)
-                {
-                    var radialMenu = radialMenuModel.Owner as RadRadialMenu;
-                    if (radialMenu != null)
-                    {
-                        radialMenu.RaiseNavigateCommand(navigateItem.TargetItem, radialMenu.model.viewState.MenuLevels.FirstOrDefault(), navigateItem.LayoutSlot.StartAngle);
-                    }
-                }
-            }
-        }
-
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new NavigationItemButtonAutomationPeer(this);
@@ -270,6 +264,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             geometry.Figures.Add(figure);
 
             return geometry;
+        }
+
+        private bool HandleKeyDown(VirtualKey key)
+        {
+            if (key == VirtualKey.Enter)
+            {
+                this.ExecuteNavigation();
+                return true;
+            }
+
+            return false;
         }
 
         private void ArrangeArrowGlyph()

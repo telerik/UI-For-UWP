@@ -268,6 +268,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return visual is Border;
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new BarSeriesAutomationPeer(this);

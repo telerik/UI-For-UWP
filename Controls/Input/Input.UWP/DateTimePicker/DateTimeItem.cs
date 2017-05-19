@@ -101,8 +101,8 @@ namespace Telerik.UI.Xaml.Controls.Input
                     break;
             }
 
-            this.OnPropertyChanged(nameof(HeaderText));
-            this.OnPropertyChanged(nameof(ContentText));
+            this.OnPropertyChanged(nameof(this.HeaderText));
+            this.OnPropertyChanged(nameof(this.ContentText));
         }
     }
 }

@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Telerik.UI.Xaml.Controls.Grid.View
+﻿namespace Telerik.UI.Xaml.Controls.Grid.View
 {
+    /// <summary>
+    /// Gestures for the flyout of the cell.
+    /// </summary>
     public enum CellFlyoutGesture
     {
+        /// <summary>
+        /// Specifies a "PointerOver" cell flyout gesture.
+        /// </summary>
         PointerOver,
+
+        /// <summary>
+        /// Specifies a "Holding" cell flyout gesture.
+        /// </summary>
         Holding,
     }
 }
