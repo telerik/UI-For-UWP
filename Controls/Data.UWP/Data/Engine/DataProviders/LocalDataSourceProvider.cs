@@ -394,27 +394,6 @@ namespace Telerik.Data.Core
             }
         }
 
-        internal void ProcessPendingCollectionChanges()
-        {
-            if (!this.AreDescriptionsReady)
-            {
-                this.ResetDescriptions();
-                return;
-            }
-
-            if (this.Status != DataProviderStatus.Ready)
-            {
-                this.ResetPendingChanges();
-                return;
-            }
-
-            while (this.pendingCollectionChanges.Count > 0)
-            {
-                this.ProcessCollectionChanged(this.pendingCollectionChanges[0]);
-                this.pendingCollectionChanges.RemoveAt(0);
-            }
-        }
-
         /// <inheritdoc />
         protected override void RefreshOverride(DataChangeFlags dataChangeFlags)
         {
@@ -577,14 +556,35 @@ namespace Telerik.Data.Core
             var newStatus = DataProviderBase.GetDataProviderStatusFromEngineStatus(e.Status);
             var exception = Enumerable.FirstOrDefault(e.InnerExceptions);
 
-            try
+            if (newStatus == DataProviderStatus.Ready)
             {
-                this.manualResetEventSlim.Reset();
-                this.ProcessPendingChanges();
+                try
+                {
+                    this.manualResetEventSlim.Reset();
+                    this.ProcessPendingChanges();
+                }
+                finally
+                {
+                    this.manualResetEventSlim.Set();
+                }
             }
-            finally
+            else if (newStatus == DataProviderStatus.Faulted)
             {
-                this.manualResetEventSlim.Set();
+                try
+                {
+                    this.manualResetEventSlim.Reset();
+                    if (!this.AreDescriptionsReady)
+                    {
+                        this.ResetDescriptions();
+                        return;
+                    }
+
+                    this.ResetPendingChanges();
+                }
+                finally
+                {
+                    this.manualResetEventSlim.Set();
+                }
             }
 
             this.OnStatusChanged(new DataProviderStatusChangedEventArgs(newStatus, true, exception));
@@ -592,29 +592,19 @@ namespace Telerik.Data.Core
 
         private void ProcessPendingChanges()
         {
-            if (!this.AreDescriptionsReady)
-            {
-                this.ResetDescriptions();
-                return;
-            }
-
-            if (this.Status != DataProviderStatus.Ready)
-            {
-                this.ResetPendingChanges();
-                return;
-            }
 
             while (this.pendingCollectionChanges.Count > 0)
             {
-                this.ProcessCollectionChanged(this.pendingCollectionChanges[0]);
+                var pch = this.pendingCollectionChanges[0];
                 this.pendingCollectionChanges.RemoveAt(0);
+                this.ProcessCollectionChanged(pch);
             }
 
             while (this.pendingPropertyChanges.Count > 0)
             {
                 var tuple = this.pendingPropertyChanges[0];
-                this.ProcessPropertyChanged(tuple.Item1, tuple.Item2);
                 this.pendingPropertyChanges.RemoveAt(0);
+                this.ProcessPropertyChanged(tuple.Item1, tuple.Item2);
             }
         }
 
@@ -754,6 +744,7 @@ namespace Telerik.Data.Core
                     this.InsertItems(e.NewStartingIndex, e.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
+                    this.pendingCollectionChanges.Clear();
                     var state = this.GenerateParallelState();
                     this.engine.Clear(state);
                     this.RefreshInternalView(false);
