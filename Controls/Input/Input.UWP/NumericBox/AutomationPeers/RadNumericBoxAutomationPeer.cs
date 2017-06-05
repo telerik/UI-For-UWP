@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadNumericBox class.
+    /// </summary>
     public class RadNumericBoxAutomationPeer : RangeInputBaseAutomationPeer, IRangeValueProvider
     {
         /// <summary>
@@ -18,19 +21,10 @@ namespace Telerik.UI.Automation.Peers
             : base(owner)
         {
         }
-
-        private RadNumericBox NumericBox
-        {
-            get
-            {
-                return (RadNumericBox)this.Owner;
-            }
-        }
-
+        
         /// <summary>
-        /// Gets a value that specifies whether the value of a control is read-only.
+        /// Gets a value indicating whether the value of a control is read-only.
         /// </summary>
-        /// <value></value>
         /// <returns>true if the value is read-only; false if it can be modified.
         /// </returns>
         public bool IsReadOnly
@@ -44,7 +38,6 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the value that is added to or subtracted from the <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.Value"/> property when a large change is made, such as with the PAGE DOWN key.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The large-change value supported by the control or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.LargeChange"/>.
         /// </returns>
@@ -59,7 +52,6 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the maximum range value supported by the control.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The maximum value supported by the control or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.Maximum"/>.
         /// </returns>
@@ -74,7 +66,6 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the minimum range value supported by the control.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The minimum value supported by the control or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:System.Windows.Automation.Provider.IRangeValueProvider.Minimum"/>.
         /// </returns>
@@ -89,7 +80,6 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the value that is added to or subtracted from the <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.Value"/> property when a small change is made, such as with an arrow key.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The small-change value or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.SmallChange"/>.
         /// </returns>
@@ -104,7 +94,6 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the value of the control.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The value of the control or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.Value"/>.
         /// </returns>
@@ -118,6 +107,51 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        private RadNumericBox NumericBox
+        {
+            get
+            {
+                return (RadNumericBox)this.Owner;
+            }
+        }
+
+        /// <summary>
+        /// Sets the value of the control.
+        /// </summary>
+        public void SetValue(double value)
+        {
+            if (!this.IsEnabled())
+            {
+                throw new ElementNotEnabledException();
+            }
+
+            RadNumericBox owner = (RadNumericBox)this.Owner;
+            if ((value < owner.Minimum) || (value > owner.Maximum))
+            {
+                throw new ArgumentOutOfRangeException("value");
+            }
+            owner.Value = value;
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        internal void RaiseMaximumPropertyChangedEvent(double oldValue, double newValue)
+        {
+            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MaximumProperty, oldValue, newValue);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        internal void RaiseMinimumPropertyChangedEvent(double oldValue, double newValue)
+        {
+            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MinimumProperty, oldValue, newValue);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        internal void RaiseValuePropertyChangedEvent(double? oldValue, double? newValue)
+        {
+            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, oldValue, newValue);
+        }
+
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.RangeValue)
@@ -146,11 +180,15 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             var numericBox = this.Owner as RadNumericBox;
             if (numericBox != null && !string.IsNullOrEmpty(numericBox.Name))
+            {
                 return numericBox.Name;
+            }
 
             return string.Empty;
         }
@@ -166,50 +204,13 @@ namespace Telerik.UI.Automation.Peers
         {
             return "rad numeric box";
         }
-
-        /// <summary>
-        /// Sets the value of the control.
-        /// </summary>
-        /// <param name="value">Sets the value of the control.</param>
-        public void SetValue(double value)
-        {
-            if (!this.IsEnabled())
-            {
-                throw new ElementNotEnabledException();
-            }
-
-            RadNumericBox owner = (RadNumericBox)this.Owner;
-            if ((value < owner.Minimum) || (value > owner.Maximum))
-            {
-                throw new ArgumentOutOfRangeException("value");
-            }
-            owner.Value = value;
-        }
-
+        
         /// <summary>
         /// Called by GetClickablePoint.
         /// </summary>
         protected override Point GetClickablePointCore()
         {
             return new Point(double.NaN, double.NaN);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        internal void RaiseMaximumPropertyChangedEvent(double oldValue, double newValue)
-        {
-            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MaximumProperty, oldValue, newValue);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        internal void RaiseMinimumPropertyChangedEvent(double oldValue, double newValue)
-        {
-            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MinimumProperty, oldValue, newValue);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        internal void RaiseValuePropertyChangedEvent(double? oldValue, double? newValue)
-        {
-            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, oldValue, newValue);
         }
     }
 }

@@ -89,25 +89,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// </summary>
         public static readonly DependencyProperty TapOutsideToCloseProperty =
             DependencyProperty.Register(nameof(TapOutsideToClose), typeof(bool), typeof(RadSideDrawer), new PropertyMetadata(true));
-
-        /// <summary>
-        /// Identifies the <see cref="IsOpen"/> dependency property.
-        /// </summary>
-        internal static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RadSideDrawer), new PropertyMetadata(false, OnIsOpenChanged));
-
-        /// <summary>
-        /// Identifies the <see cref="DrawerClip"/> dependency property.
-        /// </summary>
-        private static readonly DependencyProperty DrawerClipProperty =
-            DependencyProperty.Register(nameof(DrawerClip), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnDrawerClipChanged));
-
-        /// <summary>
-        /// Identifies the <see cref="AnimationClip"/> dependency property.
-        /// </summary>
-        private static readonly DependencyProperty SlideoutSeekedAnimationClipProperty =
-            DependencyProperty.Register(nameof(SlideoutSeekedAnimationClip), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnSlideoutSeekedAnimationClipChanged));
-
+        
         /// <summary>
         /// Identifies the <see cref="DrawerLength"/> dependency property.
         /// </summary>
@@ -119,7 +101,28 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// </summary>
         public static readonly DependencyProperty DrawerTransitionFadeOpacityProperty =
             DependencyProperty.Register(nameof(DrawerTransitionFadeOpacity), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0.5, OnDrawerTransitionFadeOpacityChanged));
+        
+        /// <summary>
+        /// Identifies the <see cref="IsOpen"/> dependency property.
+        /// </summary>
+        internal static readonly DependencyProperty IsOpenProperty =
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RadSideDrawer), new PropertyMetadata(false, OnIsOpenChanged));
 
+        internal Grid drawer;
+
+        /// <summary>
+        /// Identifies the <see cref="DrawerClip"/> dependency property.
+        /// </summary>
+        private static readonly DependencyProperty DrawerClipProperty =
+            DependencyProperty.Register(nameof(DrawerClip), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnDrawerClipChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="SlideoutSeekedAnimationClip"/> dependency property.
+        /// </summary>
+        private static readonly DependencyProperty SlideoutSeekedAnimationClipProperty =
+            DependencyProperty.Register(nameof(SlideoutSeekedAnimationClip), typeof(double), typeof(RadSideDrawer), new PropertyMetadata(0d, OnSlideoutSeekedAnimationClipChanged));
+
+        private static double swipeAreaDefaultLength = 20d;
         private Button showDrawerButton;
         private Border swipeAreaElement;
         private Canvas sideDrawerRoot;
@@ -129,10 +132,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         private bool isAnimationUpdateScheduled;
         private bool closeDrawer = true;
         private bool openInitially = false;
-        private static double swipeAreaDefaultLength = 20d;
-
-        internal Grid drawer;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="RadSideDrawer"/> class.
         /// </summary>
@@ -151,7 +151,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         public double DrawerLength
         {
             get { return (double)GetValue(DrawerLengthProperty); }
-            set { SetValue(DrawerLengthProperty, value); }
+            set { this.SetValue(DrawerLengthProperty, value); }
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         public double DrawerTransitionFadeOpacity
         {
             get { return (double)GetValue(DrawerTransitionFadeOpacityProperty); }
-            set { SetValue(DrawerTransitionFadeOpacityProperty, value); }
+            set { this.SetValue(DrawerTransitionFadeOpacityProperty, value); }
         }
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// </summary>
         public void ShowDrawer()
         {
-            if(!this.IsTemplateApplied || !this.Context.IsGenerated)
+            if (!this.IsTemplateApplied || !this.Context.IsGenerated)
             {
                 this.openInitially = true;
                 return;
@@ -458,7 +458,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 }
             }
 
-            //Workaround the missing previewpointerpressed in case this action is called to open the drawer from button inside main content
+            // Workaround the missing previewpointerpressed in case this action is called to open the drawer from button inside main content
             this.closeDrawer = false;
             this.InvokeAsync(() => this.closeDrawer = true);
         }
@@ -468,7 +468,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// </summary>
         public void HideDrawer()
         {
-            if(!this.IsTemplateApplied || !this.Context.IsGenerated)
+            if (!this.IsTemplateApplied || !this.Context.IsGenerated)
             {
                 this.openInitially = false;
                 return;
@@ -502,6 +502,23 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
                     this.IsOpen = false;
                 }
+            }
+        }
+
+        internal void ToggleDrawer()
+        {
+            if (this.IsOpen)
+            {
+                this.Context.MainContentStoryBoardReverse.Begin();
+                this.Context.DrawerStoryBoardReverse.Begin();
+                this.IsOpen = false;
+            }
+            else
+            {
+                this.Context.MainContentStoryBoard.Begin();
+                this.Context.DrawerStoryBoard.Begin();
+                this.IsOpen = true;
+                this.closeDrawer = false;
             }
         }
 
@@ -648,22 +665,19 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         {
             return new RadSideDrawerAutomationPeer(this);
         }
-
-        internal void ToggleDrawer()
+        
+        private static void OnDrawerTransitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (this.IsOpen)
+            var sideDrawer = d as RadSideDrawer;
+            if (sideDrawer.drawer != null)
             {
-                this.Context.MainContentStoryBoardReverse.Begin();
-                this.Context.DrawerStoryBoardReverse.Begin();
-                this.IsOpen = false;
+                sideDrawer.ResetDrawer();
             }
-            else
-            {
-                this.Context.MainContentStoryBoard.Begin();
-                this.Context.DrawerStoryBoard.Begin();
-                this.IsOpen = true;
-                this.closeDrawer = false;
-            }
+        }
+
+        private static void OnSlideoutSeekedAnimationClipChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as RadSideDrawer).drawer.Clip = new RectangleGeometry() { Rect = new Windows.Foundation.Rect(0, 0, 0, 0) };
         }
 
         private static void OnDrawerLengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -673,6 +687,37 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             if (sideDrawer.IsTemplateApplied)
             {
                 sideDrawer.InvalidateMeasure();
+            }
+        }
+
+        private static void OnDrawerStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var sideDrawer = d as RadSideDrawer;
+            var mainContent = sideDrawer.MainContent as FrameworkElement;
+
+            if (mainContent != null)
+            {
+                mainContent.IsHitTestVisible = (DrawerState)e.NewValue == DrawerState.Closed;
+            }
+
+            sideDrawer.CommandService.ExecuteCommand(CommandId.DrawerStateChanged, e.NewValue);
+
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+            {
+                var peer = FrameworkElementAutomationPeer.FromElement(sideDrawer) as RadSideDrawerAutomationPeer;
+                if (peer != null)
+                {
+                    peer.RaiseExpandCollapseAutomationEvent((DrawerState)e.OldValue, (DrawerState)e.NewValue);
+                }
+            }
+        }
+
+        private static void OnDrawerLocationChagned(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var sideDrawer = d as RadSideDrawer;
+            if (sideDrawer.drawer != null)
+            {
+                sideDrawer.ResetDrawer();
             }
         }
 
@@ -688,6 +733,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             if (sideDrawer.IsTemplateApplied)
             {
                 sideDrawer.InvalidateMeasure();
+            }
+        }
+        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var sideDrawer = d as RadSideDrawer;
+
+            if (sideDrawer.DrawerManipulationMode != DrawerManipulationMode.Button)
+            {
+                sideDrawer.SubscribeToManipulationEvents();
+
+                sideDrawer.UnSubscribeToManipulationEvents();
             }
         }
 
@@ -789,64 +845,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                     break;
             }
         }
-
-        private static void OnSlideoutSeekedAnimationClipChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            (d as RadSideDrawer).drawer.Clip = new RectangleGeometry() { Rect = new Windows.Foundation.Rect(0, 0, 0, 0) };
-        }
-
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var sideDrawer = d as RadSideDrawer;
-
-            if (sideDrawer.DrawerManipulationMode != DrawerManipulationMode.Button)
-            {
-                sideDrawer.SubscribeToManipulationEvents();
-
-                sideDrawer.UnSubscribeToManipulationEvents();
-            }
-        }
-
-        private static void OnDrawerTransitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var sideDrawer = d as RadSideDrawer;
-            if (sideDrawer.drawer != null)
-            {
-                sideDrawer.ResetDrawer();
-            }
-        }
-
-        private static void OnDrawerStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var sideDrawer = d as RadSideDrawer;
-            var mainContent = sideDrawer.MainContent as FrameworkElement;
-
-            if (mainContent != null)
-            {
-                mainContent.IsHitTestVisible = (DrawerState)e.NewValue == DrawerState.Closed;
-            }
-
-            sideDrawer.CommandService.ExecuteCommand(CommandId.DrawerStateChanged, e.NewValue);
-
-            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
-            {
-                var peer = FrameworkElementAutomationPeer.FromElement(sideDrawer) as RadSideDrawerAutomationPeer;
-                if (peer != null)
-                {
-                    peer.RaiseExpandCollapseAutomationEvent((DrawerState)e.OldValue, (DrawerState)e.NewValue);
-                }
-            }
-        }
-
-        private static void OnDrawerLocationChagned(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var sideDrawer = d as RadSideDrawer;
-            if (sideDrawer.drawer != null)
-            {
-                sideDrawer.ResetDrawer();
-            }
-        }
-
+        
         private void RadSideDrawer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.NewSize != e.PreviousSize)
@@ -866,12 +865,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                     this.Context.DrawerStoryBoard.Resume();
                 }
 
-                if(this.openInitially)
+                if (this.openInitially)
                 {
                     this.openInitially = false;
                     this.ShowDrawer();
                 }
-                //  initialPreparePending = false;
             }
         }
 

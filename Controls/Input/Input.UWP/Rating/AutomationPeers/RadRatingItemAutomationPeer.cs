@@ -11,6 +11,14 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadRatingItemAutomationPeer : RadContentControlAutomationPeer, IInvokeProvider
     {
+        /// <summary>
+        ///  Initializes a new instance of the RadRatingItemAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The RadRatingItem that is associated with this RadRatingItemAutomationPeer.</param>
+        public RadRatingItemAutomationPeer(RadRatingItem owner) : base(owner)
+        {
+        }
+
         private RadRatingItem RatingItem
         {
             get
@@ -20,21 +28,29 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        ///  Initializes a new instance of the RadRatingItemAutomationPeer class.
+        /// IInvokeProvider implementation.
         /// </summary>
-        /// <param name="owner">The RadRatingItem that is associated with this RadRatingItemAutomationPeer.</param>
-        public RadRatingItemAutomationPeer(RadRatingItem owner) : base(owner)
+        public void Invoke()
         {
-
+            RadRating rating = this.RatingItem.Owner;
+            RadRatingItem selectedRatingItem = rating.Items.LastOrDefault(item => rating.GetIndexOf(item) < rating.Value);
+            if (selectedRatingItem != null && selectedRatingItem == this.RatingItem)
+            {
+                this.RatingItem.Owner.Value = 0d;
+            }
+            else
+            {
+                this.RatingItem.Select();
+            }
         }
-        
-        /// <inheritdoc />	
+
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.Custom;
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.Invoke)
@@ -52,7 +68,9 @@ namespace Telerik.UI.Automation.Peers
         {
             string baseName = base.GetNameCore();
             if (!string.IsNullOrEmpty(baseName))
+            {
                 return baseName;
+            }
 
             int index = this.RatingItem.Owner.GetIndexOf(this.RatingItem);
             if (index != -1)
@@ -67,20 +85,6 @@ namespace Telerik.UI.Automation.Peers
         protected override string GetLocalizedControlTypeCore()
         {
             return "rad rating item";
-        }
-
-        public void Invoke()
-        {
-            RadRating rating = this.RatingItem.Owner;
-            RadRatingItem selectedRatingItem = rating.Items.LastOrDefault(item => rating.GetIndexOf(item) < rating.Value);
-            if (selectedRatingItem != null && selectedRatingItem == this.RatingItem)
-            {
-                this.RatingItem.Owner.Value = 0d;
-            }
-            else
-            {
-                this.RatingItem.Select();
-            }
         }
     }
 }

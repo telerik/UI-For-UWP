@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Windows.Foundation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -24,7 +22,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             this.Owner.ScrollViewer.Measure(availableSize);
 
-            //Hack to force measuring scrollviewer when available size grows.
+            // Hack to force measuring scrollviewer when available size grows.
             this.Owner.OnContentPanelMeasure(this.Owner.panelAvailableSize);
 
             if (this.Owner.AdornerHost != null)

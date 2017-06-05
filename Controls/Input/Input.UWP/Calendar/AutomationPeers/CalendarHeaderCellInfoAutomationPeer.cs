@@ -4,14 +4,12 @@ using Windows.UI.Xaml.Automation.Peers;
 namespace Telerik.UI.Automation.Peers
 {
     /// <summary>
-    /// AutomationPeer clas for RadCalendar header cells.
+    /// AutomationPeer class for RadCalendar header cells.
     /// </summary>
     public class CalendarHeaderCellInfoAutomationPeer : CalendarCellInfoBaseAutomationPeer
     {
         private string automationId;
-        internal CalendarHeaderCellModel HeaderCellModel { get; set; }
-
-        /// <summary>
+      
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarHeaderCellInfoAutomationPeer"/> class.
         /// </summary>
@@ -21,6 +19,8 @@ namespace Telerik.UI.Automation.Peers
         {
             this.HeaderCellModel = headerCellModel;
         }
+
+        internal CalendarHeaderCellModel HeaderCellModel { get; set; }
 
         /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
@@ -43,7 +43,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(CalendarHeaderCellModel);
+            return nameof(Telerik.UI.Xaml.Controls.Input.Calendar.CalendarHeaderCellModel);
         }
 
         /// <inheritdoc />

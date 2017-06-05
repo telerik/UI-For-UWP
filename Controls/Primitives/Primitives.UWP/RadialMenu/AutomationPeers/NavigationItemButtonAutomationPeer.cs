@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the NavigationItemButton class.
+    /// </summary>
     public class NavigationItemButtonAutomationPeer : RadControlAutomationPeer, IInvokeProvider
     {
         /// <summary>
@@ -23,12 +26,23 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        /// <inheritdoc/>
+        public void Invoke()
+        {
+            if (this.NavigationItemButton != null)
+            {
+                this.NavigationItemButton.ExecuteNavigation();
+            }
+        }
+
         /// <inheritdoc />
         protected override string GetNameCore()
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(NavigationItemButton);
         }
@@ -62,17 +76,6 @@ namespace Telerik.UI.Automation.Peers
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// IInvokeProvider implementation.
-        /// </summary>
-        public void Invoke()
-        {
-            if (this.NavigationItemButton != null)
-            {
-                this.NavigationItemButton.ExecuteNavigation();
-            }
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Telerik.UI.Xaml.Controls.Data
+﻿namespace Telerik.UI.Xaml.Controls.Data
 {
     /// <summary>
     /// Lists the possible item reordering directions when

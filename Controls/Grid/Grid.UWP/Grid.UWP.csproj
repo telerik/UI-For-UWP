@@ -202,6 +202,7 @@
     <Compile Include="View\Controls\Filtering\DataGridFilterComboBoxItem.cs" />
     <Compile Include="View\Controls\Filtering\DataGridFilterControlBase.cs" />
     <Compile Include="View\Controls\Filtering\DataGridFilteringFlyout.cs" />
+    <Compile Include="View\Controls\Filtering\DataGridFilterUICommand.cs" />
     <Compile Include="View\Controls\Filtering\DataGridNestedPropertyTextFilterControl.cs" />
     <Compile Include="View\Controls\Filtering\DataGridNumericalFilterControl.cs" />
     <Compile Include="View\Controls\Filtering\DataGridTextFilterControl.cs" />
@@ -482,4 +483,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="XamlGeneratedCodeWarningRemoved" AfterTargets="MarkupCompilePass2">
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning disable 1591 > %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do type %%f >> %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning restore 1591 >> %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do move /y %%f.temp %%f" />
+    <Message Text="Xaml Generated Code Warnings Removed: @(_GeneratedCodeFiles)" />
+  </Target>
 </Project>

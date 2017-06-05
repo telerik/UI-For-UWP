@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadRadialGauge"/>.
+    /// </summary>
     public class RadRadialGaugeAutomationPeer : RadGaugeAutomationPeer
     {
         /// <summary>
@@ -16,13 +19,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadRadialGauge);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.RadRadialGauge);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadRadialGauge);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.RadRadialGauge);
         }
 
         /// <inheritdoc />

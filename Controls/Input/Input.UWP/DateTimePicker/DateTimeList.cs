@@ -183,8 +183,8 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
         {
             int index = this.GetIndexFromCurrentValueForComponentType(this.componentType);
 
-            //Ensure that list is with valid count when swithcing between months with diferent number of days.
-            if (this.IsTemplateApplied &&  this.itemsPanel.VisualCount > 0)
+            // Ensure that list is with valid count when swithcing between months with diferent number of days.
+            if (this.IsTemplateApplied && this.itemsPanel.VisualCount > 0)
             {
                 this.UpdateLogicalCount(false);
                 this.UpdateListWithStep();
@@ -438,6 +438,7 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
             this.DetachCharacterReceived();
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DateTimeListAutomationPeer(this);

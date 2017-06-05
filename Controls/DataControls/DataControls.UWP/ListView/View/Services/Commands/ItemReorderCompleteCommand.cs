@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Data.Core.Layouts;
-using Windows.Foundation;
-
-namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
+﻿namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 {
     /// <summary>
     /// Command that is executed when the dragging of a <see cref="RadListViewItem"/> element has ended.

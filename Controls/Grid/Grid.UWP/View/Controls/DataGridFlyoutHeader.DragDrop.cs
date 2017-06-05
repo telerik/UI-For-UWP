@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
     public partial class DataGridFlyoutHeader : IDragDropElement, IReorderItem
     {
-        internal event EventHandler<DragSurfaceRequestedEventArgs> DragSurfaceRequested;
-
         private bool skipHitTest;
         private ReorderItemsCoordinator reorderCoordinator;
         private int logicalIndex;
+
+        internal event EventHandler<DragSurfaceRequestedEventArgs> DragSurfaceRequested;
 
         bool IDragDropElement.SkipHitTest
         {
@@ -123,7 +118,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 var sourceHeader = this.reorderCoordinator.Host.ElementAt(data.CurrentSourceReorderIndex) as DataGridFlyoutHeader;
 
                 //// TODO: check CanStartReorder parameter
-                //var canReorder = this.ParentGrid.DragBehavior.CanReorder(sourceHeader.DataContext as GroupDescriptorBase, this.DataContext as GroupDescriptorBase);
+                ////var canReorder = this.ParentGrid.DragBehavior.CanReorder(sourceHeader.DataContext as GroupDescriptorBase, this.DataContext as GroupDescriptorBase);
                 var canReorder = this.CanReorder(sourceHeader.DataContext, this.DataContext);
 
                 if (canReorder)
@@ -162,16 +157,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.ParentGrid.DragBehavior.OnReorderStarted(this.DataContext as GroupDescriptorBase);
 
             return new DragStartingContext { DragVisual = dragVisual, Payload = payload, DragSurface = surface, HitTestStrategy = new ColumnHeaderHittestStrategy(this, surface.RootElement) };
-
-        }
-
-        protected virtual DataGridFlyoutHeader CreateHeader()
-        {
-            DataGridFlyoutGroupHeader header = new DataGridFlyoutGroupHeader();
-            header.Width = this.ActualWidth;
-            header.BottomGlyphOpacity = 0.0;
-            header.OuterBorderVisibility = Visibility.Visible;
-            return header;
         }
 
         void IDragDropElement.OnDragDropComplete(DragCompleteContext dragContext)
@@ -206,6 +191,28 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        internal virtual bool CanStartDrag(DragDropTrigger trigger, object initializeContext)
+        {
+            return false;
+        }
+
+        internal virtual bool CanReorder(object sourceContext, object context)
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="DataGridFlyoutGroupHeader"/>.
+        /// </summary>
+        protected virtual DataGridFlyoutHeader CreateHeader()
+        {
+            DataGridFlyoutGroupHeader header = new DataGridFlyoutGroupHeader();
+            header.Width = this.ActualWidth;
+            header.BottomGlyphOpacity = 0.0;
+            header.OuterBorderVisibility = Visibility.Visible;
+            return header;
+        }
+
         private IDragSurface OnDragSurfaceRequested()
         {
             var args = new DragSurfaceRequestedEventArgs();
@@ -216,16 +223,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
 
             return args.DragSurface;
-        }
-
-        internal virtual bool CanStartDrag(DragDropTrigger trigger, object initializeContext)
-        {
-            return false;
-        }
-
-        internal virtual bool CanReorder(object sourceContext, object context)
-        {
-            return false;
         }
     }
 }

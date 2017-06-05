@@ -53,6 +53,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         private Size lastValidArrangeSize = new Size(0, 0);
         private Thumb thumb;
         private double totalResizeDragDelta;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridColumnHeader" /> class.
         /// </summary>
@@ -106,6 +107,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 this.SetValue(ResizeHandleVisiblityProperty, value);
             }
         }
+
         /// <summary>
         /// Gets or sets the <see cref="SortDirection"/> value for the header. Typically this value is updated by the owning <see cref="DataGridColumn"/>.
         /// </summary>
@@ -201,6 +203,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             get;
             set;
         }
+
         /// <summary>
         /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
         /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
@@ -217,6 +220,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return applied;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DataGridColumnHeaderAutomationPeer(this);
@@ -254,7 +258,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 visualStates = "Filtered";
             }
 
-
             if (this.IsSelected)
             {
                 visualStates += RadControl.VisualStateDelimiter + "Selected";
@@ -291,7 +294,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.filterButton.Tapped += this.OnFilterButtonTapped;
             this.filterButton.Click += this.OnFilterButtonClicked;
 
-            this.thumb.PointerPressed += Thumb_PointerPressed;
+            this.thumb.PointerPressed += this.Thumb_PointerPressed;
             this.thumb.IsDoubleTapEnabled = true;
 
             this.thumb.DragStarted += this.Thumb_DragStarted;
@@ -299,7 +302,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.thumb.DragCompleted += this.Thumb_DragCompleted;
             this.thumb.Tapped += this.Thumb_Tapped;
             this.thumb.DoubleTapped += this.Thumb_DoubleTapped;
-
         }
 
         /// <inheritdoc/>
@@ -356,9 +358,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            totalResizeDragDelta += e.HorizontalChange;
+            this.totalResizeDragDelta += e.HorizontalChange;
 
-            this.Owner.DragBehavior.OnColumnResizing(this.Column, this.initialColumnResizeWidth, totalResizeDragDelta);
+            this.Owner.DragBehavior.OnColumnResizing(this.Column, this.initialColumnResizeWidth, this.totalResizeDragDelta);
         }
 
         private void Thumb_DragStarted(object sender, DragStartedEventArgs e)

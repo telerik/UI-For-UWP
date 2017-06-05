@@ -13,26 +13,17 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadListViewAutomationPeer : RadControlAutomationPeer, ISelectionProvider
     {
-        private RadListView ListViewOwner
-        {
-            get
-            {
-                return (RadListView)this.Owner;
-            }
-        }
-
         /// <summary>
         ///  Initializes a new instance of the <see cref="RadListViewAutomationPeer"/> class.
         /// </summary>
         /// <param name="owner">The <see cref="RadListView"/> that is associated with this <see cref="RadListViewAutomationPeer"/>.</param>
-        public RadListViewAutomationPeer(RadListView owner) 
+        public RadListViewAutomationPeer(RadListView owner)
             : base(owner)
         {
-
         }
 
         /// <summary>
-        ///  Gets a value that specifies whether the UI Automation provider allows more than one child element to be selected concurrently.
+        /// Gets a value indicating whether that specifies whether the UI Automation provider allows more than one child element to be selected concurrently.
         /// </summary>
         public bool CanSelectMultiple
         {
@@ -44,13 +35,21 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Gets a value that specifies whether the UI Automation provider requires at least one child element to be selected.
+        /// Gets a value indicating whether that specifies whether the UI Automation provider requires at least one child element to be selected.
         /// </summary>
         public bool IsSelectionRequired
         {
             get
             {
                 return false;
+            }
+        }
+
+        private RadListView ListViewOwner
+        {
+            get
+            {
+                return (RadListView)this.Owner;
             }
         }
 
@@ -65,7 +64,9 @@ namespace Telerik.UI.Automation.Peers
             {
                 ItemInfo? info = this.ListViewOwner.Model.FindItemInfo(selected);
                 if (!info.HasValue)
+                {
                     continue;
+                }
 
                 GeneratedItemModel generatedModel = this.ListViewOwner.Model.GetDisplayedElement(info.Value.Slot, info.Value.Id);
                 RadListViewItem container = null;
@@ -74,19 +75,21 @@ namespace Telerik.UI.Automation.Peers
                     container = generatedModel.Container as RadListViewItem;
                 }
                 if (container == null)
+                {
                     continue;
-                
+                }
+
                 AutomationPeer itemPeer = (RadListViewItemAutomationPeer)FrameworkElementAutomationPeer.CreatePeerForElement(container);
                 if (itemPeer != null)
                 {
                     providerSamples.Add(this.ProviderFromPeer(itemPeer));
-                }                
+                }
             }
 
             return providerSamples.ToArray();
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.Selection)
@@ -96,7 +99,7 @@ namespace Telerik.UI.Automation.Peers
             return base.GetPatternCore(patternInterface);
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override IList<AutomationPeer> GetChildrenCore()
         {
             List<AutomationPeer> childPeers = new List<AutomationPeer>();
@@ -104,19 +107,21 @@ namespace Telerik.UI.Automation.Peers
             foreach (GeneratedItemModel itemModel in this.ListViewOwner.Model.ForEachDisplayedElement())
             {
                 if (itemModel.Container == null)
+                {
                     continue;
+                }
 
                 RadListViewItem listItem = itemModel.Container as RadListViewItem;
                 if (listItem != null)
                 {
                     var peer = CreatePeerForElement(listItem);
                     childPeers.Add(peer);
-                }              
+                }
             }
             return childPeers;
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.List;

@@ -31,10 +31,10 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
         {
             this.owner.AnimatingService.PlaySourceResetAnimation((item) =>
                 {
-                     this.model.ProcessPendingCollectionChange();
+                    this.model.ProcessPendingCollectionChange();
                 });
         }
-    
+
         internal void HandleItemRemoved(IList changedItems)
         {
             this.owner.AnimatingService.PlayItemRemovedAnimation(
@@ -69,7 +69,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             {
                 this.owner.AnimatingService.PlayItemAddedAnimations((item) =>
                     {
-                         this.strategy.RecycleAnimatedDecorator((GeneratedItemModel)item);
+                        this.strategy.RecycleAnimatedDecorator((GeneratedItemModel)item);
                     });
             }
         }

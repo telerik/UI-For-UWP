@@ -18,7 +18,7 @@ namespace Telerik.Data.Core
         private IList<object> internalList;
         private WeakEventHandler<IVectorChangedEventArgs> collectionChangedEventHandler;
         private WeakEventHandlerList<PropertyChangedEventArgs> propertyChangedEventHandler;
-        private WeakEventHandler<Object> currentItemChangedEventHandler;
+        private WeakEventHandler<object> currentItemChangedEventHandler;
         private ICollectionView source;
         private List<Tuple<object, NotifyCollectionChangedEventArgs>> pendingCollectionChanges = new List<Tuple<object, NotifyCollectionChangedEventArgs>>();
 
@@ -38,7 +38,7 @@ namespace Telerik.Data.Core
                 this.collectionChangedEventHandler = new WeakEventHandler<IVectorChangedEventArgs>(iov, this, KnownEvents.VectorChanged);
             }
 
-            this.currentItemChangedEventHandler = new WeakEventHandler<Object>(collectionView, this, KnownEvents.CurrentItemChanged);
+            this.currentItemChangedEventHandler = new WeakEventHandler<object>(collectionView, this, KnownEvents.CurrentItemChanged);
 
             this.propertyChangedEventHandler = new WeakEventHandlerList<PropertyChangedEventArgs>(this, KnownEvents.PropertyChanged);
 
@@ -97,20 +97,20 @@ namespace Telerik.Data.Core
         }
 
         public IBatchLoadingProvider BatchDataProvider { get; private set; }
-
-        protected virtual IList<object> ListStorage
-        {
-            get
-            {
-                return this.internalList;
-            }
-        }
-
+        
         public List<Tuple<object, int, int>> SourceGroups
         {
             get
             {
                 return this.sourceGroups;
+            }
+        }
+
+        protected IList<object> ListStorage
+        {
+            get
+            {
+                return this.internalList;
             }
         }
 
@@ -136,6 +136,11 @@ namespace Telerik.Data.Core
             this.propertyChangedEventHandler = null;
         }
 
+        public void ChangeCurrentItem(object item)
+        {
+            this.source.MoveCurrentTo(item);
+        }
+        
         void IWeakEventListener.ReceiveEvent(object sender, object args)
         {
             NotifyCurrentItemChangedEventArgs currentItemChangedArgs = args as NotifyCurrentItemChangedEventArgs;
@@ -190,6 +195,22 @@ namespace Telerik.Data.Core
                     }
                 }
             }
+        }
+
+        object IDataSourceView.GetGroupKey(object item, int level)
+        {
+            if (this.source != null && this.source.CollectionGroups != null && level == 0)
+            {
+                foreach (ICollectionViewGroup group in this.source.CollectionGroups)
+                {
+                    if (group.GroupItems.Contains(item))
+                    {
+                        return group.Group;
+                    }
+                }
+            }
+
+            return null;
         }
 
         private void InitializeBatchDataLoader(ISupportIncrementalLoading supportIncrementalLoading)
@@ -331,27 +352,6 @@ namespace Telerik.Data.Core
             {
                 this.propertyChangedEventHandler.Unsubscribe(item);
             }
-        }
-
-        public void ChangeCurrentItem(object item)
-        {
-            this.source.MoveCurrentTo(item);
-        }
-
-        object IDataSourceView.GetGroupKey(object item, int level)
-        {
-            if (this.source != null && this.source.CollectionGroups != null && level == 0)
-            {
-                foreach (ICollectionViewGroup group in this.source.CollectionGroups)
-                {
-                    if (group.GroupItems.Contains(item))
-                    {
-                        return group.Group;
-                    }
-                }
-            }
-
-            return null;
         }
     }
 }

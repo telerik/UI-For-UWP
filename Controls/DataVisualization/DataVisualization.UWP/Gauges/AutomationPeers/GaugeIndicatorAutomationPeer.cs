@@ -5,16 +5,20 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="GaugeIndicator"/>.
+    /// </summary>
     public class GaugeIndicatorAutomationPeer : RadControlAutomationPeer, IValueProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the GaugeIndicatorAutomationPeer class.
+        /// </summary>
         public GaugeIndicatorAutomationPeer(GaugeIndicator owner) 
             : base(owner)
         {
         }
 
-        /// <summary>
-        /// IValueProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         public bool IsReadOnly
         {
             get
@@ -23,9 +27,7 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// IValueProvider implementation.
-        /// </summary>
+        /// <inheritdoc />
         public string Value
         {
             get
@@ -54,16 +56,22 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseValueChangedAutomationEvent(string oldValue, string newValue)
+        {
+            this.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue, newValue);
+        }
+
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(GaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.GaugeIndicator);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(GaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.GaugeIndicator);
         }
 
         /// <inheritdoc />
@@ -80,12 +88,6 @@ namespace Telerik.UI.Automation.Peers
                 return this;
             }
             return base.GetPatternCore(patternInterface);
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseValueChangedAutomationEvent(string oldValue, string newValue)
-        {
-            this.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue, newValue);
         }
     }
 }

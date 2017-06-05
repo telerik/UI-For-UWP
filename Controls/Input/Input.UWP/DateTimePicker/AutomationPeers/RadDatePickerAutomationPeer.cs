@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadDatePicker class.
+    /// </summary>
     public class RadDatePickerAutomationPeer : DateTimePickerAutomationPeer
     {
         /// <summary>

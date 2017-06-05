@@ -268,6 +268,146 @@ namespace Telerik.UI.Xaml.Controls.Input
             return remainder;
         }
 
+        internal DateTime GetDateTimeValueWithDateStepApplied(DateTime utcValue)
+        {
+            utcValue = this.CoerceDateTime(utcValue);
+            var calendar = this.currentCalendar.Clone();
+            calendar.SetDateTime(utcValue);
+
+            var minYear = this.minCalendarWithStep.Year;
+            var maxYear = this.maxCalendarWithStep.Year;
+
+            var yearStep = this.GetStepForComponentType(DateTimeComponentType.Year);
+            var monthStep = this.GetStepForComponentType(DateTimeComponentType.Month);
+            var dayStep = this.GetStepForComponentType(DateTimeComponentType.Day);
+
+            var yearRemainder = this.GetStepRemainderForComponent(calendar.Year, calendar.FirstYearInThisEra, this.YearStepBehavior, yearStep);
+            var currentYear = calendar.Year - yearRemainder;
+
+            // construct valid starting year
+            if (currentYear < minYear)
+            {
+                currentYear += yearStep;
+                if (currentYear > maxYear)
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+
+            // keep the start calendar
+            var startCalendar = calendar.Clone();
+            startCalendar.AddYears(currentYear - startCalendar.Year);
+
+            while (currentYear >= minYear)
+            {
+                var yearUpdate = currentYear - calendar.Year;
+                calendar.AddYears(currentYear - calendar.Year);
+                if (yearUpdate < 0)
+                {
+                    // go to previous year => reset month & day to max
+                    calendar.Month = calendar.LastMonthInThisYear;
+                    calendar.Day = calendar.LastDayInThisMonth;
+                }
+
+                if (this.FindValidMonth(calendar, monthStep, dayStep))
+                {
+                    return calendar.GetUtcDateTime();
+                }
+
+                currentYear -= yearStep;
+            }
+
+            calendar = startCalendar.Clone();
+            currentYear = calendar.Year;
+
+            while (currentYear <= maxYear)
+            {
+                var yearUpdate = currentYear - calendar.Year;
+                calendar.AddYears(currentYear - calendar.Year);
+                if (yearUpdate > 0)
+                {
+                    // go to previous year => reset month & day to max
+                    calendar.Month = calendar.FirstMonthInThisYear;
+                    calendar.Day = calendar.FirstDayInThisMonth;
+                }
+
+                if (this.FindValidMonth(calendar, monthStep, dayStep))
+                {
+                    return calendar.GetUtcDateTime();
+                }
+
+                currentYear += yearStep;
+            }
+
+            // TO DO: what to do here?
+            throw new InvalidOperationException();
+        }
+
+        internal DateTime GetDateTimeValueWithTimeStepApplied(DateTime utcValue)
+        {
+            utcValue = this.CoerceDateTime(utcValue);
+            var calendar = this.currentCalendar.Clone();
+            calendar.SetDateTime(utcValue);
+
+            var hourStep = this.GetStepForComponentType(DateTimeComponentType.Hour);
+            var minuteStep = this.GetStepForComponentType(DateTimeComponentType.Minute);
+
+            var isMinDate = calendar.Year == this.minCalendarWithStep.Year && calendar.Month == this.minCalendarWithStep.Month && calendar.Day == this.minCalendarWithStep.Day;
+            var isMaxDate = calendar.Year == this.maxCalendarWithStep.Year && calendar.Month == this.maxCalendarWithStep.Month && calendar.Day == this.maxCalendarWithStep.Day;
+
+            var minPeriod = isMinDate ? this.minCalendarWithStep.Period : calendar.FirstPeriodInThisDay;
+            var maxPeriod = isMaxDate ? this.maxCalendarWithStep.Period : calendar.LastPeriodInThisDay;
+
+            var currentPeriod = calendar.Period;
+
+            // keep the start calendar
+            var startCalendar = calendar.Clone();
+
+            while (currentPeriod >= minPeriod)
+            {
+                var periodUpdate = currentPeriod - calendar.Period;
+                calendar.AddPeriods(currentPeriod - calendar.Period);
+                if (periodUpdate < 0)
+                {
+                    // go to previous period => reset hours & minutes to max
+                    calendar.Hour = calendar.LastHourInThisPeriod;
+                    calendar.Minute = calendar.LastMinuteInThisHour;
+                }
+
+                if (this.FindValidHour(calendar, hourStep, minuteStep, isMinDate, isMaxDate))
+                {
+                    return calendar.GetUtcDateTime();
+                }
+
+                currentPeriod--;
+            }
+
+            calendar = startCalendar;
+            currentPeriod = calendar.Period;
+
+            while (currentPeriod <= maxPeriod)
+            {
+                var periodsUpdate = currentPeriod - calendar.Period;
+                calendar.AddPeriods(periodsUpdate);
+
+                if (periodsUpdate > 0)
+                {
+                    // go to next period => reset hours & minutes to min
+                    calendar.Hour = this.minCalendarWithStep.FirstHourInThisPeriod;
+                    calendar.Minute = this.minCalendarWithStep.FirstMinuteInThisHour;
+                }
+
+                if (this.FindValidHour(calendar, hourStep, minuteStep, isMinDate, isMaxDate))
+                {
+                    return calendar.GetUtcDateTime();
+                }
+
+                currentPeriod++;
+            }
+
+            throw new InvalidOperationException("No valid date found.");
+        }
+
         internal DateTime CoerceDateTimeWithStep(int logicalIndexBasedOnBehavior, DateTimeComponentType componentType, DateTime value)
         {
             if (this.minCalendarWithStep.CompareDateTime(value) == 1)
@@ -675,74 +815,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         #endregion
-
-        #region FindValidValueWithTimeStepApplied
-
-        internal DateTime GetDateTimeValueWithTimeStepApplied(DateTime utcValue)
-        {
-            utcValue = this.CoerceDateTime(utcValue);
-            var calendar = this.currentCalendar.Clone();
-            calendar.SetDateTime(utcValue);
-
-            var hourStep = this.GetStepForComponentType(DateTimeComponentType.Hour);
-            var minuteStep = this.GetStepForComponentType(DateTimeComponentType.Minute);
-
-            var isMinDate = calendar.Year == this.minCalendarWithStep.Year && calendar.Month == this.minCalendarWithStep.Month && calendar.Day == this.minCalendarWithStep.Day;
-            var isMaxDate = calendar.Year == this.maxCalendarWithStep.Year && calendar.Month == this.maxCalendarWithStep.Month && calendar.Day == this.maxCalendarWithStep.Day;
-
-            var minPeriod = isMinDate ? this.minCalendarWithStep.Period : calendar.FirstPeriodInThisDay;
-            var maxPeriod = isMaxDate ? this.maxCalendarWithStep.Period : calendar.LastPeriodInThisDay;
-
-            var currentPeriod = calendar.Period;
-
-            // keep the start calendar
-            var startCalendar = calendar.Clone();
-
-            while (currentPeriod >= minPeriod)
-            {
-                var periodUpdate = currentPeriod - calendar.Period;
-                calendar.AddPeriods(currentPeriod - calendar.Period);
-                if (periodUpdate < 0)
-                {
-                    // go to previous period => reset hours & minutes to max
-                    calendar.Hour = calendar.LastHourInThisPeriod;
-                    calendar.Minute = calendar.LastMinuteInThisHour;
-                }
-
-                if (this.FindValidHour(calendar, hourStep, minuteStep, isMinDate, isMaxDate))
-                {
-                    return calendar.GetUtcDateTime();
-                }
-
-                currentPeriod--;
-            }
-
-            calendar = startCalendar;
-            currentPeriod = calendar.Period;
-
-            while (currentPeriod <= maxPeriod)
-            {
-                var periodsUpdate = currentPeriod - calendar.Period;
-                calendar.AddPeriods(periodsUpdate);
-
-                if (periodsUpdate > 0)
-                {
-                    // go to next period => reset hours & minutes to min
-                    calendar.Hour = this.minCalendarWithStep.FirstHourInThisPeriod;
-                    calendar.Minute = this.minCalendarWithStep.FirstMinuteInThisHour;
-                }
-
-                if (this.FindValidHour(calendar, hourStep, minuteStep, isMinDate, isMaxDate))
-                {
-                    return calendar.GetUtcDateTime();
-                }
-
-                currentPeriod++;
-            }
-
-            throw new InvalidOperationException("No valid date found.");
-        }
-
+        
         private bool FindValidHour(Windows.Globalization.Calendar calendar, int hourStep, int minuteStep, bool isMinDate, bool isMaxDate)
         {
             var clock = calendar.GetClock();
@@ -831,8 +904,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             calendar.Minute = currentMinute;
             return true;
         }
-
-        #endregion
 
         #region ApplyDateStepToMin
 
@@ -1024,81 +1095,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         #endregion
 
         #region FindValidValueWithDateStepApplied
-
-        internal DateTime GetDateTimeValueWithDateStepApplied(DateTime utcValue)
-        {
-            utcValue = this.CoerceDateTime(utcValue);
-            var calendar = this.currentCalendar.Clone();
-            calendar.SetDateTime(utcValue);
-
-            var minYear = this.minCalendarWithStep.Year;
-            var maxYear = this.maxCalendarWithStep.Year;
-
-            var yearStep = this.GetStepForComponentType(DateTimeComponentType.Year);
-            var monthStep = this.GetStepForComponentType(DateTimeComponentType.Month);
-            var dayStep = this.GetStepForComponentType(DateTimeComponentType.Day);
-
-            var yearRemainder = this.GetStepRemainderForComponent(calendar.Year, calendar.FirstYearInThisEra, this.YearStepBehavior, yearStep);
-            var currentYear = calendar.Year - yearRemainder;
-
-            // construct valid starting year
-            if (currentYear < minYear)
-            {
-                currentYear += yearStep;
-                if (currentYear > maxYear)
-                {
-                    throw new InvalidOperationException();
-                }
-            }
-
-            // keep the start calendar
-            var startCalendar = calendar.Clone();
-            startCalendar.AddYears(currentYear - startCalendar.Year);
-
-            while (currentYear >= minYear)
-            {
-                var yearUpdate = currentYear - calendar.Year;
-                calendar.AddYears(currentYear - calendar.Year);
-                if (yearUpdate < 0)
-                {
-                    // go to previous year => reset month & day to max
-                    calendar.Month = calendar.LastMonthInThisYear;
-                    calendar.Day = calendar.LastDayInThisMonth;
-                }
-
-                if (this.FindValidMonth(calendar, monthStep, dayStep))
-                {
-                    return calendar.GetUtcDateTime();
-                }
-
-                currentYear -= yearStep;
-            }
-
-            calendar = startCalendar.Clone();
-            currentYear = calendar.Year;
-
-            while (currentYear <= maxYear)
-            {
-                var yearUpdate = currentYear - calendar.Year;
-                calendar.AddYears(currentYear - calendar.Year);
-                if (yearUpdate > 0)
-                {
-                    // go to previous year => reset month & day to max
-                    calendar.Month = calendar.FirstMonthInThisYear;
-                    calendar.Day = calendar.FirstDayInThisMonth;
-                }
-
-                if (this.FindValidMonth(calendar, monthStep, dayStep))
-                {
-                    return calendar.GetUtcDateTime();
-                }
-
-                currentYear += yearStep;
-            }
-
-            // TO DO: what to do here?
-            throw new InvalidOperationException();
-        }
 
         private bool FindValidMonth(Windows.Globalization.Calendar calendar, int monthStep, int dayStep)
         {

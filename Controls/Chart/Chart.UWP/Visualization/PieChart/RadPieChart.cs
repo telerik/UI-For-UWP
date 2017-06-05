@@ -90,6 +90,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return this.pieArea;
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadPieChartAutomationPeer(this);

@@ -15,7 +15,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.CheckBoxesVisible = checkBoxesVisible;
         }
 
-         /// <summary>
+        /// <summary>
         /// Initializes a new instance of the <see cref="IsCheckModeActiveChangedEventArgs"/> class.
         /// </summary>
         /// <param name="checkBoxesVisible">True if the check mode is about to be activated. False otherwise.</param>

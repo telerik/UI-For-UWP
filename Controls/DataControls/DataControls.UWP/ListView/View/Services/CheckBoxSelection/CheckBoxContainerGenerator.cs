@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Data.Core.Layouts;
+﻿using Telerik.Data.Core.Layouts;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,7 +7,8 @@ namespace Telerik.UI.Xaml.Controls.Data
 {
     internal class CheckBoxesContainerGenerator : IUIContainerGenerator<GeneratedItemModel, ItemInfo>
     {
-         private ListViewItemCheckBoxService owner;
+        private ListViewItemCheckBoxService owner;
+
         internal CheckBoxesContainerGenerator(ListViewItemCheckBoxService owner)
         {
             this.owner = owner;

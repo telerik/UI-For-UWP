@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Telerik.Data.Core.Layouts;
+﻿using System.Collections.Generic;
 
 namespace Telerik.UI.Xaml.Controls.Data.ContainerGeneration
 {

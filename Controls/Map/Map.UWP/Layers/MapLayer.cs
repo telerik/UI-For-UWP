@@ -29,7 +29,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Shapefile Layers expose an ID property for logical separation of all the shapes that reside within one D2DCanvas instance.
+        /// Gets an ID property for logical separation of all the shapes that reside within one D2DCanvas instance.
         /// </summary>
         internal virtual int Id
         {

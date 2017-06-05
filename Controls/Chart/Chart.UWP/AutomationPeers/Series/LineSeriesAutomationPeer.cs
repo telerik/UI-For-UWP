@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="LineSeries"/>.
+    /// </summary>
     public class LineSeriesAutomationPeer : ChartSeriesAutomationPeer
     {
         /// <summary>
@@ -15,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(LineSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.LineSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(LineSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.LineSeries);
         }
 
         /// <inheritdoc />

@@ -19,10 +19,6 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-
-#if WINDOWS_PHONE_APP
-             return Visibility.Visible;
-#endif
             DateTimePickerDisplayMode displayMode = (DateTimePickerDisplayMode)value;
             if (displayMode == this.VisibleDisplayMode)
             {

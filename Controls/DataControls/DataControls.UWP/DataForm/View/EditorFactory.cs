@@ -4,28 +4,71 @@ using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
-
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Represents an EditorFactory class used for editors creation.
+    /// </summary>
     public class EditorFactory
     {
-        public bool RestrictEditableControls { get; internal set; }
-
-        public EditorFactory()
-        {
-            this.RegisterDefaultEditors();
-            this.RegisterDefaultViews();
-        }
-
         internal Dictionary<Type, Type> defaultEditorTypeRegistry = new Dictionary<Type, Type>();
         internal Dictionary<Type, Type> defaultViewTypeRegistry = new Dictionary<Type, Type>();
         internal Dictionary<Type, Type> editorTypeRegistry = new Dictionary<Type, Type>();
         internal Dictionary<string, Type> editorPropertyRegistry = new Dictionary<string, Type>();
         internal Dictionary<Type, Type> viewTypeRegistry = new Dictionary<Type, Type>();
         internal Dictionary<string, Type> viewPropertyRegistry = new Dictionary<string, Type>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditorFactory"/> class.
+        /// </summary>
+        public EditorFactory()
+        {
+            this.RegisterDefaultEditors();
+            this.RegisterDefaultViews();
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether information if the editable controls are restricted.
+        /// </summary>
+        public bool RestrictEditableControls { get; internal set; }
+
+        /// <summary>
+        /// Method that generates <see cref="ITypeEditor"/> type of editor controls.
+        /// </summary>
+        public EntityPropertyControl CreateEditor(EntityProperty property)
+        {
+            EntityPropertyControl editor = this.GenerateContainerForEntityProperty(property);
+            var view = this.GenerateContainerForEditor(property);
+            if (view != null)
+            {
+                editor.View = view;
+                if ((view as ITypeEditor) != null)
+                {
+                    (view as ITypeEditor).BindEditor();
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            var label = this.GenerateContainerForLabel(property);
+            editor.Label = label;
+
+            var errorView = this.GenerateContainerForErrors(property);
+            editor.ErrorView = errorView;
+
+            var positiveMessageView = this.GenerateContainerForPositiveMessage(property);
+            editor.PositiveMessageView = positiveMessageView;
+
+            if (property.Label != null)
+            {
+                AutomationProperties.SetName(editor.View, property.Label);
+            }
+
+            return editor;
+        }
 
         internal void RegisterDefaultEditors()
         {
@@ -130,40 +173,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
-        public EntityPropertyControl CreateEditor(EntityProperty property)
-        {
-            EntityPropertyControl editor = this.GenerateContainerForEntityProperty(property);
-            var view = this.GenerateContainerForEditor(property);
-            if (view != null)
-            {
-                editor.View = view;
-                if ((view as ITypeEditor) != null)
-                {
-                    (view as ITypeEditor).BindEditor();
-                }
-            }
-            else
-            {
-                return null;
-            }
-
-            var label = this.GenerateContainerForLabel(property);
-            editor.Label = label;
-
-            var errorView = this.GenerateContainerForErrors(property);
-            editor.ErrorView = errorView;
-
-            var positiveMessageView = this.GenerateContainerForPositiveMessage(property);
-            editor.PositiveMessageView = positiveMessageView;
-
-            if (property.Label != null)
-            {
-                AutomationProperties.SetName(editor.View, property.Label);
-            }
-            
-            return editor;
-        }
-
+        /// <summary>
+        /// Method that generates a container for an editor by creating <see cref="PositiveMessageControl"/> control.
+        /// </summary>
         protected virtual FrameworkElement GenerateContainerForEditor(EntityProperty property)
         {
             Type editorType;
@@ -190,6 +202,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             return null;
         }
 
+        /// <summary>
+        /// Method that generates a container for a label by creating <see cref="PositiveMessageControl"/> control.
+        /// </summary>
         protected virtual FrameworkElement GenerateContainerForLabel(EntityProperty property)
         {
             if (property.Label != null)
@@ -200,16 +215,25 @@ namespace Telerik.UI.Xaml.Controls.Data
             return null;
         }
 
+        /// <summary>
+        /// Method that generates a container for errors by creating <see cref="ErrorsControl"/> control.
+        /// </summary>
         protected virtual FrameworkElement GenerateContainerForErrors(EntityProperty property)
         {
             return new ErrorsControl();
         }
 
+        /// <summary>
+        /// Method that generates a container for positive messages by creating <see cref="PositiveMessageControl"/> control.
+        /// </summary>
         protected virtual FrameworkElement GenerateContainerForPositiveMessage(EntityProperty property)
         {
             return new PositiveMessageControl();
         }
 
+        /// <summary>
+        /// Method that generates a container for an entity property by creating <see cref="EntityPropertyControl"/> control.
+        /// </summary>
         protected virtual EntityPropertyControl GenerateContainerForEntityProperty(EntityProperty property)
         {
             return new EntityPropertyControl();
@@ -237,7 +261,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     }
                 }
             }
-            
+
             return editorType;
         }
 

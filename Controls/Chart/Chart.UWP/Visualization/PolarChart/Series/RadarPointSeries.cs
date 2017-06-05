@@ -110,6 +110,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return new CategoricalSeriesDataSource();
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadarPointSeriesAutomationPeer(this);

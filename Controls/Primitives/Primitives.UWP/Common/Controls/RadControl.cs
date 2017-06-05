@@ -135,12 +135,7 @@ namespace Telerik.UI.Xaml.Controls
             var suppressionVariable = this.Dispatcher.RunAsync(priority, action);
             return true;
         }
-
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new Automation.Peers.RadControlAutomationPeer(this);
-        }
-
+        
         internal void ChangePropertyInternally(DependencyProperty property, object value)
         {
             this.internalPropertyChange++;
@@ -158,15 +153,7 @@ namespace Telerik.UI.Xaml.Controls
 
             return part;
         }
-
-        /// <summary>
-        /// Locks any visual state update. Useful when performing batch operations.
-        /// </summary>
-        protected internal void BeginVisualStateUpdate()
-        {
-            this.visualStateUpdateLock++;
-        }
-
+        
         /// <summary>
         /// Resumes visual state update and optionally re-evaluates the current visual state.
         /// </summary>
@@ -202,6 +189,20 @@ namespace Telerik.UI.Xaml.Controls
                 this.currentVisualState = state;
                 this.SetVisualState(state, animate);
             }
+        }
+
+        /// <summary>
+        /// Locks any visual state update. Useful when performing batch operations.
+        /// </summary>
+        protected internal void BeginVisualStateUpdate()
+        {
+            this.visualStateUpdateLock++;
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Automation.Peers.RadControlAutomationPeer(this);
         }
 
         /// <summary>

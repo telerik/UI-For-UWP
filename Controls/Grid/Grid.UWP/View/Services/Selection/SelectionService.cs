@@ -76,15 +76,17 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     dataGridPeer.GetChildren();
                 }
 
-                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == gridCellModel.ParentRow.ItemInfo.Slot && a.Column == gridCellModel.Column.ItemInfo.Slot).FirstOrDefault()as DataGridCellInfoAutomationPeer;
+                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == gridCellModel.ParentRow.ItemInfo.Slot && a.Column == gridCellModel.Column.ItemInfo.Slot).FirstOrDefault() as DataGridCellInfoAutomationPeer;
                 if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
                 {
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => 
-                    {
-                        cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
-                        cellPeer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementAddedToSelection);
-                        cellPeer.RaiseValuePropertyChangedEvent(false, true);
-                    });
+                    await Dispatcher.RunAsync(
+                        Windows.UI.Core.CoreDispatcherPriority.Normal,
+                        () => 
+                        {
+                            cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                            cellPeer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementAddedToSelection);
+                            cellPeer.RaiseValuePropertyChangedEvent(false, true);
+                        });
                 }
             }
 
@@ -323,7 +325,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private void UpdateSelectedItem()
         {
-            if(this.SelectedItems.Count > 0)
+            if (this.SelectedItems.Count > 0)
             {
                 if (this.Owner.SelectedItem == null || !this.SelectedItems.Contains(this.Owner.SelectedItem))
                 {

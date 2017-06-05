@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Telerik.UI.Xaml.Controls.Data.Common
 {
@@ -13,9 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Data.Common
     ///                 | /
     ///                 |/_________
     ///                     offset   D
-    ///                     
     /// In addition it translates the maxSwipeLength to stretchLimit (L) proportionally as MaxScrollStretch is the max stretch that scrollviewer can allow.
-    ///
     /// The function is calculated as following:
     ///   - swipeTheshold / 2 >= acceleratedOffset --> 2 * swipeTheshold/maxSwipeLength^2 * offset^2
     ///   - acceleratedOffset > swipeTheshold / 2 and  swipeTheshold > swipeTheshold --> swipeTheshold - 2 * swipeTheshold /maxSwipeLength^2 * (maxSwipeLength - offset) ^ 2.

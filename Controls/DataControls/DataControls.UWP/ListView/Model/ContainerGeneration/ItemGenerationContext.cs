@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Data.Core.Layouts;
+﻿using Telerik.Data.Core.Layouts;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 {

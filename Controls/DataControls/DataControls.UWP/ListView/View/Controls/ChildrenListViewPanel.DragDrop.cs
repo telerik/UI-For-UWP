@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
-using Telerik.UI.Xaml.Controls.Data.ListView.View.Controls;
+﻿using Telerik.UI.Xaml.Controls.Data.ListView.View.Controls;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
-using Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder;
-using Windows.Foundation;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView
 {

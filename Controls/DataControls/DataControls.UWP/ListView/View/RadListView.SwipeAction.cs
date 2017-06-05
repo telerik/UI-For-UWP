@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls.Data.ListView;
+﻿using Telerik.UI.Xaml.Controls.Data.ListView;
 using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Data
@@ -29,6 +26,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         private double itemSwipeThreshold = 40;
         private Thickness itemSwipeOffset = new Thickness(100);
 
+        /// <summary>
+        /// Gets or sets the item's swipe threshold.
+        /// </summary>
         public double ItemSwipeThreshold
         {
             get
@@ -44,6 +44,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the item's swipe offset.
+        /// </summary>
         public Thickness ItemSwipeOffset
         {
             get

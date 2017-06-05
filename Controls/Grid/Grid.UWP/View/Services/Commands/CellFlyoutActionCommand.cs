@@ -55,7 +55,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
                     flyoutContent.Style = textColumn.DefaultCellFlyoutContentStyle;
                 }
 
-
                 DataGridCellFlyoutControl container = new DataGridCellFlyoutControl();
                 container.DataContext = cell;
                 container.Child = flyoutContent;

@@ -292,10 +292,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 size = this.MeasureVertically(availableSize, offset, verticalBufferScale);
             }
 
-            lastValidState.Clear();
+            this.lastValidState.Clear();
             foreach (var item in this.generatedContainers.Values.SelectMany(c => c).Select(c => new { Slot = c.ItemInfo.Slot, LayoutRect = c.LayoutSlot }))
             {
-                lastValidState[item.Slot] = item.LayoutRect;
+                this.lastValidState[item.Slot] = item.LayoutRect;
             }
 
             return size;
@@ -679,7 +679,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 currentWidth = 0;
             }
 
-            if (GridModel.DoubleArithmetics.IsLessThan(currentWidth, width))
+            if (GridModel.DoubleArithmetics.IsLessThanOrEqual(currentWidth, width))
             {
                 this.columnWidth[level] = width;
             }
@@ -914,8 +914,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 return startGenerateIndex;
             }
-
-            //  var buffer = this.isHorizontal ? 0.0 : viewportLength / 2;
+            
             var buffer = this.isHorizontal ? 0.0 : viewportLength * context.BufferScale;
             var startBufferOffset = Math.Max(0, startOffset - buffer);
             var startIndex = Math.Min((int)this.Layout.IndexFromPhysicalOffset(startBufferOffset), startGenerateIndex);
@@ -945,7 +944,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private int GenerateBottomBufferItems(int startGenerateIndex, double viewportLength, MeasureContext context)
         {
-            //var buffer = this.isHorizontal ? 0.0 : viewportLength / 2;
             var buffer = this.isHorizontal ? 0.0 : viewportLength * context.BufferScale;
             var startIndex = startGenerateIndex + 1;
             var lastGeneratedIndex = startIndex;

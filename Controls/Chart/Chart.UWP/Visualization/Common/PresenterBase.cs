@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Charting;
 using Telerik.Core;
 using Windows.Foundation;
@@ -20,12 +21,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
     public abstract class PresenterBase : RadControl, IChartElementPresenter
     {
         /// <summary>
-        /// Represents a <see cref="Size"/> structure, which Width and Height members are set to double.PositiveInfinity.
+        /// Represents a <see cref="Windows.Foundation.Size(double, double)"/> structure, which Width and Height members are set to double.PositiveInfinity.
         /// </summary>
         public static readonly Size InfinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
         /// <summary>
-        /// Represents a <see cref="Point"/> structure, which Width and Height members are set to double.PositiveInfinity.
+        /// Represents a <see cref="Windows.Foundation.Point(double, double)"/> structure, which Width and Height members are set to double.PositiveInfinity.
         /// </summary>
         public static readonly Point InfinityPoint = new Point(double.PositiveInfinity, double.PositiveInfinity);
         
@@ -53,6 +54,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <remarks>
         /// This property supports the RadChart infrastructure and is not intended to be used directly from your code.
         /// </remarks>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IElementPresenter.IsVisible
         {
             get
@@ -105,6 +107,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Retrieves the desired size for the specified node's content.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         RadSize IElementPresenter.MeasureContent(object owner, object content)
         {
             if (content == null)
@@ -264,9 +267,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 // We can have custom Canvas and to skip the Width/Height setting
                 if (presenter.Width != layoutSlot.Width)
+                {
                     presenter.Width = layoutSlot.Width;
+                }
+                    
                 if (presenter.Height != layoutSlot.Height)
+                {
                     presenter.Height = layoutSlot.Height;
+                }
             }
         }
 

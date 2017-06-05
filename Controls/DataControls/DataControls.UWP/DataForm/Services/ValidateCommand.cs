@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Xaml.Controls.Data.DataForm.Commands
 {
+    /// <summary>
+    /// Represents a command that can perform a given action.
+    /// </summary>
     public class ValidateCommand : DataFormCommand
     {
         /// <summary>
@@ -9,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm.Commands
         /// </summary>
         public override bool CanExecute(object parameter)
         {
-             return this.Owner != null && parameter is EntityProperty;
+            return this.Owner != null && parameter is EntityProperty;
         }
 
         /// <summary>

@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public partial class RadListView
     {
         /// <summary>
@@ -62,7 +63,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
-         /// <summary>
+        /// <summary>
         /// Gets or sets the selection mode of the <see cref="RadListView"/>. The default value is <see cref="DataControlsSelectionMode.Single"/>.
         /// </summary>
         public DataControlsSelectionMode SelectionMode
@@ -119,11 +120,11 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         private static void OnSelectionModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {        
+        {
             var listView = d as RadListView;
             var newValue = (DataControlsSelectionMode)e.NewValue;
             var oldValue = (DataControlsSelectionMode)e.OldValue;
-            #if WINDOWS_PHONE_APP
+#if WINDOWS_PHONE_APP
             if (newValue == DataControlsSelectionMode.MultipleWithCheckBoxes)
             {
                 Windows.Phone.UI.Input.HardwareButtons.BackPressed += listView.HardwareButtons_BackPressed;
@@ -132,7 +133,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                  Windows.Phone.UI.Input.HardwareButtons.BackPressed -= listView.HardwareButtons_BackPressed;
             }
-            #endif
+#endif
 
             // Ensurance that itemscontrols bound to this property will not force incorrect refresh when the new and old value are same
             if (!oldValue.Equals(newValue))
@@ -141,21 +142,21 @@ namespace Telerik.UI.Xaml.Controls.Data
                 if (newValue == DataControlsSelectionMode.MultipleWithCheckBoxes)
                 {
                     listView.itemCheckBoxService.RefreshSelection();
-                    if(listView.IsCheckModeActive)
+                    if (listView.IsCheckModeActive)
                     {
                         listView.OnIsCheckModeActiveChanged(true);
-                    }                   
+                    }
                 }
                 if (oldValue == DataControlsSelectionMode.MultipleWithCheckBoxes && listView.IsCheckModeActive)
                 {
-                   listView.IsCheckModeActive = false;
-                   listView.OnIsCheckModeActiveChanged(false, true);
+                    listView.IsCheckModeActive = false;
+                    listView.OnIsCheckModeActiveChanged(false, true);
                 }
                 listView.updateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
             }
         }
 
-        #if WINDOWS_PHONE_APP
+#if WINDOWS_PHONE_APP
                 private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
                 {
                     if (this.IsCheckModeActive)
@@ -164,7 +165,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         e.Handled = true;
                     } 
                 }
-        #endif
+#endif
 
         private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -116,7 +116,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Initiates a hit test on the specified <see cref="Point"/> location.
+        /// Initiates a hit test on the specified <see cref="Windows.Foundation.Point(double, double)"/> location.
         /// </summary>
         /// <remarks>
         /// The default <see cref="MapBehavior" /> logic returns only the top-most <see cref="D2DShape"/> from the <see cref="MapShapeLayer"/> that matches the specific behavior requirements; 
@@ -124,7 +124,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// manipulate all of them.
         /// </remarks>
         /// <param name="location">The location.</param>
-        /// <returns></returns>
         protected internal virtual IEnumerable<IMapShape> HitTest(Point location)
         {
             yield return this.map.HitTest(location);
@@ -133,7 +132,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.PointerEntered"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnPointerEntered(PointerRoutedEventArgs args)
         {
         }
@@ -141,7 +139,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.PointerMoved"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnPointerMoved(PointerRoutedEventArgs args)
         {
         }
@@ -149,7 +146,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.PointerExited"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnPointerExited(PointerRoutedEventArgs args)
         {
         }
@@ -157,7 +153,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.PointerPressed"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnPointerPressed(PointerRoutedEventArgs args)
         {
         }
@@ -165,7 +160,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.HoldCompleted"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnHoldCompleted(HoldingRoutedEventArgs args)
         {
         }
@@ -173,7 +167,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.HoldStarted"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnHoldStarted(HoldingRoutedEventArgs args)
         {
         }
@@ -181,7 +174,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.Tapped"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnTapped(TappedRoutedEventArgs args)
         {
         }
@@ -189,7 +181,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.DoubleTapped"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnDoubleTapped(DoubleTappedRoutedEventArgs args)
         {
         }
@@ -197,7 +188,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.ManipulationStarted"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnManipulationStarted(ManipulationStartedRoutedEventArgs args)
         {
         }
@@ -205,7 +195,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.ManipulationDelta"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnManipulationDelta(ManipulationDeltaRoutedEventArgs args)
         {
         }
@@ -213,7 +202,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.ManipulationCompleted"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnManipulationCompleted(ManipulationCompletedRoutedEventArgs args)
         {
         }
@@ -221,7 +209,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.PointerWheelChanged"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnPointerWheelChanged(PointerRoutedEventArgs args)
         {
         }
@@ -229,7 +216,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.PointerReleased"/> event of the owning <see cref="RadMap"/> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal virtual void OnPointerReleased(PointerRoutedEventArgs args)
         {
         }

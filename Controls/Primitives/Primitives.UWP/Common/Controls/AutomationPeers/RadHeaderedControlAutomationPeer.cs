@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadHeaderedControl class.
+    /// </summary>
     public class RadHeaderedControlAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>
@@ -13,7 +16,6 @@ namespace Telerik.UI.Automation.Peers
         public RadHeaderedControlAutomationPeer(RadHeaderedControl owner) 
             : base(owner)
         {
-
         }
 
         private RadHeaderedControl HeaderedControl
@@ -38,27 +40,31 @@ namespace Telerik.UI.Automation.Peers
 
         /// <summary>
         /// GetNameCore will return a value matching (in priority order)
-        ///
         /// 1. Automation.Name
         /// 2. Header 
         /// 3. FrameworkElements.GetNameCore()
         /// 4. String.Empty
-        /// 
         /// The priority mimics the behavior in AutoSuggestBox / ComboBox.
         /// </summary>
         protected override string GetNameCore()
         {
             string result = AutomationProperties.GetName(this.HeaderedControl);
             if (!string.IsNullOrEmpty(result))
+            {
                 return result;
+            }
 
             result = this.HeaderedControl.Header as string;
             if (!string.IsNullOrEmpty(result))
+            {
                 return result;
+            }
 
             result = base.GetNameCore();
             if (!string.IsNullOrEmpty(result))
+            {
                 return result;
+            }
 
             return string.Empty;
         }

@@ -212,7 +212,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataBoundListBox
                 Canvas.SetTop(this, (this.owner.virtualizationStrategy.ViewportExtent - this.DesiredSize.Height) / 2);
             }
         }
-        
+
         /// <inheritdoc/>
         protected override bool ApplyTemplateCore()
         {

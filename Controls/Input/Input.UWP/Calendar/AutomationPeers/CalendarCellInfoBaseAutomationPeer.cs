@@ -16,10 +16,7 @@ namespace Telerik.UI.Automation.Peers
     public class CalendarCellInfoBaseAutomationPeer : AutomationPeer, IGridItemProvider
     {
         private TextBlockAutomationPeer childTextBlockPeer;
-        internal CalendarViewHostAutomationPeer CalendarViewHostPeer { get; set; }
-        internal CalendarNode CellNode { get; set; }
-
-        /// <summary>
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarCellInfoBaseAutomationPeer"/> class.
         /// </summary>
@@ -29,26 +26,11 @@ namespace Telerik.UI.Automation.Peers
         {
             this.CalendarViewHostPeer = parentPeer;
             this.CellNode = cellModel;
-        }        
-
-        /// <summary>
-        /// The TextBlock peer of the Cell.
-        /// </summary>
-        internal TextBlockAutomationPeer ChildTextBlockPeer
-        {
-            get
-            {
-                return this.childTextBlockPeer;
-            }
-            set
-            {
-                this.childTextBlockPeer = value;
-            }
         }
 
         #region IGridItemProvder
         /// <summary>
-        /// The column number in the grid of cells.
+        /// Gets the column number in the grid of cells.
         /// </summary>
         public int Column
         {
@@ -59,7 +41,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// The column span in the grid of cells.
+        /// Gets the column span in the grid of cells.
         /// </summary>
         public int ColumnSpan
         {
@@ -79,14 +61,14 @@ namespace Telerik.UI.Automation.Peers
                 if (this.CalendarViewHostPeer != null && this.CalendarViewHostPeer.CalendarOwner != null)
                 {
                     return this.ProviderFromPeer(FrameworkElementAutomationPeer.CreatePeerForElement(this.CalendarViewHostPeer.CalendarOwner));
-
                 }
+
                 return null;
             }
         }
 
         /// <summary>
-        /// The row number in the grid of cells.
+        /// Gets the row number in the grid of cells.
         /// </summary>
         public int Row
         {
@@ -97,13 +79,31 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// The row span in the grid of cells.
+        /// Gets the row span in the grid of cells.
         /// </summary>
         public int RowSpan
         {
             get
             {
                 return 1;
+            }
+        }
+
+        internal CalendarViewHostAutomationPeer CalendarViewHostPeer { get; set; }
+        internal CalendarNode CellNode { get; set; }
+
+        /// <summary>
+        /// Gets or sets TextBlock peer of the Cell.
+        /// </summary>
+        internal TextBlockAutomationPeer ChildTextBlockPeer
+        {
+            get
+            {
+                return this.childTextBlockPeer;
+            }
+            set
+            {
+                this.childTextBlockPeer = value;
             }
         }
         #endregion

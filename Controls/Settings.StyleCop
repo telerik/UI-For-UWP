@@ -15,6 +15,10 @@
       <Value>Telerik-specific</Value>
       <Value>templated</Value>
       <Value>virtualization</Value>
+	  <Value>Kpi</Value>
+	  <Value>scrollviewer</Value>
+	  <Value>Theshold</Value>
+	  <Value>ym</Value>
     </CollectionProperty>
     <StringProperty Name="MergeSettingsFiles">NoMerge</StringProperty>
   </GlobalSettings>

@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Telerik.Geospatial;
 using Telerik.UI.Xaml.Controls.Map;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Automation.Provider;
-using Telerik.Geospatial;
 
 namespace Telerik.UI.Automation.Peers
 {
@@ -13,11 +13,6 @@ namespace Telerik.UI.Automation.Peers
     public class MapShapeLayerAutomationPeer : RadControlAutomationPeer, ISelectionProvider
     {
         private Dictionary<string, MapShapeAutomationPeer> childrenCache;
-        internal MapShapeLayer LayerOwner
-        {
-            get;
-            set;
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MapShapeLayerAutomationPeer"/> class.
@@ -28,7 +23,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Indicates whether multiple selection is possible in the layer.
+        /// Gets a value indicating whether multiple selection is possible in the layer.
         /// </summary>
         public bool CanSelectMultiple
         {
@@ -44,7 +39,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Indicates whether selection is required in the layer.
+        /// Gets a value indicating whether selection is required in the layer.
         /// </summary>
         public bool IsSelectionRequired
         {
@@ -54,27 +49,10 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// List of the selected peers' providers.
-        /// </summary>
-        /// <returns></returns>
-        public IRawElementProviderSimple[] GetSelection()
+        internal MapShapeLayer LayerOwner
         {
-            List<IRawElementProviderSimple> samples = new List<IRawElementProviderSimple>();
-            foreach (MapShapeAutomationPeer peer in this.childrenCache.Values)
-            {
-                if (peer.IsSelected == true)
-                {
-                    samples.Add(ProviderFromPeer(peer));
-                }
-            }
-            return samples.ToArray();
-        }
-
-        /// <inheritdoc />
-        protected override string GetLocalizedControlTypeCore()
-        {
-            return "map shape layer";
+            get;
+            set;
         }
 
         internal MapShapeSelectionBehavior SelectionBehavior
@@ -90,14 +68,35 @@ namespace Telerik.UI.Automation.Peers
                 }
                 return null;
             }
-        }        
+        }
 
+        /// <summary>
+        /// List of the selected peers' providers.
+        /// </summary>
+        public IRawElementProviderSimple[] GetSelection()
+        {
+            List<IRawElementProviderSimple> samples = new List<IRawElementProviderSimple>();
+            foreach (MapShapeAutomationPeer peer in this.childrenCache.Values)
+            {
+                if (peer.IsSelected == true)
+                {
+                    samples.Add(this.ProviderFromPeer(peer));
+                }
+            }
+            return samples.ToArray();
+        }
+
+        /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
+        {
+            return "map shape layer";
+        }
+        
         /// <summary>
         /// Gets the list of child peers.
         /// Currently runtime changes of shapes is not supported.
         /// For example removing 3 shapes re-adding 3 new shapes will not recreate the child peers.
         /// </summary>
-        /// <returns></returns>
         protected override IList<AutomationPeer> GetChildrenCore()
         {
             if (this.childrenCache == null || this.childrenCache.Count != this.LayerOwner.ShapeModels.Count)

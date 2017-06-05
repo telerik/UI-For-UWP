@@ -60,6 +60,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        /// <inheritdoc/>
         protected virtual IEnumerable<string> GetOperators()
         {
             foreach (var op in Enum.GetValues(typeof(TextOperator)))

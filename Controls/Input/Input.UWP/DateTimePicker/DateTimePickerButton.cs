@@ -17,6 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
             this.DefaultStyleKey = typeof(DateTimePickerButton);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DateTimePickerButtonAutomationPeer(this);

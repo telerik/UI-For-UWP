@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RangeSliderPrimitive class.
+    /// </summary>
     public class RangeSliderPrimitiveAutomationPeer : SliderBaseAutomationPeer
     {
         /// <summary>
@@ -16,7 +19,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RangeSliderPrimitive);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RangeSliderPrimitive);
         }
 
         /// <inheritdoc />

@@ -94,7 +94,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Point"/> value that defines how the visual representation of the data item is aligned with the physical coordinates of the <see cref="Location"/> property.
+        /// Gets or sets the <see cref="Windows.Foundation.Point(double, double)"/> value that defines how the visual representation of the data item is aligned with the physical coordinates of the <see cref="Location"/> property.
         /// The default value of (0.5, 0.5) will center the visual representation over the geographic location.
         /// </summary>
         public Point LocationOrigin

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Core;
+﻿using Telerik.Core;
 using Windows.ApplicationModel.Resources.Core;
 
 namespace Telerik.UI.Xaml.Controls.Data
@@ -15,11 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         private DataControlsLocalizationManager()
         {
-#if WINDOWS_PHONE_APP || WINDOWS_APP
-            this.DefaultResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("Telerik.UI.Xaml.Controls.Data/Neutral");
-#else
             this.DefaultResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("Telerik.UI.Xaml.Controls.Data.UWP/Neutral");
-#endif
         }
 
         /// <summary>

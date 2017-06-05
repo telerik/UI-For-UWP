@@ -3,6 +3,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the PaginationButton class.
+    /// </summary>
     public class PaginationButtonAutomationPeer : ButtonAutomationPeer
     {
         /// <summary>
@@ -17,13 +20,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(PaginationButton);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.Pagination.PaginationButton);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(PaginationButton);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.Pagination.PaginationButton);
         }
 
         /// <inheritdoc />

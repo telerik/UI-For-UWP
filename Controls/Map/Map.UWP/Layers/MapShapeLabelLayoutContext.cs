@@ -64,7 +64,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Point"/> value that defines how the label is position in render units over its <see cref="RenderLocation"/>.
+        /// Gets or sets the <see cref="Windows.Foundation.Point(double, double)"/> value that defines how the label is position in render units over its <see cref="RenderLocation"/>.
         /// </summary>
         public Point? RenderLocationOrigin
         {

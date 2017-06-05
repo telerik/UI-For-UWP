@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Telerik.UI.Xaml.Controls.Grid.Primitives;
 using Windows.UI.Xaml;
-using Telerik.UI.Xaml.Controls.Grid.Primitives;
 
 namespace Telerik.UI.Xaml.Controls.Grid
 {
@@ -19,7 +18,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DependencyProperty.Register(nameof(AutoGenerateColumns), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(true, OnAutoGenerateColumnsChanged));
 
         /// <summary>
-        /// Identifies the <see cref="ColumnHeaderActionMode"/> dependency property. 
+        /// Identifies the <see cref="ColumnDataOperationsMode"/> dependency property. 
         /// </summary> 
         public static readonly DependencyProperty ColumnDataOperationsModeProperty =
             DependencyProperty.Register(nameof(ColumnDataOperationsMode), typeof(ColumnDataOperationsMode), typeof(RadDataGrid), new PropertyMetadata(ColumnDataOperationsMode.Inline, OnColumnDataOperationsModeChanged));
@@ -29,43 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// </summary>
         public static readonly DependencyProperty CanUserChooseColumnsProperty =
             DependencyProperty.Register(nameof(CanUserChooseColumns), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false, OnCanUserChooseColumnsChanged));
-
-        private static void OnCanUserChooseColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var grid = d as RadDataGrid;
-            if (grid != null && grid.IsTemplateApplied)
-            {
-                grid.ContentFlyout.Hide(DataGridFlyoutId.ColumnChooser);
-                grid.UpdateColumnChooserButtonVisibility((bool)e.NewValue);
-                grid.updateService.RegisterUpdate(UpdateFlags.AffectsContent);
-            }
-        }
-
-        private void UpdateColumnChooserButtonVisibility(bool isVisible)
-        {
-            if (this.IsTemplateApplied)
-            {
-                this.ClearColumnHeaderSelection();
-
-                this.ColumnReorderServicePanel.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-            }
-        }
-
-        private void ClearColumnHeaderSelection()
-        {
-            if (this.LastSelectedColumn != null)
-            {
-                if (this.LastSelectedColumn.HeaderControl != null && this.ColumnDataOperationsMode == ColumnDataOperationsMode.Flyout)
-                {
-                    var context = this.GenerateColumnHeaderTapContext(this.LastSelectedColumn, Windows.Devices.Input.PointerDeviceType.Mouse);
-
-                    this.CommandService.ExecuteDefaultCommand(Grid.Commands.CommandId.ColumnHeaderTap, context);
-                }
-
-                this.LastSelectedColumn = null;
-            }
-        }
-
+        
         /// <summary>
         /// Gets the collection of <see cref="DataGridColumn"/> objects currently displayed within the grid.
         /// </summary>
@@ -137,6 +100,19 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        internal void OnColumnHeaderSelectionChanged(DataGridColumnHeader dataGridColumnHeader)
+        {
+            if (dataGridColumnHeader != null && dataGridColumnHeader.Column != null && this.Model.ColumnPool.Layout.ItemsSource != null)
+            {
+                var visibleColumnsCount = this.Model.ColumnPool.Layout.ItemsSource.Count;
+
+                if (dataGridColumnHeader.Column.ItemInfo.Slot == visibleColumnsCount - 1 && this.ColumnDataOperationsMode == ColumnDataOperationsMode.Flyout && this.CanUserChooseColumns)
+                {
+                    this.ColumnReorderServicePanel.Visibility = dataGridColumnHeader.IsSelected ? Visibility.Collapsed : Visibility.Visible;
+                }
+            }
+        }
+
         private static void OnAutoGenerateColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var grid = d as RadDataGrid;
@@ -151,30 +127,51 @@ namespace Telerik.UI.Xaml.Controls.Grid
             grid.model.FrozenColumnCount = (int)e.NewValue;
         }
 
+        private static void OnCanUserChooseColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var grid = d as RadDataGrid;
+            if (grid != null && grid.IsTemplateApplied)
+            {
+                grid.ContentFlyout.Hide(DataGridFlyoutId.ColumnChooser);
+                grid.UpdateColumnChooserButtonVisibility((bool)e.NewValue);
+                grid.updateService.RegisterUpdate(UpdateFlags.AffectsContent);
+            }
+        }
+
         private static void OnColumnDataOperationsModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var grid = d as RadDataGrid;
             if (grid != null && grid.IsTemplateApplied)
             {
                 grid.ContentFlyout.Hide(DataGridFlyoutId.ColumnHeader);
-                grid.UpdateColumnChooserButtonVisibility(grid.CanUserChooseColumns);           
+                grid.UpdateColumnChooserButtonVisibility(grid.CanUserChooseColumns);
                 grid.updateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
             }
         }
 
-        internal void OnColumnHeaderSelectionChanged(DataGridColumnHeader dataGridColumnHeader)
+        private void UpdateColumnChooserButtonVisibility(bool isVisible)
         {
-            if (dataGridColumnHeader != null && dataGridColumnHeader.Column != null && this.Model.ColumnPool.Layout.ItemsSource != null)
+            if (this.IsTemplateApplied)
             {
-                var visibleColumnsCount = this.Model.ColumnPool.Layout.ItemsSource.Count;
+                this.ClearColumnHeaderSelection();
 
-                if (dataGridColumnHeader.Column.ItemInfo.Slot == visibleColumnsCount - 1 && this.ColumnDataOperationsMode == ColumnDataOperationsMode.Flyout && this.CanUserChooseColumns)
-                {
-                    this.ColumnReorderServicePanel.Visibility = dataGridColumnHeader.IsSelected ? Visibility.Collapsed : Visibility.Visible;
-                }
+                this.ColumnReorderServicePanel.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
             }
+        }
 
+        private void ClearColumnHeaderSelection()
+        {
+            if (this.LastSelectedColumn != null)
+            {
+                if (this.LastSelectedColumn.HeaderControl != null && this.ColumnDataOperationsMode == ColumnDataOperationsMode.Flyout)
+                {
+                    var context = this.GenerateColumnHeaderTapContext(this.LastSelectedColumn, Windows.Devices.Input.PointerDeviceType.Mouse);
 
+                    this.CommandService.ExecuteDefaultCommand(Grid.Commands.CommandId.ColumnHeaderTap, context);
+                }
+
+                this.LastSelectedColumn = null;
+            }
         }
     }
 }

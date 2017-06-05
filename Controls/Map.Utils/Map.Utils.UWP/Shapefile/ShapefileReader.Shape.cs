@@ -22,7 +22,8 @@ namespace Telerik.Geospatial
             var cancellationTokenSource = taskState.CancellationTokenSource;
             var token = cancellationTokenSource.Token;
 
-            var task = Task.Factory.StartNew(async () =>
+            var task = Task.Factory.StartNew(
+                async () =>
             {
                 using (var shapeStream = taskState.Stream.CloneStream())
                 {
@@ -85,7 +86,7 @@ namespace Telerik.Geospatial
 
                     return shapeModels;
                 }
-            }, 
+            },
             token).Unwrap();
 
             return task;
@@ -226,51 +227,52 @@ namespace Telerik.Geospatial
         {
             var token = cancellationTokenSource.Token;
 
-            var task = Task.Factory.StartNew(async () =>
-            {
-                if (cancellationTokenSource.IsCancellationRequested)
+            var task = Task.Factory.StartNew(
+                async () =>
                 {
-                    return null;
-                }
-
-                using (var shapeStream = stream.CloneStream())
-                {
-                    int offset = 36;
-                    shapeStream.Seek((ulong)offset);
-
-                    byte[] boundingBox = new byte[32];
-                    await shapeStream.ReadAsync(boundingBox.AsBuffer(), 32u, InputStreamOptions.Partial);
-
-                    var recordInfos = new ShapefileRecordInfoCollection();
-                    recordInfos.BoundingRect = GetBoundingRect(boundingBox, this.CoordinateValueConverter);
-
-                    offset = 100;
-                    shapeStream.Seek((ulong)offset);
-
-                    while (shapeStream.Position < shapeStream.Size)
+                    if (cancellationTokenSource.IsCancellationRequested)
                     {
-                        if (cancellationTokenSource.IsCancellationRequested)
-                        {
-                            return null;
-                        }
-
-                        byte[] recordHeader = new byte[8];
-                        await shapeStream.ReadAsync(recordHeader.AsBuffer(), 8u, InputStreamOptions.Partial);
-
-                        // The content length for a record is the length of the record contents section measured in 16-bit words. 
-                        int contentLength = ToInt32BigEndian(recordHeader, 4) * 2;
-
-                        offset += 8;
-                        recordInfos.Add(new ShapefileRecordInfo() { ContentOffset = offset, ContentLength = contentLength });
-
-                        offset += contentLength;
-                        shapeStream.Seek((ulong)offset);
+                        return null;
                     }
 
-                    return recordInfos;
-                }
-            }, 
-            token).Unwrap();
+                    using (var shapeStream = stream.CloneStream())
+                    {
+                        int offset = 36;
+                        shapeStream.Seek((ulong)offset);
+
+                        byte[] boundingBox = new byte[32];
+                        await shapeStream.ReadAsync(boundingBox.AsBuffer(), 32u, InputStreamOptions.Partial);
+
+                        var recordInfos = new ShapefileRecordInfoCollection();
+                        recordInfos.BoundingRect = GetBoundingRect(boundingBox, this.CoordinateValueConverter);
+
+                        offset = 100;
+                        shapeStream.Seek((ulong)offset);
+
+                        while (shapeStream.Position < shapeStream.Size)
+                        {
+                            if (cancellationTokenSource.IsCancellationRequested)
+                            {
+                                return null;
+                            }
+
+                            byte[] recordHeader = new byte[8];
+                            await shapeStream.ReadAsync(recordHeader.AsBuffer(), 8u, InputStreamOptions.Partial);
+
+                            // The content length for a record is the length of the record contents section measured in 16-bit words. 
+                            int contentLength = ToInt32BigEndian(recordHeader, 4) * 2;
+
+                            offset += 8;
+                            recordInfos.Add(new ShapefileRecordInfo() { ContentOffset = offset, ContentLength = contentLength });
+
+                            offset += contentLength;
+                            shapeStream.Seek((ulong)offset);
+                        }
+
+                        return recordInfos;
+                    }
+                },
+                token).Unwrap();
 
             return task;
         }
@@ -387,9 +389,9 @@ namespace Telerik.Geospatial
                 set;
             }
 
-            internal CancellationTokenSource CancellationTokenSource 
-            { 
-                get; 
+            internal CancellationTokenSource CancellationTokenSource
+            {
+                get;
                 set;
             }
 

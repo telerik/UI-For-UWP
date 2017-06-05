@@ -4,8 +4,14 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridFlyoutGroupHeader"/>.
+    /// </summary>
     public class DataGridFlyoutGroupHeaderAutomationPeer : RadControlAutomationPeer, IInvokeProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the DataGridFlyoutGroupHeaderAutomationPeer class.
+        /// </summary>
         public DataGridFlyoutGroupHeaderAutomationPeer(DataGridFlyoutGroupHeader owner) 
             : base(owner)
         {
@@ -17,6 +23,14 @@ namespace Telerik.UI.Automation.Peers
             {
                 return this.Owner as DataGridFlyoutGroupHeader;
             }
+        }
+
+        /// <summary>
+        /// IInvokeProvider implementation.
+        /// </summary>
+        public void Invoke()
+        {
+            this.DataGridFlyoutGroupHeader.RaiseDescriptorContentTap();
         }
 
         /// <inheritdoc />
@@ -36,7 +50,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(DataGridFlyoutGroupHeader);
         }
@@ -55,14 +71,6 @@ namespace Telerik.UI.Automation.Peers
                 return this;
             }
             return base.GetPatternCore(patternInterface);
-        }
-
-        /// <summary>
-        /// IInvokeProvider implementation.
-        /// </summary>
-        public void Invoke()
-        {
-            this.DataGridFlyoutGroupHeader.RaiseDescriptorContentTap();
         }
     }
 }

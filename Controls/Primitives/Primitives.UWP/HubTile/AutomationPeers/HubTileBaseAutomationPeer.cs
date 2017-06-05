@@ -1,17 +1,31 @@
-﻿using System.Collections.Generic;
-using Telerik.UI.Xaml.Controls.Primitives;
-using Windows.Foundation;
+﻿using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the HubTileBase class.
+    /// </summary>
     public class HubTileBaseAutomationPeer : RadControlAutomationPeer, IInvokeProvider, IToggleProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the HubTileBaseAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
         public HubTileBaseAutomationPeer(HubTileBase owner) 
             : base(owner)
         {
+        }
+
+        /// <inheritdoc/>
+        public ToggleState ToggleState
+        {
+            get
+            {
+                return this.HubTileBase.IsFrozen ? ToggleState.Off : ToggleState.On;
+            }
         }
 
         private HubTileBase HubTileBase
@@ -22,15 +36,25 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// IToggleProvider implementation.
-        /// </summary>
-        public ToggleState ToggleState
+        /// <inheritdoc/>
+        public void Invoke()
         {
-            get
-            {
-                return this.HubTileBase.IsFrozen ? ToggleState.Off : ToggleState.On;
-            }
+            this.HubTileBase.ExecuteCommand();
+        }
+
+        /// <inheritdoc/>
+        public void Toggle()
+        {
+            this.HubTileBase.IsFrozen = !this.HubTileBase.IsFrozen;
+        }
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseToggleStatePropertyChangedEvent(bool oldValue, bool newValue)
+        {
+            this.RaisePropertyChangedEvent(
+                TogglePatternIdentifiers.ToggleStateProperty,
+                oldValue ? ToggleState.On : ToggleState.Off,
+                newValue ? ToggleState.On : ToggleState.Off);
         }
 
         /// <inheritdoc />
@@ -56,7 +80,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             var title = this.HubTileBase.Title as string;
             if (!string.IsNullOrEmpty(title))
@@ -90,31 +116,6 @@ namespace Telerik.UI.Automation.Peers
         protected override bool HasKeyboardFocusCore()
         {
             return true;
-        }
-
-        /// <summary>
-        /// IInvokeProvider implementation.
-        /// </summary>
-        public void Invoke()
-        {
-            this.HubTileBase.ExecuteCommand();
-        }
-
-        /// <summary>
-        /// IToggleProvider implementation.
-        /// </summary>
-        public void Toggle()
-        {
-            this.HubTileBase.IsFrozen = !this.HubTileBase.IsFrozen;
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseToggleStatePropertyChangedEvent(bool oldValue, bool newValue)
-        {
-            this.RaisePropertyChangedEvent(
-                TogglePatternIdentifiers.ToggleStateProperty,
-                oldValue ? ToggleState.On : ToggleState.Off,
-                newValue ? ToggleState.On : ToggleState.Off);
         }
     }
 }

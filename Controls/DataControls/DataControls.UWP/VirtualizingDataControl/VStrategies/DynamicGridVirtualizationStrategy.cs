@@ -13,8 +13,9 @@ namespace Telerik.UI.Xaml.Controls.Data
     {
         internal double itemExtent;
 
-        //  private readonly StaggeredRenderInfo itemSlotsRepository;
+        // private readonly StaggeredRenderInfo itemSlotsRepository;
         private readonly Dictionary<int, int> slotsRepository;
+
         private readonly List<RadVirtualizingDataControlItem> topRealized = new List<RadVirtualizingDataControlItem>();
         private int stackCount;
 
@@ -51,8 +52,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
-
-
         internal override Size Measure(Size availableSize)
         {
             Size measuredSize = base.Measure(availableSize);
@@ -62,11 +61,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.ValidateLayoutIntegrity();
 
             return measuredSize;
-        }
-
-        private void ValidateLayoutIntegrity()
-        {
-            //     this.itemSlotsRepository.EnsureCorrectLayout(true);
         }
 
         internal override void InitForMeasure()
@@ -129,8 +123,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             int slot = -1;
 
-            //TODO rearange items
-
+            // TODO rearange items
             if (this.slotsRepository.TryGetValue(addedItem.next.associatedDataItem.GetHashCode(), out slot))
             {
                 this.slotsRepository.Remove(addedItem.next.associatedDataItem.GetHashCode());
@@ -170,9 +163,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             int containersToSkip = 0;
 
-
-            //TODO: rearange items.
-
+            // TODO: rearange items.
             if (pivotContainer != null)
             {
                 containersToSkip = Math.Max(this.stackCount - this.owner.realizedItems.IndexOf(pivotContainer), 0);
@@ -196,7 +187,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             base.OnSourceCollectionReset();
 
-            //   this.itemSlotsRepository.Clear();
+            // this.itemSlotsRepository.Clear();
             this.slotsRepository.Clear();
         }
 
@@ -220,6 +211,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     container.Width = this.itemExtent;
                     container.Measure(new Size(this.itemExtent, double.PositiveInfinity));
                     break;
+
                 case Orientation.Vertical:
                     container.Height = this.itemExtent;
                     container.Measure(new Size(double.PositiveInfinity, this.itemExtent));
@@ -257,6 +249,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 case Orientation.Horizontal:
                     dirty = newSize.Width != oldSize.Width;
                     break;
+
                 case Orientation.Vertical:
                     dirty = newSize.Height != oldSize.Height;
                     break;
@@ -326,6 +319,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                             }
                         }
                         break;
+
                     case Orientation.Vertical:
                         offsetDelta = newSize.Width - oldSize.Width;
                         newOffset = container.horizontalOffsetCache - offsetDelta;
@@ -344,7 +338,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 }
             }
 
-            //Extend the length with the new diff, although the extension could be less
+            // Extend the length with the new diff, although the extension could be less
             var prevLength = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? oldSize.Height : oldSize.Width;
 
             var sizeChange = this.GetItemLength(container) - prevLength;
@@ -389,6 +383,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 case Orientation.Horizontal:
                     return item.verticalOffsetCache;
+
                 case Orientation.Vertical:
                     return item.horizontalOffsetCache;
             }
@@ -421,7 +416,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             int realizedItemsCount = this.owner.realizedItems.Count;
 
             var relativeOffset = double.MaxValue;
-
 
             for (int i = countOfTopItems; i > -1 && i < realizedItemsCount; i += deltaFactor)
             {
@@ -456,6 +450,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                             bottomMost = item.height + item.verticalOffsetCache;
                         }
                         break;
+
                     case Orientation.Vertical:
                         if (item.width + item.horizontalOffsetCache > bottomMost)
                         {
@@ -487,6 +482,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                             topMost = item.verticalOffsetCache;
                         }
                         break;
+
                     case Orientation.Vertical:
                         if (item.horizontalOffsetCache < topMost)
                         {
@@ -509,7 +505,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             return this.owner.realizedItems.Count > 1 &&
                   visibleItemsBottom - this.GetItemLength(this.owner.lastItemCache) > this.ViewportLength + this.bottomVirtualizationThreshold + this.ScrollOffset;
-            //   this.GetElementCanvasOffset(this.owner.lastItemCache) - this.ScrollOffset > this.ViewportLength + this.bottomVirtualizationThreshold;
         }
 
         internal override void RecycleBottom(ref double visibleItemsBottom)
@@ -579,10 +574,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             if (realizedLength >= 0)
             {
                 this.realizedItemsLength = realizedLength;
-                //   this.averageItemLength = (this.averageItemLength + (this.realizedItemsLength * this.stackCount) / this.owner.realizedItems.Count) / 2;
-                // this.averageItemLength = (this.realizedItemsLength * this.stackCount) / this.owner.realizedItems.Count;
-
-
                 this.scrollableItemsLength = this.averageItemLength * (this.owner.GetItemCount() / this.stackCount);
             }
         }
@@ -590,7 +581,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal override double CalculateItemOffset(IDataSourceItem item, double lastAverageLength)
         {
             if (item == null)
+            {
                 return 0;
+            }
 
             var index = item.Index;
 
@@ -633,14 +626,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                 var newRealized = this.GetContainerForItem(newDataItem, false);
                 double currentTop = this.ScrollOffset;
                 this.PositionBottomRealizedItem(this.owner.lastItemCache, ref currentTop);
-
-                //if (newRealized.AssociatedDataItem.Previous == null && this.GetElementCanvasOffset(newRealized) > 0)
-                //{
-                //    this.owner.RecycleAllItems();
-                //    this.ResetRealizedItemsBuffers();
-                //    this.RecalculateViewportMeasurements();
-                //    this.owner.BalanceVisualSpace();
-                //}
             }
         }
 
@@ -677,14 +662,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                 var newRealized = this.GetContainerForItem(newDataItem, false);
                 double currentTop = this.ScrollOffset;
                 this.PositionBottomRealizedItem(this.owner.lastItemCache, ref currentTop);
-
-                //if (newRealized.AssociatedDataItem.Previous == null && this.GetElementCanvasOffset(newRealized) > 0)
-                //{
-                //    this.owner.RecycleAllItems();
-                //    this.ResetRealizedItemsBuffers();
-                //    this.RecalculateViewportMeasurements();
-                //    this.owner.BalanceVisualSpace();
-                //}
             }
         }
 
@@ -700,6 +677,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     lastRealizedItem.SetVerticalOffset(slot.Top);
                     this.slotsRepository[lastRealizedItem.associatedDataItem.GetHashCode()] = (int)(slot.Left / this.itemExtent);
                     break;
+
                 case Orientation.Vertical:
                     visibleItemsBottom = slot.Right;
                     lastRealizedItem.SetVerticalOffset(slot.Top);
@@ -743,13 +721,14 @@ namespace Telerik.UI.Xaml.Controls.Data
                 }
 
                 item = item.next;
-
             }
 
             var firstRealizedItem = this.GetTopVisibleContainer();
 
             if (firstRealizedItem == null)
+            {
                 return;
+            }
 
             var startPosition = firstRealizedItem.CurrentOffset;
 
@@ -763,7 +742,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             if (!isLayoutCorrect ||
      (startPosition + manipulationOffset < 0 && manipulationOffset < this.averageItemLength))
             {
-                //reposition all
+                // reposition all
                 this.owner.firstItemCache = this.owner.realizedItems[0];
                 var container = this.owner.firstItemCache;
 
@@ -786,16 +765,14 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        private void ValidateLayoutIntegrity()
+        {
+        }
+
         private void ReorderViewportOnItemsChanged()
         {
             foreach (RadVirtualizingDataControlItem item in this.owner.realizedItems)
             {
-                //if (item == this.owner.firstItemCache)
-                //{
-                //    //skip this item as we will use it as pivot for the rest.
-                //    continue;
-                //}
-
                 Rect slot = this.FindFreeSpotForItemBottom(item);
                 switch (this.orientationCache)
                 {
@@ -804,6 +781,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         item.SetVerticalOffset(slot.Top);
                         this.slotsRepository[item.associatedDataItem.GetHashCode()] = (int)(slot.Left / this.itemExtent);
                         break;
+
                     case Orientation.Vertical:
                         item.SetVerticalOffset(slot.Top);
                         item.SetHorizontalOffset(slot.Left);
@@ -827,6 +805,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     case Orientation.Horizontal:
                         stackIndex = (int)Math.Round(startingItem.horizontalOffsetCache / this.itemExtent);
                         break;
+
                     case Orientation.Vertical:
                         stackIndex = (int)Math.Round(startingItem.verticalOffsetCache / this.itemExtent);
                         break;
@@ -848,19 +827,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
 
             Rect? slot = null;
-            //int slotIndex;
-            //if (this.slotsRepository.TryGetValue(item.associatedDataItem.GetHashCode(), out slotIndex))
-            //{
-            //    switch (this.orientationCache)
-            //    {
-            //        case Orientation.Horizontal:
-            //            Rect horizontalItemSlot = slots.Values.Where<Rect>(rect => RadMath.AreClose(rect.Left, slotIndex * this.itemExtent, Epsilon)).FirstOrDefault<Rect>();
-            //            return new Rect(horizontalItemSlot.Left, horizontalItemSlot.Top - item.height, item.width, item.height);
-            //        case Orientation.Vertical:
-            //            Rect verticalItemSlot = slots.Values.Where<Rect>(rect => RadMath.AreClose(rect.Top, slotIndex * this.itemExtent, Epsilon)).FirstOrDefault<Rect>();
-            //            return new Rect(verticalItemSlot.Left - item.width, verticalItemSlot.Top, item.width, item.height);
-            //    }
-            //}
 
             Rect[] sortedValues = new Rect[this.stackCount];
 
@@ -878,7 +844,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                     {
                         case Orientation.Horizontal:
 
-
                             while (slots.ContainsKey(emptySlot))
                             {
                                 emptySlot++;
@@ -888,6 +853,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                             slots.Add(emptySlot, sortedValues[i]);
 
                             break;
+
                         case Orientation.Vertical:
                             while (slots.ContainsKey(emptySlot))
                             {
@@ -920,6 +886,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                             }
                         }
                         break;
+
                     case Orientation.Vertical:
                         if (slot == null)
                         {
@@ -949,6 +916,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     case Orientation.Horizontal:
                         slot = new Rect(valueSlot.Left, valueSlot.Top - item.height, item.width, item.height);
                         break;
+
                     case Orientation.Vertical:
                         slot = new Rect(valueSlot.Left - item.width, valueSlot.Top, item.width, item.height);
                         break;
@@ -972,6 +940,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     case Orientation.Horizontal:
                         stackIndex = (int)Math.Round(startingItem.horizontalOffsetCache / this.itemExtent);
                         break;
+
                     case Orientation.Vertical:
                         stackIndex = (int)Math.Round(startingItem.verticalOffsetCache / this.itemExtent);
                         break;
@@ -991,23 +960,14 @@ namespace Telerik.UI.Xaml.Controls.Data
                 startingItem = startingItem.previous;
             }
 
-            // int slotIndex;
-            //if (this.slotsRepository.TryGetValue(item.associatedDataItem.GetHashCode(), out slotIndex))
-            //{
-            //    return new Rect(item.horizontalOffsetCache, item.verticalOffsetCache, item.width, item.height);
-            //}
-
             Rect[] sortedValues = new Rect[this.stackCount];
 
             Rect[] sorted = this.orientationCache == Orientation.Horizontal ? slots.Values.OrderBy<Rect, double>(r => r.Left).ToArray<Rect>() :
                             slots.Values.OrderBy<Rect, double>(r => r.Top).ToArray<Rect>();
             sorted.CopyTo(sortedValues, 0);
 
-
-
             if (sorted.Length < this.stackCount)
             {
-                // var approximatePosition = this.ScrollOffset > 0 ? this.ScrollOffset - this.topVirtualizationThreshold : 0;
                 var approximatePosition = this.averageItemLength > 0 ? item.AssociatedDataItem.Index / this.StackCount * this.averageItemLength : this.ScrollOffset;
 
                 int difference = sorted.Length;
@@ -1029,9 +989,9 @@ namespace Telerik.UI.Xaml.Controls.Data
                     {
                         case Orientation.Horizontal:
 
-
                             sortedValues[i] = new Rect(freeStackIndex * this.itemExtent, approximatePosition, 0, 0);
                             break;
+
                         case Orientation.Vertical:
                             sortedValues[i] = new Rect(approximatePosition, freeStackIndex * this.itemExtent, 0, 0);
                             break;
@@ -1056,6 +1016,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                             slot = freeSlot;
                         }
                         break;
+
                     case Orientation.Vertical:
                         if (slot == null)
                         {
@@ -1083,6 +1044,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     case Orientation.Horizontal:
                         slot = new Rect(valueSlot.Left, valueSlot.Bottom, item.width, item.height);
                         break;
+
                     case Orientation.Vertical:
                         slot = new Rect(valueSlot.Right, valueSlot.Top, item.width, item.height);
                         break;
@@ -1103,6 +1065,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     firstRealizedItem.SetVerticalOffset(slot.Top);
                     visibleItemsTop = slot.Top - this.ScrollOffset;
                     break;
+
                 case Orientation.Vertical:
                     firstRealizedItem.SetVerticalOffset(slot.Top);
                     firstRealizedItem.SetHorizontalOffset(slot.Left);
@@ -1111,53 +1074,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
 
             this.EnsureCorrectLayout();
-
         }
-
-     //   internal override void EnsureCorrectLayout()
-     //   {
-     //       var firstRealizedItem = this.GetTopVisibleContainer();
-
-     //       if (firstRealizedItem == null)
-     //           return;
-
-     //       var startPosition = firstRealizedItem.CurrentOffset;
-
-     //       var manipulationOffset = 0.0;
-
-     //       if (this.owner != null && this.owner.manipulationContainer != null)
-     //       {
-     //           manipulationOffset = this.ScrollOffset;
-     //       }
-
-     //       if ((startPosition != 0 && firstRealizedItem.AssociatedDataItem.Index == 0) ||
-     //(startPosition + manipulationOffset < 0 && manipulationOffset < this.averageItemLength))
-     //       {
-     //           //reposition all
-     //           this.owner.firstItemCache = this.owner.realizedItems[0];
-     //           var container = this.owner.firstItemCache;
-
-     //           var size = 0.0;
-
-     //           while (container != null)
-     //           {
-     //               container.horizontalOffsetCache = 0;
-     //               container.verticalOffsetCache = 0;
-     //               container = container.next;
-     //           }
-
-     //           container = this.owner.firstItemCache;
-
-     //           while (container != null)
-     //           {
-     //               this.PositionBottomRealizedItem(container, ref size);
-     //               container = container.next;
-     //           }
-
-
-
-     //           this.owner.InvalidateMeasure();
-     //       }
-     //   }
     }
 }

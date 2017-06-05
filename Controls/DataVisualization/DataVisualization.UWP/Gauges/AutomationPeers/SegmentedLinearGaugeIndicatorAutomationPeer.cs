@@ -2,8 +2,14 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="SegmentedLinearGaugeIndicator"/>.
+    /// </summary>
     public class SegmentedLinearGaugeIndicatorAutomationPeer : SegmentedGaugeIndicatorAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the SegmentedLinearGaugeIndicatorAutomationPeer class.
+        /// </summary>
         public SegmentedLinearGaugeIndicatorAutomationPeer(SegmentedLinearGaugeIndicator owner) 
             : base(owner)
         {
@@ -12,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(SegmentedLinearGaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.SegmentedLinearGaugeIndicator);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(SegmentedLinearGaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.SegmentedLinearGaugeIndicator);
         }
 
         /// <inheritdoc />

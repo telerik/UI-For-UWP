@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Telerik.Core;
 using Telerik.Data.Core.Layouts;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
-using System.Linq;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 {
@@ -12,12 +11,10 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
     {
         private StackedCompactLayout layout;
 
-
         public GridLayoutStrategy(Data.ContainerGeneration.ItemModelGenerator generator, IOrientedParentView view, double defaultItemHeight, int stackCount)
             : base(generator, view)
         {
             this.layout = new StackedCompactLayout(new GroupHierarchyAdapter(), defaultItemHeight, stackCount);
-
         }
 
         internal int StackCount
@@ -26,7 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             {
                 if (this.Layout != null)
                 {
-                  return  this.layout.StackCount;
+                    return this.layout.StackCount;
                 }
 
                 return 1;
@@ -61,7 +58,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             bool initialized = false;
             var topLeft = new RadPoint(0, 0);
 
-
             foreach (var pair in this.GetDisplayedElements())
             {
                 double largestLength = -1;
@@ -72,7 +68,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                 double itemlength = 0;
 
                 int elementSequenceNumber = 0;
-
 
                 foreach (var decorator in decorators)
                 {
@@ -89,7 +84,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                         {
                             topLeft.Y = offset + topOffset;
                         }
-
                     }
 
                     itemlength = this.layout.PhysicalLengthForSlot(decorator.ItemInfo.Slot);
@@ -113,8 +107,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                     this.Owner.Arrange(decorator);
 
                     elementSequenceNumber++;
-
-
                 }
 
                 if (this.IsHorizontal)
@@ -128,6 +120,29 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
                 this.ArrangeFrozenDecorators();
             }
+        }
+
+        public override GeneratedItemModel GetDisplayedElement(int slot, int id)
+        {
+            List<GeneratedItemModel> containers;
+            if (this.generatedContainers.TryGetValue(slot, out containers))
+            {
+                var visibleContainers = containers.Where((model) =>
+                {
+                    return model.ItemInfo.Id == id;
+                });
+                if (visibleContainers.Count() > 0)
+                {
+                    return visibleContainers.First();
+                }
+            }
+
+            return null;
+        }
+
+        public override int GetElementFlatIndex(int index)
+        {
+            return index / this.StackCount;
         }
 
         internal override RadSize GenerateContainer(IList<ItemInfo> itemInfos, BaseLayoutStrategy.MeasureContext context)
@@ -182,8 +197,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                 {
                     cumulativeStackLength += desiredSize.Height;
                     scrollLength = desiredSize.Width;
-
-
                 }
                 else
                 {
@@ -212,7 +225,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             }
         }
 
-
         internal override RadSize ComputeDesiredSize(MeasureContext context)
         {
             RadSize desiredSize;
@@ -231,32 +243,8 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             return desiredSize;
         }
 
-        public override GeneratedItemModel GetDisplayedElement(int slot, int id)
-        {
-            List<GeneratedItemModel> containers;
-            if (this.generatedContainers.TryGetValue(slot, out containers))
-            {
-                var visibleContainers = containers.Where((model) =>
-                {
-                    return model.ItemInfo.Id == id;
-                });
-                if (visibleContainers.Count() > 0)
-                {
-                    return visibleContainers.First();
-                }
-            }
-
-            return null;
-        }
-
-        public override int GetElementFlatIndex(int index)
-        {
-            return index / this.StackCount;
-        }
-
         private RadSize GetContainerAvailableSize(ItemInfo info)
         {
-
             if (info.Item is Telerik.Data.Core.IGroup)
             {
                 return this.IsHorizontal ? new RadSize(double.PositiveInfinity, this.AvailableSize.Height) : new RadSize(this.AvailableSize.Width, double.PositiveInfinity);

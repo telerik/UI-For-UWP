@@ -1,7 +1,4 @@
-﻿using System;
-using Windows.Foundation;
-
-namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
+﻿namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 {
     /// <summary>
     /// The context that is passed as a parameter to the <see cref="ItemReorderCompleteCommand"/>.

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
+﻿namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 {
     /// <summary>
     /// The context that is passed as a parameter of an <see cref="ItemActionTapCommand"/>.

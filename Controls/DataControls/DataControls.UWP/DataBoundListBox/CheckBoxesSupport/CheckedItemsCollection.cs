@@ -462,10 +462,13 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 case NotifyCollectionChangedAction.Add:
                     return new NotifyCollectionChangedEventArgs(action, newItem, changeIndex);
+
                 case NotifyCollectionChangedAction.Remove:
                     return new NotifyCollectionChangedEventArgs(action, oldItem, changeIndex);
+
                 case NotifyCollectionChangedAction.Replace:
                     return new NotifyCollectionChangedEventArgs(action, oldItem, newItem, changeIndex);
+
                 default:
 
                     return new NotifyCollectionChangedEventArgs(action);

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
 {
@@ -15,18 +10,16 @@ namespace Telerik.UI.Xaml.Controls.Primitives
     /// </summary>
     public class SideOutPanel : Panel
     {
-        internal RadSideDrawer Owner { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SideOutPanel"/> class.
+        /// </summary>
         public SideOutPanel()
         {
-            this.Loaded += SideOutPanel_Loaded;
+            this.Loaded += this.SideOutPanel_Loaded;
         }
 
-        void SideOutPanel_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Blind fix for bug in Release configuration after Denim update
-            this.Owner.InvalidateMeasure();
-        }
+        internal RadSideDrawer Owner { get; set; }
+
         /// <inheritdoc/>
         protected override Size MeasureOverride(Size availableSize)
         {
@@ -61,6 +54,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
 
             return base.ArrangeOverride(finalSize);
+        }
+
+        private void SideOutPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Blind fix for bug in Release configuration after Denim update
+            this.Owner.InvalidateMeasure();
         }
     }
 }

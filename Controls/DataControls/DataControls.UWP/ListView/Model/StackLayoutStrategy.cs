@@ -11,7 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
     {
         private CompactLayout layout;
 
-        public StackLayoutStrategy(ItemModelGenerator generator, IOrientedParentView owner):base(generator,owner)
+        public StackLayoutStrategy(ItemModelGenerator generator, IOrientedParentView owner) : base(generator, owner)
         {
             this.layout = new CompactLayout(new GroupHierarchyAdapter(), IndexStorage.UnknownItemLength);
         }
@@ -30,6 +30,17 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             {
                 return new StackedGeneratedLengthContext(0);
             }
+        }
+
+        public override GeneratedItemModel GetDisplayedElement(int slot, int id)
+        {
+            List<GeneratedItemModel> containers;
+            if (this.generatedContainers.TryGetValue(slot, out containers))
+            {
+                return containers.LastOrDefault();
+            }
+
+            return null;
         }
 
         public override void ArrangeContent(RadSize adjustedfinalSize, double topOffset)
@@ -146,7 +157,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
                     if (decorator == null)
                     {
-                            decorator = this.GenerateAndPrepareContainer(ref itemInfo);
+                        decorator = this.GenerateAndPrepareContainer(ref itemInfo);
                     }
 
                     decorator.ItemInfo = itemInfo;
@@ -203,17 +214,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
         private RadSize GetContainerAvailableSize(ItemInfo info)
         {
             return this.IsHorizontal ? new RadSize(double.PositiveInfinity, this.AvailableSize.Height) : new RadSize(this.AvailableSize.Width, double.PositiveInfinity);
-        }
-
-        public override GeneratedItemModel GetDisplayedElement(int slot, int id)
-        {
-            List<GeneratedItemModel> containers;
-            if (this.generatedContainers.TryGetValue(slot, out containers))
-            {
-                return containers.LastOrDefault();
-            }
-
-            return null;
         }
     }
 }

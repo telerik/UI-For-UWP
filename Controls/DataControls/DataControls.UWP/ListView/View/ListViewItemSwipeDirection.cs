@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telerik.UI.Xaml.Controls.Data
+﻿namespace Telerik.UI.Xaml.Controls.Data
 {
     /// <summary>
     /// Defines the different modes for item swipe direction
@@ -11,15 +7,14 @@ namespace Telerik.UI.Xaml.Controls.Data
     public enum ListViewItemSwipeDirection
     {
         /// <summary>
-        /// Swipe is allowed from right to left in Vertical orientation, and from bottom to top in Horizontal orientation
+        /// Swipe is allowed from right to left in Vertical orientation, and from bottom to top in Horizontal orientation.
         /// </summary>
         Forward,
 
         /// <summary>
-        /// Swipe is allowed from left to right in Vertical orientation, and from top to bottom in Horizontal orientation
+        /// Swipe is allowed from left to right in Vertical orientation, and from top to bottom in Horizontal orientation.
         /// </summary>
         Backwards,
-
 
         /// <summary>
         /// The swipe gesture is not restricted.

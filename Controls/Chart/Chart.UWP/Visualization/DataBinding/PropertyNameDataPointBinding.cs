@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Dynamic;
 using System.Runtime.CompilerServices;
 using Microsoft.CSharp.RuntimeBinder;
@@ -28,6 +29,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Initializes a new instance of the <see cref="PropertyNameDataPointBinding"/> class.
         /// </summary>
         /// <param name="propertyName">The name of the property which value is bound.</param>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public PropertyNameDataPointBinding(string propertyName)
         {
             this.PropertyName = propertyName;
@@ -57,7 +59,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 this.getter = null;
                 this.callSite = null;
                 this.propertyName = value;
-                this.OnPropertyChanged(nameof(PropertyName));
+                this.OnPropertyChanged(nameof(this.PropertyName));
             }
         }
 

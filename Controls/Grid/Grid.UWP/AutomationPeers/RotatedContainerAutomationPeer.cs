@@ -2,8 +2,14 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RotatedContainer"/>.
+    /// </summary>
     public class RotatedContainerAutomationPeer : RadControlAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the RotatedContainerAutomationPeer class.
+        /// </summary>
         public RotatedContainerAutomationPeer(RotatedContainer owner) 
             : base(owner)
         {
@@ -12,7 +18,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RotatedContainer);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.RotatedContainer);
         }
 
         /// <inheritdoc />
@@ -26,9 +32,11 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
-            return nameof(RotatedContainer);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.RotatedContainer);
         }
     }
 }

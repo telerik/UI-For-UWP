@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telerik.UI.Xaml.Controls.Data
+﻿namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Defines the supported display modes of the ListView's group header.
+    /// </summary>
     public enum ListViewGroupHeaderDisplayMode
     {
         /// <summary>

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Windows.UI.Xaml.Data;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView
@@ -10,16 +8,15 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
     /// </summary>
     public class OffsetToAngleConverter : IValueConverter
     {
-        ///<inheritdoc/>
+        /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-
             var offset = (double)value;
 
             return offset / 2 % 360;
         }
 
-        ///<inheritdoc/>
+        /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

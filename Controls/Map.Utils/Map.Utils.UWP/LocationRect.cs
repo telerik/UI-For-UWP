@@ -98,9 +98,6 @@
         /// <summary>
         /// Checks whether two <see cref="LocationRect"/> values are equal.
         /// </summary>
-        /// <param name="locationRect1"></param>
-        /// <param name="locationRect2"></param>
-        /// <returns></returns>
         public static bool operator ==(LocationRect locationRect1, LocationRect locationRect2)
         {
             return locationRect1.Equals(locationRect2);
@@ -109,9 +106,6 @@
         /// <summary>
         /// Checks whether two <see cref="LocationRect"/> values are not equal.
         /// </summary>
-        /// <param name="locationRect1"></param>
-        /// <param name="locationRect2"></param>
-        /// <returns></returns>
         public static bool operator !=(LocationRect locationRect1, LocationRect locationRect2)
         {
             return !locationRect1.Equals(locationRect2);
@@ -120,9 +114,6 @@
         /// <summary>
         /// Checks whether two <see cref="LocationRect"/> values are equal.
         /// </summary>
-        /// <param name="locationRect1"></param>
-        /// <param name="locationRect2"></param>
-        /// <returns></returns>
         public static bool Equals(LocationRect locationRect1, LocationRect locationRect2)
         {
             return locationRect1.Northwest == locationRect2.Northwest && locationRect1.Southeast == locationRect2.Southeast;

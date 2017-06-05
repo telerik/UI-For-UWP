@@ -14,14 +14,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
 {
     public partial class RadDataGrid
     {
-
         /// <summary>
         /// Identifies the <see cref="ExternalEditor"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty ExternalEditorProperty =
             DependencyProperty.Register(nameof(ExternalEditor), typeof(IGridExternalEditor), typeof(RadDataGrid), new PropertyMetadata(new DataGridFormEditor()));
 
-        
         /// <summary>
         /// Identifies the <see cref="UserEditMode"/> dependency property. 
         /// </summary>
@@ -40,6 +38,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
             set { this.SetValue(UserEditModeProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets external editor of the DataGrid.
+        /// </summary>
         public IGridExternalEditor ExternalEditor
         {
             get { return (IGridExternalEditor)GetValue(ExternalEditorProperty); }

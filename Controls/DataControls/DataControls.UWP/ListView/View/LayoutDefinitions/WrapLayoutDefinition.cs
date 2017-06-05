@@ -1,5 +1,4 @@
-﻿using System;
-using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
+﻿using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
 using Telerik.UI.Xaml.Controls.Data.ListView.Model;
 using Windows.UI.Xaml.Controls;
 
@@ -26,7 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 if (this.itemWidth != value)
                 {
                     this.itemWidth = value;
-                    this.OnPropertyChanged(nameof(ItemWidth));
+                    this.OnPropertyChanged(nameof(this.ItemWidth));
                 }
             }
         }

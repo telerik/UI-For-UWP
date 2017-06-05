@@ -357,7 +357,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Exposed for testing purposes, do not use outside the test project.
+        /// Gets a list of the <see cref="D2DShape"/> shape visuals - exposed for testing purposes, do not use outside the test project.
         /// </summary>
         internal List<D2DShape> ShapeVisuals
         {
@@ -555,7 +555,7 @@ namespace Telerik.UI.Xaml.Controls.Map
             }
         }
 
-        ///<inheritdoc />
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new MapShapeLayerAutomationPeer(this);

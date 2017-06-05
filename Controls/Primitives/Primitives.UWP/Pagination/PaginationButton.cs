@@ -22,6 +22,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Pagination
             this.DefaultStyleKey = typeof(PaginationButton);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new PaginationButtonAutomationPeer(this);

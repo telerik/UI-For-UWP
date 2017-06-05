@@ -120,6 +120,12 @@ namespace Telerik.Data.Core.Engine
             get;
             set;
         }
+        
+        internal List<Tuple<object, int>> SourceGroups
+        {
+            get;
+            set;
+        }
 
         internal object GetItem(int index)
         {
@@ -131,19 +137,13 @@ namespace Telerik.Data.Core.Engine
             return this.DataView.InternalList[index];
         }
 
-        internal List<Tuple<object, int>> SourceGroups
-        {
-            get;
-            set;
-        }
-
         internal object GetGroupFromIndex(int index)
         {
-            for (int i = 0; i < SourceGroups.Count; i++)
+            for (int i = 0; i < this.SourceGroups.Count; i++)
             {
-                if(index < SourceGroups[i].Item2)
+                if (index < this.SourceGroups[i].Item2)
                 {
-                    return SourceGroups[i].Item1;
+                    return this.SourceGroups[i].Item1;
                 }
             }
 

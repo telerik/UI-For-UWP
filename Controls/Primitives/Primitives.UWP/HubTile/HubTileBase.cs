@@ -339,7 +339,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             {
                 AutomationPeer peer = FrameworkElementAutomationPeer.CreatePeerForElement(this);
                 if (peer != null)
+                {
                     peer.RaiseAutomationEvent(AutomationEvents.InvokePatternOnInvoked);
+                }
             }
 
             if (this.Command == null)
@@ -449,6 +451,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.UpdateTimerState();
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new HubTileBaseAutomationPeer(this);

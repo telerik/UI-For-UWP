@@ -17,8 +17,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Retrieves the <see cref="MapLayer"/> instance from the specified Id.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public MapLayer FindLayerById(int id)
         {
             foreach (var layer in this)
@@ -47,7 +45,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Removes the element at the specified index of the collection.
         /// </summary>
-        /// <param name="index"></param>
         protected override void RemoveItem(int index)
         {
             MapLayer presenter = this[index];

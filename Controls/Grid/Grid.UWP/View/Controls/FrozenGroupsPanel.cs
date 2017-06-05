@@ -23,14 +23,15 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             this.SizeChanged += this.OnSizeChanged;
         }
 
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            this.clipGeometry.Rect = new Rect(new Point(), e.NewSize);
-        }
-
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new FrozenGroupsPanelAutomationPeer(this);
+        }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.clipGeometry.Rect = new Rect(new Point(), e.NewSize);
         }
     }
 }

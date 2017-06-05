@@ -16,36 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
             : base(owner)
         {
             this.InitKnownCommands();
-            this.userCommands.CollectionChanged += CommandsCollectionChanged;
-        }
-
-        private void CommandsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewItems != null)
-            {
-                foreach (DataGridCommand newCommand in e.NewItems)
-                {
-                    if (newCommand != null && newCommand.Id == CommandId.LoadMoreData)
-                    {
-                        newCommand.CanExecuteChanged += this.LoadMoreDataCanExecuteChanged;
-                    }
-                }
-            }
-            if (e.OldItems != null)
-            {
-                foreach (DataGridCommand oldCommand in e.OldItems)
-                {
-                    if (oldCommand != null && oldCommand.Id == CommandId.LoadMoreData)
-                    {
-                        oldCommand.CanExecuteChanged -= this.LoadMoreDataCanExecuteChanged;
-                    }
-                }
-            }
-        }
-
-        private void LoadMoreDataCanExecuteChanged(object sender, EventArgs e)
-        {
-            this.Owner.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
+            this.userCommands.CollectionChanged += this.CommandsCollectionChanged;
         }
 
         /// <summary>
@@ -58,7 +29,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
                 return this.userCommands;
             }
         }
-
+        
         /// <summary>
         /// Attempts to find the command, associated with the specified Id and to perform its Execute routine, using the provided parameter.
         /// </summary>
@@ -115,6 +86,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
             return false;
         }
 
+        private void LoadMoreDataCanExecuteChanged(object sender, EventArgs e)
+        {
+            this.Owner.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
+        }
+
         private void InitKnownCommands()
         {
             var commands = Enum.GetValues(typeof(CommandId));
@@ -126,6 +102,30 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
                 if (commandId != CommandId.Unknown)
                 {
                     this.defaultCommands[(int)commandId] = this.CreateKnownCommand(commandId);
+                }
+            }
+        }
+
+        private void CommandsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (DataGridCommand newCommand in e.NewItems)
+                {
+                    if (newCommand != null && newCommand.Id == CommandId.LoadMoreData)
+                    {
+                        newCommand.CanExecuteChanged += this.LoadMoreDataCanExecuteChanged;
+                    }
+                }
+            }
+            if (e.OldItems != null)
+            {
+                foreach (DataGridCommand oldCommand in e.OldItems)
+                {
+                    if (oldCommand != null && oldCommand.Id == CommandId.LoadMoreData)
+                    {
+                        oldCommand.CanExecuteChanged -= this.LoadMoreDataCanExecuteChanged;
+                    }
                 }
             }
         }

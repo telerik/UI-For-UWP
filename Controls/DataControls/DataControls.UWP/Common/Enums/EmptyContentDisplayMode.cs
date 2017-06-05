@@ -1,5 +1,5 @@
 ﻿namespace Telerik.UI.Xaml.Controls.Data
-{    
+{
     /// <summary>
     /// Defines the modes for displaying empty content.
     /// </summary>

@@ -26,6 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return new RadarSplineRenderer();
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadarSplineAreaSeriesAutomationPeer(this);

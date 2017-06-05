@@ -8,9 +8,12 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
     /// </summary>
     public class ItemSwipeActionCompleteContext : ItemSwipeContextBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemSwipeActionCompleteContext"/> class.
+        /// </summary>
         public ItemSwipeActionCompleteContext(object dataItem, RadListViewItem container, double dragDelta) : base(dataItem, container, dragDelta)
         {
-            this.FinalDragOffset = GetOffset(container.ListView.Orientation, dragDelta, container.ListView.ItemSwipeOffset);
+            this.FinalDragOffset = this.GetOffset(container.ListView.Orientation, dragDelta, container.ListView.ItemSwipeOffset);
         }
 
         /// <summary>

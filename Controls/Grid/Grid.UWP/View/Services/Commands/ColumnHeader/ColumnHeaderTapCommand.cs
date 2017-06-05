@@ -45,9 +45,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
             // check whether the data layer is prepared
             if (!this.Owner.Model.IsDataProviderUpdating)
             {
-
                 // delegate the actual implementation to the specific columns
-
                 if (this.Owner.ColumnDataOperationsMode == ColumnDataOperationsMode.Inline)
                 {
                     context.Column.ToggleSort(context.IsMultipleSortAllowed);
@@ -63,7 +61,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
                         var header = context.Column.HeaderControl;
 
                         // If the user taps on the same column header consequently, the flyout is closed rahter than opened again.
-                        if(context.IsFlyoutOpen && popup.Id == DataGridFlyoutId.ColumnHeader && popup.Child != null)
+                        if (context.IsFlyoutOpen && popup.Id == DataGridFlyoutId.ColumnHeader && popup.Child != null)
                         {
                             var currentContext = popup.Child.DataContext as ActionContext;
                             if (currentContext != null && currentContext.Column.HeaderControl.Equals(header))
@@ -90,7 +88,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
 
                         var actionContext = new ActionContext(context.Column, new ColumnHeaderFlyoutCommand(context.Column.HeaderControl));
                         popupContent.DataContext = actionContext;
-
 
                         this.Owner.ContentFlyout.Show(DataGridFlyoutId.ColumnHeader, popupContent);
                     }

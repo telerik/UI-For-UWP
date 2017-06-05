@@ -80,17 +80,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// </summary>
         public static readonly DependencyProperty HideIndicatorWhenNotExpandableProperty =
             DependencyProperty.Register(nameof(HideIndicatorWhenNotExpandable), typeof(bool), typeof(RadExpanderControl), new PropertyMetadata(false, OnHideIndicatorWhenNotExpandableChanged));
-
-        private static readonly DependencyProperty DataContextPrivateProperty =
-            DependencyProperty.Register("DataContextPrivate", typeof(object), typeof(RadExpanderControl), new PropertyMetadata(null, OnDataContextPrivateChanged));
-
+        
         /// <summary>
         /// Identifies the <see cref="HeaderBackground"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderBackgroundProperty =
             DependencyProperty.Register(nameof(HeaderBackground), typeof(Brush), typeof(RadExpanderControl), new PropertyMetadata(null));
-
+        
         internal ContentPresenter mainContentPresenter;
+        
+        private static readonly DependencyProperty DataContextPrivateProperty =
+            DependencyProperty.Register("DataContextPrivate", typeof(object), typeof(RadExpanderControl), new PropertyMetadata(null, OnDataContextPrivateChanged));
 
         private bool useTransitions = false;
         private bool isPropertySetSilently = false;
@@ -122,7 +122,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         public event EventHandler<ExpandedStateChangedEventArgs> ExpandedStateChanged;
 
         /// <summary>
-        /// Gets or sets a boolean value which determines whether the expandable content is measured
+        /// Gets or sets a value indicating whether the expandable content is measured
         /// only when the control is being expanded or at the initial layout pass for the whole control. When
         /// an optimized measure pass is used, some delays in the expansion may occur depending on the complexity of 
         /// the expandable content's template.
@@ -134,7 +134,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
-        /// Gets or sets a boolean value which determines whether the expandable content is visible or not.
+        /// Gets or sets a value indicating whether the expandable content is visible or not.
         /// </summary>
         public bool IsExpanded
         {
@@ -149,32 +149,30 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
-        /// Gets or sets a boolean value which determines whether the user can expand/collapse the control through the UI.
+        /// Gets or sets a value indicating whether the user can expand/collapse the control through the UI.
         /// </summary>
         public bool IsExpandable
         {
             get { return (bool)GetValue(IsExpandableProperty); }
-            set { SetValue(IsExpandableProperty, value); }
+            set { this.SetValue(IsExpandableProperty, value); }
         }
 
-
         /// <summary>
-        /// Gets or sets a boolean value which determines whether the animated indicator(arrow) will be hidden when the control is not expandable.
+        /// Gets or sets a value indicating whether the animated indicator(arrow) will be hidden when the control is not expandable.
         /// </summary>
         public bool HideIndicatorWhenNotExpandable
         {
             get { return (bool)GetValue(HideIndicatorWhenNotExpandableProperty); }
-            set { SetValue(HideIndicatorWhenNotExpandableProperty, value); }
+            set { this.SetValue(HideIndicatorWhenNotExpandableProperty, value); }
         }
-
-
+        
         /// <summary>
         /// Gets or sets the Background Brush of the Header(Content and Indicator).
         /// </summary>
         public Brush HeaderBackground
         {
             get { return (Brush)GetValue(HeaderBackgroundProperty); }
-            set { SetValue(HeaderBackgroundProperty, value); }
+            set { this.SetValue(HeaderBackgroundProperty, value); }
         }
 
         /// <summary>
@@ -243,7 +241,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
-        /// Gets or sets an instanance of the <see cref="DataTemplate"/> class that defines the visual appearance
+        /// Gets or sets an instance of the <see cref="DataTemplate"/> class that defines the visual appearance
         /// of the object set to the <see cref="ExpandedStateContent"/> property.
         /// </summary>
         public DataTemplate ExpandedStateContentTemplate
@@ -292,10 +290,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
-        /// Gets a boolen value that indicates whether the control template parts
+        /// Gets a boolean value that indicates whether the control template parts
         /// have been successfully acquired after the OnApplyTemplate call.
         /// </summary>
-        /// <value></value>
         protected internal override bool IsProperlyTemplated
         {
             get
@@ -328,7 +325,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             var layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as Border;
             this.contentHolder = this.GetTemplateChild("PART_ExpandableContentHolder") as Canvas;
             var expandedVisualState = VisualStateManager.GetVisualStateGroups(layoutRoot)[0].States.First(state => state.Name == "Expanded");
-            if(expandedVisualState != null && expandedVisualState.Storyboard != null)
+            if (expandedVisualState != null && expandedVisualState.Storyboard != null)
             {
                 var animation = new DoubleAnimation();
                 animation.Duration = new Duration(TimeSpan.FromSeconds(0));
@@ -359,7 +356,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             if (this.IsProperlyTemplated)
             {
-                if(!this.IsExpandable && this.HideIndicatorWhenNotExpandable)
+                if (!this.IsExpandable && this.HideIndicatorWhenNotExpandable)
                 {
                     this.animatedIndicator.Visibility = Visibility.Collapsed;
                 }
@@ -374,7 +371,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 }
                 else
                 {
-                    this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    this.Dispatcher.RunAsync(
+                        CoreDispatcherPriority.Normal,
+                        () =>
                         {
                             this.SetInitialControlState(false);
                         });
@@ -383,6 +382,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 #pragma warning restore 4014
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadExpanderControlAutomationPeer(this);
@@ -408,19 +408,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 this.ToggleExpandedOnTap();
                 this.useTransitions = false;
             }
-
-            if (this.IsTabStop && this.FocusState == FocusState.Unfocused)
-            {
-                this.Focus(FocusState.Programmatic);
-            }
-
-            var expanderControlPeer = FrameworkElementAutomationPeer.FromElement(this) as RadExpanderControlAutomationPeer;
-            if (expanderControlPeer != null)
-            {
-                expanderControlPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
-            }
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             if (e.OriginalSource is RadExpanderControl)
@@ -434,7 +427,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// <summary>
         /// Builds the current visual state for this instance.
         /// </summary>
-        /// <returns></returns>
         protected override string ComposeVisualStateName()
         {
             if (this.IsExpanded)
@@ -495,10 +487,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 }
                 else
                 {
-                    this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        action();
-                    });
+                    this.Dispatcher.RunAsync(
+                        CoreDispatcherPriority.Normal, 
+                        () =>
+                        {
+                            action();
+                        });
                 }
             }
 
@@ -574,6 +568,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             if (expanderControlPeer != null)
             {
                 expanderControlPeer.RaiseExpandCollapseAutomationEvent((bool)args.OldValue, (bool)args.NewValue);
+                expanderControlPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
             }
         }
 
@@ -615,7 +610,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
         private void OnExpandableContentPresenter_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if(this.expandContentHolderAnimation != null)
+            if (this.expandContentHolderAnimation != null)
             {
                 this.expandContentHolderAnimation.To = e.NewSize.Height;
             }

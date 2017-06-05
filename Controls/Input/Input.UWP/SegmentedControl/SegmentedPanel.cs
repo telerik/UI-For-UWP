@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input
 {
+    /// <summary>
+    /// A custom panel that holds the elements in a <see cref="SegmentedItemsControl"/> control.
+    /// </summary>
     public class SegmentedPanel : Panel
     {
         /// <summary>
@@ -42,7 +45,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             double currentX = 0;
 
-            var separatorWidth = GetSeparatorWidth();
+            var separatorWidth = this.GetSeparatorWidth();
             var separatorsTotalWidth = (this.Children.Count - 1) * separatorWidth;
 
             var itemsWidthMode = this.Owner != null ? this.Owner.SegmentWidthMode : SegmentWidthMode.Equal;
@@ -92,19 +95,19 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return base.MeasureOverride(availableSize);
             }
 
-            UpdateSegmentsCornerRadius();
+            this.UpdateSegmentsCornerRadius();
 
             double accumulatedWidth = 0;
             double accumulatedHeight = 0;
 
-            var separatorsTotalWidth = (this.Children.Count - 1) * GetSeparatorWidth();
+            var separatorsTotalWidth = (this.Children.Count - 1) * this.GetSeparatorWidth();
 
             var itemsWidthMode = this.Owner != null ? this.Owner.SegmentWidthMode : SegmentWidthMode.Equal;
             var itemWidth = double.PositiveInfinity;
 
             if (itemsWidthMode == SegmentWidthMode.Equal)
             {
-                var availableWidth = Double.IsInfinity(availableSize.Width) ? this.DesiredSize.Width : availableSize.Width;
+                var availableWidth = double.IsInfinity(availableSize.Width) ? this.DesiredSize.Width : availableSize.Width;
                 itemWidth = (availableWidth - separatorsTotalWidth) / this.Children.Count;
             }
 
@@ -129,10 +132,10 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             if (this.Owner != null)
             {
-                var tl = Math.Max(0, Owner.CornerRadius.TopLeft - Math.Max(Owner.BorderThickness.Left, Owner.BorderThickness.Top) / 2);
-                var tr = Math.Max(0, Owner.CornerRadius.TopRight - Math.Max(Owner.BorderThickness.Right, Owner.BorderThickness.Top) / 2);
-                var bl = Math.Max(0, Owner.CornerRadius.BottomLeft - Math.Max(Owner.BorderThickness.Left, Owner.BorderThickness.Bottom) / 2);
-                var br = Math.Max(0, Owner.CornerRadius.BottomRight - Math.Max(Owner.BorderThickness.Right, Owner.BorderThickness.Bottom) / 2);
+                var tl = Math.Max(0, this.Owner.CornerRadius.TopLeft - Math.Max(this.Owner.BorderThickness.Left, this.Owner.BorderThickness.Top) / 2);
+                var tr = Math.Max(0, this.Owner.CornerRadius.TopRight - Math.Max(this.Owner.BorderThickness.Right, this.Owner.BorderThickness.Top) / 2);
+                var bl = Math.Max(0, this.Owner.CornerRadius.BottomLeft - Math.Max(this.Owner.BorderThickness.Left, this.Owner.BorderThickness.Bottom) / 2);
+                var br = Math.Max(0, this.Owner.CornerRadius.BottomRight - Math.Max(this.Owner.BorderThickness.Right, this.Owner.BorderThickness.Bottom) / 2);
 
                 if (first.Equals(last))
                 {

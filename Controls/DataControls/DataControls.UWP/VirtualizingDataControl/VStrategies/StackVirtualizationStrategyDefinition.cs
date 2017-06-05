@@ -27,7 +27,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 if (this.reorderMode != value)
                 {
                     this.reorderMode = value;
-                    this.OnPropertyChanged(nameof(ReorderMode));
+                    this.OnPropertyChanged(nameof(this.ReorderMode));
                 }
             }
         }

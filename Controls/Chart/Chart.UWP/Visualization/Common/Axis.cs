@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Charting;
 using Telerik.Core;
 using Telerik.UI.Automation.Peers;
@@ -137,6 +138,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Initializes a new instance of the <see cref="Axis"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         protected Axis()
         {
             this.model = this.CreateModel();
@@ -651,6 +653,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new AxisAutomationPeer(this);

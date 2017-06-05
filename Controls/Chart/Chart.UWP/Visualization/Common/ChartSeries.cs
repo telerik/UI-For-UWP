@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Telerik.Charting;
 using Telerik.Core;
@@ -65,10 +66,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         private int paletteIndexCache = -1;
         private ObservableCollection<ChartSeriesLabelDefinition> labelDefinitions;
         private List<KeyValuePair<DataPoint, List<FrameworkElement>>> labels; //// more than one label may be associated with a data point, that is why we have list of lists
-       
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ChartSeries"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         protected ChartSeries()
         {
             this.DefaultStyleKey = typeof(ChartSeries);
@@ -262,6 +264,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// A callback, raised by a data point visualized by this instance. Intended for internal use.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         void IChartSeries.OnDataPointIsSelectedChanged(DataPoint point)
         {
             this.OnDataPointSelectionChanged(point);
@@ -595,6 +598,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new ChartSeriesAutomationPeer(this);

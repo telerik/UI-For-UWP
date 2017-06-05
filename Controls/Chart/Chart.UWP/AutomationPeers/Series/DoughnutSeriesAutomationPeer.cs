@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DoughnutSeries"/>.
+    /// </summary>
     public class DoughnutSeriesAutomationPeer : PieSeriesAutomationPeer
     {
         /// <summary>
@@ -15,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(DoughnutSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.DoughnutSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(DoughnutSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.DoughnutSeries);
         }
 
         /// <inheritdoc />

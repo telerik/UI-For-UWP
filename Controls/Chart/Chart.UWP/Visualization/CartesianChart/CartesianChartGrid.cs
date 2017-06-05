@@ -285,6 +285,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
             // TODO: Consider throwing Exception if oldChart is not valid.
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new CartesianChartGridAutomationPeer(this);
+        }
+
         private static void UpdateGridLineStyle(GridLinesInfo gridLinesInfo, Style lineStyle)
         {
             if (gridLinesInfo != null)
@@ -659,11 +665,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     line.Y2 = rect.Bottom + offset;
                 }
             }
-        }
-
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new CartesianChartGridAutomationPeer(this);
         }
     }
 }

@@ -19,14 +19,14 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
     
     public partial class DataGridColumnsFlyout : DataGridFlyout 
     {
-        private Image closeButton;
-        private bool isCloseButtonPointerOver;
-
         /// <summary>
         /// Identifies the <see cref="HeaderStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderStyleProperty =
             DependencyProperty.Register(nameof(HeaderStyle), typeof(Style), typeof(DataGridColumnsFlyout), new PropertyMetadata(null));
+
+        private Image closeButton;
+        private bool isCloseButtonPointerOver;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataGridColumnsFlyout" /> class.
@@ -34,12 +34,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         public DataGridColumnsFlyout()
         {
             this.DefaultStyleKey = typeof(DataGridColumnsFlyout);
-        }
-
-        internal DataGridColumnReorderServicePanel Owner
-        {
-            get;
-            set;
         }
 
         /// <summary>
@@ -54,6 +48,27 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             set
             {
                 this.SetValue(HeaderStyleProperty, value);
+            }
+        }
+
+        internal DataGridColumnReorderServicePanel Owner
+        {
+            get;
+            set;
+        }
+
+        internal override void ClearUI()
+        {
+            if (this.Container != null)
+            {
+                foreach (DataGridFlyoutColumnHeader header in this.Container.Children)
+                {
+                    header.SelectionCheck -= this.Header_SelectionCheck;
+                    header.SelectionUncheck -= this.Header_SelectionUncheck;
+                    header.DragSurfaceRequested -= this.HandleDragSurfaceRequested;
+                }
+
+                this.Container.ClearItems();
             }
         }
 
@@ -76,7 +91,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
                 header.DataContext = column;
                 header.SelectionCheck += this.Header_SelectionCheck;
-                header.SelectionUncheck += Header_SelectionUncheck;
+                header.SelectionUncheck += this.Header_SelectionUncheck;
 
                 header.DragSurfaceRequested += this.HandleDragSurfaceRequested;
                 header.ParentGrid = this.Owner.Owner;
@@ -85,9 +100,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        /// <inheritdoc/>
         protected override string ComposeVisualStateName()
         {
-            string state = "";
+            string state = string.Empty;
             if (this.isCloseButtonPointerOver)
             {
                 state = "NormalPointerOver";
@@ -107,49 +123,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
             return state;
         }
-
-        private void CloseButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            this.Owner.CloseColumnsFlyout();
-        }
-
-        private void Header_SelectionUncheck(object sender, EventArgs e)
-        {
-            DataGridColumn column = (sender as DataGridFlyoutColumnHeader).DataContext as DataGridColumn;
-
-            Debug.Assert(column != null, "A column should be present as DataContext");
-            if (column == null)
-                return;
-
-            this.Owner.Owner.CommandService.ExecuteCommand(CommandId.ToggleColumnVisibility, new ToggleColumnVisibilityContext() { Column = column, IsColumnVisible = false });
-        }
-
-        private void Header_SelectionCheck(object sender, EventArgs e)
-        {
-            DataGridColumn column = (sender as DataGridFlyoutColumnHeader).DataContext as DataGridColumn;
-
-            Debug.Assert(column != null, "A column should be present as DataContext");
-            if (column == null)
-                return;
-
-            this.Owner.Owner.CommandService.ExecuteCommand(CommandId.ToggleColumnVisibility, new ToggleColumnVisibilityContext() { Column = column, IsColumnVisible = true });
-        }
         
-        internal override void ClearUI()
-        {
-            if (this.Container != null)
-            {
-                foreach (DataGridFlyoutColumnHeader header in this.Container.Children)
-                {
-                    header.SelectionCheck -= this.Header_SelectionCheck;
-                    header.SelectionUncheck -= Header_SelectionUncheck;
-                    header.DragSurfaceRequested -= this.HandleDragSurfaceRequested;
-                }
-
-                this.Container.ClearItems();
-            }     
-        }
-
+        /// <summary>
+        /// Called when the Framework <see cref="M:OnApplyTemplate"/> is called. Inheritors should override this method should they have some custom template-related logic.
+        /// This is done to ensure that the <see cref="P:IsTemplateApplied"/> property is properly initialized.
+        /// </summary>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -164,26 +142,58 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return applied;
         }
 
-        private void CloseButton_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            base.OnPointerEntered(e);
-            this.isCloseButtonPointerOver = false;
-            this.UpdateVisualState(false);
-        }
-
-        private void CloseButton_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            base.OnPointerEntered(e);
-            this.isCloseButtonPointerOver = true;
-            this.UpdateVisualState(false);
-        }
-
+        /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
             this.closeButton.PointerEntered -= this.CloseButton_PointerEntered;
             this.closeButton.PointerExited -= this.CloseButton_PointerExited;
             this.closeButton.Tapped -= this.CloseButton_Tapped;
             base.UnapplyTemplateCore();
+        }
+
+        private void CloseButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            this.Owner.CloseColumnsFlyout();
+        }
+
+        private void Header_SelectionUncheck(object sender, EventArgs e)
+        {
+            DataGridColumn column = (sender as DataGridFlyoutColumnHeader).DataContext as DataGridColumn;
+
+            Debug.Assert(column != null, "A column should be present as DataContext");
+            if (column == null)
+            {
+                return;
+            }
+
+            this.Owner.Owner.CommandService.ExecuteCommand(CommandId.ToggleColumnVisibility, new ToggleColumnVisibilityContext() { Column = column, IsColumnVisible = false });
+        }
+
+        private void Header_SelectionCheck(object sender, EventArgs e)
+        {
+            DataGridColumn column = (sender as DataGridFlyoutColumnHeader).DataContext as DataGridColumn;
+
+            Debug.Assert(column != null, "A column should be present as DataContext");
+            if (column == null)
+            {
+                return;
+            }
+
+            this.Owner.Owner.CommandService.ExecuteCommand(CommandId.ToggleColumnVisibility, new ToggleColumnVisibilityContext() { Column = column, IsColumnVisible = true });
+        }
+
+        private void CloseButton_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            this.OnPointerEntered(e);
+            this.isCloseButtonPointerOver = false;
+            this.UpdateVisualState(false);
+        }
+
+        private void CloseButton_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            this.OnPointerEntered(e);
+            this.isCloseButtonPointerOver = true;
+            this.UpdateVisualState(false);
         }
     }
 }

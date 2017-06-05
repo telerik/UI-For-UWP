@@ -149,7 +149,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 return true;
             }
-            
+
             return this.ChangeCurrentCore(newCurrentItem, cancelable, scrollToCurrent);
         }
 

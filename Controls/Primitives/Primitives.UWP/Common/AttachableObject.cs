@@ -1,5 +1,4 @@
-﻿using System;
-using Windows.UI.Xaml;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
 {
@@ -15,6 +14,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Initializes a new instance of the <see cref="AttachableObject{T}" /> class.
         /// </summary>
         /// <param name="owner">The object instance that owns this one.</param>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         internal AttachableObject(T owner)
             : this()
         {

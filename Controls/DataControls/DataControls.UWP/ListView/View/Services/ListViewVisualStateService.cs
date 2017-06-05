@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Telerik.Core;
 using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Primitives;

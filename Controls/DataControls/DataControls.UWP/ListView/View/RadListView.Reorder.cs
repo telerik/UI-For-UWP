@@ -6,42 +6,22 @@ using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Represents a RadListView control.
+    /// </summary>
     public partial class RadListView : IReorderItemsHost
     {
-        public ListViewReorderMode ReorderMode
-        {
-            get { return (ListViewReorderMode)GetValue(ReorderModeProperty); }
-            set { SetValue(ReorderModeProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ReorderMode.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="ReorderMode"/> dependency property. 
+        /// </summary>
         public static readonly DependencyProperty ReorderModeProperty =
             DependencyProperty.Register(nameof(ReorderMode), typeof(ListViewReorderMode), typeof(RadListView), new PropertyMetadata(ListViewReorderMode.Default, OnReorderModeChanged));
-
-        private static void OnReorderModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var listView = d as RadListView;
-            if (listView != null && e.NewValue != e.OldValue)
-            {
-                listView.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
-            }
-        } 
 
         /// <summary>
         /// Identifies the <see cref="IsItemReorderEnabled"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsItemReorderEnabledProperty =
             DependencyProperty.Register(nameof(IsItemReorderEnabled), typeof(bool), typeof(RadListView), new PropertyMetadata(false, OnIsItemReorderEnabledChanged));
-
-        private static void OnIsItemReorderEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var listView = d as RadListView;
-            if(listView != null && e.NewValue != e.OldValue)
-            {
-                listView.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
-            }
-        }
-
 
         private ReorderItemsCoordinator reorderCoordinator;
 
@@ -58,6 +38,15 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 this.SetValue(IsItemReorderEnabledProperty, value);
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the reorder mode of the <see cref="RadListView"/>.
+        /// </summary>
+        public ListViewReorderMode ReorderMode
+        {
+            get { return (ListViewReorderMode)GetValue(ReorderModeProperty); }
+            set { SetValue(ReorderModeProperty, value); }
         }
 
         /// <summary>
@@ -94,6 +83,24 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 (reorderItem as IReorderItem).Coordinator = null;
                 DragDrop.SetAllowDrop(reorderItem, false);
+            }
+        }
+
+        private static void OnIsItemReorderEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var listView = d as RadListView;
+            if (listView != null && e.NewValue != e.OldValue)
+            {
+                listView.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
+            }
+        }
+
+        private static void OnReorderModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var listView = d as RadListView;
+            if (listView != null && e.NewValue != e.OldValue)
+            {
+                listView.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
             }
         }
 

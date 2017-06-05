@@ -1,4 +1,5 @@
-﻿using Telerik.Charting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Telerik.Charting;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Markup;
 
@@ -33,6 +34,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Initializes a new instance of the <see cref="RangeSeriesBase"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         internal RangeSeriesBase()
         {
             this.model = this.CreateModel();

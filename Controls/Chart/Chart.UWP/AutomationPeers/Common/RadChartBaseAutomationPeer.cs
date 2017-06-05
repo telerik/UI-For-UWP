@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Telerik.UI.Xaml.Controls.Chart;
 using Telerik.Core;
-using Windows.UI.Xaml.Automation.Peers;
+using Telerik.UI.Xaml.Controls.Chart;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadChartBase"/>.
+    /// </summary>
     public class RadChartBaseAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>
@@ -29,13 +32,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadChartBase);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.RadChartBase);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadChartBase);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.RadChartBase);
         }
 
         /// <inheritdoc />

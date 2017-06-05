@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Core;
-using Telerik.Data.Core;
-using Telerik.UI.Xaml.Controls.Data.ListView;
-using Telerik.UI.Xaml.Controls.Primitives;
-using Windows.Foundation;
-using Windows.UI;
+﻿using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
@@ -67,5 +58,5 @@ namespace Telerik.UI.Xaml.Controls.Data
                 panel.Children.Remove(child);
             }
         }
-        }
+    }
 }

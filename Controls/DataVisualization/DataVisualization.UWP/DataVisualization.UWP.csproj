@@ -160,4 +160,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="XamlGeneratedCodeWarningRemoved" AfterTargets="MarkupCompilePass2">
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning disable 1591 > %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do type %%f >> %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning restore 1591 >> %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do move /y %%f.temp %%f" />
+    <Message Text="Xaml Generated Code Warnings Removed: @(_GeneratedCodeFiles)" />
+  </Target>
 </Project>

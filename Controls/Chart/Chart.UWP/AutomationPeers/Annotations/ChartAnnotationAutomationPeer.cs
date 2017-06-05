@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="ChartAnnotation"/>.
+    /// </summary>
     public class ChartAnnotationAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>
@@ -15,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(ChartAnnotation);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ChartAnnotation);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(ChartAnnotation);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ChartAnnotation);
         }
 
         /// <inheritdoc />

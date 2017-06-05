@@ -15,12 +15,13 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(DataControlBase), new PropertyMetadata(null, OnItemsSourceChanged));
-        
+
         internal RadListSource listSource;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataControlBase"/> class.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         protected DataControlBase()
         {
             this.listSource = this.CreateListSource();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Telerik.Core;
 using Telerik.UI.Automation.Peers;
@@ -144,7 +145,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(DayNameCellStyleSelector), typeof(CalendarDayNameCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnDayNameCellStyleSelectorPropertyChanged));
 
         /// <summary>
-        /// Identifies the <see cref="WeekNumberStyleSelector"/> dependency property.
+        /// Identifies the <see cref="WeekNumberCellStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WeekNumberCellStyleSelectorProperty =
             DependencyProperty.Register(nameof(WeekNumberCellStyleSelector), typeof(CalendarWeekNumberCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnWeekNumberStyleSelectorPropertyChanged));
@@ -300,8 +301,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private CalendarCellModel highlightedCellCache;
         private DateTime pointerOverDateCache;
-
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="RadCalendar"/> class.
         /// </summary>
@@ -318,21 +318,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.inputService = new InputService(this);
             this.CurrencyService = new CurrencyService(this);
         }
-
-        ///// <summary>
-        ///// Occurs when the collection returned by the <see cref="SelectedDateRanges"/> property is changed.
-        ///// </summary>
-        //public event EventHandler SelectionChanged
-        //{
-        //    add
-        //    {
-        //        this.SelectionService.SelectionChanged += value;
-        //    }
-        //    remove
-        //    {
-        //        this.SelectionService.SelectionChanged -= value;
-        //    }
-        //}
 
         /// <summary>
         /// Occurs when the collection returned by the <see cref="SelectedDateRanges"/> property is changed.
@@ -469,7 +454,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Gets or sets the current date to display.
         /// </summary>
         /// <value>
-        /// The default value is <see cref="DateTime.Today"/>.
+        /// The default value is <see cref="System.DateTime.Today"/>.
         /// </value>
         /// <example>
         /// <code language="xaml">
@@ -1538,6 +1523,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportWidth
         {
             get
@@ -1546,6 +1532,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportHeight
         {
             get
@@ -1554,6 +1541,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IElementPresenter.IsVisible
         {
             get
@@ -1621,11 +1609,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.Invalidate();
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         void IElementPresenter.RefreshNode(object node)
         {
             this.Invalidate();
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         RadSize IElementPresenter.MeasureContent(object owner, object content)
         {
             // we know how to measure only header cells content
@@ -2455,8 +2445,10 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private CalendarCellStateContext CreateCurrentCellStateContext(CalendarCellModel cell)
         {
-            if (cell.Date == pointerOverDateCache)
+            if (cell.Date == this.pointerOverDateCache)
+            {
                 cell.IsPointerOver = true;
+            }
 
             if (this.highlightedCellCache != null && this.highlightedCellCache.Date != DateTime.Today)
             {
@@ -2604,16 +2596,16 @@ namespace Telerik.UI.Xaml.Controls.Input
                     var defaultDayNameCellStyle = this.DayNameCellStyle.ContentStyle;
                     var userDefinedDayNameCellStyle = this.DayNameCellStyleSelector.SelectStyle(cell.Label, this);
 
-					if (userDefinedDayNameCellStyle == null)
-					{
-						context.CalculatedContentCellStyle = defaultDayNameCellStyle;
-					}
-					else
-					{
-						//Merge user-defined style and default style
-						userDefinedDayNameCellStyle.BasedOn = defaultDayNameCellStyle;
-						context.CalculatedContentCellStyle = userDefinedDayNameCellStyle;
-					}
+                    if (userDefinedDayNameCellStyle == null)
+                    {
+                        context.CalculatedContentCellStyle = defaultDayNameCellStyle;
+                    }
+                    else
+                    {
+                        // Merge user-defined style and default style
+                        userDefinedDayNameCellStyle.BasedOn = defaultDayNameCellStyle;
+                        context.CalculatedContentCellStyle = userDefinedDayNameCellStyle;
+                    }
                 }
                 else if (this.DayNameCellStyle != null)
                 {
@@ -2628,16 +2620,16 @@ namespace Telerik.UI.Xaml.Controls.Input
                     var defaultWeekNumberCellStyle = this.WeekNumberCellStyle.ContentStyle;
                     var userDefinedWeekNumberCellStyle = this.WeekNumberCellStyleSelector.SelectStyle(cell.Label, this);
 
-					if (userDefinedWeekNumberCellStyle == null)
-					{
-						context.CalculatedContentCellStyle = defaultWeekNumberCellStyle;
-					}
-					else
-					{
-						//Merge user-defined style and default style
-						userDefinedWeekNumberCellStyle.BasedOn = defaultWeekNumberCellStyle;
-						context.CalculatedContentCellStyle = userDefinedWeekNumberCellStyle;
-					}
+                    if (userDefinedWeekNumberCellStyle == null)
+                    {
+                        context.CalculatedContentCellStyle = defaultWeekNumberCellStyle;
+                    }
+                    else
+                    {
+                        // Merge user-defined style and default style
+                        userDefinedWeekNumberCellStyle.BasedOn = defaultWeekNumberCellStyle;
+                        context.CalculatedContentCellStyle = userDefinedWeekNumberCellStyle;
+                    }
                 }
                 else if (this.WeekNumberCellStyle != null)
                 {

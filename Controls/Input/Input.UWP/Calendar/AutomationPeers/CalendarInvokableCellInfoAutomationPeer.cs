@@ -9,17 +9,28 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class CalendarInvokableCellInfoAutomationPeer : CalendarCellInfoBaseAutomationPeer, IInvokeProvider
     {
-        internal CalendarCellModel CalendarCellModel { get; set; }
-
-        /// <summary>
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarInvokableCellInfoAutomationPeer"/> class.
         /// </summary>
-        /// <param name="parentPeer">Parent CalendarViewHostAutomationPeer.</param>
+        /// <param name="parent">Parent CalendarViewHostAutomationPeer.</param>
         /// <param name="cellModel">The model of the calendar cell.</param>
         internal CalendarInvokableCellInfoAutomationPeer(CalendarViewHostAutomationPeer parent, CalendarCellModel cellModel) : base(parent, cellModel)
         {
             this.CalendarCellModel = cellModel;
+        }
+
+        internal CalendarCellModel CalendarCellModel { get; set; }
+
+        /// <summary>
+        /// IInvokeProvider implementation.
+        /// </summary>
+        public void Invoke()
+        {
+            if (this.CalendarViewHostPeer.CalendarOwner != null)
+            {
+                this.CalendarViewHostPeer.CalendarOwner.RaiseCellTapCommand(this.CalendarCellModel);
+                this.RaiseAutomationEvent(AutomationEvents.InvokePatternOnInvoked);
+            }
         }
 
         /// <inheritdoc />
@@ -31,15 +42,6 @@ namespace Telerik.UI.Automation.Peers
             }
 
             return base.GetPatternCore(patternInterface);
-        }
-
-        public void Invoke()
-        {
-            if (this.CalendarViewHostPeer.CalendarOwner != null)
-            {
-                this.CalendarViewHostPeer.CalendarOwner.RaiseCellTapCommand(this.CalendarCellModel);
-                this.RaiseAutomationEvent(AutomationEvents.InvokePatternOnInvoked);
-            }
         }
     }
 }

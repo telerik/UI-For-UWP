@@ -3,6 +3,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="CartesianCustomAnnotation"/>.
+    /// </summary>
     public class CartesianCustomAnnotationAutomationPeer : ChartAnnotationAutomationPeer
     {
         /// <summary>
@@ -31,7 +34,9 @@ namespace Telerik.UI.Automation.Peers
 
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(CartesianCustomAnnotation);
         }

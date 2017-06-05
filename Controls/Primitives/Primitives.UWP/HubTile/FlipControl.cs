@@ -152,6 +152,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.HubTile
             return this.IsFlipped ? "Flipped" : "NotFlipped";
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new FlipControlAutomationPeer(this);

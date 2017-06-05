@@ -22,12 +22,10 @@ namespace Telerik.Data.Core
 
         private INumericalRange range;
 
-        protected object PropertyContext { get; private set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityProperty"/> class.
         /// </summary>
-        /// <param name="property">The property info that object is accosiated with.</param>
+        /// <param name="propertyContext">The property info that object is associated with.</param>
         /// <param name="item">The data item.</param>
         /// <param name="converter">The converter. Optionally you can convert your source property to a different format depending on the UI and scenario.</param>
         public EntityProperty(object propertyContext, object item, IPropertyConverter converter)
@@ -41,11 +39,16 @@ namespace Telerik.Data.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityProperty"/> class.
         /// </summary>
-        /// <param name="property">The property info that object is accosiated with.</param>
+        /// <param name="property">The property info that object is associated with.</param>
         /// <param name="item">The data item.</param>
         public EntityProperty(object property, object item) : this(property, item, null)
         {
         }
+
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Gets the property converter used to convert source data to property value.
@@ -59,32 +62,6 @@ namespace Telerik.Data.Core
         }
 
         /// <summary>
-        /// Populates the property metadata from the property context.
-        /// </summary>
-        public virtual void PopulatePropertyMetadata()
-        {
-            this.PropertyType = this.GetPropertyType(PropertyContext);
-            this.PropertyName = this.GetPropertyName(PropertyContext);
-
-            this.Label = this.GetLabel(PropertyContext);
-            this.Watermark = this.GetWatermark(PropertyContext);
-            this.IsReadOnly = this.GetIsReadOnly(PropertyContext);
-            this.GroupKey = this.GetPropertyGroupKey(PropertyContext);
-            this.Index = this.GetPropertyIndex(PropertyContext);
-
-            var originalValue = this.PropertyConverter != null ? this.PropertyConverter.Convert(this.GetOriginalValue()) : this.GetOriginalValue();
-            this.PropertyValue = originalValue;
-            this.IsRequired = this.GetIsRequired(PropertyContext);
-            this.ValueOptions = this.GetValueOptions(PropertyContext);
-            this.Range = this.GetValueRange(PropertyContext);
-        }
-
-        /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
         /// Gets the parent entity the property is associated with.
         /// </summary>
         /// <value>
@@ -93,7 +70,7 @@ namespace Telerik.Data.Core
         public Entity Entity { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the possible value options. Used to provide the UI like selectors avaialable options
+        /// Gets or sets the possible value options. Used to provide the UI like selectors available options.
         /// </summary>
         /// <value>
         /// The value options.
@@ -115,7 +92,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.range = value;
-                this.OnPropertyChanged(nameof(Range));
+                this.OnPropertyChanged(nameof(this.Range));
             }
         }
 
@@ -137,7 +114,7 @@ namespace Telerik.Data.Core
 
                 this.DisplayPositiveMessage = false;
 
-                this.OnPropertyChanged(nameof(PropertyValue));
+                this.OnPropertyChanged(nameof(this.PropertyValue));
             }
         }
 
@@ -156,7 +133,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.displayPositiveMessage = value;
-                this.OnPropertyChanged(nameof(DisplayPositiveMessage));
+                this.OnPropertyChanged(nameof(this.DisplayPositiveMessage));
             }
         }
 
@@ -175,7 +152,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.label = value;
-                this.OnPropertyChanged(nameof(Label));
+                this.OnPropertyChanged(nameof(this.Label));
             }
         }
 
@@ -194,7 +171,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.postitiveMessage = value;
-                this.OnPropertyChanged(nameof(PositiveMessage));
+                this.OnPropertyChanged(nameof(this.PositiveMessage));
             }
         }
 
@@ -213,7 +190,7 @@ namespace Telerik.Data.Core
             set
             {
                 this.watermark = value;
-                this.OnPropertyChanged(nameof(Watermark));
+                this.OnPropertyChanged(nameof(this.Watermark));
             }
         }
 
@@ -273,24 +250,24 @@ namespace Telerik.Data.Core
             {
                 if (this.errors != null)
                 {
-                    this.errors.CollectionChanged -= Errors_CollectionChanged;
+                    this.errors.CollectionChanged -= this.Errors_CollectionChanged;
                 }
 
                 this.errors = value;
 
                 if (this.errors != null)
                 {
-                    this.errors.CollectionChanged += Errors_CollectionChanged;
+                    this.errors.CollectionChanged += this.Errors_CollectionChanged;
                 }
 
-                this.OnPropertyChanged(nameof(Errors));
+                this.OnPropertyChanged(nameof(this.Errors));
 
                 this.IsValid = this.errors.Count == 0;
             }
         }
 
         /// <summary>
-        /// Returns true if the value set is valid.
+        /// Gets or sets a value indicating whether the value set valid - returns true if the value set is valid.
         /// </summary>
         /// <value>
         ///   <c>true</c> if this instance is valid; otherwise, <c>false</c>.
@@ -303,10 +280,10 @@ namespace Telerik.Data.Core
             }
             set
             {
-                if (isValid != value)
+                if (this.isValid != value)
                 {
                     this.isValid = value;
-                    this.OnPropertyChanged(nameof(IsValid));
+                    this.OnPropertyChanged(nameof(this.IsValid));
                 }
             }
         }
@@ -334,86 +311,101 @@ namespace Telerik.Data.Core
             get;
             private set;
         }
+        
+        /// <summary>
+        /// Gets the property info.
+        /// </summary>
+        protected object PropertyContext { get; private set; }
 
         /// <summary>
         /// Commits the value to the source item.
         /// </summary>
         public abstract void Commit();
+        
+        /// <summary>
+        /// Populates the property metadata from the property context.
+        /// </summary>
+        public virtual void PopulatePropertyMetadata()
+        {
+            this.PropertyType = this.GetPropertyType(this.PropertyContext);
+            this.PropertyName = this.GetPropertyName(this.PropertyContext);
+
+            this.Label = this.GetLabel(this.PropertyContext);
+            this.Watermark = this.GetWatermark(this.PropertyContext);
+            this.IsReadOnly = this.GetIsReadOnly(this.PropertyContext);
+            this.GroupKey = this.GetPropertyGroupKey(this.PropertyContext);
+            this.Index = this.GetPropertyIndex(this.PropertyContext);
+
+            var originalValue = this.PropertyConverter != null ? this.PropertyConverter.Convert(this.GetOriginalValue()) : this.GetOriginalValue();
+            this.PropertyValue = originalValue;
+            this.IsRequired = this.GetIsRequired(this.PropertyContext);
+            this.ValueOptions = this.GetValueOptions(this.PropertyContext);
+            this.Range = this.GetValueRange(this.PropertyContext);
+        }
 
         /// <summary>
         /// Gets the original value of source object.
         /// </summary>
-        /// <returns></returns>
         public abstract object GetOriginalValue();
 
         /// <summary>
         /// Gets the property value is required based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract bool GetIsRequired(object property);
 
         /// <summary>
         /// Gets the index of the property based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract int GetPropertyIndex(object property);
 
         /// <summary>
         /// Gets the property group key based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract string GetPropertyGroupKey(object property);
 
         /// <summary>
         /// Gets the name of the property based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract string GetPropertyName(object property);
 
         /// <summary>
         /// Gets the type of the property based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract Type GetPropertyType(object property);
 
         /// <summary>
         /// Gets the label based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract string GetLabel(object property);
 
         /// <summary>
         /// Gets the watermark based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract string GetWatermark(object property);
 
         /// <summary>
         /// Gets is the property is read-only based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract bool GetIsReadOnly(object property);
 
         /// <summary>
         /// Gets the available value options based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract IList GetValueOptions(object property);
 
         /// <summary>
         /// Gets the value range based on the property context.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected abstract INumericalRange GetValueRange(object property);
 
         /// <summary>

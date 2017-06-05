@@ -111,6 +111,43 @@ namespace Telerik.UI.Xaml.Controls.Map
             this.ClearSelectedModelsAndUpdateUIState();
         }
 
+        internal void PerformSelection(D2DShape shape)
+        {
+            MapShapeModel model = shape.Model as MapShapeModel;
+            if (model == null)
+            {
+                Debug.Assert(false, "Must have a model associated with each UI shape");
+                return;
+            }
+
+            var context = new SelectionChangeContext()
+            {
+                Layer = this.map.Layers.FindLayerById(shape.LayerId),
+                Shape = shape,
+                Model = model
+            };
+
+            if (this.selectionModeCache == MapShapeSelectionMode.Single)
+            {
+                this.SingleSelect(context, true);
+            }
+            else if (this.selectionModeCache == MapShapeSelectionMode.MultiSimple)
+            {
+                this.SingleSelect(context, false);
+            }
+            else if (this.selectionModeCache == MapShapeSelectionMode.MultiExtended)
+            {
+                this.MultiExtendedSelect(context);
+            }
+
+            this.NotifySelectionChanged(context);
+        }
+
+        internal void DeselectShape(MapShapeModel shapeModel)
+        {
+            this.selectedModels.Remove(shapeModel);
+        }
+
         /// <summary>
         /// Method is internal for unit test purposes.
         /// </summary>
@@ -133,7 +170,7 @@ namespace Telerik.UI.Xaml.Controls.Map
                 this.PerformSelection(d2dShape);
             }
         }
-
+        
         /// <summary>
         /// Called when the respective <see cref="MapShapeLayer" /> is invalidated and its contents are cleared.
         /// </summary>
@@ -169,10 +206,9 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Initiates a hit test on the specified <see cref="Point" /> location.
+        /// Initiates a hit test on the specified <see cref="Windows.Foundation.Point(double, double)" /> location.
         /// </summary>
         /// <param name="location">The location.</param>
-        /// <returns></returns>
         /// <remarks>
         /// The default <see cref="MapBehavior" /> logic returns only the top-most <see cref="D2DShape" /> from the <see cref="MapShapeLayer" /> that matches the specific behavior requirements;
         /// you can override the default logic and return multiple <see cref="D2DShape" /> instances (e.g. from layers that overlay one another) and the specific <see cref="MapBehavior" /> will
@@ -204,7 +240,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Handles the <see cref="E:RadMap.Tapped" /> event of the owning <see cref="RadMap" /> instance.
         /// </summary>
-        /// <param name="args"></param>
         protected internal override void OnTapped(TappedRoutedEventArgs args)
         {
             base.OnTapped(args);
@@ -271,43 +306,6 @@ namespace Telerik.UI.Xaml.Controls.Map
 
                 this.UpdateShapeUIState(args.RemovedItems, args.AddedItems);
             }
-        }
-
-        internal void PerformSelection(D2DShape shape)
-        {
-            MapShapeModel model = shape.Model as MapShapeModel;
-            if (model == null)
-            {
-                Debug.Assert(false, "Must have a model associated with each UI shape");
-                return;
-            }
-
-            var context = new SelectionChangeContext()
-            {
-                Layer = this.map.Layers.FindLayerById(shape.LayerId),
-                Shape = shape,
-                Model = model
-            };
-
-            if (this.selectionModeCache == MapShapeSelectionMode.Single)
-            {
-                this.SingleSelect(context, true);
-            }
-            else if (this.selectionModeCache == MapShapeSelectionMode.MultiSimple)
-            {
-                this.SingleSelect(context, false);
-            }
-            else if (this.selectionModeCache == MapShapeSelectionMode.MultiExtended)
-            {
-                this.MultiExtendedSelect(context);
-            }
-
-            this.NotifySelectionChanged(context);
-        }
-
-        internal void DeselectShape(MapShapeModel shapeModel)
-        {
-            this.selectedModels.Remove(shapeModel);
         }
 
         private static void OnSelectionModePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
