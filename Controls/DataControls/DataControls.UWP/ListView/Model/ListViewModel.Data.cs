@@ -169,6 +169,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             if (!this.IsDataReady)
             {
+                this.View.UpdateService.RegisterUpdate((int)UpdateFlags.All);
                 return;
             }
 
