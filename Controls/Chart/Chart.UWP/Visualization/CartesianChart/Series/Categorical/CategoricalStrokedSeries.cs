@@ -1,4 +1,5 @@
 ﻿using Telerik.Charting;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
@@ -35,6 +36,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         internal CategoricalStrokedSeriesModel model;
         internal LineRenderer renderer;
+
+        private ContainerVisual lineRendererVisual;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoricalStrokedSeries"/> class.
@@ -139,7 +142,22 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             base.UpdateUICore(context);
 
-            this.renderer.Render();
+            if (this is IFilledSeries)
+            {
+                this.renderer.Render();
+            }
+            else
+            {
+                this.renderer.Render(this.drawWithComposition);
+
+                if (this.drawWithComposition && this.renderer.renderPoints.Count > 2)
+                {
+                    foreach (DataPointSegment dataSegment in ChartSeriesRenderer.GetDataSegments(this.renderer.renderPoints))
+                    {
+                        this.chart.ContainerVisualsFactory.PrepareLineRenderVisual(lineRendererVisual, this.renderer.GetPoints(dataSegment), this.Stroke, this.StrokeThickness);
+                    }
+                }
+            }
         }
 
         internal override void ApplyPaletteCore()
@@ -166,9 +184,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             base.UnapplyTemplateCore();
 
-            if (this.renderSurface != null)
+            if (this.renderSurface != null && (!this.drawWithComposition || this is IFilledSeries))
             {
                 this.renderSurface.Children.Remove(this.renderer.strokeShape);
+            }
+            else if (this.drawWithComposition)
+            {
+                this.ContainerVisualRoot.Children.Remove(this.lineRendererVisual);
             }
         }
 
@@ -179,9 +201,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             bool applied = base.ApplyTemplateCore();
 
-            if (applied)
+            if (applied && (!this.drawWithComposition || this is IFilledSeries))
             {
                 this.renderSurface.Children.Add(this.renderer.strokeShape);
+            }
+            else if (this.drawWithComposition)
+            {
+                this.lineRendererVisual = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
+                this.ContainerVisualRoot.Children.InsertAtBottom(this.lineRendererVisual);
             }
 
             return applied;

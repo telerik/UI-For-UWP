@@ -1,6 +1,7 @@
 ﻿using System;
 using Telerik.Charting;
 using Telerik.Core;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
@@ -19,6 +20,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             DependencyProperty.Register(nameof(IsInverse), typeof(bool), typeof(LineAxis), new PropertyMetadata(false, OnIsInverseChanged));
 
         internal Line line;
+        internal ContainerVisual lineContainer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LineAxis"/> class.
@@ -26,6 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected LineAxis()
         {
             this.DefaultStyleKey = typeof(LineAxis);
+
             this.line = new Line();
         }
 
@@ -92,8 +95,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         internal virtual void UpdateAxisLine(ChartLayoutContext context)
         {
-            // update stroke thickness
-            this.line.StrokeThickness = this.model.LineThickness;
+            if (!this.drawWithComposition)
+            {
+                // update stroke thickness
+                this.line.StrokeThickness = this.model.LineThickness;
+            }
         }
 
         /// <inheritdoc/>
@@ -101,9 +107,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             base.UnapplyTemplateCore();
 
-            if (this.renderSurface != null)
+            if (this.renderSurface != null && !this.drawWithComposition)
             {
                 this.renderSurface.Children.Remove(this.line);
+            }
+            else if (this.drawWithComposition)
+            {
+                this.ContainerVisualRoot.Children.Remove(this.lineContainer);
             }
         }
 
@@ -116,7 +126,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             if (applied)
             {
-                this.renderSurface.Children.Add(this.line);
+                if (this.drawWithComposition)
+                {
+                    this.lineContainer = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
+                    this.ContainerVisualRoot.Children.InsertAtBottom(this.lineContainer);
+                }
+                else
+                {
+                    this.renderSurface.Children.Add(this.line);
+                }
+                
             }
 
             return applied;

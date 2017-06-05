@@ -9,7 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal ChartSeriesModel model;
         internal IList<DataPoint> renderPoints;
 
-        public void Render()
+        public void Render(bool isDrawnWithComposition = false)
         {
             this.Reset();
 
@@ -19,14 +19,17 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 return;
             }
 
-            this.RenderCore();
+            if (!isDrawnWithComposition)
+            {
+                this.RenderCore();
+            }
         }
 
         public virtual void ApplyPalette()
         {
         }
 
-        protected static IEnumerable<DataPointSegment> GetDataSegments(IList<DataPoint> dataPoints)
+        protected internal static IEnumerable<DataPointSegment> GetDataSegments(IList<DataPoint> dataPoints)
         {
             DataPointSegment dataSegment = null;
 

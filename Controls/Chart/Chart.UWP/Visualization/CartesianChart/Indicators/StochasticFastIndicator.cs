@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Telerik.Charting;
 using Telerik.Core;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
@@ -30,6 +31,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             DependencyProperty.Register(nameof(SignalStroke), typeof(Brush), typeof(StochasticFastIndicator), new PropertyMetadata(null, OnSignalStrokeChanged));
 
         internal LineRenderer signalRenderer;
+        internal ContainerVisual signalRendererVisual;
         internal CategoricalSeriesModel signalModel;
 
         /// <summary>
@@ -130,8 +132,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override void UpdateUICore(ChartLayoutContext context)
         {
             base.UpdateUICore(context);
+            
+            this.signalRenderer.Render(this.drawWithComposition);
 
-            this.signalRenderer.Render();
+            if (this.drawWithComposition && this.signalRenderer.renderPoints.Count > 2)
+            {
+                foreach (DataPointSegment dataSegment in ChartSeriesRenderer.GetDataSegments(this.signalRenderer.renderPoints))
+                {
+                    this.chart.ContainerVisualsFactory.PrepareLineRenderVisual(signalRendererVisual, this.signalRenderer.GetPoints(dataSegment), this.SignalStroke, this.StrokeThickness);
+                }
+            }
         }
 
         internal override ChartSeriesDataSource CreateDataSourceInstance()
@@ -163,9 +173,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             base.UnapplyTemplateCore();
 
-            if (this.renderSurface != null)
+            if (this.renderSurface != null && !this.drawWithComposition)
             {
                 this.renderSurface.Children.Remove(this.signalRenderer.strokeShape);
+            }
+            else if (this.drawWithComposition)
+            {
+                this.ContainerVisualRoot.Children.Remove(this.signalRendererVisual);
             }
         }
 
@@ -176,10 +190,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             bool applied = base.ApplyTemplateCore();
 
-            if (applied)
+            if (applied && !this.drawWithComposition)
             {
                 this.renderSurface.Children.Add(this.signalRenderer.strokeShape);
             }
+            else if (this.drawWithComposition)
+            {
+                this.signalRendererVisual = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
+                this.ContainerVisualRoot.Children.InsertAtBottom(this.signalRendererVisual);
+            }
+
 
             return applied;
         }

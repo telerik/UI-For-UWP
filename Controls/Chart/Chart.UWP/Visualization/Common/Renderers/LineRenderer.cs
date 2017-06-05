@@ -94,7 +94,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
-        protected virtual IEnumerable<Point> GetPoints(DataPointSegment segment)
+        protected internal virtual IEnumerable<Point> GetPoints(DataPointSegment segment)
         {
             int pointIndex = segment.StartIndex;
             while (pointIndex <= segment.EndIndex)
