@@ -312,16 +312,30 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             base.OnApplyTemplate();
             this.isTemplateApplied = true;
 
-            this.reorderHandle = this.GetTemplateChild("PART_ReorderHandle") as FrameworkElement;
-            this.isTemplateApplied = this.isTemplateApplied && this.reorderHandle != null;
-
-            if (this.isTemplateApplied)
-            {
-                this.reorderHandle.PointerPressed += this.OnReorderHandlePointerPressed;
-            }
+            this.PrepareReorderHandle();
 
             this.InitializeDragHandles();
             this.ChangeVisualState();
+        }
+
+        private void PrepareReorderHandle()
+        {
+            if (this.IsHandleEnabled)
+            {
+                if (this.reorderHandle == null)
+                {
+                    this.reorderHandle = this.GetTemplateChild("PART_ReorderHandle") as FrameworkElement;
+                }
+
+                this.reorderHandle.PointerPressed += OnReorderHandlePointerPressed;
+            }
+            else
+            {
+                if (this.reorderHandle != null)
+                {
+                    this.reorderHandle.PointerPressed -= OnReorderHandlePointerPressed;
+                }
+            }
         }
 
         /// <inheritdoc/>
