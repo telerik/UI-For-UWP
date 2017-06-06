@@ -576,7 +576,6 @@ namespace Telerik.Data.Core
                     if (!this.AreDescriptionsReady)
                     {
                         this.ResetDescriptions();
-                        return;
                     }
 
                     this.ResetPendingChanges();
