@@ -827,7 +827,7 @@
 									Width="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent},
 													 Converter={StaticResource orientationToSizeConverter},
 													 ConverterParameter=Width}" 
-                                    x:Name="PART_FirstHandle"/>
+                                    x:Name="PART_FirstHandle" Visibility="Collapsed" x:DeferLoadStrategy="Lazy"/>
                             <Border Background="Transparent" 
 									HorizontalAlignment="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent}, 
 																  Converter={StaticResource orientationToHorizontalAlignmentConverter}, 
@@ -841,7 +841,7 @@
 									Width="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent},
 													 Converter={StaticResource orientationToSizeConverter},
 													 ConverterParameter=Width}" 
-                                    x:Name="PART_SecondHandle"/>
+                                    x:Name="PART_SecondHandle" Visibility="Collapsed" x:DeferLoadStrategy="Lazy"/>
                             <BitmapIcon x:Name="PART_ReorderHandle" UriSource="{Binding HandleIconPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                                         ManipulationMode="None" Width="48" Height="48"  HorizontalAlignment="Right" VerticalAlignment="Center"
                                         Visibility="Collapsed" x:DeferLoadStrategy="Lazy">
