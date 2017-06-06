@@ -7,10 +7,8 @@ This is an open-source version of Telerik UI for Universal Windows Platform (UWP
 ## Build status
 | Target | Branch | Status | Recommended Nuget packages version |
 | ------ | ------ | ------ | ------ |
-| Production | master | [![Build status](https://ci.appveyor.com/api/projects/status/gjb70e1valw4d6vn/branch/master?svg=true)](https://ci.appveyor.com/project/UIForUWP/ui-for-uwp/branch/master) | [![NuGet](http://www.telerik.com/docs/default-source/nuget-feed-product-files/nugeticon_uwp.png?sfvrsn=2)](https://www.nuget.org/packages/Telerik.UI.for.UniversalWindowsPlatform/) |
-| Pre-release beta testing | dev | [![Build status](https://ci.appveyor.com/api/projects/status/in6mu8pxvufh0x3m/branch/development?svg=true)](https://ci.appveyor.com/project/UIForUWP/ui-for-uwp-35if0/branch/development)
- | - |
-
+| Production | master | [![Build status](https://ci.appveyor.com/api/projects/status/gjb70e1valw4d6vn/branch/master?svg=true)](https://ci.appveyor.com/project/UIForUWP/ui-for-uwp/branch/master) | [![NuGet](https://img.shields.io/nuget/v/Telerik.UI.for.UniversalWindowsPlatform.svg)](https://www.nuget.org/packages/Telerik.UI.for.UniversalWindowsPlatform/) |
+| Pre-release beta testing | dev | [![Build status](https://ci.appveyor.com/api/projects/status/in6mu8pxvufh0x3m/branch/development?svg=true)](https://ci.appveyor.com/project/UIForUWP/ui-for-uwp-35if0/branch/development)| - |
 
 
 ## Available UI Components and Documentation for UI for UWP
