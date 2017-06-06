@@ -44,7 +44,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.View.Controls
                 listItem.Orientation = this.owner.Orientation;
 
                 this.owner.PrepareContainerForItem(listItem, element.ItemInfo.Item);
-                listItem.InitializeDragHandles();
+                listItem.PrepareSwipeDragHandles();
 
                 var reorderItem = listItem as IReorderItem;
                 reorderItem.LogicalIndex = element.ItemInfo.Id;
