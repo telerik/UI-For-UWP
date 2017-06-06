@@ -179,24 +179,34 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             return isInvalidated;
         }
-        
-        internal void InitializeDragHandles()
+
+        internal void PrepareSwipeDragHandles()
         {
-            this.firstHandle = this.GetTemplateChild("PART_FirstHandle") as Border;
-            if (this.firstHandle != null)
+            if (this.IsActionOnSwipeEnabled)
             {
-                this.firstHandle.ManipulationMode = ManipulationModes.None;
-                DragDrop.SetAllowDrag(this.firstHandle, true);
+                switch (this.SwipeDirection)
+                {
+                    case ListViewItemSwipeDirection.All:
+                        this.PrepareFirstSwipeHandle(true);
+                        this.PrepareSecondSwipeHandle(true);
+                        break;
+                    case ListViewItemSwipeDirection.Forward:
+                        this.PrepareFirstSwipeHandle(true);
+                        this.PrepareSecondSwipeHandle(false);
+                        break;
+                    case ListViewItemSwipeDirection.Backwards:
+                        this.PrepareFirstSwipeHandle(false);
+                        this.PrepareSecondSwipeHandle(true);
+                        break;
+                    default:
+                        break;
+                }
             }
-
-            this.secondHandle = this.GetTemplateChild("PART_SecondHandle") as Border;
-            if (this.secondHandle != null)
+            else
             {
-                this.secondHandle.ManipulationMode = ManipulationModes.None;
-                DragDrop.SetAllowDrag(this.secondHandle, true);
+                this.PrepareFirstSwipeHandle(false);
+                this.PrepareSecondSwipeHandle(false);
             }
-
-            this.UpdateSwipeHandlesVisibility();
         }
 
         internal void PrepareDragVisual(DragAction action)
@@ -312,16 +322,82 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             base.OnApplyTemplate();
             this.isTemplateApplied = true;
 
-            this.reorderHandle = this.GetTemplateChild("PART_ReorderHandle") as FrameworkElement;
-            this.isTemplateApplied = this.isTemplateApplied && this.reorderHandle != null;
+            this.PrepareReorderHandle();
 
-            if (this.isTemplateApplied)
-            {
-                this.reorderHandle.PointerPressed += this.OnReorderHandlePointerPressed;
-            }
-
-            this.InitializeDragHandles();
+            this.PrepareSwipeDragHandles();
             this.ChangeVisualState();
+        }
+
+        private void PrepareFirstSwipeHandle(bool isVisible)
+        {
+            if (isVisible)
+            {
+                if (this.firstHandle == null)
+                {
+                    this.firstHandle = this.GetTemplateChild("PART_FirstHandle") as Border;
+                }
+
+                if (this.firstHandle != null)
+                {
+                    this.firstHandle.ManipulationMode = ManipulationModes.None;
+                    DragDrop.SetAllowDrag(this.firstHandle, true);
+                    this.firstHandle.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                if (this.firstHandle != null)
+                {
+                    this.firstHandle.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+        private void PrepareSecondSwipeHandle(bool isVisible)
+        {
+            if (isVisible)
+            {
+                if (this.secondHandle == null)
+                {
+                    this.secondHandle = this.GetTemplateChild("PART_SecondHandle") as Border;
+                }
+
+                if (this.secondHandle != null)
+                {
+                    this.secondHandle.ManipulationMode = ManipulationModes.None;
+                    DragDrop.SetAllowDrag(this.secondHandle, true);
+                    this.secondHandle.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                if (this.secondHandle != null)
+                {
+                    this.secondHandle.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void PrepareReorderHandle()
+        {
+            if (this.IsHandleEnabled)
+            {
+                if (this.reorderHandle == null)
+                {
+                    this.reorderHandle = this.GetTemplateChild("PART_ReorderHandle") as FrameworkElement;
+                }
+
+                if(this.reorderHandle != null)
+                {
+                    this.reorderHandle.PointerPressed += OnReorderHandlePointerPressed;
+                }
+            }
+            else
+            {
+                if (this.reorderHandle != null)
+                {
+                    this.reorderHandle.PointerPressed -= OnReorderHandlePointerPressed;
+                }
+            }
         }
 
         /// <inheritdoc/>
@@ -670,18 +746,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
             object destinationDataItem = enumerator.Current;
             return destinationDataItem;
-        }
-
-        private void UpdateSwipeHandlesVisibility()
-        {
-            if (this.firstHandle != null)
-            {
-                this.firstHandle.Visibility = (this.IsActionOnSwipeEnabled && (this.SwipeDirection == ListViewItemSwipeDirection.All || this.SwipeDirection == ListViewItemSwipeDirection.Forward)) ? Visibility.Visible : Visibility.Collapsed;
-            }
-            if (this.secondHandle != null)
-            {
-                this.secondHandle.Visibility = (this.IsActionOnSwipeEnabled && (this.SwipeDirection == ListViewItemSwipeDirection.All || this.SwipeDirection == ListViewItemSwipeDirection.Backwards)) ? Visibility.Visible : Visibility.Collapsed;
-            }
         }
     }
 }

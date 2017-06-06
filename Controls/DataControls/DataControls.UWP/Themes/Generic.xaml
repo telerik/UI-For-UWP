@@ -773,13 +773,7 @@
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="ReorderDisabled">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_ReorderHandle" Storyboard.TargetProperty="Visibility">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
+                                <VisualState x:Name="ReorderDisabled" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid Background="{TemplateBinding Background}">
@@ -833,7 +827,7 @@
 									Width="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent},
 													 Converter={StaticResource orientationToSizeConverter},
 													 ConverterParameter=Width}" 
-                                    x:Name="PART_FirstHandle"/>
+                                    x:Name="PART_FirstHandle" Visibility="Collapsed" x:DeferLoadStrategy="Lazy"/>
                             <Border Background="Transparent" 
 									HorizontalAlignment="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent}, 
 																  Converter={StaticResource orientationToHorizontalAlignmentConverter}, 
@@ -847,9 +841,10 @@
 									Width="{Binding Path=Orientation, RelativeSource={RelativeSource TemplatedParent},
 													 Converter={StaticResource orientationToSizeConverter},
 													 ConverterParameter=Width}" 
-                                    x:Name="PART_SecondHandle"/>
-                            <BitmapIcon  x:Name="PART_ReorderHandle" UriSource="{Binding HandleIconPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                                    ManipulationMode="None" Width="48" Height="48"  HorizontalAlignment="Right" VerticalAlignment="Center">
+                                    x:Name="PART_SecondHandle" Visibility="Collapsed" x:DeferLoadStrategy="Lazy"/>
+                            <BitmapIcon x:Name="PART_ReorderHandle" UriSource="{Binding HandleIconPath, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                        ManipulationMode="None" Width="48" Height="48"  HorizontalAlignment="Right" VerticalAlignment="Center"
+                                        Visibility="Collapsed" x:DeferLoadStrategy="Lazy">
                                 <BitmapIcon.RenderTransform>
                                     <RotateTransform CenterX="0.5" CenterY="0.5" Angle="{Binding Orientation, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource orientationToRotateDegreesConverter}}" />
                                 </BitmapIcon.RenderTransform>

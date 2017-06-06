@@ -9,14 +9,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 {
     public partial class RadListViewItem : IReorderItem
     {
-        /// <summary>
-        /// Identifies the <see cref="IsHandleEnabled"/> dependency property. 
-        /// </summary>
-        public static readonly DependencyProperty IsHandleEnabledProperty =
-            DependencyProperty.Register(nameof(IsHandleEnabled), typeof(bool), typeof(RadListViewItem), new PropertyMetadata(false, OnIsHandleEnabled));
-
         private ReorderItemsCoordinator reorderCoordinator;
         private int logicalIndex;
+        private bool isHandleEnabled;
 
         private string defaultHandleIconPathLight = "ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-light.png";
         private string defaultHandleIconPathDark = "ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/ListView/Resources/reorder-handle-dark.png";
@@ -35,10 +30,21 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// <summary>
         /// Gets or sets a value indicating whether if handling is enabled.
         /// </summary>
-        public bool IsHandleEnabled
+        internal bool IsHandleEnabled
         {
-            get { return (bool)GetValue(IsHandleEnabledProperty); }
-            set { SetValue(IsHandleEnabledProperty, value); }
+            get
+            {
+                return this.isHandleEnabled;
+            }
+            set
+            {
+                if (this.isHandleEnabled != value)
+                {
+                    this.isHandleEnabled = value;
+                    this.PrepareReorderHandle();
+                    this.ChangeVisualState(true);
+                }
+            }
         }
 
         DependencyObject IReorderItem.Visual
@@ -118,13 +124,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             this.ListView.DragBehavior.OnReorderStarted(this.DataContext);
 
             return new DragStartingContext { DragVisual = dragVisual, Payload = payload, DragSurface = surface, HitTestStrategy = new ReorderListViewItemHitTestStrategy(this, surface.RootElement) };
-        }
-
-        private static void OnIsHandleEnabled(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RadListViewItem item = d as RadListViewItem;
-            item.IsHandleEnabled = (bool)e.NewValue;
-            item.ChangeVisualState(true);
         }
 
         private void FinalizeReorder(DragCompleteContext context)
