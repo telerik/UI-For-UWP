@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -20,6 +20,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
     public class ContainerVisualsFactory
     {
         private DoubleCollection dashArrayCache;
+        private SolidColorBrush telerikChartAxisBorderBrush = new SolidColorBrush(Color.FromArgb(0x30, 0, 0, 0));
+        private SolidColorBrush telerikChartStrokeBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x1E, 0x98, 0xE4));
+        private SolidColorBrush ohlcBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF));
 
         /// <summary>
         /// Indicates whether the visual can be drawn using the Composition API.
@@ -74,7 +77,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         }
 
         /// <summary>
-        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the ticks by setting its Size, Color anad Offset.
+        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the ticks by setting its Size, Color and Offset.
         /// </summary>
         /// <param name="containerVisual">The <see cref="ContainerVisual"/> that is used by the Composition API.</param>
         /// <param name="layoutSlot"> A Rectangle in the Euclidean plane geometry used for the Size and Offset of the <see cref="ContainerVisual"/>.</param>
@@ -86,14 +89,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
 
 
-            this.SetCompositionColorBrush(containerVisual, new SolidColorBrush(Color.FromArgb(0x30, 0, 0, 0)));
+            this.SetCompositionColorBrush(containerVisual, telerikChartAxisBorderBrush);
             containerVisual.Offset = new Vector3((float)layoutSlot.Location.X, (float)layoutSlot.Location.Y, 0);
 
             return containerVisual;
         }
 
         /// <summary>
-        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the lines of the CartesianChartGrid by setting its Size, Color anad Offset.
+        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the lines of the CartesianChartGrid by setting its Size, Color and Offset.
         /// </summary>
         /// <param name="containerVisual">The <see cref="ContainerVisual"/> that is used by the Composition API.</param>
         /// <param name="layoutSlot"> A Rectangle in the Euclidean plane geometry used for the Size and Offset of the <see cref="ContainerVisual"/>.</param>
@@ -175,7 +178,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         }
 
         /// <summary>
-        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the <see cref="PointTemplateSeries"/> by setting its Size, Color anad Offset.
+        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the <see cref="PointTemplateSeries"/> by setting its Size, Color and Offset.
         /// </summary>
         /// <param name="containerVisual">The <see cref="ContainerVisual"/> that is used by the <see cref="Compositor"/> API.</param>
         /// <param name="dataPoint"> The <see cref="DataPoint"/> used for the calculation of the Size and Offset of the <see cref="ContainerVisual"/>.</param>
@@ -201,12 +204,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
 
-            this.SetCompositionColorBrush(containerVisual, new SolidColorBrush(Color.FromArgb(0xFF, 0x1E, 0x98, 0xE4)));
+            this.SetCompositionColorBrush(containerVisual, telerikChartStrokeBrush);
             return containerVisual;
         }
 
         /// <summary>
-        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the Axis's Lines by setting its Size, Color anad Offset.
+        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the Axis's Lines by setting its Size, Color and Offset.
         /// </summary>
         /// <param name="axis">The <see cref="CartesianAxis"/> that will be visualized.</param>
         /// <param name="lineContainer">The <see cref="ContainerVisual"/> that is used by the Composition API.</param>
@@ -239,16 +242,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
 
-            this.SetCompositionColorBrush(lineContainer, new SolidColorBrush(Color.FromArgb(0x30, 0, 0, 0)));
+            this.SetCompositionColorBrush(lineContainer, telerikChartAxisBorderBrush);
 
             return lineContainer;
         }
 
         /// <summary>
-        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the line indicators by setting its Size, Color anad Offset.
+        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the line indicators by setting its Size, Color and Offset.
         /// </summary>
         /// <param name="containerVisual">The <see cref="ContainerVisual"/> that is used by the <see cref="Compositor"/> API.</param>
-        /// <param name="points"> The <see cref="Point"/> used for the calculation of the Size and Offset of the <see cref="ContainerVisual"/>.</param>
+        /// <param name="points"> The Point used for the calculation of the Size and Offset of the <see cref="ContainerVisual"/>.</param>
         protected internal virtual ContainerVisual PrepareLineRenderVisual(ContainerVisual containerVisual, IEnumerable<Point> points, Brush stroke, double strokeThickness)
         {
             containerVisual.Children.RemoveAll();
@@ -275,7 +278,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         }
 
         /// <summary>
-        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the <see cref="BarIndicatorBase"/> by setting its Size, Color anad Offset.
+        /// Prepares the <see cref="ContainerVisual"/> used for the visualization of the <see cref="BarIndicatorBase"/> by setting its Size, Color and Offset.
         /// </summary>
         /// <param name="containerVisual">The <see cref="ContainerVisual"/> that is used by the <see cref="Compositor"/> API.</param>
         /// <param name="dataPoint"> The <see cref="DataPoint"/> used for the calculation of the Size and Offset of the <see cref="ContainerVisual"/>.</param>
@@ -288,7 +291,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 containerVisual.Size = new System.Numerics.Vector2((float)dataPoint.LayoutSlot.Width, (float)dataPoint.LayoutSlot.Height);
             }
 
-            this.SetCompositionColorBrush(containerVisual, new SolidColorBrush(Color.FromArgb(0xFF, 0x1E, 0x98, 0xE4)));
+            this.SetCompositionColorBrush(containerVisual, telerikChartStrokeBrush);
 
             return containerVisual;
         }
@@ -311,30 +314,23 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
 
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 0, new Vector3((float)halfBoxWidth, (float)upperShadowMinValue, 0),
-                new Vector2((float)(halfBoxWidth + thickness), thickness),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)));
+                new Vector2((float)(halfBoxWidth + thickness), thickness), ohlcBrush);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 1, new Vector3((float)boxWidth, (float)upperShadowMinValue, 0),
-                new Vector2(thickness, (float)(lowerShadowMaxValue - upperShadowMinValue)),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)));
+                new Vector2(thickness, (float)(lowerShadowMaxValue - upperShadowMinValue)), ohlcBrush);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 2, new Vector3((float)boxWidth, (float)lowerShadowMaxValue, 0),
-                new Vector2((float)boxWidth, thickness),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)), 180);
+                new Vector2((float)boxWidth, thickness), ohlcBrush, 180);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 3, new Vector3(0, (float)lowerShadowMaxValue, 0),
-                new Vector2(thickness, (float)(lowerShadowMaxValue - upperShadowMinValue)),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)), 180);
+                new Vector2(thickness, (float)(lowerShadowMaxValue - upperShadowMinValue)), ohlcBrush, 180);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 4, new Vector3(0, (float)upperShadowMinValue, 0),
-                new Vector2((float)halfBoxWidth, 2),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)));
+                new Vector2((float)halfBoxWidth, 2), ohlcBrush);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 5, new Vector3((float)halfBoxWidth, 0, 0),
-                new Vector2(thickness, (float)upperShadowMinValue),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)));
+                new Vector2(thickness, (float)upperShadowMinValue),ohlcBrush);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 6, new Vector3((float)halfBoxWidth, (float)lowerShadowMaxValue, 0),
-                new Vector2(thickness, (float)boxHeight - (float)lowerShadowMaxValue),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)));
+                new Vector2(thickness, (float)boxHeight - (float)lowerShadowMaxValue), ohlcBrush);
 
             var fillBrush = ohlcDataPoint.IsFalling
                 ? new SolidColorBrush(Color.FromArgb(0x00, 0xFF, 0xFF, 0xFF))
-                : new SolidColorBrush(Color.FromArgb(0xFF, 0x1E, 0x98, 0xE4));
+                : telerikChartStrokeBrush;
 
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 7, new Vector3(0, (float)upperShadowMinValue + thickness, 0),
                     new Vector2((float)boxWidth, (float)(lowerShadowMaxValue - upperShadowMinValue - 4)), fillBrush);
@@ -360,15 +356,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
 
             var opacity = ohlcDataPoint.IsFalling ? 0.5 : 1;
+            this.ohlcBrush.Opacity = opacity;
+
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 0, new Vector3((float)halfBoxWidth, 0, 0),
-                new Vector2(thickness, (float)boxHeight),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)) { Opacity = opacity });
+                new Vector2(thickness, (float)boxHeight), ohlcBrush);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 1, new Vector3(0, (float)leftTickValue, 0),
-                new Vector2((float)halfBoxWidth, thickness),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)) { Opacity = opacity });
+                new Vector2((float)halfBoxWidth, thickness), ohlcBrush);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 2, new Vector3((float)halfBoxWidth, (float)rightTickValue, 0),
-                new Vector2((float)halfBoxWidth, thickness),
-                new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF)) { Opacity = opacity });
+                new Vector2((float)halfBoxWidth, thickness), ohlcBrush);
 
             return parentSpriteVisual;
         }
@@ -445,7 +440,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 childVisual.Size = new Vector2(parentVisual.Size.X, (float)visualDashArray[0]);
             }
 
-            this.SetCompositionColorBrush(childVisual, new SolidColorBrush(Color.FromArgb(0x30, 0, 0, 0)));
+            this.SetCompositionColorBrush(childVisual, telerikChartAxisBorderBrush);
             parentVisual.Children.InsertAtBottom(childVisual);
 
             return childVisual;
