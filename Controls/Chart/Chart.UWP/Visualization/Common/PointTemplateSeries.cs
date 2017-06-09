@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Telerik.Charting;
 using Telerik.Core;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -35,6 +37,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal DataTemplate pointTemplateCache;
         internal DataTemplateSelector pointTemplateSelectorCache;
         internal List<FrameworkElement> realizedDataPointPresenters;
+        internal Dictionary<ContainerVisual, DataPoint> realizedContainerVisuals;
         internal Style defaultVisualStyleCache;
 
         private RadSize defaultVisualSize = RadSize.Invalid;
@@ -48,6 +51,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected PointTemplateSeries()
         {
             this.realizedDataPointPresenters = new List<FrameworkElement>();
+            this.realizedContainerVisuals = new Dictionary<ContainerVisual, DataPoint>();
             this.pointTemplates = new ObservableCollection<DataTemplate>();
             this.pointTemplates.CollectionChanged += this.OnPointTemplatesChanged;
 
@@ -246,15 +250,27 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         internal override void ApplyPaletteCore()
         {
-            foreach (FrameworkElement visual in this.realizedDataPointPresenters)
+            DataPoint point;
+            if (this.drawWithComposition)
             {
-                if (!this.IsDefaultVisual(visual))
+                foreach (SpriteVisual visual in this.realizedContainerVisuals.Keys)
                 {
-                    continue;
+                    point = this.realizedContainerVisuals[visual];
+                    this.ApplyPaletteToContainerVisual(visual, point);
                 }
+            }
+            else
+            {
+                foreach (FrameworkElement visual in this.realizedDataPointPresenters)
+                {
+                    if (!this.IsDefaultVisual(visual))
+                    {
+                        continue;
+                    }
 
-                DataPoint point = visual.Tag as DataPoint;
-                this.ApplyPaletteToDefaultVisual(visual, point);
+                    point = visual.Tag as DataPoint;
+                    this.ApplyPaletteToDefaultVisual(visual, point);
+                }
             }
         }
 
@@ -263,6 +279,10 @@ namespace Telerik.UI.Xaml.Controls.Chart
         }
 
         internal virtual void ApplyPaletteToDefaultVisual(FrameworkElement visual, DataPoint point)
+        {
+        }
+
+        internal virtual void ApplyPaletteToContainerVisual(SpriteVisual visual, DataPoint point)
         {
         }
 
@@ -409,18 +429,41 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     // point is empty or is laid-out outside the clip area, skip it from visualization.
                     if (point.isEmpty || !context.ClipRect.IntersectsWith(point.layoutSlot))
                     {
+                        if (this.drawWithComposition)
+                        {
+                            var containerVisual = this.GetContainerVisual(index, point);
+                            if (containerVisual.IsVisible)
+                            {
+                                containerVisual.IsVisible = false;
+                            }
+
+                            index++;
+                        }
                         continue;
                     }
-
-                    FrameworkElement element = this.GetDataPointVisual(point, index);
-                    if (element != null)
+                    
+                    if(this.drawWithComposition)
                     {
-                        this.ArrangeUIElement(element, point.layoutSlot);
+                        var containerVisual = this.GetContainerVisual(index, point);
+                        this.chart.ContainerVisualsFactory.PreparePointTemplateSeriesVisual(containerVisual, point);
+                        if (!containerVisual.IsVisible)
+                        {
+                            containerVisual.IsVisible = true;
+                        }
                         index++;
+                    }
+                    else
+                    {
+                        FrameworkElement element = this.GetDataPointVisual(point, index);
+                        if (element != null)
+                        {
+                            this.ArrangeUIElement(element, point.layoutSlot);
+                            index++;
+                        }
                     }
                 }
             }
-
+            
             while (index < this.realizedDataPointPresenters.Count)
             {
                 var presenter = this.realizedDataPointPresenters[index];
@@ -463,6 +506,23 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
 
             return visual;
+        }
+
+        private ContainerVisual GetContainerVisual(int index, DataPoint point)
+        {
+            ContainerVisual containerVisual;
+            if (index >= this.realizedContainerVisuals.Count)
+            {
+                containerVisual = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, point.Presenter.GetType());
+                this.realizedContainerVisuals.Add(containerVisual, point);
+                this.ContainerVisualRoot.Children.InsertAtTop(containerVisual);
+            }
+            else
+            {
+                containerVisual = this.realizedContainerVisuals.Keys.ElementAt(index);
+            }
+
+            return containerVisual;
         }
 
         private FrameworkElement CreateDataPointVisual(DataPoint point)

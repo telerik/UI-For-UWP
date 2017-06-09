@@ -3,6 +3,7 @@ using System.Linq;
 using Telerik.Charting;
 using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Media;
@@ -225,6 +226,46 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
 
             (visual as OhlcShape).UpdateElementAppearance();
+        }
+
+        internal override void ApplyPaletteToContainerVisual(SpriteVisual visual, DataPoint point)
+        {
+            int index = this.ActualPaletteIndex;
+            var ohlcDataPoint = point as OhlcDataPoint;
+            Brush paletteStroke = this.chart.GetPaletteBrush(index, PaletteVisualPart.Stroke, this.Family, point.isSelected);
+            Brush specialPaletteStroke = this.chart.GetPaletteBrush(index, PaletteVisualPart.SpecialStroke, this.Family, point.isSelected);
+
+            if (paletteStroke != null)
+            {
+                for (int i = 0; i < visual.Children.Count; i++)
+                {
+                    var childVisual = visual.Children.ElementAt(i) as SpriteVisual;
+                    if (childVisual != null)
+                    {
+                        if (ohlcDataPoint != null && ohlcDataPoint.IsFalling && specialPaletteStroke != null)
+                        {
+                            this.chart.ContainerVisualsFactory.SetCompositionColorBrush(childVisual, specialPaletteStroke, true);
+                        }
+                        else
+                        {
+                            this.chart.ContainerVisualsFactory.SetCompositionColorBrush(childVisual, paletteStroke, true);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < visual.Children.Count; i++)
+                {
+                    var childVisual = visual.Children.ElementAt(i) as SpriteVisual;
+                    if (childVisual != null)
+                    {
+                        this.chart.ContainerVisualsFactory.SetCompositionColorBrush(childVisual, null, true);
+                    }
+                }
+            }
+
+            base.ApplyPaletteToContainerVisual(visual, point);
         }
 
         internal override bool IsDefaultVisual(FrameworkElement visual)

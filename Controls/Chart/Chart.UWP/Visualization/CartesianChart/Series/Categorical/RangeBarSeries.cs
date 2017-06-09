@@ -2,6 +2,7 @@
 using System.Linq;
 using Telerik.Charting;
 using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -164,6 +165,22 @@ namespace Telerik.UI.Xaml.Controls.Chart
             else
             {
                 visual.ClearValue(Border.BorderBrushProperty);
+            }
+        }
+
+        internal override void ApplyPaletteToContainerVisual(SpriteVisual visual, DataPoint point)
+        {
+            int index = this.paletteModeCache == SeriesPaletteMode.Series ? this.ActualPaletteIndex : point.CollectionIndex;
+
+            SolidColorBrush paletteFill = this.chart.GetPaletteBrush(index, PaletteVisualPart.Fill, this.Family, point.isSelected) as SolidColorBrush;
+
+            if (paletteFill != null)
+            {
+                this.chart.ContainerVisualsFactory.SetCompositionColorBrush(visual, paletteFill, true);
+            }
+            else
+            {
+                this.chart.ContainerVisualsFactory.SetCompositionColorBrush(visual, null, true);
             }
         }
 

@@ -20,6 +20,7 @@ namespace Telerik.Charting
         internal static readonly int LabelFitModePropertyKey = PropertyKeys.Register(typeof(AxisModel), "LabelFitMode", ChartAreaInvalidateFlags.All);
         internal static readonly int LabelFormatPropertyKey = PropertyKeys.Register(typeof(AxisModel), "LabelFormat", ChartAreaInvalidateFlags.All);
         internal static readonly int ContentFormatterPropertyKey = PropertyKeys.Register(typeof(AxisModel), "ContentFormatter", ChartAreaInvalidateFlags.All);
+        internal static readonly int LabelCreatorPropertyKey = PropertyKeys.Register(typeof(AxisModel), "LabelCreator", ChartAreaInvalidateFlags.All);
         internal static readonly int LastLabelVisibilityPropertyKey = PropertyKeys.Register(typeof(AxisModel), "LastLabelVisibility", ChartAreaInvalidateFlags.All);
         internal static readonly int HorizontalLocationPropertyKey = PropertyKeys.Register(typeof(AxisModel), "HorizontalLocation", ChartAreaInvalidateFlags.All);
         internal static readonly int VerticalLocationPropertyKey = PropertyKeys.Register(typeof(AxisModel), "VerticalLocation", ChartAreaInvalidateFlags.All);
@@ -98,6 +99,21 @@ namespace Telerik.Charting
             set
             {
                 this.SetValue(ContentFormatterPropertyKey, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="ILabelCreator"/> instance used to decide whether Label should be created.
+        /// </summary>
+        public ILabelCreator LabelCreator
+        {
+            get
+            {
+                return this.GetTypedValue<ILabelCreator>(LabelCreatorPropertyKey, null);
+            }
+            set
+            {
+                this.SetValue(LabelCreatorPropertyKey, value);
             }
         }
 
@@ -586,6 +602,7 @@ namespace Telerik.Charting
             int skipLabelCount = 1;
 
             IContentFormatter labelFormatter = this.ContentFormatter;
+            ILabelCreator labelCreator = this.LabelCreator;
             object owner = this.Presenter;
             string format = this.GetLabelFormat();
 
@@ -618,6 +635,12 @@ namespace Telerik.Charting
 
                 AxisLabelModel label = new AxisLabelModel();
                 object content = this.GetLabelContent(tick);
+
+                if (labelCreator != null && !labelCreator.ShouldCreateAxisLabel(owner, content))
+                {
+                    continue;
+                }
+
                 if (labelFormatter != null)
                 {
                     content = labelFormatter.Format(owner, content);

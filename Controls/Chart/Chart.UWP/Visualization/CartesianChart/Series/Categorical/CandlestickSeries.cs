@@ -4,6 +4,7 @@ using System.Linq;
 using Telerik.Charting;
 using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
@@ -22,7 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             this.DefaultStyleKey = typeof(CandlestickSeries);
         }
-
+        
         internal override string Family
         {
             get
@@ -38,7 +39,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 return Enumerable.Empty<LegendItem>();
             }
         }
-
+        
         internal override void ApplyPaletteToDefaultVisual(FrameworkElement visual, DataPoint point)
         {
             int index = this.ActualPaletteIndex;
@@ -70,6 +71,52 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             // base class will call UpdateElementAppearance for the shape
             base.ApplyPaletteToDefaultVisual(visual, point);
+        }
+
+        internal override void ApplyPaletteToContainerVisual(SpriteVisual visual, DataPoint point)
+        {
+            int index = this.ActualPaletteIndex;
+            var ohlcDataPoint = point as OhlcDataPoint;
+            Brush paletteFill = this.chart.GetPaletteBrush(index, PaletteVisualPart.Fill, this.Family, point.isSelected);
+            Brush paletteSpecialFill = this.chart.GetPaletteBrush(index, PaletteVisualPart.SpecialFill, this.Family, point.isSelected);
+            Brush stroke = this.chart.GetPaletteBrush(index, PaletteVisualPart.Stroke, this.Family, point.isSelected);
+
+            if (paletteFill != null && stroke != null && ohlcDataPoint != null)
+            {
+                for (int i = 0; i < visual.Children.Count; i++)
+                {
+                    var childVisual = visual.Children.ElementAt(i) as SpriteVisual;
+                    if (childVisual != null)
+                    {
+                        if (i + 1 != visual.Children.Count)
+                        {
+                            this.chart.ContainerVisualsFactory.SetCompositionColorBrush(childVisual, stroke, true);
+                        }
+                        else
+                        {
+                            if (ohlcDataPoint.IsFalling && paletteSpecialFill != null)
+                            {
+                                this.chart.ContainerVisualsFactory.SetCompositionColorBrush(childVisual, paletteSpecialFill, true);
+                            }
+                            else
+                            {
+                                this.chart.ContainerVisualsFactory.SetCompositionColorBrush(childVisual, paletteFill, true);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < visual.Children.Count; i++)
+                {
+                    var childVisual = visual.Children.ElementAt(i) as SpriteVisual;
+                    if (childVisual != null)
+                    {
+                        this.chart.ContainerVisualsFactory.SetCompositionColorBrush(childVisual, null, true);
+                    }
+                }
+            }
         }
 
         internal override FrameworkElement CreateDefaultDataPointVisual(DataPoint point)

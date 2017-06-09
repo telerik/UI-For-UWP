@@ -77,6 +77,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
         public static readonly DependencyProperty EmptyContentTemplateProperty =
             DependencyProperty.Register(nameof(EmptyContentTemplate), typeof(DataTemplate), typeof(RadChartBase), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="ContainerVisualsFactory"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty ContainerVisualsFactoryProperty =
+            DependencyProperty.Register(nameof(ContainerVisualsFactory), typeof(ContainerVisualsFactory), typeof(RadChartBase), new PropertyMetadata(new ContainerVisualsFactory()));
+
         internal const string NoSeriesKey = "NoSeries";
         internal const string NoDataKey = "NoData";
 
@@ -275,6 +281,21 @@ namespace Telerik.UI.Xaml.Controls.Chart
             set
             {
                 this.SetValue(SelectionPaletteNameProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="ContainerVisualsFactory"/> of the presenter.
+        /// </summary>
+        public ContainerVisualsFactory ContainerVisualsFactory
+        {
+            get
+            {
+                return (ContainerVisualsFactory)this.GetValue(ContainerVisualsFactoryProperty);
+            }
+            set
+            {
+                this.SetValue(ContainerVisualsFactoryProperty, value);
             }
         }
 

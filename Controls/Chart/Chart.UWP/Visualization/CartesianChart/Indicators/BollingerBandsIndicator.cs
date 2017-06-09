@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Telerik.Charting;
 using Telerik.Core;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
@@ -25,6 +26,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         internal LineRenderer lowerBandRenderer;
         internal CategoricalSeriesModel lowerBandModel;
+
+        private ContainerVisual lineRendererVisual;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BollingerBandsIndicator" /> class.
@@ -118,8 +121,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override void UpdateUICore(ChartLayoutContext context)
         {
             base.UpdateUICore(context);
+            
+            this.lowerBandRenderer.Render(this.drawWithComposition);
 
-            this.lowerBandRenderer.Render();
+            if (this.drawWithComposition && this.lowerBandRenderer.renderPoints.Count > 2)
+            {
+                foreach (DataPointSegment dataSegment in ChartSeriesRenderer.GetDataSegments(this.lowerBandRenderer.renderPoints))
+                {
+                    this.chart.ContainerVisualsFactory.PrepareLineRenderVisual(lineRendererVisual, this.lowerBandRenderer.GetPoints(dataSegment), this.LowerBandStroke, this.StrokeThickness);
+                }
+            }
         }
 
         /// <summary>
@@ -146,9 +157,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             base.UnapplyTemplateCore();
 
-            if (this.renderSurface != null)
+            if (this.renderSurface != null && !this.drawWithComposition)
             {
                 this.renderSurface.Children.Remove(this.lowerBandRenderer.strokeShape);
+            }
+            else if (this.drawWithComposition)
+            {
+                this.ContainerVisualRoot.Children.Remove(this.lineRendererVisual);
             }
         }
 
@@ -159,9 +174,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             bool applied = base.ApplyTemplateCore();
 
-            if (applied)
+            if (applied && !this.drawWithComposition)
             {
                 this.renderSurface.Children.Add(this.lowerBandRenderer.strokeShape);
+            }
+            else if (this.drawWithComposition)
+            {
+                this.lineRendererVisual = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
+                this.ContainerVisualRoot.Children.InsertAtBottom(this.lineRendererVisual);
             }
 
             return applied;
