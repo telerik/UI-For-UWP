@@ -213,6 +213,10 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 this.UpdateBinding(binding);
                 this.owner.OnBoundItemPropertyChanged();
             }
+            else
+            {
+                this.Rebind(false, null);
+            }
         }
 
         /// <summary>

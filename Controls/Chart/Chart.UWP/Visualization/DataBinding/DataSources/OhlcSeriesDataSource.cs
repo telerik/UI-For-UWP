@@ -26,6 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 this.highBinding = value;
+                this.highBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {
@@ -48,6 +49,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 this.lowBinding = value;
+                this.lowBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {
@@ -70,6 +72,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 this.openBinding = value;
+                this.openBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {
@@ -92,6 +95,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 this.closeBinding = value;
+                this.closeBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {

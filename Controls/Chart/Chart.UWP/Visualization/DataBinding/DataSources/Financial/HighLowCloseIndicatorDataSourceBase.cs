@@ -18,6 +18,7 @@
                 }
 
                 this.closeBinding = value;
+                this.closeBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {
