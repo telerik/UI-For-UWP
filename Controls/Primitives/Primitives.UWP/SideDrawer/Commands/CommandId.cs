@@ -20,5 +20,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
         /// A command associated with the action of moving the drawer(DrawerState property).
         /// </summary>
         DrawerStateChanged,
+
+        /// <summary>
+        /// A command associated with the KeyDown event processing in a <see cref="RadSideDrawer"/> instance.
+        /// </summary>
+        KeyDown,
     }
 }
