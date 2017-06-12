@@ -324,7 +324,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
             if (this.renderSurface != null)
             {
                 this.containerVisualRoot = this.GetContainerVisual(this.renderSurface);
-                this.compositor = this.containerVisualRoot.Compositor;
+                if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                {
+                    this.compositor = this.containerVisualRoot.Compositor;
+                }
+               
                 return true;
             }
 
