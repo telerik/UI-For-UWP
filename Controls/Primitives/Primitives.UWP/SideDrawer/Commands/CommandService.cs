@@ -68,6 +68,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
         {
             this.defaultCommands[(int)CommandId.DrawerStateChanged] = this.CreateKnownCommand(CommandId.DrawerStateChanged);
             this.defaultCommands[(int)CommandId.GenerateAnimations] = this.CreateKnownCommand(CommandId.GenerateAnimations);
+            this.defaultCommands[(int)CommandId.KeyDown] = this.CreateKnownCommand(CommandId.KeyDown);
         }
 
         private SideDrawerCommand CreateKnownCommand(CommandId id)
@@ -81,6 +82,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
                     break;
                 case CommandId.GenerateAnimations:
                     command = new GenerateAnimationsCommand();
+                    break;
+                case CommandId.KeyDown:
+                    command = new SideDrawerKeyDownCommand();
                     break;
                 default:
                     throw new ArgumentException("Unknown command id!", "id");

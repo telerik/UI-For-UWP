@@ -44,12 +44,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             base.OnKeyDown(e);
-
-            if (e.Key == Windows.System.VirtualKey.Space || e.Key == Windows.System.VirtualKey.Enter)
-            {
-                this.ToggleDrawer();
-                e.Handled = true;
-            }
+            this.CommandService.ExecuteCommand(CommandId.KeyDown, e);
         }
 
         private static void OnContextChanged(DependencyObject owner, DependencyPropertyChangedEventArgs args)
