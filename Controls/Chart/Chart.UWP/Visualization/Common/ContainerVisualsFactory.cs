@@ -31,17 +31,28 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <returns>Return true if the visual element does not have set Styles and Templates - returns false if it has.</returns>
         protected internal virtual bool CanDrawContainerVisual(PresenterBase visualElement)
         {
-            var axis = visualElement as LineAxis;
+            var axis = visualElement as Axis;
             if (axis != null)
             {
-                return axis.ReadLocalValue(Axis.LineStyleProperty) == DependencyProperty.UnsetValue
-                    && axis.ReadLocalValue(Axis.MajorTickTemplateProperty) == DependencyProperty.UnsetValue
-                    && axis.ReadLocalValue(Axis.MajorTickStyleProperty) == DependencyProperty.UnsetValue;
+                if (axis is CartesianAxis)
+                {
+                    return axis.ReadLocalValue(Axis.LineStyleProperty) == DependencyProperty.UnsetValue
+                        && axis.ReadLocalValue(Axis.MajorTickTemplateProperty) == DependencyProperty.UnsetValue
+                        && axis.ReadLocalValue(Axis.MajorTickStyleProperty) == DependencyProperty.UnsetValue;
+                }
+
+                return false;
             }
 
             var pointTemplateSeries = visualElement as PointTemplateSeries;
             if (pointTemplateSeries != null)
             {
+                if (pointTemplateSeries is AreaSeries || pointTemplateSeries is PointSeries
+                    || pointTemplateSeries is PolarSeries || (pointTemplateSeries.GetType() == typeof(ScatterPointSeries)))
+                {
+                    return false;
+                }
+
                 return pointTemplateSeries.ReadLocalValue(PointTemplateSeries.DefaultVisualStyleProperty) == DependencyProperty.UnsetValue
                    && pointTemplateSeries.ReadLocalValue(PointTemplateSeries.PointTemplateProperty) == DependencyProperty.UnsetValue
                    && pointTemplateSeries.ReadLocalValue(PointTemplateSeries.PointTemplateSelectorProperty) == DependencyProperty.UnsetValue;
@@ -269,7 +280,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     childSpiteVisual.Offset = new Vector3((float)startPoint.X, (float)startPoint.Y, 0);
                     childSpiteVisual.Size = new Vector2((float)width, (float)strokeThickness);
                     this.SetCompositionColorBrush(childSpiteVisual, stroke);
-
                     containerVisual.Children.InsertAtBottom(childSpiteVisual);
                 }
             }
@@ -324,7 +334,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 4, new Vector3(0, (float)upperShadowMinValue, 0),
                 new Vector2((float)halfBoxWidth, 2), ohlcBrush);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 5, new Vector3((float)halfBoxWidth, 0, 0),
-                new Vector2(thickness, (float)upperShadowMinValue),ohlcBrush);
+                new Vector2(thickness, (float)upperShadowMinValue), ohlcBrush);
             this.PositionOhlcDataPointVisual(parentSpriteVisual, 6, new Vector3((float)halfBoxWidth, (float)lowerShadowMaxValue, 0),
                 new Vector2(thickness, (float)boxHeight - (float)lowerShadowMaxValue), ohlcBrush);
 
