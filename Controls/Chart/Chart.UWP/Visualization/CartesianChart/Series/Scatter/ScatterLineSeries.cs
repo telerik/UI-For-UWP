@@ -182,7 +182,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             base.ApplyPaletteCore();
 
-            this.renderer.ApplyPalette();
+            if (this is IFilledSeries || !this.drawWithComposition)
+            {
+                this.renderer.ApplyPalette();
+            }
+            else
+            {
+                this.renderer.ApplyContainerVisualPalette(this.lineRendererVisual, this.chart.ContainerVisualsFactory);
+            }
 
             this.UpdateLegendItem(null, null);
         }

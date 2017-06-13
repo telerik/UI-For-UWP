@@ -161,15 +161,18 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             int index = this.paletteModeCache == SeriesPaletteMode.Series ? this.ActualPaletteIndex : point.CollectionIndex;
 
-            SolidColorBrush paletteFill = this.chart.GetPaletteBrush(index, PaletteVisualPart.Fill, this.Family, point.isSelected) as SolidColorBrush;
+            if (index > 0)
+            {
+                SolidColorBrush paletteFill = this.chart.GetPaletteBrush(index, PaletteVisualPart.Fill, this.Family, point.isSelected) as SolidColorBrush;
 
-            if (paletteFill != null)
-            {
-                this.chart.ContainerVisualsFactory.SetCompositionColorBrush(visual, paletteFill, true);
-            }
-            else
-            {
-                this.chart.ContainerVisualsFactory.SetCompositionColorBrush(visual, null, true);
+                if (paletteFill != null)
+                {
+                    this.chart.ContainerVisualsFactory.SetCompositionColorBrush(visual, paletteFill, true);
+                }
+                else
+                {
+                    this.chart.ContainerVisualsFactory.SetCompositionColorBrush(visual, null, true);
+                }
             }
         }
 

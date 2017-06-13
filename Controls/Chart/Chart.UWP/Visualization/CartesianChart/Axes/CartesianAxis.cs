@@ -59,7 +59,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         internal override void UpdateAxisLine(ChartLayoutContext context)
         {
-            if (this.drawWithComposition)
+            if (this.drawWithComposition && this.lineContainer != null)
             {
                 this.chart.ContainerVisualsFactory.PrepareCartesianAxisLineVisual(this, this.lineContainer, this.model.layoutSlot, this.type);
             }

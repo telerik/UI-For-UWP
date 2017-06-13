@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Telerik.Charting;
+using Windows.UI.Composition;
 using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -26,6 +27,10 @@ namespace Telerik.UI.Xaml.Controls.Chart
         }
 
         public virtual void ApplyPalette()
+        {
+        }
+
+        public virtual void ApplyContainerVisualPalette(ContainerVisual containerVisual, ContainerVisualsFactory factory)
         {
         }
 
