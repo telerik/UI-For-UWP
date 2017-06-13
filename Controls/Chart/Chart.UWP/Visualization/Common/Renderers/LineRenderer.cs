@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Telerik.Charting;
 using Windows.Foundation;
+using Windows.UI.Composition;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
@@ -46,6 +48,35 @@ namespace Telerik.UI.Xaml.Controls.Chart
             else
             {
                 this.strokeShape.Stroke = strokedSeries.Stroke;
+            }
+        }
+
+        public override void ApplyContainerVisualPalette(ContainerVisual containerVisual, ContainerVisualsFactory factory)
+        {
+            base.ApplyContainerVisualPalette(containerVisual, factory);
+
+            IStrokedSeries strokedSeries = this.model.presenter as IStrokedSeries;
+            if (strokedSeries == null || strokedSeries.IsStrokeSetLocally)
+            {
+                return;
+            }
+
+            Brush paletteStroke = this.GetPaletteBrush(this.StrokePart);
+
+            for (int i = 0; i < containerVisual.Children.Count; i++)
+            {
+                var childVisual = containerVisual.Children.ElementAt(i) as SpriteVisual;
+                if (childVisual != null)
+                {
+                    if (paletteStroke != null)
+                    {
+                        factory.SetCompositionColorBrush(childVisual, paletteStroke, true);
+                    }
+                    else
+                    {
+                        factory.SetCompositionColorBrush(childVisual, paletteStroke, true);
+                    }
+                }
             }
         }
 
