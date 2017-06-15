@@ -19,7 +19,7 @@
     <AssemblyName>Telerik.UI.Xaml.Chart.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -89,7 +89,9 @@
     <Compile Include="AutomationPeers\Series\ScatterSplineSeriesAutomationPeer.cs" />
     <Compile Include="AutomationPeers\Series\SplineAreaSeriesAutomationPeer.cs" />
     <Compile Include="AutomationPeers\Series\SplineSeriesAutomationPeer.cs" />
+    <Compile Include="Engine\Common\ILabelCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Visualization\Common\ContainerVisualsFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core.UWP\Core.UWP.csproj">

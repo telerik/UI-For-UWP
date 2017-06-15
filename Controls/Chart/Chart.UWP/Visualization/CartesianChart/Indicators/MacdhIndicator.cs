@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Telerik.Charting;
 using Telerik.Core;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -284,21 +286,42 @@ namespace Telerik.UI.Xaml.Controls.Chart
                         continue;
                     }
 
-                    FrameworkElement element = this.GetDataPointVisual(point, index);
-                    if (element != null)
+                    if (this.drawWithComposition)
                     {
-                        this.ArrangeUIElement(element, point.layoutSlot);
+                        var containerVisual = this.GetContainerVisual(index);
+                        this.chart.ContainerVisualsFactory.PrepareBarIndicatorVisual(containerVisual, point);
                         index++;
+                    }
+                    else
+                    {
+                        FrameworkElement element = this.GetDataPointVisual(point, index);
+                        if (element != null)
+                        {
+                            this.ArrangeUIElement(element, point.layoutSlot);
+                            index++;
+                        }
                     }
                 }
             }
 
-            while (index < this.realizedDataPoints.Count)
+            if (this.drawWithComposition)
             {
-                this.realizedDataPoints[index].Visibility = Visibility.Collapsed;
-                index++;
+                while (index < this.realizedVisualDataPoints.Count)
+                {
+                    this.realizedVisualDataPoints[index].IsVisible = false;
+                    index++;
+                }
+            }
+            else
+            {
+                while (index < this.realizedDataPoints.Count)
+                {
+                    this.realizedDataPoints[index].Visibility = Visibility.Collapsed;
+                    index++;
+                }
             }
         }
+        
 
         private FrameworkElement GetDataPointVisual(DataPoint point, int virtualIndex)
         {
@@ -327,6 +350,28 @@ namespace Telerik.UI.Xaml.Controls.Chart
             if (visual != null)
             {
                 visual.Tag = point;
+            }
+
+            return visual;
+        }
+
+        private ContainerVisual GetContainerVisual(int index)
+        {
+            ContainerVisual visual;
+
+            if (index < this.realizedDataPoints.Count)
+            {
+                visual = this.realizedVisualDataPoints[index];
+                if (!visual.IsVisible)
+                {
+                    visual.IsVisible = true;
+                }
+            }
+            else
+            {
+                visual = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
+                this.realizedVisualDataPoints.Add(visual);
+                this.ContainerVisualRoot.Children.InsertAtBottom(visual);
             }
 
             return visual;

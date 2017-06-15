@@ -30,13 +30,13 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// <summary>
         /// Gets or sets a value indicating whether if handling is enabled.
         /// </summary>
-        internal bool IsHandleEnabled
+        public bool IsHandleEnabled
         {
             get
             {
                 return this.isHandleEnabled;
             }
-            set
+            internal set
             {
                 if (this.isHandleEnabled != value)
                 {

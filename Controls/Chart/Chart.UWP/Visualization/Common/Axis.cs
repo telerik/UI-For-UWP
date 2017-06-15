@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Telerik.Charting;
 using Telerik.Core;
 using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
@@ -103,6 +105,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
         public static readonly DependencyProperty LabelFormatterProperty =
             DependencyProperty.Register(nameof(LabelFormatter), typeof(IContentFormatter), typeof(Axis), new PropertyMetadata(null, OnLabelFormatterChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="LabelCreator"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LabelCreatorProperty =
+            DependencyProperty.Register(nameof(LabelCreator), typeof(ILabelCreator), typeof(Axis), new PropertyMetadata(null, OnLabelCreatorChanged));
+
         internal const int DefaultMajorTickLength = 5;
 
         internal AxisType type;
@@ -115,6 +123,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         private List<FrameworkElement> tickVisuals = new List<FrameworkElement>();
         private List<FrameworkElement> labelVisuals = new List<FrameworkElement>();
+        private List<ContainerVisual> containerVisuals = new List<ContainerVisual>();
         private DataTemplate majorTickTemplateCache;
         private DataTemplate labelTemplateCache;
         private DataTemplateSelector labelTemplateSelectorCache;
@@ -149,6 +158,21 @@ namespace Telerik.UI.Xaml.Controls.Chart
             set
             {
                 this.SetValue(LabelFormatterProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="ILabelCreator"/> instance used to decide whether Label should be created.
+        /// </summary>
+        public ILabelCreator LabelCreator
+        {
+            get
+            {
+                return this.model.LabelCreator;
+            }
+            set
+            {
+                this.SetValue(LabelCreatorProperty, value);
             }
         }
 
@@ -766,12 +790,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
             presenter.model.ContentFormatter = (IContentFormatter)e.NewValue;
         }
 
+
+        private static void OnLabelCreatorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            Axis presenter = sender as Axis;
+            presenter.model.LabelCreator = (ILabelCreator)e.NewValue;
+        }
+
         private static void SetLabelContent(FrameworkElement presenter, AxisLabelModel label)
         {
             var contentPresetner = presenter as ContentPresenter;
             var textBlock = presenter as TextBlock;
 
-            if (contentPresetner != null)
+            if (contentPresetner != null && contentPresetner.Content != label.Content)
             {
                 contentPresetner.Content = label.Content;
             }
@@ -882,19 +913,40 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     continue;
                 }
 
-                // the GetVisual method will update the UIElement's Visibility property
-                FrameworkElement visual = this.GetTickVisual(tick, visibleTicks);
-                this.TransformTick(tick, visual);
-                this.ArrangeUIElement(visual, this.GetLayoutSlot(tick, context));
+                if (this.drawWithComposition)
+                {
+                    var containerVisual = GetContainerVisual(visibleTicks);
+                    this.chart.ContainerVisualsFactory.PrepareTickVisual(containerVisual, this.GetLayoutSlot(tick, context));
 
-                visibleTicks++;
+                    visibleTicks++;
+                }
+                else
+                {
+                    // the GetVisual method will update the UIElement's Visibility property
+                    FrameworkElement visual = this.GetTickVisual(tick, visibleTicks);
+                    this.TransformTick(tick, visual);
+                    this.ArrangeUIElement(visual, this.GetLayoutSlot(tick, context));
+
+                    visibleTicks++;
+                }
             }
 
             // remove unnecessary ticks
-            while (visibleTicks < this.tickVisuals.Count)
+            if (this.drawWithComposition)
             {
-                this.tickVisuals[visibleTicks].Visibility = Visibility.Collapsed;
-                visibleTicks++;
+                while (visibleTicks < this.containerVisuals.Count)
+                {
+                    this.containerVisuals[visibleTicks].IsVisible = false;
+                    visibleTicks++;
+                }
+            }
+            else
+            {
+                while (visibleTicks < this.tickVisuals.Count)
+                {
+                    this.tickVisuals[visibleTicks].Visibility = Visibility.Collapsed;
+                    visibleTicks++;
+                }
             }
         }
 
@@ -946,6 +998,29 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 visibleLabels++;
             }
         }
+        
+        private ContainerVisual GetContainerVisual(int visibleVisuals)
+        {
+            ContainerVisual containerVisual;
+            if (visibleVisuals >= this.containerVisuals.Count)
+            {
+                containerVisual = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
+                this.containerVisuals.Add(containerVisual);
+                this.ContainerVisualRoot.Children.InsertAtBottom(containerVisual);
+            }
+            else
+            {
+                containerVisual = this.containerVisuals[visibleVisuals];
+
+                if (!containerVisual.IsVisible)
+                {
+                    containerVisual.IsVisible = true;
+                }
+            }
+            
+            return containerVisual;
+        }
+
 
         private RadSize MeasureLabel(AxisLabelModel label, object content)
         {

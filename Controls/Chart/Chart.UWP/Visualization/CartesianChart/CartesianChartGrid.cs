@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -7,6 +8,7 @@ using Telerik.Core;
 using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
@@ -335,8 +337,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         private void UpdateVisuals()
         {
-            this.majorXLines.Update();
-            this.majorYLines.Update();
+            if (this.drawWithComposition)
+            {
+                this.majorXLines.UpdateVisuals();
+                this.majorYLines.UpdateVisuals();
+            }
+            else
+            {
+                this.majorXLines.Update();
+                this.majorYLines.Update();
+            }
 
             this.UpdateXStripes();
             this.UpdateYStripes();
@@ -436,6 +446,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             public Orientation Orientation;
             public CartesianChartGrid Owner;
 
+            private List<ContainerVisual> ContainerVisualLines = new List<ContainerVisual>();
             private DoubleCollection dashArray;
 
             public GridLinesInfo(CartesianChartGrid owner, GridLineVisibility visibility)
@@ -469,6 +480,23 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
 
+            public void UpdateVisuals()
+            {
+                if (dashArray == null)
+                {
+                    this.dashArray = new DoubleCollection() { 4, 2};
+                }
+
+                int arrangedVisuals = this.ArrangeLines(true);
+
+                // hide not used lines
+                while (arrangedVisuals < this.ContainerVisualLines.Count)
+                {
+                    this.ContainerVisualLines[arrangedVisuals].IsVisible = false;
+                    arrangedVisuals++;
+                }
+            }
+
             private DoubleCollection FindDashArray()
             {
                 foreach (Setter setter in this.LineStyle.Setters)
@@ -482,14 +510,15 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 return null;
             }
 
-            private int ArrangeLines()
+            private int ArrangeLines(bool shouldDrawWithComposition = false)
             {
                 if (!this.Visible)
                 {
                     return 0;
                 }
 
-                Line line;
+
+                object line;
                 int lineCount = 0;
                 GridStripe stripe;
 
@@ -517,13 +546,21 @@ namespace Telerik.UI.Xaml.Controls.Chart
                         }
                     }
 
-                    line = this.GetLineVisual(lineCount);
-                    this.ArrangeLine(stripe.BorderRect, line);
+                    if (shouldDrawWithComposition)
+                    {
+                        line = this.GetContainerLineVisual(lineCount);
+                        this.Owner.chart.ContainerVisualsFactory.PrepareCartesianChartGridLineVisual((ContainerVisual)line, stripe.BorderRect, this.Orientation, this.dashArray);
+                    }
+                    else
+                    {
+                        line = this.GetLineVisual(lineCount);
+                        this.ArrangeLine(stripe.BorderRect, (Line)line);
+                    }
 
                     lineCount++;
                 }
 
-                // draw the last line
+                //draw the last line
                 if (count > 0 && (this.RenderMode & GridLineRenderMode.Last) == GridLineRenderMode.Last)
                 {
                     stripe = this.Stripes[count - 1];
@@ -532,11 +569,20 @@ namespace Telerik.UI.Xaml.Controls.Chart
                         AxisTickModel nextTick = stripe.AssociatedTick.NextMajorTick;
                         if (nextTick.isVisible)
                         {
-                            line = this.GetLineVisual(lineCount);
                             RadRect lastRect = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical ?
-                                new RadRect(stripe.BorderRect.Right, stripe.BorderRect.Y, 1, stripe.BorderRect.Height) :
-                                new RadRect(stripe.BorderRect.X, stripe.BorderRect.Y - 1, stripe.BorderRect.Width, 1);
-                            this.ArrangeLine(lastRect, line);
+                                    new RadRect(stripe.BorderRect.Right, stripe.BorderRect.Y, 1, stripe.BorderRect.Height) :
+                                    new RadRect(stripe.BorderRect.X, stripe.BorderRect.Y - 1, stripe.BorderRect.Width, 1);
+
+                            if (shouldDrawWithComposition)
+                            {
+                                line = this.GetContainerLineVisual(lineCount);
+                                this.Owner.chart.ContainerVisualsFactory.PrepareCartesianChartGridLineVisual((ContainerVisual)line, lastRect, this.Orientation, this.dashArray);
+                            }
+                            else
+                            {
+                                line = this.GetLineVisual(lineCount);
+                                this.ArrangeLine(lastRect, (Line)line);
+                            }
 
                             lineCount++;
                         }
@@ -545,7 +591,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
                 return lineCount;
             }
-
+            
             private Line GetLineVisual(int index)
             {
                 Line line;
@@ -570,6 +616,27 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 return line;
             }
 
+            private ContainerVisual GetContainerLineVisual(int index)
+            {
+                ContainerVisual containerVisual;
+                if (index < this.ContainerVisualLines.Count)
+                {
+                    containerVisual = this.ContainerVisualLines[index];
+                    if (!containerVisual.IsVisible)
+                    {
+                        containerVisual.IsVisible = true;
+                    }
+
+                    return containerVisual;
+                }
+
+                containerVisual = this.Owner.chart.ContainerVisualsFactory.CreateContainerVisual(this.Owner.Compositor, this.GetType());
+                this.ContainerVisualLines.Add(containerVisual);
+                this.Owner.ContainerVisualRoot.Children.InsertAtBottom(containerVisual);
+
+                return containerVisual;
+            }
+            
             private void UpdateDashArray(Line line)
             {
                 if (this.dashArray == null)

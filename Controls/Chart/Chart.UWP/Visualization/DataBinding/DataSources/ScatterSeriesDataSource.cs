@@ -24,6 +24,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 this.xValueBinding = value;
+                this.xValueBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {
@@ -46,6 +47,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 this.yValueBinding = value;
+                this.yValueBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {

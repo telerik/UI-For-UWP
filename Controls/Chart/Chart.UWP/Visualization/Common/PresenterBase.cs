@@ -4,9 +4,11 @@ using System.Diagnostics.CodeAnalysis;
 using Telerik.Charting;
 using Telerik.Core;
 using Windows.Foundation;
+using Windows.UI.Composition;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
@@ -27,13 +29,17 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// Represents a <see cref="Windows.Foundation.Point(double, double)"/> structure, which Width and Height members are set to double.PositiveInfinity.
         /// </summary>
         public static readonly Point InfinityPoint = new Point(double.PositiveInfinity, double.PositiveInfinity);
-
+        
         internal Canvas renderSurface;
         internal ChartLayoutContext lastLayoutContext;
         internal bool isPaletteApplied;
         internal bool invalidatePaletteScheduled;
+        internal bool drawWithComposition;
 
         private const string RenderSurfacePartName = "PART_RenderSurface";
+
+        private Compositor compositor;
+        private ContainerVisual containerVisualRoot;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PresenterBase"/> class.
@@ -41,7 +47,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected PresenterBase()
         {
         }
-
+        
         /// <summary>
         /// Gets a value indicating whether this instance is visible.
         /// </summary>
@@ -73,6 +79,28 @@ namespace Telerik.UI.Xaml.Controls.Chart
             get
             {
                 return this.renderSurface;
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Windows.UI.Composition.Compositor"/> instance used for the creation of Composition visuals.
+        /// </summary>
+        protected Compositor Compositor
+        {
+            get
+            {
+                return this.compositor;
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Windows.UI.Composition.ContainerVisual"/> instance used as a container for the visual elements drawn by the Composition.
+        /// </summary>
+        protected ContainerVisual ContainerVisualRoot
+        {
+            get
+            {
+                return this.containerVisualRoot;
             }
         }
 
@@ -292,7 +320,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
             base.ApplyTemplateCore();
 
             this.renderSurface = this.GetTemplatePartField<Canvas>(RenderSurfacePartName);
-            return this.renderSurface != null;
+
+            if (this.renderSurface != null)
+            {
+                this.containerVisualRoot = this.GetContainerVisual(this.renderSurface);
+                if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                {
+                    this.compositor = this.containerVisualRoot.Compositor;
+                }
+               
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -314,6 +354,15 @@ namespace Telerik.UI.Xaml.Controls.Chart
             this.renderSurface.Children.Add(presenter);
 
             return presenter;
+        }
+
+        private ContainerVisual GetContainerVisual(UIElement element)
+        {
+            var hostVisual = ElementCompositionPreview.GetElementVisual(element);
+            var root = hostVisual.Compositor.CreateContainerVisual();
+            ElementCompositionPreview.SetElementChildVisual(element, root);
+
+            return root;
         }
 
         private void ApplyPalette()
