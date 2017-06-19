@@ -196,7 +196,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             this.ResetSelectedHeader();
 
-            this.TryFocus(FocusState.Pointer, false);
+            this.TryFocus(FocusState.Pointer, false, e.OriginalSource as FrameworkElement);
 
             if (this.contentFlyout.IsOpen)
             {
@@ -254,7 +254,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.ExecuteKeyDown(e);
         }
 
-        internal void TryFocus(FocusState state, bool force)
+        internal void TryFocus(FocusState state, bool force, FrameworkElement tappedElement = null)
         {
             if (!this.IsTabStop)
             {
@@ -268,7 +268,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
             else
             {
                 var focusedElement = FocusManager.GetFocusedElement() as DependencyObject;
-                if (focusedElement == null || ElementTreeHelper.FindVisualAncestor<DataGridCellsPanel>(focusedElement) == null)
+                if (focusedElement == null || (ElementTreeHelper.FindVisualAncestor<DataGridCellsPanel>(focusedElement) == null 
+                    && ElementTreeHelper.FindVisualAncestor<DataGridCellsPanel>(tappedElement) == null))
                 {
                     this.Focus(state);
                 }
