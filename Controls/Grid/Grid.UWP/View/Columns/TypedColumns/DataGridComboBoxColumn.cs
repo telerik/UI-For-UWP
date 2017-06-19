@@ -147,7 +147,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             var item = this.GetValueForInstance(instance);
 
-            if (string.IsNullOrEmpty(this.SelectedValuePath))
+            if (string.IsNullOrEmpty(this.SelectedValuePath) && !string.IsNullOrEmpty(this.DisplayMemberPath))
             {
                 var type = item.GetType();
                 if (this.itemPropertyGetter == null)
@@ -172,7 +172,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// <inheritdoc/>
         internal override FrameworkElement CreateEditorContentVisual()
         {
-            return new ComboBox();
+            var comboBoxEditor = new ComboBox();
+            comboBoxEditor.Unloaded += this.OnComboBoxUnloaded;
+            comboBoxEditor.SelectionChanged += this.OnComboBoxSelectionChanged;
+            return comboBoxEditor;
         }
 
         /// <inheritdoc/>
@@ -217,9 +220,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     var comboBoxValueGetter = BindingExpressionHelper.CreateGetValueFunc(source.First().GetType(), this.SelectedValuePath);
                     var selectedItem = source.FirstOrDefault(x =>
                     {
-                        return comboBoxValueGetter(x).Equals(this.GetValueForInstance(item));
-                    });
+                        var selectedItemValue = comboBoxValueGetter(x)?.Equals(this.GetValueForInstance(item));
 
+                        return selectedItemValue.HasValue ? selectedItemValue.Value : false;
+                    });
+                    
                     (editorContent as ComboBox).SelectedItem = selectedItem;
                     editorContent.SetBinding(ComboBox.SelectedValueProperty, binding);
                 }
@@ -316,6 +321,26 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 column.itemPropertyGetter = BindingExpressionHelper.CreateGetValueFunc(column.itemsType, (string)e.NewValue);
                 column.OnProperyChange(UpdateFlags.All);
+            }
+        }
+
+        private void OnComboBoxUnloaded(object sender, RoutedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            if (comboBox != null)
+            {
+                comboBox.Unloaded -= this.OnComboBoxUnloaded;
+                comboBox.SelectionChanged -= this.OnComboBoxSelectionChanged;
+            }
+        }
+
+        private void OnComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            if (comboBox != null)
+            {
+                comboBox.InvalidateMeasure();
+                comboBox.InvalidateArrange();
             }
         }
     }
