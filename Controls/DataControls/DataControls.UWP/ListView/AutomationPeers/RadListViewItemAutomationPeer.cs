@@ -106,6 +106,7 @@ namespace Telerik.UI.Automation.Peers
                     this.ListViewItemOwner.ListView.SelectItem(this.ListViewItemOwner.Content);
                 }
                 this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, false, true);
+                this.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementSelected);
             }
         }
 
@@ -130,7 +131,7 @@ namespace Telerik.UI.Automation.Peers
         {
             return this.Owner.GetType().Name;
         }
-
+        
         /// <inheritdoc />
         protected override string GetLocalizedControlTypeCore()
         {

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 using Telerik.Core;
 using Telerik.UI.Automation.Peers;
@@ -1252,6 +1253,16 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (peer != null)
             {
                 peer.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue, newValue);
+
+                var ratingItem = this.Items.ElementAtOrDefault((int)newValue - 1) as RadRatingItem;
+                if (ratingItem != null)
+                {
+                    var ratingItemPeer = FrameworkElementAutomationPeer.FromElement(ratingItem);
+                    if (ratingItemPeer != null)
+                    {
+                        ratingItemPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                    }
+                }
             }
         }
 

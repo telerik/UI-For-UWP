@@ -82,6 +82,12 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <inheritdoc />
+        protected override bool HasKeyboardFocusCore()
+        {
+            return true;
+        }
+
+        /// <inheritdoc />
         protected override string GetLocalizedControlTypeCore()
         {
             return "rad rating item";
