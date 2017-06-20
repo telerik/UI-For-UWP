@@ -53,6 +53,9 @@
                 <ListViewItem.DataContext>
                     <DataTemplate>
                         <chart:RadCartesianChart>
+                            <chart:RadCartesianChart.ContainerVisualsFactory>
+                                <localChart:AnimationContainerVisualsFactory/>
+                            </chart:RadCartesianChart.ContainerVisualsFactory>
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
@@ -80,6 +83,9 @@
                 <ListViewItem.DataContext>
                     <DataTemplate>
                         <chart:RadCartesianChart>
+                            <chart:RadCartesianChart.ContainerVisualsFactory>
+                                <localChart:AnimationContainerVisualsFactory/>
+                            </chart:RadCartesianChart.ContainerVisualsFactory>
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
@@ -134,6 +140,9 @@
                 <ListViewItem.DataContext>
                     <DataTemplate>
                         <chart:RadCartesianChart>
+                            <chart:RadCartesianChart.ContainerVisualsFactory>
+                                <localChart:AnimationContainerVisualsFactory/>
+                            </chart:RadCartesianChart.ContainerVisualsFactory>
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>

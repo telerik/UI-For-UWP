@@ -21,6 +21,18 @@ namespace SDKExamples.UWP.Chart
             this.InitializeComponent();
         }
 
+        private void chart_Loaded(object sender, RoutedEventArgs e)
+        {
+            var chart = sender as RadCartesianChart;
+            if (chart != null)
+            {
+                var containerVisualFactory = chart.ContainerVisualsFactory as AnimationContainerVisualsFactory;
+                if (containerVisualFactory != null)
+                {
+                    containerVisualFactory.TriggerOrderedVisualsAnimation(20, 250);
+                }
+            }
+        }
     }
 
     public class CenterOutsideLabelStrategy : ChartSeriesLabelStrategy

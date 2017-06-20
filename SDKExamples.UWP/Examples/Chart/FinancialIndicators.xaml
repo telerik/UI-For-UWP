@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:localChart="using:SDKExamples.UWP.Chart"
     mc:Ignorable="d" x:Name="page">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -18,6 +19,9 @@
         <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
 
         <chart:RadCartesianChart x:Name="OhlcChart" PaletteName="DefaultLightSelected" Grid.Row="1">
+            <chart:RadCartesianChart.ContainerVisualsFactory>
+                <localChart:AnimationContainerVisualsFactory/>
+            </chart:RadCartesianChart.ContainerVisualsFactory>
             <chart:RadCartesianChart.Indicators>
                 <chart:BollingerBandsIndicator ItemsSource="{Binding}" Period="2" StandardDeviations="2" Stroke="Green" StrokeThickness="2" LowerBandStroke="Red">
                     <chart:BollingerBandsIndicator.ValueBinding>
