@@ -42,7 +42,7 @@ namespace Telerik.UI.Automation.Peers
         /// </summary>
         public void Toggle()
         {
-            this.BusyIndicatorOwner.IsActive = !this.BusyIndicatorOwner.IsActive;
+            // Switching between the states should not be provided by the peers.
         }
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
@@ -58,11 +58,6 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.Toggle)
-            {
-                return this;
-            }
-
             return base.GetPatternCore(patternInterface);
         }
 
