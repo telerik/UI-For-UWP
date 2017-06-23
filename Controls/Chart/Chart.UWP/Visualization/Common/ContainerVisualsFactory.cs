@@ -47,8 +47,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
             var pointTemplateSeries = visualElement as PointTemplateSeries;
             if (pointTemplateSeries != null)
             {
-                if (pointTemplateSeries is AreaSeries || pointTemplateSeries is PointSeries
-                    || pointTemplateSeries is PolarSeries || (pointTemplateSeries.GetType() == typeof(ScatterPointSeries)))
+                if (pointTemplateSeries is AreaSeries || pointTemplateSeries is PointSeries || pointTemplateSeries is SplineSeries
+                    || pointTemplateSeries is ScatterSplineSeries || pointTemplateSeries is PolarSeries || (pointTemplateSeries.GetType() == typeof(ScatterPointSeries)))
                 {
                     return false;
                 }

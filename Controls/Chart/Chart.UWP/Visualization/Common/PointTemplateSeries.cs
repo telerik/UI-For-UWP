@@ -463,16 +463,33 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     }
                 }
             }
-            
-            while (index < this.realizedDataPointPresenters.Count)
-            {
-                var presenter = this.realizedDataPointPresenters[index];
-                if (presenter.Visibility == Visibility.Visible)
-                {
-                    presenter.Visibility = Visibility.Collapsed;
-                }
 
-                index++;
+
+            if (this.drawWithComposition)
+            {
+                while (index < this.realizedContainerVisuals.Count)
+                {
+                    var containerVisual = this.realizedContainerVisuals.Keys.ElementAtOrDefault(index);
+                    if (containerVisual != null && containerVisual.IsVisible)
+                    {
+                        containerVisual.IsVisible = false;
+                    }
+
+                    index++;
+                }
+            }
+            else
+            {
+                while (index < this.realizedDataPointPresenters.Count)
+                {
+                    var presenter = this.realizedDataPointPresenters[index];
+                    if (presenter.Visibility == Visibility.Visible)
+                    {
+                        presenter.Visibility = Visibility.Collapsed;
+                    }
+
+                    index++;
+                }
             }
         }
 
