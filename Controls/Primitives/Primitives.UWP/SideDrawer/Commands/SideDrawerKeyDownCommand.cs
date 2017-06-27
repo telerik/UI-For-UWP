@@ -15,9 +15,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
 
             var e = parameter as KeyRoutedEventArgs;
 
-            if (e.Key == Windows.System.VirtualKey.Space || e.Key == Windows.System.VirtualKey.Enter)
+            if (e.OriginalSource is RadSideDrawer && (e.Key == Windows.System.VirtualKey.Space || e.Key == Windows.System.VirtualKey.Enter))
             {
                 this.Owner.ToggleDrawer();
+                e.Handled = true;
             }
         }
     }
