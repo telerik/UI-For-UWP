@@ -240,6 +240,7 @@
     </Style>
 
     <Style TargetType="primitivesCommon:InlineButton" x:Key="GridServiceButtonStyle">
+        <Setter Property="AutomationProperties.Name" Value="Filter"/>
         <Setter Property="Background" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}" />
         <Setter Property="Foreground" Value="{ThemeResource TelerikGridServiceButtonForegroundBrush}"/>
         <Setter Property="PointerOverBackgroundBrush" Value="{ThemeResource TelerikGridServiceButtonPointerOverBackgroundBrush}"/>
@@ -1565,7 +1566,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <localPrimitives:DataGridFilterComboBox x:Name="PART_OperatorCombo" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
-                        <TextBox IsTextPredictionEnabled="False" x:Name="PART_ValueBox" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,16,0,0"/>
+                        <TextBox IsTextPredictionEnabled="False" x:Name="PART_ValueBox" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,16,0,0" AutomationProperties.Name="FilterTextBox"/>
                         <ToggleButton x:Name="PART_CaseButton" Grid.Row="1" Grid.Column="1" Content="aA" 
                                       Margin="2,16,0,0" Style="{StaticResource TextFilterCaseButtonStyle}" 
                                       IsChecked="{TemplateBinding IsCaseSensitive}"/>

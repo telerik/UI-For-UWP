@@ -256,7 +256,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
-            return new SuggestionItemAutomationPeer(this, this.owner);
+            return new SuggestionItemAutomationPeer(this);
         }
 
         private static Run GetRunFromStyle(HighlightStyle style)
