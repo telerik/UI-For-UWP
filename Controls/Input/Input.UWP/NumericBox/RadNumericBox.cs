@@ -966,7 +966,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             this.UpdateVisualState(true);
             this.ValidateText();
-            if (this.GetBindingExpression(ValueProperty)?.ParentBinding.UpdateSourceTrigger == UpdateSourceTrigger.PropertyChanged)
+            if (this.GetBindingExpression(ValueProperty)?.ParentBinding.UpdateSourceTrigger == UpdateSourceTrigger.PropertyChanged && this.TextBox.FocusState != FocusState.Unfocused)
             {
                 this.Value = this.TryParseValue();
             }
