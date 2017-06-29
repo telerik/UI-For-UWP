@@ -529,7 +529,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         internal void CommitEdit()
         {
-            if (!this.isEditing || (this.GetBindingExpression(ValueProperty)?.ParentBinding.UpdateSourceTrigger == UpdateSourceTrigger.PropertyChanged && this.TextBox.FocusState != FocusState.Unfocused))
+            if (!this.isEditing)
             {
                 return;
             }
