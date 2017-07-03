@@ -5,7 +5,8 @@
     <DeployDirectory>$(MSBuildProjectDirectory)\..</DeployDirectory>
     <BinariesTargetDirectory>Binaries</BinariesTargetDirectory>
     <BinariesOutDir Condition=" '$(BinariesOutDir)' == '' ">..\..\..\Binaries</BinariesOutDir>
-	<Nuget32ToolPath>"$(MSBuildProjectDirectory)\NuGet 3.2\NuGet.exe"</Nuget32ToolPath>
+	<PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
+	<Nuget32ToolPath>"$(MSBuildProjectDirectory)\nuget.exe"</Nuget32ToolPath>
   </PropertyGroup>
   
 </Project>
