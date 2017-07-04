@@ -14,14 +14,14 @@ namespace SDKExamples.UWP.Chart
     public class AnimationContainerVisualsFactory : ContainerVisualsFactory
     {
         private static int slideDelay = 0;
-        private const int minDelay = 5;
+        private const float minDelay = 2.5f;
         private const int maxDelay = 150;
         private const int moveOffsetChange = 400;
         private const int moveDuration = 900;
         private const int moveDelay = 50;
         private bool isAnimationEnabled;
         private ContainerVisual previousSpriteVisual;
-       
+
         public AnimationContainerVisualsFactory()
         {
             this.IsAnimationEnabled = true;
@@ -54,6 +54,19 @@ namespace SDKExamples.UWP.Chart
             }
         }
 
+        protected override bool CanDrawContainerVisual(PresenterBase visualElement)
+        {
+            var canDraw = base.CanDrawContainerVisual(visualElement);
+            var pointTemplateSeries = visualElement as PointTemplateSeries;
+            if (!canDraw && pointTemplateSeries != null && (pointTemplateSeries is SplineSeries
+                    || pointTemplateSeries is ScatterSplineSeries))
+            {
+                return true;
+            }
+
+            return canDraw;
+        }
+
         protected override ContainerVisual PreparePointTemplateSeriesVisual(ContainerVisual containerVisual, DataPoint dataPoint)
         {
             var pointTemplate = base.PreparePointTemplateSeriesVisual(containerVisual, dataPoint);
@@ -71,7 +84,7 @@ namespace SDKExamples.UWP.Chart
                     return this.TriggerSlideAnimation(pointTemplate, 50);
                 }
             }
-            else if(pointTemplate.Orientation.X == 1)
+            else if (pointTemplate.Orientation.X == 1)
             {
                 pointTemplate.Orientation = new Quaternion(0, 0, 0, 1);
             }
@@ -96,67 +109,59 @@ namespace SDKExamples.UWP.Chart
 
         private ContainerVisual TriggerMoveAnimation(ContainerVisual colorVisual)
         {
-            var spriteVisual = colorVisual as SpriteVisual;
-            if (spriteVisual != null)
-            {
-                Compositor compositor = colorVisual.Compositor;
-                var animation = compositor.CreateVector3KeyFrameAnimation();
-                var oldOffset = spriteVisual.Offset;
-                spriteVisual.Offset = new Vector3(oldOffset.X, oldOffset.Y + moveOffsetChange, 0);
+            slideDelay = 0;
+            Compositor compositor = colorVisual.Compositor;
+            var animation = compositor.CreateVector3KeyFrameAnimation();
+            var oldOffset = colorVisual.Offset;
+            colorVisual.Offset = new Vector3(oldOffset.X, oldOffset.Y + moveOffsetChange, 0);
 
-                animation.DelayTime = TimeSpan.FromMilliseconds(slideDelay);
-                animation.InsertKeyFrame(1f, new Vector3(oldOffset.X, oldOffset.Y, 0));
-                animation.Duration = TimeSpan.FromMilliseconds(moveDuration);
-                spriteVisual.StartAnimation("Offset", animation);
-                slideDelay += moveDelay;
-            }
+            animation.DelayTime = TimeSpan.FromMilliseconds(slideDelay);
+            animation.InsertKeyFrame(1f, new Vector3(oldOffset.X, oldOffset.Y, 0));
+            animation.Duration = TimeSpan.FromMilliseconds(moveDuration);
+            colorVisual.StartAnimation("Offset", animation);
+            slideDelay += moveDelay;
 
-            return spriteVisual;
+            return colorVisual;
         }
 
         private ContainerVisual TriggerSlideAnimation(ContainerVisual colorVisual, int delay, int duration = 500)
         {
-            var spriteVisual = colorVisual as SpriteVisual;
-            if (spriteVisual != null)
+            slideDelay = 0;
+            var size = colorVisual.Size;
+            Compositor compositor = colorVisual.Compositor;
+            ScalarKeyFrameAnimation slideAnimation = compositor.CreateScalarKeyFrameAnimation();
+
+            colorVisual.Offset = new Vector3(colorVisual.Offset.X, colorVisual.Offset.Y + colorVisual.Size.Y, 0);
+            colorVisual.Orientation = new Quaternion(1, 0, 0, 0);
+            colorVisual.Size = new Vector2(size.X, 0);
+
+            if (this.previousSpriteVisual != null && this.previousSpriteVisual.Offset.X == colorVisual.Offset.X)
             {
-                var size = spriteVisual.Size;
-                Compositor compositor = colorVisual.Compositor;
-                ScalarKeyFrameAnimation slideAnimation = compositor.CreateScalarKeyFrameAnimation();
-
-                spriteVisual.Offset = new Vector3(spriteVisual.Offset.X, spriteVisual.Offset.Y + spriteVisual.Size.Y, 0);
-                spriteVisual.Orientation = new Quaternion(1, 0, 0, 0);
-                spriteVisual.Size = new Vector2(size.X, 0);
-
-                if (this.previousSpriteVisual != null && this.previousSpriteVisual.Offset.X == spriteVisual.Offset.X)
-                {
-                    slideDelay += (duration - delay);
-                }
-                else
-                {
-                    slideDelay += delay;
-                }
-
-                slideAnimation.DelayTime = TimeSpan.FromMilliseconds(slideDelay);
-                slideAnimation.InsertKeyFrame(1f, size.Y);
-                slideAnimation.Duration = TimeSpan.FromMilliseconds(duration);
-                colorVisual.StartAnimation("Size.Y", slideAnimation);
-                this.previousSpriteVisual = spriteVisual;
-                
+                slideDelay += (duration - delay);
             }
+            else
+            {
+                slideDelay += delay;
+            }
+
+            slideAnimation.DelayTime = TimeSpan.FromMilliseconds(slideDelay);
+            slideAnimation.InsertKeyFrame(1f, size.Y);
+            slideAnimation.Duration = TimeSpan.FromMilliseconds(duration);
+            colorVisual.StartAnimation("Size.Y", slideAnimation);
+            this.previousSpriteVisual = colorVisual;
             
-            return spriteVisual;
+            return colorVisual;
         }
 
         private ContainerVisual TriggerLineSlideAnimation(ContainerVisual lineSeries)
         {
-            var spriteVisual = lineSeries as SpriteVisual;
-            if (spriteVisual != null && spriteVisual.Children.Count > 0)
+            if (lineSeries.Children.Count > 0)
             {
-                int delay = lineSeries.Children.Count > 50 ? minDelay : maxDelay;
-                int animationDuration = delay;
-                for (int i = spriteVisual.Children.Count - 1; i >= 0; i--)
+                var delay = lineSeries.Children.Count > 50 ? minDelay : maxDelay;
+                var animationDuration = delay;
+                for (int i = lineSeries.Children.Count - 1; i >= 0; i--)
                 {
-                    var childSpriteVisual = spriteVisual.Children.ElementAt(i);
+                    var childSpriteVisual = lineSeries.Children.ElementAt(i);
                     if (childSpriteVisual != null)
                     {
                         var size = childSpriteVisual.Size;
@@ -165,7 +170,7 @@ namespace SDKExamples.UWP.Chart
                         childSpriteVisual.Size = new Vector2(0, size.Y);
 
                         slideAnimation.InsertKeyFrame(1f, size.X);
-                        if (i < (spriteVisual.Children.Count - 1))
+                        if (i < (lineSeries.Children.Count - 1))
                         {
                             slideAnimation.DelayTime = TimeSpan.FromMilliseconds(delay);
                             delay += animationDuration;
@@ -177,7 +182,7 @@ namespace SDKExamples.UWP.Chart
                 }
             }
 
-            return spriteVisual;
+            return lineSeries;
         }
     }
 }
