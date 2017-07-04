@@ -14,12 +14,16 @@ namespace SDKExamples.UWP.Chart
     public class AnimationContainerVisualsFactory : ContainerVisualsFactory
     {
         private static int slideDelay = 0;
+        private const int minDelay = 5;
+        private const int maxDelay = 150;
+        private const int moveOffsetChange = 400;
+        private const int moveDuration = 900;
+        private const int moveDelay = 50;
         private bool isAnimationEnabled;
         private ContainerVisual previousSpriteVisual;
-
+       
         public AnimationContainerVisualsFactory()
         {
-            slideDelay = 0;
             this.IsAnimationEnabled = true;
             this.AnimationsRun = new ObservableCollection<ContainerVisual>();
         }
@@ -57,7 +61,6 @@ namespace SDKExamples.UWP.Chart
             if (!this.AnimationsRun.Contains(pointTemplate))
             {
                 this.AnimationsRun.Add(pointTemplate);
-
                 if (this.IsAnimationEnabled)
                 {
                     if (dataPoint is OhlcDataPoint)
@@ -87,6 +90,7 @@ namespace SDKExamples.UWP.Chart
                     return this.TriggerLineSlideAnimation(lineSeries);
                 }
             }
+
             return lineSeries;
         }
 
@@ -98,13 +102,13 @@ namespace SDKExamples.UWP.Chart
                 Compositor compositor = colorVisual.Compositor;
                 var animation = compositor.CreateVector3KeyFrameAnimation();
                 var oldOffset = spriteVisual.Offset;
-                spriteVisual.Offset = new Vector3(oldOffset.X, oldOffset.Y + 400, 0);
+                spriteVisual.Offset = new Vector3(oldOffset.X, oldOffset.Y + moveOffsetChange, 0);
 
                 animation.DelayTime = TimeSpan.FromMilliseconds(slideDelay);
                 animation.InsertKeyFrame(1f, new Vector3(oldOffset.X, oldOffset.Y, 0));
-                animation.Duration = TimeSpan.FromMilliseconds(900);
+                animation.Duration = TimeSpan.FromMilliseconds(moveDuration);
                 spriteVisual.StartAnimation("Offset", animation);
-                slideDelay += 50;
+                slideDelay += moveDelay;
             }
 
             return spriteVisual;
@@ -148,7 +152,7 @@ namespace SDKExamples.UWP.Chart
             var spriteVisual = lineSeries as SpriteVisual;
             if (spriteVisual != null && spriteVisual.Children.Count > 0)
             {
-                int delay = lineSeries.Children.Count > 200 ? 5 : 150;
+                int delay = lineSeries.Children.Count > 50 ? minDelay : maxDelay;
                 int animationDuration = delay;
                 for (int i = spriteVisual.Children.Count - 1; i >= 0; i--)
                 {
