@@ -112,11 +112,11 @@
             <ListViewItem>
                 <ListViewItem.DataContext>
                     <DataTemplate>
-                        <chart:RadCartesianChart localChart:ChartAnimationsHelper.AllowSlideAnimationOnStart="True">
+                        <chart:RadCartesianChart>
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
-                            <chart:AreaSeries ItemsSource="{Binding Source}">
+                            <chart:AreaSeries ItemsSource="{Binding Source}" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                                 <chart:AreaSeries.HorizontalAxis>
                                     <chart:CategoricalAxis/>
                                 </chart:AreaSeries.HorizontalAxis>
@@ -140,13 +140,13 @@
                 <ListViewItem.DataContext>
                     <DataTemplate>
                         <chart:RadCartesianChart>
-                            <chart:RadCartesianChart.ContainerVisualsFactory>
+                            <!--<chart:RadCartesianChart.ContainerVisualsFactory>
                                 <localChart:AnimationContainerVisualsFactory/>
-                            </chart:RadCartesianChart.ContainerVisualsFactory>
+                            </chart:RadCartesianChart.ContainerVisualsFactory>-->
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
-                            <chart:SplineSeries ItemsSource="{Binding Source}">
+                            <chart:SplineSeries ItemsSource="{Binding Source}" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                                 <chart:SplineSeries.HorizontalAxis>
                                     <chart:CategoricalAxis/>
                                 </chart:SplineSeries.HorizontalAxis>

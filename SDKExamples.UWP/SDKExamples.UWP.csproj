@@ -166,7 +166,6 @@
     <Compile Include="Examples\Chart\CategoricalSeries.xaml.cs">
       <DependentUpon>CategoricalSeries.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Examples\Chart\ChartAnimationsHelper.cs" />
     <Compile Include="Examples\Chart\ChartGrid.xaml.cs">
       <DependentUpon>ChartGrid.xaml</DependentUpon>
     </Compile>
@@ -212,6 +211,7 @@
     <Compile Include="Examples\Chart\SelectionBehavior.xaml.cs">
       <DependentUpon>SelectionBehavior.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Chart\SeriesAnimationsHelper.cs" />
     <Compile Include="Examples\Chart\TooltipBehavior.xaml.cs">
       <DependentUpon>TooltipBehavior.xaml</DependentUpon>
     </Compile>
