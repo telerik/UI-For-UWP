@@ -112,7 +112,7 @@
             <ListViewItem>
                 <ListViewItem.DataContext>
                     <DataTemplate>
-                        <chart:RadCartesianChart>
+                        <chart:RadCartesianChart localChart:ChartAnimationsHelper.AllowSlideAnimationOnStart="True">
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
