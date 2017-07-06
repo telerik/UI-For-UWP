@@ -41,7 +41,7 @@
                 </chart:BarSeries.ValueBinding>
             </chart:BarSeries>
 
-            <chart:LineSeries ItemsSource="{Binding}">
+            <chart:LineSeries ItemsSource="{Binding}" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                 <chart:LineSeries.HorizontalAxis>
                     <chart:CategoricalAxis VerticalLocation="Top" Foreground="#FFC500" PlotMode="OnTicksPadded"/>
                 </chart:LineSeries.HorizontalAxis>

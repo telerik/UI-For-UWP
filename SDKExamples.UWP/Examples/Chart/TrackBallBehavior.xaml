@@ -32,7 +32,8 @@
             <chart:RadCartesianChart.Behaviors>
                 <chart:ChartTrackBallBehavior/>
             </chart:RadCartesianChart.Behaviors>
-            <chart:LineSeries ItemsSource="{Binding Source}">
+            <chart:LineSeries ItemsSource="{Binding Source}"
+                              localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                 <chart:LineSeries.ValueBinding>
                     <chart:PropertyNameDataPointBinding PropertyName="Value"/>
                 </chart:LineSeries.ValueBinding>

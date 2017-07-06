@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Numerics;
 using Telerik.Charting;
 using Telerik.UI.Xaml.Controls.Chart;
-using Windows.Foundation;
 using Windows.UI.Composition;
-using Windows.UI.Xaml.Media;
 
 namespace SDKExamples.UWP.Chart
 {
     public class AnimationContainerVisualsFactory : ContainerVisualsFactory
     {
-        private static int slideDelay = 0;
-        private const float minDelay = 2.5f;
-        private const int maxDelay = 150;
-        private const int moveOffsetChange = 400;
-        private const int moveDuration = 900;
-        private const int moveDelay = 50;
+        private int slideDelay = 0;
+        private int moveOffsetChange = 400;
+        private int moveDelay = 50;
         private bool isAnimationEnabled;
         private ContainerVisual previousSpriteVisual;
 
@@ -56,15 +50,13 @@ namespace SDKExamples.UWP.Chart
 
         protected override bool CanDrawContainerVisual(PresenterBase visualElement)
         {
-            var canDraw = base.CanDrawContainerVisual(visualElement);
-            var pointTemplateSeries = visualElement as PointTemplateSeries;
-            if (!canDraw && pointTemplateSeries != null && (pointTemplateSeries is SplineSeries
-                    || pointTemplateSeries is ScatterSplineSeries))
+            if (visualElement is LineSeries || visualElement is ScatterLineSeries 
+                || visualElement is BollingerBandsIndicator)
             {
-                return true;
+                return false;
             }
 
-            return canDraw;
+            return base.CanDrawContainerVisual(visualElement);
         }
 
         protected override ContainerVisual PreparePointTemplateSeriesVisual(ContainerVisual containerVisual, DataPoint dataPoint)
@@ -78,10 +70,10 @@ namespace SDKExamples.UWP.Chart
                 {
                     if (dataPoint is OhlcDataPoint)
                     {
-                        return this.TriggerMoveAnimation(pointTemplate);
+                        return this.TriggerMoveAnimation(pointTemplate, 100);
                     }
 
-                    return this.TriggerSlideAnimation(pointTemplate, 50);
+                    return this.TriggerSlideAnimation(pointTemplate, moveDelay);
                 }
             }
             else if (pointTemplate.Orientation.X == 1)
@@ -92,41 +84,24 @@ namespace SDKExamples.UWP.Chart
             return pointTemplate;
         }
 
-        protected override ContainerVisual PrepareLineRenderVisual(ContainerVisual containerVisual, IEnumerable<Point> points, Brush stroke, double strokeThickness)
+        private ContainerVisual TriggerMoveAnimation(ContainerVisual colorVisual, int delay, int duration = 500)
         {
-            var lineSeries = base.PrepareLineRenderVisual(containerVisual, points, stroke, strokeThickness);
-            if (!this.AnimationsRun.Contains(lineSeries))
-            {
-                this.AnimationsRun.Add(lineSeries);
-                if (this.IsAnimationEnabled)
-                {
-                    return this.TriggerLineSlideAnimation(lineSeries);
-                }
-            }
-
-            return lineSeries;
-        }
-
-        private ContainerVisual TriggerMoveAnimation(ContainerVisual colorVisual)
-        {
-            slideDelay = 0;
             Compositor compositor = colorVisual.Compositor;
             var animation = compositor.CreateVector3KeyFrameAnimation();
+
             var oldOffset = colorVisual.Offset;
             colorVisual.Offset = new Vector3(oldOffset.X, oldOffset.Y + moveOffsetChange, 0);
-
             animation.DelayTime = TimeSpan.FromMilliseconds(slideDelay);
             animation.InsertKeyFrame(1f, new Vector3(oldOffset.X, oldOffset.Y, 0));
-            animation.Duration = TimeSpan.FromMilliseconds(moveDuration);
+            animation.Duration = TimeSpan.FromMilliseconds(duration);
             colorVisual.StartAnimation("Offset", animation);
-            slideDelay += moveDelay;
+            slideDelay += delay;
 
             return colorVisual;
         }
 
         private ContainerVisual TriggerSlideAnimation(ContainerVisual colorVisual, int delay, int duration = 500)
         {
-            slideDelay = 0;
             var size = colorVisual.Size;
             Compositor compositor = colorVisual.Compositor;
             ScalarKeyFrameAnimation slideAnimation = compositor.CreateScalarKeyFrameAnimation();
@@ -151,38 +126,6 @@ namespace SDKExamples.UWP.Chart
             this.previousSpriteVisual = colorVisual;
             
             return colorVisual;
-        }
-
-        private ContainerVisual TriggerLineSlideAnimation(ContainerVisual lineSeries)
-        {
-            if (lineSeries.Children.Count > 0)
-            {
-                var delay = lineSeries.Children.Count > 50 ? minDelay : maxDelay;
-                var animationDuration = delay;
-                for (int i = lineSeries.Children.Count - 1; i >= 0; i--)
-                {
-                    var childSpriteVisual = lineSeries.Children.ElementAt(i);
-                    if (childSpriteVisual != null)
-                    {
-                        var size = childSpriteVisual.Size;
-                        Compositor compositor = lineSeries.Compositor;
-                        ScalarKeyFrameAnimation slideAnimation = compositor.CreateScalarKeyFrameAnimation();
-                        childSpriteVisual.Size = new Vector2(0, size.Y);
-
-                        slideAnimation.InsertKeyFrame(1f, size.X);
-                        if (i < (lineSeries.Children.Count - 1))
-                        {
-                            slideAnimation.DelayTime = TimeSpan.FromMilliseconds(delay);
-                            delay += animationDuration;
-                        }
-
-                        slideAnimation.Duration = TimeSpan.FromMilliseconds(animationDuration);
-                        childSpriteVisual.StartAnimation("Size.X", slideAnimation);
-                    }
-                }
-            }
-
-            return lineSeries;
         }
     }
 }

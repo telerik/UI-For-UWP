@@ -42,13 +42,13 @@ namespace SDKExamples.UWP.Chart
         private static void OnSeriesLoaded(object sender, RoutedEventArgs e)
         {
             var renderSurface = sender.GetType().GetProperty("RenderSurface", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(sender) as Canvas;
-            if (renderSurface != null)
+            if (renderSurface != null && renderSurface.Clip != null)
             {
                 TriggerSlideInAnimation(renderSurface);
             }
         }
 
-        private static void TriggerSlideInAnimation(Canvas renderSurface)
+        private static void TriggerSlideInAnimation(Canvas renderSurface, int duration = 500)
         {
             var slideInStoryboard = new Storyboard();
             var currentClipRect = renderSurface.Clip.Rect;
@@ -56,13 +56,25 @@ namespace SDKExamples.UWP.Chart
             renderSurface.Clip.Rect = new Windows.Foundation.Rect(currentClipRect.X, currentClipRect.Y, 0, currentClipRect.Height);
 
             ObjectAnimationUsingKeyFrames rectAnimation = new ObjectAnimationUsingKeyFrames();
-            rectAnimation.Duration = TimeSpan.FromMilliseconds(currentClipRect.Width);
-            for (int i = 0; i < currentClipRect.Width; i++)
+            rectAnimation.Duration = TimeSpan.FromMilliseconds(duration);
+            double widthCoeff = currentClipRect.Width / duration;
+            double calculatedWidth = 0;
+            for (double i = 0; i <= duration; i += widthCoeff)
             {
+                calculatedWidth = i * widthCoeff;
                 rectAnimation.KeyFrames.Add(new DiscreteObjectKeyFrame()
                 {
                     KeyTime = KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(i)),
-                    Value = new RectangleGeometry() { Rect = new Windows.Foundation.Rect(currentClipRect.X, currentClipRect.Y, i, currentClipRect.Height) }
+                    Value = new RectangleGeometry() { Rect = new Windows.Foundation.Rect(currentClipRect.X, currentClipRect.Y, calculatedWidth, currentClipRect.Height) }
+                });
+            }
+
+            if (calculatedWidth < currentClipRect.Width)
+            {
+                rectAnimation.KeyFrames.Add(new DiscreteObjectKeyFrame()
+                {
+                    KeyTime = KeyTime.FromTimeSpan(TimeSpan.FromMilliseconds(duration)),
+                    Value = new RectangleGeometry() { Rect = new Windows.Foundation.Rect(currentClipRect.X, currentClipRect.Y, currentClipRect.Width, currentClipRect.Height) }
                 });
             }
 

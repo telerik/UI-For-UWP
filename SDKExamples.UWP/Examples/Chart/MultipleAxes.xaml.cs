@@ -15,7 +15,6 @@ namespace SDKExamples.UWP.Chart
         {
             this.InitializeComponent();
         }
-
     }
 
     public class DataMultipleAxes
