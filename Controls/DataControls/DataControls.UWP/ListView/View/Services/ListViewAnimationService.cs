@@ -19,9 +19,9 @@ namespace Telerik.UI.Xaml.Controls.Data
 
     internal class ListViewAnimationService : ServiceBase<RadListView>
     {
-        private List<object> scheduledItemsForAnimation = new List<object>();
-        private Dictionary<RadAnimation, Tuple<object, Action<object>>> runningAnimations = new Dictionary<RadAnimation, Tuple<object, Action<object>>>();
-        private List<IAnimated> scheduledModelsForRecycle = new List<IAnimated>();
+        private readonly List<object> scheduledItemsForAnimation = new List<object>();
+        private readonly Dictionary<RadAnimation, Tuple<object, Action<object>>> runningAnimations = new Dictionary<RadAnimation, Tuple<object, Action<object>>>();
+        private readonly List<IAnimated> scheduledModelsForRecycle = new List<IAnimated>();
 
         public ListViewAnimationService(RadListView owner)
             : base(owner)
@@ -30,7 +30,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         internal void PlayCheckBoxLayerAnimation(UIElement element, bool forward, bool beforeItem, double itemLength)
         {
-            var checkBoxanimation = new RadMoveAnimation() { Duration = TimeSpan.FromSeconds(0.3), FillBehavior = AnimationFillBehavior.HoldEnd };
+            var checkBoxanimation = new RadMoveAnimation { Duration = TimeSpan.FromSeconds(0.3), FillBehavior = AnimationFillBehavior.HoldEnd };
             checkBoxanimation.EndPoint = new Point(0, 0);
             itemLength = itemLength == 0 ? 29 : itemLength;
             var offset = beforeItem ? itemLength : -itemLength;
@@ -46,7 +46,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         internal void PlayCheckModeAnimation(UIElement element, bool forward, bool beforeItem, double itemLength)
         {
-            var animation = new RadMoveAnimation() { Duration = TimeSpan.FromSeconds(0.3), FillBehavior = AnimationFillBehavior.HoldEnd };
+            var animation = new RadMoveAnimation { Duration = TimeSpan.FromSeconds(0.3), FillBehavior = AnimationFillBehavior.HoldEnd };
             animation.StartPoint = new Point(0, 0);
             itemLength = itemLength == 0 ? 29 : itemLength;
             var offset = beforeItem ? itemLength : -itemLength;
@@ -68,20 +68,11 @@ namespace Telerik.UI.Xaml.Controls.Data
         
         internal bool IsAnimating(ItemInfo? info)
         {
-            var models = this.runningAnimations.Values.Where((tuple) =>
-                {
-                    var model = tuple.Item1 as GeneratedItemModel;
-                    if (model != null && model.ItemInfo.Equals(info))
-                    {
-                        return true;
-                    }
-                    return false;
-                });
-            if (models.Count() > 0)
-            {
-                return true;
-            }
-            return false;
+	        return this.runningAnimations.Values.Any(tuple =>
+	        {
+		        var model = tuple.Item1 as GeneratedItemModel;
+		        return model != null && model.ItemInfo.Equals(info);
+	        });
         }
 
         internal bool HasItemsForAnimation()

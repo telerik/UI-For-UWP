@@ -139,7 +139,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this) as RadDataGridAutomationPeer;
             if (dataGridPeer != null && dataGridPeer.childrenCache != null && dataGridPeer.childrenCache.Count > 0)
             {
-                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Item == item).FirstOrDefault() as DataGridCellInfoAutomationPeer;
+                var cellPeer = dataGridPeer.childrenCache.FirstOrDefault(a => a.Item == item) as DataGridCellInfoAutomationPeer;
                 if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
                 {
                     cellPeer.RaiseValuePropertyChangedEvent(true, false);
@@ -168,7 +168,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this) as RadDataGridAutomationPeer;
             if (dataGridPeer != null && dataGridPeer.childrenCache != null && dataGridPeer.childrenCache.Count > 0)
             {
-                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == item.RowItemInfo.Slot && a.Column == item.Column.ItemInfo.Slot).FirstOrDefault() as DataGridCellInfoAutomationPeer;
+                var cellPeer = dataGridPeer.childrenCache.FirstOrDefault(a => a.Row == item.RowItemInfo.Slot && a.Column == item.Column.ItemInfo.Slot) as DataGridCellInfoAutomationPeer;
                 if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
                 {
                     cellPeer.RaiseValuePropertyChangedEvent(true, false);

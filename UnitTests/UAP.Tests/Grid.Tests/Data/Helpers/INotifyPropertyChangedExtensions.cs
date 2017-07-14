@@ -51,7 +51,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Tests
 
             ParameterExpression senderParameter = Expression.Parameter(typeof(object), "sender");
 
-            var eventArgsType = eventInfo.EventHandlerType.GetRuntimeMethods().Where(mi => mi.Name == "Invoke").First().GetParameters()[1].ParameterType;
+            var eventArgsType = eventInfo.EventHandlerType.GetRuntimeMethods().First(mi => mi.Name == "Invoke").GetParameters()[1].ParameterType;
             ParameterExpression eventArgsParameter = Expression.Parameter(eventArgsType, "e");
 
             GenericEventHandler handler = new GenericEventHandler();
@@ -79,7 +79,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Tests
 
         private class GenericEventHandler
         {
-            public static MethodInfo MethodInfo = typeof(GenericEventHandler).GetRuntimeMethods().Where(mi => mi.Name =="OnEventTriggered").First();
+            public static MethodInfo MethodInfo = typeof(GenericEventHandler).GetRuntimeMethods().First(mi => mi.Name =="OnEventTriggered");
 
             public bool EventFired { get; private set; }
 

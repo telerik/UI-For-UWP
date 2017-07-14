@@ -76,12 +76,11 @@ namespace Telerik.UI.Automation.Peers
             List<AutomationPeer> dataGridContentLayerPanelChildren = new List<AutomationPeer>();
 
             var dataGridCellsPanelAutomationPeerChildren = base.GetChildrenCore();
-            DataGridContentLayerPanelAutomationPeer dataGridContentLayerPanelPeer = null;
 
-            if (dataGridCellsPanelAutomationPeerChildren.Count > 0)
+	        if (dataGridCellsPanelAutomationPeerChildren.Count > 0)
             {
-                dataGridContentLayerPanelPeer = dataGridCellsPanelAutomationPeerChildren.Where(a => a.GetName() == nameof(DataGridContentLayerPanel)).FirstOrDefault() as DataGridContentLayerPanelAutomationPeer;
-                if (dataGridContentLayerPanelPeer != null)
+	            var dataGridContentLayerPanelPeer = dataGridCellsPanelAutomationPeerChildren.FirstOrDefault(a => a.GetName() == nameof(DataGridContentLayerPanel)) as DataGridContentLayerPanelAutomationPeer;
+	            if (dataGridContentLayerPanelPeer != null)
                 {
                     dataGridContentLayerPanelChildren = dataGridContentLayerPanelPeer.GetChildren().ToList();
                 }
@@ -96,11 +95,11 @@ namespace Telerik.UI.Automation.Peers
                     foreach (var row in rows)
                     {
                         var cellsForRow = this.dataGrid.Model.CellsController.GetCellsForRow(row.Slot);
-                        if (cellsForRow.Count() > 0)
+                        if (cellsForRow.Any())
                         {
                             foreach (var cell in cellsForRow)
                             {
-                                DataGridCellInfoAutomationPeer peer = dataGridPeers.childrenCache.Where(a => a.Row == row.Slot && a.Column == cell.Column.ItemInfo.Slot).FirstOrDefault();
+                                DataGridCellInfoAutomationPeer peer = dataGridPeers.childrenCache.FirstOrDefault(a => a.Row == row.Slot && a.Column == cell.Column.ItemInfo.Slot);
                                 if (peer == null)
                                 {
                                     peer = new DataGridCellInfoAutomationPeer(row.Slot, cell.Column.ItemInfo.Slot, dataGridPeers, row.Item);

@@ -266,21 +266,41 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected internal virtual ContainerVisual PrepareLineRenderVisual(ContainerVisual containerVisual, IEnumerable<Point> points, Brush stroke, double strokeThickness)
         {
             containerVisual.Children.RemoveAll();
-            for (int i = 0; i < points.Count(); i++)
-            {
-                SpriteVisual childSpiteVisual = containerVisual.Compositor.CreateSpriteVisual();
-                var startPoint = points.ElementAt(i);
-                if (i + 1 < points.Count())
-                {
-                    var endPoint = points.ElementAt(i + 1);
-                    var angle = Math.Atan2(endPoint.Y - startPoint.Y, endPoint.X - startPoint.X) * (180.0 / Math.PI);
-                    var width = Math.Sqrt((Math.Pow(startPoint.X - endPoint.X, 2) + Math.Pow(startPoint.Y - endPoint.Y, 2)));
 
-                    childSpiteVisual.RotationAngleInDegrees = (float)angle;
+            using (var enumerator = points.GetEnumerator())
+            {
+                var haveStartPoint = false;
+                var startPoint = default(Point);
+
+                while (enumerator.MoveNext())
+                {
+                    var endPoint = enumerator.Current;
+
+                    if (!haveStartPoint)
+                    {
+                        startPoint = endPoint;
+                        if (!enumerator.MoveNext()) break;
+                        haveStartPoint = true;
+                        endPoint = enumerator.Current;
+                    }
+
+                    // draw the line if we have both points
+                    var childSpiteVisual = containerVisual.Compositor.CreateSpriteVisual();
+                    var angle = Math.Atan2(endPoint.Y - startPoint.Y, endPoint.X - startPoint.X) * (180.0 / Math.PI);
+                    var width = Math.Sqrt(Math.Pow(startPoint.X - endPoint.X, 2) + Math.Pow(startPoint.Y - endPoint.Y, 2));
+
+	                if (Math.Abs(angle) > 40)
+		                width += 2;
+	                else
+		                width++;
+
+					childSpiteVisual.RotationAngleInDegrees = (float)angle;
                     childSpiteVisual.Offset = new Vector3((float)startPoint.X, (float)startPoint.Y, 0);
                     childSpiteVisual.Size = new Vector2((float)width, (float)strokeThickness);
-                    this.SetCompositionColorBrush(childSpiteVisual, stroke);
+                    SetCompositionColorBrush(childSpiteVisual, stroke);
                     containerVisual.Children.InsertAtBottom(childSpiteVisual);
+
+                    startPoint = endPoint;
                 }
             }
 

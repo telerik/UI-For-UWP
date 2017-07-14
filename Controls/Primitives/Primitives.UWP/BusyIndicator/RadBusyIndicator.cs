@@ -306,7 +306,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             if (this.stylesCache[styleCacheIndex] == null)
             {
-                var resourceName = typeof(RadBusyIndicator).GetTypeInfo().Assembly.GetManifestResourceNames().Where(c => c.Contains(newValue.ToString())).First();
+                var resourceName = typeof(RadBusyIndicator).GetTypeInfo().Assembly.GetManifestResourceNames().First(c => c.Contains(newValue.ToString()));
                 
                 Stream stream = typeof(RadBusyIndicator).GetTypeInfo().Assembly.GetManifestResourceStream(resourceName);
 

@@ -189,7 +189,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             get
             {
                 if (this.Model != null &&
-                    this.Model.GroupDescriptors.OfType<PropertyGroupDescriptor>().Where(c => c.PropertyName == this.PropertyName).Any())
+                    this.Model.GroupDescriptors.OfType<PropertyGroupDescriptor>().Any(c => c.PropertyName == this.PropertyName))
                 {
                     return false;
                 }

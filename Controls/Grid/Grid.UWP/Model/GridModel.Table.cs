@@ -284,13 +284,13 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
             var scrollableElements = this.ColumnPool.GetUnfrozenDisplayedElements();
 
-            if (frozenЕlements.Count() > 0)
+            if (frozenЕlements.Any())
             {
                 frozenColumnsOffset = frozenЕlements.Last().Value.Last().LayoutSlot.Right;
                 frozenRect = new RadRect(0, this.PhysicalVerticalOffset, frozenColumnsOffset, finalSize.Height);
             }
 
-            if (scrollableElements.Count() > 0)
+            if (scrollableElements.Any())
             {
                 var scrollableViewPortRight = scrollableElements.Last().Value.Last().layoutSlot.Right;
                 rect = new RadRect(this.PhysicalHorizontalOffset + frozenColumnsOffset, this.PhysicalVerticalOffset, scrollableViewPortRight, finalSize.Height);
