@@ -79,7 +79,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 FirstFilterControl = header.Column.CreateFilterControl(),
                 Column = header.Column,
-                AssociatedDescriptor = this.FilterDescriptors.Where(d => d.DescriptorPeer == header.Column).FirstOrDefault()
+                AssociatedDescriptor = this.FilterDescriptors.FirstOrDefault(d => d.DescriptorPeer == header.Column)
             };
 
             if (header.Column.SupportsCompositeFilter)
@@ -498,7 +498,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     dataGridPeer.GetChildren();
                 }
 
-                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == info.Value.Slot && a.Column == 0).FirstOrDefault() as DataGridCellInfoAutomationPeer;
+                var cellPeer = dataGridPeer.childrenCache.FirstOrDefault(a => a.Row == info.Value.Slot && a.Column == 0) as DataGridCellInfoAutomationPeer;
                 if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
                 {
                     cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);

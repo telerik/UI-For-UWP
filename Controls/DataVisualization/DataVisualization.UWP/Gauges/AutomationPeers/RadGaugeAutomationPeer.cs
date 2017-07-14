@@ -27,13 +27,13 @@ namespace Telerik.UI.Automation.Peers
         {
             get
             {
-                var arrowIndicator = this.Gauge.Indicators.Where(a => a is ArrowGaugeIndicator).FirstOrDefault();
+                var arrowIndicator = this.Gauge.Indicators.FirstOrDefault(a => a is ArrowGaugeIndicator);
                 if (arrowIndicator != null)
                 {
                     return arrowIndicator.Value;
                 }
 
-                var markerIndicator = this.Gauge.Indicators.Where(a => a is MarkerGaugeIndicator).FirstOrDefault();
+                var markerIndicator = this.Gauge.Indicators.FirstOrDefault(a => a is MarkerGaugeIndicator);
                 if (markerIndicator != null)
                 {
                     return markerIndicator.Value;
@@ -41,7 +41,7 @@ namespace Telerik.UI.Automation.Peers
 
                 if (this.Gauge is RadLinearGauge)
                 {
-                    var linearIndicator = this.Gauge.Indicators.Where(a => a is LinearBarGaugeIndicator).FirstOrDefault();
+                    var linearIndicator = this.Gauge.Indicators.FirstOrDefault(a => a is LinearBarGaugeIndicator);
                     if (linearIndicator != null)
                     {
                         return linearIndicator.Value;
@@ -50,7 +50,7 @@ namespace Telerik.UI.Automation.Peers
 
                 if (this.Gauge is RadRadialGauge)
                 {
-                    var radialIndicator = this.Gauge.Indicators.Where(a => a is RadialBarGaugeIndicator).FirstOrDefault();
+                    var radialIndicator = this.Gauge.Indicators.FirstOrDefault(a => a is RadialBarGaugeIndicator);
                     if (radialIndicator != null)
                     {
                         return radialIndicator.Value;

@@ -123,16 +123,13 @@ namespace Telerik.UI.Automation.Peers
             }
 
             var cellsForRow = this.OwnerDataGrid.Model.CellsController.GetCellsForRow(rowIndex);
-            if (cellsForRow.Count() > 0)
+            var cell = cellsForRow.FirstOrDefault(a => a.Column.ItemInfo.Slot == columnIndex);
+            if (cell != null)
             {
-                var cell = cellsForRow.Where(a => a.Column.ItemInfo.Slot == columnIndex).FirstOrDefault();
-                if (cell != null)
+                var gridCellInfoPeer = this.childrenCache.First(a => a.Row == cell.ParentRow.ItemInfo.Slot && a.Column == cell.Column.ItemInfo.Slot);
+                if (gridCellInfoPeer != null)
                 {
-                    var gridCellInfoPeer = this.childrenCache.Where(a => a.Row == cell.ParentRow.ItemInfo.Slot && a.Column == cell.Column.ItemInfo.Slot).First() as DataGridCellInfoAutomationPeer;
-                    if (gridCellInfoPeer != null)
-                    {
-                        return this.ProviderFromPeer(gridCellInfoPeer);
-                    }
+                    return this.ProviderFromPeer(gridCellInfoPeer);
                 }
             }
 
@@ -147,7 +144,7 @@ namespace Telerik.UI.Automation.Peers
             var groupHeadersHost = this.OwnerDataGrid.GroupHeadersHost as Panel;
             if (groupHeadersHost != null && groupHeadersHost.Children.Count > 0)
             {
-                var dataGridContentLayerPanel = groupHeadersHost.Children.Where(a => a is DataGridContentLayerPanel).FirstOrDefault() as DataGridContentLayerPanel;
+                var dataGridContentLayerPanel = groupHeadersHost.Children.FirstOrDefault(a => a is DataGridContentLayerPanel) as DataGridContentLayerPanel;
                 if (dataGridContentLayerPanel != null)
                 {
                     IRawElementProviderSimple[] providers = new IRawElementProviderSimple[dataGridContentLayerPanel.Children.Count];
@@ -185,7 +182,7 @@ namespace Telerik.UI.Automation.Peers
                     {
                         if (selectedCellInfo != null)
                         {
-                            var gridCellInfoPeer = this.childrenCache.Where(a => a.Row == selectedCellInfo.RowItemInfo.Slot && a.Column == selectedCellInfo.Column.ItemInfo.Slot).First() as DataGridCellInfoAutomationPeer;
+                            var gridCellInfoPeer = this.childrenCache.First(a => a.Row == selectedCellInfo.RowItemInfo.Slot && a.Column == selectedCellInfo.Column.ItemInfo.Slot) as DataGridCellInfoAutomationPeer;
                             if (gridCellInfoPeer != null)
                             {
                                 providerSamples.Add(this.ProviderFromPeer(gridCellInfoPeer));
@@ -200,14 +197,11 @@ namespace Telerik.UI.Automation.Peers
                         if (selectedItem != null)
                         {
                             var gridCellInfoPeers = this.childrenCache.Where(a => a.Item == selectedItem);
-                            if (gridCellInfoPeers.Count() > 0)
+                            foreach (var gridCellInfoPeer in gridCellInfoPeers)
                             {
-                                foreach (var gridCellInfoPeer in gridCellInfoPeers)
+                                if (gridCellInfoPeer != null)
                                 {
-                                    if (gridCellInfoPeer != null)
-                                    {
-                                        providerSamples.Add(this.ProviderFromPeer(gridCellInfoPeer));
-                                    }
+                                    providerSamples.Add(this.ProviderFromPeer(gridCellInfoPeer));
                                 }
                             }
                         }
@@ -283,13 +277,13 @@ namespace Telerik.UI.Automation.Peers
                 || x.GetClassName() == nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.SelectionRegionBackgroundControl)
                 || x.GetClassName() == nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridCurrencyControl));
 
-                var scrollViewerPeer = children.Where(x => x.GetClassName() == nameof(ScrollViewer)).FirstOrDefault();
+                var scrollViewerPeer = children.FirstOrDefault(x => x.GetClassName() == nameof(ScrollViewer));
                 if (scrollViewerPeer != null)
                 {
                     var scrollViewerChildren = scrollViewerPeer.GetChildren();
                     if (scrollViewerChildren.Count > 0)
                     {
-                        var dataGridCellsPanelPeer = scrollViewerChildren.Where(a => a.GetClassName() == nameof(DataGridCellsPanel)).FirstOrDefault();
+                        var dataGridCellsPanelPeer = scrollViewerChildren.FirstOrDefault(a => a.GetClassName() == nameof(DataGridCellsPanel));
                         if (dataGridCellsPanelPeer != null)
                         {
                             dataGridCellsPanelPeer.GetChildren();

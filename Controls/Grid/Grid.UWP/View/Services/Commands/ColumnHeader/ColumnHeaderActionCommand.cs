@@ -73,7 +73,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
                     var typedColumn = column as DataGridTypedColumn;
                     if (typedColumn != null)
                     {
-                        var descriptor = this.Owner.GroupDescriptors.OfType<PropertyGroupDescriptor>().Where(d => d.PropertyName == typedColumn.PropertyName).FirstOrDefault();
+                        var descriptor = this.Owner.GroupDescriptors.OfType<PropertyGroupDescriptor>().FirstOrDefault(d => d.PropertyName == typedColumn.PropertyName);
                         if (descriptor != null)
                         {
                             this.Owner.GroupDescriptors.Remove(descriptor);

@@ -29,12 +29,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(newRangesList.Count(), this.dateRangeCollection.Count(), "Date range merges occure");
+            Assert.AreEqual<int>(newRangesList.Count, this.dateRangeCollection.Count, "Date range merges occure");
 
-            for (int i = 0; i < this.dateRangeCollection.Count(); i++)
+            for (int i = 0; i < this.dateRangeCollection.Count; i++)
             {
-                Assert.AreEqual(newRangesList[i].StartDate, this.dateRangeCollection.ElementAt(i).StartDate);
-                Assert.AreEqual(newRangesList[i].EndDate, this.dateRangeCollection.ElementAt(i).EndDate);
+                Assert.AreEqual(newRangesList[i].StartDate, this.dateRangeCollection[i].StartDate);
+                Assert.AreEqual(newRangesList[i].EndDate, this.dateRangeCollection[i].EndDate);
             }
         }
 
@@ -51,12 +51,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(newRangesList.Count(), this.dateRangeCollection.Count(), "Date range merges occure");
+            Assert.AreEqual<int>(newRangesList.Count, this.dateRangeCollection.Count, "Date range merges occure");
 
-            for (int i = 0; i < this.dateRangeCollection.Count(); i++)
+            for (int i = 0; i < this.dateRangeCollection.Count; i++)
             {
-                Assert.AreEqual(newRangesList[i].StartDate, this.dateRangeCollection.ElementAt(i).StartDate);
-                Assert.AreEqual(newRangesList[i].EndDate, this.dateRangeCollection.ElementAt(i).EndDate);
+                Assert.AreEqual(newRangesList[i].StartDate, this.dateRangeCollection[i].StartDate);
+                Assert.AreEqual(newRangesList[i].EndDate, this.dateRangeCollection[i].EndDate);
             }
         }
 
@@ -72,12 +72,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
             {
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
-            Assert.AreEqual<int>(newRangesList.Count(), this.dateRangeCollection.Count(), "Date range merges occure");
+            Assert.AreEqual<int>(newRangesList.Count, this.dateRangeCollection.Count, "Date range merges occure");
 
             this.dateRangeCollection.AddDateRange(new CalendarDateRange(new DateTime(2013, 1, 2), new DateTime(2013, 1, 2)));
             this.dateRangeCollection.AddDateRange(new CalendarDateRange(new DateTime(2013, 1, 4), new DateTime(2013, 1, 4)));
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count(), "Date range merges occure");
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count, "Date range merges occure");
 
             Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection.FirstOrDefault().StartDate);
             Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection.FirstOrDefault().EndDate);
@@ -95,12 +95,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
             {
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
-            Assert.AreEqual<int>(newRangesList.Count(), this.dateRangeCollection.Count(), "Date range merges occure");
+            Assert.AreEqual<int>(newRangesList.Count, this.dateRangeCollection.Count, "Date range merges occure");
 
             this.dateRangeCollection.AddDateRange(new CalendarDateRange(new DateTime(2013, 1, 2, 13, 13, 13), new DateTime(2013, 1, 2, 15, 15, 15)));
             this.dateRangeCollection.AddDateRange(new CalendarDateRange(new DateTime(2013, 1, 4, 13, 13, 13), new DateTime(2013, 1, 4, 15, 15, 15)));
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count(), "Date range merges occure");
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count, "Date range merges occure");
 
             Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection.FirstOrDefault().StartDate);
             Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection.FirstOrDefault().EndDate);
@@ -119,9 +119,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
-            Assert.AreEqual(newRangesList[0].StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList[0].EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
+            Assert.AreEqual(newRangesList[0].StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList[0].EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -137,9 +137,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
-            Assert.AreEqual(newRangesList[0].StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList[0].EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
+            Assert.AreEqual(newRangesList[0].StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList[0].EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -155,9 +155,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
-            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
+            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -173,9 +173,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
-            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
+            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -191,9 +191,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
-            Assert.AreEqual(newRangesList[2].StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList[2].EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
+            Assert.AreEqual(newRangesList[2].StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList[2].EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -209,9 +209,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
-            Assert.AreEqual(newRangesList[2].StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList[2].EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
+            Assert.AreEqual(newRangesList[2].StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList[2].EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -227,9 +227,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
-            Assert.AreEqual(newRangesList[0].StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList[0].EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
+            Assert.AreEqual(newRangesList[0].StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList[0].EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -245,9 +245,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
-            Assert.AreEqual(newRangesList[0].StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList[0].EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
+            Assert.AreEqual(newRangesList[0].StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList[0].EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -263,10 +263,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
 
-            Assert.AreEqual(newRangesList.LastOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.FirstOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.FirstOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -282,10 +282,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
 
-            Assert.AreEqual(newRangesList.LastOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.FirstOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.FirstOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -302,10 +302,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
 
-            Assert.AreEqual(newRangesList.LastOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.FirstOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.FirstOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -322,10 +322,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
 
-            Assert.AreEqual(newRangesList.LastOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.FirstOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.FirstOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -342,10 +342,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
 
-            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -362,10 +362,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
 
-            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -383,10 +383,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
 
-            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
 
         [TestMethod]
@@ -404,10 +404,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Tests.Calendar.Services
                 this.dateRangeCollection.AddDateRange(dateRange);
             }
 
-            Assert.AreEqual<int>(1, this.dateRangeCollection.Count());
+            Assert.AreEqual<int>(1, this.dateRangeCollection.Count);
 
-            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection.ElementAt(0).StartDate);
-            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection.ElementAt(0).EndDate);
+            Assert.AreEqual(newRangesList.FirstOrDefault().StartDate, this.dateRangeCollection[0].StartDate);
+            Assert.AreEqual(newRangesList.LastOrDefault().EndDate, this.dateRangeCollection[0].EndDate);
         }
     }
 }

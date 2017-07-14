@@ -108,9 +108,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
             else
             {
-                for (int i = 0; i < visual.Children.Count; i++)
+                foreach (var child in visual.Children)
                 {
-                    var childVisual = visual.Children.ElementAt(i) as SpriteVisual;
+                    var childVisual = child as SpriteVisual;
                     if (childVisual != null)
                     {
                         this.chart.ContainerVisualsFactory.SetCompositionColorBrush(childVisual, null, true);

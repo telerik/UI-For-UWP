@@ -57,7 +57,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         IReorderItem IReorderItemsHost.ElementAt(int index)
         {
             // TODO refactor to optimize
-            return this.childrenPanel.Children.OfType<IReorderItem>().Where(c => c.LogicalIndex == index).FirstOrDefault();
+            return this.childrenPanel.Children.OfType<IReorderItem>().FirstOrDefault(c => c.LogicalIndex == index);
         }
 
         void IReorderItemsHost.OnItemsReordered(IReorderItem sourceItem, IReorderItem destinationItem)

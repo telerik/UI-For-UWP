@@ -808,7 +808,7 @@ namespace Telerik.Data.Core.Layouts
                 }
             }
 
-            if (this.LayoutStrategies.Where(c => c is PlaceholderStrategy).Any())
+            if (this.LayoutStrategies.Any(c => c is PlaceholderStrategy))
             {
                 if (currentColumnLength + this.DefaultItemOppositeLength > newValue)
                 {

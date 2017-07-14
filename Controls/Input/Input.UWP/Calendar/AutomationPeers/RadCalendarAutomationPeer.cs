@@ -154,7 +154,7 @@ namespace Telerik.UI.Automation.Peers
         {
             string[] viewNames = Enum.GetNames(typeof(CalendarDisplayMode));
 
-            if (viewId < 0 || viewId >= viewNames.Count())
+            if (viewId < 0 || viewId >= viewNames.Length)
             {
                 return string.Empty;
             }
@@ -169,8 +169,8 @@ namespace Telerik.UI.Automation.Peers
         /// <param name="column">The index of the peer's column.</param>
         public IRawElementProviderSimple GetItem(int row, int column)
         {
-            CalendarSelectableCellnfoAutomationPeer peer = this.childrenCache.OfType<CalendarSelectableCellnfoAutomationPeer>()
-                .Where(x => (x.CellModel.RowIndex == row && x.CellModel.ColumnIndex == column)).FirstOrDefault();
+            CalendarSelectableCellnfoAutomationPeer peer = this.childrenCache
+                .OfType<CalendarSelectableCellnfoAutomationPeer>().FirstOrDefault(x => (x.CellModel.RowIndex == row && x.CellModel.ColumnIndex == column));
             if (peer != null)
             {
                 return this.ProviderFromPeer(peer);
@@ -335,10 +335,10 @@ namespace Telerik.UI.Automation.Peers
 
         private CalendarSelectableCellnfoAutomationPeer GetOrCreatePeerFromDateTime(DateTime date)
         {
-            CalendarSelectableCellnfoAutomationPeer peer = this.childrenCache.OfType<CalendarSelectableCellnfoAutomationPeer>().Where(x => x.CellModel.Date == date).FirstOrDefault();
+            CalendarSelectableCellnfoAutomationPeer peer = this.childrenCache.OfType<CalendarSelectableCellnfoAutomationPeer>().FirstOrDefault(x => x.CellModel.Date == date);
             if (peer == null && this.CalendarOwner.Model.CalendarCells != null)
             {
-                CalendarCellModel model = this.CalendarOwner.Model.CalendarCells.Where(cell => cell.Date == date).FirstOrDefault();
+                CalendarCellModel model = this.CalendarOwner.Model.CalendarCells.FirstOrDefault(cell => cell.Date == date);
                 if (model != null)
                 {
                     CalendarViewHostAutomationPeer hostPeer = (CalendarViewHostAutomationPeer)FrameworkElementAutomationPeer.FromElement(this.CalendarOwner.calendarViewHost);
