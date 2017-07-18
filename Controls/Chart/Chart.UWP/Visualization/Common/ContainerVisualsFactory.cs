@@ -19,8 +19,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
     /// </summary>
     public class ContainerVisualsFactory
     {
+        private static Color telerikChartAxisBorderBrushLightColor = Color.FromArgb(0x30, 0, 0, 0);
+        private static Color telerikChartAxisBorderBrushDarkColor = Color.FromArgb(0x59, 0xFF, 0xFF, 0xFF);
+
         private DoubleCollection dashArrayCache;
-        private SolidColorBrush telerikChartAxisBorderBrush = new SolidColorBrush(Color.FromArgb(0x30, 0, 0, 0));
+        private SolidColorBrush telerikChartAxisBorderBrush = new SolidColorBrush(telerikChartAxisBorderBrushLightColor);
         private SolidColorBrush telerikChartStrokeBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x1E, 0x98, 0xE4));
         private SolidColorBrush ohlcBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF));
 
@@ -99,7 +102,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 containerVisual.Size = new Vector2((float)layoutSlot.Width, (float)layoutSlot.Height);
             }
 
-
+            this.ChangeBrushesAccordingToAppTheme();
             this.SetCompositionColorBrush(containerVisual, telerikChartAxisBorderBrush);
             containerVisual.Offset = new Vector3((float)layoutSlot.Location.X, (float)layoutSlot.Location.Y, 0);
 
@@ -253,6 +256,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
 
+            this.ChangeBrushesAccordingToAppTheme();
             this.SetCompositionColorBrush(lineContainer, telerikChartAxisBorderBrush);
 
             return lineContainer;
@@ -454,6 +458,28 @@ namespace Telerik.UI.Xaml.Controls.Chart
             parentVisual.Children.InsertAtBottom(childVisual);
 
             return childVisual;
+        }
+
+        private void ChangeBrushesAccordingToAppTheme()
+        {
+            var windowContent = Window.Current.Content as FrameworkElement;
+            if (windowContent != null)
+            {
+                if (windowContent.RequestedTheme == ElementTheme.Light)
+                {
+                    if (telerikChartAxisBorderBrush.Color != telerikChartAxisBorderBrushLightColor)
+                    {
+                        telerikChartAxisBorderBrush.Color = telerikChartAxisBorderBrushLightColor;
+                    }
+                }
+                else
+                {
+                    if (telerikChartAxisBorderBrush.Color != telerikChartAxisBorderBrushDarkColor)
+                    {
+                        telerikChartAxisBorderBrush.Color = telerikChartAxisBorderBrushDarkColor;
+                    }
+                }
+            }
         }
 
         internal void SetCompositionColorBrush(ContainerVisual containerVisual, Brush brush, bool isInternallyChanged = false)
