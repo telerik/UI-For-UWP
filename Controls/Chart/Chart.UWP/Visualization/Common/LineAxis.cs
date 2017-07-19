@@ -128,11 +128,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 if (this.drawWithComposition)
                 {
-                    if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
-                    {
-                        this.lineContainer = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
-                        this.ContainerVisualRoot.Children.InsertAtBottom(this.lineContainer);
-                    }
+                    this.lineContainer = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
+                    this.ContainerVisualRoot.Children.InsertAtBottom(this.lineContainer);
                 }
                 else
                 {

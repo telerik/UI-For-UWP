@@ -34,6 +34,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <returns>Return true if the visual element does not have set Styles and Templates - returns false if it has.</returns>
         protected internal virtual bool CanDrawContainerVisual(PresenterBase visualElement)
         {
+            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+            {
+                return false;
+            }
+
             var axis = visualElement as Axis;
             if (axis != null)
             {
