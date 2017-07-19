@@ -465,7 +465,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             var windowContent = Window.Current.Content as FrameworkElement;
             if (windowContent != null)
             {
-                if (windowContent.RequestedTheme == ElementTheme.Light)
+                if (windowContent.RequestedTheme == ElementTheme.Light || windowContent.RequestedTheme == ElementTheme.Default)
                 {
                     if (telerikChartAxisBorderBrush.Color != telerikChartAxisBorderBrushLightColor)
                     {

@@ -123,13 +123,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
-
+         
             if (applied)
             {
                 if (this.drawWithComposition)
                 {
-                    this.lineContainer = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
-                    this.ContainerVisualRoot.Children.InsertAtBottom(this.lineContainer);
+                    if (!Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                    {
+                        this.lineContainer = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
+                        this.ContainerVisualRoot.Children.InsertAtBottom(this.lineContainer);
+                    }
                 }
                 else
                 {
