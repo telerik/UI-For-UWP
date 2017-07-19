@@ -98,7 +98,7 @@ namespace Telerik.Core
             }
 
             ScaleTransform transform = info.Target.GetScaleTransform();
-            transform.ScaleX = scaleX.HasValue ? scaleX.Value : transform.ScaleX;
+            transform.ScaleX = scaleX ?? transform.ScaleX;
         }
 
         /// <summary>
@@ -115,8 +115,8 @@ namespace Telerik.Core
             context.EnsureDefaultTransforms();
             ScaleTransform transform = context.Target.GetScaleTransform();
 
-            double fromX = this.StartScaleX.HasValue ? this.StartScaleX.Value : transform.ScaleX;
-            double toX = this.EndScaleX.HasValue ? this.EndScaleX.Value : transform.ScaleX;
+            double fromX = StartScaleX ?? transform.ScaleX;
+            double toX = EndScaleX ?? transform.ScaleX;
 
             double duration = this.Duration.TimeSpan.TotalSeconds;
 

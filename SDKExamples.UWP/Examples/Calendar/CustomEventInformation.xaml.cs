@@ -29,7 +29,7 @@ namespace SDKExamples.UWP.Calendar
         {
             var events = (container.DataContext as ViewModelCalendarEvents).Events;
 
-            if (events.Where(e => e.Date == context.Date).Count() > 0)
+            if (events.Any(e => e.Date == context.Date))
             {
                 context.CellTemplate = this.EventTemplate;
             }
@@ -49,7 +49,7 @@ namespace SDKExamples.UWP.Calendar
             var events = (calendar.DataContext as ViewModelCalendarEvents).Events;
 
             // return custom label for event cells
-            var eventInfo = events.Where(e => e.Date == cellModel.Date).FirstOrDefault();
+            var eventInfo = events.FirstOrDefault(e => e.Date == cellModel.Date);
             if (eventInfo != null)
             {
                 return eventInfo.Title;

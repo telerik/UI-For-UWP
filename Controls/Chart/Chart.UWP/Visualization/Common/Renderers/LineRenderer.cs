@@ -63,20 +63,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             Brush paletteStroke = this.GetPaletteBrush(this.StrokePart);
 
-            for (int i = 0; i < containerVisual.Children.Count; i++)
+            foreach (var child in containerVisual.Children)
             {
-                var childVisual = containerVisual.Children.ElementAt(i) as SpriteVisual;
+                var childVisual = child as SpriteVisual;
                 if (childVisual != null)
-                {
-                    if (paletteStroke != null)
-                    {
-                        factory.SetCompositionColorBrush(childVisual, paletteStroke, true);
-                    }
-                    else
-                    {
-                        factory.SetCompositionColorBrush(childVisual, paletteStroke, true);
-                    }
-                }
+                    factory.SetCompositionColorBrush(childVisual, paletteStroke, true);
             }
         }
 
