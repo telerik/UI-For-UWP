@@ -160,8 +160,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal override void ApplyPaletteToContainerVisual(SpriteVisual visual, DataPoint point)
         {
             int index = this.paletteModeCache == SeriesPaletteMode.Series ? this.ActualPaletteIndex : point.CollectionIndex;
-
-            if (index > 0)
+            if (index >= 0)
             {
                 SolidColorBrush paletteFill = this.chart.GetPaletteBrush(index, PaletteVisualPart.Fill, this.Family, point.isSelected) as SolidColorBrush;
 
