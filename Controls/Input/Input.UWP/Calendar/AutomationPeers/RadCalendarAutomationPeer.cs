@@ -333,7 +333,7 @@ namespace Telerik.UI.Automation.Peers
             return peers;
         }
 
-        private CalendarSelectableCellnfoAutomationPeer GetOrCreatePeerFromDateTime(DateTime date)
+        private CalendarSelectableCellnfoAutomationPeer GetOrCreatePeerFromDateTime(DateTime? date)
         {
             CalendarSelectableCellnfoAutomationPeer peer = this.childrenCache.OfType<CalendarSelectableCellnfoAutomationPeer>().FirstOrDefault(x => x.CellModel.Date == date);
             if (peer == null && this.CalendarOwner.Model.CalendarCells != null)
