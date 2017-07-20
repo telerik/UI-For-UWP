@@ -42,7 +42,7 @@ namespace Telerik.Data.Core
         /// <param name="propertyName">The specific name of the property.</param>
         public EntityProperty GetEntityProperty(string propertyName)
         {
-            var entityProperty = this.properties.Where((p) => p.PropertyName == propertyName).FirstOrDefault();
+            var entityProperty = this.properties.FirstOrDefault(p => p.PropertyName == propertyName);
 
             return entityProperty;
         }

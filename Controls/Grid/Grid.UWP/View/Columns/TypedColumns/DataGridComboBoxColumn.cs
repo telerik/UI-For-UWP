@@ -127,11 +127,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
             get
             {
                 if (this.Model != null &&
-                    this.Model.GroupDescriptors.OfType<DelegateGroupDescriptor>().Where(d =>
+                    this.Model.GroupDescriptors.OfType<DelegateGroupDescriptor>().Any(d =>
                     {
                         var key = d.KeyLookup as NestedPropertyKeyLookup;
                         return key != null && key.DisplayValueGetter == this.itemPropertyGetter;
-                    }).Any())
+                    }))
                 {
                     return false;
                 }
@@ -222,7 +222,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     {
                         var selectedItemValue = comboBoxValueGetter(x)?.Equals(this.GetValueForInstance(item));
 
-                        return selectedItemValue.HasValue ? selectedItemValue.Value : false;
+                        return selectedItemValue ?? false;
                     });
                     
                     (editorContent as ComboBox).SelectedItem = selectedItem;

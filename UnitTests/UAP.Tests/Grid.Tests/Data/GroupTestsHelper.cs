@@ -93,9 +93,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Tests
             var flatRowGroups = results.Root.RowGroup.Flatten().ToList();
             var flatColumnGroups = results.Root.ColumnGroup.Flatten().ToList();
 
-            for (int i = 0; i < flatRowGroups.Count(); i++)
+            for (int i = 0; i < flatRowGroups.Count; i++)
             {
-                for (int j = 0; j < flatColumnGroups.Count(); j++)
+                for (int j = 0; j < flatColumnGroups.Count; j++)
                 {
                     var expectedValue = aggregates[i][j];
                     var rowGroup = flatRowGroups[i];

@@ -608,7 +608,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (descriptor is FilterDescriptorBase)
             {
-                this.isFiltered = this.Model.FilterDescriptors.Where(d => d.DescriptorPeer == this).FirstOrDefault() != descriptor;
+                this.isFiltered = this.Model.FilterDescriptors.FirstOrDefault(d => d.DescriptorPeer == this) != descriptor;
 
                 this.UpdateFilterVisualState(this.isFiltered);
             }

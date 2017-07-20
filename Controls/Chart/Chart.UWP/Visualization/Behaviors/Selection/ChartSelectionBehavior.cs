@@ -197,12 +197,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         private bool UpdateSelection()
         {
-            bool handled = false;
-
-            if (this.UpdateSeriesSelection())
-            {
-                handled = true;
-            }
+            var handled = this.UpdateSeriesSelection();
 
             foreach (ChartSeries series in this.chart.SeriesInternal)
             {
