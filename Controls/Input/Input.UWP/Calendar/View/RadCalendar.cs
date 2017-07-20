@@ -2306,7 +2306,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                calendar.SelectedDateRanges.Clear();
+                calendar.SelectionService.ClearSelection();
             }
         }
 

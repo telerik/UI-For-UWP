@@ -74,7 +74,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal void OnItemTap(ItemTapContext tapContext)
         {
             this.selectionService.Select(tapContext);
-            this.currencyService.ChangeCurrentItem(tapContext.Item, true, true);
+            this.currencyService.ChangeCurrentItem(tapContext.Item, true, this.ScrollToCurrentItemOnTap);
         }
 
         internal void OnItemHold(RadListViewItem radListViewItem, HoldingRoutedEventArgs e)
