@@ -569,8 +569,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     context = new ChartDataContext(points, context.ClosestDataPoint);
                 }
             }
-
-            if (context.ClosestDataPoint.DataPoint.LayoutSlot.X > this.chart.PlotAreaClip.X
+            
+            if (context.ClosestDataPoint != null 
+                && context.ClosestDataPoint.DataPoint.LayoutSlot.X > this.chart.PlotAreaClip.X
                 && context.ClosestDataPoint.DataPoint.LayoutSlot.X < (this.chart.PlotAreaClip.X + this.chart.PlotAreaClip.Width))
             {
                 this.UpdateLine(context);
