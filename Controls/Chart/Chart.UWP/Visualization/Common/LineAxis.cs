@@ -123,7 +123,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
-
+         
             if (applied)
             {
                 if (this.drawWithComposition)
