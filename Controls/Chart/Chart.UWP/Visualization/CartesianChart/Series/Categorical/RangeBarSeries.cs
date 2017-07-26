@@ -179,10 +179,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 {
                     this.chart.ContainerVisualsFactory.SetCompositionColorBrush(visual, paletteFill, true);
                 }
-                else
-                {
-                    this.chart.ContainerVisualsFactory.SetCompositionColorBrush(visual, null, true);
-                }
             }
         }
 
