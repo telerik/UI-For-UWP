@@ -84,3 +84,7 @@ The UI for UWP team does not provide formal support, except to those customers w
 ## License
 
 Licensed under the Apache License, Version 2.0. Please refer to [LICENSE.md](LICENSE.md) for more information.
+
+### .NET Foundation
+
+This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
