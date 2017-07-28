@@ -16,7 +16,11 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
-        <chart:RadCartesianChart Zoom="3,1" Grid.Row="1">
+        <chart:RadCartesianChart Zoom="3,1" Grid.Row="1"
+                                 Loaded="RadCartesianChart_Loaded">
+            <chart:RadCartesianChart.ContainerVisualsFactory>
+                <localChart:AnimationContainerVisualsFactory IsAnimationEnabled="False"/>
+            </chart:RadCartesianChart.ContainerVisualsFactory>
             <chart:RadCartesianChart.DataContext>
                 <localChart:ViewModelPanAndZoom/>
             </chart:RadCartesianChart.DataContext>

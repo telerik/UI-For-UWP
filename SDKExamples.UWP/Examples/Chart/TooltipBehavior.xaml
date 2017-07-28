@@ -16,7 +16,11 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />  
-        <chart:RadCartesianChart PaletteName="DefaultDark" x:Name="chart" Grid.Row="1">
+        <chart:RadCartesianChart PaletteName="DefaultDark" x:Name="chart" Grid.Row="1"
+                                 Loaded="chart_Loaded">
+            <chart:RadCartesianChart.ContainerVisualsFactory>
+                <localChart:AnimationContainerVisualsFactory IsAnimationEnabled="False"/>
+            </chart:RadCartesianChart.ContainerVisualsFactory>
             <chart:RadCartesianChart.DataContext>
                 <localChart:ViewModelTooltip/>
             </chart:RadCartesianChart.DataContext>

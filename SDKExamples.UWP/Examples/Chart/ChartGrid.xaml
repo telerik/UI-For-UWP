@@ -43,7 +43,7 @@
             <chart:RadCartesianChart.VerticalAxis>
                 <chart:LinearAxis/>
             </chart:RadCartesianChart.VerticalAxis>
-            <chart:LineSeries ItemsSource="{Binding Source}">
+            <chart:LineSeries ItemsSource="{Binding Source}" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                 <chart:LineSeries.CategoryBinding>
                     <chart:PropertyNameDataPointBinding PropertyName="Category"/>
                 </chart:LineSeries.CategoryBinding>
