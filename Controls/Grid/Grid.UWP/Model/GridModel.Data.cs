@@ -351,6 +351,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         {
             if (!this.IsDataReady)
             {
+                this.GridView.UpdateService.RegisterUpdate((int)UpdateFlags.All);
                 return;
             }
 
