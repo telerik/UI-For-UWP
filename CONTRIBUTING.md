@@ -4,6 +4,9 @@
 
 Anyone wishing to contribute to the UI for Universal Windows Platform project MUST read & sign the [UI For Universal Windows Platform Contribution License Agreement](https://docs.google.com/forms/d/e/1FAIpQLSfQAzVxnnfwRQmtJCVmB41_ig1gYow--Gr8qLvaDxJRNHPtUQ/viewform). The UI for UWP team cannot accept pull requests from users who have not signed the CLA first.
 
+This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.
+For more information see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct). 
+
 ## Introduction
 
 These guidelines are here to facilitate your contribution and streamline the process of getting changes merged into this project and released. Any contributions you can make will help tremendously, even if only in the form of an issue report.

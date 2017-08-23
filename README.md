@@ -1,6 +1,6 @@
 # Progress Telerik UI for UWP
 
-This is an open-source version of Telerik UI for Universal Windows Platform (UWP) by Progress. The project is community-supported on [Stack Overflow](https://stackoverflow.com/). Commercial support is available at [telerik.com/uwp](http://www.telerik.com/uwp) where you'll find a supported commercial trial and pricing options. Please visit [telerik.com](http://www.telerik.com/) for UI tools for ASP.NET, WPF, WinForms, or JavaScript.
+This is an open-source version of Telerik UI for Universal Windows Platform (UWP) by Progress. The project is community-supported on [Stack Overflow](https://stackoverflow.com/questions/tagged/telerik+uwp). Commercial support is available at [telerik.com/uwp](http://www.telerik.com/uwp) where you'll find a supported commercial trial and pricing options. Please visit [telerik.com](http://www.telerik.com/) for UI tools for ASP.NET, WPF, WinForms, or JavaScript.
 
 ![UI for UWP](http://d585tldpucybw.cloudfront.net/sfimages/default-source/default-album/oss/uwp-ui.png?sfvrsn=2)
 
@@ -84,3 +84,7 @@ The UI for UWP team does not provide formal support, except to those customers w
 ## License
 
 Licensed under the Apache License, Version 2.0. Please refer to [LICENSE.md](LICENSE.md) for more information.
+
+### .NET Foundation
+
+This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
