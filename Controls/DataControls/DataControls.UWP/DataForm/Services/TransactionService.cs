@@ -64,7 +64,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
                 task.Start();
                 await task;
 
-                isValid = validator.GetErrors(propertyName).OfType<string>().ToList().Count == 0;
+                isValid = !validator.GetErrors(propertyName).OfType<string>().Any();
             }
 
             this.Owner.InvokeAsync(() => this.UpdateEntityPropertyDisplayMessage(isValid, propertyName));
@@ -109,7 +109,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
                 Windows.UI.Core.CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    var errorsList = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToList();
+                    var errorsList = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToArray();
 
                     property.Errors.Clear();
 
@@ -164,7 +164,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
                     task.Wait();
                 }
 
-                isValid = validator.GetErrors(property.PropertyName).OfType<string>().ToList().Count == 0;
+                isValid = !validator.GetErrors(property.PropertyName).OfType<string>().Any();
             }
 
             this.Owner.InvokeAsync(() => this.UpdateEntityPropertyDisplayMessage(isValid, property.PropertyName));

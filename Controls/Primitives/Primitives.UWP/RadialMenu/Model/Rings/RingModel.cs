@@ -82,7 +82,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
                 return null;
             }
 
-            return this.Segments.Where(c => c.TargetItem == item).FirstOrDefault();
+            return this.Segments.FirstOrDefault(c => c.TargetItem == item);
         }
 
         internal virtual void UpdateItem(RadialSegment menuItem)

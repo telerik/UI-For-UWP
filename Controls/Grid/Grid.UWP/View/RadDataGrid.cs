@@ -38,7 +38,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Identifies the <see cref="RealizedItemsVerticalBufferScale"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty RealizedItemsBufferScaleProperty =
-            DependencyProperty.Register(nameof(RealizedItemsVerticalBufferScale), typeof(double), typeof(RadDataGrid), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
+            DependencyProperty.Register(nameof(RealizedItemsVerticalBufferScale), typeof(double), typeof(RadDataGrid), new PropertyMetadata(1d, OnRealizedItemsBufferScaleChanged));
 
         /// <summary>
         /// Identifies the <see cref="IsBusyIndicatorEnabled"/> dependency property. 

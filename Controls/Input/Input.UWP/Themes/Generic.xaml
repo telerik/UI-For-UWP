@@ -359,6 +359,7 @@
     </Style>
 
     <Style TargetType="primitivesCommon:InlineButton" x:Key="NumericButtonIncreaseStyle" BasedOn="{StaticResource NumericBoxButtonBaseStyle}">
+        <Setter Property="AutomationProperties.Name" Value="NumericIncrease"/>
         <Setter Property="ClickMode" Value="Press" />
         <Setter Property="Padding" Value="9,2,9,4" />
         <Setter Property="BorderThickness" Value="2" />
@@ -381,6 +382,7 @@
     </Style>
 
     <Style TargetType="primitivesCommon:InlineButton" x:Key="NumericButtonDecreaseStyle" BasedOn="{StaticResource NumericButtonIncreaseStyle}">
+        <Setter Property="AutomationProperties.Name" Value="NumericDecrease"/>
         <Setter Property="Margin" Value="2,0" />
         <Setter Property="Content" Value="&#xE0A1;" />
     </Style>
@@ -538,6 +540,7 @@
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="BorderElement" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" />
                         <ScrollViewer x:Name="ContentElement"
+                                      AutomationProperties.AccessibilityView="Raw"
                                       HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
                                       HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                                       IsTabStop="False"

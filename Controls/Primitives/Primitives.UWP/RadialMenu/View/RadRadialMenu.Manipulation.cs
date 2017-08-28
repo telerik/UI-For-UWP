@@ -23,7 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
         internal void OnPointerTapped(Point relativePosition)
         {
-            var radialSegments = this.hitTestService.HitTest(relativePosition).ToList();
+            var radialSegments = this.hitTestService.HitTest(relativePosition).ToArray();
 
             var navigateItem = radialSegments.OfType<RadialNavigateItem>().FirstOrDefault();
             var contentItem = radialSegments.OfType<RadialSegment>().FirstOrDefault();

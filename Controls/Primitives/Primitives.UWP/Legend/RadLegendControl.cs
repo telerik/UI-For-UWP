@@ -80,7 +80,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// <summary>
         /// Gets a collection of the <see cref="LegendItem"/> items that will be displayed.
         /// </summary>
-        public LegendItemCollection LegendItems
+        public virtual LegendItemCollection LegendItems
         {
             get { return this.LegendProvider != null ? this.LegendProvider.LegendInfos : this.localLegendItems; }
         }

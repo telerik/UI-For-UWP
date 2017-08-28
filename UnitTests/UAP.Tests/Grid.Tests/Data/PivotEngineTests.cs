@@ -1818,7 +1818,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Tests
                     // TODO: Probably this should be done in two different methods as the omited parentGroupNames somehow is hard to test and probably would cause further misunderstandings....
                     if (callbackCalls3 == 1)
                     {
-                        int count = parentGroupNames.Count();
                         IList<object> expectedParentNames = new List<object>() { new LevelName() { Level = 1, Name = "Product" } };
                         Assert.IsTrue(expectedParentNames.ItemsEqual(parentGroupNames), "Unexpected parent names.");
                     }
@@ -1845,7 +1844,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Tests
                     // TODO: Probably this should be done in two different methods as the omited parentGroupNames somehow is hard to test and probably would cause further misunderstandings....
                     if (callbackCalls4 == 1)
                     {
-                        int count = parentGroupNames.Count();
                         IList<object> expectedParentNames = new List<object>() { new LevelName() { Level = 2, Name = "Promotion" } };
                         Assert.IsTrue(expectedParentNames.ItemsEqual(parentGroupNames), "Unexpected parent names.");
                     }
@@ -1872,7 +1870,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Tests
                     // TODO: Probably this should be done in two different methods as the omited parentGroupNames somehow is hard to test and probably would cause further misunderstandings....
                     if (callbackCalls5 == 1)
                     {
-                        int count = parentGroupNames.Count();
                         IList<object> expectedParentNames = new List<object>() { new LevelName() { Level = 3, Name = "Product" }, new LevelName() { Level = 1, Name = "Product" } };
                         Assert.IsTrue(expectedParentNames.ItemsEqual(parentGroupNames), "Unexpected parent names.");
                     }

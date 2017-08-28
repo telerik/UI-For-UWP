@@ -60,7 +60,7 @@ namespace Telerik.UI.Automation.Peers
 
                 automationElements = this.DataGridContentLayerPanel.Children.OfType<UIElement>()
                 .Where(e => e.Visibility == Visibility.Visible)
-                .Select(e => FrameworkElementAutomationPeer.CreatePeerForElement(e))
+                .Select(FrameworkElementAutomationPeer.CreatePeerForElement)
                 .Where(ap => ap != null)
                 .ToList();
 

@@ -284,13 +284,13 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
             var scrollableElements = this.ColumnPool.GetUnfrozenDisplayedElements();
 
-            if (frozenЕlements.Count() > 0)
+            if (frozenЕlements.Any())
             {
                 frozenColumnsOffset = frozenЕlements.Last().Value.Last().LayoutSlot.Right;
                 frozenRect = new RadRect(0, this.PhysicalVerticalOffset, frozenColumnsOffset, finalSize.Height);
             }
 
-            if (scrollableElements.Count() > 0)
+            if (scrollableElements.Any())
             {
                 var scrollableViewPortRight = scrollableElements.Last().Value.Last().layoutSlot.Right;
                 rect = new RadRect(this.PhysicalHorizontalOffset + frozenColumnsOffset, this.PhysicalVerticalOffset, scrollableViewPortRight, finalSize.Height);
@@ -444,8 +444,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         private void GenerateColumnLineDecorators()
         {
-            var displayedColumns = this.ColumnPool.GetDisplayedElements().ToList();
-            if (displayedColumns.Count > 0)
+            var displayedColumns = this.ColumnPool.GetDisplayedElements().ToArray();
+            if (displayedColumns.Length > 0)
             {
                 var firstPair = displayedColumns[0];
 
@@ -458,7 +458,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                     this.DecorationsController.RecycleColumnDecoratorBefore(firstPair.Value.Last().ItemInfo.LayoutInfo.Line);
                 }
 
-                var lastPair = displayedColumns[displayedColumns.Count - 1];
+                var lastPair = displayedColumns[displayedColumns.Length - 1];
                 this.DecorationsController.RecycleColumnDecoratorAfter(lastPair.Value.Last().ItemInfo.LayoutInfo.Line);
             }
             else
@@ -495,14 +495,14 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         private void GenerateRowLineDecorators()
         {
-            var displayedRows = this.RowPool.GetDisplayedElements().ToList();
-            if (displayedRows.Count > 0)
+            var displayedRows = this.RowPool.GetDisplayedElements().ToArray();
+            if (displayedRows.Length > 0)
             {
                 var pair = displayedRows[0];
                 this.DecorationsController.RecycleRowDecoratorBefore(pair.Value.Last().ItemInfo.LayoutInfo.Line);
                 this.FrozenDecorationsController.RecycleRowDecoratorBefore(pair.Value.Last().ItemInfo.LayoutInfo.Line);
 
-                pair = displayedRows[displayedRows.Count - 1];
+                pair = displayedRows[displayedRows.Length - 1];
                 this.DecorationsController.RecycleRowDecoratorAfter(pair.Value.Last().ItemInfo.LayoutInfo.Line);
                 this.FrozenDecorationsController.RecycleRowDecoratorAfter(pair.Value.Last().ItemInfo.LayoutInfo.Line);
             }

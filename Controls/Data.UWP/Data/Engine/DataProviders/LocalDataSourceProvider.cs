@@ -246,7 +246,7 @@ namespace Telerik.Data.Core
 
         public override void SuspendPropertyChanges(object item)
         {
-            if (!this.deferredItemsChanges.Where(c => c.Item1.IsAlive && c.Item1.Target == item).Any())
+            if (!this.deferredItemsChanges.Any(c => c.Item1.IsAlive && c.Item1.Target == item))
             {
                 this.deferredItemsChanges.Add(new Tuple<WeakReference, List<PropertyChangedEventArgs>>(new WeakReference(item), new List<PropertyChangedEventArgs>()));
             }
@@ -254,7 +254,7 @@ namespace Telerik.Data.Core
 
         public override void ResumePropertyChanges(object item)
         {
-            var pair = this.deferredItemsChanges.Where(c => c.Item1.IsAlive && c.Item1.Target == item).FirstOrDefault();
+            var pair = this.deferredItemsChanges.FirstOrDefault(c => c.Item1.IsAlive && c.Item1.Target == item);
 
             this.deferredItemsChanges.RemoveAll(c => !c.Item1.IsAlive || c.Item1.Target == item);
 
@@ -648,7 +648,7 @@ namespace Telerik.Data.Core
 
         private void ProcessPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var deferredInfo = this.deferredItemsChanges.Where(c => c.Item1.IsAlive && c.Item1.Target == sender).FirstOrDefault();
+            var deferredInfo = this.deferredItemsChanges.FirstOrDefault(c => c.Item1.IsAlive && c.Item1.Target == sender);
             if (deferredInfo != null)
             {
                 deferredInfo.Item2.Add(e);

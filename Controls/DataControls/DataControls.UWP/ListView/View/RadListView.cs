@@ -209,6 +209,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.itemCheckBoxService = new ListViewItemCheckBoxService(this);
             this.animationSurvice = new ListViewAnimationService(this);
             this.DragBehavior = new ListViewDragBehavior(this);
+            this.ScrollToCurrentItemOnTap = true;
 
             this.containerGenerator = new ListViewItemUIContainerGenerator(this);
 
@@ -632,6 +633,11 @@ namespace Telerik.UI.Xaml.Controls.Data
                 return this.Visibility == Visibility.Visible;
             }
         }
+
+        /// <summary>
+        /// Gets or sets if the listView should scroll to the current item on tap
+        /// </summary>
+        protected bool ScrollToCurrentItemOnTap { get; set; }
 
         internal ListViewDragBehavior DragBehavior
         {

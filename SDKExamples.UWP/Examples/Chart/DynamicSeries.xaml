@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
+    xmlns:localChart="using:SDKExamples.UWP.Chart"
     mc:Ignorable="d" x:Name="page">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -15,7 +16,10 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
-        <chart:RadCartesianChart PaletteName="DefaultDark" Grid.Row="1">
+        <chart:RadCartesianChart PaletteName="DefaultDark" Grid.Row="1" Loaded="RadCartesianChart_Loaded">
+            <chart:RadCartesianChart.ContainerVisualsFactory>
+                <localChart:AnimationContainerVisualsFactory IsAnimationEnabled="False"/>
+            </chart:RadCartesianChart.ContainerVisualsFactory>
             <chart:RadCartesianChart.HorizontalAxis>
                 <chart:CategoricalAxis/>
             </chart:RadCartesianChart.HorizontalAxis>

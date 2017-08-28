@@ -27,8 +27,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal LineRenderer lowerBandRenderer;
         internal CategoricalSeriesModel lowerBandModel;
 
-        private ContainerVisual lineRendererVisual;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BollingerBandsIndicator" /> class.
         /// </summary>

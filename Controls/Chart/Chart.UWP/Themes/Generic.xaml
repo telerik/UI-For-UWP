@@ -54,7 +54,6 @@
 
     <Style TargetType="local:ChartSeries" x:Key="BaseSeriesStyle" BasedOn="{StaticResource BasePresenterStyle}">
         <Setter Property="IsHitTestVisible" Value="False" />
-        <Setter Property="Transitions" Value="{StaticResource DefaultTransitions}"/>
     </Style>
 
     <Style TargetType="local:ChartElementPresenter" BasedOn="{StaticResource BasePresenterStyle}"/>

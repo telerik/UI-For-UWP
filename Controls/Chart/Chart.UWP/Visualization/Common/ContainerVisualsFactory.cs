@@ -19,10 +19,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
     /// </summary>
     public class ContainerVisualsFactory
     {
+        private static readonly Color telerikChartAxisBorderBrushLightColor = Color.FromArgb(0x30, 0, 0, 0);
+        private static readonly Color telerikChartAxisBorderBrushDarkColor = Color.FromArgb(0x59, 0xFF, 0xFF, 0xFF);
+
         private DoubleCollection dashArrayCache;
-        private SolidColorBrush telerikChartAxisBorderBrush = new SolidColorBrush(Color.FromArgb(0x30, 0, 0, 0));
-        private SolidColorBrush telerikChartStrokeBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x1E, 0x98, 0xE4));
-        private SolidColorBrush ohlcBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF));
+        private readonly SolidColorBrush telerikChartAxisBorderBrush = new SolidColorBrush(telerikChartAxisBorderBrushLightColor);
+        private readonly SolidColorBrush telerikChartStrokeBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x1E, 0x98, 0xE4));
+        private readonly SolidColorBrush ohlcBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF));
 
         /// <summary>
         /// Indicates whether the visual can be drawn using the Composition API.
@@ -31,6 +34,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <returns>Return true if the visual element does not have set Styles and Templates - returns false if it has.</returns>
         protected internal virtual bool CanDrawContainerVisual(PresenterBase visualElement)
         {
+            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+            {
+                return false;
+            }
+
             var axis = visualElement as Axis;
             if (axis != null)
             {
@@ -47,8 +55,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
             var pointTemplateSeries = visualElement as PointTemplateSeries;
             if (pointTemplateSeries != null)
             {
-                if (pointTemplateSeries is AreaSeries || pointTemplateSeries is PointSeries
-                    || pointTemplateSeries is PolarSeries || (pointTemplateSeries.GetType() == typeof(ScatterPointSeries)))
+                if (pointTemplateSeries is AreaSeries || pointTemplateSeries is PointSeries || pointTemplateSeries is SplineSeries
+                    || pointTemplateSeries is ScatterSplineSeries || pointTemplateSeries is PolarSeries || (pointTemplateSeries.GetType() == typeof(ScatterPointSeries)))
                 {
                     return false;
                 }
@@ -99,7 +107,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 containerVisual.Size = new Vector2((float)layoutSlot.Width, (float)layoutSlot.Height);
             }
 
-
+            this.ChangeBrushesAccordingToAppTheme();
             this.SetCompositionColorBrush(containerVisual, telerikChartAxisBorderBrush);
             containerVisual.Offset = new Vector3((float)layoutSlot.Location.X, (float)layoutSlot.Location.Y, 0);
 
@@ -253,6 +261,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
 
+            this.ChangeBrushesAccordingToAppTheme();
             this.SetCompositionColorBrush(lineContainer, telerikChartAxisBorderBrush);
 
             return lineContainer;
@@ -266,21 +275,36 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected internal virtual ContainerVisual PrepareLineRenderVisual(ContainerVisual containerVisual, IEnumerable<Point> points, Brush stroke, double strokeThickness)
         {
             containerVisual.Children.RemoveAll();
-            for (int i = 0; i < points.Count(); i++)
+
+            using (var enumerator = points.GetEnumerator())
             {
-                SpriteVisual childSpiteVisual = containerVisual.Compositor.CreateSpriteVisual();
-                var startPoint = points.ElementAt(i);
-                if (i + 1 < points.Count())
+                var haveStartPoint = false;
+                var startPoint = default(Point);
+
+                while (enumerator.MoveNext())
                 {
-                    var endPoint = points.ElementAt(i + 1);
+                    var endPoint = enumerator.Current;
+
+                    if (!haveStartPoint)
+                    {
+                        startPoint = endPoint;
+                        if (!enumerator.MoveNext()) break;
+                        haveStartPoint = true;
+                        endPoint = enumerator.Current;
+                    }
+
+                    // draw the line if we have both points
+                    var childSpiteVisual = containerVisual.Compositor.CreateSpriteVisual();
                     var angle = Math.Atan2(endPoint.Y - startPoint.Y, endPoint.X - startPoint.X) * (180.0 / Math.PI);
-                    var width = Math.Sqrt((Math.Pow(startPoint.X - endPoint.X, 2) + Math.Pow(startPoint.Y - endPoint.Y, 2)));
+                    var width = Math.Sqrt(Math.Pow(startPoint.X - endPoint.X, 2) + Math.Pow(startPoint.Y - endPoint.Y, 2));
 
                     childSpiteVisual.RotationAngleInDegrees = (float)angle;
                     childSpiteVisual.Offset = new Vector3((float)startPoint.X, (float)startPoint.Y, 0);
                     childSpiteVisual.Size = new Vector2((float)width, (float)strokeThickness);
-                    this.SetCompositionColorBrush(childSpiteVisual, stroke);
+                    SetCompositionColorBrush(childSpiteVisual, stroke);
                     containerVisual.Children.InsertAtBottom(childSpiteVisual);
+
+                    startPoint = endPoint;
                 }
             }
 
@@ -454,6 +478,28 @@ namespace Telerik.UI.Xaml.Controls.Chart
             parentVisual.Children.InsertAtBottom(childVisual);
 
             return childVisual;
+        }
+
+        private void ChangeBrushesAccordingToAppTheme()
+        {
+            var windowContent = Window.Current.Content as FrameworkElement;
+            if (windowContent != null)
+            {
+                if (windowContent.RequestedTheme == ElementTheme.Light || windowContent.RequestedTheme == ElementTheme.Default)
+                {
+                    if (telerikChartAxisBorderBrush.Color != telerikChartAxisBorderBrushLightColor)
+                    {
+                        telerikChartAxisBorderBrush.Color = telerikChartAxisBorderBrushLightColor;
+                    }
+                }
+                else
+                {
+                    if (telerikChartAxisBorderBrush.Color != telerikChartAxisBorderBrushDarkColor)
+                    {
+                        telerikChartAxisBorderBrush.Color = telerikChartAxisBorderBrushDarkColor;
+                    }
+                }
+            }
         }
 
         internal void SetCompositionColorBrush(ContainerVisual containerVisual, Brush brush, bool isInternallyChanged = false)

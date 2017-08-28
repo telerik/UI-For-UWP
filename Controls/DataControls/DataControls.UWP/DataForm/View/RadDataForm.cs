@@ -462,7 +462,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             if (form.IsTemplateApplied)
             {
-                var children = form.RootPanel.Children.ToList();
+                var children = form.RootPanel.Children.ToArray();
                 form.RootPanel.Children.Clear();
 
                 form.RootPanel = form.LayoutDefinition.CreateDataFormPanel();
