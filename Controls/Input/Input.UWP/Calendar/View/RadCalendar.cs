@@ -133,6 +133,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(CellStyleSelector), typeof(CalendarCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnCellStyleSelectorPropertyChanged));
 
         /// <summary>
+        /// Identifies the <see cref="HeaderContenTemplate"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty HeaderContenTemplateProperty =
+            DependencyProperty.Register(nameof(HeaderContenTemplate), typeof(DataTemplate), typeof(RadCalendar), new PropertyMetadata(null, OnHeaderContenTemplatePropertyChanged));
+        
+        /// <summary>
+        /// Identifies the <see cref="HeaderContent"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty HeaderContentProperty =
+            DependencyProperty.Register(nameof(HeaderContent), typeof(object), typeof(RadCalendar), new PropertyMetadata(null, OnHeaderContentPropertyChanged));
+        
+        /// <summary>
         /// Identifies the <see cref="CellStateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellStateSelectorProperty =
@@ -1060,6 +1072,36 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(CellStyleSelectorProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Style the content of the navigation header.
+        /// </summary>
+        public DataTemplate HeaderContenTemplate
+        {
+            get
+            {
+                return (DataTemplate)GetValue(HeaderContenTemplateProperty);
+            }
+            set
+            {
+                this.SetValue(HeaderContenTemplateProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the content of the navigation header.
+        /// </summary>
+        public object HeaderContent
+        {
+            get
+            {
+                return (object)GetValue(HeaderContentProperty);
+            }
+            set
+            {
+                SetValue(HeaderContentProperty, value);
             }
         }
 
@@ -2209,6 +2251,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             calendar.Invalidate();
         }
 
+        private static void OnHeaderContenTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            RadCalendar calendar = (RadCalendar)sender;
+            calendar.UpdateNavigationHeaderContent();
+        }
+
+        private static void OnHeaderContentPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            RadCalendar calendar = (RadCalendar)sender;
+            calendar.UpdateNavigationHeaderContent();
+        }
+
         private static void OnDayNameCellStyleSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             RadCalendar calendar = (RadCalendar)sender;
@@ -2663,31 +2717,40 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return;
             }
 
-            string headerContent = null;
-
-            switch (this.DisplayMode)
+            if (this.HeaderContent == null)
             {
-                case CalendarDisplayMode.MonthView:
-                    headerContent = string.Format(this.currentCulture, this.MonthViewHeaderFormat, this.DisplayDate);
-                    break;
-                case CalendarDisplayMode.YearView:
-                    headerContent = string.Format(this.currentCulture, this.YearViewHeaderFormat, this.DisplayDate);
-                    break;
-                case CalendarDisplayMode.DecadeView:
-                    DateTime decadeStart = CalendarMathHelper.GetFirstDateOfDecade(this.DisplayDate);
-                    DateTime decadeEnd = decadeStart.AddYears(9);
+                string headerContent = null;
 
-                    headerContent = string.Format(this.currentCulture, this.DecadeViewHeaderFormat, decadeStart, decadeEnd);
-                    break;
-                case CalendarDisplayMode.CenturyView:
-                    DateTime centuryStart = CalendarMathHelper.GetFirstDateOfCentury(this.DisplayDate);
-                    DateTime centuryEnd = centuryStart.AddYears(99);
+                switch (this.DisplayMode)
+                {
+                    case CalendarDisplayMode.MonthView:
+                        headerContent = string.Format(this.currentCulture, this.MonthViewHeaderFormat, this.DisplayDate);
+                        break;
+                    case CalendarDisplayMode.YearView:
+                        headerContent = string.Format(this.currentCulture, this.YearViewHeaderFormat, this.DisplayDate);
+                        break;
+                    case CalendarDisplayMode.DecadeView:
+                        DateTime decadeStart = CalendarMathHelper.GetFirstDateOfDecade(this.DisplayDate);
+                        DateTime decadeEnd = decadeStart.AddYears(9);
 
-                    headerContent = string.Format(this.currentCulture, this.CenturyViewHeaderFormat, centuryStart, centuryEnd);
-                    break;
+                        headerContent = string.Format(this.currentCulture, this.DecadeViewHeaderFormat, decadeStart, decadeEnd);
+                        break;
+                    case CalendarDisplayMode.CenturyView:
+                        DateTime centuryStart = CalendarMathHelper.GetFirstDateOfCentury(this.DisplayDate);
+                        DateTime centuryEnd = centuryStart.AddYears(99);
+
+                        headerContent = string.Format(this.currentCulture, this.CenturyViewHeaderFormat, centuryStart, centuryEnd);
+                        break;
+                }
+
+                this.navigationPanel.HeaderContent = headerContent;
             }
-
-            this.navigationPanel.Header = headerContent;
+            else
+            {
+                this.navigationPanel.HeaderContent = this.HeaderContent;
+            }
+           
+            this.navigationPanel.HeaderContentTemplate = this.HeaderContenTemplate;
         }
 
         private void UpdateNavigationPreviousNextButtonsState()

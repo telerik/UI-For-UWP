@@ -12,11 +12,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     public class CalendarNavigationControl : RadControl
     {
         /// <summary>
-        /// Identifies the <see cref="Header"/> dependency property.
+        /// Identifies the <see cref="HeaderContent"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(string), typeof(CalendarNavigationControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty HeaderContentProperty =
+            DependencyProperty.Register(nameof(HeaderContent), typeof(object), typeof(CalendarNavigationControl), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="HeaderContentTemplate"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty HeaderContentTemplateProperty =
+            DependencyProperty.Register(nameof(HeaderContentTemplate), typeof(DataTemplate), typeof(CalendarNavigationControl), new PropertyMetadata(null));
+        
         /// <summary>
         /// Identifies the <see cref="NavigationArrowsVisibility"/> dependency property.
         /// </summary>
@@ -37,11 +43,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private const string NextButtonPartName = "navigateToNextViewButton";
         private const string PreviousButtonPartName = "navigateToPreviousViewButton";
-        private const string HeaderButtonPartName = "navigateToViewLevelButton";
+        private const string HeaderPresenterPartName = "navigateToViewLevelContentPresenter";
 
         private Button nextButton;
         private Button previousButton;
-        private Button headerButton;
+        private ContentPresenter headerPresenter;
+        private bool isPointerOverHeader;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarNavigationControl"/> class.
@@ -77,15 +84,30 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         /// <summary>
         /// Gets or sets the content of the navigation header.
         /// </summary>
-        public string Header
+        public object HeaderContent
         {
             get
             {
-                return (string)this.GetValue(HeaderProperty);
+                return (object)this.GetValue(HeaderContentProperty);
             }
             set
             {
-                this.SetValue(HeaderProperty, value);
+                this.SetValue(HeaderContentProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Style the content of the navigation header.
+        /// </summary>
+        public DataTemplate HeaderContentTemplate
+        {
+            get
+            {
+                return (DataTemplate)GetValue(HeaderContentTemplateProperty);
+            }
+            set
+            {
+                SetValue(HeaderContentTemplateProperty, value);
             }
         }
 
@@ -125,7 +147,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             this.nextButton = this.GetTemplateChild(NextButtonPartName) as Button;
             this.previousButton = this.GetTemplateChild(PreviousButtonPartName) as Button;
-            this.headerButton = this.GetTemplateChild(HeaderButtonPartName) as Button;
+            this.headerPresenter = this.GetTemplateChild(HeaderPresenterPartName) as ContentPresenter;
 
             return applied;
         }
@@ -160,9 +182,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.nextButton.SetBinding(Control.IsEnabledProperty, binding);
             }
 
-            if (this.headerButton != null)
+            if (this.headerPresenter != null)
             {
-                this.headerButton.Click += this.OnHeaderButtonTapped;
+                this.headerPresenter.PointerPressed += this.OnHeaderTextBlockPointerPressed;
+                this.headerPresenter.PointerReleased += this.OnHeaderTextBlockPointerReleased;
+                this.headerPresenter.PointerExited += this.OnHeaderTextBlockPointerExited;
+                this.headerPresenter.PointerEntered += this.OnHeaderTextBlockPointerEntered;
+                this.headerPresenter.PointerCaptureLost += this.OnHeaderTextBlockPointerCaptureLost;
             }
         }
 
@@ -181,9 +207,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.previousButton.Click -= this.OnPrevButtonTapped;
             }
 
-            if (this.headerButton != null)
+            if (this.headerPresenter != null)
             {
-                this.headerButton.Click -= this.OnHeaderButtonTapped;
+                this.headerPresenter.PointerPressed -= this.OnHeaderTextBlockPointerPressed;
+                this.headerPresenter.PointerReleased -= this.OnHeaderTextBlockPointerReleased;
+                this.headerPresenter.PointerExited -= this.OnHeaderTextBlockPointerExited;
+                this.headerPresenter.PointerEntered -= OnHeaderTextBlockPointerEntered;
+                this.headerPresenter.PointerCaptureLost -= OnHeaderTextBlockPointerCaptureLost;
             }
         }
 
@@ -208,13 +238,41 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.Owner.RaiseMoveToPreviousViewCommand();
             }
         }
-
-        private void OnHeaderButtonTapped(object sender, RoutedEventArgs e)
+        
+        private void OnHeaderTextBlockPointerCaptureLost(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            if (this.Owner != null)
+            this.headerPresenter.ReleasePointerCaptures();
+        }
+
+        private void OnHeaderTextBlockPointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            if (this.headerPresenter.PointerCaptures != null && this.headerPresenter.PointerCaptures.Count > 0)
+            {
+                VisualStateManager.GoToState(this, "Pressed", false);
+            }
+
+            this.isPointerOverHeader = true;
+        }
+
+        private void OnHeaderTextBlockPointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "Released", false);
+            this.isPointerOverHeader = false;
+        }
+
+        private void OnHeaderTextBlockPointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            if (this.headerPresenter.PointerCaptures != null && this.headerPresenter.PointerCaptures.Count > 0 && 
+                this.isPointerOverHeader && this.Owner != null)
             {
                 this.Owner.RaiseMoveToUpperViewCommand();
             }
+        }
+
+        private void OnHeaderTextBlockPointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            this.headerPresenter.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(this, "Pressed", false);
         }
     }
 }
