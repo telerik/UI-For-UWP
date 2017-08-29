@@ -184,11 +184,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             if (this.headerPresenter != null)
             {
-                this.headerPresenter.PointerPressed += this.OnHeaderTextBlockPointerPressed;
-                this.headerPresenter.PointerReleased += this.OnHeaderTextBlockPointerReleased;
-                this.headerPresenter.PointerExited += this.OnHeaderTextBlockPointerExited;
-                this.headerPresenter.PointerEntered += this.OnHeaderTextBlockPointerEntered;
-                this.headerPresenter.PointerCaptureLost += this.OnHeaderTextBlockPointerCaptureLost;
+                this.headerPresenter.PointerPressed += this.OnHeaderPresenterPointerPressed;
+                this.headerPresenter.PointerReleased += this.OnHeaderPresenterPointerReleased;
+                this.headerPresenter.PointerExited += this.OnHeaderPresenterPointerExited;
+                this.headerPresenter.PointerEntered += this.OnHeaderPresenterPointerEntered;
+                this.headerPresenter.PointerCaptureLost += this.OnHeaderPresenterPointerCaptureLost;
             }
         }
 
@@ -209,11 +209,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             if (this.headerPresenter != null)
             {
-                this.headerPresenter.PointerPressed -= this.OnHeaderTextBlockPointerPressed;
-                this.headerPresenter.PointerReleased -= this.OnHeaderTextBlockPointerReleased;
-                this.headerPresenter.PointerExited -= this.OnHeaderTextBlockPointerExited;
-                this.headerPresenter.PointerEntered -= OnHeaderTextBlockPointerEntered;
-                this.headerPresenter.PointerCaptureLost -= OnHeaderTextBlockPointerCaptureLost;
+                this.headerPresenter.PointerPressed -= this.OnHeaderPresenterPointerPressed;
+                this.headerPresenter.PointerReleased -= this.OnHeaderPresenterPointerReleased;
+                this.headerPresenter.PointerExited -= this.OnHeaderPresenterPointerExited;
+                this.headerPresenter.PointerEntered -= OnHeaderPresenterPointerEntered;
+                this.headerPresenter.PointerCaptureLost -= OnHeaderPresenterPointerCaptureLost;
             }
         }
 
@@ -239,12 +239,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
         
-        private void OnHeaderTextBlockPointerCaptureLost(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void OnHeaderPresenterPointerCaptureLost(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             this.headerPresenter.ReleasePointerCaptures();
         }
 
-        private void OnHeaderTextBlockPointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void OnHeaderPresenterPointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             if (this.headerPresenter.PointerCaptures != null && this.headerPresenter.PointerCaptures.Count > 0)
             {
@@ -254,13 +254,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.isPointerOverHeader = true;
         }
 
-        private void OnHeaderTextBlockPointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void OnHeaderPresenterPointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "Released", false);
             this.isPointerOverHeader = false;
         }
 
-        private void OnHeaderTextBlockPointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void OnHeaderPresenterPointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             if (this.headerPresenter.PointerCaptures != null && this.headerPresenter.PointerCaptures.Count > 0 && 
                 this.isPointerOverHeader && this.Owner != null)
@@ -269,7 +269,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        private void OnHeaderTextBlockPointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void OnHeaderPresenterPointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             this.headerPresenter.CapturePointer(e.Pointer);
             VisualStateManager.GoToState(this, "Pressed", false);

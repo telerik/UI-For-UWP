@@ -133,10 +133,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(CellStyleSelector), typeof(CalendarCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnCellStyleSelectorPropertyChanged));
 
         /// <summary>
-        /// Identifies the <see cref="HeaderContenTemplate"/> dependency property.
+        /// Identifies the <see cref="HeaderContentTemplate"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty HeaderContenTemplateProperty =
-            DependencyProperty.Register(nameof(HeaderContenTemplate), typeof(DataTemplate), typeof(RadCalendar), new PropertyMetadata(null, OnHeaderContenTemplatePropertyChanged));
+        public static readonly DependencyProperty HeaderContentTemplateProperty =
+            DependencyProperty.Register(nameof(HeaderContentTemplate), typeof(DataTemplate), typeof(RadCalendar), new PropertyMetadata(null, OnHeaderContentTemplatePropertyChanged));
         
         /// <summary>
         /// Identifies the <see cref="HeaderContent"/> dependency property.
@@ -1078,15 +1078,15 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Gets or sets the Style the content of the navigation header.
         /// </summary>
-        public DataTemplate HeaderContenTemplate
+        public DataTemplate HeaderContentTemplate
         {
             get
             {
-                return (DataTemplate)GetValue(HeaderContenTemplateProperty);
+                return (DataTemplate)GetValue(HeaderContentTemplateProperty);
             }
             set
             {
-                this.SetValue(HeaderContenTemplateProperty, value);
+                this.SetValue(HeaderContentTemplateProperty, value);
             }
         }
 
@@ -2251,7 +2251,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             calendar.Invalidate();
         }
 
-        private static void OnHeaderContenTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        private static void OnHeaderContentTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             RadCalendar calendar = (RadCalendar)sender;
             calendar.UpdateNavigationHeaderContent();
@@ -2750,7 +2750,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.navigationPanel.HeaderContent = this.HeaderContent;
             }
            
-            this.navigationPanel.HeaderContentTemplate = this.HeaderContenTemplate;
+            this.navigationPanel.HeaderContentTemplate = this.HeaderContentTemplate;
         }
 
         private void UpdateNavigationPreviousNextButtonsState()
