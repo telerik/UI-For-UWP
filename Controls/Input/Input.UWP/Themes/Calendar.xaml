@@ -28,8 +28,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
-    
-    <Style TargetType="localCalendar:AppointmentControl">      
+
+    <Style TargetType="localCalendar:AppointmentControl">
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="FontSize" Value="10" />
         <Setter Property="Foreground" Value="Pink" />
@@ -42,49 +42,9 @@
         </Setter>
         <Setter Property="ContentTemplate">
             <Setter.Value>
-                <DataTemplate> 
-                   <TextBlock Text="{Binding DetailText}" />
+                <DataTemplate>
+                    <TextBlock Text="{Binding DetailText}" />
                 </DataTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    
-    <Style x:Key="CalendarHeaderButtonStyle" TargetType="Button">
-        <Setter Property="AutomationProperties.Name" Value="CalendarHeaderButton"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Grid Background="Transparent">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarHeaderButtonPointerPressedForegroundBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarHeaderButtonDisabledForegroundBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                            <VisualStateGroup x:Name="FocusStates">
-                                <VisualState x:Name="Focused">
-                                </VisualState>
-                                <VisualState x:Name="Unfocused"/>
-                                <VisualState x:Name="PointerFocused"/>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <TextBlock x:Name="ContentPresenter" Text="{TemplateBinding Content}"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="Center" Margin="{TemplateBinding Padding}" />
-                    </Grid>
-                </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
@@ -192,6 +152,25 @@
                 <ControlTemplate TargetType="localCalendar:CalendarNavigationControl">
                     <Border BorderBrush="{ThemeResource TelerikCalendarGridLinesBrush}" Background="{ThemeResource TelerikCalendarNavigationControlBackgroundBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="navigateToViewLevelContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarHeaderButtonPointerPressedForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Released"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="navigateToViewLevelContentPresenter">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikCalendarHeaderButtonDisabledForegroundBrush}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -200,14 +179,18 @@
                             </Grid.ColumnDefinitions>
                             <Button x:Name="navigateToPreviousViewButton" Visibility="{TemplateBinding NavigationArrowsVisibility}" 
                                     Style="{StaticResource CalendarLeftArrowButtonStyle}" Grid.Column="0" MinWidth="50" />
-                            <Button x:Name="navigateToViewLevelButton"
-                                    Foreground="{TemplateBinding Foreground}"
-                                    FontWeight="{TemplateBinding FontWeight}" 
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    FontStyle="{TemplateBinding FontStyle}"
-                                    Style="{StaticResource CalendarHeaderButtonStyle}" Grid.Column="1" Margin="{TemplateBinding Padding}"
-                                    Content="{TemplateBinding Header}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            <ContentPresenter x:Name="navigateToViewLevelContentPresenter"
+                                              Grid.Column="1"
+                                              Foreground="{TemplateBinding Foreground}"
+                                              FontWeight="{TemplateBinding FontWeight}" 
+                                              FontFamily="{TemplateBinding FontFamily}"
+                                              FontSize="{TemplateBinding FontSize}"
+                                              FontStyle="{TemplateBinding FontStyle}"
+                                              Margin="{TemplateBinding Padding}"
+                                              Content="{TemplateBinding HeaderContent}"
+                                              ContentTemplate="{TemplateBinding HeaderContentTemplate}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
                             <Button x:Name="navigateToNextViewButton" Visibility="{TemplateBinding NavigationArrowsVisibility}" 
                                     Style="{StaticResource CalendarRightArrowButtonStyle}"  Grid.Column="2" MinWidth="50" />
                         </Grid>
