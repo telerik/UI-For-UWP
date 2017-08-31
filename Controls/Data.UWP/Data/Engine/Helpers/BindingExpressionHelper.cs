@@ -19,7 +19,7 @@ namespace Telerik.Data.Core
 
         internal static Action<object, object> CreateSetValueAction(Type itemType, string propertyPath)
         {
-            var itemInfo = itemType.GetRuntimeProperty(propertyPath);
+            var itemInfo = itemType.GetRuntimeProperties().Where(a => a.Name.Equals(propertyPath) && !a.GetIndexParameters().Any()).FirstOrDefault();
 
             if (itemInfo.CanWrite)
             {
