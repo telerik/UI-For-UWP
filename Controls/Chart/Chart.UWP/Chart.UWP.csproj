@@ -20,7 +20,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -532,9 +532,9 @@
   </Target>
   -->
   <Target Name="XamlGeneratedCodeWarningRemoved" AfterTargets="MarkupCompilePass2">
-    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning disable 1591 > %%f.temp" />
-    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do type %%f >> %%f.temp" />
-    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning restore 1591 >> %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning disable 1591 &gt; %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do type %%f &gt;&gt; %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning restore 1591 &gt;&gt; %%f.temp" />
     <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do move /y %%f.temp %%f" />
     <Message Text="Xaml Generated Code Warnings Removed: @(_GeneratedCodeFiles)" />
   </Target>

@@ -64,6 +64,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             set { SetValue(DisabledForegroundProperty, value); }
         }
 
+        /// <summary>
+        /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
+        /// </summary>
         public void BindEditor()
         {
             Binding b1 = new Binding();

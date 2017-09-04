@@ -144,6 +144,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <inheritdoc />
         protected override void OnPointerEntered(PointerRoutedEventArgs e)
         {
             base.OnPointerEntered(e);
@@ -155,6 +156,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <inheritdoc />
         protected override void OnPointerExited(PointerRoutedEventArgs e)
         {
             base.OnPointerExited(e);

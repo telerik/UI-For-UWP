@@ -1,6 +1,7 @@
 ﻿using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
@@ -40,6 +41,9 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <summary>
+        /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
+        /// </summary>
         public void BindEditor()
         {
             Binding b1 = new Binding();
