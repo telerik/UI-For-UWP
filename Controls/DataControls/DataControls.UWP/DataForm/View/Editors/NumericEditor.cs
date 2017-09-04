@@ -2,6 +2,7 @@
 using Telerik.UI.Xaml.Controls.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
@@ -33,6 +34,18 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public static readonly DependencyProperty IconDisplayModeProperty =
             DependencyProperty.Register(nameof(IconDisplayMode), typeof(EditorIconDisplayMode), typeof(NumericEditor), new PropertyMetadata(EditorIconDisplayMode.None));
+
+        /// <summary>
+        /// Identifies the <see cref="ButtonsBackground"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty ButtonsBackgroundProperty =
+            DependencyProperty.Register("ButtonsBackground", typeof(Brush), typeof(NumericEditor), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Identifies the <see cref="ButtonsPointerOverBackgroundBrush"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty ButtonsPointerOverBackgroundBrushProperty =
+            DependencyProperty.Register("ButtonsPointerOverBackgroundBrush", typeof(Brush), typeof(NumericEditor), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericEditor"/> class.
@@ -76,6 +89,24 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             get { return (Style)GetValue(ErrorIconStyleProperty); }
             set { this.SetValue(ErrorIconStyleProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the background of the up and down buttons of the <see cref="NumericEditor"/>.
+        /// </summary>
+        public Brush ButtonsBackground
+        {
+            get { return (Brush)GetValue(ButtonsBackgroundProperty); }
+            set { SetValue(ButtonsBackgroundProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the background of the up and down buttons of the <see cref="NumericEditor"/> when the buttons are pressed.
+        /// </summary>
+        public Brush ButtonsPointerOverBackgroundBrush
+        {
+            get { return (Brush)GetValue(ButtonsPointerOverBackgroundBrushProperty); }
+            set { SetValue(ButtonsPointerOverBackgroundBrushProperty, value); }
         }
 
         /// <summary>
