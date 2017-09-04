@@ -1110,7 +1110,6 @@
 
     <!--TOGGLE SWITCH EDITOR START-->
     <Style TargetType="local:ToggleSwitchCustomEditor">
-        <Setter Property="SwitchBoundsBackground" Value="{ThemeResource SystemControlHighlightAccentBrush}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ToggleSwitchCustomEditor">
