@@ -232,10 +232,10 @@
                     <VisualState x:Name="Selected">
                         <Storyboard Duration="0">
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="fill" Storyboard.TargetProperty="Fill">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikDateTimePickerSelectorItemSelectedBackgroundBrush}" />
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedBackground}" />
                             </ObjectAnimationUsingKeyFrames>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="Foreground">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikDateTimePickerSelectorItemSelectedForegroundBrush}" />
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedForeground}" />
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
@@ -277,6 +277,8 @@
     </ControlTemplate>
 
     <Style TargetType="localDateTime:DateTimeList" x:Key="DateTimeListStyle">
+        <Setter Property="SelectedBackground" Value="{ThemeResource TelerikDateTimePickerSelectorItemSelectedBackgroundBrush}"/>
+        <Setter Property="SelectedForeground" Value="{ThemeResource TelerikDateTimePickerSelectorItemSelectedForegroundBrush}"/>
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>

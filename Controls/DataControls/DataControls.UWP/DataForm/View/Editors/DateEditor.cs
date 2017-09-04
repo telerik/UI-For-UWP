@@ -1,7 +1,10 @@
 ﻿using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Telerik.UI.Xaml.Controls.Input;
+using Telerik.UI.Xaml.Controls.Input.DateTimePickers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
@@ -33,6 +36,24 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public static readonly DependencyProperty IconDisplayModeProperty =
             DependencyProperty.Register(nameof(IconDisplayMode), typeof(EditorIconDisplayMode), typeof(DateEditor), new PropertyMetadata(EditorIconDisplayMode.None));
+
+        /// <summary>
+        /// Identifies the <see cref="HighlightFillBrush"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty HighlightFillBrushProperty =
+            DependencyProperty.Register(nameof(HighlightFillBrush), typeof(Brush), typeof(DateEditor), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Identifies the <see cref="SelectedBackground"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty SelectedBackgroundProperty =
+            DependencyProperty.Register(nameof(SelectedBackground), typeof(Brush), typeof(DateEditor), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Identifies the <see cref="SelectedForeground"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty SelectedForegroundProperty =
+            DependencyProperty.Register(nameof(SelectedForeground), typeof(Brush), typeof(DateEditor), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DateEditor"/> class.
@@ -76,6 +97,33 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             get { return (Style)GetValue(ErrorIconStyleProperty); }
             set { this.SetValue(ErrorIconStyleProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Background of the rectangle area of the <see cref="CheckBox"/> when the control is checked.
+        /// </summary>
+        public Brush HighlightFillBrush
+        {
+            get { return (Brush)GetValue(HighlightFillBrushProperty); }
+            set { this.SetValue(HighlightFillBrushProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Background of the rectangle area of the <see cref="DateTimeListItem"/> when the item is selected.
+        /// </summary>
+        public Brush SelectedBackground
+        {
+            get { return (Brush)GetValue(SelectedBackgroundProperty); }
+            set { this.SetValue(SelectedBackgroundProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Foreground of the rectangle area of the <see cref="DateTimeListItem"/> when the item is selected.
+        /// </summary>
+        public Brush SelectedForeground
+        {
+            get { return (Brush)GetValue(SelectedForegroundProperty); }
+            set { this.SetValue(SelectedForegroundProperty, value); }
         }
 
         /// <summary>

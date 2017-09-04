@@ -1,6 +1,7 @@
 ﻿using Telerik.UI.Xaml.Controls.Primitives.LoopingList;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
+using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
 {
@@ -16,11 +17,41 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
     public class DateTimeListItem : LoopingListItem
     {
         /// <summary>
+        /// Identifies the <see cref="SelectedBackground"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty SelectedBackgroundProperty =
+            DependencyProperty.Register("SelectedBackground", typeof(Brush), typeof(DateTimeListItem), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Identifies the <see cref="SelectedForeground"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty SelectedForegroundProperty =
+            DependencyProperty.Register("SelectedForeground", typeof(Brush), typeof(DateTimeListItem), new PropertyMetadata(null));
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DateTimeListItem"/> class.
         /// </summary>
         public DateTimeListItem()
         {
             this.DefaultStyleKey = typeof(DateTimeListItem);
+        }
+
+        /// <summary>
+        /// Gets or sets the Background of the rectangle area of the <see cref="DateTimeListItem"/> when the item is selected.
+        /// </summary>
+        public Brush SelectedBackground
+        {
+            get { return (Brush)GetValue(SelectedBackgroundProperty); }
+            set { this.SetValue(SelectedBackgroundProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Foreground of the rectangle area of the <see cref="DateTimeListItem"/> when the item is selected.
+        /// </summary>
+        public Brush SelectedForeground
+        {
+            get { return (Brush)GetValue(SelectedForegroundProperty); }
+            set { this.SetValue(SelectedForegroundProperty, value); }
         }
 
         /// <inheritdoc />

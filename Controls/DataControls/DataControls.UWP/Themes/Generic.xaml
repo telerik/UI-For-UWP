@@ -269,6 +269,8 @@
     </Style>
 
     <Style TargetType="local:NumericEditor">
+        <Setter Property="ButtonsBackground" Value="{ThemeResource TelerikNumericBoxSpinButtonBackgroundBrush}"/>
+        <Setter Property="ButtonsPointerOverBackgroundBrush" Value="{ThemeResource TelerikNumericBoxSpinButtonPointerOverBackgroundBrush}"/>
         <Setter Property="Minimum" Value="0"/>
         <Setter Property="Maximum" Value="100"/>
         <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
@@ -309,9 +311,15 @@
                             </Grid.ColumnDefinitions>
                             <dataForm:DataFormNumericTextBox ErrorIconStyle="{TemplateBinding ErrorIconStyle}" HasErrors="{TemplateBinding HasErrors}" IconDisplayMode="{TemplateBinding IconDisplayMode}" LabelIconStyle="{TemplateBinding LabelIconStyle}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" x:Name="PART_TextBox" IsReadOnly="{Binding IsEditable, Converter={StaticResource EditableConverter}, RelativeSource={RelativeSource TemplatedParent}}"/>
                             <primitivesCommon:InlineButton x:Name="PART_DecreaseButton" IsRepeatingEnabled="True" Visibility="{TemplateBinding ButtonsVisibility}"
-                                             Grid.Column="1" Style="{TemplateBinding DecreaseButtonStyle}"/>
+                                                           Background="{TemplateBinding ButtonsBackground}" BorderBrush="{TemplateBinding ButtonsBackground}"
+                                                           PointerOverBackgroundBrush="{TemplateBinding ButtonsPointerOverBackgroundBrush}"
+                                                           PointerOverBorderBrush="{TemplateBinding ButtonsPointerOverBackgroundBrush}"
+                                                           Grid.Column="1" Style="{TemplateBinding DecreaseButtonStyle}"/>
                             <primitivesCommon:InlineButton x:Name="PART_IncreaseButton" IsRepeatingEnabled="True"  Visibility="{TemplateBinding ButtonsVisibility}"
-                                             Grid.Column="2" Style="{TemplateBinding IncreaseButtonStyle}"/>
+                                                           Background="{TemplateBinding ButtonsBackground}" BorderBrush="{TemplateBinding ButtonsBackground}"
+                                                           PointerOverBackgroundBrush="{TemplateBinding ButtonsPointerOverBackgroundBrush}"
+                                                           PointerOverBorderBrush="{TemplateBinding ButtonsPointerOverBackgroundBrush}"
+                                                           Grid.Column="2" Style="{TemplateBinding IncreaseButtonStyle}"/>
                         </Grid>
                         <ContentControl x:Name="Watermark" Visibility="Collapsed" IsTabStop="False" IsHitTestVisible="False" Content="{TemplateBinding Watermark}" ContentTemplate="{TemplateBinding WatermarkTemplate}"
                             Foreground="{ThemeResource TelerikNumericBoxWatermarkForegroundBrush}" Padding="4,0,0,2" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="Center"/>
