@@ -53,7 +53,10 @@
     <x:Double x:Key="CheckBoxCheckedStrokeThickness">0</x:Double>
     
     <x:Double x:Key="ToggleSwitchOnStrokeThickness">0</x:Double>
-    
+
+    <Thickness x:Key="ComboBoxItemThemePadding">11,5,11,7</Thickness>
+    <Thickness x:Key="ComboBoxItemThemeTouchPadding">11,11,11,13</Thickness>
+
     <Style TargetType="ComboBox" x:Name="ComboBoxDefaultStyle">
         <Setter Property="Padding" Value="12,5,0,7"/>
         <Setter Property="MinWidth" Value="{ThemeResource ComboBoxThemeMinWidth}"/>
@@ -209,6 +212,135 @@
                                 </ScrollViewer>
                             </Border>
                         </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:DataFormComboBoxItem">
+        <Setter Property="SelectedForeground" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+        <Setter Property="SelectedBackground" Value="{ThemeResource SystemControlHighlightListAccentLowBrush}" />
+        <Setter Property="DisabledForeground" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TabNavigation" Value="Local" />
+        <Setter Property="Padding" Value="{ThemeResource ComboBoxItemThemePadding}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Grid x:Name="LayoutRoot"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          Control.IsTemplateFocusTarget="True">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListLowBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltBaseHighBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedBackground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListMediumBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledForeground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <PointerDownThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedBackground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedForeground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedBackground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedForeground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedDisabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=DisabledForeground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedPointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentMediumBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedForeground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedPressed">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListAccentHighBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SelectedForeground}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="InputModeStates">
+                                <VisualState x:Name="InputModeDefault" />
+                                <VisualState x:Name="TouchInputMode">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Margin">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ComboBoxItemThemeTouchPadding}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter x:Name="ContentPresenter"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTransitions="{TemplateBinding ContentTransitions}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -1646,22 +1778,15 @@
     <!--SLIDER EDITOR END-->
 
     <!--SEGMENTED EDITOR START-->
+
     <Style TargetType="local:SegmentedCustomEditor">
-        <Setter Property="Background" Value="{ThemeResource TelerikSegmentBackgroundThemeBrush}" />
-        <Setter Property="Foreground" Value="{ThemeResource TelerikSegmentContentForegroundThemeBrush}" />
-        <Setter Property="SelectedForeground" Value="{ThemeResource TelerikSegmentSelectedContentForegroundThemeBrush}" />
-        <Setter Property="SelectedBackground" Value="{ThemeResource TelerikSegmentSelectedBackgroundThemeBrush}" />
-        <Setter Property="DisabledForeground" Value="{ThemeResource TelerikSegmentDisabledContentForegroundThemeBrush}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="{ThemeResource TelerikSegmentBorderThemeBrush}" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Stretch" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikSegmentedControlBorderThemeBrush}" />
+        <Setter Property="Background" Value="{ThemeResource TelerikSegmentedControlBackgroundThemeBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
         <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="MinHeight" Value="48" />
+        <Setter Property="SeparatorWidth" Value="2" />
+        <Setter Property="SeparatorBrush" Value="{ThemeResource TelerikSegmentedControlSeparatorThemeBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:SegmentedCustomEditor">
@@ -1669,129 +1794,34 @@
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
-                                <VisualState x:Name="PointerOver">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Background, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Background, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding Background, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="PART_ItemsPanel">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikSegmentedControlDisabledBorderThemeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="PART_ItemsPanel">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikSegmentedControlDisabledBackgroundThemeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding DisabledForeground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Selected">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedBackground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedForeground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="SeparatorBrush" Storyboard.TargetName="PART_ItemsPanel">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource TelerikSegmentedControlDisabledSeparatorThemeBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="SelectedPointerOver">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedBackground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedForeground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="SelectedPressed">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedBackground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedForeground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="SelectedDisabled">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding SelectedBackground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding DisabledForeground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                            <VisualStateGroup x:Name="FocusStates">
-                                <VisualState x:Name="Focused">
-                                    <Storyboard>
-                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite" />
-                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack" />
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Unfocused" />
-                                <VisualState x:Name="PointerFocused" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding CornerRadius}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}"
-                                x:Name="border"
-                                VerticalAlignment="Stretch"
-                                HorizontalAlignment="Stretch">
-                        </Border>
-
-                        <ContentPresenter x:Name="contentPresenter" AutomationProperties.AccessibilityView="Raw"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          ContentTransitions="{TemplateBinding ContentTransitions}"
-                                          Content="{TemplateBinding Content}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Margin="{TemplateBinding Padding}" />
-                        <Rectangle x:Name="FocusVisualWhite" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square"
-                                           Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1" />
-                        <Rectangle x:Name="FocusVisualBlack" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square"
-                                           Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1" />
+                        <Canvas x:Name="PART_AnimationLayer" />
+                        <input:SegmentedItemsControl x:Name="PART_ItemsPanel"
+                                                     ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
+                                                     ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}"
+                                                     ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                     ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                     SegmentWidthMode="{TemplateBinding SegmentWidthMode}"
+                                                     CornerRadius="{TemplateBinding CornerRadius}"
+                                                     BorderBrush="{TemplateBinding BorderBrush}"
+                                                     Background="{TemplateBinding Background}"
+                                                     BorderThickness="{TemplateBinding BorderThickness}"
+                                                     SeparatorWidth="{TemplateBinding SeparatorWidth}"
+                                                     SeparatorBrush="{TemplateBinding SeparatorBrush}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

@@ -12,58 +12,13 @@ namespace Telerik.UI.Xaml.Controls.Data
     public class SegmentedCustomEditor : RadSegmentedControl, ITypeEditor
     {
         /// <summary>
-        /// Identifies the <see cref="SelectedForeground"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty SelectedForegroundProperty =
-            DependencyProperty.Register(nameof(SelectedForeground), typeof(Brush), typeof(SegmentedCustomEditor), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Identifies the <see cref="SelectedBackground"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty SelectedBackgroundProperty =
-            DependencyProperty.Register(nameof(SelectedBackground), typeof(Brush), typeof(SegmentedCustomEditor), new PropertyMetadata(null));
-        
-        /// <summary>
-        /// Identifies the <see cref="DisabledForeground"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty DisabledForegroundProperty =
-            DependencyProperty.Register(nameof(DisabledForeground), typeof(Brush), typeof(SegmentedCustomEditor), new PropertyMetadata(null));
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="SegmentedCustomEditor"/> class.
         /// </summary>
         public SegmentedCustomEditor()
         {
             this.DefaultStyleKey = typeof(SegmentedCustomEditor);
         }
-
-        /// <summary>
-        /// Gets or sets the background of the <see cref="SegmentedCustomEditor"/> when it gets selected.
-        /// </summary>
-        public Brush SelectedBackground
-        {
-            get { return (Brush)GetValue(SelectedBackgroundProperty); }
-            set { SetValue(SelectedBackgroundProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the foreground of the <see cref="SegmentedCustomEditor"/> when it gets selected.
-        /// </summary>
-        public Brush SelectedForeground
-        {
-            get { return (Brush)GetValue(SelectedForegroundProperty); }
-            set { SetValue(SelectedForegroundProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the foreground of the <see cref="SegmentedCustomEditor"/> when it gets disabled.
-        /// </summary>
-        public Brush DisabledForeground
-        {
-            get { return (Brush)GetValue(DisabledForegroundProperty); }
-            set { SetValue(DisabledForegroundProperty, value); }
-        }
-
+        
         /// <summary>
         /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
         /// </summary>
