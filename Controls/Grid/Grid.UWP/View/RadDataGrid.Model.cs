@@ -298,6 +298,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 }
             }
 
+            if (this.rowDetailsService.ExpandedItems.Contains(row.ItemInfo.Item))
+            {
+                rect.Height -= this.rowDetailsService.DetailsPresenter.ActualHeight;
+            }
+
             if (rect.Height < 0)
             {
                 rect.Height = 0;
@@ -391,9 +396,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private RadSize MeasureRow(GridRowModel row)
         {
-
-
-
             UIElement container = row.Container as UIElement;
             if (container != null)
             {
@@ -405,7 +407,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (rowDetailsContainer != null)
             {
-                row.DetailsSize = new RadSize(row.DesiredSize.Width, row.DesiredSize.Height);
                 row.DesiredSize = new RadSize(row.DesiredSize.Width, row.DesiredSize.Height + cellsRowHeight);
             }
 
