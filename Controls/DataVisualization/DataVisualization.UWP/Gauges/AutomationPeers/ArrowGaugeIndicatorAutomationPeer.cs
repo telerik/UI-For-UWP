@@ -2,8 +2,14 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="ArrowGaugeIndicator"/>.
+    /// </summary>
     public class ArrowGaugeIndicatorAutomationPeer : NeedleGaugeIndicatorAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the ArrowGaugeIndicatorAutomationPeer class.
+        /// </summary>
         public ArrowGaugeIndicatorAutomationPeer(ArrowGaugeIndicator owner) 
             : base(owner)
         {
@@ -12,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(ArrowGaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.ArrowGaugeIndicator);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(ArrowGaugeIndicator);
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.ArrowGaugeIndicator);
         }
 
         /// <inheritdoc />

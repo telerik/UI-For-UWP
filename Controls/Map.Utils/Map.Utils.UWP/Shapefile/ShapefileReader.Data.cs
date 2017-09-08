@@ -16,8 +16,8 @@ namespace Telerik.Geospatial
 
         // TODO: What about Null values?
         // TODO: Consider whether supporting dBASE version 7 makes sense at all (currently unsupported).
-        private static readonly byte[] AllowedTypes = new byte[] 
-        { 
+        private static readonly byte[] AllowedTypes = new byte[]
+        {
             0x02, /* FoxBASE */
             0x03, /* FoxBASE+/Dbase III plus, no memo */
             0x30, /* Visual FoxPro */
@@ -30,10 +30,10 @@ namespace Telerik.Geospatial
             0xfb  /* FoxBASE */
         };
 
-        public List<string> AttributesToLoad 
-        { 
-            get; 
-            set; 
+        public List<string> AttributesToLoad
+        {
+            get;
+            set;
         }
 
         public IAttributeValueConverter AttributeValueConverter
@@ -46,70 +46,71 @@ namespace Telerik.Geospatial
         {
             var token = cancellationTokenSource.Token;
 
-            var task = Task.Factory.StartNew(async () =>
-            {
-                if (cancellationTokenSource.IsCancellationRequested)
+            var task = Task.Factory.StartNew(
+                async () =>
                 {
-                    return null;
-                }
+                    if (cancellationTokenSource.IsCancellationRequested)
+                    {
+                        return null;
+                    }
 
-                if (stream.Size < 32)
-                {
-                    throw new NotSupportedException(InvalidFormat);
-                }
-
-                using (var dataStream = stream.CloneStream())
-                {
-                    byte[] header = new byte[32];
-                    await dataStream.ReadAsync(header.AsBuffer(), 32u, InputStreamOptions.Partial);
-
-                    byte fileType = header[0];
-                    if (!AllowedTypes.Contains(fileType))
+                    if (stream.Size < 32)
                     {
                         throw new NotSupportedException(InvalidFormat);
                     }
 
-                    DbfHeader dbfHeader = new DbfHeader();
-                    dbfHeader.RecordsCount = BitConverter.ToInt32(header, 4);
-                    dbfHeader.RecordsOffset = BitConverter.ToInt16(header, 8);
-                    dbfHeader.RecordLength = BitConverter.ToInt16(header, 10);
-
-                    if (encoding == null)
+                    using (var dataStream = stream.CloneStream())
                     {
-                        byte languageDriver = header[29];
-                        encoding = DbfEncoding.GetEncoding(languageDriver);
-                    }
+                        byte[] header = new byte[32];
+                        await dataStream.ReadAsync(header.AsBuffer(), 32u, InputStreamOptions.Partial);
 
-                    dbfHeader.Encoding = encoding;
-
-                    // header is 32 bytes + n field descriptors * 32 bytes + carriage return byte (0x0D)
-                    int fieldDescriptorCount = (dbfHeader.RecordsOffset - 32 - 1) / 32;
-                    byte[] fieldDescriptor;
-                    DbfFieldInfo dbfField;
-                    for (int i = 0; i < fieldDescriptorCount; i++)
-                    {
-                        if (cancellationTokenSource.IsCancellationRequested)
+                        byte fileType = header[0];
+                        if (!AllowedTypes.Contains(fileType))
                         {
-                            return null;
+                            throw new NotSupportedException(InvalidFormat);
                         }
 
-                        fieldDescriptor = new byte[32];
-                        await dataStream.ReadAsync(fieldDescriptor.AsBuffer(), 32u, InputStreamOptions.Partial);
+                        DbfHeader dbfHeader = new DbfHeader();
+                        dbfHeader.RecordsCount = BitConverter.ToInt32(header, 4);
+                        dbfHeader.RecordsOffset = BitConverter.ToInt16(header, 8);
+                        dbfHeader.RecordLength = BitConverter.ToInt16(header, 10);
 
-                        dbfField = new DbfFieldInfo();
-                        dbfField.Name = encoding.GetString(fieldDescriptor, 0, 11).Replace("\0", string.Empty);
-                        dbfField.NativeDbfType = (char)fieldDescriptor[11];
+                        if (encoding == null)
+                        {
+                            byte languageDriver = header[29];
+                            encoding = DbfEncoding.GetEncoding(languageDriver);
+                        }
 
-                        dbfField.Length = fieldDescriptor[16];
-                        dbfField.DecimalCount = fieldDescriptor[17];
+                        dbfHeader.Encoding = encoding;
 
-                        dbfHeader.Fields.Add(dbfField);
+                        // header is 32 bytes + n field descriptors * 32 bytes + carriage return byte (0x0D)
+                        int fieldDescriptorCount = (dbfHeader.RecordsOffset - 32 - 1) / 32;
+                        byte[] fieldDescriptor;
+                        DbfFieldInfo dbfField;
+                        for (int i = 0; i < fieldDescriptorCount; i++)
+                        {
+                            if (cancellationTokenSource.IsCancellationRequested)
+                            {
+                                return null;
+                            }
+
+                            fieldDescriptor = new byte[32];
+                            await dataStream.ReadAsync(fieldDescriptor.AsBuffer(), 32u, InputStreamOptions.Partial);
+
+                            dbfField = new DbfFieldInfo();
+                            dbfField.Name = encoding.GetString(fieldDescriptor, 0, 11).Replace("\0", string.Empty);
+                            dbfField.NativeDbfType = (char)fieldDescriptor[11];
+
+                            dbfField.Length = fieldDescriptor[16];
+                            dbfField.DecimalCount = fieldDescriptor[17];
+
+                            dbfHeader.Fields.Add(dbfField);
+                        }
+
+                        return dbfHeader;
                     }
-
-                    return dbfHeader;
-                }
-            }, 
-            token).Unwrap();
+                },
+                token).Unwrap();
 
             return task;
         }
@@ -120,48 +121,49 @@ namespace Telerik.Geospatial
             var cancellationTokenSource = taskState.CancellationTokenSource;
             var token = cancellationTokenSource.Token;
 
-            var task = Task.Factory.StartNew(async () =>
-            {
-                using (var dataStream = taskState.Stream.CloneStream())
+            var task = Task.Factory.StartNew(
+                async () =>
                 {
-                    int start = taskState.Start;
-                    int end = taskState.End;
-                    DbfHeader dbfHeader = taskState.DbfHeader;
-                    var shapeModels = taskState.ShapeModels;
-                    var valueConverter = taskState.ValueConverter;
-                    var attributesToLoad = taskState.AttributesToLoad;
-
-                    dataStream.Seek((ulong)(dbfHeader.RecordsOffset + start * dbfHeader.RecordLength));
-
-                    for (int i = start; i < end; i++)
+                    using (var dataStream = taskState.Stream.CloneStream())
                     {
-                        if (cancellationTokenSource.IsCancellationRequested)
-                        {
-                            return;
-                        }
+                        int start = taskState.Start;
+                        int end = taskState.End;
+                        DbfHeader dbfHeader = taskState.DbfHeader;
+                        var shapeModels = taskState.ShapeModels;
+                        var valueConverter = taskState.ValueConverter;
+                        var attributesToLoad = taskState.AttributesToLoad;
 
-                        var shapeModel = shapeModels[i] as MapShapeModel;
-                        byte[] record = new byte[dbfHeader.RecordLength];
-                        await dataStream.ReadAsync(record.AsBuffer(), (uint)dbfHeader.RecordLength, InputStreamOptions.Partial);
+                        dataStream.Seek((ulong)(dbfHeader.RecordsOffset + start * dbfHeader.RecordLength));
 
-                        // Data records are preceded by one byte; that is, a space (20H) if the record is not deleted, an asterisk (2AH) if the record is deleted.
-                        int offset = 1;
-                        foreach (var field in dbfHeader.Fields)
+                        for (int i = start; i < end; i++)
                         {
-                            if (attributesToLoad == null || attributesToLoad.Contains(field.Name))
+                            if (cancellationTokenSource.IsCancellationRequested)
                             {
-                                string value = dbfHeader.Encoding.GetString(record, offset, field.Length);
-                                object propertyValue = TransformDbfValue(field, value, valueConverter);
-
-                                shapeModel.Attributes[field.Name] = propertyValue;
+                                return;
                             }
 
-                            offset += field.Length;
+                            var shapeModel = shapeModels[i] as MapShapeModel;
+                            byte[] record = new byte[dbfHeader.RecordLength];
+                            await dataStream.ReadAsync(record.AsBuffer(), (uint)dbfHeader.RecordLength, InputStreamOptions.Partial);
+
+                            // Data records are preceded by one byte; that is, a space (20H) if the record is not deleted, an asterisk (2AH) if the record is deleted.
+                            int offset = 1;
+                            foreach (var field in dbfHeader.Fields)
+                            {
+                                if (attributesToLoad == null || attributesToLoad.Contains(field.Name))
+                                {
+                                    string value = dbfHeader.Encoding.GetString(record, offset, field.Length);
+                                    object propertyValue = TransformDbfValue(field, value, valueConverter);
+
+                                    shapeModel.Attributes[field.Name] = propertyValue;
+                                }
+
+                                offset += field.Length;
+                            }
                         }
                     }
-                }
-            }, 
-            token).Unwrap();
+                },
+                token).Unwrap();
 
             return task;
         }
@@ -348,13 +350,13 @@ namespace Telerik.Geospatial
                 set;
             }
 
-            internal IAttributeValueConverter ValueConverter 
-            { 
-                get; 
+            internal IAttributeValueConverter ValueConverter
+            {
+                get;
                 set;
             }
 
-            internal List<string> AttributesToLoad 
+            internal List<string> AttributesToLoad
             {
                 get;
                 set;

@@ -19,6 +19,7 @@
                 }
 
                 this.highBinding = value;
+                this.highBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {
@@ -41,6 +42,7 @@
                 }
 
                 this.lowBinding = value;
+                this.lowBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {

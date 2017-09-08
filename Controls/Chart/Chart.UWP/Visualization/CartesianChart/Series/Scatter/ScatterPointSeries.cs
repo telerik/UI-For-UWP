@@ -179,7 +179,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             if (visual != null && this.IsVisibleInLegend)
             {
                 var item = this.LegendItems.FirstOrDefault();
-                
+
                 if (item != null)
                 {
                     this.UpdateLegendItemProperties((Brush)visual.GetValue(Path.FillProperty), (Brush)visual.GetValue(Path.StrokeProperty));
@@ -191,6 +191,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new ScatterPointSeriesAutomationPeer(this);

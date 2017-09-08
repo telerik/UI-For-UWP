@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Telerik.Charting;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -57,37 +59,44 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         internal override void UpdateAxisLine(ChartLayoutContext context)
         {
-            double antiAliasOffset = this.model.LineThickness % 2 == 1 ? 0.5 : 0;
-
-            // update line points
-            if (this.type == AxisType.First)
+            if (this.drawWithComposition && this.lineContainer != null)
             {
-                this.line.X1 = this.model.layoutSlot.X;
-                this.line.X2 = this.model.layoutSlot.Right;
-                if (this.model.VerticalLocation == AxisVerticalLocation.Bottom)
-                {
-                    this.line.Y1 = this.line.Y2 = this.model.layoutSlot.Y - antiAliasOffset;
-                }
-                else
-                {
-                    this.line.Y1 = this.line.Y2 = this.model.layoutSlot.Bottom - antiAliasOffset;
-                }
+                this.chart.ContainerVisualsFactory.PrepareCartesianAxisLineVisual(this, this.lineContainer, this.model.layoutSlot, this.type);
             }
             else
             {
-                this.line.Y1 = this.model.layoutSlot.Y;
-                this.line.Y2 = this.model.layoutSlot.Bottom;
+                double antiAliasOffset = this.model.LineThickness % 2 == 1 ? 0.5 : 0;
 
-                if (this.model.HorizontalLocation == AxisHorizontalLocation.Left)
+                // update line points
+                if (this.type == AxisType.First)
                 {
-                    this.line.X1 = this.line.X2 = this.model.layoutSlot.Right + antiAliasOffset;
+                    this.line.X1 = this.model.layoutSlot.X;
+                    this.line.X2 = this.model.layoutSlot.Right;
+                    if (this.model.VerticalLocation == AxisVerticalLocation.Bottom)
+                    {
+                        this.line.Y1 = this.line.Y2 = this.model.layoutSlot.Y - antiAliasOffset;
+                    }
+                    else
+                    {
+                        this.line.Y1 = this.line.Y2 = this.model.layoutSlot.Bottom - antiAliasOffset;
+                    }
                 }
                 else
                 {
-                    this.line.X1 = this.line.X2 = this.model.layoutSlot.X + antiAliasOffset;
+                    this.line.Y1 = this.model.layoutSlot.Y;
+                    this.line.Y2 = this.model.layoutSlot.Bottom;
+
+                    if (this.model.HorizontalLocation == AxisHorizontalLocation.Left)
+                    {
+                        this.line.X1 = this.line.X2 = this.model.layoutSlot.Right + antiAliasOffset;
+                    }
+                    else
+                    {
+                        this.line.X1 = this.line.X2 = this.model.layoutSlot.X + antiAliasOffset;
+                    }
                 }
             }
-
+          
             base.UpdateAxisLine(context);
         }
 

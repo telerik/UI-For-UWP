@@ -136,11 +136,6 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             }
         }
 
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RadRadialGaugeAutomationPeer(this);
-        }
-
         /// <summary>
         /// Gets the IndicatorRadiusScale attached property.
         /// </summary>
@@ -167,6 +162,12 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
                 throw new ArgumentNullException(nameof(indicator));
             }
             indicator.SetValue(IndicatorRadiusScaleProperty, scale);
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadRadialGaugeAutomationPeer(this);
         }
 
         private static void OnAnglePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)

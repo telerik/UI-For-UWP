@@ -1,8 +1,6 @@
 ﻿using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Telerik.UI.Xaml.Controls.Data.DataForm.Commands;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
@@ -16,15 +14,19 @@ namespace Telerik.UI.Xaml.Controls.Data
         bool IsReadOnly { get; }
 
         void AddEditor(object element);
+
         void ClearEditors();
 
         object CreateGroupContainer(string groupKey);
 
         void PrepareEditor(object editor, object groupVisual);
+
         void PrepareEditor(object editor, EntityProperty property, object groupVisual);
+
         void PrepareGroupEditor(object editor, string groupKey);
 
         void SubscribeToEditorEvents(object editor, EntityProperty property);
+
         void UnSubscribeFromEditorEvents(object editor, EntityProperty property);
     }
 }

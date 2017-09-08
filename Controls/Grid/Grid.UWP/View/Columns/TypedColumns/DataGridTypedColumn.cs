@@ -189,7 +189,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             get
             {
                 if (this.Model != null &&
-                    this.Model.GroupDescriptors.OfType<PropertyGroupDescriptor>().Where(c => c.PropertyName == this.PropertyName).Any())
+                    this.Model.GroupDescriptors.OfType<PropertyGroupDescriptor>().Any(c => c.PropertyName == this.PropertyName))
                 {
                     return false;
                 }
@@ -274,8 +274,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 return this.CreateContainer(rowItem);
             }
-
-            // return this.CreateEditorContentVisual();
 
             ////TODO: Create value proxy to provide option for delayed update of the values in the VM behind.
             FrameworkElement content = this.CreateEditorContentVisual();
@@ -397,12 +395,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (grid != null)
             {
-                ////TODO: Context
                 this.RaiseValidateCommands(grid, new ValidateCellContext(errors, new DataGridCellInfo(item, this)));
             }
 
             return errors.Count == 0;
         }
+
         /// <summary>
         /// Creates the <see cref="GroupDescriptorBase"/> instance that is used to group by this column through the user interface.
         /// </summary>

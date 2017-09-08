@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
@@ -28,6 +29,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets a value indicating whether the <see cref="Fill"/> property has been set locally.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IFilledSeries.IsFillSetLocally
         {
             get
@@ -62,6 +64,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadarAreaSeriesAutomationPeer(this);

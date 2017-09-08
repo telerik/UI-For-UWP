@@ -51,6 +51,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
             obj.SetValue(DragPositionModeProperty, value);
         }
 
+        public static IDragDropOperation GetRunningOperation(DependencyObject element)
+        {
+            IDragDropOperation operation = null;
+            if (element != null)
+            {
+                operation = element.GetValue(DragDrop.dragDropOperationProperty) as IDragDropOperation;
+            }
+
+            return operation;
+        }
+
         internal static void StartDrag(object sender, PointerRoutedEventArgs e, DragDropTrigger trigger, object initializeContext = null)
         {
             var dragDropElement = sender as IDragDropElement;
@@ -131,18 +142,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
 
             AddOperation(new DragDropOperation(context, dragDropElement, dragPositionMode, null, startDragPosition, relativeStartDragPosition));
         }
-
-        public static IDragDropOperation GetRunningOperation(DependencyObject element)
-        {
-            IDragDropOperation operation = null;
-            if (element != null)
-            {
-                operation = element.GetValue(DragDrop.dragDropOperationProperty) as IDragDropOperation;
-            }
-
-            return operation;
-        }
-
+        
         internal static void OnOperationFinished(IDragDropOperation dragDropOperation)
         {
             RemoveOperation(dragDropOperation);

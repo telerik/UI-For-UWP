@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
     public class FilterRequestedContext
     {
         /// <summary>
-        /// Gets a value indicating whether the Filter button has triggered the action or the ClearFilter button. If true, the Filter button has beend tapped.
+        /// Gets a value indicating whether the Filter button has triggered the action or the ClearFilter button. If true, the Filter button has been tapped.
         /// </summary>
         public bool IsFiltering
         {

@@ -2,10 +2,14 @@
 using System.Linq;
 using Telerik.UI.Xaml.Controls.Input;
 using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadRangeSlider class.
+    /// </summary>
     public class RadRangeSliderAutomationPeer : SliderBaseAutomationPeer
     {
         /// <summary>
@@ -15,6 +19,24 @@ namespace Telerik.UI.Automation.Peers
         public RadRangeSliderAutomationPeer(RadRangeSlider owner)
             : base(owner)
         {
+        }
+
+        /// <inheritdoc />
+        public override string Value
+        {
+            get
+            {
+                var selectionString = base.Value;
+                AutomationProperties.SetItemStatus(this.RadRangeSlider, selectionString);
+                return selectionString;
+            }
+        }
+        private RadRangeSlider RadRangeSlider
+        {
+            get
+            {
+                return (RadRangeSlider)this.Owner;
+            }
         }
 
         /// <inheritdoc />
@@ -34,6 +56,17 @@ namespace Telerik.UI.Automation.Peers
         {
             return AutomationControlType.Group;
         }
+        
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.Value)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
+        }
 
         /// <inheritdoc />
         protected override IList<AutomationPeer> GetChildrenCore()
@@ -41,7 +74,7 @@ namespace Telerik.UI.Automation.Peers
             var children = base.GetChildrenCore().ToList();
             if (children != null && children.Count > 0)
             {
-                children.RemoveAll(x => x.GetClassName() == nameof(ScalePrimitive));
+                children.RemoveAll(x => x.GetClassName() == nameof(Telerik.UI.Xaml.Controls.Primitives.ScalePrimitive));
             }
 
             return children;

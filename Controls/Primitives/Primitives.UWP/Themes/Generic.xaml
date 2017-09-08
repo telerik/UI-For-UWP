@@ -29,7 +29,7 @@
                 <DataTemplate>
                     <TextBlock FontFamily="Segoe UI Symbol"
                                Foreground="{ThemeResource TelerikAnimatedIndicatorForegroundBrush}" FontSize="30" Margin="10,0,10,0"
-                               Text="{Binding}" />
+                               Text="{Binding}" AutomationProperties.AccessibilityView="Raw"/>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -225,8 +225,7 @@
                                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                     Grid.Column="1"
                                     x:Name="PART_AnimatedIndicator"
-                                    RenderTransformOrigin="0.5, 0.5"
-                                    AutomationProperties.AccessibilityView="Raw">
+                                    RenderTransformOrigin="0.5, 0.5">
                                     <ContentPresenter.RenderTransform>
                                         <RotateTransform x:Name="AnimatedIndicatorRotate"/>
                                     </ContentPresenter.RenderTransform>

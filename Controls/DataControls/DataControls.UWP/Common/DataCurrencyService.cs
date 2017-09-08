@@ -111,11 +111,6 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         internal void OnSelectedItemChanged(object newItem)
         {
-            //// TODO
-            //// if (this.isSynchronizedWithCurrent)
-            //// {
-            ////     this.ChangeCurrentItem(newItem, false, true);
-            //// }
         }
 
         internal void OnItemsSourceChanged(object newSource)
@@ -126,8 +121,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
 
             this.itemsSourceAsCollectionView = newSource as ICollectionView;
-            //// TODO
-            //// this.UpdateIsSynchronizedWithCurrent(this.isSynchronizedWithCurrent);
 
             if (this.itemsSourceAsCollectionView != null)
             {
@@ -156,7 +149,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 return true;
             }
-            
+
             return this.ChangeCurrentCore(newCurrentItem, cancelable, scrollToCurrent);
         }
 
@@ -191,15 +184,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             var oldCurrent = this.currentItem;
             this.currentItem = newCurrent;
 
-            //// TODO
-            //// if (this.isSynchronizedWithCurrent)
-            //// {
-            ////     if (this.itemsSourceAsCollectionView != null)
-            ////     {
-            ////         this.itemsSourceAsCollectionView.MoveCurrentTo(this.currentItem);
-            ////     }
-            //// }
-
             this.UpdateOwnerState(scrollToCurrent);
 
             if (!object.ReferenceEquals(oldCurrent, this.currentItem))
@@ -216,7 +200,6 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         private void OnItemsSourceCurrentChanged(object sender, object e)
         {
-            // TODO: 
         }
 
         private bool PreviewCancelCurrentChanging(bool cancelable)

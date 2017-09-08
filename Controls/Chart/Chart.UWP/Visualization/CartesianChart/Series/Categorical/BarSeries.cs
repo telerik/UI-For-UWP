@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Telerik.Charting;
 using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Primitives;
-using Windows.UI;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
@@ -158,6 +157,20 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        internal override void ApplyPaletteToContainerVisual(SpriteVisual visual, DataPoint point)
+        {
+            int index = this.paletteModeCache == SeriesPaletteMode.Series ? this.ActualPaletteIndex : point.CollectionIndex;
+            if (index >= 0)
+            {
+                SolidColorBrush paletteFill = this.chart.GetPaletteBrush(index, PaletteVisualPart.Fill, this.Family, point.isSelected) as SolidColorBrush;
+
+                if (paletteFill != null)
+                {
+                    this.chart.ContainerVisualsFactory.SetCompositionColorBrush(visual, paletteFill, true);
+                }
+            }
+        }
+
         internal override void UpdateLegendItems()
         {
             if (this.paletteModeCache == SeriesPaletteMode.Series)
@@ -268,6 +281,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return visual is Border;
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new BarSeriesAutomationPeer(this);

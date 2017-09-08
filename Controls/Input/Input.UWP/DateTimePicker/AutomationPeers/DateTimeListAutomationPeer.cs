@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the DateTimeList class.
+    /// </summary>
     public class DateTimeListAutomationPeer : RadLoopingListAutomationPeer
     {
         /// <summary>

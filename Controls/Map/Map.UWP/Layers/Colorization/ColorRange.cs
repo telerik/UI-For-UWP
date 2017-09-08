@@ -53,7 +53,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The zero-based index of the range in its owning <see cref="ChoroplethColorizer"/> instance.
+        /// Gets the zero-based index of the range in its owning <see cref="ChoroplethColorizer"/> instance.
         /// </summary>
         public int Index
         {

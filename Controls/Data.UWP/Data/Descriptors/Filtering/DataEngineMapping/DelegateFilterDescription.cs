@@ -43,7 +43,7 @@ namespace Telerik.Data.Core
 
         internal void RaiseFilterChanged()
         {
-            this.OnPropertyChanged(nameof(Filter));
+            this.OnPropertyChanged(nameof(this.Filter));
             this.OnSettingsChanged(new SettingsChangedEventArgs());
         }
 

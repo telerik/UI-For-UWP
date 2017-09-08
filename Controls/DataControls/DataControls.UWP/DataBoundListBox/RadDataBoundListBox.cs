@@ -189,9 +189,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.checkedItems = new CheckedItemsCollection<object>(this);
             this.PrepareCheckboxesSupport();
             this.SizeChanged += this.RadDataBoundListBox_SizeChanged;
-
-            // TODO:CONTEXTMENU
-            //// RadContextMenu.SetFocusedElementType(this, typeof(RadDataBoundListBoxItem));
         }
 
         /// <summary>
@@ -208,11 +205,13 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// <summary>
         /// Occurs when the <see cref="SelectedItem"/> property is changed.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event SelectionChangedEventHandler SelectionChanged;
 
         /// <summary>
         /// Occurs before the <see cref="SelectedItem"/> property is about to change.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         public event EventHandler<SelectionChangingEventArgs> SelectionChanging;
 
         /// <summary>
@@ -646,6 +645,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             base.BringIntoView(item);
             this.CheckFireDataRequested();
         }
+
         internal override int GetItemCount()
         {
             int count = base.GetItemCount();
@@ -919,11 +919,11 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.ShowCheckboxesPressIndicator(item);
             }
         }
-        
+
         /// <summary>
         /// Handles a click from a child visual item.
         /// </summary>
-        protected async internal virtual void OnItemTap(RadDataBoundListBoxItem item, UIElement container, UIElement originalSource, Point hitPoint)
+        protected internal async virtual void OnItemTap(RadDataBoundListBoxItem item, UIElement container, UIElement originalSource, Point hitPoint)
         {
             if (item.checkBoxVisible && item.isItemCheckable)
             {
@@ -1613,6 +1613,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         this.lastItemCache.Content = this.itemLoadingContentCache;
                         this.lastItemCache.ContentTemplate = this.itemLoadingTemplateCache;
                         break;
+
                     case BatchLoadingStatus.ItemsLoaded:
                         if (this.IncrementalLoadingMode == BatchLoadingMode.Explicit)
                         {
@@ -1633,6 +1634,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         }
 
                         break;
+
                     case BatchLoadingStatus.ItemsLoadFailed:
                         if (this.IncrementalLoadingMode == BatchLoadingMode.Explicit)
                         {

@@ -127,7 +127,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     }
 
                     this.Owner.Model.CurrentDataProvider.CommitEditOperation(this.EditItem);
-                    
                 })
                 {
                     Flags = UpdateFlags.AffectsContent,
@@ -136,9 +135,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             // Focusing the grid will force the Text property of all textboxes to be pushed to the underlying ViewModel.
             this.Owner.TryFocus(FocusState.Programmatic, true);
-
-            // TODO: Use GetBindingExpression to force update of the TextBox (if any).
-            ////this.Dispatcher.ProcessEvents(Windows.UI.Core.CoreProcessEventsOption.ProcessAllIfPresent);
 
             this.Owner.updateService.RegisterUpdate(update);
 
@@ -171,10 +167,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 return false;
             }
-
-            // TODO:
+            
             this.IsEditing = false;
-            var currentEditMode = operation.EditMode;
+            var currentEditMode = this.operation.EditMode;
 
             DelegateUpdate<UpdateFlags> update = new DelegateUpdate<UpdateFlags>(() =>
             {
@@ -213,6 +208,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
 
             this.operation = null;
+
             // Return the focus to the owning grid.
             this.Owner.TryFocus(FocusState.Programmatic, true);
 
@@ -274,7 +270,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             foreach (var column in this.Owner.Columns)
             {
-                // TODO: refactor this once extend the template column.
                 if (column is DataGridTypedColumn)
                 {
                     this.operation.OriginalValues.Add(column, column.GetValueForInstance(rowInfo.Item));

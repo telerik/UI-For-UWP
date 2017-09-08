@@ -20,7 +20,7 @@
             <chart:RadCartesianChart.DataContext>
                 <localChart:ViewModelPointTemplate/>
             </chart:RadCartesianChart.DataContext>
-            <chart:LineSeries ItemsSource="{Binding Source}" ClipToPlotArea="False">
+            <chart:LineSeries ItemsSource="{Binding Source}" ClipToPlotArea="False" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                 <chart:LineSeries.HorizontalAxis>
                     <chart:CategoricalAxis/>
                 </chart:LineSeries.HorizontalAxis>

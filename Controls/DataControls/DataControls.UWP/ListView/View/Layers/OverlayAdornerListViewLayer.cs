@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Data.Core;
+﻿using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Data.ListView;
 using Windows.Foundation;
 using Windows.UI.Xaml.Controls;
@@ -32,16 +29,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                 if (this.busyControl.IsBusy != isBusy)
                 {
                     this.busyControl.IsBusy = isBusy;
-
-                    // TODO: 
-                    ////if (isBusy)
-                    ////{
-                    ////    this.Owner.HitTestService.Suspend();
-                    ////}
-                    ////else
-                    ////{
-                    ////    this.Owner.HitTestService.Resume();
-                    ////}
                 }
             }
 

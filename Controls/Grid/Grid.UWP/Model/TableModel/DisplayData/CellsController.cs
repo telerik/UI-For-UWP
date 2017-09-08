@@ -144,7 +144,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             int generatedCellCount = 0;
 
-            var rows = this.RowPool.GetDisplayedElements().ToList();
+            var rows = this.RowPool.GetDisplayedElements().ToArray();
             foreach (var rowPairs in rows)
             {
                 int rowSlot = rowPairs.Key;
@@ -233,7 +233,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             int generatedCellCount = 0;
 
-            var columns = this.ColumnPool.GetDisplayedElements().ToList();
+            var columns = this.ColumnPool.GetDisplayedElements().ToArray();
             bool generated = this.generatedRowCells.ContainsKey(rowSlot);
 
             foreach (var columnPairs in columns)

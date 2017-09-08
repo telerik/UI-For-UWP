@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Data.Common;
 using Telerik.UI.Xaml.Controls.Data.ListView;
 using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
@@ -230,7 +227,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             var listView = d as RadListView;
 
-
             if (listView.IsTemplateApplied)
             {
                 if ((bool)e.NewValue)
@@ -278,7 +274,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             this.refreshThreshold = e.NewSize.Height;
 
-            if (e.PreviousSize == new Windows.Foundation.Size(0,0))
+            if (e.PreviousSize == new Windows.Foundation.Size(0, 0))
             {
                 this.UpdatePullToRefreshSize();
             }

@@ -123,12 +123,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             return commonVisualState;
         }
 
+        /// <summary>
+        /// Called before the KeyDown event occurs.
+        /// </summary>
+        /// <param name="e">The data for the event.</param>
         protected override void OnKeyDown(KeyRoutedEventArgs e)
         {
             e.Handled = this.HandleKeyDown(e.Key);
             base.OnKeyDown(e);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             var parent = ElementTreeHelper.FindVisualAncestor<RadRadialMenu>(this);
@@ -140,23 +145,48 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             return base.OnCreateAutomationPeer();
         }
 
-        private bool HandleKeyDown(VirtualKey key)
-        {
-            if ((key == VirtualKey.Enter || key == VirtualKey.Space) && this.Segment != null
-                && this.Segment.TargetItem.Selectable)
-            {
-                this.Segment.TargetItem.IsSelected = !this.Segment.TargetItem.IsSelected;
-                return true;
-            }
-
-            return false;
-        }
-
         private static void OnLoadingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as RadialMenuItemControl;
 
             control.UpdateVisualState(true);
+        }
+
+        private bool HandleKeyDown(VirtualKey key)
+        {
+            if (this.Segment != null)
+            {
+                switch (key)
+                {
+                    case VirtualKey.Enter:
+                    case VirtualKey.Space:
+                        if (this.Segment.TargetItem.Selectable)
+                        {
+                            this.Segment.TargetItem.IsSelected = !this.Segment.TargetItem.IsSelected;
+                        }
+
+                        return true;
+                    case VirtualKey.Left:
+                        var canNavigateToNextItem = this.Segment.TargetItem.ParentItem != null
+                            ? this.Segment.TargetItem.Index + 1 < this.Segment.TargetItem.ParentItem.ChildItems.Count
+                            : this.Segment.TargetItem.Index + 1 < this.Segment.TargetItem.Owner.MenuItems.Count;
+                        if (canNavigateToNextItem)
+                        {
+                            FocusManager.TryMoveFocus(FocusNavigationDirection.Next);
+                        }
+
+                        return true;
+                    case VirtualKey.Right:
+                        if (this.Segment.TargetItem.Index != 0)
+                        {
+                            FocusManager.TryMoveFocus(FocusNavigationDirection.Previous);
+                        }
+
+                        return true;
+                }
+            }
+
+            return false;
         }
     }
 }

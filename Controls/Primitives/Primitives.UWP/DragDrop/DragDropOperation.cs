@@ -119,6 +119,28 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
             return this.dragSurface.RootElement.TransformToVisual(element).TransformPoint(this.restrictedDragPoint);
         }
 
+        public void EndDrag()
+        {
+            if (this.targetElement == null || this.lastKeyModifier == VirtualKey.Escape || !this.targetElement.CanDrop(this.dragContext))
+            {
+                this.CancelDrag();
+            }
+            else
+            {
+                this.OnDrop();
+            }
+
+            this.dragVisualContext.DragVisualCleared += this.DragSurface_DragVisualCleared;
+            this.dragSurface.CompleteDrag(this.dragVisualContext, this.dragCompleteContext.DragSuccessful);
+            this.OnDragDropComplete();
+
+            if (this.originalFocusedElement != null)
+            {
+                this.originalFocusedElement.Focus(this.originalFocusState);
+                this.originalFocusedElement = null;
+            }
+        }
+
         private void InitializeVisual()
         {
             this.dragSurface.PositionDragHost(this.dragVisualContext, this.startDragPosition, this.relativeStartPosition);
@@ -271,29 +293,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
                 this.targetElement.OnDrop(this.dragContext);
             }
         }
-
-        public void EndDrag()
-        {
-            if (this.targetElement == null || this.lastKeyModifier == VirtualKey.Escape || !this.targetElement.CanDrop(this.dragContext))
-            {
-                this.CancelDrag();
-            }
-            else
-            {
-                this.OnDrop();
-            }
-
-            this.dragVisualContext.DragVisualCleared += this.DragSurface_DragVisualCleared;
-            this.dragSurface.CompleteDrag(this.dragVisualContext, this.dragCompleteContext.DragSuccessful);
-            this.OnDragDropComplete();
-
-            if (this.originalFocusedElement != null)
-            {
-                this.originalFocusedElement.Focus(this.originalFocusState);
-                this.originalFocusedElement = null;
-            }
-        }
-
+   
         private void DragSurface_DragVisualCleared(object sender, EventArgs e)
         {
             this.dragVisualContext.DragVisualCleared -= this.DragSurface_DragVisualCleared;

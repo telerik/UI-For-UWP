@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telerik.Data.Core.Layouts
+﻿namespace Telerik.Data.Core.Layouts
 {
     internal class StaggeredItemsLayoutStrategy : StackedItemsLayoutStrategy
     {
@@ -16,7 +12,6 @@ namespace Telerik.Data.Core.Layouts
 
             totalLines = slot;
             return slot;
-             
         }
     }
 }

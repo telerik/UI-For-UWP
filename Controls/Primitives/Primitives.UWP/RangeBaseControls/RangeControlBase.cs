@@ -96,6 +96,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.FitRange(this.delayedRangeChange);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new Automation.Peers.RangeControlBaseAutomationPeer(this);

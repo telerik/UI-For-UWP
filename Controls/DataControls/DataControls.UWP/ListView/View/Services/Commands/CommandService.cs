@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Telerik.UI.Xaml.Controls.Primitives;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
@@ -21,36 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
         internal CommandService(RadListView owner) : base(owner)
         {
             this.InitKnownCommands();
-            this.userCommands.CollectionChanged += CommandsCollectionChanged;
-        }
-   
-        private void CommandsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewItems != null)
-            {
-                foreach (ListViewCommand newCommand in e.NewItems)
-                {
-                    if (newCommand != null && newCommand.Id == CommandId.LoadMoreData)
-                    {
-                        newCommand.CanExecuteChanged += this.LoadMoreDataCanExecuteChanged;
-                    }
-                }
-            }
-            if (e.OldItems != null)
-            {
-                foreach (ListViewCommand oldCommand in e.OldItems)
-                {
-                    if (oldCommand != null && oldCommand.Id == CommandId.LoadMoreData)
-                    {
-                        oldCommand.CanExecuteChanged -= this.LoadMoreDataCanExecuteChanged;
-                    }
-                }
-            }
-        }
-
-        private void LoadMoreDataCanExecuteChanged(object sender, EventArgs e)
-        {
-            this.Owner.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
+            this.userCommands.CollectionChanged += this.CommandsCollectionChanged;
         }
 
         /// <summary>
@@ -135,6 +104,35 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
             }
         }
 
+        private void CommandsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (ListViewCommand newCommand in e.NewItems)
+                {
+                    if (newCommand != null && newCommand.Id == CommandId.LoadMoreData)
+                    {
+                        newCommand.CanExecuteChanged += this.LoadMoreDataCanExecuteChanged;
+                    }
+                }
+            }
+            if (e.OldItems != null)
+            {
+                foreach (ListViewCommand oldCommand in e.OldItems)
+                {
+                    if (oldCommand != null && oldCommand.Id == CommandId.LoadMoreData)
+                    {
+                        oldCommand.CanExecuteChanged -= this.LoadMoreDataCanExecuteChanged;
+                    }
+                }
+            }
+        }
+
+        private void LoadMoreDataCanExecuteChanged(object sender, EventArgs e)
+        {
+            this.Owner.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
+        }
+        
         private ListViewCommand CreateKnownCommand(CommandId id)
         {
             ListViewCommand command = null;
@@ -144,27 +142,35 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
                 case CommandId.LoadMoreData:
                     command = new LoadMoreDataCommand();
                     break;
+
                 case CommandId.ItemTap:
                     command = new ItemTapCommand();
                     break;
+
                 case CommandId.RefreshRequested:
                     command = new RefreshRequestedCommand();
                     break;
+
                 case CommandId.ItemDragStarting:
                     command = new ItemDragStartingCommand();
                     break;
+
                 case CommandId.ItemReorderComplete:
                     command = new ItemReorderCompleteCommand();
                     break;
+
                 case CommandId.ItemSwiping:
                     command = new ItemSwipingCommand();
                     break;
+
                 case CommandId.ItemSwipeActionComplete:
                     command = new ItemSwipeActionCompleteCommand();
                     break;
+
                 case CommandId.ItemActionTap:
                     command = new ItemActionTapCommand();
                     break;
+
                 default:
                     throw new ArgumentException("Unkown command id!", "id");
             }

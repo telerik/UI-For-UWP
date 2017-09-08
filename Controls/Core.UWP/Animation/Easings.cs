@@ -107,44 +107,5 @@ namespace Telerik.Core
         internal Point Point1 { get; set; }
 
         internal Point Point2 { get; set; }
-        ////private class CircleEase : BaseEase
-        ////{
-        ////    protected override double F(double t)
-        ////    {
-        ////        return 1 - Math.Sqrt(1 - (t * t));
-        ////    }
-        ////}
-        ////    /// <summary>
-        ////    /// F(t).
-        ////    /// </summary>
-        ////    protected abstract double F(double t);
-        ////}
-        ////    /// <summary>
-        ////    /// Transforms normalized time to control the pace of an animation.
-        ////    /// </summary>
-        ////    /// <param name="normalizedTime"></param>
-        ////    /// <returns></returns>
-        ////    public double Ease(double normalizedTime)
-        ////    {
-        ////        if (this.EasingMode == EasingMode.EaseIn)
-        ////        {
-        ////            return this.F(normalizedTime);
-        ////        }
-        ////        else if (this.EasingMode == EasingMode.EaseOut)
-        ////        {
-        ////            return 1 - this.F(1 - normalizedTime);
-        ////        }
-        ////        else
-        ////        {
-        ////            // TODO: Implement the case when EasingMode is EaseInOut
-        ////            return normalizedTime;
-        ////        }
-        ////    }
-        ////private abstract class BaseEase : EasingFunctionBase
-        ////{
-        ////    /// <summary>
-        ////    /// Gets or sets a value that specifies how the animation interpolates. 
-        ////    /// </summary>
-        ////    public EasingMode EasingMode { get; set; }
     }
 }

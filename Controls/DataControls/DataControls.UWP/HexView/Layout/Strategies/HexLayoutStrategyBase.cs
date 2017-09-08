@@ -37,7 +37,6 @@ namespace Telerik.UI.Xaml.Controls.Data.HexView
 
             this.isVertical = layoutDefinition.Orientation == Orientation.Vertical;
 
-//#if !WINDOWS_PHONE_APP
             this.halfSpacing = Math.Round(layoutDefinition.ItemsSpacing * OppositeSpacingFactor / 2);
             this.halfOppositeSpacing = Math.Round(layoutDefinition.ItemsSpacing / 2);
 
@@ -53,17 +52,6 @@ namespace Telerik.UI.Xaml.Controls.Data.HexView
 
             this.totalItemLength += extension != 0 ? 4 - extension : 0;
             this.totalItemOppositeLength += oppositeExtension != 0 ? 2 - oppositeExtension : 0;
-//#else
-//            this.halfSpacing = layoutDefinition.ItemsSpacing * OppositeSpacingFactor / 2;
-//            this.halfOppositeSpacing = layoutDefinition.ItemsSpacing / 2;
-
-//            // used only when calculating the size of the item
-//            this.rawItemLength = layoutDefinition.ItemLength;
-//            this.rawItemOppositeLength = layoutDefinition.ItemLength * OppositeLengthFactor;
-
-//            this.totalItemLength = layoutDefinition.ItemLength + layoutDefinition.ItemsSpacing * OppositeSpacingFactor;
-//            this.totalItemOppositeLength = layoutDefinition.ItemLength * OppositeLengthFactor + layoutDefinition.ItemsSpacing;
-//#endif
 
             this.viewportExtension = layoutDefinition.ViewPortExtension;
         }

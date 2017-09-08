@@ -139,7 +139,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 var cellsAvailableSize = new Size(availableWidth, availableRowHeight);
                 if (!GridModel.DoubleArithmetics.AreClose(this.CellsHostAvailableSize, cellsAvailableSize))
                 {
-                    // TODO: This is a HACK, for some reason the cells panel is not properly measured when the available size is changed dynamically by the user.
+                    // The cells panel is not properly measured when the available size is changed dynamically by the user.
                     this.Owner.InvalidateCellsMeasure();
                 }
 
@@ -208,7 +208,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 }
                 else
                 {
-                    //top -= this.Owner.ServicePanel.DesiredSize.Height;
                     height -= this.Owner.ServicePanel.DesiredSize.Height;
                 }
             }

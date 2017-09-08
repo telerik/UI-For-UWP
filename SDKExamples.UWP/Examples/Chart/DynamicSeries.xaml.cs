@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Telerik.UI.Xaml.Controls.Chart;
 using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -47,6 +49,19 @@ namespace SDKExamples.UWP.Chart
         public class ViewModelDynamic
         {
             public List<CustomPointDynamic> GetData { get; set; }
+        }
+
+        private void RadCartesianChart_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var chart = sender as RadCartesianChart;
+            if (chart != null)
+            {
+                var containerVisualFactory = chart.ContainerVisualsFactory as AnimationContainerVisualsFactory;
+                if (containerVisualFactory != null)
+                {
+                    containerVisualFactory.TriggerOrderedVisualsAnimation(50, 500);
+                }
+            }
         }
     }
 }

@@ -45,6 +45,7 @@ namespace Telerik.UI.Xaml.Controls.Map
             this.distribution = new LinearRangeDistribution();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
             add
@@ -115,8 +116,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Gets the <see cref="ColorRange"/> instance where the specified shape falls.
         /// </summary>
-        /// <param name="shape"></param>
-        /// <returns></returns>
         public ColorRange GetRangeForShape(IMapShape shape)
         {
             if (shape == null)
@@ -137,7 +136,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Gets the <see cref="D2DShapeStyle" /> instance that defines the appearance of the specified <see cref="IMapShape" /> instance.
         /// </summary>
         /// <param name="shape">The <see cref="IMapShape" /> instance for which the style is to be retrieved.</param>
-        /// <returns></returns>
         protected internal override D2DShapeStyle GetShapeStyle(IMapShape shape)
         {
             var range = this.GetRangeForShape(shape);
@@ -153,7 +151,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Gets the <see cref="ColorRange"/> instance at the specified index.
         /// </summary>
         /// <param name="rangeIndex">The zero-based index of the range.</param>
-        /// <returns></returns>
         protected ColorRange GetRangeAt(int rangeIndex)
         {
             if (rangeIndex < 0 || rangeIndex >= this.ranges.Count)
@@ -167,15 +164,12 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Gets the count of the ranges that will be generated.
         /// </summary>
-        /// <returns></returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         protected abstract int GetRangeCount();
 
         /// <summary>
         /// Provides the core logic behind range generation. Allows inheritors to provide custom range generation routine.
         /// </summary>
-        /// <param name="shapes"></param>
-        /// <returns></returns>
         protected virtual IEnumerable<ColorRange> BuildRanges(IEnumerable<IMapShape> shapes)
         {
             int rangeCount = this.GetRangeCount();
@@ -194,8 +188,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Gets the <see cref="ColorRange"/> instance where the specified value falls.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
         protected virtual ColorRange GetRangeForValue(double value)
         {
             if (value == double.NegativeInfinity || this.distribution == null)
@@ -230,7 +222,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Implements the core logic behind the Initialize routine.
         /// </summary>
         /// <param name="shapes">The set of shapes to initialize from.</param>
-        /// <returns></returns>
         protected override bool InitializeOverride(IEnumerable<IMapShape> shapes)
         {
             if (string.IsNullOrEmpty(this.attributeNameCache))
@@ -271,7 +262,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Sets the <see cref="D2DBrush"/> instance that defines the fill for each shape falling within the range.
         /// </summary>
-        /// <param name="range"></param>
         protected virtual void SetFillForRange(ColorRange range)
         {
         }
@@ -279,8 +269,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Provides an extension point for inheritors to perform additional logic when a <see cref="IMapShape"/> is associated with a valid <see cref="ColorRange"/>.
         /// </summary>
-        /// <param name="shape"></param>
-        /// <param name="range"></param>
         protected virtual void OnShapeAssociated(IMapShape shape, ColorRange range)
         {
         }

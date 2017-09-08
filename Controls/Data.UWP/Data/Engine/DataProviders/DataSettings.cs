@@ -52,7 +52,7 @@ namespace Telerik.Data.Core
                 if (this.aggregatesLevel != value)
                 {
                     this.aggregatesLevel = value;
-                    this.OnPropertyChanged(nameof(AggregatesLevel));
+                    this.OnPropertyChanged(nameof(this.AggregatesLevel));
                     this.NotifyLayoutChanged();
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }
@@ -71,7 +71,7 @@ namespace Telerik.Data.Core
                 if (this.aggregatesPosition != value)
                 {
                     this.aggregatesPosition = value;
-                    this.OnPropertyChanged(nameof(AggregatesPosition));
+                    this.OnPropertyChanged(nameof(this.AggregatesPosition));
                     this.NotifyLayoutChanged();
                     this.NotifyChange(new SettingsChangedEventArgs());
                 }

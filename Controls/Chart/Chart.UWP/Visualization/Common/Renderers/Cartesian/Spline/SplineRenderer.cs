@@ -7,7 +7,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 {
     internal class SplineRenderer : LineRenderer
     {
-        protected override IEnumerable<Point> GetPoints(DataPointSegment segment)
+        protected internal override IEnumerable<Point> GetPoints(DataPointSegment segment)
         {
             // return the first point since spline segmentation skips it
             yield return this.renderPoints[segment.StartIndex].Center();

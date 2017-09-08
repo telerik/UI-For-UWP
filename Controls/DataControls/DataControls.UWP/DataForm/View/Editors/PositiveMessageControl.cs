@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
-    public class PositiveMessageControl:ContentControl
+    /// <summary>
+    /// Represents a PositiveMessageControl control.
+    /// </summary>
+    public class PositiveMessageControl : ContentControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PositiveMessageControl"/> class.
+        /// </summary>
         public PositiveMessageControl()
         {
             this.DefaultStyleKey = typeof(PositiveMessageControl);

@@ -14,7 +14,7 @@ namespace Telerik.Data.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="RuntimeEntityProperty"/> class.
         /// </summary>
-        /// <param name="property">The property info that object is accosiated with.</param>
+        /// <param name="property">The property info that object is associated with.</param>
         /// <param name="item">The data item.</param>
         /// <param name="converter">The converter. Optionally you can convert your source property to a different format depending on the UI and scenario.</param>
         public RuntimeEntityProperty(PropertyInfo property, object item, IPropertyConverter converter) : base(property, item, converter)
@@ -26,7 +26,7 @@ namespace Telerik.Data.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="RuntimeEntityProperty"/> class.
         /// </summary>
-        /// <param name="property">The property info that object is accosiated with.</param>
+        /// <param name="property">The property info that object is associated with.</param>
         /// <param name="item">The data item.</param>
         public RuntimeEntityProperty(PropertyInfo property, object item) : this(property, item, null)
         {
@@ -39,7 +39,6 @@ namespace Telerik.Data.Core
         /// <summary>
         /// Gets the original value from the source object.
         /// </summary>
-        /// <returns></returns>
         public override object GetOriginalValue()
         {
             if (this.GetMethod != null)
@@ -51,7 +50,7 @@ namespace Telerik.Data.Core
         }
 
         /// <summary>
-        /// Commits the pending value in proeprty value to the data item.
+        /// Commits the pending value in property value to the data item.
         /// </summary>
         public override void Commit()
         {
@@ -78,7 +77,6 @@ namespace Telerik.Data.Core
         /// Gets the index of the property.
         /// </summary>
         /// <param name="property">The property.</param>
-        /// <returns></returns>
         protected override int GetPropertyIndex(object property)
         {
             var propertyInfo = property as PropertyInfo;
@@ -94,8 +92,7 @@ namespace Telerik.Data.Core
 
             return 0;
         }
-
-
+        
         /// <inheritdoc />
         protected override string GetPropertyGroupKey(object property)
         {
@@ -227,10 +224,11 @@ namespace Telerik.Data.Core
             return null;
         }
 
+        /// <inheritdoc />
         protected override INumericalRange GetValueRange(object property)
         {
             var propertyInfo = property as PropertyInfo;
-            if(propertyInfo != null)
+            if (propertyInfo != null)
             {
                 var rangeAttr = propertyInfo.GetCustomAttribute(typeof(ValueRangeAttribute)) as ValueRangeAttribute;
                 if (rangeAttr != null)

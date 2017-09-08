@@ -5,6 +5,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     internal class ScrollUpdateService
     {
         private Queue<DelegateUpdate> updatesQueue;
+
         public ScrollUpdateService()
         {
             this.updatesQueue = new Queue<DelegateUpdate>();

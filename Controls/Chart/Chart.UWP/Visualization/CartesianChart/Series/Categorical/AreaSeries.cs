@@ -1,4 +1,5 @@
-﻿using Telerik.Charting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Telerik.Charting;
 using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.UI.Xaml;
@@ -54,6 +55,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets a value indicating whether the <see cref="Fill"/> property has been set locally.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IFilledSeries.IsFillSetLocally
         {
             get
@@ -152,10 +154,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
             return applied;
         }
 
+        /// <inheritdoc/>
         protected override Point[] SelectRectPoints(ref Rect touchRect)
         {
             if (touchRect.Width == 0)
+            {
                 return new Point[] { new Point(touchRect.Left, touchRect.Top) };
+            }
             else
             {
                 return new Point[] 
@@ -166,9 +171,10 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     new Point(touchRect.Left, touchRect.Top),
                     new Point((touchRect.Left + touchRect.Right) / 2, (touchRect.Top + touchRect.Bottom) / 2)
                 };
-            };
+            }
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new AreaSeriesAutomationPeer(this);

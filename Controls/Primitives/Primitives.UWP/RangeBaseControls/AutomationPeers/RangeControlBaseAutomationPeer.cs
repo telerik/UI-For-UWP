@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls;
-using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RangeControlBase class.
+    /// </summary>
     public class RangeControlBaseAutomationPeer : RadHeaderedControlAutomationPeer
     {
         /// <summary>
-        /// Initializes a new instance of the RangeControlBase class.
+        /// Initializes a new instance of the <see cref="RangeControlBaseAutomationPeer"/> class.
         /// </summary>
         /// <param name="owner">The owner.</param>
         public RangeControlBaseAutomationPeer(RangeControlBase owner) 
             : base(owner)
         {
-
         }
 
         private RangeControlBase RangeControlBase
@@ -44,7 +42,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
         }

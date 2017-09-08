@@ -267,7 +267,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets an instance of the <see cref="DateTime"/> struct that represents
+        /// Gets or sets an instance of the <see cref="System.DateTime"/> struct that represents
         /// the default value displayed in the selector part when opened. The default value is shown
         /// when the <see cref="DateTimePicker.Value"/> property is set to <c>null</c>.
         /// </summary>
@@ -734,24 +734,16 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal Size GetSelectorSize()
         {
-            // In Windows Phone App the Popup should match the size of the screen.
-#if WINDOWS_PHONE_APP
-            return new Size(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-#elif WINDOWS_UWP
             var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             if (AnalyticsInfo.VersionInfo.DeviceFamily.Equals(DeviceFamilyMobileName) && view != null)
             {
-                //TODO refactor this to use width and height and compensate for ofset of the bounds x and y. Also consider resize the view if entering/exiting full screen.
+                // TODO refactor this to use width and height and compensate for ofset of the bounds x and y. Also consider resize the view if entering/exiting full screen.
                 return new Size(view.VisibleBounds.Right, view.VisibleBounds.Bottom);
             }
             else
             {
                 return this.CalculateSelectorSize();
             }
-
-#else
-            return this.CalculateSelectorSize();
-#endif
         }
 
         internal DateTime GetValueFromKind(DateTime date)
@@ -824,22 +816,17 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.UnhookCoreWindowEvents();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Removes the current control template. Occurs when a template has already been applied and a new one is applied.
+        /// </summary>
         protected override void UnapplyTemplateCore()
         {
             base.UnapplyTemplateCore();
 
             this.UnhookCoreWindowEvents();
 
-#if WINDOWS_PHONE_APP
-            this.commandBarOKButton.Click -= this.OnSelectorOKButtonClick;
-            this.commandBarCancelButton.Click -= this.OnSelectorCancelButtonClick;
-#endif
-
-#if !WINDOWS_PHONE_APP
             this.selectorOKButton.Click -= this.OnSelectorOKButtonClick;
             this.selectorCancelButton.Click -= this.OnSelectorCancelButtonClick;
-#endif
 
             this.pickerButton.Click -= this.OnPickerButtonClick;
             this.popup.Opened -= this.OnPopupOpened;
@@ -904,17 +891,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             base.OnTemplateApplied();
 
             this.pickerButton.Click += this.OnPickerButtonClick;
-
-#if WINDOWS_PHONE_APP
-            this.commandBarOKButton.Click += this.OnSelectorOKButtonClick;
-            this.commandBarCancelButton.Click += this.OnSelectorCancelButtonClick;
-#endif
-
-#if !WINDOWS_PHONE_APP
+            
             this.selectorOKButton.Click += this.OnSelectorOKButtonClick;
             this.selectorCancelButton.Click += this.OnSelectorCancelButtonClick;
-#endif
-
+            
             this.popup.Opened += this.OnPopupOpened;
             this.popup.Closed += this.OnPopupClosed;
 
@@ -927,12 +907,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.dateTimeLists.Sort(this.CompareDateTimeListByGridColumn);
             this.UpdateDateTimeListsTabMode();
 
-#if WINDOWS_PHONE_APP
-            this.commandBarOKButton.Content = InputLocalizationManager.Instance.GetString("OKText");
-            this.commandBarCancelButton.Content = InputLocalizationManager.Instance.GetString("CancelText");
-#endif
-
-#if !WINDOWS_PHONE_APP
             this.selectorOKButton.Content = InputLocalizationManager.Instance.GetString("OKText");
             this.selectorCancelButton.Content = InputLocalizationManager.Instance.GetString("CancelText");
 
@@ -941,8 +915,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.UpdateDisplayMode();
                 return;
             }
-#endif
-
+            
             if (this.IsOpen)
             {
                 // IsOpen is set in XAML, update the selector size and position
@@ -1031,9 +1004,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 picker.PrepareSelector();
             }
         }
-
-
-#if WINDOWS_UWP ||WINDOWS_APP
+        
         private Size CalculateSelectorSize()
         {
             double itemLength = this.ItemLength;
@@ -1069,6 +1040,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 width = this.ActualWidth;
             }
+
             // TODO: This is very HACKY, it overcomes an anti-alias problem with single item within the lists
             // TODO: Check with next version of the framework
             if (height % 2 == 0)
@@ -1081,7 +1053,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             return new Size(width, height);
         }
-#endif
         private FrameworkElement FindPage()
         {
             Frame frame = Window.Current.Content as Frame;
@@ -1292,33 +1263,21 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             Point location = this.TransformToVisual(Window.Current.Content).TransformPoint(new Point(0, 0));
 
-#if WINDOWS_PHONE_APP
-           PositionPopupOnWholeScreen(location);
-#endif
-#if WINDOWS_APP
-            PositionPopupOverPickerButton(popupSize, location);
-#endif
-#if WINDOWS_UWP
-
-           var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
+            var view = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             if (view != null && view.VisibleBounds.Width < 720)
             {
-                PositionPopupOnWholeScreen(location);
+                this.PositionPopupOnWholeScreen(location);
             }
             else
             {
-                PositionPopupOverPickerButton(popupSize, location);
+                this.PositionPopupOverPickerButton(popupSize, location);
             }
-#endif
         }
 
         private void PositionPopupOverPickerButton(Size popupSize, Point location)
         {
-#if WINDOWS_UWP
             Rect screen = ApplicationView.GetForCurrentView().VisibleBounds;
-#else
-            Rect screen = Window.Current.Bounds;
-#endif
+
             double width = this.ActualWidth;
             if (width == 0)
             {
@@ -1581,7 +1540,6 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return;
             }
 
-#if !WINDOWS_PHONE_APP
             if (this.DisplayMode == DateTimePickerDisplayMode.Inline)
             {
                 FrameworkElement content = this.popup.Child as FrameworkElement;
@@ -1614,7 +1572,6 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.InvalidateMeasure();
                 return;
             }
-#endif
 
             UIElement popupChild = null;
             foreach (FrameworkElement child in layoutRoot.Children)

@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadGauge"/>.
+    /// </summary>
     public class RadGaugeAutomationPeer : RadControlAutomationPeer, IRangeValueProvider
     {
         /// <summary>
@@ -18,86 +21,49 @@ namespace Telerik.UI.Automation.Peers
             : base(owner)
         {
         }
-
-        private RadGauge Gauge
+        
+        /// <inheritdoc />
+        public double Value
         {
             get
             {
-                return (RadGauge)this.Owner;
-            }
-        }
+                var arrowIndicator = this.Gauge.Indicators.FirstOrDefault(a => a is ArrowGaugeIndicator);
+                if (arrowIndicator != null)
+                {
+                    return arrowIndicator.Value;
+                }
 
-        /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return nameof(RadGauge);
-        }
+                var markerIndicator = this.Gauge.Indicators.FirstOrDefault(a => a is MarkerGaugeIndicator);
+                if (markerIndicator != null)
+                {
+                    return markerIndicator.Value;
+                }
 
-        /// <inheritdoc />
-        protected override string GetHelpTextCore()
-        {
-            return nameof(RadGauge);
-        }
+                if (this.Gauge is RadLinearGauge)
+                {
+                    var linearIndicator = this.Gauge.Indicators.FirstOrDefault(a => a is LinearBarGaugeIndicator);
+                    if (linearIndicator != null)
+                    {
+                        return linearIndicator.Value;
+                    }
+                }
 
-        /// <inheritdoc />
-        protected override string GetLocalizedControlTypeCore()
-        {
-            return "rad gauge";
-        }
+                if (this.Gauge is RadRadialGauge)
+                {
+                    var radialIndicator = this.Gauge.Indicators.FirstOrDefault(a => a is RadialBarGaugeIndicator);
+                    if (radialIndicator != null)
+                    {
+                        return radialIndicator.Value;
+                    }
+                }
 
-        /// <inheritdoc />
-        protected override bool HasKeyboardFocusCore()
-        {
-            return true;
-        }
+                var defaultIndicator = this.Gauge.Indicators.FirstOrDefault();
+                if (defaultIndicator != null)
+                {
+                    return defaultIndicator.Value;
+                }
 
-        /// <inheritdoc />
-        protected override string GetAutomationIdCore()
-        {
-            var automationId = base.GetAutomationIdCore();
-            if (!string.IsNullOrEmpty(automationId))
-            {
-                return automationId;
-            }
-
-            return nameof(RadGauge);
-        }
-
-        /// <inheritdoc />
-        protected override AutomationControlType GetAutomationControlTypeCore()
-        {
-            return AutomationControlType.Spinner;
-        }
-
-        /// <inheritdoc />
-        protected override object GetPatternCore(PatternInterface patternInterface)
-        {
-            if (patternInterface == PatternInterface.RangeValue)
-            {
-                return this;
-            }
-
-            return base.GetPatternCore(patternInterface);
-        }
-
-        /// <summary>
-        /// IRangeValueProvider implementation.
-        /// </summary>
-        public void SetValue(double value)
-        {
-            if (!this.IsEnabled())
-            {
-                throw new ElementNotEnabledException();
-            }
-            
-            if ((value < this.Gauge.MinValue) || (value > this.Gauge.MaxValue))
-            {
-                throw new ArgumentOutOfRangeException("value");
-            }
-
-            foreach (var indicator in this.Gauge.Indicators)
-            {
-                indicator.Value = value;
+                return this.Gauge.MinValue;
             }
         }
 
@@ -126,50 +92,32 @@ namespace Telerik.UI.Automation.Peers
         /// </summary>
         public double SmallChange => this.Gauge.TickStep;
 
-        /// <summary>
-        /// IRangeValueProvider implementation.
-        /// </summary>
-        public double Value
+        private RadGauge Gauge
         {
             get
             {
-                var arrowIndicator = this.Gauge.Indicators.Where(a => a is ArrowGaugeIndicator).FirstOrDefault();
-                if (arrowIndicator != null)
-                {
-                    return arrowIndicator.Value;
-                }
+                return (RadGauge)this.Owner;
+            }
+        }
 
-                var markerIndicator = this.Gauge.Indicators.Where(a => a is MarkerGaugeIndicator).FirstOrDefault();
-                if (markerIndicator != null)
-                {
-                    return markerIndicator.Value;
-                }
+        /// <summary>
+        /// IRangeValueProvider implementation.
+        /// </summary>
+        public void SetValue(double value)
+        {
+            if (!this.IsEnabled())
+            {
+                throw new ElementNotEnabledException();
+            }
 
-                if (this.Gauge is RadLinearGauge)
-                {
-                    var linearIndicator = this.Gauge.Indicators.Where(a => a is LinearBarGaugeIndicator).FirstOrDefault();
-                    if (linearIndicator != null)
-                    {
-                        return linearIndicator.Value;
-                    }
-                }
+            if ((value < this.Gauge.MinValue) || (value > this.Gauge.MaxValue))
+            {
+                throw new ArgumentOutOfRangeException("value");
+            }
 
-                if (this.Gauge is RadRadialGauge)
-                {
-                    var radialIndicator = this.Gauge.Indicators.Where(a => a is RadialBarGaugeIndicator).FirstOrDefault();
-                    if (radialIndicator != null)
-                    {
-                        return radialIndicator.Value;
-                    }
-                }
-
-                var defaultIndicator = this.Gauge.Indicators.FirstOrDefault();
-                if (defaultIndicator != null)
-                {
-                    return defaultIndicator.Value;
-                }
-
-                return this.Gauge.MinValue;
+            foreach (var indicator in this.Gauge.Indicators)
+            {
+                indicator.Value = value;
             }
         }
 
@@ -183,6 +131,59 @@ namespace Telerik.UI.Automation.Peers
         internal void RaiseMinimumPropertyChangedEvent(double oldValue, double newValue)
         {
             this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MinimumProperty, oldValue, newValue);
+        }
+
+        /// <inheritdoc />
+        protected override string GetClassNameCore()
+        {
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.RadGauge);
+        }
+
+        /// <inheritdoc />
+        protected override string GetHelpTextCore()
+        {
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.RadGauge);
+        }
+
+        /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
+        {
+            return "rad gauge";
+        }
+
+        /// <inheritdoc />
+        protected override bool HasKeyboardFocusCore()
+        {
+            return true;
+        }
+
+        /// <inheritdoc />
+        protected override string GetAutomationIdCore()
+        {
+            var automationId = base.GetAutomationIdCore();
+            if (!string.IsNullOrEmpty(automationId))
+            {
+                return automationId;
+            }
+
+            return nameof(Telerik.UI.Xaml.Controls.DataVisualization.RadGauge);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Spinner;
+        }
+
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.RangeValue)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
         }
     }
 }

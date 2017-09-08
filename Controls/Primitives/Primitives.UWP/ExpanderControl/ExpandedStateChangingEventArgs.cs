@@ -20,7 +20,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
-        /// Gets a boolean value determining whether the <see cref="RadExpanderControl"/> is being expanded or collapsed.
+        /// Gets a value indicating whether the <see cref="RadExpanderControl"/> is being expanded or collapsed.
         /// </summary>
         public bool IsExpanding
         {

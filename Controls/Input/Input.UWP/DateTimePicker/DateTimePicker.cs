@@ -519,6 +519,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             return baseSize;
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DateTimePickerAutomationPeer(this);

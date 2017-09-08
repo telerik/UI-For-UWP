@@ -6,14 +6,14 @@ namespace Telerik.Data.Core.Layouts
 {
     internal class CompactLayout : BaseLayout
     {
-
         internal Dictionary<object, GroupInfo> itemInfoTable = new Dictionary<object, GroupInfo>();
         internal IndexToValueTable<bool> collapsedSlotsTable;
+        internal double averageItemLength;
         private IndexToValueTable<GroupInfo> groupHeadersTable;
         private IHierarchyAdapter hierarchyAdapter;
         private IRenderInfo renderInfo;
-        internal double averageItemLength;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public CompactLayout(IHierarchyAdapter adapter, double defaultItemLength)
         {
             if (adapter == null)
@@ -33,34 +33,12 @@ namespace Telerik.Data.Core.Layouts
             this.renderInfo = new IndexStorage(this.TotalSlotCount, this.DefaultItemLength);
         }
 
-        protected IHierarchyAdapter HierarchyAdapter
+        public override int GroupCount
         {
             get
             {
-                return this.hierarchyAdapter;
+                return this.groupHeadersTable.IndexCount;
             }
-        }
-
-        protected IndexToValueTable<GroupInfo> GroupHeadersTable
-        {
-            get
-            {
-                return this.groupHeadersTable;
-            }
-        }
-
-
-        protected Dictionary<object, GroupInfo> ItemInfoTable
-        {
-            get
-            {
-                return this.itemInfoTable;
-            }
-        }
-
-        internal override int IndexFromSlot(int slotToRequest)
-        {
-            return slotToRequest;
         }
 
         internal int RenderInfoCount
@@ -84,11 +62,27 @@ namespace Telerik.Data.Core.Layouts
             }
         }
 
-        public override int GroupCount
+        protected IHierarchyAdapter HierarchyAdapter
         {
             get
             {
-                return this.groupHeadersTable.IndexCount;
+                return this.hierarchyAdapter;
+            }
+        }
+
+        protected IndexToValueTable<GroupInfo> GroupHeadersTable
+        {
+            get
+            {
+                return this.groupHeadersTable;
+            }
+        }
+
+        protected Dictionary<object, GroupInfo> ItemInfoTable
+        {
+            get
+            {
+                return this.itemInfoTable;
             }
         }
 
@@ -193,6 +187,21 @@ namespace Telerik.Data.Core.Layouts
         {
             var groupInfo = this.GetGroupInfo(item);
             return groupInfo != null ? !groupInfo.IsExpanded : false;
+        }
+        
+        internal static void UpdateParentGroupInfosLastSlot(int count, GroupInfo groupInfo)
+        {
+            GroupInfo parentGroupInfo = groupInfo != null ? groupInfo.Parent : null;
+            while (parentGroupInfo != null)
+            {
+                parentGroupInfo.LastSubItemSlot += count;
+                parentGroupInfo = parentGroupInfo.Parent;
+            }
+        }
+
+        internal override int IndexFromSlot(int slotToRequest)
+        {
+            return slotToRequest;
         }
 
         internal override void RefreshRenderInfo(bool force)
@@ -615,6 +624,32 @@ namespace Telerik.Data.Core.Layouts
             return treeCount;
         }
 
+        internal int GetInsertedGroupSlot(object changedItem, int itemIndex)
+        {
+            GroupInfo changedItemInfo = this.GetGroupInfo(changedItem);
+
+            if (itemIndex == 0)
+            {
+                return changedItemInfo != null ? changedItemInfo.Index + 1 : itemIndex;
+            }
+
+            // We get the previous group GroupInfo and then calculate the Slot because the new one is not indexed yet.
+            var group = this.hierarchyAdapter.GetItemAt(changedItem, itemIndex - 1);
+            var groupInfo = this.GetGroupInfo(group);
+            return groupInfo.LastSubItemSlot + 1;
+        }
+
+        internal void UpdateGroupHeadersTable(int groupIndex, int count)
+        {
+            // Update groups after current one.
+            foreach (var nextGroupIndex in this.groupHeadersTable.GetIndexes(groupIndex + 1))
+            {
+                GroupInfo nextGroupInfo = this.groupHeadersTable.GetValueAt(nextGroupIndex);
+                nextGroupInfo.Index += count;
+                nextGroupInfo.LastSubItemSlot += count;
+            }
+        }
+        
         internal override IList<ItemInfo> GetItemInfosAtSlot(int visibleLine, int slot)
         {
             List<ItemInfo> items = new List<ItemInfo>();
@@ -753,16 +788,6 @@ namespace Telerik.Data.Core.Layouts
             }
         }
 
-        internal static void UpdateParentGroupInfosLastSlot(int count, GroupInfo groupInfo)
-        {
-            GroupInfo parentGroupInfo = groupInfo != null ? groupInfo.Parent : null;
-            while (parentGroupInfo != null)
-            {
-                parentGroupInfo.LastSubItemSlot += count;
-                parentGroupInfo = parentGroupInfo.Parent;
-            }
-        }
-
         private HashSet<object> CopyCollapsedStates()
         {
             HashSet<object> hashSet = new HashSet<object>();
@@ -782,18 +807,6 @@ namespace Telerik.Data.Core.Layouts
         {
             int itemLevel = groupInfo.Level;
             bool hasItems = Enumerable.Any(this.hierarchyAdapter.GetItems(groupInfo.Item));
-            //  if (this.TotalsCount > 1)
-            //{
-            //    if (this.AggregatesLevel >= this.GroupLevels - 1)
-            //    {
-            //        return hasItems && itemLevel < this.GroupLevels - 2;
-            //    }
-            //    else
-            //    {
-            //        return hasItems && itemLevel != this.AggregatesLevel;
-            //    }
-            //}
-            //else
             {
                 return hasItems;
             }
@@ -808,23 +821,6 @@ namespace Telerik.Data.Core.Layouts
             slotSpan = groupInfo.GetLineSpan() - 1;
 
             int aggregatesLevel = this.ShowAggregateValuesInline ? this.AggregatesLevel - 1 : this.AggregatesLevel;
-
-            //if (this.TotalsCount > 1 && itemLevel < aggregatesLevel)
-            //{
-            //    switch (this.TotalsPosition)
-            //    {
-            //        case TotalsPosition.Last:
-            //            slotSpan -= this.TotalsCount;
-            //            break;
-            //        case TotalsPosition.Inline:
-            //        case TotalsPosition.First:
-            //            slot += this.TotalsCount;
-            //            slotSpan -= this.TotalsCount;
-            //            break;
-            //        case TotalsPosition.None:
-            //            break;
-            //    }
-            //}
         }
 
         private void CollapseCore(GroupInfo info, bool raiseExpanded)
@@ -870,35 +866,9 @@ namespace Telerik.Data.Core.Layouts
             }
         }
 
-        internal void UpdateGroupHeadersTable(int groupIndex, int count)
-        {
-            // Update groups after current one.
-            foreach (var nextGroupIndex in this.groupHeadersTable.GetIndexes(groupIndex + 1))
-            {
-                GroupInfo nextGroupInfo = this.groupHeadersTable.GetValueAt(nextGroupIndex);
-                nextGroupInfo.Index += count;
-                nextGroupInfo.LastSubItemSlot += count;
-            }
-        }
-
         private void RemoveGroupInfo(GroupInfo groupInfo)
         {
             this.itemInfoTable.Remove(groupInfo.Item);
-        }
-
-        internal int GetInsertedGroupSlot(object changedItem, int itemIndex)
-        {
-            GroupInfo changedItemInfo = this.GetGroupInfo(changedItem);
-
-            if (itemIndex == 0)
-            {
-                return changedItemInfo != null ? changedItemInfo.Index + 1 : itemIndex;
-            }
-
-            // We get the previous group GroupInfo and then calculate the Slot because the new one is not indexed yet.
-            var group = this.hierarchyAdapter.GetItemAt(changedItem, itemIndex - 1);
-            var groupInfo = this.GetGroupInfo(group);
-            return groupInfo.LastSubItemSlot + 1;
         }
     }
 }

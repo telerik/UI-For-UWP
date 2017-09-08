@@ -2,11 +2,17 @@
 
 namespace Telerik.Data.Core
 {
+    /// <summary>
+    /// Represents the class for all descriptors that define a grouping operation within a data instance.
+    /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class CollectionViewGroupDescriptor : GroupDescriptorBase
     {
         private CollectionViewGroupDescription groupDescription;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CollectionViewGroupDescriptor"/> class.
+        /// </summary>
         public CollectionViewGroupDescriptor()
         {
         }
@@ -21,6 +27,14 @@ namespace Telerik.Data.Core
                 }
 
                 return this.groupDescription;
+            }
+        }
+
+        internal override bool IsDelegate
+        {
+            get
+            {
+                return true;
             }
         }
 
@@ -50,14 +64,5 @@ namespace Telerik.Data.Core
 
             base.PropertyChangedOverride(changedPropertyName);
         }
-
-        internal override bool IsDelegate
-        {
-            get
-            {
-                return true;
-            }
-        }
     }
-
 }

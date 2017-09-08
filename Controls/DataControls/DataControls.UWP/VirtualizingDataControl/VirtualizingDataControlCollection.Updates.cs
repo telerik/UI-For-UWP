@@ -110,16 +110,20 @@ namespace Telerik.UI.Xaml.Controls.Data
                 case NotifyCollectionChangedAction.Add:
                     this.virtualizationStrategy.RefreshViewportOnItemAdded(e.NewItems[0] as IDataSourceItem);
                     break;
+
                 case NotifyCollectionChangedAction.Remove:
                     this.virtualizationStrategy.RefreshViewportOnItemRemoved(e.OldStartingIndex, e.OldItems[0] as IDataSourceItem);
                     break;
+
                 case NotifyCollectionChangedAction.Replace:
                     this.virtualizationStrategy.RefreshViewportOnItemReplaced(e.NewItems[0] as IDataSourceItem);
                     break;
+
                 case NotifyCollectionChangedAction.Move:
                     this.virtualizationStrategy.RefreshViewportOnItemRemoved(e.OldStartingIndex, e.OldItems[0] as IDataSourceItem);
                     this.virtualizationStrategy.RefreshViewportOnItemAdded(e.NewItems[0] as IDataSourceItem);
                     break;
+
                 case NotifyCollectionChangedAction.Reset:
                     this.virtualizationStrategy.OnSourceCollectionReset();
                     this.OnCollectionReset();
@@ -141,9 +145,9 @@ namespace Telerik.UI.Xaml.Controls.Data
                 }
             }
 
-            return this.itemRemovedBatchAnimationScheduled = areAnimatableItemsInViewport && 
-                                                                (this.itemAnimationModeCache & ItemAnimationMode.PlayOnSourceReset) != 0 && 
-                                                                this.itemRemovedAnimationCache != null && 
+            return this.itemRemovedBatchAnimationScheduled = areAnimatableItemsInViewport &&
+                                                                (this.itemAnimationModeCache & ItemAnimationMode.PlayOnSourceReset) != 0 &&
+                                                                this.itemRemovedAnimationCache != null &&
                                                                 this.realizedItems.Count > 0;
         }
 

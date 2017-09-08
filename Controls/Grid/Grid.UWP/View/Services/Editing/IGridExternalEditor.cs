@@ -1,21 +1,41 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.UI.Xaml.Controls.Grid.Primitives;
-using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Grid
 {
+    /// <summary>
+    /// Represents an IGridExternalEditor class.
+    /// </summary>
     public interface IGridExternalEditor
     {
-        void BeginEdit(object item, RadDataGrid owner);
-        void CancelEdit();
-        void CommitEdit();
+        /// <summary>
+        /// Occurs when an edit operation on the item is cancelled.
+        /// </summary>
         event EventHandler EditCancelled;
+
+        /// <summary>
+        /// Occurs when an edit operation on the item is committed.
+        /// </summary>
         event EventHandler EditCommitted;
+
+        /// <summary>
+        /// Gets or sets the position of the ExternalEditor.
+        /// </summary>
         ExternalEditorPosition Position { get; set; }
+
+        /// <summary>
+        /// Begins edit on the passed item.
+        /// </summary>
+        void BeginEdit(object item, RadDataGrid owner);
+
+        /// <summary>
+        /// Cancels edit on the passed item.
+        /// </summary>
+        void CancelEdit();
+
+        /// <summary>
+        /// Commits edit on the passed item.
+        /// </summary>
+        void CommitEdit();
     }
 }

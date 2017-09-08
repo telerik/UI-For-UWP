@@ -7,20 +7,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
     public partial class DataGridServicePanelGroupingFlyout : IReorderItemsHost
     {
-        internal override void SetupDragDropProperties(IReorderItem item, int logicalIndex)
-        {
-            base.SetupDragDropProperties(item, logicalIndex);
-            if (this.Owner.Owner.GroupDescriptors.Count > 1)
-            {
-                DragDrop.SetAllowDrag(item.Visual, true);
-            }
-        }
-
-        internal override void CommitReorderOperation(int sourceIndex, int destinationIndex)
-        {
-            this.Owner.Owner.DragBehavior.ReorderGroupDescriptor(sourceIndex, destinationIndex);
-        }
-
         void IReorderItemsHost.OnItemsReordered(IReorderItem sourceItem, IReorderItem destinationItem)
         {
             if (sourceItem == null || destinationItem == null)
@@ -34,6 +20,19 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
             sourceVisual.BottomGlyphOpacity = sourceItem.LogicalIndex == childrenCount - 1 ? 0.0 : 1;
             destinationVisual.BottomGlyphOpacity = destinationItem.LogicalIndex == childrenCount - 1 ? 0.0 : 1;
+        }
+        internal override void SetupDragDropProperties(IReorderItem item, int logicalIndex)
+        {
+            base.SetupDragDropProperties(item, logicalIndex);
+            if (this.Owner.Owner.GroupDescriptors.Count > 1)
+            {
+                DragDrop.SetAllowDrag(item.Visual, true);
+            }
+        }
+
+        internal override void CommitReorderOperation(int sourceIndex, int destinationIndex)
+        {
+            this.Owner.Owner.DragBehavior.ReorderGroupDescriptor(sourceIndex, destinationIndex);
         }
     }
 }

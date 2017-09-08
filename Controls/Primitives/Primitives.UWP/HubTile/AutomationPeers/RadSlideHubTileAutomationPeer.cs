@@ -2,8 +2,12 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadSlideHubTile class.
+    /// </summary>
     public class RadSlideHubTileAutomationPeer : HubTileBaseAutomationPeer
     {
+        /// <inheritdoc />
         public RadSlideHubTileAutomationPeer(RadSlideHubTile owner) 
             : base(owner)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Telerik.Core;
 using Telerik.UI.Automation.Peers;
@@ -132,6 +133,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(CellStyleSelector), typeof(CalendarCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnCellStyleSelectorPropertyChanged));
 
         /// <summary>
+        /// Identifies the <see cref="HeaderContentTemplate"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty HeaderContentTemplateProperty =
+            DependencyProperty.Register(nameof(HeaderContentTemplate), typeof(DataTemplate), typeof(RadCalendar), new PropertyMetadata(null, OnHeaderContentTemplatePropertyChanged));
+        
+        /// <summary>
+        /// Identifies the <see cref="HeaderContent"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty HeaderContentProperty =
+            DependencyProperty.Register(nameof(HeaderContent), typeof(object), typeof(RadCalendar), new PropertyMetadata(null, OnHeaderContentPropertyChanged));
+        
+        /// <summary>
         /// Identifies the <see cref="CellStateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CellStateSelectorProperty =
@@ -144,7 +157,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(DayNameCellStyleSelector), typeof(CalendarDayNameCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnDayNameCellStyleSelectorPropertyChanged));
 
         /// <summary>
-        /// Identifies the <see cref="WeekNumberStyleSelector"/> dependency property.
+        /// Identifies the <see cref="WeekNumberCellStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WeekNumberCellStyleSelectorProperty =
             DependencyProperty.Register(nameof(WeekNumberCellStyleSelector), typeof(CalendarWeekNumberCellStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnWeekNumberStyleSelectorPropertyChanged));
@@ -300,8 +313,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private CalendarCellModel highlightedCellCache;
         private DateTime pointerOverDateCache;
-
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="RadCalendar"/> class.
         /// </summary>
@@ -318,21 +330,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.inputService = new InputService(this);
             this.CurrencyService = new CurrencyService(this);
         }
-
-        ///// <summary>
-        ///// Occurs when the collection returned by the <see cref="SelectedDateRanges"/> property is changed.
-        ///// </summary>
-        //public event EventHandler SelectionChanged
-        //{
-        //    add
-        //    {
-        //        this.SelectionService.SelectionChanged += value;
-        //    }
-        //    remove
-        //    {
-        //        this.SelectionService.SelectionChanged -= value;
-        //    }
-        //}
 
         /// <summary>
         /// Occurs when the collection returned by the <see cref="SelectedDateRanges"/> property is changed.
@@ -469,7 +466,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Gets or sets the current date to display.
         /// </summary>
         /// <value>
-        /// The default value is <see cref="DateTime.Today"/>.
+        /// The default value is <see cref="System.DateTime.Today"/>.
         /// </value>
         /// <example>
         /// <code language="xaml">
@@ -1079,6 +1076,36 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
+        /// Gets or sets the Style the content of the navigation header.
+        /// </summary>
+        public DataTemplate HeaderContentTemplate
+        {
+            get
+            {
+                return (DataTemplate)GetValue(HeaderContentTemplateProperty);
+            }
+            set
+            {
+                this.SetValue(HeaderContentTemplateProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the content of the navigation header.
+        /// </summary>
+        public object HeaderContent
+        {
+            get
+            {
+                return (object)GetValue(HeaderContentProperty);
+            }
+            set
+            {
+                SetValue(HeaderContentProperty, value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the custom logic for customizing the state (behavior) for each calendar cell.
         /// </summary>
         /// <example>
@@ -1538,6 +1565,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportWidth
         {
             get
@@ -1546,6 +1574,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportHeight
         {
             get
@@ -1554,6 +1583,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IElementPresenter.IsVisible
         {
             get
@@ -1621,11 +1651,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.Invalidate();
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         void IElementPresenter.RefreshNode(object node)
         {
             this.Invalidate();
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         RadSize IElementPresenter.MeasureContent(object owner, object content)
         {
             // we know how to measure only header cells content
@@ -2219,6 +2251,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             calendar.Invalidate();
         }
 
+        private static void OnHeaderContentTemplatePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            RadCalendar calendar = (RadCalendar)sender;
+            calendar.UpdateNavigationHeaderContent();
+        }
+
+        private static void OnHeaderContentPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            RadCalendar calendar = (RadCalendar)sender;
+            calendar.UpdateNavigationHeaderContent();
+        }
+
         private static void OnDayNameCellStyleSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             RadCalendar calendar = (RadCalendar)sender;
@@ -2316,7 +2360,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                calendar.SelectedDateRanges.Clear();
+                calendar.SelectionService.ClearSelection();
             }
         }
 
@@ -2455,8 +2499,10 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private CalendarCellStateContext CreateCurrentCellStateContext(CalendarCellModel cell)
         {
-            if (cell.Date == pointerOverDateCache)
+            if (cell.Date == this.pointerOverDateCache)
+            {
                 cell.IsPointerOver = true;
+            }
 
             if (this.highlightedCellCache != null && this.highlightedCellCache.Date != DateTime.Today)
             {
@@ -2604,16 +2650,16 @@ namespace Telerik.UI.Xaml.Controls.Input
                     var defaultDayNameCellStyle = this.DayNameCellStyle.ContentStyle;
                     var userDefinedDayNameCellStyle = this.DayNameCellStyleSelector.SelectStyle(cell.Label, this);
 
-					if (userDefinedDayNameCellStyle == null)
-					{
-						context.CalculatedContentCellStyle = defaultDayNameCellStyle;
-					}
-					else
-					{
-						//Merge user-defined style and default style
-						userDefinedDayNameCellStyle.BasedOn = defaultDayNameCellStyle;
-						context.CalculatedContentCellStyle = userDefinedDayNameCellStyle;
-					}
+                    if (userDefinedDayNameCellStyle == null)
+                    {
+                        context.CalculatedContentCellStyle = defaultDayNameCellStyle;
+                    }
+                    else
+                    {
+                        // Merge user-defined style and default style
+                        userDefinedDayNameCellStyle.BasedOn = defaultDayNameCellStyle;
+                        context.CalculatedContentCellStyle = userDefinedDayNameCellStyle;
+                    }
                 }
                 else if (this.DayNameCellStyle != null)
                 {
@@ -2628,16 +2674,16 @@ namespace Telerik.UI.Xaml.Controls.Input
                     var defaultWeekNumberCellStyle = this.WeekNumberCellStyle.ContentStyle;
                     var userDefinedWeekNumberCellStyle = this.WeekNumberCellStyleSelector.SelectStyle(cell.Label, this);
 
-					if (userDefinedWeekNumberCellStyle == null)
-					{
-						context.CalculatedContentCellStyle = defaultWeekNumberCellStyle;
-					}
-					else
-					{
-						//Merge user-defined style and default style
-						userDefinedWeekNumberCellStyle.BasedOn = defaultWeekNumberCellStyle;
-						context.CalculatedContentCellStyle = userDefinedWeekNumberCellStyle;
-					}
+                    if (userDefinedWeekNumberCellStyle == null)
+                    {
+                        context.CalculatedContentCellStyle = defaultWeekNumberCellStyle;
+                    }
+                    else
+                    {
+                        // Merge user-defined style and default style
+                        userDefinedWeekNumberCellStyle.BasedOn = defaultWeekNumberCellStyle;
+                        context.CalculatedContentCellStyle = userDefinedWeekNumberCellStyle;
+                    }
                 }
                 else if (this.WeekNumberCellStyle != null)
                 {
@@ -2671,31 +2717,40 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return;
             }
 
-            string headerContent = null;
-
-            switch (this.DisplayMode)
+            if (this.HeaderContent == null)
             {
-                case CalendarDisplayMode.MonthView:
-                    headerContent = string.Format(this.currentCulture, this.MonthViewHeaderFormat, this.DisplayDate);
-                    break;
-                case CalendarDisplayMode.YearView:
-                    headerContent = string.Format(this.currentCulture, this.YearViewHeaderFormat, this.DisplayDate);
-                    break;
-                case CalendarDisplayMode.DecadeView:
-                    DateTime decadeStart = CalendarMathHelper.GetFirstDateOfDecade(this.DisplayDate);
-                    DateTime decadeEnd = decadeStart.AddYears(9);
+                string headerContent = null;
 
-                    headerContent = string.Format(this.currentCulture, this.DecadeViewHeaderFormat, decadeStart, decadeEnd);
-                    break;
-                case CalendarDisplayMode.CenturyView:
-                    DateTime centuryStart = CalendarMathHelper.GetFirstDateOfCentury(this.DisplayDate);
-                    DateTime centuryEnd = centuryStart.AddYears(99);
+                switch (this.DisplayMode)
+                {
+                    case CalendarDisplayMode.MonthView:
+                        headerContent = string.Format(this.currentCulture, this.MonthViewHeaderFormat, this.DisplayDate);
+                        break;
+                    case CalendarDisplayMode.YearView:
+                        headerContent = string.Format(this.currentCulture, this.YearViewHeaderFormat, this.DisplayDate);
+                        break;
+                    case CalendarDisplayMode.DecadeView:
+                        DateTime decadeStart = CalendarMathHelper.GetFirstDateOfDecade(this.DisplayDate);
+                        DateTime decadeEnd = decadeStart.AddYears(9);
 
-                    headerContent = string.Format(this.currentCulture, this.CenturyViewHeaderFormat, centuryStart, centuryEnd);
-                    break;
+                        headerContent = string.Format(this.currentCulture, this.DecadeViewHeaderFormat, decadeStart, decadeEnd);
+                        break;
+                    case CalendarDisplayMode.CenturyView:
+                        DateTime centuryStart = CalendarMathHelper.GetFirstDateOfCentury(this.DisplayDate);
+                        DateTime centuryEnd = centuryStart.AddYears(99);
+
+                        headerContent = string.Format(this.currentCulture, this.CenturyViewHeaderFormat, centuryStart, centuryEnd);
+                        break;
+                }
+
+                this.navigationPanel.HeaderContent = headerContent;
             }
-
-            this.navigationPanel.Header = headerContent;
+            else
+            {
+                this.navigationPanel.HeaderContent = this.HeaderContent;
+            }
+           
+            this.navigationPanel.HeaderContentTemplate = this.HeaderContentTemplate;
         }
 
         private void UpdateNavigationPreviousNextButtonsState()

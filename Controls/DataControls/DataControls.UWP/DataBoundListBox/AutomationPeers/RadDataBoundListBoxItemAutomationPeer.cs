@@ -11,25 +11,16 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadDataBoundListBoxItemAutomationPeer : RadContentControlAutomationPeer, ISelectionItemProvider
     {
-        private RadDataBoundListBoxItem ListBoxItemOwner
-        {
-            get
-            {
-                return (RadDataBoundListBoxItem)this.Owner;
-            }
-        }
-
         /// <summary>
         ///  Initializes a new instance of the <see cref="RadDataBoundListBoxItemAutomationPeer"/> class.
         /// </summary>
         /// <param name="owner">The <see cref="RadDataBoundListBoxItem"/> that is associated with this <see cref="RadDataBoundListBoxItemAutomationPeer"/>.</param>
         public RadDataBoundListBoxItemAutomationPeer(RadDataBoundListBoxItem owner) : base(owner)
         {
-
         }
 
         /// <summary>
-        /// Indicates whether an item is selected.
+        /// Gets a value indicating whether whether an item is selected.
         /// </summary>
         public bool IsSelected
         {
@@ -47,7 +38,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Specifies the provider that implements ISelectionProvider and acts as the container for the calling object.
+        /// Gets the provider that implements ISelectionProvider and acts as the container for the calling object.
         /// </summary>
         public IRawElementProviderSimple SelectionContainer
         {
@@ -56,16 +47,29 @@ namespace Telerik.UI.Automation.Peers
                 RadDataBoundListBox parentListBox = this.ListBoxItemOwner.typedOwner;
                 if (parentListBox != null)
                 {
-                    return this.ProviderFromPeer(CreatePeerForElement(parentListBox));
+                    return this.ProviderFromPeer(FrameworkElementAutomationPeer.CreatePeerForElement(parentListBox));
                 }
                 return null;
             }
         }
-        
+
+        private RadDataBoundListBoxItem ListBoxItemOwner
+        {
+            get
+            {
+                return (RadDataBoundListBoxItem)this.Owner;
+            }
+        }
+
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
         public void AddToSelection()
         {
-            if (!IsEnabled())
+            if (!this.IsEnabled())
+            {
                 throw new ElementNotEnabledException();
+            }
 
             var selector = this.ListBoxItemOwner.typedOwner;
             if ((selector == null) || (!selector.IsCheckModeEnabled && selector.SelectedItem != null && selector.SelectedItem != this.ListBoxItemOwner.DataContext))
@@ -78,14 +82,19 @@ namespace Telerik.UI.Automation.Peers
             this.Select();
         }
 
+        /// <summary>
+        /// ISelectionItemProvider implementation.
+        /// </summary>
         public void RemoveFromSelection()
         {
-            if (!IsEnabled())
+            if (!this.IsEnabled())
+            {
                 throw new ElementNotEnabledException();
+            }
 
             RadDataBoundListBox listbox = this.ListBoxItemOwner.typedOwner;
             if (listbox != null)
-            { 
+            {
                 this.SetSelection(listbox, true, false);
             }
         }
@@ -97,12 +106,14 @@ namespace Telerik.UI.Automation.Peers
         {
             RadDataBoundListBox listbox = this.ListBoxItemOwner.typedOwner;
             if (this.IsSelected || listbox == null)
+            {
                 return;
+            }
 
             this.SetSelection(listbox, false, true);
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.SelectionItem)
@@ -112,7 +123,7 @@ namespace Telerik.UI.Automation.Peers
             return base.GetPatternCore(patternInterface);
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.ListItem;

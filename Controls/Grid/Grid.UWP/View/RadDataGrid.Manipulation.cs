@@ -79,7 +79,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 FirstFilterControl = header.Column.CreateFilterControl(),
                 Column = header.Column,
-                AssociatedDescriptor = this.FilterDescriptors.Where(d => d.DescriptorPeer == header.Column).FirstOrDefault()
+                AssociatedDescriptor = this.FilterDescriptors.FirstOrDefault(d => d.DescriptorPeer == header.Column)
             };
 
             if (header.Column.SupportsCompositeFilter)
@@ -136,7 +136,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         internal void OnCellsPanelPointerOver(PointerRoutedEventArgs e)
         {
-            this.cellFlyoutShowTimeOutAnimationBoard.Completed -= CellFlyoutTimerAnimationBoardCompleted;
+            this.cellFlyoutShowTimeOutAnimationBoard.Completed -= this.CellFlyoutTimerAnimationBoardCompleted;
             this.cellFlyoutShowTimeOutAnimationBoard.Stop();
 
             var hitPoint = e.GetCurrentPoint(this.cellsPanel).Position;
@@ -149,7 +149,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
                 if (cell.Column.IsCellFlyoutEnabled && !(this.ContentFlyout.IsOpen && this.ContentFlyout.Id != DataGridFlyoutId.Cell))
                 {
-                    this.cellFlyoutShowTimeOutAnimationBoard.Completed += CellFlyoutTimerAnimationBoardCompleted;
+                    this.cellFlyoutShowTimeOutAnimationBoard.Completed += this.CellFlyoutTimerAnimationBoardCompleted;
                     this.hoveredCell = cell;
                     this.cellFlyoutShowTimeOutAnimationBoard.Begin();
                 }
@@ -158,17 +158,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 this.visualStateService.UpdateHoverDecoration(null);
             }
-        }
-
-        void CellFlyoutTimerAnimationBoardCompleted(object sender, object e)
-        {
-            this.cellFlyoutShowTimeOutAnimationBoard.Completed -= this.CellFlyoutTimerAnimationBoardCompleted;
-            // If another flyout is opened it should prevent showing the cell tooltip by design.
-            if (this.ContentFlyout.IsOpen && this.ContentFlyout.Id != DataGridFlyoutId.Cell)
-            {
-                return;
-            }
-            this.CommandService.ExecuteCommand(CommandId.CellFlyoutAction, new CellFlyoutActionContext(new DataGridCellInfo(this.hoveredCell), true, CellFlyoutGesture.PointerOver));
         }
 
         internal void OnCellsPanelPointerExited()
@@ -207,7 +196,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             this.ResetSelectedHeader();
 
-            this.TryFocus(FocusState.Pointer, false);
+            this.TryFocus(FocusState.Pointer, false, e.OriginalSource as FrameworkElement);
 
             if (this.contentFlyout.IsOpen)
             {
@@ -265,7 +254,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.ExecuteKeyDown(e);
         }
 
-        internal void TryFocus(FocusState state, bool force)
+        internal void TryFocus(FocusState state, bool force, FrameworkElement tappedElement = null)
         {
             if (!this.IsTabStop)
             {
@@ -279,7 +268,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
             else
             {
                 var focusedElement = FocusManager.GetFocusedElement() as DependencyObject;
-                if (focusedElement == null || ElementTreeHelper.FindVisualAncestor<DataGridCellsPanel>(focusedElement) == null)
+                if (focusedElement == null || (ElementTreeHelper.FindVisualAncestor<DataGridCellsPanel>(focusedElement) == null 
+                    && ElementTreeHelper.FindVisualAncestor<DataGridCellsPanel>(tappedElement) == null))
                 {
                     this.Focus(state);
                 }
@@ -302,7 +292,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return;
             }
 
-            // HACK: Workaround for WinRT issue with KeyDown raised twice for VirtualKey.Enter
+            // KeyDown is raised twice for VirtualKey.Enter
             if (e.Key == VirtualKey.Enter && e.KeyStatus.RepeatCount > 0)
             {
                 return;
@@ -327,7 +317,36 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     }
                     break;
                 case VirtualKey.Tab:
+                    if (e.OriginalSource is RadDataGrid)
+                    {
+                        if (!this.editService.IsEditing)
+                        {
+                            e.Handled = true;
+                            info = this.CurrencyService.CurrentItemInfo == null ?
+                                this.model.FindFirstDataItemInView()
+                                : this.CurrencyService.CurrentItemInfo;
+
+#pragma warning disable CS4014 
+                            Dispatcher.RunAsync(
+                                Windows.UI.Core.CoreDispatcherPriority.Low, 
+                                () =>
+                                {
+                                    var xamlVisualStateLayer = this.visualStateLayerCache as XamlVisualStateLayer;
+                                    if (xamlVisualStateLayer != null)
+                                    {
+                                        var currencyVisual = xamlVisualStateLayer.CurrencyVisual as DataGridCurrencyControl;
+                                        if (currencyVisual != null && currencyVisual.Visibility == Visibility.Visible)
+                                        {
+                                            currencyVisual.Focus(FocusState.Keyboard);
+                                            this.RaiseCellPeerFocusChangedEvent(info);
+                                        }
+                                    }
+                                });
+#pragma warning restore CS4014
+                        }
+                    }
                     break;
+
                 case VirtualKey.Down:
                     if (!this.editService.IsEditing)
                     {
@@ -382,14 +401,36 @@ namespace Telerik.UI.Xaml.Controls.Grid
                         info = this.model.FindPreviousOrNextDataItem(this.CurrentItem, !shiftPressed);
                     }
                     break;
+                case VirtualKey.Space:
+                    if (e.OriginalSource is RadDataGrid)
+                    {
+                        if (this.SelectionUnit == DataGridSelectionUnit.Row)
+                        {
+                            info = this.model.FindItemInfo(this.CurrentItem);
+                            if (info != null)
+                            {
+                                var cell = this.model.CellsController.GetCellsForRow(info.Value.Slot).First();
+                                if (cell != null)
+                                {
+                                    this.OnCellTap(new DataGridCellInfo(cell));
+                                }
+                            }
+                        }
+                    }
+                    break;
             }
 
             if (info != null)
             {
                 this.CurrencyService.ChangeCurrentItem(info.Value.Item, true, true);
+
+                if (e.Key != VirtualKey.Tab)
+                {
+                    this.RaiseCellPeerFocusChangedEvent(info);
+                }
             }
         }
-
+        
         /// <summary>
         /// Called before the KeyDown event occurs.
         /// </summary>
@@ -399,6 +440,18 @@ namespace Telerik.UI.Xaml.Controls.Grid
             base.OnKeyDown(e);
 
             this.ExecuteKeyDown(e);
+        }
+
+        private void CellFlyoutTimerAnimationBoardCompleted(object sender, object e)
+        {
+            this.cellFlyoutShowTimeOutAnimationBoard.Completed -= this.CellFlyoutTimerAnimationBoardCompleted;
+
+            // If another flyout is opened it should prevent showing the cell tooltip by design.
+            if (this.ContentFlyout.IsOpen && this.ContentFlyout.Id != DataGridFlyoutId.Cell)
+            {
+                return;
+            }
+            this.CommandService.ExecuteCommand(CommandId.CellFlyoutAction, new CellFlyoutActionContext(new DataGridCellInfo(this.hoveredCell), true, CellFlyoutGesture.PointerOver));
         }
 
         private void OnScrollViewerKeyDown(object sender, KeyRoutedEventArgs e)
@@ -433,6 +486,24 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 frozenHost.PointerExited -= this.FrozenContentHost_PointerExited;
                 frozenHost.PointerPressed -= this.FrozenContentHost_PointerPressed;
                 frozenHost.KeyDown -= this.FrozenContentHost_KeyDown;
+            }
+        }
+
+        private void RaiseCellPeerFocusChangedEvent(ItemInfo? info)
+        {
+            var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this) as RadDataGridAutomationPeer;
+            if (dataGridPeer != null && dataGridPeer.childrenCache != null)
+            {
+                if (dataGridPeer.childrenCache.Count == 0)
+                {
+                    dataGridPeer.GetChildren();
+                }
+
+                var cellPeer = dataGridPeer.childrenCache.FirstOrDefault(a => a.Row == info.Value.Slot && a.Column == 0) as DataGridCellInfoAutomationPeer;
+                if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
+                {
+                    cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                }
             }
         }
 

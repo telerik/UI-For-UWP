@@ -68,11 +68,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RadTimePickerAutomationPeer(this);
-        }
-
         internal override string GetDisplayValueFormatFromCulture()
         {
             return System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.ShortTimePattern.Replace(":ss", string.Empty);
@@ -81,12 +76,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal override string GetValueStringForNonGregorianCalendars(Windows.Globalization.Calendar calendar)
         {
             var valueString = string.Format("{0}:{1}", calendar.HourAsPaddedString(2), calendar.MinuteAsPaddedString(2));
-                if (calendar.GetClock() == Windows.Globalization.ClockIdentifiers.TwelveHour)
-                {
-                    valueString = string.Format("{0}{1}", valueString, calendar.PeriodAsString());
-                }
+            if (calendar.GetClock() == Windows.Globalization.ClockIdentifiers.TwelveHour)
+            {
+                valueString = string.Format("{0}{1}", valueString, calendar.PeriodAsString());
+            }
 
-                return valueString;
+            return valueString;
         }
 
         internal override DateTime GetSelectorValueWithStepApplied(DateTime utcValue)
@@ -176,6 +171,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             return StepBehavior.Multiples;
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadTimePickerAutomationPeer(this);
+        }
+        
         /// <summary>
         /// Occurs when the <see cref="M:OnApplyTemplate"/> method has been called and the template is already successfully applied.
         /// </summary>

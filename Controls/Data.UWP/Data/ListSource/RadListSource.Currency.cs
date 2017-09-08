@@ -304,17 +304,6 @@ namespace Telerik.Core.Data
             // user have removed the current item, update it depending on the currency mode
             IDataSourceItem newCurrent = null;
 
-            // TODO:Should we automatically apply new current item?
-            ////if (this.currencyMode == CurrencyManagementMode.FitInView && this.items.Count > 0)
-            ////{
-            ////    int index = removedItem.Index;
-            ////    if (index >= this.items.Count)
-            ////    {
-            ////        index = this.items.Count - 1;
-            ////    }
-            ////    newCurrent = this.items[index];
-            ////}
-
             this.UpdateCurrentItem(newCurrent);
         }
     }

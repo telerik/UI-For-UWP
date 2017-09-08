@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Telerik.Core;
 using Telerik.Data.Core;
@@ -18,6 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private GridModel model;
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportWidth
         {
             get
@@ -26,6 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         double IView.ViewportHeight
         {
             get
@@ -34,6 +37,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IElementPresenter.IsVisible
         {
             get
@@ -67,6 +71,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.visualStateService.UpdateDataLoadingStatus(status);
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         void IElementPresenter.RefreshNode(object node)
         {
         }
@@ -215,6 +220,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         RadSize IElementPresenter.MeasureContent(object owner, object content)
         {
             GridRowModel row = owner as GridRowModel;
@@ -514,7 +520,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             Canvas.SetLeft(container, rect.X);
             Canvas.SetTop(container, rect.Y);
 
-            // A HACK to overcome the differences in the DesiredSize of the header and the ArrangeSize, coming from the NodePool.
+            // Overcome the differences in the DesiredSize of the header and the ArrangeSize, coming from the NodePool.
             container.AllowArrange = true;
 
             container.ArrangeRestriction = new Size(rect.Width, rect.Height);

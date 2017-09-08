@@ -7,22 +7,20 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridGroupHeader"/>.
+    /// </summary>
     public class DataGridGroupHeaderAutomationPeer : RadControlAutomationPeer, IExpandCollapseProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataGridGroupHeaderAutomationPeer"/> class.
+        /// </summary>
         public DataGridGroupHeaderAutomationPeer(DataGridGroupHeader owner) 
             : base(owner)
         {
         }
-
+        
         /// <inheritdoc />
-        private DataGridGroupHeader OwnerDataGridGroupHeader
-        {
-            get
-            {
-                return (DataGridGroupHeader)this.Owner;
-            }
-        }
-
         public ExpandCollapseState ExpandCollapseState
         {
             get
@@ -32,58 +30,12 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <inheritdoc />
-        protected override string GetNameCore()
+        private DataGridGroupHeader OwnerDataGridGroupHeader
         {
-            var nameCore = base.GetNameCore();
-            if (!string.IsNullOrEmpty(nameCore))
-                return nameCore;
-
-            var groupHeaderContext = this.OwnerDataGridGroupHeader.DataContext as GroupHeaderContext;
-            if (groupHeaderContext != null && groupHeaderContext.Group != null)
+            get
             {
-                var group = groupHeaderContext.Group as Group;
-                if (group != null && group.Name != null)
-                {
-                    return group.Name.ToString();
-                }
+                return (DataGridGroupHeader)this.Owner;
             }
-
-            return nameof(DataGridGroupHeader);
-        }
-
-        /// <inheritdoc />
-        protected override AutomationControlType GetAutomationControlTypeCore()
-        {
-            return AutomationControlType.Header;
-        }
-        
-        /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return nameof(DataGridGroupHeader);
-        }
-
-        /// <inheritdoc />
-        protected override string GetHelpTextCore()
-        {
-            return nameof(DataGridGroupHeader);
-        }
-
-        /// <inheritdoc />
-        protected override string GetLocalizedControlTypeCore()
-        {
-            return "datagrid group header";
-        }
-
-        /// <inheritdoc />
-        protected override object GetPatternCore(PatternInterface patternInterface)
-        {
-            if (patternInterface == PatternInterface.ExpandCollapse)
-            {
-                return this;
-            }
-
-            return base.GetPatternCore(patternInterface);
         }
 
         /// <summary>
@@ -109,6 +61,63 @@ namespace Telerik.UI.Automation.Peers
                 ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
                 oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
                 newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
+        }
+
+        /// <inheritdoc />
+        protected override string GetNameCore()
+        {
+            var nameCore = base.GetNameCore();
+            if (!string.IsNullOrEmpty(nameCore))
+            {
+                return nameCore;
+            }
+
+            var groupHeaderContext = this.OwnerDataGridGroupHeader.DataContext as GroupHeaderContext;
+            if (groupHeaderContext != null && groupHeaderContext.Group != null)
+            {
+                var group = groupHeaderContext.Group as Group;
+                if (group != null && group.Name != null)
+                {
+                    return group.Name.ToString();
+                }
+            }
+
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridGroupHeader);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Header;
+        }
+        
+        /// <inheritdoc />
+        protected override string GetClassNameCore()
+        {
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridGroupHeader);
+        }
+
+        /// <inheritdoc />
+        protected override string GetHelpTextCore()
+        {
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridGroupHeader);
+        }
+
+        /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
+        {
+            return "datagrid group header";
+        }
+
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.ExpandCollapse)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
         }
     }
 }

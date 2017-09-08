@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the DateTimePickerButton class.
+    /// </summary>
     public class DateTimePickerButtonAutomationPeer : ButtonAutomationPeer
     {
         /// <summary>
@@ -64,7 +67,9 @@ namespace Telerik.UI.Automation.Peers
             }
 
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return string.Empty;
         }

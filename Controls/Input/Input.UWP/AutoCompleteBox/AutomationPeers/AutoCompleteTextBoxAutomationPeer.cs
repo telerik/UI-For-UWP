@@ -10,6 +10,8 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class AutoCompleteTextBoxAutomationPeer : TextBoxAutomationPeer
     {
+        private RadAutoCompleteBoxAutomationPeer parentPeer;
+
         /// <summary>
         /// Initializes a new instance of the AutoCompleteTextBoxAutomationPeer class.
         /// </summary>
@@ -25,8 +27,7 @@ namespace Telerik.UI.Automation.Peers
             get;
             set;
         }
-
-        private RadAutoCompleteBoxAutomationPeer parentPeer;
+        
         private RadAutoCompleteBoxAutomationPeer AutoCompletePeer
         {
             get
@@ -50,7 +51,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return this.AutoCompletePeer.GetName();
         }

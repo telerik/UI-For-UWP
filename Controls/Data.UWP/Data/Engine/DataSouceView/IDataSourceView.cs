@@ -16,7 +16,7 @@ namespace Telerik.Data.Core
 
         IBatchLoadingProvider BatchDataProvider { get; }
 
-        List<Tuple<object, int,int>> SourceGroups { get; }
+        List<Tuple<object, int, int>> SourceGroups { get; }
 
         void ProcessPendingCollectionChange();
 

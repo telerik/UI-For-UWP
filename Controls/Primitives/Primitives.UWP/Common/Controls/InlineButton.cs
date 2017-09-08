@@ -86,18 +86,33 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
         public static readonly DependencyProperty IsRepeatingEnabledProperty =
             DependencyProperty.Register(nameof(IsRepeatingEnabled), typeof(bool), typeof(InlineButton), new PropertyMetadata(false));
 
+        /// <summary>
+        /// Identifies the <see cref="IconSource"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty IconSourceProperty =
           DependencyProperty.Register(nameof(IconSource), typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="PressedIconSource"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty PressedIconSourceProperty =
             DependencyProperty.Register(nameof(PressedIconSource), typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="PointerOverIconSource"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty PointerOverIconSourceProperty =
             DependencyProperty.Register(nameof(PointerOverIconSource), typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="DisabledIconSource"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty DisabledIconSourceProperty =
            DependencyProperty.Register(nameof(DisabledIconSource), typeof(BitmapImage), typeof(InlineButton), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Identifies the <see cref="IconStyle"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty IconStyleProperty =
             DependencyProperty.Register(nameof(IconStyle), typeof(Style), typeof(InlineButton), new PropertyMetadata(null));
 
@@ -301,6 +316,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="BitmapImage"/> used as an Icon by the <see cref="InlineButton"/>.
+        /// </summary>
         public BitmapImage IconSource
         {
             get
@@ -309,9 +327,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(IconSourceProperty, value);
+                this.SetValue(IconSourceProperty, value);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the <see cref="BitmapImage"/> for the Pressed visual state of the <see cref="InlineButton"/>.
+        /// </summary>
         public BitmapImage PressedIconSource
         {
             get
@@ -320,10 +342,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(PressedIconSourceProperty, value);
+                this.SetValue(PressedIconSourceProperty, value);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="BitmapImage"/> for the PointerOver visual state of the <see cref="InlineButton"/>.
+        /// </summary>
         public BitmapImage PointerOverIconSource
         {
             get
@@ -332,10 +357,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(PointerOverIconSourceProperty, value);
+                this.SetValue(PointerOverIconSourceProperty, value);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="BitmapImage"/> for the Disabled visual state of the <see cref="InlineButton"/>.
+        /// </summary>
         public BitmapImage DisabledIconSource
         {
             get
@@ -344,11 +372,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(DisabledIconSourceProperty, value);
+                this.SetValue(DisabledIconSourceProperty, value);
             }
         }
 
-
+        /// <summary>
+        /// Gets or sets the style of the icon content of the <see cref="InlineButton"/>.
+        /// </summary>
         public Style IconStyle
         {
             get
@@ -357,7 +387,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
             }
             set
             {
-                SetValue(IconStyleProperty, value);
+                this.SetValue(IconStyleProperty, value);
             }
         }
 

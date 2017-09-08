@@ -9,7 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 {
     public partial class RadListView
     {
-       /// <summary>
+        /// <summary>
         /// Identifies the <see cref="CurrentItem"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty CurrentItemProperty =
@@ -113,33 +113,17 @@ namespace Telerik.UI.Xaml.Controls.Data
         public bool MoveCurrentTo(object item)
         {
             return this.currencyService.MoveCurrentTo(item);
-        }       
+        }
 
         internal void FocusCurrentContainer()
         {
             RadListViewItem container = this.GetCurrentContainer();
             if (container != null)
             {
-                container.Focus(FocusState.Programmatic);          
+                container.Focus(FocusState.Programmatic);
             }
         }
-
-        private RadListViewItem GetCurrentContainer()
-        {
-            if (this.CurrentItem == null || this.currencyService.CurrentItemInfo == null || !this.currencyService.CurrentItemInfo.HasValue)
-                return null;
-
-            ItemInfo currentInfo = this.currencyService.CurrentItemInfo.Value;
-            GeneratedItemModel generatedModel = this.Model.GetDisplayedElement(currentInfo.Slot, currentInfo.Id);
-
-            RadListViewItem result = null;
-            if (generatedModel != null)
-            {
-                result = generatedModel.Container as RadListViewItem;
-            }
-            return result;
-        }
-
+        
         private static void OnCurrentItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var listView = d as RadListView;
@@ -159,6 +143,24 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             var listView = d as RadListView;
             listView.currencyService.UpdateIsSynchronizedWithCurrent((bool)e.NewValue);
+        }
+
+        private RadListViewItem GetCurrentContainer()
+        {
+            if (this.CurrentItem == null || this.currencyService.CurrentItemInfo == null || !this.currencyService.CurrentItemInfo.HasValue)
+            {
+                return null;
+            }
+
+            ItemInfo currentInfo = this.currencyService.CurrentItemInfo.Value;
+            GeneratedItemModel generatedModel = this.Model.GetDisplayedElement(currentInfo.Slot, currentInfo.Id);
+
+            RadListViewItem result = null;
+            if (generatedModel != null)
+            {
+                result = generatedModel.Container as RadListViewItem;
+            }
+            return result;
         }
     }
 }

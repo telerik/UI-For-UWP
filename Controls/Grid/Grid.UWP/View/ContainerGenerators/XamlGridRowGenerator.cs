@@ -107,7 +107,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
         public object GenerateContainerForItem(RowGenerationContext info, object containerType)
         {
             DataGridGroupHeader groupHeader = null;
-            //  DataGridGroupHeader frozenGroupHeader = null;
 
             object generatedContent = null;
 

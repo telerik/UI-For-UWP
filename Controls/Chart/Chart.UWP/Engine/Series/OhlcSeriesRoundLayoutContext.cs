@@ -1,7 +1,6 @@
 ﻿using Telerik.Core;
 namespace Telerik.Charting
 {
-    // TODO: Open/close snapping works only on initial load in WPF?
     internal static class OhlcSeriesRoundLayoutContext
     {
         public static void SnapPointToGrid(OhlcDataPoint point)

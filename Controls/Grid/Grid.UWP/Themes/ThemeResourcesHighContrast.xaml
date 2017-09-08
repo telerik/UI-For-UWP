@@ -11,7 +11,7 @@
     <SolidColorBrush x:Key="TelerikGridBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
     <SolidColorBrush x:Key="TelerikGridHeaderBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
     <SolidColorBrush x:Key="TelerikGridHeaderForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}"/>
-    <SolidColorBrush x:Key="TelerikGridHeaderPointerOverForegroundBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
+    <SolidColorBrush x:Key="TelerikGridHeaderPointerOverForegroundBrush" Color="{ThemeResource SystemColorGrayTextColor}"/>
     <SolidColorBrush x:Key="TelerikGridAlternateRowBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
     <SolidColorBrush x:Key="TelerikGridSelectedBrush" Color="{ThemeResource SystemColorHighlightColor}"/>
 
@@ -60,7 +60,7 @@
     <SolidColorBrush x:Key="TelerikGridFilterFlyoutExpandButtonPressedBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
 
     <!--Filtering Header-->
-    <SolidColorBrush x:Key="TelerikGridFilterFlyoutHeaderForegroundBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
+    <SolidColorBrush x:Key="TelerikGridFilterFlyoutHeaderForegroundBrush" Color="{ThemeResource SystemColorButtonFaceColor}"/>
     <SolidColorBrush x:Key="TelerikGridFilterFlyoutHeaderBackgroundBrush" Color="{ThemeResource SystemColorHotlightColor}"/>
     <SolidColorBrush x:Key="TelerikGridFilterFlyoutHeaderBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
 

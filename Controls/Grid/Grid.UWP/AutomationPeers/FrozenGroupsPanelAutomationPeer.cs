@@ -6,8 +6,14 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="FrozenGroupsPanel"/>.
+    /// </summary>
     public class FrozenGroupsPanelAutomationPeer : FrameworkElementAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the FrozenGroupsPanelAutomationPeer class.
+        /// </summary>
         public FrozenGroupsPanelAutomationPeer(FrozenGroupsPanel owner)
             : base(owner)
         {
@@ -44,11 +50,12 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(FrozenGroupsPanel);
         }
-
 
         /// <inheritdoc />
         protected override IList<AutomationPeer> GetChildrenCore()

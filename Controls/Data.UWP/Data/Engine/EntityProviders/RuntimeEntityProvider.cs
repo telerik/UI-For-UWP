@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Reflection;
-using Telerik.Core;
-using Windows.UI.Xaml.Data;
 
 namespace Telerik.Data.Core
 {
+    /// <summary>
+    /// Represents provider capable to create Entity model object.
+    /// </summary>
     public class RuntimeEntityProvider : EntityProvider
     {
+        /// <inheritdoc />
         protected override IEnumerable GetProperties()
         {
             if (this.Context == null)
@@ -23,6 +25,7 @@ namespace Telerik.Data.Core
             return this.Context.GetType().GetTypeInfo().DeclaredProperties;
         }
 
+        /// <inheritdoc />
         protected override bool ShouldGenerateEntityProperty(object property)
         {
             var propertyInfo = property as PropertyInfo;
@@ -45,6 +48,7 @@ namespace Telerik.Data.Core
             return false;
         }
 
+        /// <inheritdoc />
         protected override ISupportEntityValidation GetItemValidator(Entity entity)
         {
             ISupportEntityValidation validator = null;
@@ -57,6 +61,7 @@ namespace Telerik.Data.Core
             return validator;
         }
 
+        /// <inheritdoc />
         protected override Type GetEntityPropertyType(object property)
         {
             var propertyInfo = property as PropertyInfo;

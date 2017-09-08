@@ -3,6 +3,9 @@ using Telerik.UI.Xaml.Controls.Input.DateTimePickers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the DateTimeListItem class.
+    /// </summary>
     public class DateTimeListItemAutomationPeer : LoopingListItemAutomationPeer
     {
         /// <summary>

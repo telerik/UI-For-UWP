@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="SplineAreaSeries"/>.
+    /// </summary>
     public class SplineAreaSeriesAutomationPeer : AreaSeriesAutomationPeer
     {
         /// <summary>
@@ -15,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(SplineAreaSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.SplineAreaSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(SplineAreaSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.SplineAreaSeries);
         }
 
         /// <inheritdoc />

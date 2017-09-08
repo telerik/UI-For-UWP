@@ -7,15 +7,28 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="CartesianGridLineAnnotation"/>.
+    /// </summary>
     public class CartesianGridLineAnnotationAutomationPeer : ChartAnnotationAutomationPeer, IValueProvider
     {
         /// <summary>
-        /// Initializes a new instance of the ChartAnnotationAutomationPeer class.
+        /// Initializes a new instance of the <see cref="CartesianGridLineAnnotationAutomationPeer"/> class.
         /// </summary>
         public CartesianGridLineAnnotationAutomationPeer(CartesianGridLineAnnotation owner) 
             : base(owner)
         {
         }
+
+        /// <summary>
+        /// IValueProvider implementation.
+        /// </summary>
+        public bool IsReadOnly => !this.CartesianGridLineAnnotation.IsEnabled;
+
+        /// <summary>
+        /// IValueProvider implementation.
+        /// </summary>
+        public string Value => this.CartesianGridLineAnnotation.Value.ToString();
 
         internal CartesianGridLineAnnotation CartesianGridLineAnnotation
         {
@@ -23,41 +36,6 @@ namespace Telerik.UI.Automation.Peers
             {
                 return this.Owner as CartesianGridLineAnnotation;
             }
-        }
-
-        /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return nameof(CartesianGridLineAnnotation);
-        }
-
-        /// <inheritdoc />
-        protected override string GetHelpTextCore()
-        {
-            return nameof(CartesianGridLineAnnotation);
-        }
-
-        /// <inheritdoc />
-        protected override string GetLocalizedControlTypeCore()
-        {
-            return "cartesian grid line annotation";
-        }
-
-        /// <inheritdoc />
-        protected override object GetPatternCore(PatternInterface patternInterface)
-        {
-            if (patternInterface == PatternInterface.Value)
-            {
-                return this;
-            }
-
-            return base.GetPatternCore(patternInterface);
-        }
-
-        /// <inheritdoc />
-        protected override AutomationControlType GetAutomationControlTypeCore()
-        {
-            return AutomationControlType.Custom;
         }
 
         /// <summary>
@@ -98,20 +76,45 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// IValueProvider implementation.
-        /// </summary>
-        public bool IsReadOnly => !this.CartesianGridLineAnnotation.IsEnabled;
-
-        /// <summary>
-        /// IValueProvider implementation.
-        /// </summary>
-        public string Value => this.CartesianGridLineAnnotation.Value.ToString();
-
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
         internal void RaiseValueChangedAutomationEvent(string oldValue, string newValue)
         {
             this.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue, newValue);
+        }
+
+        /// <inheritdoc />
+        protected override string GetClassNameCore()
+        {
+            return nameof(CartesianGridLineAnnotation);
+        }
+
+        /// <inheritdoc />
+        protected override string GetHelpTextCore()
+        {
+            return nameof(CartesianGridLineAnnotation);
+        }
+
+        /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
+        {
+            return "cartesian grid line annotation";
+        }
+
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.Value)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Custom;
         }
     }
 }

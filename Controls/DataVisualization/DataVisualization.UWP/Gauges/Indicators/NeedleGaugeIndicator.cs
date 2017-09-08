@@ -80,6 +80,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             return base.ArrangeOverride(finalSize);
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new NeedleGaugeIndicatorAutomationPeer(this);

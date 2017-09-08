@@ -5,6 +5,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadExpanderControl class.
+    /// </summary>
     public class RadExpanderControlAutomationPeer : RadContentControlAutomationPeer, IExpandCollapseProvider
     {
         /// <summary>
@@ -13,15 +16,6 @@ namespace Telerik.UI.Automation.Peers
         public RadExpanderControlAutomationPeer(RadExpanderControl owner) 
             : base(owner)
         {
-        }
-
-
-        internal RadExpanderControl RadExpanderControl
-        {
-            get
-            {
-                return (RadExpanderControl)this.Owner;
-            }
         }
 
         /// <summary>
@@ -38,6 +32,14 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        internal RadExpanderControl RadExpanderControl
+        {
+            get
+            {
+                return (RadExpanderControl)this.Owner;
+            }
+        }
+        
         /// <summary>
         /// Gets a control pattern that is associated with this AutomationPeer.
         /// </summary>
@@ -106,7 +108,6 @@ namespace Telerik.UI.Automation.Peers
             if (this.RadExpanderControl.IsExpandable)
             {
                 this.RadExpanderControl.IsExpanded = false;
-                this.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
             }
         }
 
@@ -118,7 +119,6 @@ namespace Telerik.UI.Automation.Peers
             if (this.RadExpanderControl.IsExpandable)
             {
                 this.RadExpanderControl.IsExpanded = true;
-                this.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
             }
         }
 

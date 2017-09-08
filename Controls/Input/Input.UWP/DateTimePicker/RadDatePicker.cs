@@ -117,12 +117,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.SetValue(YearStepBehaviorProperty, value);
             }
         }
-
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RadDatePickerAutomationPeer(this);
-        }
-
+        
         internal override string GetDisplayValueFormatFromCulture()
         {
             return System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
@@ -263,6 +258,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             base.OnTemplateApplied();
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadDatePickerAutomationPeer(this);
         }
 
         private static void OnDayStepBehaviorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

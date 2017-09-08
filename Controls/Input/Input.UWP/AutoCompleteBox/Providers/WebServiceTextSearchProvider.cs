@@ -70,7 +70,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
         public void LoadItems(IEnumerable items)
         {
             this.filteredItems = items;
-            this.OnPropertyChanged(nameof(FilteredItems));
+            this.OnPropertyChanged(nameof(this.FilteredItems));
             this.dataRequestIssued = false;
 
             if (this.requestScheduled)

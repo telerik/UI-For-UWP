@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the LoopingListItem class.
+    /// </summary>
     public class LoopingListItemAutomationPeer : RadContentControlAutomationPeer, ISelectionItemProvider
     {
         /// <summary>
@@ -18,6 +21,33 @@ namespace Telerik.UI.Automation.Peers
         {
         }
 
+        /// <summary>
+        /// Gets the IRawElementProviderSimple for the LoopingListItemAutomationPeer.
+        /// </summary>
+        public IRawElementProviderSimple SelectionContainer
+        {
+            get
+            {
+                var list = this.LoopingListItemOwner.Panel.Owner as RadLoopingList;
+                if (list != null)
+                {
+                    return this.ProviderFromPeer(FrameworkElementAutomationPeer.CreatePeerForElement(list));
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether associated LoopingListItem is selected or not.
+        /// </summary>
+        public bool IsSelected
+        {
+            get
+            {
+                return this.LoopingListItemOwner.IsSelected;
+            }
+        }
+
         private LoopingListItem LoopingListItemOwner
         {
             get
@@ -27,14 +57,39 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Gets a value that indicates whether associated LoopingListItem is selected or not.
+        /// Select the current element.
         /// </summary>
-        public bool IsSelected
+        public void AddToSelection()
         {
-            get
+            var list = this.LoopingListItemOwner.Panel.Owner as RadLoopingList;
+            if (list != null && list.SelectedIndex < 0)
             {
-                return this.LoopingListItemOwner.IsSelected;
+                throw new ArgumentNullException("Argument cannot be null or empty.");
             }
+
+            this.SelectCurrentLoopingListItem();
+        }
+
+        /// <summary>
+        /// Removes the current element from selection and selects the next item in the list.
+        /// </summary>
+        public void RemoveFromSelection()
+        {
+            var loopintList = this.LoopingListItemOwner.Panel.Owner;
+            if (loopintList != null && loopintList.SelectedIndex == this.LoopingListItemOwner.LogicalIndex
+                && loopintList.CanChangeSelectedIndex(this.LoopingListItemOwner.LogicalIndex))
+            {
+                loopintList.SelectNext(loopintList.SelectedIndex + 1);
+            }
+        }
+
+        /// <summary>
+        /// Selects the LoopingListItem that is owner of the peer.
+        /// </summary>
+        public void Select()
+        {
+            this.SelectCurrentLoopingListItem();
+            this.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
         }
 
         /// <summary>
@@ -61,7 +116,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var automationIdCore = base.GetAutomationIdCore();
             if (!string.IsNullOrEmpty(automationIdCore))
+            {
                 return automationIdCore;
+            }
 
             if (this.LoopingListItemOwner != null)
             {
@@ -109,59 +166,6 @@ namespace Telerik.UI.Automation.Peers
         protected override bool HasKeyboardFocusCore()
         {
             return true;
-        }
-
-        /// <summary>
-        /// Gets the IRawElementProviderSimple for the LoopingListItemAutomationPeer.
-        /// </summary>
-        public IRawElementProviderSimple SelectionContainer
-        {
-            get
-            {
-                var list = this.LoopingListItemOwner.Panel.Owner as RadLoopingList;
-                if (list != null)
-                {
-                    return this.ProviderFromPeer(CreatePeerForElement(list));
-                }
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Select the current element.
-        /// </summary>
-        public void AddToSelection()
-        {
-            var list = this.LoopingListItemOwner.Panel.Owner as RadLoopingList;
-            if (list != null && list.SelectedIndex < 0)
-            {
-                throw new ArgumentNullException("Argument cannot be null or empty.");
-            }
-
-            this.SelectCurrentLoopingListItem();
-           
-        }
-
-        /// <summary>
-        /// Removes the current element from selection and selecs the next item in the list.
-        /// </summary>
-        public void RemoveFromSelection()
-        {
-            var loopintList = this.LoopingListItemOwner.Panel.Owner;
-            if (loopintList != null && loopintList.SelectedIndex == this.LoopingListItemOwner.LogicalIndex
-                && loopintList.CanChangeSelectedIndex(this.LoopingListItemOwner.LogicalIndex))
-            {
-                loopintList.SelectNext(loopintList.SelectedIndex + 1);
-            }
-        }
-
-        /// <summary>
-        /// Selects the LoopingListItem that is owner of the peer.
-        /// </summary>
-        public void Select()
-        {
-            this.SelectCurrentLoopingListItem();
-            this.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
         }
 
         private void SelectCurrentLoopingListItem()

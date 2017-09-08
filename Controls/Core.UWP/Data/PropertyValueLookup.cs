@@ -56,7 +56,7 @@ namespace Telerik.Core.Data
                 this.getter = null;
                 this.callSite = null;
                 this.propertyName = value;
-                this.OnPropertyChanged(nameof(PropertyName));
+                this.OnPropertyChanged(nameof(this.PropertyName));
             }
         }
 

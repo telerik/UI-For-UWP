@@ -287,11 +287,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RangeSliderPrimitiveAutomationPeer(this);
-        }
-        
         internal virtual void OnSelectionOffsetChanged(EventArgs e)
         {
             EventHandler handler = this.SelectionOffsetChanged;
@@ -314,7 +309,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             RangeSliderPrimitiveAutomationPeer peer = FrameworkElementAutomationPeer.FromElement(this) as RangeSliderPrimitiveAutomationPeer;
             if (peer != null)
             {
-                peer.RaiseMaximumPropertyChangedEvent((double)oldMinimum, (double)newMinimum);
+                peer.RaiseMinimumPropertyChangedEvent((double)oldMinimum, (double)newMinimum);
             }
         }
 
@@ -436,6 +431,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         internal string ReturnFormatedValue(double value)
         {
             return string.Format(CultureInfo.CurrentUICulture, this.ToolTipFormat, value);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RangeSliderPrimitiveAutomationPeer(this);
         }
 
         /// <summary>

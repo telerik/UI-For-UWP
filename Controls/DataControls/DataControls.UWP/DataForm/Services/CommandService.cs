@@ -3,7 +3,7 @@ using Telerik.UI.Xaml.Controls.Primitives;
 
 namespace Telerik.UI.Xaml.Controls.Data.DataForm.Commands
 {
-     /// <summary>
+    /// <summary>
     /// Encapsulates the command-related routine within a <see cref="RadDataForm"/> instance.
     /// </summary>
     public class CommandService : CommandServiceBase<RadDataForm>
@@ -76,9 +76,11 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm.Commands
                 case CommandId.Commit:
                     command = new CommitCommand();
                     break;
+
                 case CommandId.Validate:
                     command = new ValidateCommand();
                     break;
+
                 default:
                     throw new ArgumentException("Unknown command id!", "id");
             }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Telerik.Data.Core.Layouts
+﻿namespace Telerik.Data.Core.Layouts
 {
     internal interface IRenderInfo
     {

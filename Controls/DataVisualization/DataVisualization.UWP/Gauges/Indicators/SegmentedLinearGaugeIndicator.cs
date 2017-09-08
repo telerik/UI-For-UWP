@@ -163,6 +163,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             }
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new SegmentedLinearGaugeIndicatorAutomationPeer(this);

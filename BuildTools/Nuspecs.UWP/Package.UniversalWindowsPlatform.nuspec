@@ -19,6 +19,7 @@
         <file src="$DeployDirectory$\$BinariesSubDir$\x86\**\*" target="lib\uap10.0\x86"/>
         <file src="$DeployDirectory$\$BinariesSubDir$\x64\**\*" target="lib\uap10.0\x64"/>
         <file src="$NuspecsDir$\$Id$.targets" target="build\uap10.0"/>
+		<file src="$NuspecsDir$\VisualStudioToolsManifest.xml" target="tools"/>
         <file src="$DeployDirectory$\License.md" target="LicenseAgreements" />
     </files>
 </package>

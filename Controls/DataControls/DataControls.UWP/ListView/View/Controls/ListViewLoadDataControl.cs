@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
-using Telerik.Data.Core;
-using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
+﻿using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -20,6 +15,8 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         public static readonly DependencyProperty ContentProperty =
             DependencyProperty.Register(nameof(Content), typeof(object), typeof(ListViewLoadDataControl), new PropertyMetadata(null, OnContentChanged));
 
+        private ContentControl contentControl;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ListViewLoadDataControl" /> class.
         /// </summary>
@@ -29,12 +26,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             this.LoadDataUICommand = new ListViewLoadDataUICommand(this);
         }
 
-        private ContentControl contentControl;
-
+        /// <summary>
+        /// Gets or sets the command invoked by the LoadDataUI.
+        /// </summary>
         public ICommand LoadDataUICommand { get; set; }
 
-        internal RadListView Owner { get; set; }
-
+        /// <summary>
+        /// Gets the text visualized when more items are loading.
+        /// </summary>
         public string LoadMoreItemsText
         {
             get
@@ -43,12 +42,18 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <summary>
+        /// Gets or sets the content of the <see cref="ListViewLoadDataControl"/>
+        /// </summary>
         public object Content
         {
             get { return (object)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            set { this.SetValue(ContentProperty, value); }
         }
 
+        internal RadListView Owner { get; set; }
+
+        /// <inheritdoc/>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -58,6 +63,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             return applied && this.contentControl != null;
         }
 
+        /// <inheritdoc/>
         protected override void OnTemplateApplied()
         {
             base.OnTemplateApplied();
@@ -77,28 +83,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             {
                 control.contentControl.Content = e.NewValue;
             }
-        }
-    }
-
-    public class ListViewLoadDataUICommand : ICommand
-    {
-        public ListViewLoadDataUICommand(ListViewLoadDataControl owner)
-        {
-            this.LoadDataControl = owner;
-        }
-        public ListViewLoadDataControl LoadDataControl { get; set; }
-#pragma warning disable 0067
-        public event EventHandler CanExecuteChanged;
-#pragma warning restore 0067
-
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
-
-        public void Execute(object parameter)
-        {
-            this.LoadDataControl.Owner.CommandService.ExecuteCommand(Commands.CommandId.LoadMoreData, new LoadMoreDataContext());
         }
     }
 }

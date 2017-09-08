@@ -141,6 +141,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
             // SetOrientation(this.Panel, orientation);
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadLinearGaugeAutomationPeer(this);

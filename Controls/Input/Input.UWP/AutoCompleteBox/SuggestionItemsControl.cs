@@ -141,23 +141,6 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             this.RaiseAutomationFocusChangedEvent();
         }
 
-        private void RaiseAutomationFocusChangedEvent()
-        {
-            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
-            {
-                var suggestionItem = this.ContainerFromIndex(this.SelectedIndex) as ListBoxItem;
-                if (suggestionItem != null)
-                {
-                    var peer = FrameworkElementAutomationPeer.FromElement(suggestionItem) as ListBoxItemAutomationPeer;
-                    if (peer != null)
-                    {
-                        peer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
-                        peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
-                    }
-                }
-            }
-        }
-
         internal DependencyObject GetContainerForSuggestionItem()
         {
             return new SuggestionItem();
@@ -169,7 +152,6 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             suggestionItem.Attach(this, item);
 
             suggestionItem.HighlightInput(this.owner.suggestionsProvider.InputString);
-
         }
 
         internal void ClearContainerForSuggestionItem(DependencyObject element, object item)
@@ -237,6 +219,23 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
             this.owner.ClearContainerForSuggestionItem(element, item);
 
             base.ClearContainerForItemOverride(element, item);
+        }
+
+        private void RaiseAutomationFocusChangedEvent()
+        {
+            if (AutomationPeer.ListenerExists(AutomationEvents.PropertyChanged))
+            {
+                var suggestionItem = this.ContainerFromIndex(this.SelectedIndex) as ListBoxItem;
+                if (suggestionItem != null)
+                {
+                    var peer = FrameworkElementAutomationPeer.FromElement(suggestionItem) as ListBoxItemAutomationPeer;
+                    if (peer != null)
+                    {
+                        peer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                        peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+                    }
+                }
+            }
         }
     }
 }

@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SDKExamples.UWP"
+    xmlns:localChart="using:SDKExamples.UWP.Chart"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:chart="using:Telerik.UI.Xaml.Controls.Chart"
@@ -68,7 +69,7 @@
                                 <chart:LinearAxis/>
                             </chart:RadCartesianChart.VerticalAxis>
 
-                            <chart:ScatterPointSeries>
+                            <chart:ScatterPointSeries  localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                                 <chart:ScatterPointSeries.DataPoints>
                                     <charting:ScatterDataPoint XValue="1" YValue="1" />
                                     <charting:ScatterDataPoint XValue="5" YValue="3" />

@@ -78,16 +78,7 @@ namespace Telerik.Data.Core.Fields
 
         public bool Equals(IDataFieldInfo info)
         {
-            // TODO:
             return false;
-
-            ////var expandoField = info as ExpandoObjectFieldInfo;
-            ////if (expandoField == null)
-            ////{
-            ////    return false;
-            ////}
-
-            ////return this.name == expandoField.Name;
         }
     }
 }

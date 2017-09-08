@@ -10,25 +10,37 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadRatingAutomationPeer : RadControlAutomationPeer, IValueProvider, IRangeValueProvider
     {
-        private RadRating Rating
-        {
-            get
-            {
-                return (RadRating)this.Owner;
-            }
-        }
-
         /// <summary>
         ///  Initializes a new instance of the RadRatingAutomationPeer class.
         /// </summary>
         /// <param name="owner">The RadRating that is associated with this RadRatingAutomationPeer.</param>
         public RadRatingAutomationPeer(RadRating owner) : base(owner)
         {
+        }
 
+        /// <inheritdoc />
+        public double LargeChange => 1.0;
+
+        /// <inheritdoc />
+        public double Maximum => this.Rating.Items.Count;
+
+        /// <inheritdoc />
+        public double Minimum => 0.0;
+
+        /// <inheritdoc />
+        public double SmallChange => 1.0;
+
+        /// <inheritdoc />
+        double IRangeValueProvider.Value
+        {
+            get
+            {
+                return this.Rating.Value;
+            }
         }
 
         /// <summary>
-        /// Gets whether the Rating is in read-only state.
+        /// Gets a value indicating whether the Rating is in read-only state.
         /// </summary>
         public bool IsReadOnly
         {
@@ -55,10 +67,17 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        private RadRating Rating
+        {
+            get
+            {
+                return (RadRating)this.Owner;
+            }
+        }
+
         /// <summary>
         /// Tries to set the value of the Rating.
         /// </summary>
-        /// <param name="value"></param>
         public void SetValue(string value)
         {
             double parsedDouble = 0;
@@ -70,9 +89,16 @@ namespace Telerik.UI.Automation.Peers
             {
                 throw new InvalidOperationException("Given string is not successfully parsed to double");
             }
-        }       
+        }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
+        public void SetValue(double value)
+        {
+            RadRating owner = this.Owner as RadRating;
+            owner.Value = value;
+        }
+
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.Value || patternInterface == PatternInterface.RangeValue)
@@ -83,7 +109,7 @@ namespace Telerik.UI.Automation.Peers
             return base.GetPatternCore(patternInterface);
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.Slider;
@@ -94,10 +120,14 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             if (this.Rating != null && !string.IsNullOrEmpty(this.Rating.Name))
+            {
                 return this.Rating.Name;
+            }
 
             return "Ratings control";
         }
@@ -106,34 +136,6 @@ namespace Telerik.UI.Automation.Peers
         protected override string GetLocalizedControlTypeCore()
         {
             return "slider";
-        }
-
-        /// <inheritdoc />
-        public void SetValue(double value)
-        {
-            RadRating owner = base.Owner as RadRating;
-            owner.Value = value;
-        }
-
-        /// <inheritdoc />
-        public double LargeChange => 1.0;
-
-        /// <inheritdoc />
-        public double Maximum => this.Rating.Items.Count;
-
-        /// <inheritdoc />
-        public double Minimum => 0.0;
-
-        /// <inheritdoc />
-        public double SmallChange => 1.0;
-
-        /// <inheritdoc />
-        double IRangeValueProvider.Value
-        {
-            get
-            {
-                return this.Rating.Value;
-            }
         }
     }
 }

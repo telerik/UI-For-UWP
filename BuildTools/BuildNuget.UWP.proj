@@ -47,8 +47,8 @@
 
         <Copy SourceFiles="$(NuspecUWPDir)\$(DefaultTargetFileName).targets" DestinationFiles="$(NuspecUWPDir)\$(UWPId).targets" />
 
+	<Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted  -command (New-Object System.Net.WebClient).DownloadFile('http://dist.nuget.org/win-x86-commandline/latest/nuget.exe', 'nuget.exe')"/>
         <Exec Command="$(Nuget32ToolPath) pack $(UWPNuspec) -Version $(Version) -OutputDirectory $(FullOutputDir) -Properties $(UWPProperties)"/>
-
     </Target>
 
 	</Project>

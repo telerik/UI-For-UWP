@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Data.ContainerGeneration;
 using Telerik.UI.Xaml.Controls.Data.ListView;
@@ -25,16 +23,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 return this.visualPanel;
             }
-        }
-
-        protected internal override void AttachUI(Panel parent)
-        {
-            parent.Children.Add(this.VisualElement);
-        }
-
-        protected internal override void DetachUI(Panel parent)
-        {
-            parent.Children.Remove(this.VisualElement);
         }
 
         public void ArrangeElement(FrameworkElement container, RadRect rect)
@@ -74,11 +62,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
-        private void OnCheckBoxChecked(object sender, EventArgs e)
-        {
-            this.Owner.OnCheckBoxChecked(sender);
-        }
-
         internal int GetGeneratedContainersCount()
         {
             int count = 0;
@@ -88,6 +71,21 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
 
             return count;
+        }
+
+        protected internal override void AttachUI(Panel parent)
+        {
+            parent.Children.Add(this.VisualElement);
+        }
+
+        protected internal override void DetachUI(Panel parent)
+        {
+            parent.Children.Remove(this.VisualElement);
+        }
+
+        private void OnCheckBoxChecked(object sender, EventArgs e)
+        {
+            this.Owner.OnCheckBoxChecked(sender);
         }
     }
 }

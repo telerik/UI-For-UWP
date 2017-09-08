@@ -49,7 +49,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Size"/> of the points. This property will be ignored if <see cref="PointTemplateSeries.PointTemplate"/> property is set.
+        /// Gets or sets the <see cref="Windows.Foundation.Size(double, double)"/> of the points. This property will be ignored if <see cref="PointTemplateSeries.PointTemplate"/> property is set.
         /// </summary>
         public Size PointSize
         {

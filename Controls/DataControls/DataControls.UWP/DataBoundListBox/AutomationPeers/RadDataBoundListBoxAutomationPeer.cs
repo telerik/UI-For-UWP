@@ -10,21 +10,44 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadDataBoundListBoxAutomationPeer : RadControlAutomationPeer, ISelectionProvider
     {
-        private RadDataBoundListBox ListBoxOwner
-        {
-            get
-            {
-                return (RadDataBoundListBox)this.Owner;
-            }
-        }       
-
         /// <summary>
         ///  Initializes a new instance of the <see cref="RadDataBoundListBoxAutomationPeer"/> class.
         /// </summary>
         /// <param name="owner">The <see cref="RadDataBoundListBox"/> that is associated with this <see cref="RadDataBoundListBoxAutomationPeer"/>.</param>
         public RadDataBoundListBoxAutomationPeer(RadDataBoundListBox owner) : base(owner)
         {
+        }
 
+        /// <summary>
+        ///  Gets a value indicating whether the UI Automation provider allows more than one child element to be selected concurrently.
+        /// </summary>
+        public bool CanSelectMultiple
+        {
+            get
+            {
+                // By checking multiple items user can simulate multiple selection in RadDataBoundListBox.
+                // When CheckMode is not enabled, user can use standard single selection mode.
+                return this.ListBoxOwner.IsCheckModeEnabled;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the UI Automation provider requires at least one child element to be selected.
+        /// </summary>
+        public bool IsSelectionRequired
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        private RadDataBoundListBox ListBoxOwner
+        {
+            get
+            {
+                return (RadDataBoundListBox)this.Owner;
+            }
         }
 
         /// <summary>
@@ -40,7 +63,9 @@ namespace Telerik.UI.Automation.Peers
                 {
                     RadDataBoundListBoxItem container = this.ListBoxOwner.GetContainerForItem(selected) as RadDataBoundListBoxItem;
                     if (container == null)
+                    {
                         continue;
+                    }
 
                     AutomationPeer itemPeer = (RadDataBoundListBoxItemAutomationPeer)CreatePeerForElement(container);
                     if (itemPeer != null)
@@ -65,31 +90,7 @@ namespace Telerik.UI.Automation.Peers
             return providerSamples.ToArray();
         }
 
-        /// <summary>
-        ///  Gets a value that specifies whether the UI Automation provider allows more than one child element to be selected concurrently.
-        /// </summary>
-        public bool CanSelectMultiple
-        {
-            get
-            {
-                // By checking multiple items user can simulate multiple selection in RadDataBoundListBox.
-                // When CheckMode is not enabled, user can use standard single selection mode.
-                return this.ListBoxOwner.IsCheckModeEnabled;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value that specifies whether the UI Automation provider requires at least one child element to be selected.
-        /// </summary>
-        public bool IsSelectionRequired
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.Selection)
@@ -99,7 +100,7 @@ namespace Telerik.UI.Automation.Peers
             return base.GetPatternCore(patternInterface);
         }
 
-        /// <inheritdoc />	
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.List;

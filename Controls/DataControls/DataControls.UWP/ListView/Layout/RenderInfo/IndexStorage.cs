@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace Telerik.Data.Core.Layouts
 {
@@ -12,7 +11,7 @@ namespace Telerik.Data.Core.Layouts
 
         public const int PrecisionMultiplier = 1000;
 
-        private const long defaultAverageItemLength = 40000;
+        private const long DefaultAverageItemLength = 40000;
 
         private long itemDefaultValue;
         private bool[] indicesWithValue;
@@ -46,7 +45,9 @@ namespace Telerik.Data.Core.Layouts
             this.size = 8;
 
             if (defaultVal != IndexStorage.UnknownItemLength)
+            {
                 this.knownSizeItemsCount = Math.Max(capacity, this.size);
+            }
 
             while (this.size < capacity)
             {
@@ -108,7 +109,9 @@ namespace Telerik.Data.Core.Layouts
                 IndexStorage.CheckValue(value);
                 long item = this.storage[index];
                 if (item == value)
+                {
                     return;
+                }
 
                 if (LongToDouble(item, IndexStorage.PrecisionMultiplier) == IndexStorage.UnknownItemLength)
                 {
@@ -116,9 +119,13 @@ namespace Telerik.Data.Core.Layouts
                 }
 
                 if (this.knownSizeItemsCount == 0)
-                    this.averageItemLength = IndexStorage.defaultAverageItemLength;
+                {
+                    this.averageItemLength = IndexStorage.DefaultAverageItemLength;
+                }
                 else
+                {
                     this.averageItemLength = (long)(this.averageItemLength * (this.knownSizeItemsCount - 1) + value) / this.knownSizeItemsCount;
+                }
 
                 this.Set(index, value);
                 this.RefreshAggregateInfo();
@@ -309,7 +316,6 @@ namespace Telerik.Data.Core.Layouts
         public void Update(int index, double value)
         {
             this[index] = IndexStorage.DoubleToLong(value, IndexStorage.PrecisionMultiplier);
-            
         }
 
         public double ValueForIndex(int index, bool approximate = true)

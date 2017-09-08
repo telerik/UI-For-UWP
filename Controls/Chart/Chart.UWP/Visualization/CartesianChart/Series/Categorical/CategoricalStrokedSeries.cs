@@ -1,4 +1,6 @@
-﻿using Telerik.Charting;
+using Telerik.Charting;
+using Windows.UI.Composition;
+using System.Diagnostics.CodeAnalysis;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
@@ -36,9 +38,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal CategoricalStrokedSeriesModel model;
         internal LineRenderer renderer;
 
+        private ContainerVisual lineRendererVisual;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoricalStrokedSeries"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         protected CategoricalStrokedSeries()
         {
             this.model = this.CreateModel();
@@ -50,6 +55,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// <summary>
         /// Gets a value indicating whether the <see cref="Stroke"/> property has been set locally.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool IStrokedSeries.IsStrokeSetLocally
         {
             get
@@ -139,15 +145,37 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             base.UpdateUICore(context);
 
-            this.renderer.Render();
+            if (this is IFilledSeries)
+            {
+                this.renderer.Render();
+            }
+            else
+            {
+                this.renderer.Render(this.drawWithComposition);
+
+                if (this.drawWithComposition && this.renderer.renderPoints.Count > 2)
+                {
+                    foreach (DataPointSegment dataSegment in ChartSeriesRenderer.GetDataSegments(this.renderer.renderPoints))
+                    {
+                        this.chart.ContainerVisualsFactory.PrepareLineRenderVisual(lineRendererVisual, this.renderer.GetPoints(dataSegment), this.Stroke, this.StrokeThickness);
+                    }
+                }
+            }
         }
 
         internal override void ApplyPaletteCore()
         {
             base.ApplyPaletteCore();
 
-            this.renderer.ApplyPalette();
-
+            if (this is IFilledSeries || !this.drawWithComposition)
+            {
+                this.renderer.ApplyPalette();
+            }
+            else
+            {
+                this.renderer.ApplyContainerVisualPalette(this.lineRendererVisual, this.chart.ContainerVisualsFactory);
+            }
+           
             this.UpdateLegendItem(null, null);
         }
 
@@ -166,9 +194,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             base.UnapplyTemplateCore();
 
-            if (this.renderSurface != null)
+            if (this.renderSurface != null && (!this.drawWithComposition || this is IFilledSeries))
             {
                 this.renderSurface.Children.Remove(this.renderer.strokeShape);
+            }
+            else if (this.drawWithComposition)
+            {
+                this.ContainerVisualRoot.Children.Remove(this.lineRendererVisual);
             }
         }
 
@@ -179,9 +211,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             bool applied = base.ApplyTemplateCore();
 
-            if (applied)
+            if (applied && (!this.drawWithComposition || this is IFilledSeries))
             {
                 this.renderSurface.Children.Add(this.renderer.strokeShape);
+            }
+            else if (this.drawWithComposition)
+            {
+                this.lineRendererVisual = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
+                this.ContainerVisualRoot.Children.InsertAtBottom(this.lineRendererVisual);
             }
 
             return applied;

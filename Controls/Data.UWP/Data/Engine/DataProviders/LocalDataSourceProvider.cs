@@ -17,7 +17,7 @@ namespace Telerik.Data.Core
     /// <summary>
     /// Provides a data grouping access to local source such as an IList of instances of user defined classes.
     /// </summary>
-    internal class LocalDataSourceProvider : DataProviderBase
+    internal class LocalDataSourceProvider : DataProviderBase, IDisposable
     {
         protected bool refreshRequested;
         protected object itemsSource;
@@ -246,7 +246,7 @@ namespace Telerik.Data.Core
 
         public override void SuspendPropertyChanges(object item)
         {
-            if (!this.deferredItemsChanges.Where(c => c.Item1.IsAlive && c.Item1.Target == item).Any())
+            if (!this.deferredItemsChanges.Any(c => c.Item1.IsAlive && c.Item1.Target == item))
             {
                 this.deferredItemsChanges.Add(new Tuple<WeakReference, List<PropertyChangedEventArgs>>(new WeakReference(item), new List<PropertyChangedEventArgs>()));
             }
@@ -254,7 +254,7 @@ namespace Telerik.Data.Core
 
         public override void ResumePropertyChanges(object item)
         {
-            var pair = this.deferredItemsChanges.Where(c => c.Item1.IsAlive && c.Item1.Target == item).FirstOrDefault();
+            var pair = this.deferredItemsChanges.FirstOrDefault(c => c.Item1.IsAlive && c.Item1.Target == item);
 
             this.deferredItemsChanges.RemoveAll(c => !c.Item1.IsAlive || c.Item1.Target == item);
 
@@ -315,6 +315,11 @@ namespace Telerik.Data.Core
             return this.settings.ColumnGroupDescriptions;
         }
 
+        public void Dispose()
+        {
+            this.manualResetEventSlim.Dispose();
+        }
+
         /// <inheritdoc />
         internal override IFieldDescriptionProvider CreateFieldDescriptionsProvider()
         {
@@ -369,47 +374,12 @@ namespace Telerik.Data.Core
                 throw new ArgumentNullException(nameof(description));
             }
 
-            ////if (FieldInfoHelper.IsNumericType(description.DataType))
-            ////{
-            ////    return new DoubleGroupDescription() { PropertyName = description.Name };
-            ////}
-
-            ////if (description.DataType == typeof(DateTime) || description.DataType == typeof(Nullable<DateTime>))
-            ////{
-            ////    return new DateTimeGroupDescription() { PropertyName = description.Name };
-            ////}
-
             return new PropertyGroupDescription() { PropertyName = description.Name };
         }
 
         /// <inheritdoc />
         internal override IEnumerable<object> GetAggregateFunctionsForAggregateDescription(IAggregateDescription aggregateDescription)
         {
-            ////PropertyAggregateDescriptionBase padb = aggregateDescription as PropertyAggregateDescriptionBase;
-            ////if (padb != null)
-            ////{
-            ////    // Try to get the MemberAccess if it is not set yet
-            ////    IDataFieldInfo pfi = padb.MemberAccess as IDataFieldInfo;
-            ////    if (pfi != null)
-            ////    {
-            ////        if (PrecisionHelpers.GetPrecision(pfi.DataType) != Precision.Unknown)
-            ////        {
-            ////            yield return AggregateFunctions.Sum;
-            ////            yield return AggregateFunctions.Count;
-            ////            yield return AggregateFunctions.Average;
-            ////            yield return AggregateFunctions.Max;
-            ////            yield return AggregateFunctions.Min;
-            ////            yield return AggregateFunctions.Product;
-            ////            yield return AggregateFunctions.StdDev;
-            ////            yield return AggregateFunctions.StdDevP;
-            ////            yield return AggregateFunctions.Var;
-            ////            yield return AggregateFunctions.VarP;
-            ////            yield break;
-            ////        }
-            ////    }
-            ////    yield return AggregateFunctions.Count;
-            ////    yield break;
-            ////}
             yield break;
         }
 
@@ -421,27 +391,6 @@ namespace Telerik.Data.Core
             if (padb != null && af != null)
             {
                 padb.AggregateFunction = af;
-            }
-        }
-
-        internal void ProcessPendingCollectionChanges()
-        {
-            if (!this.AreDescriptionsReady)
-            {
-                this.ResetDescriptions();
-                return;
-            }
-
-            if (this.Status != DataProviderStatus.Ready)
-            {
-                this.ResetPendingChanges();
-                return;
-            }
-
-            while (this.pendingCollectionChanges.Count > 0)
-            {
-                this.ProcessCollectionChanged(this.pendingCollectionChanges[0]);
-                this.pendingCollectionChanges.RemoveAt(0);
             }
         }
 
@@ -521,7 +470,7 @@ namespace Telerik.Data.Core
                 this.DataView.CollectionChanging -= this.DataView_CollectionChanging;
                 this.DataView.ItemPropertyChanged -= this.DataView_ItemPropertyChanged;
                 IDataSourceCurrency dataViewCurrency = this.DataView as IDataSourceCurrency;
-                if(dataViewCurrency != null)
+                if (dataViewCurrency != null)
                 {
                     dataViewCurrency.CurrentChanged -= this.DataView_CurrentChanged;
                 }
@@ -607,14 +556,34 @@ namespace Telerik.Data.Core
             var newStatus = DataProviderBase.GetDataProviderStatusFromEngineStatus(e.Status);
             var exception = Enumerable.FirstOrDefault(e.InnerExceptions);
 
-            try
+            if (newStatus == DataProviderStatus.Ready)
             {
-                this.manualResetEventSlim.Reset();
-                this.ProcessPendingChanges();
+                try
+                {
+                    this.manualResetEventSlim.Reset();
+                    this.ProcessPendingChanges();
+                }
+                finally
+                {
+                    this.manualResetEventSlim.Set();
+                }
             }
-            finally
+            else if (newStatus == DataProviderStatus.Faulted)
             {
-                this.manualResetEventSlim.Set();
+                try
+                {
+                    this.manualResetEventSlim.Reset();
+                    if (!this.AreDescriptionsReady)
+                    {
+                        this.ResetDescriptions();
+                    }
+
+                    this.ResetPendingChanges();
+                }
+                finally
+                {
+                    this.manualResetEventSlim.Set();
+                }
             }
 
             this.OnStatusChanged(new DataProviderStatusChangedEventArgs(newStatus, true, exception));
@@ -622,29 +591,19 @@ namespace Telerik.Data.Core
 
         private void ProcessPendingChanges()
         {
-            if (!this.AreDescriptionsReady)
-            {
-                this.ResetDescriptions();
-                return;
-            }
-
-            if (this.Status != DataProviderStatus.Ready)
-            {
-                this.ResetPendingChanges();
-                return;
-            }
 
             while (this.pendingCollectionChanges.Count > 0)
             {
-                this.ProcessCollectionChanged(this.pendingCollectionChanges[0]);
+                var pch = this.pendingCollectionChanges[0];
                 this.pendingCollectionChanges.RemoveAt(0);
+                this.ProcessCollectionChanged(pch);
             }
 
             while (this.pendingPropertyChanges.Count > 0)
             {
                 var tuple = this.pendingPropertyChanges[0];
-                this.ProcessPropertyChanged(tuple.Item1, tuple.Item2);
                 this.pendingPropertyChanges.RemoveAt(0);
+                this.ProcessPropertyChanged(tuple.Item1, tuple.Item2);
             }
         }
 
@@ -689,7 +648,7 @@ namespace Telerik.Data.Core
 
         private void ProcessPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var deferredInfo = this.deferredItemsChanges.Where(c => c.Item1.IsAlive && c.Item1.Target == sender).FirstOrDefault();
+            var deferredInfo = this.deferredItemsChanges.FirstOrDefault(c => c.Item1.IsAlive && c.Item1.Target == sender);
             if (deferredInfo != null)
             {
                 deferredInfo.Item2.Add(e);
@@ -784,6 +743,7 @@ namespace Telerik.Data.Core
                     this.InsertItems(e.NewStartingIndex, e.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
+                    this.pendingCollectionChanges.Clear();
                     var state = this.GenerateParallelState();
                     this.engine.Clear(state);
                     this.RefreshInternalView(false);

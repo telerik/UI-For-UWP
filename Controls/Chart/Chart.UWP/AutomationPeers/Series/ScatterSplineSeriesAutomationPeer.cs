@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="ScatterSplineSeries"/>.
+    /// </summary>
     public class ScatterSplineSeriesAutomationPeer : ScatterLineSeriesAutomationPeer
     {
         /// <summary>
@@ -15,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(ScatterSplineSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ScatterSplineSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(ScatterSplineSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.ScatterSplineSeries);
         }
 
         /// <inheritdoc />

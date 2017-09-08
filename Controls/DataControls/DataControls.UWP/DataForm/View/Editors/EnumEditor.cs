@@ -1,21 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls.Data.DataForm;
-using Telerik.UI.Xaml.Controls.Primitives;
+﻿using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Represents an EnumEditor control.
+    /// </summary>
     public class EnumEditor : ComboBox, ITypeEditor
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumEditor"/> class.
+        /// </summary>
         public EnumEditor()
         {
             this.DefaultStyleKey = typeof(EnumEditor);
         }
-
+        
+        /// <summary>
+        /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
+        /// </summary>
         public void BindEditor()
         {
             Binding b = new Binding() { Mode = BindingMode.TwoWay };
@@ -39,6 +44,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             b4.Path = new PropertyPath("PropertyValue");
             b4.Converter = new EnumToIndexConverter();
             this.SetBinding(EnumEditor.SelectedIndexProperty, b4);
+        }
+
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new DataFormComboBoxItem();
         }
     }
 }

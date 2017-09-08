@@ -26,7 +26,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             get
             {
                 if (this.elementsCache == null)
+                {
                     this.elementsCache = new List<DataGridFlyoutHeader>();
+                }
 
                 return this.elementsCache;
             }
@@ -42,6 +44,14 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             {
                 this.owner = value;
             }
+        }
+
+        internal void ClearItems()
+        {
+            this.Children.Clear();
+            this.Elements.Clear();
+            this.realizedWidth = 0;
+            this.totalRealizedHeight = 0;
         }
 
         /// <summary>
@@ -100,7 +110,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
 
             if (this.Flyout != null)
+            {
                 flyoutPadding = this.Flyout.Padding.Left + this.Flyout.Padding.Right;
+            }
 
             double availableHeight = double.IsInfinity(availableSize.Height) ? this.Owner.ActualHeight : availableSize.Height;
 
@@ -127,14 +139,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
             base.MeasureOverride(new Size(this.realizedWidth, actualHeight));
             return new Size(this.realizedWidth, actualHeight);
-        }
-
-        internal void ClearItems()
-        {
-            this.Children.Clear();
-            this.Elements.Clear();
-            this.realizedWidth = 0;
-            this.totalRealizedHeight = 0;
         }
     }
 }

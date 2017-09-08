@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Telerik.Charting;
 using Windows.Foundation;
+using Windows.UI.Composition;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
@@ -49,6 +51,26 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        public override void ApplyContainerVisualPalette(ContainerVisual containerVisual, ContainerVisualsFactory factory)
+        {
+            base.ApplyContainerVisualPalette(containerVisual, factory);
+
+            IStrokedSeries strokedSeries = this.model.presenter as IStrokedSeries;
+            if (strokedSeries == null || strokedSeries.IsStrokeSetLocally)
+            {
+                return;
+            }
+
+            Brush paletteStroke = this.GetPaletteBrush(this.StrokePart);
+
+            foreach (var child in containerVisual.Children)
+            {
+                var childVisual = child as SpriteVisual;
+                if (childVisual != null)
+                    factory.SetCompositionColorBrush(childVisual, paletteStroke, true);
+            }
+        }
+
         protected override void Reset()
         {
             this.shapeGeometry.Figures.Clear();
@@ -94,7 +116,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
-        protected virtual IEnumerable<Point> GetPoints(DataPointSegment segment)
+        protected internal virtual IEnumerable<Point> GetPoints(DataPointSegment segment)
         {
             int pointIndex = segment.StartIndex;
             while (pointIndex <= segment.EndIndex)

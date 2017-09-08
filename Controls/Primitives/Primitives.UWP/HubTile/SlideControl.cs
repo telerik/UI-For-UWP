@@ -136,6 +136,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives.HubTile
             return this.ExpandedState.ToString();
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SlideControlAutomationPeer(this);
+        }
+
         private static void OnExpandedStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var slide = (SlideControl)d;
@@ -154,11 +160,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives.HubTile
                     peer.RaiseExpandCollapseAutomationEvent((SlideTileExpandedState)e.OldValue, (SlideTileExpandedState)e.NewValue);
                 }
             }
-        }
-
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new SlideControlAutomationPeer(this);
         }
 
         private void UpdateExpandedState()

@@ -44,11 +44,12 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(DataGridContentLayerPanel);
         }
-
 
         /// <inheritdoc />
         protected override IList<AutomationPeer> GetChildrenCore()
@@ -59,7 +60,7 @@ namespace Telerik.UI.Automation.Peers
 
                 automationElements = this.DataGridContentLayerPanel.Children.OfType<UIElement>()
                 .Where(e => e.Visibility == Visibility.Visible)
-                .Select(e => FrameworkElementAutomationPeer.CreatePeerForElement(e))
+                .Select(FrameworkElementAutomationPeer.CreatePeerForElement)
                 .Where(ap => ap != null)
                 .ToList();
 

@@ -64,7 +64,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Thickness"/> struct that will be used when calculating the touch rect.
+        /// Gets or sets the <see cref=" Windows.UI.Xaml.Thickness(double)"/> struct that will be used when calculating the touch rect.
         /// </summary>
         public Thickness TouchTargetOverhang
         {
@@ -197,12 +197,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         private bool UpdateSelection()
         {
-            bool handled = false;
-
-            if (this.UpdateSeriesSelection())
-            {
-                handled = true;
-            }
+            var handled = this.UpdateSeriesSelection();
 
             foreach (ChartSeries series in this.chart.SeriesInternal)
             {

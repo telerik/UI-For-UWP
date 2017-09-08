@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="RadarSplineSeries"/>.
+    /// </summary>
     public class RadarSplineSeriesAutomationPeer : RadarLineSeriesAutomationPeer
     {
         /// <summary>
@@ -15,13 +18,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadarSplineSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.RadarSplineSeries);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadarSplineSeries);
+            return nameof(Telerik.UI.Xaml.Controls.Chart.RadarSplineSeries);
         }
 
         /// <inheritdoc />

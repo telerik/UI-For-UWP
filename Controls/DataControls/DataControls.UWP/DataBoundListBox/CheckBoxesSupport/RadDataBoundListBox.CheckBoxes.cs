@@ -442,7 +442,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.isInternalCheckModeChange = false;
                 return;
             }
-            
+
             //// If there are realized items we play an animation
             //// which shows the checkboxes, otherwise we simply set the X translate parameter
             //// of the TranslateTransform object to the needed amount so that when items are 
@@ -472,7 +472,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.IsCheckModeActiveChanged(this, args);
             }
         }
-        
+
         private void SynchCheckedItemsOnItemsChanged(NotifyCollectionChangedEventArgs args)
         {
             //// We only need to synch when an item is removed or replaced. In case of adding a new
@@ -487,6 +487,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         this.checkedItems.UncheckItemSilently(newItem, false, false);
                     }
                     break;
+
                 case NotifyCollectionChangedAction.Replace:
                     {
                         if (!string.IsNullOrEmpty(this.itemCheckedPathCache))

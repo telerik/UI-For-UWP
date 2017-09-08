@@ -50,6 +50,9 @@
         <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" Grid.ColumnSpan="2"/>
 
         <chart:RadCartesianChart SelectionPaletteName="DefaultDarkSelected" PaletteName="DefaultDark" Grid.Row="1">
+            <chart:RadCartesianChart.ContainerVisualsFactory>
+                <localChart:AnimationContainerVisualsFactory/>
+            </chart:RadCartesianChart.ContainerVisualsFactory>
             <chart:RadCartesianChart.DataContext>
                 <localChart:ViewModelSelection/>
             </chart:RadCartesianChart.DataContext>
@@ -63,7 +66,7 @@
                 <chart:ChartSelectionBehavior DataPointSelectionMode="Single"
                                                      SelectionChanged="DataPointSelectionChanged" />
             </chart:RadCartesianChart.Behaviors>
-            <chart:BarSeries ItemsSource="{Binding Source}"
+            <chart:BarSeries ItemsSource="{Binding Source}" AllowSelect="True"
                                     PaletteMode="DataPoint">
                 <chart:BarSeries.ValueBinding>
                     <chart:PropertyNameDataPointBinding PropertyName="Value"/>

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Telerik.Data.Core
+﻿namespace Telerik.Data.Core
 {
+    /// <summary>
+    /// Represents an <see cref="INumericalRange"/> implementation.
+    /// </summary>
     public class NumericalRange : INumericalRange
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NumericalRange"/> class.
+        /// </summary>
         public NumericalRange(double min, double max, double step)
         {
             this.Min = min;
@@ -15,16 +15,25 @@ namespace Telerik.Data.Core
             this.Step = step;
         }
 
+        /// <summary>
+        /// Gets the highest possible value of the range element. 
+        /// </summary>
         public double Max
         {
             get; private set;
         }
 
+        /// <summary>
+        /// Gets the lowest possible value of the range element. 
+        /// </summary>
         public double Min
         {
             get; private set;
         }
 
+        /// <summary>
+        /// Gets a value to be added to or subtracted from the value.
+        /// </summary>
         public double Step
         {
             get; private set;

@@ -68,6 +68,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         internal void Attach(RadChartBase chartBase)
         {
             this.chart = chartBase;
+            this.drawWithComposition = this.chart.ContainerVisualsFactory.CanDrawContainerVisual(this);
             this.Element.presenter = this;
             this.OnAttached();
 

@@ -247,7 +247,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The minimum Latitude this tile source supports.
+        /// Gets or sets the minimum Latitude this tile source supports.
         /// </summary>
         public double MinLatitude
         {
@@ -256,7 +256,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The maximum Latitude this tile source supports.
+        /// Gets or sets the maximum Latitude this tile source supports.
         /// </summary>
         public double MaxLatitude
         {
@@ -265,7 +265,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The minimum Longitude this tile source supports.
+        /// Gets or sets the minimum Longitude this tile source supports.
         /// </summary>
         public double MinLongitude
         {
@@ -274,7 +274,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// The maximum Longitude this tile source supports.
+        /// Gets or sets the maximum Longitude this tile source supports.
         /// </summary>
         public double MaxLongitude
         {

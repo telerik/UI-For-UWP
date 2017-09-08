@@ -1,29 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Data.DataForm;
-using Windows.UI.Xaml;
-using System.Linq;
-using Telerik.UI.Xaml.Controls.Data.DataForm.Commands;
-using Telerik.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Controls;
 using Telerik.UI.Xaml.Controls.Data.DataForm.View;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
     internal partial class DataFormModel
     {
-        internal IDataFormView View { get; set; }
-        internal EntityProvider entityProvider { get; set; }
         private Entity entity;
 
         private EntityEditorGenerator containerGenerator;
-
 
         internal DataFormModel(IDataFormView view)
         {
             this.View = view;
             this.containerGenerator = new EntityEditorGenerator(view);
         }
+
+        internal IDataFormView View { get; set; }
+        internal EntityProvider entityProvider { get; set; }
 
         internal EditorFactory EditorFactory
         {
@@ -70,23 +65,18 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             if (entity != null && entity.Validator != null)
             {
-                entity.Validator.ErrorsChanged += Validator_ErrorsChanged;
+                entity.Validator.ErrorsChanged += this.Validator_ErrorsChanged;
             }
 
             if (oldEntity != null && oldEntity.Validator != null)
             {
-                oldEntity.Validator.ErrorsChanged -= Validator_ErrorsChanged;
+                oldEntity.Validator.ErrorsChanged -= this.Validator_ErrorsChanged;
             }
-        }
-
-        private void Validator_ErrorsChanged(object sender, System.ComponentModel.DataErrorsChangedEventArgs e)
-        {
-            this.TransactionService.ErrorsChanged(sender, e.PropertyName);
         }
 
         internal void OnCommitModeChanged(CommitMode mode, CommitMode previousMode)
         {
-            containerGenerator.OnCommitModeChanged(mode, previousMode);
+            this.containerGenerator.OnCommitModeChanged(mode, previousMode);
         }
 
         internal void OnItemChanged(object newItem)
@@ -124,6 +114,17 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.entityProvider = provider;
         }
 
+        internal void RefreshLayout()
+        {
+            this.containerGenerator.RemoveAll();
+            this.BuildEditors();
+        }
+
+        private void Validator_ErrorsChanged(object sender, System.ComponentModel.DataErrorsChangedEventArgs e)
+        {
+            this.TransactionService.ErrorsChanged(sender, e.PropertyName);
+        }
+
         private void CreateDefaultEntityProvider()
         {
             this.entityProvider = new RuntimeEntityProvider();
@@ -142,7 +143,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     groupContainer = this.GetOrCreateGroupContainer(entityProperty.GroupKey);
                 }
 
-                var editor = containerGenerator.CreateContainer(entityProperty);
+                var editor = this.containerGenerator.CreateContainer(entityProperty);
 
                 if (editor != null)
                 {
@@ -171,12 +172,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
 
             return container;
-        }
-
-        internal void RefreshLayout()
-        {
-            this.containerGenerator.RemoveAll();
-            this.BuildEditors();
         }
     }
 }

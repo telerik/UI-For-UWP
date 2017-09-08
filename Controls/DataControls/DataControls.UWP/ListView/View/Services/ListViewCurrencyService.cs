@@ -12,6 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     {
         ListViewCurrencyService CurrencyService { get; }
     }
+
     internal class ListViewCurrencyService : ServiceBase<RadListView>, ISupportCurrentItem
     {
         internal bool ensureCurrentIntoView = true;
@@ -56,6 +57,35 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        /// <inheritdoc />
+        public bool MoveCurrentToNext()
+        {
+            return this.MoveCurrentToNextOrPrev(true);
+        }
+
+        /// <inheritdoc />
+        public bool MoveCurrentToPrevious()
+        {
+            return this.MoveCurrentToNextOrPrev(false);
+        }
+
+        /// <inheritdoc />
+        public bool MoveCurrentToLast()
+        {
+            return this.MoveCurrentToLastOrFirst(true);
+        }
+
+        /// <inheritdoc />
+        public bool MoveCurrentToFirst()
+        {
+            return this.MoveCurrentToLastOrFirst(false);
+        }
+
+        bool ISupportCurrentItem.MoveCurrentTo(object item)
+        {
+            throw new NotImplementedException();
+        }
+        
         internal bool MoveCurrentTo(object item)
         {
             this.ChangeCurrentItem(item, true, true);
@@ -122,8 +152,8 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
             else
             {
-                 return this.ChangeCurrentCore(null, info, false, scrollToCurrent);
-            }           
+                return this.ChangeCurrentCore(null, info, false, scrollToCurrent);
+            }
         }
 
         internal void UpdateIsSynchronizedWithCurrent(bool synchronize)
@@ -140,7 +170,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             GeneratedItemModel model = null;
 
             if (slotIndex >= 0)
-            {       
+            {
                 model = this.Owner.Model.GetDisplayedElement(slotIndex, id);
             }
 
@@ -156,45 +186,22 @@ namespace Telerik.UI.Xaml.Controls.Data
             GeneratedItemModel model = null;
             if (this.shouldRefreshCurrentItem)
             {
-                 this.RefreshCurrentItem(false);
-                 this.shouldRefreshCurrentItem = false;
-            }        
+                this.RefreshCurrentItem(false);
+                this.shouldRefreshCurrentItem = false;
+            }
 
             if (this.currentItemInfo != null)
             {
                 model = this.Owner.Model.GetDisplayedElement(this.CurrentItemInfo.Value.Slot, this.CurrentItemInfo.Value.Id);
             }
-         
+
             if (this.Owner.currencyLayerCache != null)
             {
-               var slot = model != null ? model.LayoutSlot : RadRect.Empty;
-               this.Owner.currencyLayerCache.UpdateCurrencyDecoration(slot);
+                var slot = model != null ? model.LayoutSlot : RadRect.Empty;
+                this.Owner.currencyLayerCache.UpdateCurrencyDecoration(slot);
             }
         }
 
-        /// <inheritdoc />
-        public bool MoveCurrentToNext()
-        {
-            return this.MoveCurrentToNextOrPrev(true);
-        }
-
-        /// <inheritdoc />
-        public bool MoveCurrentToPrevious()
-        {
-            return this.MoveCurrentToNextOrPrev(false);
-        }
-
-        /// <inheritdoc />
-        public bool MoveCurrentToLast()
-        {
-            return this.MoveCurrentToLastOrFirst(true);
-        }
-
-        /// <inheritdoc />
-        public bool MoveCurrentToFirst()
-        {
-            return this.MoveCurrentToLastOrFirst(false);
-        }
         private bool MoveCurrentToNextOrPrev(bool isNext)
         {
             int index;
@@ -234,7 +241,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             // Raise CurrentChanging first
             bool cancel = this.PreviewCancelCurrentChanging(cancelable);
-         
+
             if (cancel || this.Owner.animationSurvice.IsAnimating(info))
             {
                 // the change is canceled
@@ -352,11 +359,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 eh(this.Owner, args);
             }
-        }
-
-        bool ISupportCurrentItem.MoveCurrentTo(object item)
-        {
-            throw new NotImplementedException();
         }
     }
 }

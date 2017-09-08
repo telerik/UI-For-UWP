@@ -79,6 +79,7 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="UseSystemFocusVisuals" Value="True"/>
+        <Setter Property="AutomationProperties.LiveSetting" Value="Assertive"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:RadPaginationControl">
@@ -710,7 +711,8 @@
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikRadialMenuNavigationButtonBorderBrush}"/>
         <Setter Property="Foreground" Value="{ThemeResource TelerikRadialMenuNavigationButtonForegroundBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="IsTabStop" Value="True"/>
+        <Setter Property="UseSystemFocusVisuals" Value="True"/>
         <Setter Property="ContentGlyph" Value="&#xE0E4;"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -831,6 +833,7 @@
         <Setter Property="NavigationMenuBackgroundStyle" Value="{StaticResource NavigationMenuStyle}"/>
         <Setter Property="ContentMenuBackgroundStyle" Value="{StaticResource ContentMenuStyle}"/>
         <Setter Property="UseSystemFocusVisuals" Value="True"/>
+        <Setter Property="AutomationProperties.LiveSetting" Value="Assertive"/>
         <Setter Property="IsTabStop" Value="True"/>
         <Setter Property="MinWidth" Value="265"/>
         <Setter Property="MinHeight" Value="265"/>

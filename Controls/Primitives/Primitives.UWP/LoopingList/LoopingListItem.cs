@@ -217,6 +217,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.LoopingList
             base.SetVisualState(state, animate);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new Automation.Peers.LoopingListItemAutomationPeer(this);

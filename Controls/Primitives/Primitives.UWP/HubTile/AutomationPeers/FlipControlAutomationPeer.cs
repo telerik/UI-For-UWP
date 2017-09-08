@@ -6,11 +6,27 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the FlipControl class.
+    /// </summary>
     public class FlipControlAutomationPeer : RadControlAutomationPeer, IMultipleViewProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the FlipControlAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
         public FlipControlAutomationPeer(FlipControl owner)
             : base(owner)
         {
+        }
+
+        /// <inheritdoc/>
+        public int CurrentView
+        {
+            get
+            {
+                return this.FlipControl.IsFlipped ? 1 : 0;
+            }
         }
 
         private FlipControl FlipControl
@@ -21,20 +37,7 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        /// <summary>
-        /// IMultipleViewProvider implementation.
-        /// </summary>
-        public int CurrentView
-        {
-            get
-            {
-                return this.FlipControl.IsFlipped ? 1 : 0;
-            }
-        }
-
-        /// <summary>
-        /// IMultipleViewProvider implementation.
-        /// </summary>
+        /// <inheritdoc/>
         public int[] GetSupportedViews()
         {
             List<int> supportedViews = new List<int>();
@@ -117,7 +120,9 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return "FlipControl";
         }

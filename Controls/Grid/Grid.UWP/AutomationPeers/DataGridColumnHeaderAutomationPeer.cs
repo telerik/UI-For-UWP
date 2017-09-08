@@ -4,8 +4,14 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridColumnHeader"/>.
+    /// </summary>
     public class DataGridColumnHeaderAutomationPeer : RadControlAutomationPeer, IInvokeProvider
     {
+        /// <summary>
+        /// Initializes a new instance of the DataGridColumnHeaderAutomationPeer class.
+        /// </summary>
         public DataGridColumnHeaderAutomationPeer(DataGridColumnHeader owner) 
             : base(owner)
         {
@@ -17,6 +23,15 @@ namespace Telerik.UI.Automation.Peers
             get
             {
                 return (DataGridColumnHeader)this.Owner;
+            }
+        }
+
+        /// <inheritdoc />
+        public void Invoke()
+        {
+            if (this.OwnerDataGridColumnHeader.Owner != null)
+            {
+                this.OwnerDataGridColumnHeader.Owner.OnColumnHeaderTap(this.OwnerDataGridColumnHeader, new Windows.UI.Xaml.Input.TappedRoutedEventArgs());
             }
         }
 
@@ -40,13 +55,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(DataGridColumnHeader);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridColumnHeader);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(DataGridColumnHeader);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridColumnHeader);
         }
 
         /// <inheritdoc />
@@ -64,7 +79,7 @@ namespace Telerik.UI.Automation.Peers
                 return automationId;
             }
 
-            return nameof(DataGridColumnHeader);
+            return nameof(Telerik.UI.Xaml.Controls.Grid.Primitives.DataGridColumnHeader);
         }
 
         /// <inheritdoc />
@@ -73,6 +88,7 @@ namespace Telerik.UI.Automation.Peers
             return false;
         }
 
+        /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.Invoke)
@@ -81,14 +97,6 @@ namespace Telerik.UI.Automation.Peers
             }
 
             return base.GetPatternCore(patternInterface);
-        }
-
-        public void Invoke()
-        {
-            if (this.OwnerDataGridColumnHeader.Owner != null)
-            {
-                this.OwnerDataGridColumnHeader.Owner.OnColumnHeaderTap(this.OwnerDataGridColumnHeader, new Windows.UI.Xaml.Input.TappedRoutedEventArgs());
-            }
         }
     }
 }

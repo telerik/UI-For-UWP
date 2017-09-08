@@ -627,6 +627,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadRadialMenuAutomationPeer(this);
@@ -659,6 +660,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             if (peer != null)
             {
                 peer.RaiseExpandCollapseAutomationEvent(!((bool)e.NewValue), (bool)e.NewValue);
+                if ((bool)e.NewValue)
+                {
+                    peer.RaiseAutomationEvent(AutomationEvents.LiveRegionChanged);
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Telerik.Charting;
+using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -25,6 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         internal Style defaultVisualStyleCache;
         internal List<FrameworkElement> realizedDataPoints;
+        internal List<ContainerVisual> realizedVisualDataPoints;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BarIndicatorBase" /> class.
@@ -35,6 +37,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             this.renderSurface = new Canvas();
             this.realizedDataPoints = new List<FrameworkElement>();
+            this.realizedVisualDataPoints = new List<ContainerVisual>();
         }
 
         /// <summary>

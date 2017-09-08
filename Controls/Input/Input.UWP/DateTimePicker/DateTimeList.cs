@@ -7,6 +7,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
 {
@@ -21,6 +22,18 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
         /// </summary>
         public static readonly DependencyProperty StepProperty =
             DependencyProperty.Register(nameof(Step), typeof(int), typeof(DateTimeList), new PropertyMetadata(1, OnStepChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="SelectedBackground"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty SelectedBackgroundProperty =
+            DependencyProperty.Register("SelectedBackground", typeof(Brush), typeof(DateTimeList), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Identifies the <see cref="SelectedForeground"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty SelectedForegroundProperty =
+            DependencyProperty.Register("SelectedForeground", typeof(Brush), typeof(DateTimeList), new PropertyMetadata(null));
 
         // Timer is static as there is only one UI thread and one list focused at a time.
         private static DispatcherTimer typeDelayTimer;
@@ -87,6 +100,24 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
             {
                 this.SetValue(StepProperty, value);
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the Background of the rectangle area of the <see cref="DateTimeListItem"/> when the item is selected.
+        /// </summary>
+        public Brush SelectedBackground
+        {
+            get { return (Brush)GetValue(SelectedBackgroundProperty); }
+            set { this.SetValue(SelectedBackgroundProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Foreground of the rectangle area of the <see cref="DateTimeListItem"/> when the item is selected.
+        /// </summary>
+        public Brush SelectedForeground
+        {
+            get { return (Brush)GetValue(SelectedForegroundProperty); }
+            set { this.SetValue(SelectedForegroundProperty, value); }
         }
 
         internal DateTimePicker Owner
@@ -183,8 +214,8 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
         {
             int index = this.GetIndexFromCurrentValueForComponentType(this.componentType);
 
-            //Ensure that list is with valid count when swithcing between months with diferent number of days.
-            if (this.IsTemplateApplied &&  this.itemsPanel.VisualCount > 0)
+            // Ensure that list is with valid count when swithcing between months with diferent number of days.
+            if (this.IsTemplateApplied && this.itemsPanel.VisualCount > 0)
             {
                 this.UpdateLogicalCount(false);
                 this.UpdateListWithStep();
@@ -195,7 +226,7 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
 
         internal override LoopingListItem CreateVisualItemInstance()
         {
-            return new DateTimeListItem();
+            return new DateTimeListItem() { SelectedBackground = this.SelectedBackground, SelectedForeground = this.SelectedForeground };
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
@@ -438,6 +469,7 @@ namespace Telerik.UI.Xaml.Controls.Input.DateTimePickers
             this.DetachCharacterReceived();
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new DateTimeListAutomationPeer(this);

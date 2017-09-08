@@ -24,4 +24,3 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         }
     }
 }
-

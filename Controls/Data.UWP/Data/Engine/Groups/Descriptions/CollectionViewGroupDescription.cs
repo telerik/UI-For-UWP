@@ -24,6 +24,5 @@ namespace Telerik.Data.Core
         protected override void CloneOverride(Cloneable source)
         {
         }
-
     }
 }

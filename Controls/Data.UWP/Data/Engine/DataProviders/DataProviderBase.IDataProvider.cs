@@ -10,7 +10,7 @@ namespace Telerik.Data.Core
     {
         public event System.EventHandler<ViewChangedEventArgs> ViewChanged;
         public event System.EventHandler<ViewChangingEventArgs> ViewChanging;
-        public event System.EventHandler<System.Object> CurrentChanged;
+        public event System.EventHandler<object> CurrentChanged;
 
         public abstract bool IsSingleThreaded { get; set; }
 

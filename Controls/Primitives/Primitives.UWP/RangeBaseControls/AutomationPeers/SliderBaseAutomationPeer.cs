@@ -8,7 +8,10 @@ using Windows.UI.Xaml.Automation.Provider;
 
 namespace Telerik.UI.Automation.Peers
 {
-    public class SliderBaseAutomationPeer : RangeInputBaseAutomationPeer, IRangeValueProvider
+    /// <summary>
+    /// Automation Peer for the SliderBase class.
+    /// </summary>
+    public class SliderBaseAutomationPeer : RangeInputBaseAutomationPeer, IRangeValueProvider, IValueProvider
     {
         private bool hasMaximumDirection;
 
@@ -21,19 +24,20 @@ namespace Telerik.UI.Automation.Peers
         {
             this.hasMaximumDirection = true;
         }
-
-        private SliderBase SliderBase
+        
+        /// <inheritdoc/>
+        public virtual string Value
         {
             get
             {
-                return (SliderBase)this.Owner;
+                var selectionString = "Selection Start: " + this.SliderBase.SelectionStart + "Selection End: " + this.SliderBase.SelectionEnd;
+                return selectionString;
             }
         }
 
         /// <summary>
-        /// Gets a value that specifies whether the value of a control is read-only.
+        /// Gets a value indicating whether the value of a control is read-only.
         /// </summary>
-        /// <value></value>
         /// <returns>true if the value is read-only; false if it can be modified.
         /// </returns>
         public bool IsReadOnly
@@ -47,7 +51,6 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the value that is added to or subtracted from the <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.Value"/> property when a large change is made, such as with the PAGE DOWN key.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The large-change value supported by the control or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.LargeChange"/>.
         /// </returns>
@@ -62,7 +65,6 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the maximum range value supported by the control.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The maximum value supported by the control or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.Maximum"/>.
         /// </returns>
@@ -77,7 +79,6 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the minimum range value supported by the control.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The minimum value supported by the control or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:System.Windows.Automation.Provider.IRangeValueProvider.Minimum"/>.
         /// </returns>
@@ -92,7 +93,6 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the value that is added to or subtracted from the <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.Value"/> property when a small change is made, such as with an arrow key.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The small-change value or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.SmallChange"/>.
         /// </returns>
@@ -107,11 +107,10 @@ namespace Telerik.UI.Automation.Peers
         /// <summary>
         /// Gets the value of the control.
         /// </summary>
-        /// <value></value>
         /// <returns>
         /// The value of the control or null (Nothing in Microsoft Visual Basic .NET) if the control does not support <see cref="P:Windows.UI.Xaml.Automation.Provider.IRangeValueProvider.Value"/>.
         /// </returns>
-        public virtual double Value
+        double IRangeValueProvider.Value
         {
             get
             {
@@ -135,6 +134,14 @@ namespace Telerik.UI.Automation.Peers
                 }
 
                 throw new NotSupportedException("Value property is not supported by SliderBase.");
+            }
+        }
+
+        private SliderBase SliderBase
+        {
+            get
+            {
+                return (SliderBase)this.Owner;
             }
         }
 
@@ -170,6 +177,35 @@ namespace Telerik.UI.Automation.Peers
                     }
                 }
             }
+        }
+
+        /// <inheritdoc/>
+        public void SetValue(string value)
+        {
+            double parsedValue;
+            if (double.TryParse(value, out parsedValue))
+            {
+                this.SetValue(parsedValue);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        internal void RaiseMaximumPropertyChangedEvent(double oldValue, double newValue)
+        {
+            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MaximumProperty, oldValue, newValue);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        internal void RaiseMinimumPropertyChangedEvent(double oldValue, double newValue)
+        {
+            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MinimumProperty, oldValue, newValue);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        internal void RaiseValuePropertyChangedEvent(double? oldValue, double? newValue)
+        {
+            this.RaisePropertyChangedEvent(ValuePatternIdentifiers.ValueProperty, oldValue.ToString(), newValue.ToString());
+            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, oldValue, newValue);
         }
 
         /// <inheritdoc />
@@ -211,24 +247,6 @@ namespace Telerik.UI.Automation.Peers
         protected override string GetLocalizedControlTypeCore()
         {
             return "slider base";
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        internal void RaiseMaximumPropertyChangedEvent(double oldValue, double newValue)
-        {
-            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MaximumProperty, oldValue, newValue);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        internal void RaiseMinimumPropertyChangedEvent(double oldValue, double newValue)
-        {
-            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.MinimumProperty, oldValue, newValue);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        internal void RaiseValuePropertyChangedEvent(double? oldValue, double? newValue)
-        {
-            this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, oldValue, newValue);
         }
     }
 }

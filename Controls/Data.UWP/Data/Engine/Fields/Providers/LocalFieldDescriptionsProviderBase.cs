@@ -54,7 +54,6 @@ namespace Telerik.Data.Core.Fields
 
             foreach (var fieldInfoItem in fieldInfos)
             {
-                // TODO:, Parent = this.Fields 
                 var fieldDescriptionNode = new FieldInfoNode(fieldInfoItem);
                 root.Children.Add(fieldDescriptionNode);
             }

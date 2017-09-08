@@ -86,18 +86,20 @@ namespace Telerik.UI.Xaml.Controls.Input
         private const string AnimationLayerTemplatePartName = "PART_AnimationLayer";
         private const string ItemsPanelTemplatePartName = "PART_ItemsPanel";
         private readonly IList<object> itemsCache;
+        private IList<int> disabledItemsCache;
 
         private bool isInternalChange;
         private SegmentedItemsControl itemsControl;
         private Canvas animationLayer;
 
         /// <summary>
-        /// Initializes a new instance of type <see cref="RadSegmentedControl"/> .
+        /// Initializes a new instance of the <see cref="RadSegmentedControl"/> class.
         /// </summary>
         public RadSegmentedControl()
         {
             this.DefaultStyleKey = typeof(RadSegmentedControl);
             this.itemsCache = new List<object>();
+            this.disabledItemsCache = new List<int>();
         }
 
         /// <summary>
@@ -111,7 +113,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public CornerRadius CornerRadius
         {
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
+            set { this.SetValue(CornerRadiusProperty, value); }
         }
 
         /// <summary>
@@ -121,7 +123,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public string DisplayMemberPath
         {
             get { return (string)GetValue(DisplayMemberPathProperty); }
-            set { SetValue(DisplayMemberPathProperty, value); }
+            set { this.SetValue(DisplayMemberPathProperty, value); }
         }
 
         /// <summary>
@@ -130,7 +132,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public ICommand ItemCommand
         {
             get { return (ICommand)GetValue(ItemCommandProperty); }
-            set { SetValue(ItemCommandProperty, value); }
+            set { this.SetValue(ItemCommandProperty, value); }
         }
 
         /// <summary>
@@ -139,7 +141,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public Style ItemContainerStyle
         {
             get { return (Style)GetValue(ItemContainerStyleProperty); }
-            set { SetValue(ItemContainerStyleProperty, value); }
+            set { this.SetValue(ItemContainerStyleProperty, value); }
         }
 
         /// <summary>
@@ -149,7 +151,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public StyleSelector ItemContainerStyleSelector
         {
             get { return (StyleSelector)GetValue(ItemContainerStyleSelectorProperty); }
-            set { SetValue(ItemContainerStyleSelectorProperty, value); }
+            set { this.SetValue(ItemContainerStyleSelectorProperty, value); }
         }
 
         /// <summary>
@@ -169,7 +171,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public IEnumerable ItemsSource
         {
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
+            set { this.SetValue(ItemsSourceProperty, value); }
         }
 
         /// <summary>
@@ -178,7 +180,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public DataTemplate ItemTemplate
         {
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
-            set { SetValue(ItemTemplateProperty, value); }
+            set { this.SetValue(ItemTemplateProperty, value); }
         }
 
         /// <summary>
@@ -187,7 +189,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public DataTemplateSelector ItemTemplateSelector
         {
             get { return (DataTemplateSelector)GetValue(ItemTemplateSelectorProperty); }
-            set { SetValue(ItemTemplateSelectorProperty, value); }
+            set { this.SetValue(ItemTemplateSelectorProperty, value); }
         }
 
         /// <summary>
@@ -196,7 +198,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public SegmentWidthMode SegmentWidthMode
         {
             get { return (SegmentWidthMode)GetValue(SegmentWidthModeProperty); }
-            set { SetValue(SegmentWidthModeProperty, value); }
+            set { this.SetValue(SegmentWidthModeProperty, value); }
         }
 
         /// <summary>
@@ -205,7 +207,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public double SeparatorWidth
         {
             get { return (double)GetValue(SeparatorWidthProperty); }
-            set { SetValue(SeparatorWidthProperty, value); }
+            set { this.SetValue(SeparatorWidthProperty, value); }
         }
 
         /// <summary>
@@ -214,7 +216,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public Brush SeparatorBrush
         {
             get { return (Brush)GetValue(SeparatorBrushProperty); }
-            set { SetValue(SeparatorBrushProperty, value); }
+            set { this.SetValue(SeparatorBrushProperty, value); }
         }
 
         /// <summary>
@@ -229,7 +231,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Exposed for testing purposes.
+        /// Gets the <see cref="ItemsControl"/>. Exposed for testing purposes.
         /// </summary>
         internal ItemsControl ItemsControl
         {
@@ -239,6 +241,38 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        /// <summary>
+        /// Set the Enable state of the Segment.
+        /// </summary>
+        public void SetSegmentEnabled(int index, bool isEnabled)
+        {
+            if (this.IsTemplateApplied)
+            {
+                this.UpdateSegmentIsEnabled(index, isEnabled);
+            }
+            else
+            {
+                bool containsItem = this.disabledItemsCache.Contains(index);
+
+                if (!containsItem && !isEnabled)
+                {
+                    this.disabledItemsCache.Add(index);
+                }
+                else if (containsItem && isEnabled)
+                {
+                    this.disabledItemsCache.Remove(index);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns <see cref="Boolean"/> value that indicates if the Segment is enabled.
+        /// </summary>
+        public bool IsSegmentEnabled(int index)
+        {
+            return this.IsTemplateApplied ? this.GetContainerForIndex(index).IsEnabled : !this.disabledItemsCache.Contains(index);
+        }
+        
         internal void OnSegmentAnimationContextChanged(Segment segment)
         {
             var handler = this.SegmentAnimationContextChanged;
@@ -293,7 +327,19 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             this.itemsCache.Clear();
 
-            itemsControl.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = this, Path = new PropertyPath("ItemsSource") });
+            this.itemsControl.SetBinding(ItemsControl.ItemsSourceProperty, new Binding { Source = this, Path = new PropertyPath("ItemsSource") });
+
+            var temp = this.Dispatcher.RunAsync(
+                Windows.UI.Core.CoreDispatcherPriority.Normal, 
+                () =>
+                {
+                    foreach (var disabledItem in this.disabledItemsCache)
+                    {
+                        this.UpdateSegmentIsEnabled(disabledItem, false);
+                    }
+
+                    this.disabledItemsCache.Clear();
+                });
         }
 
         /// <inheritdoc/>
@@ -305,7 +351,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             var observableCollection = this.ItemsSource as INotifyCollectionChanged;
             if (observableCollection != null)
             {
-                observableCollection.CollectionChanged -= ItemsSourceCollectionChanged;
+                observableCollection.CollectionChanged -= this.ItemsSourceCollectionChanged;
             }
 
             base.UnapplyTemplateCore();
@@ -343,6 +389,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 observableCollection.CollectionChanged += control.ItemsSourceCollectionChanged;
             }
+        }
+
+        private void UpdateSegmentIsEnabled(int index, bool isEnabled)
+        {
+            var item = this.GetContainerForIndex(index);
+            item.IsEnabled = isEnabled;
+            item.UpdateVisualState(true);
+        }
+
+        private Segment GetContainerForIndex(int index)
+        {
+            return this.GetContainerForValue(this.GetItemByIndex(index));
         }
 
         private Segment GetContainerForValue(object value)
@@ -413,7 +471,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             if (this.IsTemplateApplied)
             {
-                (sender as INotifyCollectionChanged).CollectionChanged -= ItemsSourceCollectionChanged;
+                (sender as INotifyCollectionChanged).CollectionChanged -= this.ItemsSourceCollectionChanged;
             }
             else
             {

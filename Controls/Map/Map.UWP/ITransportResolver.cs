@@ -13,7 +13,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Loads the <see cref="StorageFile"/> containing the Map Shapes definition.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> pointing to the file location.</param>
-        /// <returns></returns>
         Task<StorageFile> GetStorageFile(Uri uri);
     }
 }

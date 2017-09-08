@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
@@ -12,6 +13,7 @@ namespace Telerik.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="RadScaleXAnimation"/> class.
         /// </summary>
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public RadScaleXAnimation()
         {
             this.StartScaleX = 0.5;
@@ -96,7 +98,7 @@ namespace Telerik.Core
             }
 
             ScaleTransform transform = info.Target.GetScaleTransform();
-            transform.ScaleX = scaleX.HasValue ? scaleX.Value : transform.ScaleX;
+            transform.ScaleX = scaleX ?? transform.ScaleX;
         }
 
         /// <summary>
@@ -113,8 +115,8 @@ namespace Telerik.Core
             context.EnsureDefaultTransforms();
             ScaleTransform transform = context.Target.GetScaleTransform();
 
-            double fromX = this.StartScaleX.HasValue ? this.StartScaleX.Value : transform.ScaleX;
-            double toX = this.EndScaleX.HasValue ? this.EndScaleX.Value : transform.ScaleX;
+            double fromX = StartScaleX ?? transform.ScaleX;
+            double toX = EndScaleX ?? transform.ScaleX;
 
             double duration = this.Duration.TimeSpan.TotalSeconds;
 

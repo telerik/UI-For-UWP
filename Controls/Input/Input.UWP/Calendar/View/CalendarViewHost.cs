@@ -9,6 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     /// </summary>
     public class CalendarViewHost : Canvas
     {
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             RadCalendar calendar = ElementTreeHelper.FindVisualAncestor<RadCalendar>(this);

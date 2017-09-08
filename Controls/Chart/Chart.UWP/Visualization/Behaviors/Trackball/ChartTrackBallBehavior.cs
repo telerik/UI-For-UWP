@@ -303,12 +303,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// </summary>
         internal void HandleDrag(Point currentPosition)
         {
-            this.position = currentPosition;
-            if (!this.visualsDisplayed)
+            if (currentPosition.X > this.chart.PlotAreaDecorationSlot.X 
+                && currentPosition.X < (this.chart.PlotAreaDecorationSlot.X + this.chart.PlotAreaDecorationSlot.Width))
             {
-                this.PrepareVisuals();
+                this.position = currentPosition;
+                if (!this.visualsDisplayed)
+                {
+                    this.PrepareVisuals();
+                }
+                this.UpdateVisuals();
             }
-            this.UpdateVisuals();
         }
 
         /// <summary>
@@ -559,17 +563,25 @@ namespace Telerik.UI.Xaml.Controls.Chart
                         // select points only with the same category. TODO: Refactor this.
                         points = context.DataPoints.Where(c => 
                                 c.DataPoint is CategoricalDataPoint &&
-                                point.Category.Equals(((CategoricalDataPoint)c.DataPoint).Category)
-                            ).ToList();
+                                point.Category.Equals(((CategoricalDataPoint)c.DataPoint).Category)).ToList();
                     }
 
                     context = new ChartDataContext(points, context.ClosestDataPoint);
                 }
             }
-
-            this.UpdateLine(context);
-            this.UpdateIntersectionPoints(context);
-            this.UpdateTrackInfo(context);
+            
+            if (context.ClosestDataPoint != null 
+                && context.ClosestDataPoint.DataPoint.LayoutSlot.X > this.chart.PlotAreaClip.X
+                && context.ClosestDataPoint.DataPoint.LayoutSlot.X < (this.chart.PlotAreaClip.X + this.chart.PlotAreaClip.Width))
+            {
+                this.UpdateLine(context);
+                this.UpdateIntersectionPoints(context);
+                this.UpdateTrackInfo(context);
+            }
+            else
+            {
+                this.HideVisuals();
+            }
         }
 
         private void UpdateTrackInfo(ChartDataContext context)

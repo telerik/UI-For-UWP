@@ -20,6 +20,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 this.categoryBinding = value;
+                this.categoryBinding.PropertyChanged += this.OnBoundItemPropertyChanged;
 
                 if (this.ItemsSource != null)
                 {

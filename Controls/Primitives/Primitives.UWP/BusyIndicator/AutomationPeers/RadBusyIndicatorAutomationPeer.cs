@@ -10,21 +10,12 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadBusyIndicatorAutomationPeer : RadContentControlAutomationPeer, IToggleProvider
     {
-        private RadBusyIndicator BusyIndicatorOwner
-        {
-            get
-            {
-                return (RadBusyIndicator)this.Owner;
-            }
-        }
-
         /// <summary>
         /// Initializes a new instance of the RadBusyIndicatorAutomationPeer class.
         /// </summary>
         /// <param name="owner">The RadBusyIndicator that is associated with this RadBusyIndicatorAutomationPeer.</param>
         public RadBusyIndicatorAutomationPeer(RadBusyIndicator owner) : base(owner)
         {
-
         }
 
         /// <summary>
@@ -37,23 +28,36 @@ namespace Telerik.UI.Automation.Peers
                 return this.BusyIndicatorOwner.IsActive ? ToggleState.On : ToggleState.Off;
             }
         }
-        
+
+        private RadBusyIndicator BusyIndicatorOwner
+        {
+            get
+            {
+                return (RadBusyIndicator)this.Owner;
+            }
+        }
+
         /// <summary>
         /// Cycles through the toggle states of a control.
         /// </summary>
         public void Toggle()
         {
-            this.BusyIndicatorOwner.IsActive = !this.BusyIndicatorOwner.IsActive;
+            // Switching between the states should not be provided by the peers.
         }
-        
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseToggleStatePropertyChangedEvent(bool oldState, bool newState)
+        {
+            ToggleState oldToggle = oldState ? ToggleState.On : ToggleState.Off;
+            ToggleState newToggle = newState ? ToggleState.On : ToggleState.Off;
+
+            this.RaisePropertyChangedEvent(TogglePatternIdentifiers.ToggleStateProperty, oldState, newToggle);
+            this.RaisePropertyChangedEvent(AutomationElementIdentifiers.ItemStatusProperty, oldToggle.ToString(), newToggle.ToString());
+        }
+
         /// <inheritdoc />
         protected override object GetPatternCore(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.Toggle)
-            {
-                return this;
-            }
-
             return base.GetPatternCore(patternInterface);
         }
 
@@ -82,16 +86,6 @@ namespace Telerik.UI.Automation.Peers
             }
 
             return base.GetItemStatusCore();
-        }
-
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
-        internal void RaiseToggleStatePropertyChangedEvent(bool oldState, bool newState)
-        {
-            ToggleState oldToggle = oldState ? ToggleState.On : ToggleState.Off;
-            ToggleState newToggle = newState ? ToggleState.On : ToggleState.Off;
-
-            this.RaisePropertyChangedEvent(TogglePatternIdentifiers.ToggleStateProperty, oldState, newToggle);
-            this.RaisePropertyChangedEvent(AutomationElementIdentifiers.ItemStatusProperty, oldToggle.ToString(), newToggle.ToString());
         }
     }
 }

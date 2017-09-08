@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Telerik.UI.Xaml.Controls.Grid.Primitives
+﻿namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
+    /// <summary>
+    /// Position of the ExternalEditor.
+    /// </summary>
     public enum ExternalEditorPosition
     {
+        /// <summary>
+        /// Specifies a "Right" position for the external editor.
+        /// </summary>
         Right,
+
+        /// <summary>
+        /// Specifies a "Left" position for the external editor.
+        /// </summary>
         Left,
     }
 }

@@ -44,7 +44,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
-        protected override IEnumerable<Point> GetPoints(DataPointSegment segment)
+        protected internal override IEnumerable<Point> GetPoints(DataPointSegment segment)
         {
             AxisPlotDirection plotDirection = this.model.GetTypedValue<AxisPlotDirection>(AxisModel.PlotDirectionPropertyKey, AxisPlotDirection.Vertical);
             ReferenceDictionary<string, Delegate> valueExtractor = plotDirection == AxisPlotDirection.Vertical ? VerticalPlotValueExtractors : HorizontalPlotValueExtractors;

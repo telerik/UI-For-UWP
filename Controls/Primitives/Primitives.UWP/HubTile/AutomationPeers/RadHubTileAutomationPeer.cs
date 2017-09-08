@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Telerik.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Automation.Provider;
+﻿using Telerik.UI.Xaml.Controls.Primitives;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadHubTile class.
+    /// </summary>
     public class RadHubTileAutomationPeer : HubTileBaseAutomationPeer
     {
+        /// <summary>
+        /// Initializes a new instance of the RadHubTileAutomationPeer class.
+        /// </summary>
+        /// <param name="owner">The owner.</param>
         public RadHubTileAutomationPeer(RadHubTile owner) 
             : base(owner)
         {
@@ -44,7 +47,9 @@ namespace Telerik.UI.Automation.Peers
         {
             string name = base.GetNameCore();
             if (!string.IsNullOrEmpty(name))
+            {
                 return name;
+            }
 
             name = this.RadHubTile.Message as string;
             if (!string.IsNullOrEmpty(name))

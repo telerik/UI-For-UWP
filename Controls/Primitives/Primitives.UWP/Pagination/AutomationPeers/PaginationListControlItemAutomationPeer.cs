@@ -5,6 +5,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the PaginationListControlItem class.
+    /// </summary>
     public class PaginationListControlItemAutomationPeer : ListBoxItemAutomationPeer
     {
         /// <summary>
@@ -48,7 +51,7 @@ namespace Telerik.UI.Automation.Peers
             var children = base.GetChildrenCore().ToList();
             if (children != null && children.Count > 0)
             {
-                children.RemoveAll(x => x.GetClassName() == nameof(PaginationItemIndicator));
+                children.RemoveAll(x => x.GetClassName() == nameof(Telerik.UI.Xaml.Controls.Primitives.Pagination.PaginationItemIndicator));
             }
 
             return children;

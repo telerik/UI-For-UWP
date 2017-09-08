@@ -183,6 +183,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             base.OnTapped(e);
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadHexHubTileAutomationPeer(this);

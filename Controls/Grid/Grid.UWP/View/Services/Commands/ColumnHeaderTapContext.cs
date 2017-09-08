@@ -35,7 +35,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Commands
         }
 
         /// <summary>
-        /// Used to determine if flyout has been opened before the column tap event(In the tap event we automatically close it).
+        /// Gets or sets a value indicating whether if flyout has been opened before the column tap event(In the tap event we automatically close it).
         /// </summary>
         internal bool IsFlyoutOpen
         {

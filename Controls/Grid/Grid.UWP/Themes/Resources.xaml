@@ -240,6 +240,7 @@
     </Style>
 
     <Style TargetType="primitivesCommon:InlineButton" x:Key="GridServiceButtonStyle">
+        <Setter Property="AutomationProperties.Name" Value="Filter"/>
         <Setter Property="Background" Value="{ThemeResource TelerikGridServiceButtonBackgroundBrush}" />
         <Setter Property="Foreground" Value="{ThemeResource TelerikGridServiceButtonForegroundBrush}"/>
         <Setter Property="PointerOverBackgroundBrush" Value="{ThemeResource TelerikGridServiceButtonPointerOverBackgroundBrush}"/>
@@ -1117,13 +1118,6 @@
                 <ControlTemplate TargetType="localPrimitives:SelectionRegionBorderControl">
                     <Grid>
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                        <!--TODO: This is the top-left gripper (selection handler) UI-->
-                        <!--<Border Width="16" Height="16" BorderBrush="#2D2D2D"  BorderThickness="2 2 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                        <Border x:Name="TopLeft_Thumb"  Width="14" Height="14"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="4 4 0 0" VerticalAlignment="Top" HorizontalAlignment="Left"/>-->
-
-                        <!--TODO: This is the bottom-right gripper (selection handler) UI-->
-                        <!--<Border Width="16" Height="16" BorderBrush="#2D2D2D"  BorderThickness="0 0 2 2" VerticalAlignment="Bottom" HorizontalAlignment="Right" />-->
-                        <!--<Border x:Name="BottomRight_Thumb"  Width="14" Height="14"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0 0 4 4" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>-->
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -1572,7 +1566,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <localPrimitives:DataGridFilterComboBox x:Name="PART_OperatorCombo" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
-                        <TextBox IsTextPredictionEnabled="False" x:Name="PART_ValueBox" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,16,0,0"/>
+                        <TextBox IsTextPredictionEnabled="False" x:Name="PART_ValueBox" HorizontalAlignment="Stretch" Grid.Row="1" Margin="0,16,0,0" AutomationProperties.Name="FilterTextBox"/>
                         <ToggleButton x:Name="PART_CaseButton" Grid.Row="1" Grid.Column="1" Content="aA" 
                                       Margin="2,16,0,0" Style="{StaticResource TextFilterCaseButtonStyle}" 
                                       IsChecked="{TemplateBinding IsCaseSensitive}"/>
@@ -2067,7 +2061,7 @@
                             <primitivesCommon:InlineButton x:Name="PART_LoadButton" HorizontalAlignment="Stretch">
                                 <primitivesCommon:InlineButton.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock FontFamily="{ThemeResource SymbolThemeFontFamily}" Text="&#xE0BA;" FontSize="18" RenderTransformOrigin="0.5,0.5" >
+                                        <TextBlock FontFamily="Segoe UI Symbol" Text="&#xE0BA;" FontSize="18" RenderTransformOrigin="0.5,0.5" >
                                             <TextBlock.RenderTransform>
                                                 <RotateTransform Angle="-90"/>
                                             </TextBlock.RenderTransform>

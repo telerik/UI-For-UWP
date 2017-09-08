@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Telerik.Core;
 
 namespace Telerik.Charting
@@ -16,6 +17,7 @@ namespace Telerik.Charting
         {
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         int ICollection<DataPoint>.Count
         {
             get
@@ -24,6 +26,7 @@ namespace Telerik.Charting
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         bool ICollection<DataPoint>.IsReadOnly
         {
             get

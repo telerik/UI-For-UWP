@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// Automation Peer for the RadPaginationControl class.
+    /// </summary>
     public class RadPaginationControlAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>
@@ -18,13 +21,13 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return nameof(RadPaginationControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl);
         }
 
         /// <inheritdoc />
         protected override string GetHelpTextCore()
         {
-            return nameof(RadPaginationControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl);
         }
 
         /// <inheritdoc />
@@ -36,9 +39,10 @@ namespace Telerik.UI.Automation.Peers
                 return automationId;
             }
 
-            return nameof(RadPaginationControl);
+            return nameof(Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl);
         }
 
+        /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
             return AutomationControlType.Group;

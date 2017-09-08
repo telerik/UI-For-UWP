@@ -19,7 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.View
             }
 
             SortDirection direction = (SortDirection)value;
-#if WINDOWS_UWP
+
             switch (direction)
             {
                 case SortDirection.Ascending:
@@ -29,19 +29,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.View
                 default:
                     return string.Empty;
             }
-#else
-            switch (direction)
-            {
-                case SortDirection.Ascending:
-
-                    return "\u25B2";
-                case SortDirection.Descending:
-                    return "\u25BC";
-                default:
-                    return string.Empty;
-            }
-#endif
-
         }
 
         /// <summary>

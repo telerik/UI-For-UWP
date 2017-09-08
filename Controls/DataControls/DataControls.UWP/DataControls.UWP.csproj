@@ -19,8 +19,8 @@
     <AssemblyName>Telerik.UI.Xaml.Controls.Data.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,10 +51,14 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-	<Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\ContainerGeneration\HexItemModelGenerator.cs" />
+    <Compile Include="DataForm\View\Editors\DataFormComboBoxItem.cs" />
+    <Compile Include="DataForm\View\Editors\SegmentedControlCustomEditor.cs" />
+    <Compile Include="DataForm\View\Editors\SliderCustomEditor.cs" />
+    <Compile Include="ListView\View\Controls\ListViewLoadDataUICommand.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataBoundListBox\AutomationPeers\RadDataBoundListBoxAutomationPeer.cs" />
     <Compile Include="DataBoundListBox\AutomationPeers\RadDataBoundListBoxItemAutomationPeer.cs" />
-    <Compile Include="DataForm\AutomationPeers\EntityPropertyControlAutomationPeer.cs" />
     <Compile Include="DataForm\AutomationPeers\RadDataFormAutomationPeer.cs" />
     <Compile Include="HexView\AutomationPeers\RadHexViewAutomationPeer.cs" />
     <Compile Include="ListView\AutomationPeers\RadListViewAutomationPeer.cs" />
@@ -178,8 +182,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\DataFormTextBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\Controls\ITypeEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\CustomEditorBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\SegmentedControlCustomEditor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\SliderCustomEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\CustomEditors\ToggleSwitchCustomEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\DateEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorGeneration\EntityEditorGenerator.cs" />
@@ -401,6 +403,7 @@
     <AssemblyOriginatorKeyFile>..\..\..\BuildTools\Win8PublicKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\..\..\BuildTools\CopyBinaries.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -408,4 +411,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="XamlGeneratedCodeWarningRemoved" AfterTargets="MarkupCompilePass2">
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning disable 1591 &gt; %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do type %%f &gt;&gt; %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning restore 1591 &gt;&gt; %%f.temp" />
+    <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do move /y %%f.temp %%f" />
+    <Message Text="Xaml Generated Code Warnings Removed: @(_GeneratedCodeFiles)" />
+  </Target>
 </Project>

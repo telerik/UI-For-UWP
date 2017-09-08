@@ -295,12 +295,11 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Initiates a hit test on the specified <see cref="Point"/> location.
+        /// Initiates a hit test on the specified <see cref="Windows.Foundation.Point(double, double)"/> location.
         /// </summary>
         /// <param name="location">The location.</param>
         /// <param name="shapeLayer">The <see cref="MapShapeLayer"/> instance whose shapes to hit test. 
         /// Default value is null i.e. hit testing is performed on all layers (starting from the top-most one) and the first positive match is returned.</param>
-        /// <returns></returns>
         public IMapShape HitTest(Point location, MapShapeLayer shapeLayer = null)
         {
             int layerZIndex = -1;
@@ -321,7 +320,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Sets the provided <see cref="LocationRect"/> value as the current view of the map.
         /// </summary>
-        /// <param name="boundingRect"></param>
         public void SetView(LocationRect boundingRect)
         {
             boundingRect = this.CoerceLocationRect(boundingRect);
@@ -387,7 +385,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Converts the specified physical point to its geographic equivalent. The provided physical point is relative to the map's TopLeft position.
         /// </summary>
         /// <param name="point">The physical point (typically associated with a Pointer contact).</param>
-        /// <returns></returns>
         public Location ConvertPhysicalToGeographicCoordinate(DoublePoint point)
         {
             if (!this.IsTemplateApplied)
@@ -404,7 +401,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Converts the specified geographic location to its physical equivalent.
         /// </summary>
         /// <param name="location">The geographic location.</param>
-        /// <returns></returns>
         public DoublePoint ConvertGeographicToPhysicalCoordinate(Location location)
         {
             var logicalPoint = this.SpatialReference.ConvertGeographicToLogicalCoordinate(location);
@@ -516,7 +512,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
         /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
         /// </summary>
-        /// <returns></returns>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -568,7 +563,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         }
 
         /// <summary>
-        /// Unapplies the current control template. Occurs when a template has already been applied and a new one is applied.
+        /// Do no apply the current control template. Occurs when a template has already been applied and a new one is applied.
         /// </summary>
         protected override void UnapplyTemplateCore()
         {
@@ -845,7 +840,6 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Calculates the geo bounds.
         /// </summary>
-        /// <returns></returns>
         private LocationRect CalculateGeoBounds()
         {
             DoublePoint topLeft = this.ConvertPixelToLogicalCoordinate(new DoublePoint() { X = 0, Y = 0 });

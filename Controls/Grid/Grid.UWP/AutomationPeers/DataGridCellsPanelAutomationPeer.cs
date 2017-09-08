@@ -7,15 +7,24 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="DataGridCellsPanel"/>.
+    /// </summary>
     public class DataGridCellsPanelAutomationPeer : FrameworkElementAutomationPeer
     {
         private readonly RadDataGrid dataGrid;
 
+        /// <summary>
+        /// Initializes a new instance of the DataGridCellsPanelAutomationPeer class.
+        /// </summary>
         public DataGridCellsPanelAutomationPeer(DataGridCellsPanel owner)
             : base(owner)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the DataGridCellsPanelAutomationPeer class.
+        /// </summary>
         public DataGridCellsPanelAutomationPeer(DataGridCellsPanel owner, RadDataGrid dataGrid) 
             : this(owner)
         {
@@ -53,11 +62,12 @@ namespace Telerik.UI.Automation.Peers
         {
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(DataGridCellsPanel);
         }
-
 
         /// <inheritdoc />
         protected override IList<AutomationPeer> GetChildrenCore()
@@ -66,12 +76,11 @@ namespace Telerik.UI.Automation.Peers
             List<AutomationPeer> dataGridContentLayerPanelChildren = new List<AutomationPeer>();
 
             var dataGridCellsPanelAutomationPeerChildren = base.GetChildrenCore();
-            DataGridContentLayerPanelAutomationPeer dataGridContentLayerPanelPeer = null;
 
-            if (dataGridCellsPanelAutomationPeerChildren.Count > 0)
+	        if (dataGridCellsPanelAutomationPeerChildren.Count > 0)
             {
-                dataGridContentLayerPanelPeer = dataGridCellsPanelAutomationPeerChildren.Where(a => a.GetName() == nameof(DataGridContentLayerPanel)).FirstOrDefault() as DataGridContentLayerPanelAutomationPeer;
-                if (dataGridContentLayerPanelPeer != null)
+	            var dataGridContentLayerPanelPeer = dataGridCellsPanelAutomationPeerChildren.FirstOrDefault(a => a.GetName() == nameof(DataGridContentLayerPanel)) as DataGridContentLayerPanelAutomationPeer;
+	            if (dataGridContentLayerPanelPeer != null)
                 {
                     dataGridContentLayerPanelChildren = dataGridContentLayerPanelPeer.GetChildren().ToList();
                 }
@@ -86,11 +95,11 @@ namespace Telerik.UI.Automation.Peers
                     foreach (var row in rows)
                     {
                         var cellsForRow = this.dataGrid.Model.CellsController.GetCellsForRow(row.Slot);
-                        if (cellsForRow.Count() > 0)
+                        if (cellsForRow.Any())
                         {
                             foreach (var cell in cellsForRow)
                             {
-                                DataGridCellInfoAutomationPeer peer = dataGridPeers.childrenCache.Where(a => a.Row == row.Slot && a.Column == cell.Column.ItemInfo.Slot).FirstOrDefault();
+                                DataGridCellInfoAutomationPeer peer = dataGridPeers.childrenCache.FirstOrDefault(a => a.Row == row.Slot && a.Column == cell.Column.ItemInfo.Slot);
                                 if (peer == null)
                                 {
                                     peer = new DataGridCellInfoAutomationPeer(row.Slot, cell.Column.ItemInfo.Slot, dataGridPeers, row.Item);
@@ -116,7 +125,7 @@ namespace Telerik.UI.Automation.Peers
 
             if (dataGridContentLayerPanelChildren.Count > 0)
             {
-                dataGridContentLayerPanelChildren.RemoveAll(a => a.GetClassName() == nameof(TextBlock));
+                dataGridContentLayerPanelChildren.RemoveAll(a => a.GetClassName() == nameof(Windows.UI.Xaml.Controls.TextBlock));
                 children.AddRange(dataGridContentLayerPanelChildren);
             }
 

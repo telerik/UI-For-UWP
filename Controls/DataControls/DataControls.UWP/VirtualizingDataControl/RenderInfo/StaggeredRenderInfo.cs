@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.Core.Data;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
     internal class StaggeredRenderInfo
     {
-        //item per hashcode with its row/column and position
+        // item per hashcode with its row/column and position
         private readonly SortedDictionary<IDataSourceItem, ItemLayoutInfo> itemSlotsRepository;
 
         private int columnCount;
@@ -28,8 +24,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 return new ItemLayoutInfo();
             }
 
-
-            //TODO Implement for backwards
+            // TODO Implement for backwards
             double[] columnsLength = forward ? new double[this.columnCount] : Enumerable.Repeat(double.MaxValue, this.columnCount).ToArray();
 
             var pivotItem = forward ? item.Previous : item.Next;
@@ -45,7 +40,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
                     if (itemInfo != ItemLayoutInfo.Invalid && !foundColumns.Contains(itemInfo.ColumnIndex))
                     {
-                        //Implement backward
+                        // Implement backward
                         foundColumns.Add(itemInfo.ColumnIndex);
                         columnsLength[itemInfo.ColumnIndex] = itemInfo.Position + itemInfo.Length;
                     }
@@ -97,9 +92,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             double[] columnsLength = forward ? new double[this.columnCount] : Enumerable.Repeat(double.MaxValue, this.columnCount).ToArray();
 
-            var source = forward ? itemSlotsRepository : itemSlotsRepository.Reverse();
+            var source = forward ? this.itemSlotsRepository : this.itemSlotsRepository.Reverse();
 
-            foreach (var item in itemSlotsRepository)
+            foreach (var item in this.itemSlotsRepository)
             {
                 var columnIndex = item.Value.ColumnIndex;
                 var arrangePosition = forward ? item.Value.Position : item.Value.Position + item.Value.Length;
@@ -112,7 +107,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                         if (columnsLength[i] == freeColumnLength)
                         {
                             columnIndex = i;
-                            itemSlotsRepository[item.Key] = new ItemLayoutInfo { ColumnIndex = columnIndex, Position = freeColumnLength, Length = item.Value.Length };
+                            this.itemSlotsRepository[item.Key] = new ItemLayoutInfo { ColumnIndex = columnIndex, Position = freeColumnLength, Length = item.Value.Length };
                             break;
                         }
                     }
@@ -132,14 +127,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                         break;
                     }
                 }
-            }
-        }
-
-        private class DataSourceItemComparer : IComparer<IDataSourceItem>
-        {
-            public int Compare(IDataSourceItem x, IDataSourceItem y)
-            {
-                return x.Index.CompareTo(y.Index);
             }
         }
 
@@ -165,7 +152,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
 
             /// <summary>
-            /// Determines whether two <see cref="RadRect"/> structures are not equal.
+            /// Determines whether two RadRect structures are not equal.
             /// </summary>
             public static bool operator !=(ItemLayoutInfo rect1, ItemLayoutInfo rect2)
             {
@@ -185,6 +172,14 @@ namespace Telerik.UI.Xaml.Controls.Data
             public override int GetHashCode()
             {
                 return base.GetHashCode();
+            }
+        }
+
+        private class DataSourceItemComparer : IComparer<IDataSourceItem>
+        {
+            public int Compare(IDataSourceItem x, IDataSourceItem y)
+            {
+                return x.Index.CompareTo(y.Index);
             }
         }
     }

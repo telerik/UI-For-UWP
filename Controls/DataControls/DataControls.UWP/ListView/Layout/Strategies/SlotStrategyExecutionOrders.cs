@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telerik.UI.Xaml.Controls.Data
+﻿namespace Telerik.UI.Xaml.Controls.Data
 {
     internal static class SlotStrategyExecutionOrders
     {

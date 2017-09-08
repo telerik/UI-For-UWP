@@ -30,7 +30,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
             else
             {
-                if (initializeContext == this.reorderHandle && this.reorderHandle != null)
+                if (this.isHandleEnabled && initializeContext == this.reorderHandle)
                 {
                     return this.ListView.IsItemReorderEnabled && this.ListView.GroupDescriptors.Count == 0 && this.IsHandleEnabled;
                 }
@@ -51,25 +51,24 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 bool isExecuted = false;
                 DragAction? dragAction = null;
 
-                if (trigger == DragDropTrigger.Drag && initializeContext != this.reorderHandle)
+                if (trigger == DragDropTrigger.Drag && (!this.isHandleEnabled || initializeContext != this.reorderHandle))
                 {
                     if (this.ListView.LayoutDefinition is StackLayoutDefinition)
                     {
                         if (this.Owner.Orientation == Orientation.Horizontal)
                         {
-                            if(this.SwipeDirection == ListViewItemSwipeDirection.Forward)
+                            if (this.SwipeDirection == ListViewItemSwipeDirection.Forward)
                             {
                                 DragDrop.SetDragPositionMode(this, DragPositionMode.RailYForward);
                             }
-                            else if(this.SwipeDirection == ListViewItemSwipeDirection.Backwards)
+                            else if (this.SwipeDirection == ListViewItemSwipeDirection.Backwards)
                             {
                                 DragDrop.SetDragPositionMode(this, DragPositionMode.RailYBackwards);
                             }
-                            else if(this.SwipeDirection == ListViewItemSwipeDirection.All)
+                            else if (this.SwipeDirection == ListViewItemSwipeDirection.All)
                             {
                                 DragDrop.SetDragPositionMode(this, DragPositionMode.RailY);
                             }
-                           
                         }
                         else
                         {
@@ -92,7 +91,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
                         this.PrepareDragVisual(dragAction.Value);
                     }
-
                 }
                 else
                 {
@@ -187,12 +185,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 {
                     if (this.Orientation == Windows.UI.Xaml.Controls.Orientation.Vertical)
                     {
-                        switch(this.SwipeDirection)
+                        switch (this.SwipeDirection)
                         {
                             case ListViewItemSwipeDirection.Forward:
                                 return this.dragX > this.ListView.ItemSwipeThreshold;
+
                             case ListViewItemSwipeDirection.Backwards:
                                 return this.dragX < 0 && Math.Abs(this.dragX) > this.ListView.ItemSwipeThreshold;
+
                             case ListViewItemSwipeDirection.All:
                             default:
                                 return Math.Abs(this.dragX) > this.ListView.ItemSwipeThreshold;
@@ -204,8 +204,10 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                         {
                             case ListViewItemSwipeDirection.Forward:
                                 return this.dragY > this.ListView.ItemSwipeThreshold;
+
                             case ListViewItemSwipeDirection.Backwards:
                                 return this.dragY < 0 && Math.Abs(this.dragY) > this.ListView.ItemSwipeThreshold;
+
                             case ListViewItemSwipeDirection.All:
                             default:
                                 return Math.Abs(this.dragY) > this.ListView.ItemSwipeThreshold;
@@ -268,23 +270,25 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             {
                 if (context.DragSuccessful)
                 {
-
                     double offset = 0;
                     var dragMode = DragDrop.GetDragPositionMode(this);
 
-                    if(this.ListView.Orientation == Orientation.Horizontal)
+                    if (this.ListView.Orientation == Orientation.Horizontal)
                     {
-                        switch(dragMode)
+                        switch (dragMode)
                         {
                             case DragPositionMode.RailXForward:
-                                offset = Math.Max(0,this.dragY);
+                                offset = Math.Max(0, this.dragY);
                                 break;
+
                             case DragPositionMode.RailXBackwards:
-                                offset = Math.Min(0, dragY);
+                                offset = Math.Min(0, this.dragY);
                                 break;
+
                             case DragPositionMode.RailX:
                                 offset = this.dragY;
                                 break;
+
                             default:
                                 break;
                         }
@@ -296,12 +300,15 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                             case DragPositionMode.RailXForward:
                                 offset = Math.Max(0, this.dragX);
                                 break;
+
                             case DragPositionMode.RailXBackwards:
-                                offset = Math.Min(0, dragX);
+                                offset = Math.Min(0, this.dragX);
                                 break;
+
                             case DragPositionMode.RailX:
                                 offset = this.dragX;
                                 break;
+
                             default:
                                 break;
                         }

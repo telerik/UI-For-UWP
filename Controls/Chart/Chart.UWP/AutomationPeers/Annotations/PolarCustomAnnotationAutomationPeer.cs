@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Automation.Peers
 {
+    /// <summary>
+    /// AutomationPeer class for <see cref="PolarCustomAnnotation"/>.
+    /// </summary>
     public class PolarCustomAnnotationAutomationPeer : ChartAnnotationAutomationPeer
     {
         /// <summary>
@@ -30,7 +33,9 @@ namespace Telerik.UI.Automation.Peers
 
             var nameCore = base.GetNameCore();
             if (!string.IsNullOrEmpty(nameCore))
+            {
                 return nameCore;
+            }
 
             return nameof(PolarCustomAnnotation);
         }

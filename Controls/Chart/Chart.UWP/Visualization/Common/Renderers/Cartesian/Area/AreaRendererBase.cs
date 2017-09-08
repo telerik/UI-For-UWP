@@ -44,7 +44,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
                     verticalPlotValueExtractors.Set(PointGetter, (Func<DataPoint, double, Point>)((dataPoint, plotLine) => new Point(dataPoint.CenterX(), plotLine)));
                     verticalPlotValueExtractors.Set(PointBoundsGetter, (Func<Point, int>)(point => (int)(point.X - .5)));
-                    verticalPlotValueExtractors.Set(DataPointBoundsGetter, (Func<DataPoint, bool, int>)((dataPoint, isPlotInverse) => (int)(dataPoint.CenterX() + (isPlotInverse ? .5 : -.5))));
+                    verticalPlotValueExtractors.Set(DataPointBoundsGetter, (Func<DataPoint, bool, int>)((dataPoint, isPlotInverse) => (int)(dataPoint.CenterX() + (isPlotInverse ? 0.5 : -0.5))));
                     verticalPlotValueExtractors.Set(ShouldSkipPreviousPoints, (Func<int, int, bool, bool>)((value1, value2, isPlotInverse) => (value1 < value2) ^ isPlotInverse));
                     verticalPlotValueExtractors.Set(SegmentEndNotReached, (Func<int, int, bool, bool>)((value1, value2, isPlotInverse) => (value1 < value2) ^ isPlotInverse));
                     verticalPlotValueExtractors.Set(ShouldRemoveDuplicate, (Func<Point, Point, bool>)((point1, point2) => point1.X == point2.X));

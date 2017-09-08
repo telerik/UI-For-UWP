@@ -122,7 +122,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             double dx = pt1.X;
             double dy = pt1.Y;
 
-            int num = Math.Max(2,(int)((Math.Abs(pt1.X - pt2.X) + Math.Abs(pt1.Y - pt2.Y)) / tolerance));
+            int num = Math.Max(2, (int)((Math.Abs(pt1.X - pt2.X) + Math.Abs(pt1.Y - pt2.Y)) / tolerance));
 
             for (int i = 1; i < num; i++)
             {

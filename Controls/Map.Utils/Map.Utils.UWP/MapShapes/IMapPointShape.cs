@@ -6,7 +6,7 @@
     public interface IMapPointShape : IMapShape
     {
         /// <summary>
-        /// The geographical location of the shape.
+        /// Gets the geographical location of the shape.
         /// </summary>
         Location Location
         {

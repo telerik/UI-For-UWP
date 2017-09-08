@@ -75,6 +75,7 @@ namespace Telerik.UI.Xaml.Controls
             }
         }
 
+        /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new Automation.Peers.RadHeaderedControlAutomationPeer(this);

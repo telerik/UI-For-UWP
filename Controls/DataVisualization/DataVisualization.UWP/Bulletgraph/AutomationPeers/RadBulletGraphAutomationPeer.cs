@@ -11,25 +11,16 @@ namespace Telerik.UI.Automation.Peers
     /// </summary>
     public class RadBulletGraphAutomationPeer : RadControlAutomationPeer, IRangeValueProvider
     {
-        private RadBulletGraph BulletGraphOwner
-        {
-            get
-            {
-                return (RadBulletGraph)this.Owner;
-            }
-        }
-
         /// <summary>
         /// Initializes a new instance of the RadBulletGraphAutomationPeer class.
         /// </summary>
         /// <param name="owner">The <see cref="RadBulletGraph"/> that is associated with this RadBulletGraphAutomationPeer.</param>
         public RadBulletGraphAutomationPeer(RadBulletGraph owner) : base(owner)
         {
-
         }
 
         /// <summary>
-        /// Gets a value that indicates whether the value of a the BulletGraph is read-only.
+        /// Gets a value indicating whether the value of a the BulletGraph is read-only.
         /// </summary>
         public bool IsReadOnly
         {
@@ -40,7 +31,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Simulates large-change value of the BulletGraph. For testing purposes this returns the value oft the LabelStep property.
+        /// Gets the large-change value of the BulletGraph. For testing purposes this returns the value oft the LabelStep property.
         /// </summary>
         public double LargeChange
         {
@@ -73,7 +64,7 @@ namespace Telerik.UI.Automation.Peers
         }
 
         /// <summary>
-        /// Simulates small-change value of the BulletGraph. For testing purposes this returns the value of the TickStep property.
+        /// Gets the small-change value of the BulletGraph. For testing purposes this returns the value of the TickStep property.
         /// </summary>
         public double SmallChange
         {
@@ -94,29 +85,20 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
+        private RadBulletGraph BulletGraphOwner
+        {
+            get
+            {
+                return (RadBulletGraph)this.Owner;
+            }
+        }
+
         /// <summary>
         /// Sets the FeaturedMeasure property of the BulletGraph.
         /// </summary>
         public void SetValue(double value)
         {
             this.BulletGraphOwner.FeaturedMeasure = value;
-        }
-
-        /// <inheritdoc />
-        protected override object GetPatternCore(PatternInterface patternInterface)
-        {
-            if (patternInterface == PatternInterface.RangeValue)
-            {
-                return this;
-            }
-
-            return base.GetPatternCore(patternInterface);
-        }
-
-        /// <inheritdoc />
-        protected override string GetLocalizedControlTypeCore()
-        {
-            return "rad bullet graph";
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -135,6 +117,23 @@ namespace Telerik.UI.Automation.Peers
         internal void RaiseValuePropertyChangedEvent(double oldValue, double newValue)
         {
             this.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, oldValue, newValue);
+        }
+
+        /// <inheritdoc />
+        protected override object GetPatternCore(PatternInterface patternInterface)
+        {
+            if (patternInterface == PatternInterface.RangeValue)
+            {
+                return this;
+            }
+
+            return base.GetPatternCore(patternInterface);
+        }
+
+        /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
+        {
+            return "rad bullet graph";
         }
     }
 }

@@ -135,9 +135,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 return;
             }
-
-             // this.BalanceVisualSpace();
-
+            
             this.InvalidateMeasure();
         }
 

@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace Telerik.UI.Xaml.Controls.Data
 {
+    /// <summary>
+    /// Event arguments for RadListView's IsCheckModeActiveChanged event.
+    /// </summary>
     public class CheckModeActiveChangedEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsCheckModeActiveChangedEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="CheckModeActiveChangedEventArgs"/> class.
         /// </summary>
-        /// <param name="checkBoxesVisible">True if the check mode is about to be activated. False otherwise.</param>
+        /// <param name="isCheckModeActive">True if the check mode is about to be activated. False otherwise.</param>
         /// <param name="tappedItem">The data item from the source collection that has been tapped to activate the check mode.</param>
+        /// <param name="selectedItems">The data items from the source collection that have been selected.</param>
         public CheckModeActiveChangedEventArgs(bool isCheckModeActive, object tappedItem, ObservableCollection<object> selectedItems)
         {
             this.IsCheckModeActive = isCheckModeActive;
@@ -31,12 +33,18 @@ namespace Telerik.UI.Xaml.Controls.Data
             private set;
         }
 
+        /// <summary>
+        /// Gets the data items from the source collection that have been selected.
+        /// </summary>
         public ObservableCollection<object> SelectedItems
         {
             get;
             private set;
         }
-   
+
+        /// <summary>
+        /// Gets a value indicating whether check mode is on. True if the check mode is activated. False otherwise.
+        /// </summary>
         public bool IsCheckModeActive
         {
             get;

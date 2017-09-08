@@ -132,6 +132,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        /// <summary>
+        /// Returns an array of rectangle <see cref="Windows.Foundation.Point(double, double)"/>.
+        /// </summary>
         protected virtual Point[] SelectRectPoints(ref Rect touchRect)
         {
             var points = new Point[] 
@@ -139,15 +142,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 new Point((touchRect.Left + touchRect.Right) / 2, (touchRect.Top + touchRect.Bottom) / 2)
             };
             return points;
-        }
-
-        private static FrameworkElement DecideReturnElement(bool dataPointsOnly, FrameworkElement frameworkElement)
-        {
-            if (!dataPointsOnly || frameworkElement.Tag is DataPoint)
-            {
-                return frameworkElement;
-            }
-            return null;
         }
 
         /// <summary>
@@ -206,13 +200,21 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        private static FrameworkElement DecideReturnElement(bool dataPointsOnly, FrameworkElement frameworkElement)
+        {
+            if (!dataPointsOnly || frameworkElement.Tag is DataPoint)
+            {
+                return frameworkElement;
+            }
+            return null;
+        }
+
         private IEnumerable<FrameworkElement> GetElements(Rect touchRect, UIElement subtree, bool includeAllElements, bool dataPointsOnly)
         {
             var points = this.SelectRectPoints(ref touchRect);
 
             foreach (var point in points)
             {
-
                 foreach (UIElement element in VisualTreeHelper.FindElementsInHostCoordinates(point, this.renderSurface, includeAllElements))
                 {
                     FrameworkElement frameworkElement = element as FrameworkElement;
@@ -223,11 +225,13 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
                     FrameworkElement result = DecideReturnElement(dataPointsOnly, frameworkElement);
                     if (result != null)
+                    {
                         yield return result;
+                    }
                 }
             }
         }
-
+        
         private void SetPropertySilently(DependencyProperty property, object value)
         {
             this.setPropertySilently = true;

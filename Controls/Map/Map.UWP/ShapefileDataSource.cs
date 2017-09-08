@@ -92,6 +92,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Initializes a new instance of the <see cref="ShapefileDataSource"/> class.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         public ShapefileDataSource()
         {
             this.TransportResolver = new LocalTransportResolver();
@@ -106,6 +107,7 @@ namespace Telerik.UI.Xaml.Controls.Map
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
             add
