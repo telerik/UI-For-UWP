@@ -153,14 +153,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (rowDetailType.Equals(containerType))
             {
-                //var control = new DataGridLoadDataControl();
-
-                //var contentLayer = this.owner.GetContentLayerForColumn(null);
-                //if (contentLayer != null)
-                //{
-                //    contentLayer.AddVisualChild(control);
-                //}
-
                 generatedContent = this.owner.rowDetailsService.DetailsPresenter;
                 this.owner.rowDetailsService.DetailsPresenter.Visibility = Visibility.Visible;
             }
