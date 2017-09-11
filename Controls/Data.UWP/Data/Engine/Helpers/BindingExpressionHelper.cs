@@ -21,7 +21,7 @@ namespace Telerik.Data.Core
         {
             var itemInfo = itemType.GetRuntimeProperties().Where(a => a.Name.Equals(propertyPath) && !a.GetIndexParameters().Any()).FirstOrDefault();
 
-            if (itemInfo.CanWrite)
+            if (itemInfo != null && itemInfo.CanWrite)
             {
                 return new Action<object, object>((item, propertyValue) => itemInfo.SetMethod.Invoke(item, new object[] { propertyValue }));
             }
