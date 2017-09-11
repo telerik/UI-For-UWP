@@ -361,7 +361,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (rowDetailsContainer != null)
             {
-                arrangeRect = new RadRect(arrangeRect.X, arrangeRect.Y + cellsRowHeight, arrangeRect.Width, arrangeRect.Height - cellsRowHeight);
+                var detailsHeight = rowDetailsContainer.DesiredSize.Height;
+                var offset = double.IsNaN(this.RowHeight) ? (arrangeRect.Height - detailsHeight) : this.RowHeight;
+
+                arrangeRect = new RadRect(arrangeRect.X, arrangeRect.Y + offset, arrangeRect.Width, detailsHeight);
             }
 
             var container = row.Container as UIElement;
@@ -407,7 +410,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (rowDetailsContainer != null)
             {
-                row.DesiredSize = new RadSize(row.DesiredSize.Width, row.DesiredSize.Height + cellsRowHeight);
+                row.RowDetailsSize = new RadSize(row.DesiredSize.Width, row.DesiredSize.Height);
+
+                row.DesiredSize = new RadSize(row.DesiredSize.Width, row.DesiredSize.Height);
             }
 
             var tuple = row.Container as Tuple<UIElement, UIElement>;

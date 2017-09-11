@@ -628,9 +628,20 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 largestLength = Math.Max(largestLength, length);
             }
 
-            double height = this.GenerateCellsForLine(slot, largestLength, lastElement);
+            double height = 0;
 
-            height = Math.Max(largestLength, height);
+            if (this.OwnerTable.HasExpandedRowDetails(slot) && !this.isHorizontal)
+            {
+                var generateHeight = this.GenerateCellsForLine(slot, 0, lastElement);
+                height = this.OwnerTable.RowHeightIsNaN ? generateHeight : this.OwnerTable.RowHeight;
+                height += largestLength;
+                this.OwnerTable.SetHeightForLine(slot, height);
+            }
+            else
+            {
+                height = this.GenerateCellsForLine(slot, largestLength, lastElement);
+                height = Math.Max(largestLength, height);
+            }
 
             double width = 0;
             for (int i = 0; i < this.columnWidth.Count; i++)
@@ -916,7 +927,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 return startGenerateIndex;
             }
-            
+
             var buffer = this.isHorizontal ? 0.0 : viewportLength * context.BufferScale;
             var startBufferOffset = Math.Max(0, startOffset - buffer);
             var startIndex = Math.Min((int)this.Layout.IndexFromPhysicalOffset(startBufferOffset), startGenerateIndex);

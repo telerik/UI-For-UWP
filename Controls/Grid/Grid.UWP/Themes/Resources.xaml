@@ -2110,7 +2110,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localPrimitives:DataGridRowDetailsControl">
-                    <Border Background="{TemplateBinding Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 0 2 0"
+                    <Border Background="{TemplateBinding Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="2 0 2 2"
                                 BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"/>
                     </Border>

@@ -20,6 +20,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         internal RowDetailsService rowDetailsService;
 
+        RowDetailsService IGridView.RowDetailsService { get { return this.rowDetailsService; } }
+
         public DataGridRowDetailsMode RowDetailsDisplayMode
         {
             get { return (DataGridRowDetailsMode)GetValue(RowDetailsDisplayModeProperty); }

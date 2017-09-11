@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.Data.Core.Layouts;
 using Telerik.UI.Xaml.Controls.Grid.Model;
 using Telerik.UI.Xaml.Controls.Primitives;
 
@@ -103,15 +104,18 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         internal virtual double GetSlotHeight(int cellSlot)
         {
+            double height = 0;
+
             // TODO: First check for Resized RowHeight, then for RowHeight.
-            if (this.table.RowHeightIsNaN)
+            if (this.table.RowHeightIsNaN || this.table.HasExpandedRowDetails(cellSlot))
             {
-                return this.RowPool.RenderInfo.ValueForIndex(cellSlot, false);
+                height = this.RowPool.RenderInfo.ValueForIndex(cellSlot, false);
             }
             else
             {
-                return this.table.RowHeight;
+                height = this.table.RowHeight;
             }
+            return height;
         }
 
         /// <summary>
@@ -122,14 +126,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// <returns>Returns true only if Slot Height was Updated (e.g. Smaller then the new Height).</returns>
         internal bool UpdateSlotHeight(int cellSlot, double cellHeight)
         {
-            if (this.table.RowHeightIsNaN && !this.RowPool.IsItemCollapsed(cellSlot))
+            if (this.table.RowHeightIsNaN && !this.RowPool.IsItemCollapsed(cellSlot) || this.table.HasExpandedRowDetails(cellSlot))
             {
                 var renderInfo = this.RowPool.RenderInfo;
                 var currentHeight = renderInfo.ValueForIndex(cellSlot, false);
 
-                bool isLessThan = GridModel.DoubleArithmetics.IsLessThan(currentHeight, cellHeight);
+                bool isLessThan = true;
 
-                if (GridModel.DoubleArithmetics.IsZero(currentHeight) || isLessThan)
+                if (GridModel.DoubleArithmetics.IsZero(currentHeight) || !GridModel.DoubleArithmetics.AreClose(currentHeight, cellHeight))
                 {
                     renderInfo.Update(cellSlot, cellHeight);
                     return isLessThan;
