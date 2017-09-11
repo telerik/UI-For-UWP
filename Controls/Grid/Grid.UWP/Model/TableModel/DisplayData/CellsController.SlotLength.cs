@@ -131,12 +131,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 var renderInfo = this.RowPool.RenderInfo;
                 var currentHeight = renderInfo.ValueForIndex(cellSlot, false);
 
-                bool isLessThan = true;
-
                 if (GridModel.DoubleArithmetics.IsZero(currentHeight) || !GridModel.DoubleArithmetics.AreClose(currentHeight, cellHeight))
                 {
                     renderInfo.Update(cellSlot, cellHeight);
-                    return isLessThan;
+                    return true;
                 }
             }
 

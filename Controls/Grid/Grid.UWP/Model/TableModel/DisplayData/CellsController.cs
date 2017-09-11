@@ -88,8 +88,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 this.generatedRowCells.TryGetValue(rowSlot, out columnCellsPair);
 
                 leftOffset = 0;
-                double rowSlotHeight = this.GetSlotHeight(rowSlot);
-                double cellHeight = rowSlotHeight;
+
+                double cellHeight = this.GetSlotHeight(rowSlot);
                 bool firstColumn = true;
                 int cellSequenceNumber = 0;
 
@@ -127,7 +127,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     this.table.Arrange(row);
                 }
 
-                topOffset += rowSlotHeight;
+                topOffset += cellHeight;
             }
 
             return finalSize;
