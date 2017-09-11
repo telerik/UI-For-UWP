@@ -17,6 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         void RecycleEditRow(ItemInfo itemInfo);
         double GetWidthForLine(int line);
         double GetHeightForLine(int line);
+        void SetHeightForLine(int line, double value);
 
         double GenerateCellsForColumn(int columnSlot, double largetsColumnElementWidth, IItemInfoNode columnDecorator);
         double GenerateCellsForRow(int rowSlot, double largestRowElementHeight, IItemInfoNode rowDecorator);
@@ -28,5 +29,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         void Arrange(Node node);
         RadSize Measure(Node node);
+
+        bool HasExpandedRowDetails(int slot);
     }
 }

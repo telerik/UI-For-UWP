@@ -519,8 +519,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         private double GenerateCellsForReadOnlyRow(int rowSlot, double largestRowElementWidth, IItemInfoNode rowDecorator)
         {
-            this.CellsController.UpdateSlotHeight(rowSlot, largestRowElementWidth);
-
             Debug.Assert(rowDecorator != null, "Decorator shoundn't be null");
             bool shouldUpdateColumns = this.CellsController.GenerateCellsForRow(rowDecorator, rowSlot);
 
@@ -531,7 +529,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
 
             var desiredHeight = this.CellsController.GetSlotHeight(rowSlot);
-            this.rowLayout.RenderInfo.Update(rowSlot, desiredHeight);
+
+            var maxHeight = Math.Max(desiredHeight, largestRowElementWidth);
+            this.rowLayout.RenderInfo.Update(rowSlot, maxHeight);
 
             return desiredHeight;
         }

@@ -124,7 +124,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         public static readonly DependencyProperty DragBehaviorProperty =
             DependencyProperty.Register(nameof(DragBehavior), typeof(DataGridDragBehavior), typeof(RadDataGrid), new PropertyMetadata(null, OnDragBehaviorChanged));
 
-     /// <summary>
+        /// <summary>
         /// Identifies the <see cref="GroupPanelPosition"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty GroupPanelPositionProperty =
@@ -190,6 +190,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.updateService = new UpdateService(this, RadDataGrid.ShouldExecuteOperationsSyncroniously);
             this.editService = new EditingService(this);
             this.CurrencyService = new DataGridCurrencyService(this);
+            this.rowDetailsService = new RowDetailsService(this);
 
             this.DragBehavior = new DataGridDragBehavior(this);
 
@@ -855,7 +856,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 SystemNavigationManager.GetForCurrentView().BackRequested -= this.RadDataGrid_BackRequested;
             }
 #endif
-            }
+        }
 
         /// <summary>
         /// Occurs when the <see cref="M:OnApplyTemplate" /> method has been called and the template is already successfully applied.
@@ -929,6 +930,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 }
             }
 #endif
+
+            this.rowDetailsService.Init();
         }
 
         /// <inheritdoc />

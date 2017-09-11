@@ -76,17 +76,19 @@ namespace Telerik.UI.Xaml.Controls.Grid
             foreach (var rowPairs in this.RowPool.GetDisplayedElements())
             {
                 int rowSlot = rowPairs.Key;
+                var rowModel = rowPairs.Value.Last();
                 if (firstRow)
                 {
                     firstRow = false;
-                    int line = rowPairs.Value.Last().ItemInfo.Slot;
-                    topOffset = line - 1 >= 0 ? this.RowPool.RenderInfo.OffsetFromIndex(line - 1) : 0;
+                    int line = rowModel.ItemInfo.Slot;
+                    topOffset = line - 1 >= 0 ? (this.RowPool.RenderInfo.OffsetFromIndex(line - 1) - rowModel.RowDetailsSize.Height) : 0;
                 }
 
                 Dictionary<int, T> columnCellsPair;
                 this.generatedRowCells.TryGetValue(rowSlot, out columnCellsPair);
 
                 leftOffset = 0;
+
                 double cellHeight = this.GetSlotHeight(rowSlot);
                 bool firstColumn = true;
                 int cellSequenceNumber = 0;

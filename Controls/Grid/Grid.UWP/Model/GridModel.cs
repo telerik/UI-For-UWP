@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Telerik.Core;
 using Telerik.Core.Data;
@@ -99,7 +100,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             {
                 if (this.FrozenColumnCount > 0 && this.ColumnPool.GetFrozenDisplayedElements().Any())
                 {
-                    return this.ColumnPool.GetFrozenDisplayedElements().Last().Value.First().LayoutSlot.Right;  
+                    return this.ColumnPool.GetFrozenDisplayedElements().Last().Value.First().LayoutSlot.Right;
                 }
 
                 return 0;
@@ -161,6 +162,23 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         internal RadSize MeasureContent(object owner, object content)
         {
             return this.GridView.MeasureContent(owner, content);
+        }
+
+        public bool HasExpandedRowDetails(int index)
+        {
+            var model = this.RowPool.GetDisplayedElement(index);
+
+            if (model != null && model.ItemInfo.Item != null)
+            {
+                return this.GridView.RowDetailsService.HasExpandedRowDetails(model.ItemInfo.Item);
+            }
+
+            return false;
+        }
+
+        public void SetHeightForLine(int line, double value)
+        {
+            this.CellsController.UpdateSlotHeight(line, value);
         }
     }
 }

@@ -17,5 +17,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
             get;
             set;
         }
+
+        public RadSize RowDetailsSize
+        {
+            get;
+            set;
+        }
     }
 }
