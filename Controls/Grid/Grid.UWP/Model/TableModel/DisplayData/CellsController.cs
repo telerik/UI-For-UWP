@@ -76,17 +76,19 @@ namespace Telerik.UI.Xaml.Controls.Grid
             foreach (var rowPairs in this.RowPool.GetDisplayedElements())
             {
                 int rowSlot = rowPairs.Key;
+                var rowModel = rowPairs.Value.Last();
                 if (firstRow)
                 {
                     firstRow = false;
-                    int line = rowPairs.Value.Last().ItemInfo.Slot;
-                    topOffset = line - 1 >= 0 ? this.RowPool.RenderInfo.OffsetFromIndex(line - 1) : 0;
+                    int line = rowModel.ItemInfo.Slot;
+                    topOffset = line - 1 >= 0 ? (this.RowPool.RenderInfo.OffsetFromIndex(line - 1) - rowModel.RowDetailsSize.Height) : 0;
                 }
 
                 Dictionary<int, T> columnCellsPair;
                 this.generatedRowCells.TryGetValue(rowSlot, out columnCellsPair);
 
                 leftOffset = 0;
+
                 double cellHeight = this.GetSlotHeight(rowSlot);
                 bool firstColumn = true;
                 int cellSequenceNumber = 0;
@@ -142,7 +144,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             int generatedCellCount = 0;
 
-            var rows = this.RowPool.GetDisplayedElements().ToList();
+            var rows = this.RowPool.GetDisplayedElements().ToArray();
             foreach (var rowPairs in rows)
             {
                 int rowSlot = rowPairs.Key;
@@ -231,7 +233,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             int generatedCellCount = 0;
 
-            var columns = this.ColumnPool.GetDisplayedElements().ToList();
+            var columns = this.ColumnPool.GetDisplayedElements().ToArray();
             bool generated = this.generatedRowCells.ContainsKey(rowSlot);
 
             foreach (var columnPairs in columns)

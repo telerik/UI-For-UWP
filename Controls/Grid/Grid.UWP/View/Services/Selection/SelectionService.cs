@@ -76,7 +76,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     dataGridPeer.GetChildren();
                 }
 
-                var cellPeer = dataGridPeer.childrenCache.Where(a => a.Row == gridCellModel.ParentRow.ItemInfo.Slot && a.Column == gridCellModel.Column.ItemInfo.Slot).FirstOrDefault() as DataGridCellInfoAutomationPeer;
+                var cellPeer = dataGridPeer.childrenCache.FirstOrDefault(a => a.Row == gridCellModel.ParentRow.ItemInfo.Slot && a.Column == gridCellModel.Column.ItemInfo.Slot) as DataGridCellInfoAutomationPeer;
                 if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
                 {
                     await Dispatcher.RunAsync(

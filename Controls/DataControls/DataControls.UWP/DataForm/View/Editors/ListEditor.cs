@@ -40,5 +40,10 @@ namespace Telerik.UI.Xaml.Controls.Data
             b3.Path = new PropertyPath(string.Empty);
             this.SetBinding(ListEditor.IsEnabledProperty, b3);
         }
+
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new DataFormComboBoxItem();
+        }
     }
 }

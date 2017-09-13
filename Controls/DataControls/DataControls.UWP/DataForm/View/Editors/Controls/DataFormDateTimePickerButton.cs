@@ -1,5 +1,7 @@
 ﻿using Telerik.UI.Xaml.Controls.Input.DateTimePickers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Data.DataForm
 {
@@ -31,6 +33,12 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
         /// </summary>
         public static readonly DependencyProperty LabelIconStyleProperty =
             DependencyProperty.Register(nameof(LabelIconStyle), typeof(Style), typeof(DataFormDateTimePickerButton), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Identifies the <see cref="HighlightFillBrush"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty HighlightFillBrushProperty =
+            DependencyProperty.Register(nameof(HighlightFillBrush), typeof(Brush), typeof(DataFormDateTimePickerButton), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataFormDateTimePickerButton"/> class.
@@ -74,6 +82,15 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
         {
             get { return (EditorIconDisplayMode)GetValue(IconDisplayModeProperty); }
             set { this.SetValue(IconDisplayModeProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Background of the rectangle area of the <see cref="CheckBox"/> when the control is checked.
+        /// </summary>
+        public Brush HighlightFillBrush
+        {
+            get { return (Brush)GetValue(HighlightFillBrushProperty); }
+            set { this.SetValue(HighlightFillBrushProperty, value); }
         }
     }
 }

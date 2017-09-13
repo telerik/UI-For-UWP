@@ -75,7 +75,7 @@ namespace Telerik.Core.Data
                     }
                 }
 
-                return new LoadMoreItemsResult()
+                return new LoadMoreItemsResult
                 {
                     Count = data != null ? (uint)data.Count() : 0,
                 };

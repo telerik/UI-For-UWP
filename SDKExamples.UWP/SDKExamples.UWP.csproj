@@ -153,6 +153,7 @@
     <Compile Include="Examples\Calendar\Styling.xaml.cs">
       <DependentUpon>Styling.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Chart\AnimationContainerVisualsFactory.cs" />
     <Compile Include="Examples\Chart\Annotations_Custom.xaml.cs">
       <DependentUpon>Annotations_Custom.xaml</DependentUpon>
     </Compile>
@@ -210,6 +211,7 @@
     <Compile Include="Examples\Chart\SelectionBehavior.xaml.cs">
       <DependentUpon>SelectionBehavior.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Chart\SeriesAnimationsHelper.cs" />
     <Compile Include="Examples\Chart\TooltipBehavior.xaml.cs">
       <DependentUpon>TooltipBehavior.xaml</DependentUpon>
     </Compile>

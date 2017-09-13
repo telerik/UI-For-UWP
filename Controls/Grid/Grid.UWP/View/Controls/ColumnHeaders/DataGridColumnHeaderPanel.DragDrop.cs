@@ -25,7 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
         IReorderItem IReorderItemsHost.ElementAt(int index)
         {
-            return this.Children.OfType<IReorderItem>().Where(c => c.LogicalIndex == index).FirstOrDefault();
+            return this.Children.OfType<IReorderItem>().FirstOrDefault(c => c.LogicalIndex == index);
         }
 
         void IReorderItemsHost.OnItemsReordered(IReorderItem sourceItem, IReorderItem destinationItem)

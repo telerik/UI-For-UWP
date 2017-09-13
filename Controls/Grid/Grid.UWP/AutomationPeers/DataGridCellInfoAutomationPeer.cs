@@ -40,7 +40,7 @@ namespace Telerik.UI.Automation.Peers
         {
             get
             {
-                var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
+                var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).FirstOrDefault(a => a.Column.ItemInfo.Slot == this.column);
                 if (cell != null && this.radDataGrid.SelectionMode != DataGridSelectionMode.None)
                 {
                     if (this.radDataGrid.SelectionMode == DataGridSelectionMode.Single)
@@ -202,7 +202,7 @@ namespace Telerik.UI.Automation.Peers
         /// </summary>
         public void RemoveFromSelection()
         {
-            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
+            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).FirstOrDefault(a => a.Column.ItemInfo.Slot == this.column);
             if (cell != null)
             {
                 if (this.radDataGrid.SelectionUnit == DataGridSelectionUnit.Row)
@@ -229,7 +229,7 @@ namespace Telerik.UI.Automation.Peers
         /// </summary>
         public void Invoke()
         {
-            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
+            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).FirstOrDefault(a => a.Column.ItemInfo.Slot == this.column);
             if (cell != null)
             {
                 this.radDataGrid.BeginEdit(new DataGridCellInfo(cell), ActionTrigger.DoubleTap, null);
@@ -322,7 +322,7 @@ namespace Telerik.UI.Automation.Peers
         /// <inheritdoc />
         protected override string GetNameCore()
         {
-            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
+            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).FirstOrDefault(a => a.Column.ItemInfo.Slot == this.column);
             if (cell != null && cell.Value != null)
             {
                 return cell.Value.ToString();
@@ -339,8 +339,8 @@ namespace Telerik.UI.Automation.Peers
                 var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this.radDataGrid) as RadDataGridAutomationPeer;
                 if (dataGridPeer != null)
                 {
-                    var firstCellInRow = dataGridPeer.childrenCache.Where(a => a.Row == this.Row && a.Column == 0).FirstOrDefault();
-                    var lastCellInRow = dataGridPeer.childrenCache.Where(a => a.Row == this.Row && a.Column == (this.radDataGrid.Columns.Count - 1)).FirstOrDefault();
+                    var firstCellInRow = dataGridPeer.childrenCache.FirstOrDefault(a => a.Row == this.Row && a.Column == 0);
+                    var lastCellInRow = dataGridPeer.childrenCache.FirstOrDefault(a => a.Row == this.Row && a.Column == (this.radDataGrid.Columns.Count - 1));
 
                     if (firstCellInRow != null && lastCellInRow != null && firstCellInRow.ChildTextBlockPeer != null
                         && lastCellInRow.ChildTextBlockPeer != null)
@@ -418,7 +418,7 @@ namespace Telerik.UI.Automation.Peers
 
         private void SelectCell()
         {
-            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).Where(a => a.Column.ItemInfo.Slot == this.column).FirstOrDefault();
+            var cell = this.radDataGrid.Model.CellsController.GetCellsForRow(this.row).FirstOrDefault(a => a.Column.ItemInfo.Slot == this.column);
             if (cell != null)
             {
                 this.radDataGrid.OnCellTap(new DataGridCellInfo(cell));

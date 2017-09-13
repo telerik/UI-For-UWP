@@ -21,7 +21,9 @@
         <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
         <chart:RadCartesianChart DataContext="{Binding Source}" ClipToBounds="False"
                                  PaletteName="DefaultDark" Grid.Row="1">
-
+            <chart:RadCartesianChart.ContainerVisualsFactory>
+                <localChart:AnimationContainerVisualsFactory/>
+            </chart:RadCartesianChart.ContainerVisualsFactory>
             <chart:BarSeries ItemsSource="{Binding}">
                 <chart:BarSeries.HorizontalAxis>
                     <chart:DateTimeCategoricalAxis VerticalLocation="Bottom" 
@@ -39,7 +41,7 @@
                 </chart:BarSeries.ValueBinding>
             </chart:BarSeries>
 
-            <chart:LineSeries ItemsSource="{Binding}">
+            <chart:LineSeries ItemsSource="{Binding}" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                 <chart:LineSeries.HorizontalAxis>
                     <chart:CategoricalAxis VerticalLocation="Top" Foreground="#FFC500" PlotMode="OnTicksPadded"/>
                 </chart:LineSeries.HorizontalAxis>

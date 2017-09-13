@@ -81,8 +81,8 @@ namespace Telerik.UI.Automation.Peers
 
             foreach (CalendarCellModel cellModel in this.CalendarOwner.Model.currentViewModel.CalendarCells)
             {
-                CalendarCellInfoBaseAutomationPeer peer = calendarPeer.childrenCache.OfType<CalendarCellInfoBaseAutomationPeer>()
-                                .Where(a => this.AreModelsEqual(a.CellNode, cellModel)).FirstOrDefault();
+                CalendarCellInfoBaseAutomationPeer peer = calendarPeer.childrenCache
+                                .OfType<CalendarCellInfoBaseAutomationPeer>().FirstOrDefault(a => this.AreModelsEqual(a.CellNode, cellModel));
 
                 if (peer == null)
                 {
@@ -105,8 +105,8 @@ namespace Telerik.UI.Automation.Peers
             {
                 foreach (CalendarHeaderCellModel headerModel in monthModel.CalendarHeaderCells)
                 {
-                    CalendarHeaderCellInfoAutomationPeer peer = calendarPeer.childrenCache.OfType<CalendarHeaderCellInfoAutomationPeer>()
-                        .Where(a => this.AreHeaderModelsEqual(a.HeaderCellModel, headerModel)).FirstOrDefault();
+                    CalendarHeaderCellInfoAutomationPeer peer = calendarPeer.childrenCache
+                        .OfType<CalendarHeaderCellInfoAutomationPeer>().FirstOrDefault(a => this.AreHeaderModelsEqual(a.HeaderCellModel, headerModel));
 
                     if (peer == null)
                     {

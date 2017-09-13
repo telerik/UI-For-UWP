@@ -17,7 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             this.DefaultStyleKey = typeof(EnumEditor);
         }
-
+        
         /// <summary>
         /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
         /// </summary>
@@ -44,6 +44,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             b4.Path = new PropertyPath("PropertyValue");
             b4.Converter = new EnumToIndexConverter();
             this.SetBinding(EnumEditor.SelectedIndexProperty, b4);
+        }
+
+        protected override DependencyObject GetContainerForItemOverride()
+        {
+            return new DataFormComboBoxItem();
         }
     }
 }

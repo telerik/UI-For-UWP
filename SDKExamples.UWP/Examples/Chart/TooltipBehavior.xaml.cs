@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Telerik.UI.Xaml.Controls.Chart;
 using Windows.UI.Xaml.Controls;
@@ -18,6 +19,18 @@ namespace SDKExamples.UWP.Chart
             this.InitializeComponent();
         }
 
+        private void chart_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var chart = sender as RadCartesianChart;
+            if (chart != null)
+            {
+                var containerVisualFactory = chart.ContainerVisualsFactory as AnimationContainerVisualsFactory;
+                if (containerVisualFactory != null)
+                {
+                    containerVisualFactory.TriggerOrderedVisualsAnimation(50, 500);
+                }
+            }
+        }
     }
 
     public class CustomPointTooltip
@@ -59,7 +72,12 @@ namespace SDKExamples.UWP.Chart
             RadCartesianChart chart = series.Chart as RadCartesianChart;
             var dataPoint = (value as DataPointInfo).DataPoint;
             Border border = series.GetDataPointVisual(dataPoint) as Border;
-            return border.Background;
+            if (border != null)
+            {
+                return border.Background;
+            }
+
+            return new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -67,8 +67,8 @@ namespace Telerik.UI.Automation.Peers
                 }
             }
 
-            var emptyContentPresenter = ElementTreeHelper.EnumVisualDescendants(this.Owner, descendand => descendand is ContentPresenter)
-                .Where(presenter => presenter.Equals(this.OwningChart.emptyContentPresenter)).SingleOrDefault() as ContentPresenter;
+            var emptyContentPresenter = ElementTreeHelper
+                .EnumVisualDescendants(this.Owner, descendand => descendand is ContentPresenter).SingleOrDefault(presenter => presenter.Equals(this.OwningChart.emptyContentPresenter)) as ContentPresenter;
 
             if (emptyContentPresenter != null)
             {

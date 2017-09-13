@@ -18,6 +18,9 @@
         <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
         
         <chart:RadCartesianChart x:Name="myChart" Grid.Row="1">
+            <chart:RadCartesianChart.ContainerVisualsFactory>
+                <localChart:AnimationContainerVisualsFactory/>
+            </chart:RadCartesianChart.ContainerVisualsFactory>
             <chart:RadCartesianChart.DataContext>
                 <localChart:ViewModelLabelDefinition />
             </chart:RadCartesianChart.DataContext>

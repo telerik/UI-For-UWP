@@ -119,7 +119,7 @@ namespace Telerik.UI.Automation.Peers
 
             if (this.CellNode.Context != null && !string.IsNullOrEmpty(this.CellNode.Context.Date.ToString()))
             {
-                return this.CellNode.Context.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                return this.CellNode.Context.Date.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
             }
 
             return string.Empty;

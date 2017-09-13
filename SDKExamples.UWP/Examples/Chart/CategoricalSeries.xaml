@@ -53,6 +53,9 @@
                 <ListViewItem.DataContext>
                     <DataTemplate>
                         <chart:RadCartesianChart>
+                            <chart:RadCartesianChart.ContainerVisualsFactory>
+                                <localChart:AnimationContainerVisualsFactory/>
+                            </chart:RadCartesianChart.ContainerVisualsFactory>
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
@@ -80,10 +83,13 @@
                 <ListViewItem.DataContext>
                     <DataTemplate>
                         <chart:RadCartesianChart>
+                            <chart:RadCartesianChart.ContainerVisualsFactory>
+                                <localChart:AnimationContainerVisualsFactory/>
+                            </chart:RadCartesianChart.ContainerVisualsFactory>
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
-                            <chart:LineSeries ItemsSource="{Binding Source}">
+                            <chart:LineSeries ItemsSource="{Binding Source}" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                                 <chart:LineSeries.HorizontalAxis>
                                     <chart:CategoricalAxis/>
                                 </chart:LineSeries.HorizontalAxis>
@@ -110,7 +116,7 @@
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
-                            <chart:AreaSeries ItemsSource="{Binding Source}">
+                            <chart:AreaSeries ItemsSource="{Binding Source}" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                                 <chart:AreaSeries.HorizontalAxis>
                                     <chart:CategoricalAxis/>
                                 </chart:AreaSeries.HorizontalAxis>
@@ -137,7 +143,7 @@
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
-                            <chart:SplineSeries ItemsSource="{Binding Source}">
+                            <chart:SplineSeries ItemsSource="{Binding Source}" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                                 <chart:SplineSeries.HorizontalAxis>
                                     <chart:CategoricalAxis/>
                                 </chart:SplineSeries.HorizontalAxis>
@@ -164,7 +170,7 @@
                             <chart:RadCartesianChart.DataContext>
                                 <localChart:ViewModelCategorical/>
                             </chart:RadCartesianChart.DataContext>
-                            <chart:SplineAreaSeries ItemsSource="{Binding Source}">
+                            <chart:SplineAreaSeries ItemsSource="{Binding Source}" localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                                 <chart:SplineAreaSeries.HorizontalAxis>
                                     <chart:CategoricalAxis/>
                                 </chart:SplineAreaSeries.HorizontalAxis>

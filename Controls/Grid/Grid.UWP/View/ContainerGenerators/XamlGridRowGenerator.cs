@@ -17,6 +17,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
         private static object frozenHeader = new object();
         private static Type placeholderModelType = typeof(PlaceholderInfo);
 
+        private static Type rowDetailType = typeof(DataGridRowDetailsControl);
+
         private RadDataGrid owner;
 
         public XamlGridRowGenerator(RadDataGrid owner)
@@ -27,15 +29,31 @@ namespace Telerik.UI.Xaml.Controls.Grid
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void PrepareContainerForItem(GridRowModel decorator)
         {
-            DataGridLoadDataControl control = decorator.Container as DataGridLoadDataControl;
+            this.PrepareLoadingDataControl(decorator.Container as DataGridLoadDataControl);
+            this.PrepareExpandedRowDetailsControl(decorator, decorator.Container as DataGridRowDetailsControl);
+            this.PrepareGroupRow(decorator, decorator.Container as DataGridGroupHeader);
+        }
 
+        private void PrepareExpandedRowDetailsControl(GridRowModel decorator, DataGridRowDetailsControl control)
+        {
+            if (control != null)
+            {
+                control.Content = decorator.ItemInfo.Item;
+
+                if (this.owner.RowDetailsTemplate != control.ContentTemplate)
+                {
+                    control.ContentTemplate = this.owner.RowDetailsTemplate;
+                }
+            }
+        }
+
+        private void PrepareLoadingDataControl(DataGridLoadDataControl control)
+        {
             if (control != null)
             {
                 control.Owner = this.owner;
                 this.owner.visualStateService.RegisterDataLoadingListener((IDataStatusListener)control);
             }
-
-            this.PrepareGroupRow(decorator, decorator.Container as DataGridGroupHeader);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
@@ -75,6 +93,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
             if (item.Item.GetType() == placeholderModelType)
             {
                 return loadingDataControlType;
+            }
+
+            //TODO: detach this if possible from the owner
+            if (this.owner.rowDetailsService.HasExpandedRowDetails(context.Info.Item))
+            {
+                return rowDetailType;
             }
 
             return typeof(object);
@@ -125,6 +149,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 }
 
                 generatedContent = control;
+            }
+
+            if (rowDetailType.Equals(containerType))
+            {
+                generatedContent = this.owner.rowDetailsService.DetailsPresenter;
+                this.owner.rowDetailsService.DetailsPresenter.Visibility = Visibility.Visible;
             }
 
             return generatedContent;

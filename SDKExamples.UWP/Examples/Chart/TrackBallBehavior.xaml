@@ -17,6 +17,9 @@
 
         <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
         <chart:RadCartesianChart ClipToBounds="False" Margin="20,0" Grid.Row="1">
+            <chart:RadCartesianChart.ContainerVisualsFactory>
+                <localChart:AnimationContainerVisualsFactory/>
+            </chart:RadCartesianChart.ContainerVisualsFactory>
             <chart:RadCartesianChart.DataContext>
                 <localChart:ViewModelTrackBall/>
             </chart:RadCartesianChart.DataContext>
@@ -29,7 +32,8 @@
             <chart:RadCartesianChart.Behaviors>
                 <chart:ChartTrackBallBehavior/>
             </chart:RadCartesianChart.Behaviors>
-            <chart:LineSeries ItemsSource="{Binding Source}">
+            <chart:LineSeries ItemsSource="{Binding Source}"
+                              localChart:SeriesAnimationsHelper.AllowSlideAnimationOnStart="True">
                 <chart:LineSeries.ValueBinding>
                     <chart:PropertyNameDataPointBinding PropertyName="Value"/>
                 </chart:LineSeries.ValueBinding>

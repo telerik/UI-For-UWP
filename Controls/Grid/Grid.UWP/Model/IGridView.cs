@@ -27,6 +27,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         IDataView GetDataView();
 
+        RowDetailsService RowDetailsService { get; }
+
         void RebuildUI();
 
         void InvalidateHeadersPanelArrange();

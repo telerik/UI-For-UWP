@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq.Expressions;
+using System.Linq;
 using System.Reflection;
 
 namespace Telerik.Data.Core
@@ -13,46 +13,15 @@ namespace Telerik.Data.Core
         /// <param name="propertyPath">The path of the property which value will be returned.</param>
         public static Func<object, object> CreateGetValueFunc(Type itemType, string propertyPath)
         {
-#if WINDOWS_UWP
-            PropertyInfo propertyInfo = itemType.GetRuntimeProperty(propertyPath);
-            return item => propertyInfo.GetValue(item);
-#else  
-            var parameter = Expression.Parameter(itemType, "item");
-
-            Expression get;
-            if (string.IsNullOrEmpty(propertyPath))
-            {
-                get = parameter;
-            }
-            else
-            {
-                try
-                {
-                    get = Expression.PropertyOrField(parameter, propertyPath);
-                }
-                catch (ArgumentException)
-                {
-                    return p => null;
-                }
-            }
-
-            var lambda = Expression.Lambda(get, parameter);
-
-            var compiled = lambda.Compile();
-
-            var methodInfo = typeof(BindingExpressionHelper).GetTypeInfo()
-                 .GetDeclaredMethod("ToUntypedFunc")
-                 .MakeGenericMethod(new[] { itemType, lambda.Body.Type });
-
-            return (Func<object, object>)methodInfo.Invoke(null, new object[] { compiled });
-#endif
+            PropertyInfo propertyInfo = itemType.GetRuntimeProperties().Where(a => a.Name.Equals(propertyPath) && !a.GetIndexParameters().Any()).FirstOrDefault();
+            return item => propertyInfo?.GetValue(item);
         }
 
         internal static Action<object, object> CreateSetValueAction(Type itemType, string propertyPath)
         {
-            var itemInfo = itemType.GetRuntimeProperty(propertyPath);
+            var itemInfo = itemType.GetRuntimeProperties().Where(a => a.Name.Equals(propertyPath) && !a.GetIndexParameters().Any()).FirstOrDefault();
 
-            if (itemInfo.CanWrite)
+            if (itemInfo != null && itemInfo.CanWrite)
             {
                 return new Action<object, object>((item, propertyValue) => itemInfo.SetMethod.Invoke(item, new object[] { propertyValue }));
             }

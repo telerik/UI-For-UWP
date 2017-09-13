@@ -191,9 +191,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.Owner.OnPropertyChanged(new PropertyChangedEventArgs("SelectedDateRanges"));
 
             CurrentSelectionChangedEventArgs args = new CurrentSelectionChangedEventArgs();
+
             if (this.Owner.SelectedDateRange.HasValue)
             {
                 args.NewSelection = this.Owner.SelectedDateRange.Value.StartDate;
+            }
+            else
+            {
+                args.NewSelection = null;
             }
 
             EventHandler<CurrentSelectionChangedEventArgs> handler = this.SelectionChanged;

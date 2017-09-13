@@ -229,7 +229,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         internal GridCellEditorModel GetCellEditorModel(object container)
         {
-            return this.CellEditorsController.GetCellsForRow(1).Where(c => c.EditorHost == container).FirstOrDefault();
+            return this.CellEditorsController.GetCellsForRow(1).FirstOrDefault(c => c.EditorHost == container);
         }
 
         internal bool IsColumnIndexInView(ScrollIntoViewOperation<int> operation)
