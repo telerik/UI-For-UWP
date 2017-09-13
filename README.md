@@ -85,6 +85,16 @@ The UI for UWP team does not provide formal support, except to those customers w
 
 Licensed under the Apache License, Version 2.0. Please refer to [LICENSE.md](LICENSE.md) for more information.
 
-### .NET Foundation
+## .NET Foundation
 
 This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
+
+## Recent news
+
+* [Getting Started with Telerik UI for UWP](http://www.telerik.com/blogs/getting-started-with-telerik-ui-for-uwp)
+* [Telerik UI for UWP joins the .NET Foundation](http://www.telerik.com/blogs/progress-telerik-ui-for-uwp-joins-net-foundation)
+* [Telerik UI for UWP in Windows Template Studio](https://developer.telerik.com/topics/net/announcing-windows-template-studio/)
+* [Telerik UI for UWP toolbox support with NuGet package](http://www.telerik.com/blogs/telerik-ui-for-uwp-free-and-updated-xaml-controls) ([alternative link](https://blogs.msdn.microsoft.com/visualstudio/2017/05/30/telerik-ui-for-uwp-free-and-updated-xaml-controls/))
+* [Building Windows Apps with Adaptive UI om Channel9](http://www.telerik.com/blogs/ui-controls-for-uwp-building-windows-apps-with-adaptive-ui) ([alternative link](https://channel9.msdn.com/Blogs/DevRadio/DR1734))
+
+
