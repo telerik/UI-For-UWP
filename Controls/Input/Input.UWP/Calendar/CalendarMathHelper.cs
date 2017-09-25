@@ -16,12 +16,24 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal static DateTime GetFirstDateOfDecade(DateTime date)
         {
-            return new DateTime((date.Year / 10) * 10, 1, 1);
+            var decadeYear = (date.Year / 10) * 10;
+            if (CouldAddYearsToDate(decadeYear))
+            {
+                return new DateTime(decadeYear, 1, 1);
+            }
+
+            return date;
         }
 
         internal static DateTime GetFirstDateOfCentury(DateTime date)
         {
-            return new DateTime((date.Year / 100) * 100, 1, 1);
+            var yearOfCentury = (date.Year / 100) * 100;
+            if (CouldAddYearsToDate(yearOfCentury))
+            {
+                return new DateTime(yearOfCentury, 1, 1);
+            }
+
+            return date;
         }
 
         internal static DateTime GetFirstDateForCurrentDisplayUnit(DateTime date, CalendarDisplayMode displayMode)
@@ -114,14 +126,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             switch (displayMode)
             {
                 case CalendarDisplayMode.YearView:
-                    return date.AddYears(increment);
+                    return CouldAddYearsToDate(date.Year + increment) ? date.AddYears(increment) : date;
                 case CalendarDisplayMode.DecadeView:
-                    return date.AddYears(increment * 10);
+                    return CouldAddYearsToDate(date.Year + (increment * 10)) ? date.AddYears(increment * 10) : date;
                 case CalendarDisplayMode.CenturyView:
-                    return date.AddYears(increment * 100);
+                    return CouldAddYearsToDate(date.Year + (increment * 100)) ? date.AddYears(increment * 100) : date;
                 default:
-                    return date.AddMonths(increment);
+                    return date.Year == DateTime.MinValue.Year && date.Month == DateTime.MinValue.Month && increment < 0 
+                        || date.Year == DateTime.MaxValue.Year && date.Month == DateTime.MaxValue.Month && increment > 0
+                        ? date : date.AddMonths(increment);
             }
+        }
+
+        internal static bool CouldAddYearsToDate(int year)
+        {
+            return year >= DateTime.MinValue.Year && year <= DateTime.MaxValue.Year;
         }
 
         private static DateTime GetLastDateOfMonthView(DateTime date)
