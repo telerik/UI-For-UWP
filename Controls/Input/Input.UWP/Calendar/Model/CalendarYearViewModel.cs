@@ -30,7 +30,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal override DateTime GetNextDateToRender(DateTime date)
         {
-            return date.AddMonths(1);
+            return date.Month == DateTime.MaxValue.Month && date.Year == DateTime.MaxValue.Year ? date : date.AddMonths(1);
         }
 
         internal override void PrepareCalendarCell(CalendarCellModel cell, DateTime date)
