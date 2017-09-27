@@ -194,7 +194,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 double cellHeigth = desiredSize.Height;
 
                 this.UpdateSlotWidth(columnSlot, cellWidth);
-                bool slotHeightUpdated = this.UpdateSlotHeight(rowSlot, cellHeigth);
+                bool slotHeightUpdated = this.UpdateSlotHeight(rowSlot, cellHeigth, false);
                 shouldUpdateRows = shouldUpdateRows || slotHeightUpdated;
 
                 desiredHeight += this.GetSlotHeight(rowSlot);
@@ -266,7 +266,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 double cellWidth = desiredSize.Width;
                 double cellHeight = desiredSize.Height;
 
-                this.UpdateSlotHeight(rowSlot, cellHeight);
+                this.UpdateSlotHeight(rowSlot, cellHeight, false);
                 bool slotWidthUpdated = this.UpdateSlotWidth(columnSlot, cellWidth);
                 shouldUpdateColumns = shouldUpdateColumns || slotWidthUpdated;
 

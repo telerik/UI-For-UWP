@@ -519,6 +519,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         private double GenerateCellsForReadOnlyRow(int rowSlot, double largestRowElementWidth, IItemInfoNode rowDecorator)
         {
+            this.CellsController.UpdateSlotHeight(rowSlot, 0);
+
             Debug.Assert(rowDecorator != null, "Decorator shoundn't be null");
             bool shouldUpdateColumns = this.CellsController.GenerateCellsForRow(rowDecorator, rowSlot);
 

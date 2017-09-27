@@ -177,7 +177,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             if (decorator != null)
             {
                 UIElement container = decorator.Container as UIElement;
-                if (container != null)
+                if (container != null && !(container is DataGridRowDetailsControl))
                 {
                     container.Opacity = opacity;
                 }
