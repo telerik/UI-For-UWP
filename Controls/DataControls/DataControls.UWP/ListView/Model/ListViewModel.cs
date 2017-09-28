@@ -338,20 +338,24 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
             else
             {
-                int childIndex = 0;
+                int childIndex = -1;
                 int groupIndex = 0;
 
-                var group = this.FindItemParentGroup(item);
-                if (group != null)
+                Telerik.Data.Core.DataGroup group = null;
+                if (this.groupDescriptors.Count > 0)
                 {
-                    if (this.layoutController.strategy.Layout.IsCollapsed(group))
+                    group = this.FindItemParentGroup(item);
+                    if (group != null)
                     {
-                        isExpanded = false;
-                    }
-                    else
-                    {
-                        groupIndex = this.layoutController.strategy.Layout.GetGroupInfo(group).Index + 1;
-                        childIndex = group.IndexOf(item, this.CurrentDataProvider.ValueProvider.GetSortComparer());
+                        if (this.layoutController.strategy.Layout.IsCollapsed(group))
+                        {
+                            isExpanded = false;
+                        }
+                        else
+                        {
+                            groupIndex = this.layoutController.strategy.Layout.GetGroupInfo(group).Index + 1;
+                            childIndex = group.IndexOf(item, this.CurrentDataProvider.ValueProvider.GetSortComparer());
+                        }
                     }
                 }
                 else
