@@ -252,8 +252,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         private void OnSelectedItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            this.selectedItems.SuspendUpdate();
-
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
@@ -270,8 +268,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 default:
                     break;
             }
-
-            this.selectedItems.ResumeUpdate();
         }
 
         private void UpdateItemsSet(IList removedItems, IList addedItems)
