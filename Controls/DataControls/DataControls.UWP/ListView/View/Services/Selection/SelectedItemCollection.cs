@@ -58,7 +58,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             if (!this.IsSuspended)
             {
+                this.SuspendUpdate();
                 base.OnCollectionChanged(e);
+                this.ResumeUpdate();
             }
         }
 
