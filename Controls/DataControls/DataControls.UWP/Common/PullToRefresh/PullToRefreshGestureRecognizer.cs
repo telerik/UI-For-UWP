@@ -383,7 +383,11 @@ this.IsHorizontal && this.listener.ScrollViewer.HorizontalOffset == 0;
                 this.Reset();
             }
 
-            this.IsPullToRefreshCancelled = false;
+            if (this.IsPullToRefreshCancelled)
+            {
+                this.IsPullToRefreshCancelled = false;
+            }
+           
             this.pointerPressed = false;
         }
 
