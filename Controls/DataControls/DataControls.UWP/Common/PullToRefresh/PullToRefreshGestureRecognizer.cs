@@ -278,10 +278,11 @@ this.IsHorizontal && this.listener.ScrollViewer.HorizontalOffset == 0;
 
                     this.pointerPressed = false;
                     this.thresholdToStartPointerTrackininEnabled = false;
-
-                    this.RefreshRequested = false;
+                    
                     this.listener.OnEnded();
                 };
+
+            this.RefreshRequested = false;
 
             if (this.listener.CompressedChildToTranslate != this.listener.MainElementToTranslate)
             {
