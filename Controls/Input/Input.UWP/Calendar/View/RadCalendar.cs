@@ -2375,7 +2375,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.AppointmentSource != null && this.IsTemplateApplied)
             {
                 DateTime startDate = GetFirstDayofMonth(this.DisplayDate, this.currentCulture.Calendar);
-                this.AppointmentSource.AllAppointments = this.AppointmentSource.FetchData(startDate, startDate.AddMonths(1));
+                this.AppointmentSource.AllAppointments = this.AppointmentSource.FetchData(startDate,
+                    startDate.Month == DateTime.MaxValue.Month && startDate.Year == DateTime.MaxValue.Year ? startDate : startDate.AddMonths(1));
             }
         }
 

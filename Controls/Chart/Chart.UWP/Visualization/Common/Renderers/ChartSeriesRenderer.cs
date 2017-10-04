@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Telerik.Charting;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Media;
@@ -84,10 +85,10 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             if (this.model.renderablePoints.Count > 0)
             {
-                return this.model.renderablePoints;
+                return this.model.renderablePoints.Where(a => a.layoutSlot.X >= 0 && a.layoutSlot.Y >= 0).ToList();
             }
 
-            return this.model.DataPointsInternal;
+            return this.model.DataPointsInternal.Where(a => a.layoutSlot.X >= 0 && a.layoutSlot.Y >= 0).ToList();
         }
 
         protected Brush GetPaletteBrush(PaletteVisualPart part)
