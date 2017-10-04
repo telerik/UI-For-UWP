@@ -369,21 +369,18 @@ this.IsHorizontal && this.listener.ScrollViewer.HorizontalOffset == 0;
             {
                 return;
             }
-
-            if (!this.IsPullToRefreshCancelled)
+            
+            if (this.RefreshRequested && !this.IsPullToRefreshCancelled)
             {
-                if (this.RefreshRequested)
-                {
-                    var offset = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? Canvas.GetLeft(this.listener.CompressedChildToTranslate) : Canvas.GetTop(this.listener.CompressedChildToTranslate);
+                var offset = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? Canvas.GetLeft(this.listener.CompressedChildToTranslate) : Canvas.GetTop(this.listener.CompressedChildToTranslate);
 
-                    var mainElementOffset = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? Canvas.GetLeft(this.listener.MainElementToTranslate) : Canvas.GetTop(this.listener.MainElementToTranslate);
+                var mainElementOffset = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? Canvas.GetLeft(this.listener.MainElementToTranslate) : Canvas.GetTop(this.listener.MainElementToTranslate);
 
-                    this.AnimatePanel(this.listener.MainElementToTranslate, mainElementOffset, this.SwipeTheshold + this.initialChildOffset, null, true);
-                }
-                else
-                {
-                    this.Reset();
-                }
+                this.AnimatePanel(this.listener.MainElementToTranslate, mainElementOffset, this.SwipeTheshold + this.initialChildOffset, null, true);
+            }
+            else
+            {
+                this.Reset();
             }
 
             this.IsPullToRefreshCancelled = false;
