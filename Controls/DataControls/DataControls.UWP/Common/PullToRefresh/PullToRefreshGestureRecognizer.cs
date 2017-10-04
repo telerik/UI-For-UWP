@@ -47,6 +47,8 @@ namespace Telerik.UI.Xaml.Controls.Data.Common
 
         public double SwipeTheshold { get; set; }
 
+        public bool IsPullToRefreshCancelled { get; set; }
+
         public Orientation Orientation
         {
             get
@@ -278,11 +280,10 @@ this.IsHorizontal && this.listener.ScrollViewer.HorizontalOffset == 0;
 
                     this.pointerPressed = false;
                     this.thresholdToStartPointerTrackininEnabled = false;
-                    
+
+                    this.RefreshRequested = false;
                     this.listener.OnEnded();
                 };
-
-            this.RefreshRequested = false;
 
             if (this.listener.CompressedChildToTranslate != this.listener.MainElementToTranslate)
             {
@@ -369,25 +370,29 @@ this.IsHorizontal && this.listener.ScrollViewer.HorizontalOffset == 0;
                 return;
             }
 
-            if (this.RefreshRequested)
+            if (!this.IsPullToRefreshCancelled)
             {
-                var offset = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? Canvas.GetLeft(this.listener.CompressedChildToTranslate) : Canvas.GetTop(this.listener.CompressedChildToTranslate);
+                if (this.RefreshRequested)
+                {
+                    var offset = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? Canvas.GetLeft(this.listener.CompressedChildToTranslate) : Canvas.GetTop(this.listener.CompressedChildToTranslate);
 
-                var mainElementOffset = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? Canvas.GetLeft(this.listener.MainElementToTranslate) : Canvas.GetTop(this.listener.MainElementToTranslate);
+                    var mainElementOffset = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? Canvas.GetLeft(this.listener.MainElementToTranslate) : Canvas.GetTop(this.listener.MainElementToTranslate);
 
-                this.AnimatePanel(this.listener.MainElementToTranslate, mainElementOffset, this.SwipeTheshold + this.initialChildOffset, null, true);
+                    this.AnimatePanel(this.listener.MainElementToTranslate, mainElementOffset, this.SwipeTheshold + this.initialChildOffset, null, true);
+                }
+                else
+                {
+                    this.Reset();
+                }
             }
-            else
-            {
-                this.Reset();
-            }
 
+            this.IsPullToRefreshCancelled = false;
             this.pointerPressed = false;
         }
 
         private void ManipulationPanel_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (!this.IsEnabled)
+            if (!this.IsEnabled || this.IsPullToRefreshCancelled)
             {
                 return;
             }

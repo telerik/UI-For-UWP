@@ -129,6 +129,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             if (!this.commandService.ExecuteCommand(CommandId.RefreshRequested, null))
             {
+                this.gestureRecognizer.IsPullToRefreshCancelled = true;
                 this.IsPullToRefreshActive = false;
             }
         }
