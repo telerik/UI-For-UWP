@@ -127,7 +127,11 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         internal void RequestRefresh()
         {
-            this.commandService.ExecuteCommand(CommandId.RefreshRequested, null);
+            if (!this.commandService.ExecuteCommand(CommandId.RefreshRequested, null))
+            {
+                this.gestureRecognizer.IsPullToRefreshCancelled = true;
+                this.IsPullToRefreshActive = false;
+            }
         }
 
         internal void OnRefreshRequested(object parameter)

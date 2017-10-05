@@ -47,6 +47,8 @@ namespace Telerik.UI.Xaml.Controls.Data.Common
 
         public double SwipeTheshold { get; set; }
 
+        public bool IsPullToRefreshCancelled { get; set; }
+
         public Orientation Orientation
         {
             get
@@ -367,8 +369,8 @@ this.IsHorizontal && this.listener.ScrollViewer.HorizontalOffset == 0;
             {
                 return;
             }
-
-            if (this.RefreshRequested)
+            
+            if (this.RefreshRequested && !this.IsPullToRefreshCancelled)
             {
                 var offset = this.Orientation == Windows.UI.Xaml.Controls.Orientation.Horizontal ? Canvas.GetLeft(this.listener.CompressedChildToTranslate) : Canvas.GetTop(this.listener.CompressedChildToTranslate);
 
@@ -381,12 +383,17 @@ this.IsHorizontal && this.listener.ScrollViewer.HorizontalOffset == 0;
                 this.Reset();
             }
 
+            if (this.IsPullToRefreshCancelled)
+            {
+                this.IsPullToRefreshCancelled = false;
+            }
+           
             this.pointerPressed = false;
         }
 
         private void ManipulationPanel_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (!this.IsEnabled)
+            if (!this.IsEnabled || this.IsPullToRefreshCancelled)
             {
                 return;
             }
