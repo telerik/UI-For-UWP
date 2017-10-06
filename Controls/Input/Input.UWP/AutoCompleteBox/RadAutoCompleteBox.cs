@@ -163,6 +163,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty IsNoResultsContentEnabledProperty =
             DependencyProperty.Register(nameof(IsNoResultsContentEnabled), typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(false));
 
+        /// <summary>
+        /// Identifies the <see cref="IsClearButtonVisible"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty IsClearButtonVisibleProperty =
+            DependencyProperty.Register(nameof(IsClearButtonVisible), typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(true, OnIsClearButtonVisibleChanted));
+
         internal const double PopupOffsetFromTextBox = 2.0;
 
         internal Popup suggestionsPopup;
@@ -767,6 +773,15 @@ namespace Telerik.UI.Xaml.Controls.Input
             set { this.SetValue(NoResultsContentTemplateProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating if the clear button should be visualized.
+        /// </summary>
+        public bool IsClearButtonVisible
+        {
+            get { return (bool)GetValue(IsClearButtonVisibleProperty); }
+            set { this.SetValue(IsClearButtonVisibleProperty, value); }
+        }
+
         private double DropDownClampedHeight
         {
             get
@@ -1297,6 +1312,17 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (autoComplete != null && autoComplete.IsTemplateApplied)
             {
                 autoComplete.noResultsControl.Content = e.NewValue;
+            }
+        }
+
+        private static void OnIsClearButtonVisibleChanted(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var autoComplete = d as RadAutoCompleteBox;
+            var innerTextBox = (AutoCompleteTextBox)autoComplete.textbox;
+            if (autoComplete != null && autoComplete.IsTemplateApplied && innerTextBox != null)
+            {
+                innerTextBox.isClearButtonVisible = (bool)e.NewValue;
+                innerTextBox.UpdateDeleteButtonVisibility();
             }
         }
 
