@@ -33,12 +33,7 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
                 return;
             }
 
-            this.deleteButton.Visibility = this.isClearButtonVisible == true ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private void AutoCompleteTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            this.UpdateDeleteButtonVisibility();
+            this.deleteButton.Visibility = this.isClearButtonVisible ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <inheritdoc />
@@ -84,6 +79,11 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             this.Text = string.Empty;
+        }
+
+        private void AutoCompleteTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.UpdateDeleteButtonVisibility();
         }
     }
 }
