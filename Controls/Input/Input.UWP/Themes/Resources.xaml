@@ -147,20 +147,6 @@
                         </Storyboard>
                     </VisualState>
                 </VisualStateGroup>
-                <VisualStateGroup x:Name="ButtonStates">
-                    <VisualState x:Name="ButtonVisible">
-                        <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="DeleteButton">
-                                <DiscreteObjectKeyFrame KeyTime="0">
-                                    <DiscreteObjectKeyFrame.Value>
-                                        <Visibility>Visible</Visibility>
-                                    </DiscreteObjectKeyFrame.Value>
-                                </DiscreteObjectKeyFrame>
-                            </ObjectAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState>
-                    <VisualState x:Name="ButtonCollapsed"/>
-                </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Border x:Name="BackgroundElement" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" Margin="{TemplateBinding BorderThickness}"/>
             <Border x:Name="BorderElement" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2"/>
@@ -177,7 +163,7 @@
                           VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
                           AutomationProperties.AccessibilityView="Raw"
                           ZoomMode="Disabled"/>
-            <Button x:Name="DeleteButton" 
+            <Button x:Name="PART_DeleteButton" 
                     BorderThickness="{TemplateBinding BorderThickness}" 
                     Grid.Column="1" 
                     FontSize="{TemplateBinding FontSize}" 
