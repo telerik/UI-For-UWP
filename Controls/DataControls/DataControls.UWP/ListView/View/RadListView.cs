@@ -149,6 +149,12 @@ namespace Telerik.UI.Xaml.Controls.Data
         public static readonly DependencyProperty IncrementalLoadingBufferItemsCountProperty =
             DependencyProperty.Register(nameof(IncrementalLoadingBufferItemsCount), typeof(int), typeof(RadListView), new PropertyMetadata(10, IncrementalLoadingBufferItemsCountChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="DisabledStateOpacity"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty DisabledStateOpacityProperty =
+            DependencyProperty.Register(nameof(DisabledStateOpacity), typeof(double), typeof(RadListView), new PropertyMetadata(0.5));
+
         internal RadListViewItem swipedItem;
         internal bool isActionContentDisplayed;
         internal CurrencyListViewLayer currencyLayerCache;
@@ -474,8 +480,32 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </value>
         public int IncrementalLoadingBufferItemsCount
         {
-            get { return (int)GetValue(IncrementalLoadingBufferItemsCountProperty); }
-            set { this.SetValue(IncrementalLoadingBufferItemsCountProperty, value); }
+            get
+            {
+                return (int)GetValue(IncrementalLoadingBufferItemsCountProperty);
+            }
+            set
+            {
+                this.SetValue(IncrementalLoadingBufferItemsCountProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the opacity used when the ListView is disabled.
+        /// </summary>
+        /// <value>
+        /// The value of the opacity used when the ListView is disabled.
+        /// </value>
+        public double DisabledStateOpacity
+        {
+            get
+            {
+                return (double)GetValue(DisabledStateOpacityProperty);
+            }
+            set
+            {
+                this.SetValue(DisabledStateOpacityProperty, value);
+            }
         }
 
         /// <summary>
