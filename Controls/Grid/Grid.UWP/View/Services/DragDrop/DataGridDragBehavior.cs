@@ -99,7 +99,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// <param name="totalResizeChange">The value by which the size is changed.</param>
         public virtual void OnColumnResizing(DataGridColumn column, double initialColumnSize, double totalResizeChange)
         {
-            column.Width = Math.Max(DataGridColumn.DefaultWidth, initialColumnSize + totalResizeChange);
+            column.Width = Math.Max(column.HeaderControl.MinWidth, initialColumnSize + totalResizeChange);
         }
 
         /// <summary>
