@@ -97,4 +97,10 @@ This project is supported by the [.NET Foundation](https://dotnetfoundation.org)
 * [Telerik UI for UWP toolbox support with NuGet package](http://www.telerik.com/blogs/telerik-ui-for-uwp-free-and-updated-xaml-controls) ([alternative link](https://blogs.msdn.microsoft.com/visualstudio/2017/05/30/telerik-ui-for-uwp-free-and-updated-xaml-controls/))
 * [Building Windows Apps with Adaptive UI om Channel9](http://www.telerik.com/blogs/ui-controls-for-uwp-building-windows-apps-with-adaptive-ui) ([alternative link](https://channel9.msdn.com/Blogs/DevRadio/DR1734))
 
+## Like what you see?
+
+If you like what you see, [tweet us please](https://twitter.com/intent/tweet?text=Woop%20woop%21%20I%20just%20got%20%23Telerik%20UI%20controls%20for%20%23UWP%20for%20free%20here%20https%3A%2F%2Fgithub.com%2Ftelerik%2FUI-For-UWP%20%40Telerik%20%40windev)
+
+
+
 
