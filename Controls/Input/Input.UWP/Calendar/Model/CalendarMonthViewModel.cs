@@ -50,12 +50,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 daysToSubtract += 7;
             }
 
-            return monthStartDate.AddDays(-daysToSubtract);
+            return monthStartDate.Date == DateTime.MinValue.Date ? monthStartDate : monthStartDate.AddDays(-daysToSubtract);
         }
 
         internal override DateTime GetNextDateToRender(DateTime dateToRender)
         {
-            return dateToRender.AddDays(1);
+            return dateToRender.Date == DateTime.MaxValue.Date ? dateToRender : dateToRender.AddDays(1);
         }
 
         internal override void PrepareCalendarCell(CalendarCellModel cell, DateTime date)

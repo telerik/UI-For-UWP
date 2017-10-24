@@ -22,6 +22,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         internal InvalidateMeasureFlags pendingMeasureFlags;
 
+        private const int MaxAdditionalStretchColumnsCount = 5;
+
         private static readonly int RowHeightPropertyKey = PropertyKeys.Register(typeof(GridModel), "RowHeight");
 
         private static readonly int DataLoadingModePropertyKey = PropertyKeys.Register(typeof(GridModel), "DataLoadingMode");
@@ -33,6 +35,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         private RadSize availableSize;
         private RadSize desiredSize;
         private RadSize lastArrangeSize;
+        private int additionalStretchColumnsCount;
 
         public bool RowHeightIsNaN
         {
@@ -239,11 +242,14 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             if (this.VisibleColumns.Count() == this.ColumnPool.ViewportItemCount)
             {
                 bool columnsStretched = this.CellsController.TryStretchColumns(this.availableSize.Width);
-                if (columnsStretched)
+                if (columnsStretched && this.additionalStretchColumnsCount < MaxAdditionalStretchColumnsCount)
                 {
+                    this.additionalStretchColumnsCount++;
                     this.GridView.RebuildUI();
                     return finalSize;
                 }
+
+                this.additionalStretchColumnsCount = 0;
             }
 
             var result = this.RowPool.OnArrange(finalSize);
@@ -260,6 +266,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
             this.ApplyLayersClipping(result);
 
+            
             return result;
         }
 
@@ -519,6 +526,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         private double GenerateCellsForReadOnlyRow(int rowSlot, double largestRowElementWidth, IItemInfoNode rowDecorator)
         {
+            this.CellsController.UpdateSlotHeight(rowSlot, 0, this.HasExpandedRowDetails(rowSlot));
+
             Debug.Assert(rowDecorator != null, "Decorator shoundn't be null");
             bool shouldUpdateColumns = this.CellsController.GenerateCellsForRow(rowDecorator, rowSlot);
 

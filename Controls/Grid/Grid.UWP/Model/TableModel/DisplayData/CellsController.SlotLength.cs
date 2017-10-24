@@ -124,14 +124,21 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// <param name="cellSlot">The slot which Height will be updated.</param>
         /// <param name="cellHeight">The new Height.</param>
         /// <returns>Returns true only if Slot Height was Updated (e.g. Smaller then the new Height).</returns>
-        internal bool UpdateSlotHeight(int cellSlot, double cellHeight)
+        internal bool UpdateSlotHeight(int cellSlot, double cellHeight, bool forceUpdate = true)
         {
             if (this.table.RowHeightIsNaN && !this.RowPool.IsItemCollapsed(cellSlot) || this.table.HasExpandedRowDetails(cellSlot))
             {
                 var renderInfo = this.RowPool.RenderInfo;
                 var currentHeight = renderInfo.ValueForIndex(cellSlot, false);
+                
+                if (GridModel.DoubleArithmetics.IsZero(currentHeight))
+                {
+                    renderInfo.Update(cellSlot, cellHeight);
+                    return true;
+                }
 
-                if (GridModel.DoubleArithmetics.IsZero(currentHeight) || !GridModel.DoubleArithmetics.AreClose(currentHeight, cellHeight))
+                var shouldUpdateHeight = forceUpdate ? !GridModel.DoubleArithmetics.AreClose(currentHeight, cellHeight) : GridModel.DoubleArithmetics.IsLessThan(currentHeight, cellHeight);
+                if (shouldUpdateHeight)
                 {
                     renderInfo.Update(cellSlot, cellHeight);
                     return true;
