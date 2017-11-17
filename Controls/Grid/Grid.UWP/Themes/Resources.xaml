@@ -133,6 +133,16 @@
                                         <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
                                     </Storyboard>
                                 </VisualState>
+				    
+				     <VisualState x:Name="RevealPointerOver">
+     <VisualState.Setters>
+            <Setter Target="RootGrid.(RevealBrush.State)" Value="PointerOver" />
+            <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPointerOver}" />
+            <Setter Target="ContentPresenter.BorderBrush" Value="Transparent"/>
+            <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource ButtonForegroundPointerOver}" />
+        </VisualState.Setters>
+    </VisualState>   
+				    
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
