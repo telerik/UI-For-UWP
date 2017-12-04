@@ -4,8 +4,8 @@
         <id>$Id$</id>
         <version>$Version$</version>
         <title>$Title$</title>
-        <authors>Telerik</authors>
-        <owners>Telerik</owners>
+        <authors>Progress</authors>
+        <owners>Progress</owners>
         <projectUrl>http://www.telerik.com/universal-windows-platform-ui</projectUrl>
         <licenseUrl>https://github.com/telerik/UI-For-UWP/blob/master/LICENSE.md</licenseUrl>
         <iconUrl>http://www.telerik.com/docs/default-source/nuget-feed-product-files/nugeticon_uwp.png?sfvrsn=2</iconUrl>
