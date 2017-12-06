@@ -366,6 +366,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             this.PrepareReorderHandle();
 
+            this.firstHandle = this.GetTemplateChild("PART_FirstHandle") as Border;
+            this.secondHandle = this.GetTemplateChild("PART_SecondHandle") as Border;
+
             this.PrepareSwipeDragHandles();
             this.ChangeVisualState();
         }
@@ -388,11 +391,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             if (isVisible)
             {
-                if (this.firstHandle == null)
-                {
-                    this.firstHandle = this.GetTemplateChild("PART_FirstHandle") as Border;
-                }
-
                 if (this.firstHandle != null)
                 {
                     this.firstHandle.ManipulationMode = ManipulationModes.None;
@@ -412,11 +410,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             if (isVisible)
             {
-                if (this.secondHandle == null)
-                {
-                    this.secondHandle = this.GetTemplateChild("PART_SecondHandle") as Border;
-                }
-
                 if (this.secondHandle != null)
                 {
                     this.secondHandle.ManipulationMode = ManipulationModes.None;
