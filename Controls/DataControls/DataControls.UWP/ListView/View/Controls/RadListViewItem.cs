@@ -222,7 +222,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             return isInvalidated;
         }
 
-        internal void PrepareSwipeDragHandles()
+        protected internal void PrepareSwipeDragHandles()
         {
             if (this.IsActionOnSwipeEnabled)
             {
