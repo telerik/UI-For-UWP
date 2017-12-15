@@ -8,6 +8,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
     {
         None,
         Drag,
+        MouseDrag,
         Hold
     }
 }

@@ -24,6 +24,11 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         bool IDragDropElement.CanStartDrag(DragDropTrigger trigger, object initializeContext)
         {
+            if (trigger == DragDropTrigger.MouseDrag && !this.IsHandleEnabled)
+            {
+                return this.ListView.IsItemReorderEnabled && this.listView.GroupDescriptors.Count == 0;
+            }
+
             if (trigger == DragDropTrigger.Hold)
             {
                 return this.ListView.IsItemReorderEnabled && this.ListView.GroupDescriptors.Count == 0 && !this.IsHandleEnabled;
