@@ -5,8 +5,16 @@
     <DeployDirectory>$(MSBuildProjectDirectory)\..</DeployDirectory>
     <BinariesTargetDirectory>Binaries</BinariesTargetDirectory>
     <BinariesOutDir Condition=" '$(BinariesOutDir)' == '' ">..\..\..\Binaries</BinariesOutDir>
-	<PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
-	<Nuget32ToolPath>"$(MSBuildProjectDirectory)\nuget.exe"</Nuget32ToolPath>
+    <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
+    <Nuget32ToolPath>"$(MSBuildProjectDirectory)\nuget.exe"</Nuget32ToolPath>
+    <ControlsFolder>$(MsBuildProjectDirectory)\..\Controls</ControlsFolder>
+    <UWPControlsSolutionPath>$(ControlsFolder)\UWPControls.sln</UWPControlsSolutionPath>
+    <UWPMapSolutionPath>$(ControlsFolder)\UWPMap.sln</UWPMapSolutionPath>
+    <Configuration>Release</Configuration>
+    <AnyCPUPlatform>Any CPU</AnyCPUPlatform>
+    <X86Platform>x86</X86Platform>
+    <X64Platform>x64</X64Platform>
+    <ArmPlatform>ARM</ArmPlatform>
   </PropertyGroup>
-  
+
 </Project>

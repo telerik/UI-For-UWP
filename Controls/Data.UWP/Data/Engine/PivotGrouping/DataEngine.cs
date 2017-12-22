@@ -1008,10 +1008,7 @@ namespace Telerik.Data.Core.Engine
 
             foreach (var groupName in valueProvider.GetRowGroupNames(item))
             {
-                if (groupName != null)
-                {
-                    rowGroupNames.Add(groupName);
-                }
+                rowGroupNames.Add(groupName);
             }
 
             if (parallelState.DataView.SourceGroups.Count > 0)

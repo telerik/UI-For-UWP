@@ -91,11 +91,12 @@ This project is supported by the [.NET Foundation](https://dotnetfoundation.org)
 
 ## Recent news
 
-* [Getting Started with Telerik UI for UWP](http://www.telerik.com/blogs/getting-started-with-telerik-ui-for-uwp)
-* [Telerik UI for UWP joins the .NET Foundation](http://www.telerik.com/blogs/progress-telerik-ui-for-uwp-joins-net-foundation)
-* [Telerik UI for UWP in Windows Template Studio](https://developer.telerik.com/topics/net/announcing-windows-template-studio/)
-* [Telerik UI for UWP toolbox support with NuGet package](http://www.telerik.com/blogs/telerik-ui-for-uwp-free-and-updated-xaml-controls) ([alternative link](https://blogs.msdn.microsoft.com/visualstudio/2017/05/30/telerik-ui-for-uwp-free-and-updated-xaml-controls/))
-* [Building Windows Apps with Adaptive UI om Channel9](http://www.telerik.com/blogs/ui-controls-for-uwp-building-windows-apps-with-adaptive-ui) ([alternative link](https://channel9.msdn.com/Blogs/DevRadio/DR1734))
+* [Blog: Getting Started with Telerik UI for UWP](http://www.telerik.com/blogs/getting-started-with-telerik-ui-for-uwp)
+* [Video on CH9: Getting Started with Telerik UI for UWP](https://channel9.msdn.com/Blogs/vsppstories/Getting-Started-with-Telerik-UI-for-UWP)
+* [Blog: Telerik UI for UWP joins the .NET Foundation](http://www.telerik.com/blogs/progress-telerik-ui-for-uwp-joins-net-foundation)
+* [Blog: Telerik UI for UWP in Windows Template Studio](https://developer.telerik.com/topics/net/announcing-windows-template-studio/)
+* [Blog: Telerik UI for UWP toolbox support with NuGet package](http://www.telerik.com/blogs/telerik-ui-for-uwp-free-and-updated-xaml-controls) ([alternative link](https://blogs.msdn.microsoft.com/visualstudio/2017/05/30/telerik-ui-for-uwp-free-and-updated-xaml-controls/))
+* [Video: Building Windows Apps with Adaptive UI om Channel9](http://www.telerik.com/blogs/ui-controls-for-uwp-building-windows-apps-with-adaptive-ui) ([alternative link](https://channel9.msdn.com/Blogs/DevRadio/DR1734))
 
 ## Like what you see?
 

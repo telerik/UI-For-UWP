@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+
+  <Import Project="$(MSBuildProjectDirectory)\Config.UWP.proj" />
+
+  <PropertyGroup>
+    <BuildDependsOn>
+      GetLatestNugetExe;
+      RestoreControlsSolutionNuGetPackages;
+      BuildControlsSolution;
+      RestoreMapSolutionNuGetPackages;
+      BuildMapX86Platform;
+      BuildMapX64Platform;
+      BuildMapArmPlatform;
+    </BuildDependsOn>
+  </PropertyGroup>
+
+
+  <Target Name="Build" DependsOnTargets="$(BuildDependsOn)" />
+
+  <Target Name="GetLatestNugetExe">
+
+    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted  -command (New-Object System.Net.WebClient).DownloadFile('http://dist.nuget.org/win-x86-commandline/latest/nuget.exe', 'nuget.exe')"/>
+
+  </Target>
+
+  <Target Name="RestoreControlsSolutionNuGetPackages">
+
+    <Exec Command="$(Nuget32ToolPath) restore $(UWPControlsSolutionPath) -NonInteractive -Source https://api.nuget.org/v3/index.json" />
+
+  </Target>
+
+  <Target Name="BuildControlsSolution">
+
+    <MSBuild Projects="$(UWPControlsSolutionPath)"
+             Properties="Configuration=$(Configuration);Platform=$(AnyCPUPlatform)"
+             Targets="Rebuild" />
+  </Target>
+
+  <Target Name="RestoreMapSolutionNuGetPackages">
+
+    <Exec Command="$(Nuget32ToolPath) restore $(UWPMapSolutionPath) -NonInteractive -Source https://api.nuget.org/v3/index.json" />
+
+  </Target>
+
+  <Target Name="BuildMapX86Platform">
+
+    <MSBuild Projects="$(UWPMapSolutionPath)"
+             Properties="Configuration=$(Configuration);Platform=$(X86Platform)"
+             Targets="Rebuild" />
+  </Target>
+
+  <Target Name="BuildMapX64Platform">
+
+    <MSBuild Projects="$(UWPMapSolutionPath)"
+             Properties="Configuration=$(Configuration);Platform=$(X64Platform)"
+             Targets="Rebuild" />
+
+  </Target>
+
+  <Target Name="BuildMapArmPlatform">
+
+    <MSBuild Projects="$(UWPMapSolutionPath)"
+             Properties="Configuration=$(Configuration);Platform=$(ArmPlatform)"
+             Targets="Rebuild" />
+
+  </Target>
+
+</Project>
