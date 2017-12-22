@@ -83,7 +83,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             {
                 var typedColumn = column as DataGridTypedColumn;
 
-                if (typedColumn.PropertyName.Equals(propertyInfo.Name))
+                if (typedColumn != null && typedColumn.PropertyName.Equals(propertyInfo.Name))
                 {
                     return true;
                 }

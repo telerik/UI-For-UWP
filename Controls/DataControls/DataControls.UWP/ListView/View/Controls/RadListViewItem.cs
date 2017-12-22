@@ -6,8 +6,10 @@ using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
 using Telerik.UI.Xaml.Controls.Data.ListView.View.Controls;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
+using Windows.Devices.Input;
 using Windows.Foundation;
 using Windows.System;
+using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
@@ -220,7 +222,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             return isInvalidated;
         }
 
-        internal void PrepareSwipeDragHandles()
+        protected internal void PrepareSwipeDragHandles()
         {
             if (this.IsActionOnSwipeEnabled)
             {
@@ -364,6 +366,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             this.PrepareReorderHandle();
 
+            this.firstHandle = this.GetTemplateChild("PART_FirstHandle") as Border;
+            this.secondHandle = this.GetTemplateChild("PART_SecondHandle") as Border;
+
             this.PrepareSwipeDragHandles();
             this.ChangeVisualState();
         }
@@ -386,11 +391,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             if (isVisible)
             {
-                if (this.firstHandle == null)
-                {
-                    this.firstHandle = this.GetTemplateChild("PART_FirstHandle") as Border;
-                }
-
                 if (this.firstHandle != null)
                 {
                     this.firstHandle.ManipulationMode = ManipulationModes.None;
@@ -410,11 +410,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             if (isVisible)
             {
-                if (this.secondHandle == null)
-                {
-                    this.secondHandle = this.GetTemplateChild("PART_SecondHandle") as Border;
-                }
-
                 if (this.secondHandle != null)
                 {
                     this.secondHandle.ManipulationMode = ManipulationModes.None;
@@ -466,6 +461,20 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             base.OnPointerEntered(e);
             this.ChangeVisualState(true);
+        }
+
+        protected override void OnPointerMoved(PointerRoutedEventArgs e)
+        {
+            base.OnPointerMoved(e);
+            PointerPoint pointerPoint = e.GetCurrentPoint(this);
+            if (!this.isDragContent && pointerPoint.Properties.IsLeftButtonPressed)
+            {
+                var source = e.OriginalSource;
+                if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse && source != this.firstHandle && source != this.secondHandle)
+                {
+                    this.listView.OnItemReorderHandlePressed(this, e, DragDropTrigger.MouseDrag, null);
+                }
+            }
         }
 
         /// <inheritdoc/>
@@ -647,7 +656,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         private void OnReorderHandlePointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            this.ListView.OnItemReorderHandlePressed(this, e, sender);
+            this.ListView.OnItemReorderHandlePressed(this, e, DragDropTrigger.Drag, sender);
         }
 
         private void UpdateActionContentClipping(double offset)
