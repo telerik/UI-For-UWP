@@ -359,14 +359,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             var definition = d as DataGridColumn;
             definition.cellDecorationStyleCache = e.NewValue as Style;
-            definition.OnProperyChange(UpdateFlags.AffectsContent);
+            definition.OnPropertyChange(UpdateFlags.AffectsContent);
         }
 
         private static void OnCellDecorationStyleSelectorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as DataGridColumn;
             definition.cellDecorationStyleSelectorCache = e.NewValue as StyleSelector;
-            definition.OnProperyChange(UpdateFlags.AffectsContent);
+            definition.OnPropertyChange(UpdateFlags.AffectsContent);
         }
 
         private Style ComposeCellDecorationStyle(GridCellModel cell)

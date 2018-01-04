@@ -320,7 +320,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             if (column.itemsType != null)
             {
                 column.itemPropertyGetter = BindingExpressionHelper.CreateGetValueFunc(column.itemsType, (string)e.NewValue);
-                column.OnProperyChange(UpdateFlags.All);
+                column.OnPropertyChange(UpdateFlags.All);
             }
         }
 

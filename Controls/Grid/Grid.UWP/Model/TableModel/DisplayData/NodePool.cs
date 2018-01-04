@@ -464,7 +464,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         internal void Update(UpdateFlags flags)
         {
-            if ((flags & UpdateFlags.AffectsContent) == UpdateFlags.AffectsContent)
+            if ((flags & UpdateFlags.AffectsContent) == UpdateFlags.AffectsContent 
+                || (flags & UpdateFlags.AffectsColumnHeader) == UpdateFlags.AffectsColumnHeader)
             {
                 this.FullyRecycle();
             }

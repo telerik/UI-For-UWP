@@ -321,7 +321,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             var definition = d as DataGridTemplateColumn;
 
             definition.cellContentTemplateCache = e.NewValue as DataTemplate;
-            definition.OnProperyChange(UpdateFlags.AffectsContent);
+            definition.OnPropertyChange(UpdateFlags.AffectsContent);
         }
 
         private static void OnCellContentTemplateSelectorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -329,7 +329,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DataGridTemplateColumn definition = d as DataGridTemplateColumn;
 
             definition.cellContentTemplateSelectorCache = e.NewValue as DataTemplateSelector;
-            definition.OnProperyChange(UpdateFlags.AffectsContent);
+            definition.OnPropertyChange(UpdateFlags.AffectsContent);
         }
 
         private static void OnSortDescriptorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

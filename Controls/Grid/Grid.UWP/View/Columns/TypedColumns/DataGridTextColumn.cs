@@ -177,7 +177,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             var column = d as DataGridTextColumn;
             column.cellContentFormatCache = (string)e.NewValue;
 
-            column.OnProperyChange(UpdateFlags.AllButData);
+            column.OnPropertyChange(UpdateFlags.AllButData);
         }
 
         private void Textbox_TextChanged(object sender, TextChangedEventArgs e)

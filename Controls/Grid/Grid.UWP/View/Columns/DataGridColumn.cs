@@ -553,7 +553,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             return null;
         }
 
-        internal void OnProperyChange(UpdateFlags flags)
+        internal void OnPropertyChange(UpdateFlags flags)
         {
             if (this.Model != null)
             {
@@ -708,6 +708,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
 
             column.isUserHeader = column.headerCache != null;
+            column.OnPropertyChange(UpdateFlags.AffectsColumnHeader);
         }
 
         private static void OnWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -715,7 +716,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             var column = d as DataGridColumn;
 
             column.widthCache = (double)e.NewValue;
-            column.OnProperyChange(UpdateFlags.AllButData);
+            column.OnPropertyChange(UpdateFlags.AllButData);
         }
 
         private static void OnSizeModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -728,14 +729,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 column.AutoWidth = 0;
             }
 
-            column.OnProperyChange(UpdateFlags.AllButData);
+            column.OnPropertyChange(UpdateFlags.AllButData);
         }
 
         private static void OnHeaderStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as DataGridColumn;
             definition.headerStyleCache = e.NewValue as Style;
-            definition.OnProperyChange(UpdateFlags.AllButData);
+            definition.OnPropertyChange(UpdateFlags.AllButData);
         }
 
         private static void OnCanUserFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -743,7 +744,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             var column = d as DataGridColumn;
 
             // TODO: possible optimization
-            column.OnProperyChange(UpdateFlags.AllButData);
+            column.OnPropertyChange(UpdateFlags.AllButData);
         }
 
         private static void OnCanUserSortChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
