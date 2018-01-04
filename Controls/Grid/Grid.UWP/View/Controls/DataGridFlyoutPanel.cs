@@ -114,15 +114,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 flyoutPadding = this.Flyout.Padding.Left + this.Flyout.Padding.Right;
             }
 
-            double availableHeight = double.IsInfinity(availableSize.Height) ? this.Owner.ActualHeight : availableSize.Height;
-
             while (this.Elements.Count > 0)
             {
-                if (this.totalRealizedHeight > availableHeight)
-                {
-                    break;
-                }
-
                 var child = this.Elements[0];
                 this.Elements.RemoveAt(0);
                 this.Children.Add(child);
@@ -135,7 +128,16 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 this.realizedWidth = Math.Min(Math.Max(this.realizedWidth, child.DesiredSize.Width), this.owner.ActualWidth - servicePanelWidthToDeduct - flyoutPadding);
             }
 
-            var actualHeight = this.VerticalAlignment == VerticalAlignment.Stretch ? availableHeight : this.totalRealizedHeight;
+            double actualHeight;
+            if (this.VerticalAlignment == VerticalAlignment.Stretch)
+            {
+                double availableHeight = double.IsInfinity(availableSize.Height) ? this.Owner.ActualHeight : availableSize.Height;
+                actualHeight = availableHeight > this.totalRealizedHeight ? availableHeight : this.totalRealizedHeight;
+            }
+            else
+            {
+                actualHeight = this.totalRealizedHeight;
+            }
 
             base.MeasureOverride(new Size(this.realizedWidth, actualHeight));
             return new Size(this.realizedWidth, actualHeight);

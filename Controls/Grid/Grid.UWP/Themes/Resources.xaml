@@ -712,9 +712,11 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="2"/>
                         </Grid.ColumnDefinitions>
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" >
-                            <localPrimitives:DataGridFlyoutPanel VerticalAlignment="{TemplateBinding VerticalAlignment}" x:Name="PART_HeadersContainer" Margin="{TemplateBinding Padding}" />
-                        </Border>
+                        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" >
+                                <localPrimitives:DataGridFlyoutPanel VerticalAlignment="{TemplateBinding VerticalAlignment}" x:Name="PART_HeadersContainer" Margin="{TemplateBinding Padding}" />
+                            </Border>
+                        </ScrollViewer>
                         <Canvas x:Name="PART_AdornerHost" IsHitTestVisible="False"/>
                         <Rectangle Fill="{ThemeResource TelerikGridShadowBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1"/>
                     </Grid>
@@ -817,19 +819,20 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="1" Grid.Row="0" x:Name="BorderElement" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <Grid >
+                            <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <localPrimitives:FlyoutHeaderControl Style="{TemplateBinding HeaderStyle}"/>
                                 <Image x:Name="PART_CloseButton" Source="{ThemeResource TelerikGridColumnChooserClose}" Height="42" Width="42" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.RowSpan="2"/>
-                                <Image x:Name="CloseMouseOverButton" IsHitTestVisible="False" Source="{ThemeResource TelerikGridColumnChooserCloseMouseOver}" Visibility="Collapsed" Height="42" Width="42" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top"  />
-                                <localPrimitives:DataGridFlyoutPanel VerticalAlignment="{TemplateBinding VerticalAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" x:Name="PART_HeadersContainer"/>
+                                <Image x:Name="CloseMouseOverButton" IsHitTestVisible="False" Source="{ThemeResource TelerikGridColumnChooserCloseMouseOver}" Visibility="Collapsed" Height="42" Width="42" Grid.RowSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                                <ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <localPrimitives:DataGridFlyoutPanel VerticalAlignment="{TemplateBinding VerticalAlignment}" Margin="{TemplateBinding Padding}" x:Name="PART_HeadersContainer"/>
+                                </ScrollViewer>
                             </Grid>
                         </Border>
                         <Canvas x:Name="PART_AdornerHost" IsHitTestVisible="False"/>
-
                         <Rectangle x:Name="ShadowElement" Fill="{ThemeResource TelerikGridShadowBrush}" />
                     </Grid>
                 </ControlTemplate>
