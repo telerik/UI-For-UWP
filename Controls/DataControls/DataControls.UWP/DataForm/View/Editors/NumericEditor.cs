@@ -135,10 +135,12 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             Binding rangeB = new Binding();
             rangeB.Path = new PropertyPath("Range.Min");
+            rangeB.FallbackValue = double.MinValue;
             this.SetBinding(NumericEditor.MinimumProperty, rangeB);
 
             rangeB = new Binding();
             rangeB.Path = new PropertyPath("Range.Max");
+            rangeB.FallbackValue = double.MaxValue;
             this.SetBinding(NumericEditor.MaximumProperty, rangeB);
         }
     }
