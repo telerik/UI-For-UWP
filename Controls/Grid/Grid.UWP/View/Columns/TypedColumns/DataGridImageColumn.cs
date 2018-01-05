@@ -195,7 +195,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             image.ImageOpened -= this.OnImageOpened;
             SetIsImageOpened(image, true);
 
-            this.OnProperyChange(UpdateFlags.AffectsContent);
+            this.OnPropertyChange(UpdateFlags.AffectsContent);
         }
     }
 }

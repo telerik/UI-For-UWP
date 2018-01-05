@@ -58,6 +58,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return;
             }
 
+            if (enumFlags == UpdateFlags.AffectsColumnHeader)
+            {
+                grid.Model.ColumnPool.Update(enumFlags);
+                return;
+            }
+
             grid.Model.ColumnPool.Update(enumFlags);
             grid.Model.RowPool.Update(enumFlags);
             grid.Model.CellsController.Update(enumFlags);

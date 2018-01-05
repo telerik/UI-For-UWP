@@ -431,28 +431,28 @@ namespace Telerik.UI.Xaml.Controls.Grid
             // Assuming that for the time being the path is property name (Simple Binding).
             definition.UpdatePropertyInfo(definition.propertyNameCache);
 
-            definition.OnProperyChange(UpdateFlags.All);
+            definition.OnPropertyChange(UpdateFlags.All);
         }
 
         private static void OnCellContentStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as DataGridTypedColumn;
             definition.cellContentStyleCache = e.NewValue as Style;
-            definition.OnProperyChange(UpdateFlags.AllButData);
+            definition.OnPropertyChange(UpdateFlags.AllButData);
         }
 
         private static void OnCellContentStyleSelectorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as DataGridTypedColumn;
             definition.cellContentStyleSelectorCache = e.NewValue as StyleSelector;
-            definition.OnProperyChange(UpdateFlags.AllButData);
+            definition.OnPropertyChange(UpdateFlags.AllButData);
         }
         
         private static void OnCellEditorStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as DataGridTypedColumn;
             definition.cellEditorStyleCache = e.NewValue as Style;
-            definition.OnProperyChange(UpdateFlags.AllButData);
+            definition.OnPropertyChange(UpdateFlags.AllButData);
         }
 
         private Style ComposeCellContentStyle(FrameworkElement container, GridCellModel cell)
