@@ -555,6 +555,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// </returns>
         protected override Windows.Foundation.Size MeasureOverride(Windows.Foundation.Size availableSize)
         {
+            if (this.drawer == null || this.mainContent == null)
+            {
+                return base.MeasureOverride(availableSize);
+            }
+            
             this.drawer.Measure(new Size(availableSize.Width, availableSize.Height));
 
             this.mainContent.Measure(new Size(availableSize.Width, availableSize.Height));
