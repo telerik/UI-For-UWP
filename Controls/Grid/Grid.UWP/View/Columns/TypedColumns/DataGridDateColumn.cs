@@ -39,24 +39,40 @@ namespace Telerik.UI.Xaml.Controls.Grid
             get { return this.PropertyInfoInitialized && this.PropertyInfo.DataType.GetTypeInfo().IsAssignableFrom(dateTypeInfo) && this.CanUserEdit; }
         }
 
-        internal override object GetEditorType(object item)
+        /// <summary>
+        /// Gets the type of the editor for the DataGridDateColumn that is visualized when entering in edit mode.
+        /// </summary>
+        /// <returns>The type of the editor.</returns>
+        public override object GetEditorType(object item)
         {
             return this.CanEdit ? datePickerType : DataGridTextColumn.TextBlockType;
         }
 
-        internal override FrameworkElement CreateEditorContentVisual()
+        /// <summary>
+        /// Creates an instance of a RadDatePicker used by the column when entering edit mode.
+        /// </summary>
+        /// <returns>An instance of the editor.</returns>
+        public override FrameworkElement CreateEditorContentVisual()
         {
             return new RadDatePicker();
         }
 
-        internal override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
+        /// <summary>
+        /// Prepares all bindings and content set to the RadDatePicker visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
         {
-            editorContent.SetBinding(RadTimePicker.ValueProperty, binding);
+            editorContent.SetBinding(RadDatePicker.ValueProperty, binding);
         }
 
-        internal override void ClearEditorContentVisual(FrameworkElement editorContent)
+        /// <summary>
+        /// Clears all bindings and content set to the RadDatePicker visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void ClearEditorContentVisual(FrameworkElement editorContent)
         {
-            editorContent.ClearValue(RadTimePicker.ValueProperty);
+            editorContent.ClearValue(RadDatePicker.ValueProperty);
         }
 
         /// <summary>
