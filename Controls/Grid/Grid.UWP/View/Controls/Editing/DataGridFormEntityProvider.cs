@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Telerik.Data.Core;
 
@@ -66,6 +67,18 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             entity.Validator = this.GetItemValidator(entity);
             this.Entity = entity;
             return entity;
+        }
+
+        /// <inheritdoc/>
+        protected override EntityProperty GenerateEntityProperty(object property)
+        {
+            var column = this.Columns.FirstOrDefault(a => a is DataGridTypedColumn 
+            && ((DataGridTypedColumn)a).PropertyName.Equals(((PropertyInfo)property).Name));
+
+            var entityProperty = new GridFormEntityProperty((PropertyInfo)property, this.Context, column);
+            entityProperty.PopulatePropertyMetadata();
+
+            return entityProperty;
         }
 
         /// <inheritdoc/>
