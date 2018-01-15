@@ -74,9 +74,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         {
             var column = this.Columns.FirstOrDefault(a => a is DataGridTypedColumn 
             && ((DataGridTypedColumn)a).PropertyName.Equals(((PropertyInfo)property).Name));
-            var entityProperty = Activator.CreateInstance(this.GetEntityPropertyType(property), 
-                new object[3] { property, this.Context, column }) as EntityProperty;
 
+            var entityProperty = new GridFormEntityProperty((PropertyInfo)property, this.Context, column);
             entityProperty.PopulatePropertyMetadata();
 
             return entityProperty;
