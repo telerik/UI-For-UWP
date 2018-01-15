@@ -1,0 +1,34 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.DataGrid.CustomRatingColumn"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:datagrid="using:SDKExamples.UWP.DataGrid"
+    mc:Ignorable="d" x:Name="page">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <grid:RadDataGrid Grid.Row="1" ItemsSource="{Binding Items}" Margin="10" AutoGenerateColumns="False" UserEditMode="Inline">
+            <grid:RadDataGrid.Resources>
+                <ResourceDictionary Source="CustomFilteringControl/DataGridCustomFilteringControl.xaml"/>
+            </grid:RadDataGrid.Resources>
+            <grid:RadDataGrid.Columns>
+                <grid:DataGridTextColumn PropertyName="Name"/>
+                <datagrid:DataGridRatingColumn PropertyName="Rating">
+                    <datagrid:DataGridRatingColumn.CellContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </datagrid:DataGridRatingColumn.CellContentStyle>
+                </datagrid:DataGridRatingColumn>
+            </grid:RadDataGrid.Columns>
+        </grid:RadDataGrid>
+    </Grid>
+</local:ExamplePageBase>

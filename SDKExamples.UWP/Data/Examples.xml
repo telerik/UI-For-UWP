@@ -94,6 +94,7 @@
   <Control Name="Grid">
     <Example DisplayName="Column DataOperations Mode" ClassName="SDKExamples.UWP.DataGrid.ColumnDataOperationsModeExample" />
     <Example DisplayName="Change position of Group Panel" ClassName="SDKExamples.UWP.DataGrid.GroupPanelPosition" />
+    <Example DisplayName="Custom Rating Column" ClassName="SDKExamples.UWP.DataGrid.CustomRatingColumn" />
     <Example DisplayName="Priority Columns" ClassName="SDKExamples.UWP.DataGrid.PriorityColumns" />
     <Example DisplayName="Reorder Columns" ClassName="SDKExamples.UWP.DataGrid.ColumnReordering" />
     <Example DisplayName="Resize Columns" ClassName="SDKExamples.UWP.DataGrid.ColumnResizing" />
