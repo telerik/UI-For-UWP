@@ -39,22 +39,38 @@ namespace Telerik.UI.Xaml.Controls.Grid
             get { return this.PropertyInfoInitialized && this.PropertyInfo.DataType.GetTypeInfo().IsAssignableFrom(dateTypeInfo) && this.CanUserEdit; }
         }
 
-        internal override object GetEditorType(object item)
+        /// <summary>
+        /// Gets the type of the editor for the DataGridTimeColumn that is visualized when entering in edit mode.
+        /// </summary>
+        /// <returns>The type of the editor.</returns>
+        public override object GetEditorType(object item)
         {
             return this.CanEdit ? timePickerType : DataGridTextColumn.TextBlockType;
         }
 
-        internal override FrameworkElement CreateEditorContentVisual()
+        /// <summary>
+        /// Creates an instance of a RadTimePicker used by the column when entering edit mode.
+        /// </summary>
+        /// <returns>An instance of the editor.</returns>
+        public override FrameworkElement CreateEditorContentVisual()
         {
             return new RadTimePicker();
         }
 
-        internal override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
+        /// <summary>
+        /// Prepares all bindings and content set to the RadTimePicker visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
         {
             editorContent.SetBinding(RadTimePicker.ValueProperty, binding);
         }
 
-        internal override void ClearEditorContentVisual(FrameworkElement editorContent)
+        /// <summary>
+        /// Clears all bindings and content set to the RadTimePicker visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void ClearEditorContentVisual(FrameworkElement editorContent)
         {
             editorContent.ClearValue(RadTimePicker.ValueProperty);
         }

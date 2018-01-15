@@ -220,6 +220,43 @@ namespace Telerik.UI.Xaml.Controls.Grid
             return null;
         }
 
+        /// <summary>
+        /// Creates an instance of the editor used by the column when entering edit mode.
+        /// </summary>
+        /// <returns>An instance of the editor.</returns>
+        public abstract FrameworkElement CreateEditorContentVisual();
+
+        /// <summary>
+        /// Prepares all bindings and content set to the editor visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public abstract void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding);
+
+        /// <summary>
+        /// Clears all bindings and content set to the editor visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public abstract void ClearEditorContentVisual(FrameworkElement editorContent);
+
+        public override void PrepareCell(object container, object value, object item)
+        {
+            FrameworkElement element = container as FrameworkElement;
+            if (element == null)
+            {
+                return;
+            }
+
+            Style style = this.ComposeCellContentStyle(element, item);
+            if (style != null)
+            {
+                element.Style = style;
+            }
+            else
+            {
+                element.ClearValue(FrameworkElement.StyleProperty);
+            }
+        }
+
         internal override void SetValueForInstance(object instance, object value)
         {
             var memberAccess = this.propertyInfo as IMemberAccess;
@@ -236,25 +273,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
             if (!model.columns.IsSuspended && model.FieldInfoData != null && model.FieldInfoData.RootFieldInfo != null)
             {
                 this.PropertyInfo = model.FieldInfoData.GetFieldDescriptionByMember(this.PropertyName);
-            }
-        }
-
-        internal override void PrepareCell(GridCellModel cell)
-        {
-            FrameworkElement element = cell.Container as FrameworkElement;
-            if (element == null)
-            {
-                return;
-            }
-
-            Style style = this.ComposeCellContentStyle(element, cell);
-            if (style != null)
-            {
-                element.Style = style;
-            }
-            else
-            {
-                element.ClearValue(FrameworkElement.StyleProperty);
             }
         }
 
@@ -290,12 +308,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             return new Tuple<FrameworkElement, FrameworkElement, FrameworkElement>(content, host, validation);
         }
-
-        internal abstract FrameworkElement CreateEditorContentVisual();
-
-        internal abstract void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding);
-
-        internal abstract void ClearEditorContentVisual(FrameworkElement editorContent);
 
         internal override void PrepareEditorContainer(GridCellEditorModel editor)
         {
@@ -455,7 +467,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             definition.OnPropertyChange(UpdateFlags.AllButData);
         }
 
-        private Style ComposeCellContentStyle(FrameworkElement container, GridCellModel cell)
+        private Style ComposeCellContentStyle(FrameworkElement container, object item)
         {
             if (this.cellContentStyleCache != null)
             {
@@ -464,8 +476,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (this.cellContentStyleSelectorCache != null)
             {
-                var parentRow = cell.parent as GridRowModel;
-                var selectContext = new DataGridCellInfo(parentRow.ItemInfo.Item, cell.Column);
+                var selectContext = new DataGridCellInfo(item, this);
                 var style = this.cellContentStyleSelectorCache.SelectStyle(selectContext, container);
                 if (style != null)
                 {

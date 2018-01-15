@@ -47,7 +47,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// <summary>
         /// Gets the actual associated descriptor, having in mind possible Composite filter.
         /// </summary>
-        internal FilterDescriptorBase ActualAssociatedDescriptor
+        public FilterDescriptorBase ActualAssociatedDescriptor
         {
             get
             {
