@@ -43,7 +43,10 @@ UI for UWP is built to target UWP Windows 10 application development and deliver
 The official documentation for UI for UWP is available [here](http://docs.telerik.com/devtools/universal-windows-platform/Introduction-uwp) and here is the git repo for it [Telerik UI for UWP documentaton repo](https://github.com/telerik/uwp-docs)
 
 ## Demos
-Currently, you can take a look at the [Customers Orders Database sample](https://github.com/Microsoft/Windows-appsample-customers-orders-database) developed by Microsoft, which showcases the usage of the RadDataGrid control.
+
+The [UI for UWP Demos application](https://github.com/telerik/UI-For-UWP-Demos) demonstrates a great number of user case scenarios using Telerik UI for UWP.
+
+Also, you can take a look at the [Customers Orders Database sample](https://github.com/Microsoft/Windows-appsample-customers-orders-database) developed by Microsoft, which showcases the usage of the RadDataGrid control.
 
 **********************************************************************************************************************************
 
