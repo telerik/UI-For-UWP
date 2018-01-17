@@ -96,27 +96,74 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
-        internal override object GetEditorType(object item)
+        /// <summary>
+        /// Gets the type of the editor for the DataGridTextColumn that is visualized when entering in edit mode.
+        /// </summary>
+        /// <returns>The type of the editor.</returns>
+        public override object GetEditorType(object item)
         {
             return this.CanEdit ? textBoxType : TextBlockType;
         }
 
-        internal override object GetContainerType(object rowItem)
+        /// <summary>
+        /// Gets the type of the control visualized when the text column is not currently edited.
+        /// </summary>
+        /// <returns>The type of the control.</returns>
+        public override object GetContainerType(object rowItem)
         {
             return TextBlockType;
         }
 
-        internal override void PrepareCell(GridCellModel cell)
+        /// <summary>
+        /// Creates an instance of a TextBlock visualized when the column is not edited.
+        /// </summary>
+        /// <returns>An instance of the control.</returns>
+        public override object CreateContainer(object rowItem)
         {
-            base.PrepareCell(cell);
+            return new TextBlock();
+        }
 
-            TextBlock tb = cell.Container as TextBlock;
+        /// <summary>
+        /// Creates an instance of a TextBox used by the column when entering edit mode.
+        /// </summary>
+        /// <returns>An instance of the editor.</returns>
+        public override FrameworkElement CreateEditorContentVisual()
+        {
+            TextBox textbox = new TextBox();
+            textbox.TextChanged += this.Textbox_TextChanged;
+
+            return textbox;
+        }
+
+        /// <summary>
+        /// Prepares all bindings and content set to the TextBox visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
+        {
+            editorContent.SetBinding(TextBox.TextProperty, binding);
+        }
+
+        /// <summary>
+        /// Clears all bindings and content set to the TextBox visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void ClearEditorContentVisual(FrameworkElement editorContent)
+        {
+            editorContent.ClearValue(TextBox.TextProperty);
+        }
+
+        public override void PrepareCell(object container, object value, object item)
+        {
+            base.PrepareCell(container, value, item);
+
+            TextBlock tb = container as TextBlock;
             if (tb == null)
             {
                 return;
             }
 
-            if (cell.Value == null)
+            if (value == null)
             {
                 tb.ClearValue(TextBlock.TextProperty);
                 return;
@@ -125,40 +172,17 @@ namespace Telerik.UI.Xaml.Controls.Grid
             string text;
             if (!string.IsNullOrEmpty(this.cellContentFormatCache))
             {
-                text = string.Format(CultureInfo.CurrentUICulture, this.cellContentFormatCache, cell.Value);
+                text = string.Format(CultureInfo.CurrentUICulture, this.cellContentFormatCache, value);
             }
             else
             {
-                text = Convert.ToString(cell.Value, CultureInfo.CurrentUICulture);
+                text = Convert.ToString(value, CultureInfo.CurrentUICulture);
             }
 
             if (tb.Text != text)
             {
                 tb.Text = text;
             }
-        }
-
-        internal override object CreateContainer(object rowItem)
-        {
-            return new TextBlock();
-        }
-
-        internal override FrameworkElement CreateEditorContentVisual()
-        {
-            TextBox textbox = new TextBox();
-            textbox.TextChanged += this.Textbox_TextChanged;
-
-            return textbox;
-        }
-
-        internal override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
-        {
-            editorContent.SetBinding(TextBox.TextProperty, binding);
-        }
-
-        internal override void ClearEditorContentVisual(FrameworkElement editorContent)
-        {
-            editorContent.ClearValue(TextBox.TextProperty);
         }
 
         /// <summary>
@@ -177,7 +201,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             var column = d as DataGridTextColumn;
             column.cellContentFormatCache = (string)e.NewValue;
 
-            column.OnProperyChange(UpdateFlags.AllButData);
+            column.OnPropertyChange(UpdateFlags.AllButData);
         }
 
         private void Textbox_TextChanged(object sender, TextChangedEventArgs e)

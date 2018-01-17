@@ -238,6 +238,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             // Overcome the differences in the DesiredSize of the header and the ArrangeSize, coming from the NodePool.
             if (!this.AllowArrange)
             {
+                // We need to call the base implementation in order to resolve an issue
+                // where the headers disappear when the DataGrid in visualized initially and the Alt key gets pressed.
+                base.ArrangeOverride(this.ArrangeRestriction);
                 return new Size(0, 0);
             }
 

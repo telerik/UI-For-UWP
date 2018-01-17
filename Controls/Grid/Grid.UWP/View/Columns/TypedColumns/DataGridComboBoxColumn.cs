@@ -163,14 +163,20 @@ namespace Telerik.UI.Xaml.Controls.Grid
             return item;
         }
 
-        /// <inheritdoc/>
-        internal override object GetEditorType(object item)
+        /// <summary>
+        /// Gets the type of the editor for the DataGridComboBoxColumn that is visualized when entering in edit mode.
+        /// </summary>
+        /// <returns>The type of the editor.</returns>
+        public override object GetEditorType(object item)
         {
             return this.CanEdit ? comboBoxType : DataGridNumericalColumn.TextBlockType;
         }
 
-        /// <inheritdoc/>
-        internal override FrameworkElement CreateEditorContentVisual()
+        /// <summary>
+        /// Creates an instance of a ComboBox used by the column when entering edit mode.
+        /// </summary>
+        /// <returns>An instance of the editor.</returns>
+        public override FrameworkElement CreateEditorContentVisual()
         {
             var comboBoxEditor = new ComboBox();
             comboBoxEditor.Unloaded += this.OnComboBoxUnloaded;
@@ -178,8 +184,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
             return comboBoxEditor;
         }
 
-        /// <inheritdoc/>
-        internal override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
+        /// <summary>
+        /// Prepares all bindings and content set to the ComboBox visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
         {
             var item = binding.Source;
 
@@ -235,8 +244,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
-        /// <inheritdoc/>
-        internal override void ClearEditorContentVisual(FrameworkElement editorContent)
+        /// <summary>
+        /// Clears all bindings and content set to the ComboBox visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void ClearEditorContentVisual(FrameworkElement editorContent)
         {
             if (!string.IsNullOrEmpty(this.SelectedValuePath))
             {
@@ -320,7 +332,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             if (column.itemsType != null)
             {
                 column.itemPropertyGetter = BindingExpressionHelper.CreateGetValueFunc(column.itemsType, (string)e.NewValue);
-                column.OnProperyChange(UpdateFlags.All);
+                column.OnPropertyChange(UpdateFlags.All);
             }
         }
 

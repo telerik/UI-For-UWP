@@ -271,8 +271,8 @@
     <Style TargetType="local:NumericEditor">
         <Setter Property="ButtonsBackground" Value="{ThemeResource TelerikNumericBoxSpinButtonBackgroundBrush}"/>
         <Setter Property="ButtonsPointerOverBackgroundBrush" Value="{ThemeResource TelerikNumericBoxSpinButtonPointerOverBackgroundBrush}"/>
-        <Setter Property="Minimum" Value="0"/>
-        <Setter Property="Maximum" Value="100"/>
+        <Setter Property="Minimum" Value="-2147483648"/>
+        <Setter Property="Maximum" Value="2147483648"/>
         <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
         <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
         <Setter Property="MinWidth" Value="180"/>

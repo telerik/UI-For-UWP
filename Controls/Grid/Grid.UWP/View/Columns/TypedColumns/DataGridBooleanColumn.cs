@@ -64,46 +64,62 @@ namespace Telerik.UI.Xaml.Controls.Grid
             get { return this.PropertyInfoInitialized && this.PropertyInfo.DataType == DataGridBooleanColumn.booleanType && this.CanUserEdit; }
         }
 
-        internal override object GetEditorType(object item)
+        /// <summary>
+        /// Gets the type of the editor for the DataGridBooleanColumn that is visualized when entering in edit mode.
+        /// </summary>
+        /// <returns>The type of the editor.</returns>
+        public override object GetEditorType(object item)
         {
             return this.CanEdit ? DataGridBooleanColumn.checkBoxType : DataGridBooleanColumn.TextBlockType;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Windows.UI.Xaml.Controls.TextBlock.put_Text(System.String)")]
-        internal override void PrepareCell(GridCellModel cell)
+        /// <summary>
+        /// Creates an instance of a Checkbox used by the column when entering edit mode.
+        /// </summary>
+        /// <returns>An instance of the editor.</returns>
+        public override FrameworkElement CreateEditorContentVisual()
         {
-            base.PrepareCell(cell);
+            return new CheckBox();
+        }
 
-            var textBlock = cell.Container as TextBlock;
+        /// <summary>
+        /// Clears all bindings and content set to the CheckBox visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void ClearEditorContentVisual(FrameworkElement editorContent)
+        {
+            editorContent.ClearValue(CheckBox.IsCheckedProperty);
+        }
+
+        /// <summary>
+        /// Prepares all bindings and content set to the CheckBox visualized when entering edit mode.
+        /// </summary>
+        /// <param name="editorContent">The editor itself.</param>
+        public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
+        {
+            editorContent.SetBinding(CheckBox.IsCheckedProperty, binding);
+        }
+        
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Windows.UI.Xaml.Controls.TextBlock.put_Text(System.String)")]
+        public override void PrepareCell(object container, object value, object item)
+        {
+            base.PrepareCell(container, value, item);
+
+            var textBlock = container as TextBlock;
             if (textBlock == null)
             {
                 return;
             }
 
-            bool? value = (bool?)cell.Value;
-            if (value.HasValue)
+            bool? cellValue = (bool?)value;
+            if (cellValue.HasValue)
             {
-                textBlock.Text = value.Value ? CheckedGlyph : UncheckedGlyph;
+                textBlock.Text = cellValue.Value ? CheckedGlyph : UncheckedGlyph;
             }
             else
             {
                 textBlock.Text = IndeterminateGlyph;
             }
-        }
-
-        internal override FrameworkElement CreateEditorContentVisual()
-        {
-            return new CheckBox();
-        }
-
-        internal override void ClearEditorContentVisual(FrameworkElement editorContent)
-        {
-            editorContent.ClearValue(CheckBox.IsCheckedProperty);
-        }
-
-        internal override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
-        {
-            editorContent.SetBinding(CheckBox.IsCheckedProperty, binding);
         }
 
         /// <summary>

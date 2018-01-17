@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Grid.Model;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Grid
@@ -110,7 +110,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
 
             // TODO: consider adding displayindex to the columns to improve this when this operation become a performance issue.
-            var columnIndex = this.Columns.IndexOf(column);
+            var visibleCollumns = this.model.VisibleColumns.ToList();
+            var columnIndex = visibleCollumns.IndexOf(column);
             if (columnIndex < 0)
             {
                 return;

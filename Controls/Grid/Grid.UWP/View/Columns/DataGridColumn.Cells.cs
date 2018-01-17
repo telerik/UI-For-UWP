@@ -101,9 +101,37 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
-        internal abstract object GetEditorType(object item);
+        /// <summary>
+        /// Gets the type of the editor that is visualized when entering in edit mode.
+        /// </summary>
+        /// <returns>The type of the editor.</returns>
+        public abstract object GetEditorType(object item);
 
-        internal abstract object GetContainerType(object rowItem);
+        /// <summary>
+        /// Creates an instance of the control visualized when the column is not edited.
+        /// </summary>
+        /// <returns>An instance of the control.</returns>
+        public abstract object CreateContainer(object rowItem);
+
+        /// <summary>
+        /// Gets the type of the control visualized when the cell is not currently edited.
+        /// </summary>
+        /// <returns>The type of the control.</returns>
+        public abstract object GetContainerType(object rowItem);
+
+        /// <summary>
+        /// Prepares the control visualized by the cell when it is not edited.
+        /// </summary>
+        /// <param name="container">The container visualizing the cell data when it is not edited.</param>
+        public abstract void PrepareCell(object container, object value, object item);
+
+        /// <summary>
+        /// Clears the bindings, data etc. of the control visualized by the cell when it is not edited.
+        /// </summary>
+        /// <param name="container">The container visualizing the cell data when it is not edited.</param>
+        public virtual void ClearCell(object container)
+        {
+        }
 
         internal void PrepareCellDecoration(GridCellModel cell)
         {
@@ -127,10 +155,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
-        internal abstract void PrepareCell(GridCellModel cell);
-
-        internal virtual void ClearCell(GridCellModel cell)
+        internal void PrepareCell(GridCellModel cell)
         {
+            this.PrepareCell(cell.Container, cell.Value, cell.ParentRow.ItemInfo.Item);
+        }
+
+        internal void ClearCell(GridCellModel cell)
+        {
+            this.ClearCell(cell.Container);
         }
 
         internal virtual RadSize MeasureCell(GridCellModel cell, double availableWidth)
@@ -324,8 +356,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
             return layoutSlot;
         }
 
-        internal abstract object CreateContainer(object rowItem);
-
         internal abstract object CreateEditorContainer(object rowItem, object containerType);
 
         internal abstract void PrepareEditorContainer(GridCellEditorModel editor);
@@ -359,14 +389,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             var definition = d as DataGridColumn;
             definition.cellDecorationStyleCache = e.NewValue as Style;
-            definition.OnProperyChange(UpdateFlags.AffectsContent);
+            definition.OnPropertyChange(UpdateFlags.AffectsContent);
         }
 
         private static void OnCellDecorationStyleSelectorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as DataGridColumn;
             definition.cellDecorationStyleSelectorCache = e.NewValue as StyleSelector;
-            definition.OnProperyChange(UpdateFlags.AffectsContent);
+            definition.OnPropertyChange(UpdateFlags.AffectsContent);
         }
 
         private Style ComposeCellDecorationStyle(GridCellModel cell)

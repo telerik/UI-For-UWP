@@ -163,34 +163,29 @@ namespace Telerik.UI.Xaml.Controls.Grid
             return instance;
         }
 
-        internal override object GetEditorType(object item)
+        /// <summary>
+        /// Gets the type of the editor for the DataGridTemplateColumn that is visualized when entering in edit mode.
+        /// </summary>
+        /// <returns>The type of the editor.</returns>
+        public override object GetEditorType(object item)
         {
             return this.ComposeCellContentTemplate(item) ?? EmptyDataTemplate;
         }
 
-        internal override object GetContainerType(object rowItem)
+        /// <summary>
+        /// Gets the type of the control visualized when the template column is not currently edited.
+        /// </summary>
+        /// <returns>The type of the control.</returns>
+        public override object GetContainerType(object rowItem)
         {
             return this.ComposeCellContentTemplate(rowItem) ?? EmptyDataTemplate;
         }
-
-        internal override void PrepareCell(GridCellModel cell)
-        {
-            InvalidateCellUI(cell.Container);
-
-            FrameworkElement container = cell.Container as FrameworkElement;
-            if (container != null)
-            {
-                //// Force clear Selector.SelectedItem value when it is bound and data does not have value for selected item. 
-                ////Clear dataContext to force bindings and fix issue with ExpandoObjects.
-                //// if (container is Selector)
-
-                container.DataContext = null;
-
-                container.DataContext = cell.Value;
-            }
-        }
-
-        internal override object CreateContainer(object rowItem)
+        
+        /// <summary>
+        /// Creates an instance of a FrameworkElement visualized when the column is not edited.
+        /// </summary>
+        /// <returns>An instance of the control.</returns>
+        public override object CreateContainer(object rowItem)
         {
             var template = this.ComposeCellContentTemplate(rowItem);
             if (template == null)
@@ -205,6 +200,23 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
 
             return container;
+        }
+
+        public override void PrepareCell(object container, object value, object item)
+        {
+            InvalidateCellUI(container);
+
+            FrameworkElement cellContainer = container as FrameworkElement;
+            if (cellContainer != null)
+            {
+                //// Force clear Selector.SelectedItem value when it is bound and data does not have value for selected item. 
+                ////Clear dataContext to force bindings and fix issue with ExpandoObjects.
+                //// if (container is Selector)
+
+                cellContainer.DataContext = null;
+
+                cellContainer.DataContext = value;
+            }
         }
 
         internal override object CreateEditorContainer(object rowItem, object containerType)
@@ -321,7 +333,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             var definition = d as DataGridTemplateColumn;
 
             definition.cellContentTemplateCache = e.NewValue as DataTemplate;
-            definition.OnProperyChange(UpdateFlags.AffectsContent);
+            definition.OnPropertyChange(UpdateFlags.AffectsContent);
         }
 
         private static void OnCellContentTemplateSelectorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -329,7 +341,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DataGridTemplateColumn definition = d as DataGridTemplateColumn;
 
             definition.cellContentTemplateSelectorCache = e.NewValue as DataTemplateSelector;
-            definition.OnProperyChange(UpdateFlags.AffectsContent);
+            definition.OnPropertyChange(UpdateFlags.AffectsContent);
         }
 
         private static void OnSortDescriptorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
