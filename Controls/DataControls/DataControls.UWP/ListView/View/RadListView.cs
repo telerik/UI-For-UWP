@@ -807,8 +807,12 @@ namespace Telerik.UI.Xaml.Controls.Data
                 return;
             }
 
-            var flatIndex = this.model.layoutController.strategy.GetElementFlatIndex(index);
-            var info = this.model.FindDataItemFromIndex(flatIndex);
+            if (this.GroupDescriptors.Count == 0)
+            {
+                index = this.model.layoutController.strategy.GetElementFlatIndex(index);
+            }
+
+            var info = this.model.FindDataItemFromIndex(index);
             this.RegisterScrollUpdate(info, scrollCompletedAction);
         }
 
