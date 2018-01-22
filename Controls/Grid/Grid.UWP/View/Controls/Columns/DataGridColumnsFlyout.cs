@@ -81,10 +81,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 
             this.Container.Owner = this.Owner.Owner;
 
-            var visibleColumns = this.Owner.Owner.Model.VisibleColumns;
-            for (int i = 0; i < visibleColumns.Count(); i++)
+            for (int i = 0; i < this.Owner.Owner.Columns.Count; i++)
             {
-                DataGridColumn column = visibleColumns.ElementAt(i);
+                DataGridColumn column = this.Owner.Owner.Columns[i];
 
                 DataGridFlyoutColumnHeader header = new DataGridFlyoutColumnHeader();
 
