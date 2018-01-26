@@ -497,7 +497,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             base.OnHolding(e);
 
-            if (this.ListView != null && e.HoldingState == Windows.UI.Input.HoldingState.Started && this.ListView.ReorderMode == ListViewReorderMode.Default)
+            if (this.ListView != null && e.HoldingState == Windows.UI.Input.HoldingState.Started)
             {
                 this.ListView.OnItemHold(this, e);
             }

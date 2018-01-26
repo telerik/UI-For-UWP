@@ -171,6 +171,10 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
                     command = new ItemActionTapCommand();
                     break;
 
+                case CommandId.ItemHold:
+                    command = new ItemHoldCommand();
+                    break;
+
                 default:
                     throw new ArgumentException("Unkown command id!", "id");
             }

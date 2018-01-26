@@ -49,5 +49,10 @@
         /// A command associated with the Pull to refresh that occurs when swipe gesture is executed.
         /// </summary>
         RefreshRequested,
+
+        /// <summary>
+        /// A command associated with the Hold event that occurs over an item.
+        /// </summary>
+        ItemHold
     }
 }
