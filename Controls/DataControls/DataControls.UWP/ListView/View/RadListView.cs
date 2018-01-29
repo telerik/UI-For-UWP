@@ -1045,6 +1045,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             var context = header.DataContext as GroupHeaderContext;
             context.IsExpanded = header.IsExpanded;
+
+            this.commandService.ExecuteCommand(CommandId.GroupHeaderTap, context);
+
             header.IsExpanded = context.IsExpanded;
         }
 
