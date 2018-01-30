@@ -781,20 +781,42 @@ namespace Telerik.UI.Xaml.Controls.Data
                 return;
             }
 
-            var action = (Action)(() =>
-            {
-                var info = this.model.FindItemInfo(item);
-
-                if (info != null)
-                {
-                    var scrollOperation = new ScrollIntoViewOperation<ItemInfo?>(info, this.ScrollOffset) { CompletedAction = scrollCompletedAction };
-                    this.Model.ScrollIndexIntoViewCore(scrollOperation);
-                }
-            });
-
-            this.updateService.RegisterUpdate(new DelegateUpdate<UpdateFlags>(action));
+            var info = this.model.FindItemInfo(item);
+            this.RegisterScrollUpdate(info, scrollCompletedAction);
         }
-        
+
+        /// <summary>
+        /// Attempts to bring the specified index into view asynchronously.
+        /// </summary>
+        /// <param name="index">The index to scroll to.</param>
+        public void ScrollIndexIntoView(int index)
+        {
+            this.ScrollIndexIntoView(index, null);
+        }
+
+        /// <summary>
+        /// Attempts to bring the specified index into view asynchronously.
+        /// </summary>
+        /// <param name="index">The index to scroll to.</param>
+        /// <param name="scrollCompletedAction">Arbitrary action that may be executed after the asynchronous update is executed.</param>
+        public void ScrollIndexIntoView(int index, Action scrollCompletedAction)
+        {
+            if (!this.IsTemplateApplied || !this.itemsMeasured)
+            {
+                this.updateService.RegisterUpdate(new DelegateUpdate<UpdateFlags>(() => this.ScrollIndexIntoView(index, scrollCompletedAction)));
+                return;
+            }
+
+            int actualIndex = index;
+            if (this.GroupDescriptors.Count == 0)
+            {
+                actualIndex = this.model.layoutController.strategy.GetElementFlatIndex(actualIndex);
+            }
+
+            var info = this.model.FindDataItemFromIndex(actualIndex);
+            this.RegisterScrollUpdate(info, scrollCompletedAction);
+        }
+
         /// <summary>
         /// Invalidates the measure of the <see cref="RadListView"/> content panel.
         /// </summary>
@@ -1563,6 +1585,20 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 control.updateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
             }
+        }
+
+        private void RegisterScrollUpdate(ItemInfo? info, Action scrollCompletedAction)
+        {
+            var action = (Action)(() =>
+            {
+                if (info != null)
+                {
+                    var scrollOperation = new ScrollIntoViewOperation<ItemInfo?>(info, this.ScrollOffset) { CompletedAction = scrollCompletedAction };
+                    this.Model.ScrollIndexIntoViewCore(scrollOperation);
+                }
+            });
+
+            this.updateService.RegisterUpdate(new DelegateUpdate<UpdateFlags>(action));
         }
 
         private void AddLayer(ListViewLayer layer, Panel parent)
