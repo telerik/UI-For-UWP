@@ -152,6 +152,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        public bool IsDragContent
+        {
+            get
+            {
+                return this.isDragContent;
+            }
+        }
+
         Rect IArrangeChild.LayoutSlot
         {
             get
@@ -798,17 +806,23 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             return canReorderColumn && (draggingFromStart || draggingFromEnd);
         }
 
-        private object GetDestinationDataItem(ReorderItemsDragOperation data)
+        private object GetDestinationDataItem(int index)
         {
-            IEnumerable enumerableSource = this.ListView.ItemsSource as IEnumerable;
-            IEnumerator enumerator = enumerableSource.GetEnumerator();
-            int i = 0;
-            while (i++ <= data.CurrentSourceReorderIndex)
+            int actualIndex = index;
+            if (this.listView.GroupDescriptors.Count == 0)
             {
-                enumerator.MoveNext();
+                actualIndex = this.listView.Model.layoutController.strategy.GetElementFlatIndex(actualIndex);
             }
-            object destinationDataItem = enumerator.Current;
-            return destinationDataItem;
+
+            var info = this.listView.Model.FindDataItemFromIndex(actualIndex);
+
+            object item = null;
+            if (info.HasValue)
+            {
+                item = info.Value.Item;
+            }
+
+            return item;
         }
     }
 }

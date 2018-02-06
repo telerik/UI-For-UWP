@@ -42,6 +42,6 @@
         /// </value>
         public double FinalDragOffset { get; set; }
 
-        internal RadListViewItem Container { get; set; }
+        public RadListViewItem Container { get; internal set; }
     }
 }
