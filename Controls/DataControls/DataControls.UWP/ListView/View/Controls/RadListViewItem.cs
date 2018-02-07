@@ -58,7 +58,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
         private double dragX;
         private double dragY;
-        private bool isDragContent;
+        private bool isReordering;
         private Border firstHandle;
         private Border secondHandle;
 
@@ -149,6 +149,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             set
             {
                 this.SetValue(DisabledStateOpacityProperty, value);
+            }
+        }
+
+        public bool IsReordering
+        {
+            get
+            {
+                return this.isReordering;
             }
         }
 
@@ -262,7 +270,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             this.dragVisual.Width = this.ActualWidth;
             this.dragVisual.Height = this.ActualHeight;
             this.dragVisual.ListView = this.ListView;
-            this.dragVisual.isDragContent = true;
+            this.dragVisual.isReordering = true;
             this.dragVisual.IsSelected = this.IsSelected;
             this.ListView.PrepareContainerForItem(this.dragVisual, this.DataContext);
 
@@ -337,7 +345,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// <inheritdoc/>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            if (this.isDragContent)
+            if (this.isReordering)
             {
                 return base.ArrangeOverride(finalSize);
             }
@@ -467,7 +475,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             base.OnPointerMoved(e);
             PointerPoint pointerPoint = e.GetCurrentPoint(this);
-            if (!this.isDragContent && pointerPoint.Properties.IsLeftButtonPressed)
+            if (!this.isReordering && pointerPoint.Properties.IsLeftButtonPressed)
             {
                 var source = e.OriginalSource;
                 if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse && source != this.firstHandle && source != this.secondHandle)
@@ -490,7 +498,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// <inheritdoc/>
         protected override void OnHolding(HoldingRoutedEventArgs e)
         {
-            if (this.isDragContent)
+            if (this.isReordering)
             {
                 return;
             }
@@ -726,7 +734,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             var aritmetics = new DoubleArithmetics(1);
 
-            if (!aritmetics.AreClose(e.PreviousSize, e.NewSize) && !this.isDragContent)
+            if (!aritmetics.AreClose(e.PreviousSize, e.NewSize) && !this.isReordering)
             {
                 this.Owner.UpdateService.RegisterUpdate(new DelegateUpdate<UpdateFlags>(() => this.ListView.contentPanel.InvalidateMeasure()));
                 this.needUpdate = false;
@@ -798,17 +806,23 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             return canReorderColumn && (draggingFromStart || draggingFromEnd);
         }
 
-        private object GetDestinationDataItem(ReorderItemsDragOperation data)
+        private object GetDestinationDataItem(int index)
         {
-            IEnumerable enumerableSource = this.ListView.ItemsSource as IEnumerable;
-            IEnumerator enumerator = enumerableSource.GetEnumerator();
-            int i = 0;
-            while (i++ <= data.CurrentSourceReorderIndex)
+            int actualIndex = index;
+            if (this.listView.GroupDescriptors.Count == 0)
             {
-                enumerator.MoveNext();
+                actualIndex = this.listView.Model.layoutController.strategy.GetElementFlatIndex(actualIndex);
             }
-            object destinationDataItem = enumerator.Current;
-            return destinationDataItem;
+
+            var info = this.listView.Model.FindDataItemFromIndex(actualIndex);
+
+            object item = null;
+            if (info.HasValue)
+            {
+                item = info.Value.Item;
+            }
+
+            return item;
         }
     }
 }

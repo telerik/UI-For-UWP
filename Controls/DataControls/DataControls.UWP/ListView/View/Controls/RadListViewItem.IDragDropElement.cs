@@ -93,20 +93,18 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
                         isExecuted = this.ListView.commandService.ExecuteCommand(CommandId.ItemDragStarting, new ItemDragStartingContext(dataItem, DragAction.ItemAction, this));
                         dragAction = DragAction.ItemAction;
-
-                        this.PrepareDragVisual(dragAction.Value);
                     }
                 }
                 else
                 {
                     isExecuted = this.ListView.commandService.ExecuteCommand(CommandId.ItemDragStarting, new ItemDragStartingContext(dataItem, DragAction.Reorder, this));
                     dragAction = DragAction.Reorder;
-
-                    this.PrepareDragVisual(dragAction.Value);
                 }
 
                 if (isExecuted && dragAction.HasValue)
                 {
+                    this.PrepareDragVisual(dragAction.Value);
+
                     this.CancelDirectManipulations();
 
                     if (dragAction.Value == DragAction.Reorder)
@@ -263,12 +261,11 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         void IDragDropElement.OnDragDropComplete(DragCompleteContext context)
         {
             var data = context.PayloadData as ReorderItemsDragOperation;
-
             if (data != null)
             {
                 this.FinalizeReorder(context);
 
-                object destinationDataItem = this.GetDestinationDataItem(data);
+                object destinationDataItem = this.GetDestinationDataItem(data.CurrentSourceReorderIndex);
                 bool isExecuted = this.ListView.commandService.ExecuteCommand(CommandId.ItemReorderComplete, new ItemReorderCompleteContext(data.Data, destinationDataItem, this));
             }
             else
