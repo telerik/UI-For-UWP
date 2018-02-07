@@ -261,7 +261,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         void IDragDropElement.OnDragDropComplete(DragCompleteContext context)
         {
             var data = context.PayloadData as ReorderItemsDragOperation;
-
             if (data != null)
             {
                 this.FinalizeReorder(context);
