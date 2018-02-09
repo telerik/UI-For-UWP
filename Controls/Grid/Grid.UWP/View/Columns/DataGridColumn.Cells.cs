@@ -157,7 +157,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         internal void PrepareCell(GridCellModel cell)
         {
-            this.PrepareCell(cell.Container, cell.Value, cell.ParentRow.ItemInfo.Item);
+            this.PrepareCell(cell.Container, cell.Value, cell.ParentRow?.ItemInfo.Item);
         }
 
         internal void ClearCell(GridCellModel cell)
