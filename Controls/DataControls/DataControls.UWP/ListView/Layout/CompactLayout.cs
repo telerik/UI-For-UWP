@@ -514,6 +514,20 @@ namespace Telerik.Data.Core.Layouts
             return null;
         }
 
+        internal override double PhysicalOffsetFromSlot(int slot)
+        {
+            var physicalOffset = this.RenderInfo.OffsetFromIndex(slot);
+            var collapsedSlot = this.collapsedSlotsTable.GetPreviousIndex(slot + 1);
+
+            while (collapsedSlot >= 0)
+            {
+                physicalOffset -= this.RenderInfo.ValueForIndex(collapsedSlot);
+                collapsedSlot = this.collapsedSlotsTable.GetPreviousIndex(collapsedSlot);
+            }
+
+            return physicalOffset;
+        }
+
         internal override double SlotFromPhysicalOffset(double physicalOffset, bool includeCollapsed = false)
         {
             var logicalOffset = this.RenderInfo.IndexFromOffset(physicalOffset);
@@ -812,15 +826,10 @@ namespace Telerik.Data.Core.Layouts
             }
         }
 
-        private void GetCollapseRange(GroupInfo groupInfo, out int slot, out int slotSpan)
+        internal virtual void GetCollapseRange(GroupInfo groupInfo, out int slot, out int slotSpan)
         {
-            int itemSlot = groupInfo.Index;
-            int itemLevel = groupInfo.Level;
-
-            slot = itemSlot + 1;
+            slot = groupInfo.Index + 1;
             slotSpan = groupInfo.GetLineSpan() - 1;
-
-            int aggregatesLevel = this.ShowAggregateValuesInline ? this.AggregatesLevel - 1 : this.AggregatesLevel;
         }
 
         private void CollapseCore(GroupInfo info, bool raiseExpanded)
