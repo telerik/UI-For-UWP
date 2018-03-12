@@ -1059,11 +1059,23 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.isActionContentDisplayed = false;
         }
 
-        internal void OnGroupIsExpandedChanged()
+        internal void OnGroupIsExpandedChanged(GroupHeaderContext context)
         {
+            var layout = this.model.layoutController.Layout;
+
+            if (context.IsExpanded)
+            {
+                layout.Expand(context.Group);
+            }
+            else
+            {
+                layout.Collapse(context.Group);
+            }
+
+            this.updateService.RegisterUpdate((int)UpdateFlags.AllButData);
         }
 
-        internal void OnGroupHeaderTap(ListViewGroupHeader header)
+        protected internal virtual void OnGroupHeaderTap(ListViewGroupHeader header)
         {
             var context = header.DataContext as GroupHeaderContext;
             context.IsExpanded = header.IsExpanded;
