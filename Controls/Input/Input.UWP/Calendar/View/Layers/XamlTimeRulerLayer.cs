@@ -469,12 +469,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.offsetStoryboard.Completed -= this.OnOffsetStoryboardCompleted;
             }
-
-            this.scrollViewer = null;
-            this.contentPanel.Children.Clear();
-            this.topHeader.Children.Clear();
-            this.leftHeaderPanel.Children.Clear();
-            this.topLeftHeaderPanel.Children.Clear();
         }
 
         protected internal override void AttachUI(Panel parent)
