@@ -7,6 +7,7 @@ using Telerik.UI.Xaml.Controls.Input.Calendar;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Input
 {
@@ -116,6 +117,18 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         public static readonly DependencyProperty TodaySlotStyleProperty =
             DependencyProperty.Register(nameof(TodaySlotStyle), typeof(Style), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnTodaySlotStyleChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="AllDayAreaBackground"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty AllDayAreaBackgroundProperty =
+            DependencyProperty.Register(nameof(AllDayAreaBackground), typeof(Brush), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnAllDayAreaBackgroundChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="TimelineBackground"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty TimelineBackgroundProperty =
+            DependencyProperty.Register(nameof(TimelineBackground), typeof(Brush), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnTimelineBackgroundChanged));
 
         internal RadCalendar owner;
         internal MultiDayViewUpdateFlag updateFlag;
@@ -414,6 +427,36 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Background of the all-day area.
+        /// </summary>
+        public Brush AllDayAreaBackground
+        {
+            get
+            {
+                return (Brush)GetValue(AllDayAreaBackgroundProperty);
+            }
+            set
+            {
+                SetValue(AllDayAreaBackgroundProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Background of the timeline area.
+        /// </summary>
+        public Brush TimelineBackground
+        {
+            get
+            {
+                return (Brush)GetValue(TimelineBackgroundProperty);
+            }
+            set
+            {
+                SetValue(TimelineBackgroundProperty, value);
+            }
+        }
+
         internal void DetachEvents()
         {
             if (this.timer != null)
@@ -429,7 +472,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 if (calendar.IsLoaded)
                 {
-                    var multiDayViewModel = this.owner.Model.multiDayViewModel;
+                    CalendarMultiDayViewModel multiDayViewModel = this.owner.Model.multiDayViewModel;
                     if (flag == MultiDayViewUpdateFlag.All)
                     {
                         multiDayViewModel.CalendarCells?.Clear();
@@ -677,6 +720,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             settings.owner?.timeRulerLayer.UpdateTodaySlot();
         }
 
+        private static void OnAllDayAreaBackgroundChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MultiDayViewSettings settings = (MultiDayViewSettings)sender;
+            settings.UpdateAppearance(MultiDayViewUpdateFlag.AffectsAppointments);
+        }
+
+        private static void OnTimelineBackgroundChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MultiDayViewSettings settings = (MultiDayViewSettings)sender;
+            settings.UpdateAppearance(MultiDayViewUpdateFlag.AffectsTimeRuler);
+        }
+
         private void UpdateDayRange(long ticks, DependencyProperty propertForUpdate)
         {
             if (ticks > TimeSpan.TicksPerDay)
@@ -690,6 +745,28 @@ namespace Telerik.UI.Xaml.Controls.Input
             else
             {
                 this.Invalide(MultiDayViewUpdateFlag.AffectsTimeRuler);
+            }
+        }
+
+        private void UpdateAppearance(MultiDayViewUpdateFlag flag)
+        {
+            RadCalendar calendar = this.owner;
+            if (calendar != null)
+            {
+                if (calendar.IsLoaded)
+                {
+                    if (flag == MultiDayViewUpdateFlag.AffectsAppointments)
+                    {
+                        XamlAllDayAreaLayer allDayArea = this.owner.allDayAreaLayer;
+                        allDayArea.UpdatePanelBackground(this.AllDayAreaBackground);
+                    }
+
+                    if (flag == MultiDayViewUpdateFlag.AffectsTimeRuler)
+                    {
+                        XamlTimeRulerLayer timeRulerArea = this.owner.timeRulerLayer;
+                        timeRulerArea.UpdatePanelsBackground(this.TimelineBackground);
+                    }
+                }
             }
         }
 

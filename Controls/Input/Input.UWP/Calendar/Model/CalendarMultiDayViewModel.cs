@@ -149,7 +149,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                             info.Brush = appointment.Color;
                             info.cell = calendarCell;
                             info.childAppointment = appointment;
-                            info.DetailText = appointment.Subject;
+                            info.DetailText = appointment.Description;
+                            info.Subject = appointment.Subject;
+                            info.IsAllDay = appointment.IsAllDay;
 
                             int xCoeff = (calendarCell.Date - appointment.StartDate.Date).Days;
                             RadRect layoutSlot = new RadRect(calendarCell.layoutSlot.X - this.timeRulerWidth,
@@ -429,7 +431,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                                 info.Brush = appointment.Color;
                                 info.cell = cell;
                                 info.childAppointment = appointment;
-                                info.DetailText = appointment.Subject;
+                                info.DetailText = appointment.Description;
+                                info.Subject = appointment.Subject;
+                                info.IsAllDay = appointment.IsAllDay;
 
                                 info.layoutSlot = layoutSlot;
                                 this.allDayAppointmentInfos.Add(info);

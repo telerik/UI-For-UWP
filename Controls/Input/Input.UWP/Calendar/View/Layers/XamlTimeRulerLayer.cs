@@ -69,12 +69,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.contentPanel.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.System;
 
             this.contentPanel.RenderTransform = this.translateTransform;
-            this.contentPanel.Background = XamlTimeRulerLayer.DefaultBackground;
             this.contentPanel.HorizontalAlignment = HorizontalAlignment.Left;
             this.contentPanel.VerticalAlignment = VerticalAlignment.Top;
 
             this.leftHeaderPanel = new Canvas();
-            this.leftHeaderPanel.Background = XamlTimeRulerLayer.DefaultBackground;
             Canvas.SetZIndex(this.leftHeaderPanel, DefaultLeftHeaderZIndex);
 
             this.topLeftHeaderPanel = new Canvas();
@@ -349,6 +347,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 if (appointmentControl != null)
                 {
                     RadRect layoutSlot = appInfo.layoutSlot;
+                    appInfo.IsAllDay = false;
                     appointmentControl.Content = appInfo;
                     appointmentControl.Background = appInfo.Brush;
 
@@ -456,6 +455,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        internal void UpdatePanelsBackground(Brush background)
+        {
+            if (background != null)
+            {
+                this.contentPanel.Background = background;
+                this.leftHeaderPanel.Background = background;
+            }
+            else
+            {
+                this.contentPanel.Background = XamlTimeRulerLayer.DefaultBackground;
+                this.leftHeaderPanel.Background = XamlTimeRulerLayer.DefaultBackground;
+            }
+        }
+
         protected internal override void DetachUI(Panel parent)
         {
             base.DetachUI(parent);
@@ -474,6 +487,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         protected internal override void AttachUI(Panel parent)
         {
             base.AttachUI(parent);
+
+            RadCalendar calendar = this.Owner;
+            if (calendar != null)
+            {
+                MultiDayViewSettings settings = calendar.MultiDayViewSettings;
+                this.UpdatePanelsBackground(settings.TimelineBackground);
+            }
 
             this.scrollViewer.ViewChanged += this.OnScrollViewerViewChanged;
             this.scrollViewer.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(this.OnScrollViewerPointerPressed), true);

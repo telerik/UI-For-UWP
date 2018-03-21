@@ -35,6 +35,16 @@ namespace Telerik.Core
         }
 
         /// <summary>
+        /// Gets or sets the Description.
+        /// </summary>
+        /// <value>The subject.</value>
+        string Description
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the color of the appointment.
         /// </summary>
         Brush Color

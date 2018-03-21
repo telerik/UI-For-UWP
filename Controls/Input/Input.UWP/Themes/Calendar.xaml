@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:localCalendar="using:Telerik.UI.Xaml.Controls.Input.Calendar"
     xmlns:local="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:telerikCore="using:Telerik.Core"
     xmlns:theming="using:Telerik.UI.Xaml.Controls">
 
     <ResourceDictionary.ThemeDictionaries>
@@ -29,6 +30,8 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
+    <telerikCore:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
+    
     <Style TargetType="localCalendar:AppointmentControl">
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="FontSize" Value="13" />
@@ -42,7 +45,17 @@
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DetailText}" TextWrapping="Wrap"/>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Subject}" 
+                                   FontSize="15" 
+                                   Margin="5, 5, 5, 0" 
+                                   TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding DetailText}" 
+                                   FontSize="14"
+                                   Margin="5" 
+                                   TextWrapping="Wrap" 
+                                   Visibility="{Binding IsAllDay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"/>
+                    </StackPanel>
                 </DataTemplate>
             </Setter.Value>
         </Setter>

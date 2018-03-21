@@ -91,7 +91,7 @@ namespace SDKExamples.UWP.Calendar
             DateTime today = DateTime.Now.Date;
             this.Appointments = new CustomAppointmentSource();
             this.Appointments.AllAppointments
-                .Add(new DateTimeAppointment(today.AddDays(-3), today.AddDays(-2).AddHours(4)) { Color = new SolidColorBrush(Colors.Red), Subject = "App 1", IsAllDay = true });
+                .Add(new DateTimeAppointment(today.AddDays(-3), today.AddDays(-2).AddHours(4)) { Color = new SolidColorBrush(Colors.Red), Subject = "App 1", Description = "Test", IsAllDay = true });
             this.Appointments.AllAppointments
                 .Add(new DateTimeAppointment(today.AddDays(-2).AddHours(2), today.AddDays(-2).AddHours(12)) { Color = new SolidColorBrush(Colors.LightBlue), Subject = "App 2", IsAllDay = true });
             this.Appointments.AllAppointments

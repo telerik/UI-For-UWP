@@ -58,7 +58,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                     foreach (var appointment in info.Appointments)
                     {
-                        info.DetailText += (info.DetailText != null ? Environment.NewLine : string.Empty) + appointment.Subject;
+                        info.Subject += (info.Subject != null ? Environment.NewLine : string.Empty) + appointment.Subject;
                     }
 
                     element = this.GetDefaultVisual(index);

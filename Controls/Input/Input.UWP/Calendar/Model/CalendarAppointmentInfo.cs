@@ -18,6 +18,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal int? arrangeColumnIndex;
 
         private string detailText;
+        private string subject;
+        private bool isAllDay;
         private DateTime? date;
         private LinkedList<IAppointment> appointments;
         private Brush brush;
@@ -57,6 +59,23 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         /// <summary>
+        /// Gets the subject.
+        /// </summary>
+        /// <value>The subject.</value>
+        public string Subject
+        {
+            get
+            {
+                return this.subject;
+            }
+            internal set
+            {
+                this.subject = value;
+                this.OnPropertyChanged(nameof(this.Subject));
+            }
+        }
+
+        /// <summary>
         /// Gets the date associated with the calendar cell.
         /// </summary>
         public DateTime? Date
@@ -82,6 +101,19 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.brush = value;
                 this.OnPropertyChanged(nameof(this.Brush));
+            }
+        }
+
+        public bool IsAllDay
+        {
+            get
+            {
+                return this.isAllDay;
+            }
+            internal set
+            {
+                this.isAllDay = value;
+                this.OnPropertyChanged(nameof(this.IsAllDay));
             }
         }
     }

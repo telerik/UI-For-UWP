@@ -53,12 +53,28 @@
         <example:CustomAppointmentTemplateSelector x:Key="CustomAppointmentTemplateSelector">
             <example:CustomAppointmentTemplateSelector.DefaultTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DetailText}" TextWrapping="Wrap"/>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Subject}" 
+                                   FontSize="15" Foreground="Red"
+                                   TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding DetailText}" 
+                                   FontSize="14"
+                                   Margin="5" 
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
                 </DataTemplate>
             </example:CustomAppointmentTemplateSelector.DefaultTemplate>
             <example:CustomAppointmentTemplateSelector.SpecialTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DetailText}" Foreground="Red" TextWrapping="Wrap"/>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Subject}" 
+                                   FontSize="15" Foreground="Red"
+                                   TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding DetailText}" 
+                                   FontSize="14"
+                                   Margin="5" 
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
                 </DataTemplate>
             </example:CustomAppointmentTemplateSelector.SpecialTemplate>
         </example:CustomAppointmentTemplateSelector>
@@ -102,7 +118,8 @@
                                             SpecialSlotStyleSelector="{StaticResource NonWorkingHoursSpecialSlotStyleSelector}"
                                             TimeRulerItemStyleSelector="{StaticResource CalendarTimeRulerItemStyleSelector}"
                                             CurrentTimeIndicatorStyle="{StaticResource CurrentTimeIndicatorStyle}"
-                                            TodaySlotStyle="{StaticResource TodaySlotStyle}"/>
+                                            TodaySlotStyle="{StaticResource TodaySlotStyle}"
+                                            AllDayAreaBackground="LightBlue"/>
             </input:RadCalendar.MultiDayViewSettings>
         </input:RadCalendar>
         <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Visible">

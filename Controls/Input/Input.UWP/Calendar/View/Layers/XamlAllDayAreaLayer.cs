@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Core;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
     internal class XamlAllDayAreaLayer : CalendarLayer
     {
         internal bool shouldArrange;
+
+        private static SolidColorBrush DefaultBackground = new SolidColorBrush(Colors.White);
+
         private ScrollViewer allDayAreaScrollViewer;
         private Canvas allDayAreaPanel;
         private RadRect allDayClipArea;
@@ -97,6 +102,18 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        internal void UpdatePanelBackground(Brush background)
+        {
+            if (background != null)
+            {
+                this.allDayAreaPanel.Background = background;
+            }
+            else
+            {
+                this.allDayAreaPanel.Background = XamlAllDayAreaLayer.DefaultBackground;
+            }
+        }
+
         protected internal override void DetachUI(Panel parent)
         {
             base.DetachUI(parent);
@@ -106,6 +123,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         protected internal override void AttachUI(Panel parent)
         {
             base.AttachUI(parent);
+
+            RadCalendar calendar = this.Owner;
+            if (calendar != null)
+            {
+                MultiDayViewSettings settings = calendar.MultiDayViewSettings;
+                this.UpdatePanelBackground(settings.AllDayAreaBackground);
+            }
+
             this.allDayAreaScrollViewer.ViewChanged += this.OnAllDayAreaScrollViewerViewChanged;
         }
 
