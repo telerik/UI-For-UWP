@@ -68,11 +68,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
         <TextBlock Grid.ColumnSpan="2" Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
         <input:RadCalendar x:Name="calendar" Grid.Row="1"
                            DisplayMode="MultiDayView"
@@ -108,18 +105,20 @@
                                             TodaySlotStyle="{StaticResource TodaySlotStyle}"/>
             </input:RadCalendar.MultiDayViewSettings>
         </input:RadCalendar>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <StackPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Margin" Value="5, 0, 5, 5"/>
-                </Style>
-            </StackPanel.Resources>
-            <Button Content="Add new App" Click="AddNewAppClicked"/>
-            <Button Content="Add new Slot" Click="AddNewSlotClicked"/>
-            <Button Content="Change AppointmentSource" Click="ChangeAppointmentSourceClicked"/>
-            <Button Content="Change SpecialSlotSource" Click="ChangeSpecialSlotSourceClicked"/>
-            <Button Content="Change Appointment property" Click="ChangeAppPropertyClicked"/>
-            <Button Content="Change Slot property" Click="ChangeSlotPropertyClicked"/>
-        </StackPanel>
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Visible">
+            <StackPanel  Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="5, 0, 5, 0"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Content="Add new App" Click="AddNewAppClicked"/>
+                <Button Content="Add new Slot" Click="AddNewSlotClicked"/>
+                <Button Content="Change AppointmentSource" Click="ChangeAppointmentSourceClicked"/>
+                <Button Content="Change SpecialSlotSource" Click="ChangeSpecialSlotSourceClicked"/>
+                <Button Content="Change Appointment property" Click="ChangeAppPropertyClicked"/>
+                <Button Content="Change Slot property" Click="ChangeSlotPropertyClicked"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </local:ExamplePageBase>
