@@ -42,7 +42,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             int index = 0;
-
+            RadCalendar calendar = this.Owner;
             foreach (CalendarCellModel cell in cellsToUpdate)
             {
                 CalendarAppointmentInfo info = new CalendarAppointmentInfo();
@@ -68,9 +68,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     XamlContentLayerHelper.MeasureVisual(element);
                     if (element != null)
                     {
-                        if (this.Owner.AppointmentTemplateSelector != null)
+                        StyleSelector styleSelector = calendar.AppointmentStyleSelector;
+                        if (styleSelector != null)
                         {
-                            var template = this.Owner.AppointmentTemplateSelector.SelectTemplate(info, cell);
+                            var style = styleSelector.SelectStyle(info, element);
+                            if (style != null)
+                            {
+                                element.Style = style;
+                            }
+                        }
+
+                        AppointmentTemplateSelector templateSelector = calendar.AppointmentTemplateSelector;
+                        if (templateSelector != null)
+                        {
+                            var template = templateSelector.SelectTemplate(info, info.cell);
                             if (template != null)
                             {
                                 element.ContentTemplate = template;

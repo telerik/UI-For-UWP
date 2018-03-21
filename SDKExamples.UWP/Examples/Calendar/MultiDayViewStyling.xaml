@@ -55,11 +55,11 @@
                 <DataTemplate>
                     <StackPanel>
                         <TextBlock Text="{Binding Subject}" 
-                                   FontSize="15" Foreground="Red"
                                    TextWrapping="Wrap"/>
                         <TextBlock Text="{Binding DetailText}" 
-                                   FontSize="14"
-                                   Margin="5" 
+                                   Margin="5, 5, 5, 0"
+                                   FontStyle="Italic"
+                                   FontWeight="Bold"
                                    TextWrapping="Wrap" />
                     </StackPanel>
                 </DataTemplate>
@@ -67,17 +67,31 @@
             <example:CustomAppointmentTemplateSelector.SpecialTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Subject}" 
-                                   FontSize="15" Foreground="Red"
-                                   TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding Subject}"
+                                   TextWrapping="Wrap"
+                                   FontStyle="Italic"
+                                   FontWeight="Bold"/>
                         <TextBlock Text="{Binding DetailText}" 
-                                   FontSize="14"
                                    Margin="5" 
                                    TextWrapping="Wrap" />
                     </StackPanel>
                 </DataTemplate>
             </example:CustomAppointmentTemplateSelector.SpecialTemplate>
         </example:CustomAppointmentTemplateSelector>
+        <example:CustomAppointmentStyleSelector x:Key="CustomAppointmentStyleSelector">
+            <example:CustomAppointmentStyleSelector.DefaultStyle>
+                <Style TargetType="calendar:AppointmentControl">
+                    <Setter Property="FontSize" Value="17"/>
+                    <Setter Property="Foreground" Value="Orange"/>
+                </Style>
+            </example:CustomAppointmentStyleSelector.DefaultStyle>
+            <example:CustomAppointmentStyleSelector.AllDayStyle>
+                <Style TargetType="calendar:AppointmentControl">
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Foreground" Value="Yellow"/>
+                </Style>
+            </example:CustomAppointmentStyleSelector.AllDayStyle>
+        </example:CustomAppointmentStyleSelector>
     </local:ExamplePageBase.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -90,7 +104,8 @@
         <input:RadCalendar x:Name="calendar" Grid.Row="1"
                            DisplayMode="MultiDayView"
                            AppointmentSource="{Binding Appointments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                           AppointmentTemplateSelector="{StaticResource CustomAppointmentTemplateSelector}">
+                           AppointmentTemplateSelector="{StaticResource CustomAppointmentTemplateSelector}"
+                           AppointmentStyleSelector="{StaticResource CustomAppointmentStyleSelector}">
             <input:RadCalendar.Commands>
                 <example:AppointmentTapCommand/>
                 <example:SlotTapCommand/>

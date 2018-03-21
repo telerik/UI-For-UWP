@@ -147,6 +147,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private void UpdateAllDayAppointments(List<CalendarAppointmentInfo> allDayAppointmentInfos)
         {
             int index = 0;
+            RadCalendar calendar = this.Owner;
             foreach (var appInfo in allDayAppointmentInfos)
             {
                 if (!this.allDayClipArea.IntersectsWith(appInfo.layoutSlot))
@@ -159,11 +160,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 {
                     RadRect layoutSlot = appInfo.layoutSlot;
                     appointmentControl.Content = appInfo;
-                    appointmentControl.Background = appInfo.Brush;
 
-                    if (this.Owner.AppointmentTemplateSelector != null)
+                    StyleSelector styleSelector = calendar.AppointmentStyleSelector;
+                    if (styleSelector != null)
                     {
-                        var template = this.Owner.AppointmentTemplateSelector.SelectTemplate(appInfo, appInfo.cell);
+                        var style = styleSelector.SelectStyle(appInfo, appointmentControl);
+                        if (style != null)
+                        {
+                            appointmentControl.Style = style;
+                        }
+                    }
+
+                    AppointmentTemplateSelector templateSelector = calendar.AppointmentTemplateSelector;
+                    if (templateSelector != null)
+                    {
+                        var template = templateSelector.SelectTemplate(appInfo, appInfo.cell);
                         if (template != null)
                         {
                             appointmentControl.ContentTemplate = template;

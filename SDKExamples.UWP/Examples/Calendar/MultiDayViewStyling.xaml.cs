@@ -246,4 +246,22 @@ namespace SDKExamples.UWP.Calendar
             await dialog.ShowAsync();
         }
     }
+
+    public class CustomAppointmentStyleSelector : StyleSelector
+    {
+        public Style DefaultStyle { get; set; }
+
+        public Style AllDayStyle { get; set; }
+
+        protected override Style SelectStyleCore(object item, DependencyObject container)
+        {
+            CalendarAppointmentInfo info = (CalendarAppointmentInfo)item;
+            if (info.IsAllDay)
+            {
+                return this.AllDayStyle;
+            }
+
+            return this.DefaultStyle;
+        }
+    }
 }

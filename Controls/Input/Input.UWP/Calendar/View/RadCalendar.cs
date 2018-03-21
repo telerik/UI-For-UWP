@@ -274,6 +274,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(AppointmentTemplateSelector), typeof(AppointmentTemplateSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentTemplateSelectorChanged));
 
         /// <summary>
+        /// Identifies the <c cref="AppointmentStyleSelector"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty AppointmentStyleSelectorProperty =
+            DependencyProperty.Register(nameof(AppointmentStyleSelector), typeof(StyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentStyleSelectorChanged));
+
+        /// <summary>
         /// Identifies the <c cref="MultiDayViewSettings"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MultiDayViewSettingsProperty =
@@ -473,6 +479,23 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(RadCalendar.AppointmentTemplateSelectorProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets an AppointmentStyleSelector that will be used
+        /// to display different styles for each appointment data in the visual representation of a date.
+        /// </summary>
+        public StyleSelector AppointmentStyleSelector
+        {
+            get
+            {
+                return (StyleSelector)this.GetValue(RadCalendar.AppointmentStyleSelectorProperty);
+            }
+
+            set
+            {
+                this.SetValue(RadCalendar.AppointmentStyleSelectorProperty, value);
             }
         }
 
@@ -2469,21 +2492,13 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             RadCalendar calendar = (RadCalendar)sender;
             calendar.AppointmentTemplateSelector = (AppointmentTemplateSelector)e.NewValue;
+            calendar.UpdateAppointmentsVisualization();
+        }
 
-            if (calendar.appointmentLayer != null)
-            {
-                calendar.appointmentLayer.UpdateUI();
-            }
-
-            if (calendar.timeRulerLayer != null)
-            {
-                calendar.timeRulerLayer.UpdateUI();
-            }
-
-            if (calendar.allDayAreaLayer != null)
-            {
-                calendar.allDayAreaLayer.UpdateAllDayAreaUI();
-            }
+        private static void OnAppointmentStyleSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            RadCalendar calendar = (RadCalendar)sender;
+            calendar.UpdateAppointmentsVisualization();
         }
 
         private static void OnPointerOverCellStylePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -2794,6 +2809,24 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.AddLayer(this.contentLayer, this.calendarViewHost);
 
                 this.inputService.AttachToContentPanel(this.contentLayer.VisualElement);
+            }
+        }
+
+        private void UpdateAppointmentsVisualization()
+        {
+            if (this.appointmentLayer != null)
+            {
+                this.appointmentLayer.UpdateUI();
+            }
+
+            if (this.timeRulerLayer != null)
+            {
+                this.timeRulerLayer.UpdateUI();
+            }
+
+            if (this.allDayAreaLayer != null)
+            {
+                this.allDayAreaLayer.UpdateAllDayAreaUI();
             }
         }
 

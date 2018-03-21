@@ -34,11 +34,11 @@
     
     <Style TargetType="localCalendar:AppointmentControl">
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <ContentPresenter Background="{TemplateBinding Background}"/>
+                    <ContentPresenter Background="{Binding Brush}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -46,12 +46,10 @@
             <Setter.Value>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Subject}" 
-                                   FontSize="15" 
+                        <TextBlock Text="{Binding Subject}"
                                    Margin="5, 5, 5, 0" 
                                    TextWrapping="Wrap"/>
-                        <TextBlock Text="{Binding DetailText}" 
-                                   FontSize="14"
+                        <TextBlock Text="{Binding DetailText}"
                                    Margin="5" 
                                    TextWrapping="Wrap" 
                                    Visibility="{Binding IsAllDay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"/>
