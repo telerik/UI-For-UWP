@@ -25,7 +25,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar.Commands
 
             if (!cellModel.IsBlackout)
             {
-                if (this.Owner.DisplayMode == CalendarDisplayMode.MonthView)
+                var calendar = this.Owner;
+                if (calendar.DisplayMode == CalendarDisplayMode.MonthView)
                 {
                     bool appendToSelection = false;
                     if (this.Owner.SelectionMode == CalendarSelectionMode.Multiple)
@@ -34,9 +35,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar.Commands
                     }
 
                     // If there is only one cell selected ,check if tap is on the same cell (prevent SelectionChanged for the same single cell).
-                    if (!appendToSelection && !this.Owner.SelectionService.ShouldDeselectCell(cellModel))
+                    if (!appendToSelection && !calendar.SelectionService.ShouldDeselectCell(cellModel))
                     {
-                        this.Owner.SelectionService.ClearSelection(false);
+                        calendar.SelectionService.ClearSelection(false);
                     }
 
                     // If cell is selected do not trigger selection again (only Clear and Navigation)
@@ -45,19 +46,19 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar.Commands
                         // SelectedDateRanges should not be cleared if Control key is down.
                         if (appendToSelection)
                         {
-                            this.Owner.SelectionService.Select(new CalendarDateRange(cellModel.Date, cellModel.Date));
+                            calendar.SelectionService.Select(new CalendarDateRange(cellModel.Date, cellModel.Date));
                         }
                         else
                         {
-                            this.Owner.SelectionService.SelectCell(cellModel);
+                            calendar.SelectionService.SelectCell(cellModel);
                         }
                     }
 
-                    this.Owner.RaiseMoveToDateCommand(cellModel.Date);
+                    calendar.RaiseMoveToDateCommand(cellModel.Date);
                 }
                 else
                 {
-                    this.Owner.RaiseMoveToLowerCommand(cellModel.Date);
+                    calendar.RaiseMoveToLowerCommand(cellModel.Date);
                 }
             }
 

@@ -43,6 +43,16 @@
         /// <summary>
         /// A command associated with the Tap event that occurs on tapping a calendar cell.
         /// </summary>
-        CellTap
+        CellTap,
+
+        /// <summary>
+        /// A command associated with the Tap event that occurs on tapping an appointment.
+        /// </summary>
+        AppointmentTap,
+
+        /// <summary>
+        /// A command associated with the Tap event that occurs on tapping a time slot.
+        /// </summary>
+        TimeSlotTap
     }
 }

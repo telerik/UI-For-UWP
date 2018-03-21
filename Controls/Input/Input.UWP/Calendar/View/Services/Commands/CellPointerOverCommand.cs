@@ -17,7 +17,10 @@
         {
             base.Execute(parameter);
 
-            this.Owner.VisualStateService.UpdateHoverDecoration(parameter as CalendarCellModel);
+            if (this.Owner.DisplayMode != CalendarDisplayMode.MultiDayView)
+            {
+                this.Owner.VisualStateService.UpdateHoverDecoration(parameter as CalendarCellModel);
+            }
         }
     }
 }

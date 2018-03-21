@@ -104,11 +104,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdateCalendarViewClip()
         {
-            RadRect clipRect = this.Owner.Model.AnimatableContentClip;
-            RectangleGeometry clip = new RectangleGeometry();
-            clip.Rect = new Rect(clipRect.X, clipRect.Y, clipRect.Width, clipRect.Height);
+            if (this.Owner != null)
+            {
+                RadRect clipRect = this.Owner.Model.AnimatableContentClip;
+                RectangleGeometry clip = new RectangleGeometry();
+                clip.Rect = new Rect(clipRect.X, clipRect.Y, clipRect.Width, clipRect.Height);
 
-            this.contentPanelHost.Clip = clip;
+                this.contentPanelHost.Clip = clip;
+            }
         }
 
         protected internal override void AddVisualChild(UIElement child)

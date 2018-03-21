@@ -132,7 +132,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             AppointmentControl appointmentControl = new AppointmentControl();
 
             this.realizedCalendarCellDefaultPresenters.Add(appointmentControl);
-
             this.AddVisualChild(appointmentControl);
 
             return appointmentControl;

@@ -62,6 +62,14 @@
     <Compile Include="Calendar\AutomationPeers\CalendarSelectableCellnfoAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\CalendarViewHostAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\RadCalendarAutomationPeer.cs" />
+    <Compile Include="Calendar\Model\CalendarTimeRulerItem.cs" />
+    <Compile Include="Calendar\Model\CalendarMultiDayViewModel.cs" />
+    <Compile Include="Calendar\Model\Slot.cs" />
+    <Compile Include="Calendar\View\Layers\XamlAllDayAreaLayer.cs" />
+    <Compile Include="Calendar\View\Layers\XamlTimeRulerLayer.cs" />
+    <Compile Include="Calendar\View\MultiDayView\MultiDayViewSettings.cs" />
+    <Compile Include="Calendar\View\MultiDayView\MultiDayViewUpdateFlag.cs" />
+    <Compile Include="Calendar\View\MultiDayView\CalendarTimeRulerItemStyleSelector.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimeListAutomationPeer.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimeListItemAutomationPeer.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimePickerAutomationPeer.cs" />
@@ -96,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <EmbeddedResource Include="Themes\DefaultCalendarTimerRulerResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

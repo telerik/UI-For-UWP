@@ -36,6 +36,18 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return date;
         }
 
+        internal static DateTime GetFirstDayOfCurrentWeek(DateTime date, DayOfWeek startDayOfWeek)
+        {
+            DayOfWeek currentDayOfWeek = date.DayOfWeek;
+            int daysToSubtract = currentDayOfWeek - startDayOfWeek;
+            if (daysToSubtract <= 0)
+            {
+                daysToSubtract += 7;
+            }
+
+            return date.Date == DateTime.MinValue.Date ? date : date.AddDays(-daysToSubtract);
+        }
+
         internal static DateTime GetFirstDateForCurrentDisplayUnit(DateTime date, CalendarDisplayMode displayMode)
         {
             // NOTE: Ignore time part for calendar calculations.
@@ -116,6 +128,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     return CalendarMathHelper.GetFirstDateOfDecade(displayDate) != CalendarMathHelper.GetFirstDateOfDecade(newDisplayDate);
                 case CalendarDisplayMode.CenturyView:
                     return CalendarMathHelper.GetFirstDateOfCentury(displayDate) != CalendarMathHelper.GetFirstDateOfCentury(newDisplayDate);
+                case CalendarDisplayMode.MultiDayView:
+                    return displayDate != newDisplayDate;
                 default:
                     return CalendarMathHelper.GetFirstDateOfMonth(displayDate) != CalendarMathHelper.GetFirstDateOfMonth(newDisplayDate);
             }
@@ -131,6 +145,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     return CouldAddYearsToDate(date.Year + (increment * 10)) ? date.AddYears(increment * 10) : date;
                 case CalendarDisplayMode.CenturyView:
                     return CouldAddYearsToDate(date.Year + (increment * 100)) ? date.AddYears(increment * 100) : date;
+                case CalendarDisplayMode.MultiDayView:
+                    return date.Year == DateTime.MinValue.Year && date.Month == DateTime.MinValue.Month && date.Day - increment < 0
+                        || date.Year == DateTime.MaxValue.Year && date.Month == DateTime.MaxValue.Month && date.Day + increment > 31
+                        ? date : date.AddDays(increment);
                 default:
                     return date.Year == DateTime.MinValue.Year && date.Month == DateTime.MinValue.Month && increment < 0 
                         || date.Year == DateTime.MaxValue.Year && date.Month == DateTime.MaxValue.Month && increment > 0

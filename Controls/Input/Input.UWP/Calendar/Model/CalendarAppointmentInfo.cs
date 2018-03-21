@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Telerik.Core;
+using Windows.UI.Xaml.Media;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
@@ -9,9 +10,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     /// </summary>
     public class CalendarAppointmentInfo : ViewModelBase
     {
+        internal RadRect layoutSlot;
+        internal int columnIndex;
+        internal CalendarCellModel cell;
+        internal bool isIntersected;
+        internal IAppointment childAppointment;
+        internal int? arrangeColumnIndex;
+
         private string detailText;
         private DateTime? date;
         private LinkedList<IAppointment> appointments;
+        private Brush brush;
 
         /// <summary>
         /// Gets the appointments.
@@ -60,6 +69,19 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.date = value;
                 this.OnPropertyChanged(nameof(this.Date));
+            }
+        }
+
+        public Brush Brush
+        {
+            get
+            {
+                return this.brush;
+            }
+            internal set
+            {
+                this.brush = value;
+                this.OnPropertyChanged(nameof(this.Brush));
             }
         }
     }
