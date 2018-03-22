@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using Telerik.Core.Data;
 using Telerik.UI.Xaml.Controls.Input.Calendar;
 using Telerik.UI.Xaml.Controls.Primitives;
@@ -783,6 +784,57 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         public void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (Slot slot in e.NewItems)
+                    {
+                        WeakPropertyChangedListener newListener = WeakPropertyChangedListener.CreateIfNecessary(slot, this);
+                        if (newListener != null)
+                        {
+                            this.specialSlotsPropertyChangedListeners.Add(newListener);
+                        }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    if (this.specialSlotsPropertyChangedListeners != null && this.specialSlotsPropertyChangedListeners.Count > 0)
+                    {
+                        foreach (Slot slot in e.OldItems)
+                        {
+                            WeakPropertyChangedListener oldPropertyListener = this.specialSlotsPropertyChangedListeners[e.OldStartingIndex];
+                            if (oldPropertyListener != null)
+                            {
+                                this.specialSlotsPropertyChangedListeners.Remove(oldPropertyListener);
+                                oldPropertyListener.Disconnect();
+                                oldPropertyListener = null;
+                            }
+                        }
+                    }
+
+                    this.owner.timeRulerLayer?.RecycleSlots(e.OldItems.Cast<Slot>());
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    WeakPropertyChangedListener propertyListener = this.specialSlotsPropertyChangedListeners[e.OldStartingIndex];
+                    if (propertyListener != null)
+                    {
+                        this.specialSlotsPropertyChangedListeners.Remove(propertyListener);
+                        propertyListener.Disconnect();
+                        propertyListener = null;
+                    }
+
+                    WeakPropertyChangedListener listener = WeakPropertyChangedListener.CreateIfNecessary(e.NewItems[0], this);
+                    if (listener != null)
+                    {
+                        this.specialSlotsPropertyChangedListeners.Add(listener);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+
             if (sender == this.SpecialSlotsSource)
             {
                 this.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);

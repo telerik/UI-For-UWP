@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -2475,9 +2474,9 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 calendar.appointmentSourceCollectionChangedListener = WeakCollectionChangedListener.CreateIfNecessary(newAppSource.AllAppointments, calendar);
 
-                foreach (IAppointment slot in newAppSource.AllAppointments)
+                foreach (IAppointment appointment in newAppSource.AllAppointments)
                 {
-                    var listener = WeakPropertyChangedListener.CreateIfNecessary(slot, calendar);
+                    var listener = WeakPropertyChangedListener.CreateIfNecessary(appointment, calendar);
                     if (listener != null)
                     {
                         calendar.appointmentSourcePropertyChangedListeners.Add(listener);
@@ -3367,6 +3366,55 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         public void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (IAppointment appointment in e.NewItems)
+                    {
+                        WeakPropertyChangedListener newListener = WeakPropertyChangedListener.CreateIfNecessary(appointment, this);
+                        if (newListener != null)
+                        {
+                            this.appointmentSourcePropertyChangedListeners.Add(newListener);
+                        }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    if (this.appointmentSourcePropertyChangedListeners != null && this.appointmentSourcePropertyChangedListeners.Count > 0)
+                    {
+                        foreach (IAppointment appointment in e.OldItems)
+                        {
+                            WeakPropertyChangedListener oldPropertyListener = this.appointmentSourcePropertyChangedListeners[e.OldStartingIndex];
+                            if (oldPropertyListener != null)
+                            {
+                                this.appointmentSourcePropertyChangedListeners.Remove(oldPropertyListener);
+                                oldPropertyListener.Disconnect();
+                                oldPropertyListener = null;
+                            }
+                        }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    WeakPropertyChangedListener propertyListener = this.appointmentSourcePropertyChangedListeners[e.OldStartingIndex];
+                    if (propertyListener != null)
+                    {
+                        this.appointmentSourcePropertyChangedListeners.Remove(propertyListener);
+                        propertyListener.Disconnect();
+                        propertyListener = null;
+                    }
+
+                    WeakPropertyChangedListener listener = WeakPropertyChangedListener.CreateIfNecessary(e.NewItems[0], this);
+                    if (listener != null)
+                    {
+                        this.appointmentSourcePropertyChangedListeners.Add(listener);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+
             if (sender == this.AppointmentSource.AllAppointments)
             {
                 this.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
