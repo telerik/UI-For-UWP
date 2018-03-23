@@ -23,6 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private DateTime? date;
         private LinkedList<IAppointment> appointments;
         private Brush brush;
+        private CalendarAppointmentContentStyle contentStyle;
 
         /// <summary>
         /// Gets the appointments.
@@ -114,6 +115,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.isAllDay = value;
                 this.OnPropertyChanged(nameof(this.IsAllDay));
+            }
+        }
+
+        public CalendarAppointmentContentStyle ContentStyle
+        {
+            get
+            {
+                return this.contentStyle;
+            }
+            internal set
+            {
+                if (this.contentStyle != value)
+                {
+                    this.contentStyle = value;
+                    this.OnPropertyChanged(nameof(this.ContentStyle));
+                }
             }
         }
     }

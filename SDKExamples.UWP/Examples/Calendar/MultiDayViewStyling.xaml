@@ -8,6 +8,7 @@
     xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
     xmlns:example="using:SDKExamples.UWP.Calendar"
     xmlns:calendar="using:Telerik.UI.Xaml.Controls.Input.Calendar"
+    xmlns:core="using:Telerik.Core"
     mc:Ignorable="d" x:Name="page">
     <local:ExamplePageBase.Resources>
         <example:NonWorkingHoursSpecialSlotStyleSelector x:Key="NonWorkingHoursSpecialSlotStyleSelector">
@@ -49,18 +50,30 @@
         <Style TargetType="Border" x:Key="TodaySlotStyle">
             <Setter Property="Background" Value="YellowGreen"/>
         </Style>
-
         <example:CustomAppointmentTemplateSelector x:Key="CustomAppointmentTemplateSelector">
             <example:CustomAppointmentTemplateSelector.DefaultTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Subject}" 
-                                   TextWrapping="Wrap"/>
-                        <TextBlock Text="{Binding DetailText}" 
+                        <TextBlock Text="{Binding Subject}"
                                    Margin="5, 5, 5, 0"
-                                   FontStyle="Italic"
-                                   FontWeight="Bold"
-                                   TextWrapping="Wrap" />
+                                   FontSize="{Binding Path=ContentStyle.SubjectFontSize}"
+                                   FontFamily="{Binding Path=ContentStyle.SubjectFontFamily}"
+                                   FontStyle="{Binding Path=ContentStyle.SubjectFontStyle}"
+                                   FontWeight="{Binding Path=ContentStyle.SubjectFontWeight}"
+                                   Foreground="{Binding Path=ContentStyle.SubjectForeground}"
+                                   HorizontalAlignment="{Binding Path=ContentStyle.SubjectHorizontalAlignment}"
+                                   VerticalAlignment="{Binding Path=ContentStyle.SubjectVerticalAlignment}"
+                                   TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding DetailText}"
+                                   Margin="5"
+                                   FontSize="{Binding Path=ContentStyle.DetailsTextFontSize}"
+                                   FontFamily="{Binding Path=ContentStyle.DetailsTextFontFamily}"
+                                   FontStyle="{Binding Path=ContentStyle.DetailsTextFontStyle}"
+                                   FontWeight="{Binding Path=ContentStyle.DetailsTextFontWeight}"
+                                   Foreground="{Binding Path=ContentStyle.DetailsTextForeground}"
+                                   HorizontalAlignment="{Binding Path=ContentStyle.DetailsTextHorizontalAlignment}"
+                                   VerticalAlignment="{Binding Path=ContentStyle.DetailsTextVerticalAlignment}"
+                                   TextWrapping="Wrap"/>
                     </StackPanel>
                 </DataTemplate>
             </example:CustomAppointmentTemplateSelector.DefaultTemplate>
@@ -68,28 +81,56 @@
                 <DataTemplate>
                     <StackPanel>
                         <TextBlock Text="{Binding Subject}"
+                                   Margin="5, 5, 5, 0"
+                                   FontSize="{Binding Path=ContentStyle.SubjectFontSize}"
+                                   FontFamily="{Binding Path=ContentStyle.SubjectFontFamily}"
+                                   FontStyle="{Binding Path=ContentStyle.SubjectFontStyle}"
+                                   FontWeight="{Binding Path=ContentStyle.SubjectFontWeight}"
+                                   Foreground="{Binding Path=ContentStyle.SubjectForeground}"
+                                   HorizontalAlignment="{Binding Path=ContentStyle.SubjectHorizontalAlignment}"
+                                   VerticalAlignment="{Binding Path=ContentStyle.SubjectVerticalAlignment}"
+                                   TextWrapping="Wrap" Opacity="0.5"/>
+                        <TextBlock Text="{Binding DetailText}"
+                                   Margin="5"
+                                   FontSize="{Binding Path=ContentStyle.DetailsTextFontSize}"
+                                   FontFamily="{Binding Path=ContentStyle.DetailsTextFontFamily}"
+                                   FontStyle="{Binding Path=ContentStyle.DetailsTextFontStyle}"
+                                   FontWeight="{Binding Path=ContentStyle.DetailsTextFontWeight}"
+                                   Foreground="{Binding Path=ContentStyle.DetailsTextForeground}"
+                                   HorizontalAlignment="{Binding Path=ContentStyle.DetailsTextHorizontalAlignment}"
+                                   VerticalAlignment="{Binding Path=ContentStyle.DetailsTextVerticalAlignment}"
                                    TextWrapping="Wrap"
-                                   FontStyle="Italic"
-                                   FontWeight="Bold"/>
-                        <TextBlock Text="{Binding DetailText}" 
-                                   Margin="5" 
-                                   TextWrapping="Wrap" />
+                                   Opacity="0.5"/>
                     </StackPanel>
                 </DataTemplate>
             </example:CustomAppointmentTemplateSelector.SpecialTemplate>
         </example:CustomAppointmentTemplateSelector>
         <example:CustomAppointmentStyleSelector x:Key="CustomAppointmentStyleSelector">
             <example:CustomAppointmentStyleSelector.DefaultStyle>
-                <Style TargetType="calendar:AppointmentControl">
-                    <Setter Property="FontSize" Value="17"/>
-                    <Setter Property="Foreground" Value="Orange"/>
-                </Style>
+                <input:CalendarAppointmentContentStyle SubjectForeground="Blue" 
+                                                       DetailsTextFontFamily="Book Antiqua" 
+                                                       DetailsTextFontSize="12" 
+                                                       DetailsTextFontStyle="Italic" 
+                                                       DetailsTextFontWeight="Bold"
+                                                       DetailsTextHorizontalAlignment="Center"
+                                                       DetailsTextVerticalAlignment="Center"
+                                                       SubjectFontFamily="Algerian"
+                                                       SubjectFontSize="15"
+                                                       SubjectFontStyle="Oblique"
+                                                       SubjectFontWeight="Thin"
+                                                       SubjectHorizontalAlignment="Right"
+                                                       SubjectVerticalAlignment="Center"
+                                                       DetailsTextForeground="#FFA1B238"/>
             </example:CustomAppointmentStyleSelector.DefaultStyle>
             <example:CustomAppointmentStyleSelector.AllDayStyle>
-                <Style TargetType="calendar:AppointmentControl">
-                    <Setter Property="FontSize" Value="12"/>
-                    <Setter Property="Foreground" Value="Yellow"/>
-                </Style>
+                <input:CalendarAppointmentContentStyle SubjectForeground="Red" 
+                                                       SubjectFontFamily="Algerian"
+                                                       SubjectFontSize="16"
+                                                       SubjectFontStyle="Italic"
+                                                       SubjectFontWeight="Thin"
+                                                       SubjectHorizontalAlignment="Left"
+                                                       SubjectVerticalAlignment="Bottom"
+                                                       DetailsTextForeground="Orange"/>
             </example:CustomAppointmentStyleSelector.AllDayStyle>
         </example:CustomAppointmentStyleSelector>
     </local:ExamplePageBase.Resources>
@@ -105,7 +146,7 @@
                            DisplayMode="MultiDayView"
                            AppointmentSource="{Binding Appointments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                            AppointmentTemplateSelector="{StaticResource CustomAppointmentTemplateSelector}"
-                           AppointmentStyleSelector="{StaticResource CustomAppointmentStyleSelector}">
+                           AppointmentContentStyleSelector="{StaticResource CustomAppointmentStyleSelector}">
             <input:RadCalendar.Commands>
                 <example:AppointmentTapCommand/>
                 <example:SlotTapCommand/>
@@ -134,7 +175,8 @@
                                             TimeRulerItemStyleSelector="{StaticResource CalendarTimeRulerItemStyleSelector}"
                                             CurrentTimeIndicatorStyle="{StaticResource CurrentTimeIndicatorStyle}"
                                             TodaySlotStyle="{StaticResource TodaySlotStyle}"
-                                            AllDayAreaBackground="LightBlue"/>
+                                            AllDayAreaBackground="LightBlue"
+                                            />
             </input:RadCalendar.MultiDayViewSettings>
         </input:RadCalendar>
         <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Visible">

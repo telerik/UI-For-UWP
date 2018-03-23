@@ -273,10 +273,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(AppointmentTemplateSelector), typeof(AppointmentTemplateSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentTemplateSelectorChanged));
 
         /// <summary>
-        /// Identifies the <c cref="AppointmentStyleSelector"/> dependency property.
+        /// Identifies the <c cref="AppointmentContentStyleSelector"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty AppointmentStyleSelectorProperty =
-            DependencyProperty.Register(nameof(AppointmentStyleSelector), typeof(StyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentStyleSelectorChanged));
+        public static readonly DependencyProperty AppointmentContentStyleSelectorProperty =
+            DependencyProperty.Register(nameof(AppointmentContentStyleSelector), typeof(CalendarAppointmentContentStyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentContentStyleSelectorChanged));
 
         /// <summary>
         /// Identifies the <c cref="MultiDayViewSettings"/> dependency property.
@@ -485,16 +485,16 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Gets or sets an AppointmentStyleSelector that will be used
         /// to display different styles for each appointment data in the visual representation of a date.
         /// </summary>
-        public StyleSelector AppointmentStyleSelector
+        public CalendarAppointmentContentStyleSelector AppointmentContentStyleSelector
         {
             get
             {
-                return (StyleSelector)this.GetValue(RadCalendar.AppointmentStyleSelectorProperty);
+                return (CalendarAppointmentContentStyleSelector)this.GetValue(RadCalendar.AppointmentContentStyleSelectorProperty);
             }
 
             set
             {
-                this.SetValue(RadCalendar.AppointmentStyleSelectorProperty, value);
+                this.SetValue(RadCalendar.AppointmentContentStyleSelectorProperty, value);
             }
         }
 
@@ -2494,7 +2494,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             calendar.UpdateAppointmentsVisualization();
         }
 
-        private static void OnAppointmentStyleSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnAppointmentContentStyleSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             RadCalendar calendar = (RadCalendar)sender;
             calendar.UpdateAppointmentsVisualization();

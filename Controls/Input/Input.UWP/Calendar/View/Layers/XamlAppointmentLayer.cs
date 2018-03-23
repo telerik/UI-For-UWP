@@ -64,17 +64,18 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     element = this.GetDefaultVisual(index);
                     element.Clip = new RectangleGeometry() { Rect = new Rect(0, 0, cell.LayoutSlot.Width, cell.LayoutSlot.Height) };
                     element.Content = info;
+                    element.Background = info.Brush;
 
                     XamlContentLayerHelper.MeasureVisual(element);
                     if (element != null)
                     {
-                        StyleSelector styleSelector = calendar.AppointmentStyleSelector;
+                        CalendarAppointmentContentStyleSelector styleSelector = calendar.AppointmentContentStyleSelector;
                         if (styleSelector != null)
                         {
                             var style = styleSelector.SelectStyle(info, element);
                             if (style != null)
                             {
-                                element.Style = style;
+                                info.ContentStyle = style;
                             }
                         }
 

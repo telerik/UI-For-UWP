@@ -31,14 +31,13 @@
     </ResourceDictionary.ThemeDictionaries>
 
     <telerikCore:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
-    
     <Style TargetType="localCalendar:AppointmentControl">
-        <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <ContentPresenter Background="{Binding Brush}"/>
+                    <ContentPresenter Background="{TemplateBinding Background}"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -47,10 +46,24 @@
                 <DataTemplate>
                     <StackPanel>
                         <TextBlock Text="{Binding Subject}"
-                                   Margin="5, 5, 5, 0" 
+                                   Margin="5, 5, 5, 0"
+                                   FontSize="{Binding Path=ContentStyle.SubjectFontSize}"
+                                   FontFamily="{Binding Path=ContentStyle.SubjectFontFamily}"
+                                   FontStyle="{Binding Path=ContentStyle.SubjectFontStyle}"
+                                   FontWeight="{Binding Path=ContentStyle.SubjectFontWeight}"
+                                   Foreground="{Binding Path=ContentStyle.SubjectForeground}"
+                                   HorizontalAlignment="{Binding Path=ContentStyle.SubjectHorizontalAlignment}"
+                                   VerticalAlignment="{Binding Path=ContentStyle.SubjectVerticalAlignment}"
                                    TextWrapping="Wrap"/>
                         <TextBlock Text="{Binding DetailText}"
-                                   Margin="5" 
+                                   Margin="5"
+                                   FontSize="{Binding Path=ContentStyle.DetailsTextFontSize}"
+                                   FontFamily="{Binding Path=ContentStyle.DetailsTextFontFamily}"
+                                   FontStyle="{Binding Path=ContentStyle.DetailsTextFontStyle}"
+                                   FontWeight="{Binding Path=ContentStyle.DetailsTextFontWeight}"
+                                   Foreground="{Binding Path=ContentStyle.DetailsTextForeground}"
+                                   HorizontalAlignment="{Binding Path=ContentStyle.DetailsTextHorizontalAlignment}"
+                                   VerticalAlignment="{Binding Path=ContentStyle.DetailsTextVerticalAlignment}"
                                    TextWrapping="Wrap" 
                                    Visibility="{Binding IsAllDay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"/>
                     </StackPanel>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Telerik.Core;
+using Telerik.UI.Xaml.Controls.Input;
 using Telerik.UI.Xaml.Controls.Input.Calendar;
 using Telerik.UI.Xaml.Controls.Input.Calendar.Commands;
 using Windows.UI;
@@ -182,12 +183,10 @@ namespace SDKExamples.UWP.Calendar
         {
             if (context.Date.HasValue && context.Date.Value.Date == DateTime.Now.Date)
             {
-                return this.SpecialTemplate;
-            }
-            else
-            {
                 return this.DefaultTemplate;
             }
+
+            return this.SpecialTemplate;
         }
     }
 
@@ -247,16 +246,15 @@ namespace SDKExamples.UWP.Calendar
         }
     }
 
-    public class CustomAppointmentStyleSelector : StyleSelector
+    public class CustomAppointmentStyleSelector : CalendarAppointmentContentStyleSelector
     {
-        public Style DefaultStyle { get; set; }
+        public CalendarAppointmentContentStyle DefaultStyle { get; set; }
 
-        public Style AllDayStyle { get; set; }
+        public CalendarAppointmentContentStyle AllDayStyle { get; set; }
 
-        protected override Style SelectStyleCore(object item, DependencyObject container)
+        public override CalendarAppointmentContentStyle SelectStyle(CalendarAppointmentInfo context, AppointmentControl container)
         {
-            CalendarAppointmentInfo info = (CalendarAppointmentInfo)item;
-            if (info.IsAllDay)
+            if (context.IsAllDay)
             {
                 return this.AllDayStyle;
             }
