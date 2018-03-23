@@ -181,6 +181,33 @@ namespace SDKExamples.UWP.Calendar
 
         protected override DataTemplate SelectTemplateCore(CalendarAppointmentInfo context, CalendarCellModel cell)
         {
+            if (string.IsNullOrEmpty(context.DetailText))
+            {
+                return null;
+            }
+
+            if (context.Date.HasValue && context.Date.Value.Date == DateTime.Now.Date)
+            {
+                return this.DefaultTemplate;
+            }
+
+            return this.SpecialTemplate;
+        }
+    }
+
+    public class CustomAppointmentHeaderTemplateSelector : AppointmentTemplateSelector
+    {
+        public DataTemplate DefaultTemplate { get; set; }
+
+        public DataTemplate SpecialTemplate { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(CalendarAppointmentInfo context, CalendarCellModel cell)
+        {
+            if (string.IsNullOrEmpty(context.Subject))
+            {
+                return null;
+            }
+
             if (context.Date.HasValue && context.Date.Value.Date == DateTime.Now.Date)
             {
                 return this.DefaultTemplate;
@@ -246,15 +273,16 @@ namespace SDKExamples.UWP.Calendar
         }
     }
 
-    public class CustomAppointmentStyleSelector : CalendarAppointmentContentStyleSelector
+    public class CustomAppointmentStyleSelector : StyleSelector
     {
-        public CalendarAppointmentContentStyle DefaultStyle { get; set; }
+        public Style DefaultStyle { get; set; }
 
-        public CalendarAppointmentContentStyle AllDayStyle { get; set; }
+        public Style AllDayStyle { get; set; }
 
-        public override CalendarAppointmentContentStyle SelectStyle(CalendarAppointmentInfo context, AppointmentControl container)
+        protected override Style SelectStyleCore(object item, DependencyObject container)
         {
-            if (context.IsAllDay)
+            CalendarAppointmentInfo info = (CalendarAppointmentInfo)item;
+            if (info.IsAllDay)
             {
                 return this.AllDayStyle;
             }

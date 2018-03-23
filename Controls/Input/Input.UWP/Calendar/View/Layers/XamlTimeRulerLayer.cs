@@ -349,27 +349,37 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 if (appointmentControl != null)
                 {
                     RadRect layoutSlot = appInfo.layoutSlot;
-                    appInfo.IsAllDay = false;
-                    appointmentControl.Content = appInfo;
+                    appointmentControl.Content = appInfo.DetailText;
+                    appointmentControl.Header = appInfo.Subject;
                     appointmentControl.Background = appInfo.Brush;
 
-                    CalendarAppointmentContentStyleSelector contentStyleSelector = calendar.AppointmentContentStyleSelector;
+                    StyleSelector contentStyleSelector = calendar.AppointmentStyleSelector;
                     if (contentStyleSelector != null)
                     {
                         var style = contentStyleSelector.SelectStyle(appInfo, appointmentControl);
                         if (style != null)
                         {
-                            appInfo.ContentStyle = style;
+                            appointmentControl.Style = style;
                         }
                     }
 
                     AppointmentTemplateSelector templateSelector = calendar.AppointmentTemplateSelector;
                     if (templateSelector != null)
                     {
-                        var template = templateSelector.SelectTemplate(appInfo, appInfo.cell);
+                        DataTemplate template = templateSelector.SelectTemplate(appInfo, appInfo.cell);
                         if (template != null)
                         {
                             appointmentControl.ContentTemplate = template;
+                        }
+                    }
+
+                    AppointmentTemplateSelector headerTemplateSelector = calendar.AppointmentHeaderTemplateSelector;
+                    if (headerTemplateSelector != null)
+                    {
+                        DataTemplate template = headerTemplateSelector.SelectTemplate(appInfo, appInfo.cell);
+                        if (template != null)
+                        {
+                            appointmentControl.HeaderTemplate = template;
                         }
                     }
 

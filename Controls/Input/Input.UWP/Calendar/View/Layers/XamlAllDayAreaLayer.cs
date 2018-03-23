@@ -159,26 +159,26 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 if (appointmentControl != null)
                 {
                     RadRect layoutSlot = appInfo.layoutSlot;
-                    appointmentControl.Content = appInfo;
+                    appointmentControl.Header = appInfo.Subject;
                     appointmentControl.Background = appInfo.Brush;
 
-                    CalendarAppointmentContentStyleSelector styleSelector = calendar.AppointmentContentStyleSelector;
+                    StyleSelector styleSelector = calendar.AppointmentStyleSelector;
                     if (styleSelector != null)
                     {
                         var style = styleSelector.SelectStyle(appInfo, appointmentControl);
                         if (style != null)
                         {
-                            appInfo.ContentStyle = style;
+                            appointmentControl.Style = style;
                         }
                     }
 
-                    AppointmentTemplateSelector templateSelector = calendar.AppointmentTemplateSelector;
-                    if (templateSelector != null)
+                    AppointmentTemplateSelector headerTemplateSelector = calendar.AppointmentHeaderTemplateSelector;
+                    if (headerTemplateSelector != null)
                     {
-                        var template = templateSelector.SelectTemplate(appInfo, appInfo.cell);
+                        DataTemplate template = headerTemplateSelector.SelectTemplate(appInfo, appInfo.cell);
                         if (template != null)
                         {
-                            appointmentControl.ContentTemplate = template;
+                            appointmentControl.HeaderTemplate = template;
                         }
                     }
 

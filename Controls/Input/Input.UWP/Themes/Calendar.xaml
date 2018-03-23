@@ -29,45 +29,28 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
-
-    <telerikCore:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" />
     <Style TargetType="localCalendar:AppointmentControl">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
-                    <ContentPresenter Background="{TemplateBinding Background}"/>
+                <ControlTemplate TargetType="localCalendar:AppointmentControl">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <ContentPresenter Content="{TemplateBinding Header}" 
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          Style="{TemplateBinding HeaderStyle}"
+                                          TextWrapping="Wrap"/>
+                        <ContentPresenter Grid.Row="1"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
                 </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ContentTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Subject}"
-                                   Margin="5, 5, 5, 0"
-                                   FontSize="{Binding Path=ContentStyle.SubjectFontSize}"
-                                   FontFamily="{Binding Path=ContentStyle.SubjectFontFamily}"
-                                   FontStyle="{Binding Path=ContentStyle.SubjectFontStyle}"
-                                   FontWeight="{Binding Path=ContentStyle.SubjectFontWeight}"
-                                   Foreground="{Binding Path=ContentStyle.SubjectForeground}"
-                                   HorizontalAlignment="{Binding Path=ContentStyle.SubjectHorizontalAlignment}"
-                                   VerticalAlignment="{Binding Path=ContentStyle.SubjectVerticalAlignment}"
-                                   TextWrapping="Wrap"/>
-                        <TextBlock Text="{Binding DetailText}"
-                                   Margin="5"
-                                   FontSize="{Binding Path=ContentStyle.DetailsTextFontSize}"
-                                   FontFamily="{Binding Path=ContentStyle.DetailsTextFontFamily}"
-                                   FontStyle="{Binding Path=ContentStyle.DetailsTextFontStyle}"
-                                   FontWeight="{Binding Path=ContentStyle.DetailsTextFontWeight}"
-                                   Foreground="{Binding Path=ContentStyle.DetailsTextForeground}"
-                                   HorizontalAlignment="{Binding Path=ContentStyle.DetailsTextHorizontalAlignment}"
-                                   VerticalAlignment="{Binding Path=ContentStyle.DetailsTextVerticalAlignment}"
-                                   TextWrapping="Wrap" 
-                                   Visibility="{Binding IsAllDay, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"/>
-                    </StackPanel>
-                </DataTemplate>
             </Setter.Value>
         </Setter>
     </Style>
