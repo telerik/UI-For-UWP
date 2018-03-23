@@ -250,6 +250,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     }
 
                     XamlTimeRulerLayer.ArrangeUIElement(this.currentTimeIndicatorBorder, currentTimeIndicator.layoutSlot);
+                    Canvas.SetLeft(this.currentTimeIndicatorBorder, -this.leftOffset);
                 }
                 else if (this.currentTimeIndicatorBorder?.Visibility == Visibility.Visible)
                 {
