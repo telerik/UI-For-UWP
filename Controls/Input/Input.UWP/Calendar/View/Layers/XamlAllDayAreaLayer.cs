@@ -168,6 +168,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                             appointmentControl.Style = style;
                         }
                     }
+                    else if (appointmentControl.Style != null)
+                    {
+                        appointmentControl.ClearValue(AppointmentControl.StyleProperty);
+                    }
 
                     AppointmentTemplateSelector headerTemplateSelector = calendar.AppointmentHeaderTemplateSelector;
                     if (headerTemplateSelector != null)
@@ -199,9 +203,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 visual = this.realizedAllDayAppointmentDefaultPresenters[virtualIndex];
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
-                visual.ClearValue(AppointmentControl.ContentTemplateProperty);
-                visual.ClearValue(AppointmentControl.HeaderTemplateProperty);
-                visual.ClearValue(AppointmentControl.StyleProperty);
                 visual.ClearValue(Canvas.ZIndexProperty);
                 visual.ClearValue(Canvas.LeftProperty);
             }
