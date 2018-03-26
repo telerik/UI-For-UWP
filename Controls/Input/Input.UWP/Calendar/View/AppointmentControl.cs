@@ -8,6 +8,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     public class AppointmentControl : RadHeaderedContentControl
     {
         internal RadCalendar calendar;
+        internal CalendarAppointmentInfo appointmentInfo;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentControl"/> class.
@@ -21,7 +22,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             if (this.calendar != null)
             {
-                this.calendar.CommandService.ExecuteCommand(Commands.CommandId.AppointmentTap, this.Content);
+                this.calendar.CommandService.ExecuteCommand(Commands.CommandId.AppointmentTap, this.appointmentInfo.childAppointment);
                 e.Handled = true;
             }
 

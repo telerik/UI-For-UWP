@@ -161,6 +161,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     RadRect layoutSlot = appInfo.layoutSlot;
                     appointmentControl.Header = appInfo.Subject;
                     appointmentControl.Background = appInfo.Brush;
+                    appointmentControl.appointmentInfo = appInfo;
 
                     StyleSelector styleSelector = calendar.AppointmentStyleSelector;
                     if (styleSelector != null)

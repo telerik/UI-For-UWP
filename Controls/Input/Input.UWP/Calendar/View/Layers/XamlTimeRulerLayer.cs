@@ -352,6 +352,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     appointmentControl.Content = appInfo.DetailText;
                     appointmentControl.Header = appInfo.Subject;
                     appointmentControl.Background = appInfo.Brush;
+                    appointmentControl.appointmentInfo = appInfo;
 
                     StyleSelector contentStyleSelector = calendar.AppointmentStyleSelector;
                     if (contentStyleSelector != null)

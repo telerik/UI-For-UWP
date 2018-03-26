@@ -90,25 +90,25 @@ namespace SDKExamples.UWP.Calendar
         {
             DateTime today = DateTime.Now.Date;
             this.Appointments = new CustomAppointmentSource();
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(-3), today.AddDays(-2).AddHours(4)) { Color = new SolidColorBrush(Colors.Red), Subject = "App 1", Description = "Test", IsAllDay = true });
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(-2).AddHours(2), today.AddDays(-2).AddHours(12)) { Color = new SolidColorBrush(Colors.LightBlue), Subject = "App 2", IsAllDay = true });
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(2).AddHours(5), today.AddDays(2).AddHours(9)) { Color = new SolidColorBrush(Colors.LightGreen), Subject = "App 3" });
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(-1).AddHours(3), today.AddDays(-1).AddHours(7)) { Color = new SolidColorBrush(Colors.Blue), Subject = "App 4", IsAllDay = true });
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(3).AddHours(10), today.AddDays(3).AddHours(15)) { Color = new SolidColorBrush(Colors.Orange), Subject = "App 5" });
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddHours(14), today.AddHours(18)) { Color = new SolidColorBrush(Colors.DarkOrange), Subject = "App 6", IsAllDay = true });
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddHours(14), today.AddDays(1).AddHours(18)) { Color = new SolidColorBrush(Colors.AliceBlue), Subject = "App 7", IsAllDay = true });
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(-2).AddHours(14), today.AddDays(-2).AddHours(18)) { Color = new SolidColorBrush(Colors.BurlyWood), Subject = "App 8", IsAllDay = true });
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(-2).AddHours(14), today.AddDays(-1).AddHours(18)) { Color = new SolidColorBrush(Colors.Cornsilk), Subject = "App 9", IsAllDay = true });
-            this.Appointments.AllAppointments
+            this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(-1).AddHours(14), today.AddHours(18)) { Color = new SolidColorBrush(Colors.DarkOliveGreen), Subject = "App 10", IsAllDay = true });
 
             this.WeekSteps = this.InitializeIntCollection();
@@ -402,9 +402,16 @@ namespace SDKExamples.UWP.Calendar
 
     public class CustomAppointmentSource : AppointmentSource
     {
+        internal ObservableCollection<IAppointment> appointments;
+
+        public CustomAppointmentSource()
+        {
+            this.appointments = new ObservableCollection<IAppointment>();
+        }
+
         public override ObservableCollection<IAppointment> FetchData(DateTime startDate, DateTime endDate)
         {
-            return this.AllAppointments;
+            return this.appointments;
         }
     }
 
