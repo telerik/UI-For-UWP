@@ -226,7 +226,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void OnAllDayAreaScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            this.UpdateAllDayAreaUI();
+            if (e.IsIntermediate)
+            {
+                this.UpdateAllDayAreaUI();
+            }
         }
     }
 }

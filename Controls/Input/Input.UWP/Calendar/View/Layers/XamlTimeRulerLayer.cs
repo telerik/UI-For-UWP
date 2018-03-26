@@ -727,7 +727,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            this.UpdateUI();
+            if (e.IsIntermediate)
+            {
+                this.UpdateUI();
+            }
         }
 
         private void OnScrollViewerPointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
