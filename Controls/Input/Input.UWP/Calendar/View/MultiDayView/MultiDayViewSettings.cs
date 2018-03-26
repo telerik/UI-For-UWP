@@ -458,6 +458,20 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        public bool IsOwnerLoaded
+        {
+            get
+            {
+                if (this.owner != null && this.owner.IsLoaded && this.owner.IsTemplateApplied 
+                    && this.owner.Model.IsTreeLoaded)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         internal void DetachEvents()
         {
             if (this.timer != null)
@@ -469,7 +483,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal void Invalide(MultiDayViewUpdateFlag flag)
         {
             RadCalendar calendar = this.owner;
-            if (calendar != null)
+            if (calendar != null && calendar.IsTemplateApplied && calendar.Model.IsTreeLoaded)
             {
                 if (calendar.IsLoaded)
                 {
@@ -628,7 +642,10 @@ namespace Telerik.UI.Xaml.Controls.Input
         private static void OnMultiDayViewHeaderTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.owner?.UpdateNavigationHeaderContent();
+            if (settings.IsOwnerLoaded)
+            {
+                settings.owner.UpdateNavigationHeaderContent();
+            }
         }
 
         private static void OnNavigationStepPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -685,9 +702,9 @@ namespace Telerik.UI.Xaml.Controls.Input
                 }
             }
 
-            if (oldSlotsSource != null)
+            if (oldSlotsSource != null && settings.IsOwnerLoaded)
             {
-                settings.owner?.timeRulerLayer.RecycleSlots((IEnumerable<Slot>)oldSlotsSource);
+                settings.owner.timeRulerLayer.RecycleSlots((IEnumerable<Slot>)oldSlotsSource);
             }
 
             settings.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
@@ -697,28 +714,43 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
             settings.specialSlotStyleSelectorCache = (StyleSelector)args.NewValue;
-            settings.owner?.timeRulerLayer.UpdateSlots(settings.SpecialSlotsSource);
+
+            if (settings.IsOwnerLoaded)
+            {
+                settings.owner.timeRulerLayer.UpdateSlots(settings.SpecialSlotsSource);
+            }
         }
 
         private static void OnTimeRulerItemStyleSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
             settings.timeRulerItemStyleSelectorCache = (CalendarTimeRulerItemStyleSelector)args.NewValue;
-            settings.owner?.timeRulerLayer.UpdateUI();
+
+            if (settings.IsOwnerLoaded)
+            {
+                settings.owner.timeRulerLayer.UpdateUI();
+            }
         }
 
         private static void OnCurrentTimeIndicatorStyleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
             settings.currentTimeIndicatorStyleCache = (Style)args.NewValue;
-            settings.owner?.timeRulerLayer.UpdateCurrentTimeIndicator();
+
+            if (settings.IsOwnerLoaded)
+            {
+                settings.owner.timeRulerLayer.UpdateCurrentTimeIndicator();
+            }
         }
 
         private static void OnTodaySlotStyleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
             settings.todaySlotStyleCache = (Style)args.NewValue;
-            settings.owner?.timeRulerLayer.UpdateTodaySlot();
+            if (settings.IsOwnerLoaded)
+            {
+                settings.owner.timeRulerLayer.UpdateTodaySlot();
+            }
         }
 
         private static void OnAllDayAreaBackgroundChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -752,7 +784,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private void UpdateAppearance(MultiDayViewUpdateFlag flag)
         {
             RadCalendar calendar = this.owner;
-            if (calendar != null)
+            if (calendar != null && calendar.IsTemplateApplied && calendar.Model.IsTreeLoaded)
             {
                 if (calendar.IsLoaded)
                 {

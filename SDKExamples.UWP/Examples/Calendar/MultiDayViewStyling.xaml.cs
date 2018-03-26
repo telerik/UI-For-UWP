@@ -63,7 +63,7 @@ namespace SDKExamples.UWP.Calendar
                     app.IsAllDay = true;
                 }
 
-                newSource.AllAppointments.Add(app);
+                newSource.appointments.Add(app);
             }
 
             this.calendar.AppointmentSource = newSource;

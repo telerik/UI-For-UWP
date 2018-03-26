@@ -131,6 +131,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 visual = this.realizedCalendarCellDefaultPresenters[virtualIndex];
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
                 visual.ClearValue(AppointmentControl.ContentTemplateProperty);
+                visual.ClearValue(AppointmentControl.HeaderTemplateProperty);
+                visual.ClearValue(AppointmentControl.StyleProperty);
             }
             else
             {

@@ -14,7 +14,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     {
         internal bool shouldArrange;
 
-        private static SolidColorBrush DefaultBackground = new SolidColorBrush(Colors.White);
+        private static SolidColorBrush DefaultBackground = new SolidColorBrush(Colors.Transparent);
 
         private ScrollViewer allDayAreaScrollViewer;
         private Canvas allDayAreaPanel;
@@ -93,6 +93,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 double cellHeight = multiDayViewModel.dayViewLayoutSlot.Height / multiDayViewModel.SpecificColumnCount;
                 double topOffset = Math.Abs(cellHeight + multiDayViewModel.dayViewLayoutSlot.Y + calendar.GridLinesThickness);
                 Canvas.SetTop(this.allDayAreaScrollViewer, topOffset);
+                this.UpdatePanelBackground(calendar.MultiDayViewSettings.AllDayAreaBackground);
             }
             else
             {
@@ -104,13 +105,16 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdatePanelBackground(Brush background)
         {
-            if (background != null)
+            if (this.allDayAreaPanel.Background != background)
             {
-                this.allDayAreaPanel.Background = background;
-            }
-            else
-            {
-                this.allDayAreaPanel.Background = XamlAllDayAreaLayer.DefaultBackground;
+                if (background != null)
+                {
+                    this.allDayAreaPanel.Background = background;
+                }
+                else
+                {
+                    this.allDayAreaPanel.Background = XamlAllDayAreaLayer.DefaultBackground;
+                }
             }
         }
 
@@ -123,14 +127,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         protected internal override void AttachUI(Panel parent)
         {
             base.AttachUI(parent);
-
-            RadCalendar calendar = this.Owner;
-            if (calendar != null)
-            {
-                MultiDayViewSettings settings = calendar.MultiDayViewSettings;
-                this.UpdatePanelBackground(settings.AllDayAreaBackground);
-            }
-
             this.allDayAreaScrollViewer.ViewChanged += this.OnAllDayAreaScrollViewerViewChanged;
         }
 
@@ -204,6 +200,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 visual = this.realizedAllDayAppointmentDefaultPresenters[virtualIndex];
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
                 visual.ClearValue(AppointmentControl.ContentTemplateProperty);
+                visual.ClearValue(AppointmentControl.HeaderTemplateProperty);
+                visual.ClearValue(AppointmentControl.StyleProperty);
+                visual.ClearValue(Canvas.ZIndexProperty);
+                visual.ClearValue(Canvas.LeftProperty);
             }
             else
             {

@@ -2867,19 +2867,27 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void UpdateAppointmentsVisualization()
         {
-            if (this.appointmentLayer != null)
+            if (this.IsLoaded && this.IsTemplateApplied && this.model.IsTreeLoaded)
             {
-                this.appointmentLayer.UpdateUI();
-            }
+                if (this.displayModeCache != CalendarDisplayMode.MultiDayView)
+                {
+                    if (this.appointmentLayer != null)
+                    {
+                        this.appointmentLayer.UpdateUI();
+                    }
+                }
+                else
+                {
+                    if (this.timeRulerLayer != null)
+                    {
+                        this.timeRulerLayer.UpdateUI();
+                    }
 
-            if (this.timeRulerLayer != null)
-            {
-                this.timeRulerLayer.UpdateUI();
-            }
-
-            if (this.allDayAreaLayer != null)
-            {
-                this.allDayAreaLayer.UpdateAllDayAreaUI();
+                    if (this.allDayAreaLayer != null)
+                    {
+                        this.allDayAreaLayer.UpdateAllDayAreaUI();
+                    }
+                }
             }
         }
 
@@ -3078,9 +3086,10 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void UpdateAllPresenters()
         {
+            this.AttachPreselectedDateRanges();
+
             if (this.displayModeCache != CalendarDisplayMode.MultiDayView)
             {
-                this.AttachPreselectedDateRanges();
                 this.SelectionService.UpdateSelectedCells();
             }
 

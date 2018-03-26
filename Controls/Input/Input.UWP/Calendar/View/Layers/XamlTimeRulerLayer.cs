@@ -477,16 +477,26 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.leftHeaderPanel.Height = lastItemSlot.Y + lastItemSlot.Height;
                 this.leftHeaderPanel.Width = multiDayViewModel.timeRulerWidth;
             }
+
+            this.UpdatePanelsBackground(calendar.MultiDayViewSettings.TimelineBackground);
         }
 
         internal void UpdatePanelsBackground(Brush background)
         {
-            if (background != null)
+            if (this.contentPanel.Background != background)
             {
-                this.contentPanel.Background = background;
-                this.leftHeaderPanel.Background = background;
+                if (background != null)
+                {
+                    this.contentPanel.Background = background;
+                    this.leftHeaderPanel.Background = background;
+                }
+                else
+                {
+                    this.contentPanel.Background = XamlTimeRulerLayer.DefaultBackground;
+                    this.leftHeaderPanel.Background = XamlTimeRulerLayer.DefaultBackground;
+                }
             }
-            else
+            else if (this.contentPanel.Background == null)
             {
                 this.contentPanel.Background = XamlTimeRulerLayer.DefaultBackground;
                 this.leftHeaderPanel.Background = XamlTimeRulerLayer.DefaultBackground;
@@ -511,14 +521,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         protected internal override void AttachUI(Panel parent)
         {
             base.AttachUI(parent);
-
-            RadCalendar calendar = this.Owner;
-            if (calendar != null)
-            {
-                MultiDayViewSettings settings = calendar.MultiDayViewSettings;
-                this.UpdatePanelsBackground(settings.TimelineBackground);
-            }
-
             this.scrollViewer.ViewChanged += this.OnScrollViewerViewChanged;
             this.scrollViewer.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(this.OnScrollViewerPointerPressed), true);
             this.scrollViewer.AddHandler(UIElement.PointerMovedEvent, new PointerEventHandler(this.OnScrollViewerPointerMoved), true);
@@ -682,6 +684,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 visual = this.realizedAppointmentDefaultPresenters[virtualIndex];
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
+                visual.ClearValue(AppointmentControl.ContentTemplateProperty);
+                visual.ClearValue(AppointmentControl.HeaderTemplateProperty);
+                visual.ClearValue(AppointmentControl.StyleProperty);
                 visual.ClearValue(Canvas.ZIndexProperty);
                 visual.ClearValue(Canvas.LeftProperty);
             }
