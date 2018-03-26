@@ -2089,6 +2089,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.MultiDayViewSettings == null)
             {
                 this.MultiDayViewSettings = new MultiDayViewSettings();
+                if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+                {
+                    this.MultiDayViewSettings.timer.Start();
+                }
             }
 
             if (this.navigationPanel != null)
@@ -2101,10 +2105,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.timeRulerLayer == null)
             {
                 this.timeRulerLayer = new XamlTimeRulerLayer();
-                this.inputService.AttachToTimeRulerPanel(this.timeRulerLayer.contentPanel);
             }
 
-            this.AddLayer(this.timeRulerLayer, this.calendarViewHost);
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.inputService.AttachToTimeRulerPanel(this.timeRulerLayer.contentPanel);
+                this.AddLayer(this.timeRulerLayer, this.calendarViewHost);
+            }
 
             if (this.decorationLayer == null)
             {
@@ -2161,7 +2168,10 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.allDayAreaLayer = new XamlAllDayAreaLayer();
             }
 
-            this.AddLayer(this.allDayAreaLayer, this.timeRulerLayer.topHeader);
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.AddLayer(this.allDayAreaLayer, this.timeRulerLayer.topHeader);
+            }
 
             if (this.appointmentLayer == null)
             {
@@ -2813,15 +2823,26 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.AddLayer(this.headerContentLayer, this.timeRulerLayer.topHeader);
                 this.AddLayer(this.contentLayer, this.timeRulerLayer.topHeader);
                 this.AddLayer(this.timeRulerLayer, this.calendarViewHost);
+                this.AddLayer(this.allDayAreaLayer, this.timeRulerLayer.topHeader);
 
                 this.inputService.AttachToTimeRulerPanel(this.timeRulerLayer.contentPanel);
                 this.appointmentLayer.realizedCalendarCellDefaultPresenters.Clear();
 
                 this.allDayAreaLayer.shouldArrange = true;
                 this.timeRulerLayer.shouldArrange = true;
+
+                if (this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+                {
+                    this.MultiDayViewSettings.timer.Start();
+                }
             }
             else if (oldValue == CalendarDisplayMode.MultiDayView)
             {
+                if (this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+                {
+                    this.MultiDayViewSettings.timer.Stop();
+                }
+
                 foreach (var layer in this.timeRulerLayer.topHeader.Children)
                 {
                     Canvas.SetLeft(layer, 0);
@@ -2832,6 +2853,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 RadCalendar.RemoveLayer(this.headerContentLayer, this.timeRulerLayer.topHeader);
                 RadCalendar.RemoveLayer(this.contentLayer, this.timeRulerLayer.topHeader);
                 RadCalendar.RemoveLayer(this.timeRulerLayer, this.calendarViewHost);
+                RadCalendar.RemoveLayer(this.allDayAreaLayer, this.timeRulerLayer.topHeader);
 
                 this.AddLayer(this.decorationLayer, this.calendarViewHost);
                 this.AddLayer(this.headerContentLayer, this.calendarViewHost);
@@ -3124,16 +3146,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             return context;
-        }
-
-        protected override void OnLoaded()
-        {
-            base.OnLoaded();
-
-            if (this.MultiDayViewSettings.ShowCurrentTimeIndicator)
-            {
-                this.MultiDayViewSettings.timer.Start();
-            }
         }
 
         private CalendarCellStyleContext CreateCurrentCellStyleContext(CalendarCellModel cell, CalendarCellStateContext stateContext)
