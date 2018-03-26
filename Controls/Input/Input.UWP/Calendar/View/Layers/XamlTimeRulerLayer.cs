@@ -154,8 +154,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             IAppointment pendingToScrollApp = this.Owner.pendingScrollToAppointment;
             if (pendingToScrollApp != null)
             {
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, 
-                    () => 
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+                    () =>
                     {
                         this.ScrollAppointmentIntoView(pendingToScrollApp);
                         this.Owner.pendingScrollToAppointment = null;
@@ -487,6 +487,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdatePanelsBackground(Brush background)
         {
+            Brush defaulCalendarBrush = this.Owner.Background;
             if (this.contentPanel.Background != background)
             {
                 if (background != null)
@@ -496,14 +497,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 }
                 else
                 {
-                    this.contentPanel.Background = XamlTimeRulerLayer.DefaultBackground;
-                    this.leftHeaderPanel.Background = XamlTimeRulerLayer.DefaultBackground;
+                    this.contentPanel.Background = defaulCalendarBrush;
+                    this.leftHeaderPanel.Background = defaulCalendarBrush;
                 }
             }
             else if (this.contentPanel.Background == null)
             {
-                this.contentPanel.Background = XamlTimeRulerLayer.DefaultBackground;
-                this.leftHeaderPanel.Background = XamlTimeRulerLayer.DefaultBackground;
+                this.contentPanel.Background = defaulCalendarBrush;
+                this.leftHeaderPanel.Background = defaulCalendarBrush;
             }
         }
 
@@ -561,7 +562,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 {
                     this.ApplyTimeRulerStyle(item, element);
                     RadRect layoutSlot = item.layoutSlot;
-                    
+
                     XamlContentLayer.ArrangeUIElement(element, layoutSlot, true);
                 }
             }
@@ -749,7 +750,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.currHorizontalOffset = this.prevHorizontalOffset + (this.scrollMousePosition.X - e.GetCurrentPoint(this.scrollViewer).Position.X);
                 double viewPortWidth = this.scrollViewer.Width - this.leftHeaderPanel.Width;
-                if (viewPortWidth > this.currHorizontalOffset && -viewPortWidth  < this.currHorizontalOffset)
+                if (viewPortWidth > this.currHorizontalOffset && -viewPortWidth < this.currHorizontalOffset)
                 {
                     this.translateTransform.X = -this.currHorizontalOffset;
                 }

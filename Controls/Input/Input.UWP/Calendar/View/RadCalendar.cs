@@ -2342,6 +2342,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     calendar.allDayAreaLayer.shouldArrange = true;
                     calendar.timeRulerLayer.shouldArrange = true;
+                    calendar.CurrencyService.CurrentDate = newDisplayDate;
                 }
             }
 
