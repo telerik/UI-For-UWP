@@ -289,7 +289,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <c cref="MultiDayViewSettings"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty MultiDayViewSettingsProperty =
-            DependencyProperty.Register(nameof(MultiDayViewSettings), typeof(MultiDayViewSettings), typeof(RadCalendar), new PropertyMetadata(null, OnMultiDayViewSettingsChanged));
+            DependencyProperty.Register(nameof(MultiDayViewSettings), typeof(MultiDayViewSettings), typeof(RadCalendar), new PropertyMetadata(new MultiDayViewSettings(), OnMultiDayViewSettingsChanged));
 
         /// <summary>
         /// Identifies the <c cref="MultiDayViewSettings"/> dependency property.
@@ -395,6 +395,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.hitTestService = new HitTestService(this);
             this.inputService = new InputService(this);
             this.CurrencyService = new CurrencyService(this);
+
+            MultiDayViewSettings settings = this.MultiDayViewSettings;
+            settings.owner = this;
+            this.model.multiDayViewSettings = settings;
         }
 
         /// <summary>
@@ -2098,13 +2102,10 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             base.OnTemplateApplied();
 
-            if (this.MultiDayViewSettings == null)
+            if (this.MultiDayViewSettings != null && this.displayModeCache == CalendarDisplayMode.MultiDayView)
             {
-                this.MultiDayViewSettings = new MultiDayViewSettings();
-                if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
-                {
-                    this.MultiDayViewSettings.timer.Start();
-                }
+                this.MultiDayViewSettings.SetDefaultStyleValues();
+                this.MultiDayViewSettings.timer.Start();
             }
 
             if (this.navigationPanel != null)

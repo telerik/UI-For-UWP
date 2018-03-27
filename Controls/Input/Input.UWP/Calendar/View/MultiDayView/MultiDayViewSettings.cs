@@ -164,11 +164,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.timer = new DispatcherTimer();
             this.timer.Interval = TimeSpan.FromSeconds(1.0);
             this.timer.Tick += this.TimerCallback;
-
-            ResourceDictionary dictionary = RadCalendar.MultiDayViewResources;
-            this.defaultTimeRulerItemStyleSelector = (CalendarTimeRulerItemStyleSelector)dictionary["CalendarTimeRulerItemStyleSelector"];
-            this.defaultCurrentTimeIndicatorStyle = (Style)dictionary["CurrentTimeIndicatorStyle"];
-            this.defaulTodaySlotStyle = (Style)dictionary["TodaySlotStyle"];
         }
 
         /// <summary>
@@ -470,6 +465,14 @@ namespace Telerik.UI.Xaml.Controls.Input
 
                 return false;
             }
+        }
+
+        internal void SetDefaultStyleValues()
+        {
+            ResourceDictionary dictionary = RadCalendar.MultiDayViewResources;
+            this.defaultTimeRulerItemStyleSelector = (CalendarTimeRulerItemStyleSelector)dictionary["CalendarTimeRulerItemStyleSelector"];
+            this.defaultCurrentTimeIndicatorStyle = (Style)dictionary["CurrentTimeIndicatorStyle"];
+            this.defaulTodaySlotStyle = (Style)dictionary["TodaySlotStyle"];
         }
 
         internal void DetachEvents()
