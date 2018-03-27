@@ -23,6 +23,8 @@
         /// <summary>
         /// This view represents all decades in a century.
         /// </summary>
-        CenturyView
+        CenturyView,
+
+        MultiDayView
     }
 }

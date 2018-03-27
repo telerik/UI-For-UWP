@@ -144,6 +144,12 @@
     <Compile Include="Examples\Calendar\Formatting.xaml.cs">
       <DependentUpon>Formatting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Calendar\MultiDayView.xaml.cs">
+      <DependentUpon>MultiDayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Examples\Calendar\MultiDayViewStyling.xaml.cs">
+      <DependentUpon>MultiDayViewStyling.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\Calendar\RemoveNavigationAnimations.xaml.cs">
       <DependentUpon>RemoveNavigationAnimations.xaml</DependentUpon>
     </Compile>
@@ -499,6 +505,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\Calendar\Formatting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\Calendar\MultiDayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\Calendar\MultiDayViewStyling.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

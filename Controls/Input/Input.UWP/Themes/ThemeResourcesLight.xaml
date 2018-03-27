@@ -211,6 +211,7 @@
 
     <!--GridLines-->
     <SolidColorBrush x:Key="TelerikCalendarGridLinesBrush" Color="#FFCCCCCC" />
+    <SolidColorBrush x:Key="TelerikSelectedBrush" Color="#FF006AC1" />
 
     <!--DayNames-->
     <SolidColorBrush x:Key="TelerikCalendarDayNamesForegroundBrush" Color="#FF767676" />
