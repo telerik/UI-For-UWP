@@ -26,7 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         internal static Slot GetSlotFromPoint(Point hitPoint, ElementCollection<CalendarTimeRulerItem> calendarTimeRulerItems, 
-            ElementCollection<CalendarCellModel> calendarCells, int weekStep)
+            ElementCollection<CalendarCellModel> calendarCells, int visibleDays)
         {
             Slot slot = new Slot();
             foreach (CalendarTimeRulerItem item in calendarTimeRulerItems)
@@ -38,9 +38,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     {
                         CalendarCellModel cell = calendarCells[i];
                         if (cell.layoutSlot.X <= hitPoint.X && cell.layoutSlot.X + cell.layoutSlot.Width >= hitPoint.X
-                            && i + weekStep < cellsCount)
+                            && i + visibleDays < cellsCount)
                         {
-                            DateTime date = cell.Date.AddDays(weekStep);
+                            DateTime date = cell.Date.AddDays(visibleDays);
                             TimeSpan startTime = item.StartTime;
                             slot.Start = new DateTime(date.Year, date.Month, date.Day, startTime.Hours, startTime.Minutes, startTime.Seconds);
 

@@ -35,7 +35,7 @@
                                    GridLinesThickness="{Binding SelectedThickness}"
                                    AppointmentSource="{Binding Appointments}">
                     <input:RadCalendar.MultiDayViewSettings>
-                        <input:MultiDayViewSettings WeekStep="{Binding SelectedWeekStep, Mode=TwoWay}" 
+                        <input:MultiDayViewSettings VisibleDays="{Binding SelectedVisibleDays, Mode=TwoWay}" 
                                                     TimerRulerTickLength="{Binding SelectedTickLength, Converter={StaticResource StringToTimeSpanConverter}, Mode=TwoWay}"
                                                     DayStartTime="{Binding StartTimeValue, Converter={StaticResource StringToTimeSpanConverter}, Mode=TwoWay}"
                                                     DayEndTime="{Binding EndTimeValue, Converter={StaticResource StringToTimeSpanConverter}, Mode=TwoWay}"
@@ -65,7 +65,7 @@
                         <Button Content="Scroll to random appointment" Click="ScrollToAppointmentBtnClicked"/>
                         <TextBlock x:Name="scrollToTb" Visibility="Collapsed"/>
                         <TextBlock Text="Week step"/>
-                        <ComboBox ItemsSource="{Binding WeekSteps}" SelectedItem="{Binding SelectedWeekStep, Mode=TwoWay}"/>
+                        <ComboBox ItemsSource="{Binding DisplayDays}" SelectedItem="{Binding SelectedVisibleDays, Mode=TwoWay}"/>
                         <TextBlock Text="Tick length"/>
                         <ComboBox ItemsSource="{Binding TickLengths}" SelectedItem="{Binding SelectedTickLength, Mode=TwoWay}"/>
                         <TextBlock Text="Start time"/>

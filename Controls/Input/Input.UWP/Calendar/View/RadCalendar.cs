@@ -304,7 +304,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(NavigationControlBorderStyle), typeof(Style), typeof(RadCalendar), new PropertyMetadata(null));
 
         internal static readonly Size InfinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
-        internal static ResourceDictionary EmbeddedResourceDict;
+        internal static ResourceDictionary MultiDayViewResources;
 
         internal readonly VisualStateService VisualStateService;
         internal readonly SelectionService SelectionService;
@@ -314,7 +314,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal XamlDecorationLayer decorationLayer;
         internal XamlContentLayer contentLayer;
         internal XamlAppointmentLayer appointmentLayer;
-        internal XamlTimeRulerLayer timeRulerLayer;
+        internal XamlMultiDayViewLayer timeRulerLayer;
         internal XamlAllDayAreaLayer allDayAreaLayer;
         internal CalendarNavigationControl navigationPanel;
         internal List<CalendarDateRange> unattachedSelectedRanges;
@@ -322,10 +322,21 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal IAppointment pendingScrollToAppointment;
         internal CalendarCellStyle defaultDayNameCellStyle;
 
+        internal const string DefaultMultiDayViewPreviousButtonContent = "\xE012";
+        internal const string DefaultMultiDayViewNextButtonContent = "\xE013";
+
+        internal const string DefaultNextButtonContent = "\xE011";
+        internal const string DefaultPreviousButtonContent = "\xE010";
+
         private const string DefaultMonthViewHeaderFormatString = "{0:MMMM yyyy}";
         private const string DefaultYearViewHeaderFormatString = "{0:yyyy}";
         private const string DefaultDecadeViewHeaderFormatString = "{0:yyyy} ~ {1:yyyy}";
         private const string DefaultCenturyViewHeaderFormatString = "{0:yyyy} ~ {1:yyyy}";
+
+        private const string DefaultDayNameCellStyleName = "DayNameCellStyle";
+        private const string DefaultNormalCellStyleName = "NormalCellStyle";
+        private const string DefaultAnotherViewCellStyleName = "AnotherViewCellStyle";
+        private const string DefaultHighlightedCellStyleName = "HighlightedCellStyle";
 
         private const string CalendarViewHostPartName = "PART_CalendarViewHost";
         private const string NavigationControlPanelName = "navigationControl";
@@ -366,7 +377,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         static RadCalendar()
         {
-            RadCalendar.EmbeddedResourceDict = ResourceHelper.GetResourceDictionaryByPath(typeof(RadCalendar), "Telerik.UI.Xaml.Controls.Input.Themes.DefaultCalendarTimerRulerResources.xaml");
+            RadCalendar.MultiDayViewResources = ResourceHelper.GetResourceDictionaryByPath(typeof(RadCalendar), "Telerik.UI.Xaml.Controls.Input.Themes.DefaultCalendarTimerRulerResources.xaml");
         }
 
         /// <summary>
@@ -2028,7 +2039,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                         if (string.IsNullOrEmpty(headerText))
                         {
                             DateTime firstDateOfCurrentWeek = this.DisplayDate;
-                            DateTime lastDayOfWeek = firstDateOfCurrentWeek.AddDays(this.MultiDayViewSettings.WeekStep);
+                            DateTime lastDayOfWeek = firstDateOfCurrentWeek.AddDays(this.MultiDayViewSettings.VisibleDays);
 
                             if (firstDateOfCurrentWeek.Day == lastDayOfWeek.Subtract(TimeSpan.FromTicks(1)).Day)
                             {
@@ -2105,7 +2116,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (this.timeRulerLayer == null)
             {
-                this.timeRulerLayer = new XamlTimeRulerLayer();
+                this.timeRulerLayer = new XamlMultiDayViewLayer();
             }
 
             if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
@@ -2187,22 +2198,22 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (this.dayNameCellStyleCache == null && this.defaultDayNameCellStyle == null)
             {
-                this.defaultDayNameCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["DayNameCellStyle"];
+                this.defaultDayNameCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultDayNameCellStyleName];
             }
 
             if (this.normalCellStyleCache == null && this.defaultNormalCellStyle == null)
             {
-                this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["NormalCellStyle"];
+                this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultNormalCellStyleName];
             }
 
             if (this.anotherViewCellStyleCache == null && this.defaultAnotherViewCellStyle == null)
             {
-                this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["AnotherViewCellStyle"];
+                this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultAnotherViewCellStyleName];
             }
 
             if (this.highlightedCellCache == null && this.defaultHighlightedCellStyle == null)
             {
-                this.defaultHighlightedCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["HighlightedCellStyle"];
+                this.defaultHighlightedCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultHighlightedCellStyleName];
             }
         }
 
@@ -2348,7 +2359,8 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             DateTime oldDisplayDate = (DateTime)args.OldValue;
 
-            if (oldDisplayDate.Year != newDisplayDate.Year || oldDisplayDate.Month != newDisplayDate.Month)
+            if (calendar.displayModeCache != CalendarDisplayMode.MultiDayView
+                && (oldDisplayDate.Year != newDisplayDate.Year || oldDisplayDate.Month != newDisplayDate.Month))
             {
                 calendar.FetchNewAppointments();
             }
@@ -2384,14 +2396,14 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     if (calendar.navigationPanel.previousButton != null && calendar.navigationPanel.nextButton != null)
                     {
-                        calendar.navigationPanel.previousButton.Content = "\xE012";
-                        calendar.navigationPanel.nextButton.Content = "\xE013";
+                        calendar.navigationPanel.previousButton.Content = DefaultMultiDayViewPreviousButtonContent;
+                        calendar.navigationPanel.nextButton.Content = DefaultMultiDayViewNextButtonContent;
                     }
                 }
                 else if (calendar.navigationPanel.previousButton != null && calendar.navigationPanel.nextButton != null)
                 {
-                    calendar.navigationPanel.previousButton.Content = "\xE010";
-                    calendar.navigationPanel.nextButton.Content = "\xE011";
+                    calendar.navigationPanel.previousButton.Content = DefaultPreviousButtonContent;
+                    calendar.navigationPanel.nextButton.Content = DefaultNextButtonContent;
                 }
             }
 
@@ -2490,7 +2502,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 var listener = calendar.appointmentSourceCollectionChangedListener;
                 if (listener != null)
                 {
-                    listener.Disconnect();
+                    listener.Detach();
                     listener = null;
                 }
 
@@ -2499,7 +2511,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     var propertyListener = calendar.appointmentSourcePropertyChangedListeners[0];
                     calendar.appointmentSourcePropertyChangedListeners.RemoveAt(0);
-                    propertyListener.Disconnect();
+                    propertyListener.Detach();
                     propertyListener = null;
                     count--;
                 }
@@ -2807,6 +2819,14 @@ namespace Telerik.UI.Xaml.Controls.Input
             RadCalendar.RemoveLayer(this.allDayAreaLayer, this.calendarViewHost);
             RadCalendar.RemoveLayer(this.timeRulerLayer, this.calendarViewHost);
             RadCalendar.RemoveLayer(this.appointmentLayer, this.calendarViewHost);
+            this.appointmentSourceCollectionChangedListener?.Detach();
+            if (this.appointmentSourcePropertyChangedListeners != null && this.appointmentSourcePropertyChangedListeners.Count > 0)
+            {
+                foreach (WeakPropertyChangedListener weakPropertyChangedListener in this.appointmentSourcePropertyChangedListeners)
+                {
+                    weakPropertyChangedListener.Detach();
+                }
+            }
             this.MultiDayViewSettings?.DetachEvents();
         }
 
@@ -2898,44 +2918,44 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 if (this.dayNameCellStyleCache == null)
                 {
-                    this.defaultDayNameCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["MuldiDayViewDayNameCellStyle"];
+                    this.defaultDayNameCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewDayNameCellStyle"];
                 }
 
                 if (this.normalCellStyleCache == null)
                 {
-                    this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["MuldiDayViewNormalCellStyle"];
+                    this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewNormalCellStyle"];
                 }
 
                 if (this.anotherViewCellStyleCache == null)
                 {
-                    this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["MuldiDayViewAnotherViewCellStyle"];
+                    this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewAnotherViewCellStyle"];
                 }
 
                 if (this.highlightedCellStyleCache == null)
                 {
-                    this.defaultHighlightedCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["MuldiDayViewHighlightedCellStyle"];
+                    this.defaultHighlightedCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewHighlightedCellStyle"];
                 }
             }
             else if (oldDisplayMode == CalendarDisplayMode.MultiDayView)
             {
                 if (this.dayNameCellStyleCache == null)
                 {
-                    this.defaultDayNameCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["DayNameCellStyle"];
+                    this.defaultDayNameCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultDayNameCellStyleName];
                 }
 
                 if (this.normalCellStyleCache == null)
                 {
-                    this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["NormalCellStyle"];
+                    this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultNormalCellStyleName];
                 }
 
                 if (this.anotherViewCellStyleCache == null)
                 {
-                    this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["AnotherViewCellStyle"];
+                    this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultAnotherViewCellStyleName];
                 }
 
                 if (this.highlightedCellStyleCache == null)
                 {
-                    this.defaultHighlightedCellStyle = (CalendarCellStyle)RadCalendar.EmbeddedResourceDict["HighlightedCellStyle"];
+                    this.defaultHighlightedCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultHighlightedCellStyleName];
                 }
             }
         }
@@ -3383,7 +3403,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             int increment = 1;
             if (this.DisplayMode == CalendarDisplayMode.MultiDayView)
             {
-                increment = this.MultiDayViewSettings.WeekStep;
+                increment = this.MultiDayViewSettings.VisibleDays;
             }
 
             DateTime previousDate = CalendarMathHelper.IncrementByView(this.DisplayDate, -increment, this.DisplayMode);
@@ -3446,7 +3466,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                             if (oldPropertyListener != null)
                             {
                                 this.appointmentSourcePropertyChangedListeners.Remove(oldPropertyListener);
-                                oldPropertyListener.Disconnect();
+                                oldPropertyListener.Detach();
                                 oldPropertyListener = null;
                             }
                         }
@@ -3458,7 +3478,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                     if (propertyListener != null)
                     {
                         this.appointmentSourcePropertyChangedListeners.Remove(propertyListener);
-                        propertyListener.Disconnect();
+                        propertyListener.Detach();
                         propertyListener = null;
                     }
 

@@ -25,6 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal MultiDayViewUpdateFlag updateFlag;
 
         private const int DefaultSpecificColumnCount = 6;
+        private static double DefaultCurrentTimeIndicatorHeight = 2d;
 
         private double halfTextHeight;
 
@@ -40,7 +41,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             get
             {
-                return this.Calendar.multiDayViewSettings.WeekStep;
+                return this.Calendar.multiDayViewSettings.VisibleDays;
             }
         }
 
@@ -56,7 +57,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             get
             {
-                return this.Calendar.multiDayViewSettings.WeekStep;
+                return this.Calendar.multiDayViewSettings.VisibleDays;
             }
         }
 
@@ -104,7 +105,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void ArrangeAppointments()
         {
-            AppointmentSource appSource = this.Calendar.appointmentSource;
+            AppointmentSource appointmentSource = this.Calendar.appointmentSource;
             if (this.appointmentInfos == null)
             {
                 this.appointmentInfos = new List<CalendarAppointmentInfo>();
@@ -114,12 +115,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.appointmentInfos.Clear();
             }
 
-            if (appSource != null)
+            if (appointmentSource != null)
             {
                 MultiDayViewSettings settings = this.Calendar.multiDayViewSettings;
                 foreach (var calendarCell in this.CalendarCells)
                 {
-                    LinkedList<IAppointment> appointmentsPerCell = appSource.GetAppointments((IAppointment appointment) =>
+                    LinkedList<IAppointment> appointmentsPerCell = appointmentSource.GetAppointments((IAppointment appointment) =>
                     {
                         return calendarCell.Date.Date >= appointment.StartDate.Date
                         && calendarCell.Date.Date <= appointment.EndDate.Date && !(appointment.IsAllDay && settings.ShowAllDayArea);
@@ -170,7 +171,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             foreach (var appointmentInfo in this.appointmentInfos)
             {
-                if (!appointmentInfo.isIntersected)
+                if (!appointmentInfo.isArranged)
                 {
                     List<CalendarAppointmentInfo> intersectedAppointments = this.appointmentInfos.Where(a => a.layoutSlot.IntersectsWith(appointmentInfo.layoutSlot)
                     && a.columnIndex == appointmentInfo.columnIndex).ToList();
@@ -185,14 +186,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         for (int i = 0; i < intersectedAppointmentsCount; i++)
                         {
                             CalendarAppointmentInfo intersectedAppointment = orderedIntersectedAppointments[i];
-                            if (!intersectedAppointment.isIntersected)
+                            if (!intersectedAppointment.isArranged)
                             {
                                 RadRect layout = intersectedAppointment.layoutSlot;
                                 layout.X = layout.X + (maxWidth * intersectedAppointment.arrangeColumnIndex.Value);
                                 layout.Width = maxWidth;
 
                                 intersectedAppointment.layoutSlot = layout;
-                                intersectedAppointment.isIntersected = true;
+                                intersectedAppointment.isArranged = true;
                             }
                             else
                             {
@@ -210,7 +211,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void OffsetChildIntersectedAppointments(CalendarAppointmentInfo intersectedAppointment, double maxWidth)
         {
-            var childIntersectedApps = this.appointmentInfos.Where(a => a.layoutSlot.IntersectsWith(intersectedAppointment.layoutSlot)
+            var childIntersectedAppointments = this.appointmentInfos.Where(a => a.layoutSlot.IntersectsWith(intersectedAppointment.layoutSlot)
             && a.columnIndex == intersectedAppointment.columnIndex).ToList();
 
             RadRect layout = intersectedAppointment.layoutSlot;
@@ -220,9 +221,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             layout.Width = maxWidth;
             intersectedAppointment.layoutSlot = layout;
 
-            foreach (CalendarAppointmentInfo app in childIntersectedApps)
+            foreach (CalendarAppointmentInfo app in childIntersectedAppointments)
             {
-                if (app.isIntersected && app.layoutSlot.Width > maxWidth)
+                if (app.isArranged && app.layoutSlot.Width > maxWidth)
                 {
                     this.OffsetChildIntersectedAppointments(app, maxWidth);
                 }
@@ -318,7 +319,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                             continue;
                         }
 
-                        double startY = DateToVerticalPosition(calendarCell.Date.Date, slot.Start);
+                        double startY = this.DateToVerticalPosition(calendarCell.Date.Date, slot.Start);
                         DateTime endDate = slot.End.TimeOfDay > settings.DayEndTime
                             ? endDate = slot.End.Add(TimeSpan.FromTicks(settings.DayEndTime.Ticks - slot.End.TimeOfDay.Ticks))
                             : endDate = slot.End;
@@ -377,7 +378,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void ArrangeAllDayAppointment(RadRect viewRect)
         {
-            AppointmentSource appSource = this.Calendar.appointmentSource;
+            AppointmentSource appointmentSource = this.Calendar.appointmentSource;
             if (this.allDayAppointmentInfos == null)
             {
                 this.allDayAppointmentInfos = new List<CalendarAppointmentInfo>();
@@ -387,14 +388,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.allDayAppointmentInfos.Clear();
             }
 
-            if (appSource != null)
+            if (appointmentSource != null)
             {
                 MultiDayViewSettings settings = this.Calendar.multiDayViewSettings;
                 double appoitmentHeight = settings.AllDayAppointmentMinHeight;
 
                 foreach (var cell in this.CalendarCells)
                 {
-                    LinkedList<IAppointment> appointments = appSource.GetAppointments((IAppointment appointment) =>
+                    LinkedList<IAppointment> appointments = appointmentSource.GetAppointments((IAppointment appointment) =>
                     {
                         return cell.Date.Date >= appointment.StartDate.Date && cell.Date.Date <= appointment.EndDate.Date && appointment.IsAllDay;
                     });
@@ -473,7 +474,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             if (currentDate.TimeOfDay >= settings.DayStartTime && currentDate.TimeOfDay <= settings.DayEndTime)
             {
                 double verticalPosition = this.DateToVerticalPosition(currentDate, currentDate);
-                this.currentTimeIndicator.Arrange(new RadRect(this.layoutSlot.X, verticalPosition, viewRect.Width, 2d));
+                this.currentTimeIndicator.Arrange(new RadRect(this.layoutSlot.X, verticalPosition, viewRect.Width, CalendarMultiDayViewModel.DefaultCurrentTimeIndicatorHeight));
             }
             else
             {
@@ -503,13 +504,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void EnsureTimeRulerItems()
         {
-            if (this.timeRulerItems == null || this.timeRulerItems.Count == 0)
+            if (this.timeRulerItems == null)
             {
-                if (this.timeRulerItems == null)
-                {
-                    this.timeRulerItems = new ElementCollection<CalendarTimeRulerItem>(this);
-                }
+                this.timeRulerItems = new ElementCollection<CalendarTimeRulerItem>(this);
+            }
 
+            if (this.timeRulerItems.Count == 0)
+            {
                 MultiDayViewSettings settings = this.Calendar.multiDayViewSettings;
 
                 long dayViewAreaTicks = settings.DayEndTime.Ticks - settings.DayStartTime.Ticks;

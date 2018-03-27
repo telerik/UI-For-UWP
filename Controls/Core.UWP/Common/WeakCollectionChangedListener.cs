@@ -25,7 +25,7 @@ namespace Telerik.Core.Data
             return null;
         }
 
-        internal void Disconnect()
+        internal void Detach()
         {
             if (this.source != null)
             {
@@ -46,7 +46,7 @@ namespace Telerik.Core.Data
                 }
                 else
                 {
-                    this.Disconnect();
+                    this.Detach();
                 }
             }
         }

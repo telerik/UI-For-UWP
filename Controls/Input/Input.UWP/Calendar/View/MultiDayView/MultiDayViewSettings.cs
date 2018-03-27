@@ -18,10 +18,10 @@ namespace Telerik.UI.Xaml.Controls.Input
     public class MultiDayViewSettings : RadDependencyObject, ICollectionChangedListener, IPropertyChangedListener
     {
         /// <summary>
-        /// Identifies the <c cref="WeekStepProperty"/> dependency property.
+        /// Identifies the <c cref="VisibleDaysProperty"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty WeekStepProperty =
-            DependencyProperty.Register(nameof(WeekStep), typeof(int), typeof(MultiDayViewSettings), new PropertyMetadata(DefaultMultiDayViewWeekStep, OnWeekStepChanged));
+        public static readonly DependencyProperty VisibleDaysProperty =
+            DependencyProperty.Register(nameof(VisibleDays), typeof(int), typeof(MultiDayViewSettings), new PropertyMetadata(DefaultMultiDayViewVisibleDays, OnVisibleDaysChanged));
 
         /// <summary>
         /// Identifies the <c cref="TimerRulerTickLengthProperty"/> dependency property.
@@ -140,9 +140,9 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal Style defaultCurrentTimeIndicatorStyle;
         internal Style defaulTodaySlotStyle;
 
-        private const int DefaultMultiDayViewWeekStep = 7;
+        private const int DefaultMultiDayViewVisibleDays = 7;
         private const int DefaultNavigationStep = 7;
-        private const int MinimumtMultiDayViewWeekStep = 1;
+        private const int MinimumtMultiDayViewVisibleDays = 1;
         private const int DefaultTimeLinesInterval = 90;
         private const int MinimumTicksPerDay = 15;
         private const int DefaultAllDayAppointmentHeight = 30;
@@ -165,7 +165,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.timer.Interval = TimeSpan.FromSeconds(1.0);
             this.timer.Tick += this.TimerCallback;
 
-            ResourceDictionary dictionary = RadCalendar.EmbeddedResourceDict;
+            ResourceDictionary dictionary = RadCalendar.MultiDayViewResources;
             this.defaultTimeRulerItemStyleSelector = (CalendarTimeRulerItemStyleSelector)dictionary["CalendarTimeRulerItemStyleSelector"];
             this.defaultCurrentTimeIndicatorStyle = (Style)dictionary["CurrentTimeIndicatorStyle"];
             this.defaulTodaySlotStyle = (Style)dictionary["TodaySlotStyle"];
@@ -174,15 +174,15 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Gets or sets the step of the week view part visualized when multi-day view is set as mode for the Calendar.
         /// </summary>
-        public int WeekStep
+        public int VisibleDays
         {
             get
             {
-                return (int)this.GetValue(WeekStepProperty);
+                return (int)this.GetValue(VisibleDaysProperty);
             }
             set
             {
-                this.SetValue(WeekStepProperty, value);
+                this.SetValue(VisibleDaysProperty, value);
             }
         }
 
@@ -337,7 +337,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the step that is used for navigating between the days. Please, note that the step could not be higher than the <see cref="WeekStep" />.
+        /// Gets or sets the step that is used for navigating between the days. Please, note that the step could not be higher than the <see cref="VisibleDays" />.
         /// </summary>
         public int NavigationStep
         {
@@ -478,6 +478,15 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 this.timer.Tick -= this.TimerCallback;
             }
+
+            this.specialSlotsCollectionChangedListener?.Detach();
+            if (this.specialSlotsPropertyChangedListeners != null && this.specialSlotsPropertyChangedListeners.Count > 0)
+            {
+                foreach (WeakPropertyChangedListener weakPropertyChangedListener in this.specialSlotsPropertyChangedListeners)
+                {
+                    weakPropertyChangedListener.Detach();
+                }
+            }
         }
 
         internal void Invalide(MultiDayViewUpdateFlag flag)
@@ -523,18 +532,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
-        private static void OnWeekStepChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        private static void OnVisibleDaysChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
 
             int value = (int)args.NewValue;
-            if (value > DefaultMultiDayViewWeekStep)
+            if (value > DefaultMultiDayViewVisibleDays)
             {
-                settings.ChangePropertyInternally(MultiDayViewSettings.WeekStepProperty, DefaultMultiDayViewWeekStep);
+                settings.ChangePropertyInternally(MultiDayViewSettings.VisibleDaysProperty, DefaultMultiDayViewVisibleDays);
             }
-            else if (value < MinimumtMultiDayViewWeekStep)
+            else if (value < MinimumtMultiDayViewVisibleDays)
             {
-                settings.ChangePropertyInternally(MultiDayViewSettings.WeekStepProperty, MinimumtMultiDayViewWeekStep);
+                settings.ChangePropertyInternally(MultiDayViewSettings.VisibleDaysProperty, MinimumtMultiDayViewVisibleDays);
             }
             else
             {
@@ -653,13 +662,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
 
             int navigationStep = (int)args.NewValue;
-            if (navigationStep > settings.WeekStep)
+            if (navigationStep > settings.VisibleDays)
             {
-                settings.ChangePropertyInternally(MultiDayViewSettings.NavigationStepProperty, settings.WeekStep);
+                settings.ChangePropertyInternally(MultiDayViewSettings.NavigationStepProperty, settings.VisibleDays);
             }
-            else if (navigationStep < MinimumtMultiDayViewWeekStep)
+            else if (navigationStep < MinimumtMultiDayViewVisibleDays)
             {
-                settings.ChangePropertyInternally(MultiDayViewSettings.NavigationStepProperty, MinimumtMultiDayViewWeekStep);
+                settings.ChangePropertyInternally(MultiDayViewSettings.NavigationStepProperty, MinimumtMultiDayViewVisibleDays);
             }
         }
 
@@ -672,7 +681,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 var listener = settings.specialSlotsCollectionChangedListener;
                 if (listener != null)
                 {
-                    listener.Disconnect();
+                    listener.Detach();
                     listener = null;
                 }
 
@@ -681,7 +690,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     var propertyListener = settings.specialSlotsPropertyChangedListeners[0];
                     settings.specialSlotsPropertyChangedListeners.RemoveAt(0);
-                    propertyListener.Disconnect();
+                    propertyListener.Detach();
                     propertyListener = null;
                     count--;
                 }
@@ -796,7 +805,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
                     if (flag == MultiDayViewUpdateFlag.AffectsTimeRuler)
                     {
-                        XamlTimeRulerLayer timeRulerArea = this.owner.timeRulerLayer;
+                        XamlMultiDayViewLayer timeRulerArea = this.owner.timeRulerLayer;
                         timeRulerArea.UpdatePanelsBackground(this.TimelineBackground);
                     }
                 }
@@ -837,7 +846,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                             if (oldPropertyListener != null)
                             {
                                 this.specialSlotsPropertyChangedListeners.Remove(oldPropertyListener);
-                                oldPropertyListener.Disconnect();
+                                oldPropertyListener.Detach();
                                 oldPropertyListener = null;
                             }
                         }
@@ -851,7 +860,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                     if (propertyListener != null)
                     {
                         this.specialSlotsPropertyChangedListeners.Remove(propertyListener);
-                        propertyListener.Disconnect();
+                        propertyListener.Detach();
                         propertyListener = null;
                     }
 

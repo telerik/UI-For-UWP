@@ -217,14 +217,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 if (this.previousButton != null && this.nextButton != null)
                 {
-                    this.previousButton.Content = "\xE012";
-                    this.nextButton.Content = "\xE013";
+                    this.previousButton.Content = RadCalendar.DefaultMultiDayViewPreviousButtonContent;
+                    this.nextButton.Content = RadCalendar.DefaultMultiDayViewNextButtonContent;
                 }
             }
             else if (this.previousButton != null && this.nextButton != null)
             {
-                this.previousButton.Content = "\xE010";
-                this.nextButton.Content = "\xE011";
+                this.previousButton.Content = RadCalendar.DefaultPreviousButtonContent;
+                this.nextButton.Content = RadCalendar.DefaultNextButtonContent;
             }
         }
 
@@ -267,7 +267,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 int navigationStep = 1;
                 if (calendar.DisplayMode == CalendarDisplayMode.MultiDayView)
                 {
-                    navigationStep = calendar.MultiDayViewSettings.WeekStep;
+                    navigationStep = calendar.MultiDayViewSettings.VisibleDays;
                 }
 
                 calendar.RaiseMoveToNextViewCommand(navigationStep);
@@ -282,7 +282,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 int navigationStep = 1;
                 if (calendar.DisplayMode == CalendarDisplayMode.MultiDayView)
                 {
-                    navigationStep = calendar.MultiDayViewSettings.WeekStep;
+                    navigationStep = calendar.MultiDayViewSettings.VisibleDays;
                 }
 
                 this.Owner.RaiseMoveToPreviousViewCommand(navigationStep);

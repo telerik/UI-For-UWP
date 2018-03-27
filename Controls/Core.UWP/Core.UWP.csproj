@@ -129,7 +129,6 @@
     <Compile Include="Common\WeakPropertyChangedListener.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\IFormatSelector.cs" />
-    <Compile Include="Converters\InvertedBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\NumericConverter.cs" />
     <Compile Include="Converters\StringToUpperConverter.cs" />
     <Compile Include="Common\ICollectionChangedListener.cs" />

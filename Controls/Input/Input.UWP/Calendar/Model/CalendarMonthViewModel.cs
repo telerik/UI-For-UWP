@@ -87,13 +87,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void EnsureCalendarHeaderCells()
         {
-            if (this.calendarHeaderCells == null || this.calendarHeaderCells.Count == 0)
+            if (this.calendarHeaderCells == null)
             {
-                if (this.calendarHeaderCells == null)
-                {
-                    this.calendarHeaderCells = new ElementCollection<CalendarHeaderCellModel>(this);
-                }
+                this.calendarHeaderCells = new ElementCollection<CalendarHeaderCellModel>(this);
+            }
 
+            if (this.calendarHeaderCells.Count == 0)
+            {
                 int itemCount = this.ColumnCount + this.RowCount + (this.BufferItemsCount * 2);
                 for (int cellIndex = 0; cellIndex < itemCount; cellIndex++)
                 {

@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal RadRect layoutSlot;
         internal int columnIndex;
         internal CalendarCellModel cell;
-        internal bool isIntersected;
+        internal bool isArranged;
         internal IAppointment childAppointment;
         internal int? arrangeColumnIndex;
 

@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
-    internal class XamlTimeRulerLayer : CalendarLayer
+    internal class XamlMultiDayViewLayer : CalendarLayer
     {
         internal Canvas contentPanel;
         internal Canvas topHeader;
@@ -58,7 +58,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private double currHorizontalOffset;
         private bool isAnimationOngoing;
 
-        public XamlTimeRulerLayer()
+        public XamlMultiDayViewLayer()
         {
             this.scrollViewer = new ScrollViewer();
             this.scrollViewer.HorizontalScrollMode = ScrollMode.Disabled;
@@ -73,15 +73,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.contentPanel.VerticalAlignment = VerticalAlignment.Top;
 
             this.leftHeaderPanel = new Canvas();
+            this.leftHeaderPanel.ManipulationMode = ManipulationModes.None;
             Canvas.SetZIndex(this.leftHeaderPanel, DefaultLeftHeaderZIndex);
 
             this.topLeftHeaderPanel = new Canvas();
-            this.topLeftHeaderPanel.Background = XamlTimeRulerLayer.DefaultBackground;
+            this.topLeftHeaderPanel.ManipulationMode = ManipulationModes.None;
+            this.topLeftHeaderPanel.Background = XamlMultiDayViewLayer.DefaultBackground;
 
             Canvas.SetZIndex(this.topLeftHeaderPanel, DefaultTopLeftHeaderZIndex);
 
             this.topHeader = new Canvas();
-            this.topHeader.Background = XamlTimeRulerLayer.DefaultBackground;
+            this.topHeader.Background = XamlMultiDayViewLayer.DefaultBackground;
             this.topHeader.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.System;
             Canvas.SetZIndex(this.topHeader, DefaultToptHeaderZIndex);
 
@@ -168,15 +170,15 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             RadCalendar calendar = this.Owner;
             if (calendar != null)
             {
-                var appInfos = calendar.Model.multiDayViewModel.appointmentInfos;
-                if (appInfos != null && appInfos.Count > 0)
+                var appointmentInfos = calendar.Model.multiDayViewModel.appointmentInfos;
+                if (appointmentInfos != null && appointmentInfos.Count > 0)
                 {
                     DateTime startDate = calendar.DisplayDate;
-                    DateTime endDate = calendar.DisplayDate.AddDays(calendar.MultiDayViewSettings.WeekStep);
-                    CalendarAppointmentInfo appInfo = appInfos.FirstOrDefault(a => a.childAppointment == appointment && startDate <= a.Date && endDate >= a.Date);
-                    if (appInfo != null)
+                    DateTime endDate = calendar.DisplayDate.AddDays(calendar.MultiDayViewSettings.VisibleDays);
+                    CalendarAppointmentInfo appointmentInfo = appointmentInfos.FirstOrDefault(a => a.childAppointment == appointment && startDate <= a.Date && endDate >= a.Date);
+                    if (appointmentInfo != null)
                     {
-                        RadRect layoutSlot = appInfo.layoutSlot;
+                        RadRect layoutSlot = appointmentInfo.layoutSlot;
                         this.scrollViewer.ChangeView(0.0f, layoutSlot.Y, 1.0f);
                     }
                 }
@@ -234,12 +236,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     {
                         this.currentTimeIndicatorBorder = new Border();
                         this.AddVisualChild(this.currentTimeIndicatorBorder);
-                        Canvas.SetZIndex(this.currentTimeIndicatorBorder, XamlTimeRulerLayer.DefaultCurrentTimeIndicatorZIndex);
+                        Canvas.SetZIndex(this.currentTimeIndicatorBorder, XamlMultiDayViewLayer.DefaultCurrentTimeIndicatorZIndex);
                     }
                     else if (this.currentTimeIndicatorBorder.Visibility == Visibility.Collapsed)
                     {
                         this.currentTimeIndicatorBorder.Visibility = Visibility.Visible;
-                        Canvas.SetZIndex(this.currentTimeIndicatorBorder, XamlTimeRulerLayer.DefaultCurrentTimeIndicatorZIndex);
+                        Canvas.SetZIndex(this.currentTimeIndicatorBorder, XamlMultiDayViewLayer.DefaultCurrentTimeIndicatorZIndex);
                     }
 
                     MultiDayViewSettings settings = model.multiDayViewSettings;
@@ -249,7 +251,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         this.currentTimeIndicatorBorder.Style = currentTimeIndicatorStyle;
                     }
 
-                    XamlTimeRulerLayer.ArrangeUIElement(this.currentTimeIndicatorBorder, currentTimeIndicator.layoutSlot);
+                    XamlMultiDayViewLayer.ArrangeUIElement(this.currentTimeIndicatorBorder, currentTimeIndicator.layoutSlot);
                     Canvas.SetLeft(this.currentTimeIndicatorBorder, -this.leftOffset);
                 }
                 else if (this.currentTimeIndicatorBorder?.Visibility == Visibility.Visible)
@@ -286,7 +288,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     }
 
                     XamlContentLayer.ArrangeUIElement(slotVisual, slot.layoutSlot, true);
-                    Canvas.SetZIndex(slotVisual, XamlTimeRulerLayer.DefaultSlotZIndex);
+                    Canvas.SetZIndex(slotVisual, XamlMultiDayViewLayer.DefaultSlotZIndex);
                     Canvas.SetLeft(slotVisual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
                 }
             }
@@ -323,9 +325,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 }
 
                 RadRect layoutSlot = todaySlot.layoutSlot;
-                XamlTimeRulerLayer.ArrangeUIElement(this.todaySlotBorder, layoutSlot, true);
+                XamlMultiDayViewLayer.ArrangeUIElement(this.todaySlotBorder, layoutSlot, true);
 
-                Canvas.SetZIndex(this.todaySlotBorder, XamlTimeRulerLayer.DefaultTodaySlotZIndex);
+                Canvas.SetZIndex(this.todaySlotBorder, XamlMultiDayViewLayer.DefaultTodaySlotZIndex);
                 Canvas.SetLeft(this.todaySlotBorder, layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
             }
             else if (this.todaySlotBorder.Visibility == Visibility.Visible)
@@ -338,9 +340,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             int index = 0;
             RadCalendar calendar = this.Owner;
-            foreach (var appInfo in appointmentInfos)
+            foreach (var appointmentInfo in appointmentInfos)
             {
-                if (!this.bufferedViewPortArea.IntersectsWith(appInfo.layoutSlot))
+                if (!this.bufferedViewPortArea.IntersectsWith(appointmentInfo.layoutSlot))
                 {
                     continue;
                 }
@@ -348,16 +350,16 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 AppointmentControl appointmentControl = this.GetDefaultAppointmentVisual(index);
                 if (appointmentControl != null)
                 {
-                    RadRect layoutSlot = appInfo.layoutSlot;
-                    appointmentControl.Content = appInfo.DetailText;
-                    appointmentControl.Header = appInfo.Subject;
-                    appointmentControl.Background = appInfo.Brush;
-                    appointmentControl.appointmentInfo = appInfo;
+                    RadRect layoutSlot = appointmentInfo.layoutSlot;
+                    appointmentControl.Content = appointmentInfo.DetailText;
+                    appointmentControl.Header = appointmentInfo.Subject;
+                    appointmentControl.Background = appointmentInfo.Brush;
+                    appointmentControl.appointmentInfo = appointmentInfo;
 
                     StyleSelector contentStyleSelector = calendar.AppointmentStyleSelector;
                     if (contentStyleSelector != null)
                     {
-                        var style = contentStyleSelector.SelectStyle(appInfo, appointmentControl);
+                        var style = contentStyleSelector.SelectStyle(appointmentInfo, appointmentControl);
                         if (style != null)
                         {
                             appointmentControl.Style = style;
@@ -371,7 +373,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     AppointmentTemplateSelector templateSelector = calendar.AppointmentTemplateSelector;
                     if (templateSelector != null)
                     {
-                        DataTemplate template = templateSelector.SelectTemplate(appInfo, appInfo.cell);
+                        DataTemplate template = templateSelector.SelectTemplate(appointmentInfo, appointmentInfo.cell);
                         if (template != null)
                         {
                             appointmentControl.ContentTemplate = template;
@@ -381,7 +383,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     AppointmentTemplateSelector headerTemplateSelector = calendar.AppointmentHeaderTemplateSelector;
                     if (headerTemplateSelector != null)
                     {
-                        DataTemplate template = headerTemplateSelector.SelectTemplate(appInfo, appInfo.cell);
+                        DataTemplate template = headerTemplateSelector.SelectTemplate(appointmentInfo, appointmentInfo.cell);
                         if (template != null)
                         {
                             appointmentControl.HeaderTemplate = template;
@@ -389,7 +391,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     }
 
                     XamlContentLayer.ArrangeUIElement(appointmentControl, layoutSlot, true);
-                    Canvas.SetZIndex(appointmentControl, XamlTimeRulerLayer.DefaultAppointmentZIndex);
+                    Canvas.SetZIndex(appointmentControl, XamlMultiDayViewLayer.DefaultAppointmentZIndex);
                     Canvas.SetLeft(appointmentControl, layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
                     index++;
                 }
@@ -424,7 +426,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             RadRect layoutSlot = horizontalLine.layoutSlot;
-            XamlTimeRulerLayer.ArrangeUIElement(this.horizontalGridLineBorder, layoutSlot, true);
+            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontalGridLineBorder, layoutSlot, true);
 
             this.ApplyTimeRulerStyle(verticalLine, this.verticalGridLineBorder);
 
@@ -434,7 +436,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             layoutSlot = verticalLine.layoutSlot;
-            XamlTimeRulerLayer.ArrangeUIElement(this.verticalGridLineBorder, layoutSlot, true);
+            XamlMultiDayViewLayer.ArrangeUIElement(this.verticalGridLineBorder, layoutSlot, true);
         }
 
         internal void ArrangeVisualElement()
@@ -487,7 +489,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdatePanelsBackground(Brush background)
         {
-            Brush defaulCalendarBrush = this.Owner.Background;
+            Brush defaultCalendarBrush = this.Owner.Background ?? XamlMultiDayViewLayer.DefaultBackground;
             if (this.contentPanel.Background != background)
             {
                 if (background != null)
@@ -497,14 +499,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 }
                 else
                 {
-                    this.contentPanel.Background = defaulCalendarBrush;
-                    this.leftHeaderPanel.Background = defaulCalendarBrush;
+                    this.contentPanel.Background = defaultCalendarBrush;
+                    this.leftHeaderPanel.Background = defaultCalendarBrush;
                 }
             }
             else if (this.contentPanel.Background == null)
             {
-                this.contentPanel.Background = defaulCalendarBrush;
-                this.leftHeaderPanel.Background = defaulCalendarBrush;
+                this.contentPanel.Background = defaultCalendarBrush;
+                this.leftHeaderPanel.Background = defaultCalendarBrush;
             }
         }
 
@@ -596,7 +598,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     RadRect layoutSlot = gridLine.layoutSlot;
                     XamlContentLayer.ArrangeUIElement(border, layoutSlot, true);
                     Canvas.SetLeft(border, -this.leftOffset);
-                    Canvas.SetZIndex(border, XamlTimeRulerLayer.DefaultLineZIndex);
+                    Canvas.SetZIndex(border, XamlMultiDayViewLayer.DefaultLineZIndex);
                 }
             }
 
@@ -703,6 +705,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private TextBlock CreateDefaultTimeRulerItemVisual()
         {
             TextBlock textBlock = new TextBlock();
+            textBlock.IsHitTestVisible = false;
             this.leftHeaderPanel.Children.Add(textBlock);
 
             return textBlock;
@@ -734,9 +737,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        private void OnScrollViewerPointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void OnScrollViewerPointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (!this.isAnimationOngoing)
+            if (e.OriginalSource != this.topLeftHeaderPanel && e.OriginalSource != this.leftHeaderPanel && !this.isAnimationOngoing)
             {
                 this.scrollMousePosition = e.GetCurrentPoint(this.scrollViewer).Position;
                 this.prevHorizontalOffset = this.translateTransform.X;
@@ -807,14 +810,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.offsetStoryboard.Children.Add(this.offsetAnimation);
 
             Storyboard.SetTarget(this.offsetStoryboard, this.translateTransform);
-            Storyboard.SetTargetProperty(this.offsetStoryboard, "X");
+            Storyboard.SetTargetProperty(this.offsetStoryboard, nameof(this.translateTransform.X));
         }
 
         private void OnOffsetStoryboardCompleted(object sender, object e)
         {
             this.offsetStoryboard.Stop();
             this.isAnimationOngoing = false;
-            if (this.currHorizontalOffset != this.prevHorizontalOffset)
+            if (Math.Round(this.currHorizontalOffset) != this.prevHorizontalOffset)
             {
                 RadCalendar calendar = this.Owner;
                 int navigationStep = calendar.MultiDayViewSettings.NavigationStep;

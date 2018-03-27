@@ -72,7 +72,7 @@ namespace SDKExamples.UWP.Calendar
 
     public class ViewModel : ViewModelBase
     {
-        private int selectedWeekStep;
+        private int selectedVisibleDays;
         private string selectedTickLength;
         private string startTimeValue;
         private string endTimeValue;
@@ -111,12 +111,12 @@ namespace SDKExamples.UWP.Calendar
             this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(-1).AddHours(14), today.AddHours(18)) { Color = new SolidColorBrush(Colors.DarkOliveGreen), Subject = "App 10", IsAllDay = true });
 
-            this.WeekSteps = this.InitializeIntCollection();
+            this.DisplayDays = this.InitializeIntCollection();
             this.Thicknesses = this.InitializeIntCollection();
             this.NavigationSteps = this.InitializeIntCollection();
 
             this.SelectedThickness = this.Thicknesses[1];
-            this.SelectedWeekStep = this.WeekSteps[0];
+            this.SelectedVisibleDays = this.DisplayDays[0];
             this.SelectedNavigationStep = this.NavigationSteps[0];
 
             this.TickLengths = this.InitializeTimeSpans();
@@ -152,7 +152,7 @@ namespace SDKExamples.UWP.Calendar
         }
 
         public CustomAppointmentSource Appointments { get; set; }
-        public ObservableCollection<int> WeekSteps { get; set; }
+        public ObservableCollection<int> DisplayDays { get; set; }
         public ObservableCollection<string> TickLengths { get; set; }
         public ObservableCollection<string> StartTimeValues { get; set; }
         public ObservableCollection<string> EndTimeValues { get; set; }
@@ -164,18 +164,18 @@ namespace SDKExamples.UWP.Calendar
         public ObservableCollection<int> AllDayAppSpacing { get; set; }
         public ObservableCollection<int> NavigationSteps { get; set; }
 
-        public int SelectedWeekStep
+        public int SelectedVisibleDays
         {
             get
             {
-                return this.selectedWeekStep;
+                return this.selectedVisibleDays;
             }
             set
             {
-                if (this.selectedWeekStep != value)
+                if (this.selectedVisibleDays != value)
                 {
-                    this.selectedWeekStep = value;
-                    this.OnPropertyChanged(nameof(this.SelectedWeekStep));
+                    this.selectedVisibleDays = value;
+                    this.OnPropertyChanged(nameof(this.SelectedVisibleDays));
                 }
             }
         }

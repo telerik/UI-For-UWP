@@ -66,7 +66,7 @@
     <Compile Include="Calendar\Model\CalendarMultiDayViewModel.cs" />
     <Compile Include="Calendar\Model\Slot.cs" />
     <Compile Include="Calendar\View\Layers\XamlAllDayAreaLayer.cs" />
-    <Compile Include="Calendar\View\Layers\XamlTimeRulerLayer.cs" />
+    <Compile Include="Calendar\View\Layers\XamlMultiDayViewLayer.cs" />
     <Compile Include="Calendar\View\MultiDayView\MultiDayViewSettings.cs" />
     <Compile Include="Calendar\View\MultiDayView\MultiDayViewUpdateFlag.cs" />
     <Compile Include="Calendar\View\MultiDayView\CalendarTimeRulerItemStyleSelector.cs" />
