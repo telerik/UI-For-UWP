@@ -1,0 +1,172 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Calendar.MultiDayViewAppointmentsCRUD"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:example="using:SDKExamples.UWP.Calendar"
+    xmlns:calendar="using:Telerik.UI.Xaml.Controls.Input.Calendar"
+    mc:Ignorable="d" x:Name="page">
+    <local:ExamplePageBase.Resources>
+        <Style TargetType="Border" x:Key="CurrentTimeIndicatorStyle">
+            <Setter Property="BorderBrush" Value="#3148CA"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        <Style TargetType="Border" x:Key="NavigationControlBorderStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style TargetType="calendar:AppointmentControl">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="calendar:AppointmentControl">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter Content="{TemplateBinding Header}" 
+                                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                              Style="{TemplateBinding HeaderStyle}"
+                                              TextWrapping="Wrap"/>
+                            <Button Grid.Column="1" FontFamily="Arial"
+                                    Content="&#x2715;" Margin="2" FontSize="13"
+                                    Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
+                                    Command="{Binding DeleteAppointmentCommand}"/>
+                            <ContentPresenter Grid.Row="1" Grid.ColumnSpan="2"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="15"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </local:ExamplePageBase.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <input:RadCalendar x:Name="calendar"
+                           Grid.Row="1"
+                           DisplayMode="MultiDayView"
+                           AppointmentSource="{Binding Appointments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           NavigationControlBorderStyle="{StaticResource NavigationControlBorderStyle}"
+                           BorderThickness="0">
+            <input:RadCalendar.Commands>
+                <example:CustomAppointmentTapCommand/>
+            </input:RadCalendar.Commands>
+            <input:RadCalendar.HeaderContentTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="#3148CA" FontWeight="Bold"/>
+                </DataTemplate>
+            </input:RadCalendar.HeaderContentTemplate>
+            <input:RadCalendar.MultiDayViewSettings>
+                <input:MultiDayViewSettings CurrentTimeIndicatorStyle="{StaticResource CurrentTimeIndicatorStyle}"/>
+            </input:RadCalendar.MultiDayViewSettings>
+            <input:RadCalendar.HighlightedCellStyle>
+                <input:CalendarCellStyle>
+                    <input:CalendarCellStyle.DecorationStyle>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="#3148CA" />
+                        </Style>
+                    </input:CalendarCellStyle.DecorationStyle>
+                    <input:CalendarCellStyle.ContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Margin" Value="6,0,0,4" />
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="20"/>
+                        </Style>
+                    </input:CalendarCellStyle.ContentStyle>
+                </input:CalendarCellStyle>
+            </input:RadCalendar.HighlightedCellStyle>
+        </input:RadCalendar>
+        <Grid Grid.Row="2"
+              Background="#EBEBEB">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontFamily" Value="Arial"/>
+                        <Setter Property="FontSize" Value="22"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="&#x1F4C6;" Margin="5" Tapped="TodayTextBlockTapped"/>
+                <TextBlock Text="&#x002B;"
+                           Margin="5, 5, 10, 5"
+                           Tapped="ShowNewAppointmentTextBlockTapped"/>
+            </StackPanel>
+        </Grid>
+        <Popup x:Name="AppointmentUIPopup" Grid.Row="1"
+               IsOpen="{Binding IsOpen, Mode=TwoWay}"
+               IsLightDismissEnabled="True"
+               Opened="OnAppointmentUIPopupOpened">
+            <Border BorderThickness="2"
+                    BorderBrush="#3148CA"
+                    Padding="5"
+                    Background="#EBEBEB">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Subject" Margin="0, 0, 0, 5"/>
+                    <TextBox Grid.Column="1" Margin="0, 0, 0, 5" Text="{Binding Subject, Mode=TwoWay}"/>
+                    <TextBlock Text="Description" Grid.Row="1" Margin="0, 0, 0, 5"/>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="0, 0, 0, 5" Text="{Binding Description, Mode=TwoWay}"/>
+                    <TextBlock Text="Start date" Grid.Row="2" Margin="0, 0, 0, 5"/>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0, 0, 0, 5">
+                        <input:RadDatePicker Margin="0, 0, 10, 0" Value="{Binding StartDate, Mode=TwoWay}"/>
+                        <input:RadTimePicker Value="{Binding StartDate, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <TextBlock Text="End date" Grid.Row="3" Margin="0, 0, 0, 5"/>
+                    <StackPanel Grid.Row="3" Grid.Column="1"
+                                Orientation="Horizontal"
+                                Margin="0, 0, 0, 5">
+                        <input:RadDatePicker Margin="0, 0, 10, 0" Value="{Binding EndDate, Mode=TwoWay}"/>
+                        <input:RadTimePicker Value="{Binding EndDate, Mode=TwoWay}"/>
+                    </StackPanel>
+                    <CheckBox Content="All day event" Grid.Row="4" Grid.Column="1"
+                              Margin="0, 0, 0, 5"
+                              IsChecked="{Binding IsAllDay, Mode=TwoWay}"/>
+                    <Button Content="{Binding AppointmentUIContent}" 
+                            Command="{Binding AddNewAppointmentCommand}" 
+                            Grid.Row="5" 
+                            Grid.ColumnSpan="2" 
+                            Height="38"
+                            HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+            
+        </Popup>
+    </Grid>
+</local:ExamplePageBase>
