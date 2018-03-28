@@ -17,7 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         private static TypeInfo dateTypeInfo = typeof(DateTime).GetTypeInfo();
         private static Type datePickerType = typeof(RadDatePicker);
 
-        private static Style defaultCellEditorStyle;
+        private Style defaultCellEditorStyle;
 
         internal override Style DefaultCellEditorStyle
         {

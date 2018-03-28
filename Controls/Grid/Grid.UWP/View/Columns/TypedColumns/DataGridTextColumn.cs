@@ -20,12 +20,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DependencyProperty.Register(nameof(CellContentFormat), typeof(string), typeof(DataGridTextColumn), new PropertyMetadata(null, OnCellContentFormatChanged));
 
         internal static Type TextBlockType = typeof(TextBlock);
-        private static Style defaultTextCellStyle;
-        private static Style defaultCellEditorStyle;
-        private static Style defaultCellFlyoutContentStyle;
 
         private static Type textBoxType = typeof(TextBox);
 
+        private Style defaultTextCellStyle;
+        private Style defaultCellEditorStyle;
+        private Style defaultCellFlyoutContentStyle;
         private string cellContentFormatCache;
 
         /// <summary>
