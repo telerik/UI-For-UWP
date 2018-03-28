@@ -25,6 +25,7 @@
     <Example DisplayName="Styling" ClassName="SDKExamples.UWP.Calendar.Styling" />
     <Example DisplayName="Blackout Cells" ClassName="SDKExamples.UWP.Calendar.BlackoutCells" />
     <Example DisplayName="MultiDayView" ClassName="SDKExamples.UWP.Calendar.MultiDayView" />
+    <Example DisplayName="MultiDayViewAppointmentsCRUD" ClassName="SDKExamples.UWP.Calendar.MultiDayViewAppointmentsCRUD" />
     <Example DisplayName="MultiDayViewStyling" ClassName="SDKExamples.UWP.Calendar.MultiDayViewStyling" />
   </Control>
   <Control Name="Chart">

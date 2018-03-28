@@ -147,6 +147,9 @@
     <Compile Include="Examples\Calendar\MultiDayView.xaml.cs">
       <DependentUpon>MultiDayView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Calendar\MultiDayViewAppointmentsCRUD.xaml.cs">
+      <DependentUpon>MultiDayViewAppointmentsCRUD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\Calendar\MultiDayViewStyling.xaml.cs">
       <DependentUpon>MultiDayViewStyling.xaml</DependentUpon>
     </Compile>
@@ -509,6 +512,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\Calendar\MultiDayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\Calendar\MultiDayViewAppointmentsCRUD.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
