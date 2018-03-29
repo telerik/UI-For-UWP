@@ -16,10 +16,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
         private const string CheckedGlyph = "\u2611";
         private const string IndeterminateGlyph = "\u25A3";
 
-        private static Style defaultCellEditorStyle;
-        private static Style defaultCellStyle;
         private static Type booleanType = typeof(bool);
         private static Type checkBoxType = typeof(CheckBox);
+
+        private Style defaultCellEditorStyle;
+        private Style defaultCellStyle;
 
         internal override Style DefaultCellContentStyle
         {

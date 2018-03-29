@@ -40,7 +40,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DependencyProperty.Register(nameof(DisplayMemberPath), typeof(string), typeof(DataGridComboBoxColumn), new PropertyMetadata(string.Empty, OnDisplayMemberPathChanged));
 
         private static readonly Type comboBoxType = typeof(ComboBox);
-        private static Style defaultCellEditorStyle;
+
+        private Style defaultCellEditorStyle;
         private Type itemsType;
         private Func<object, object> itemPropertyGetter;
 

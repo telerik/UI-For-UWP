@@ -13,8 +13,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
     /// </summary>
     public class DataGridNumericalColumn : DataGridTextColumn
     {
-        private static Style defaultCellEditorStyle;
         private static Type numericBoxType = typeof(RadNumericBox);
+
+        private Style defaultCellEditorStyle;
 
         internal override Style DefaultCellEditorStyle
         {
