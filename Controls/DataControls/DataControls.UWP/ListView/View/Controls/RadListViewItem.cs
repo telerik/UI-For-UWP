@@ -477,10 +477,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             Pointer pointer = e.Pointer;
             PointerPoint pointerPoint = e.GetCurrentPoint(this);
-            if (!this.isReordering && pointerPoint.Properties.IsLeftButtonPressed
-                && pointer.PointerDeviceType == PointerDeviceType.Mouse && this.CapturePointer(pointer))
+            if (!this.isReordering && pointerPoint.Properties.IsLeftButtonPressed && pointer.PointerDeviceType == PointerDeviceType.Mouse
+                && RadListViewItem.IsPointerCaptured(this, pointer))
             {
-                this.ReleasePointerCapture(pointer);
                 var source = e.OriginalSource;
                 if (source != this.firstHandle && source != this.secondHandle)
                 {
@@ -664,6 +663,17 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             RadListViewItem item = d as RadListViewItem;
             item.isSelectedCache = (bool)e.NewValue;
             item.ChangeVisualState(true);
+        }
+
+        private static bool IsPointerCaptured(RadListViewItem listViewItem, Pointer pointer)
+        {
+            if (listViewItem.CapturePointer(pointer))
+            {
+                listViewItem.ReleasePointerCapture(pointer);
+                return true;
+            }
+
+            return false;
         }
 
         private void OnReorderHandlePointerPressed(object sender, PointerRoutedEventArgs e)
