@@ -478,7 +478,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             Pointer pointer = e.Pointer;
             PointerPoint pointerPoint = e.GetCurrentPoint(this);
             if (!this.isReordering && pointerPoint.Properties.IsLeftButtonPressed && pointer.PointerDeviceType == PointerDeviceType.Mouse
-                && RadListViewItem.IsPointerCaptured(this, pointer))
+                && RadListViewItem.CanCapturePointer(this, pointer))
             {
                 var source = e.OriginalSource;
                 if (source != this.firstHandle && source != this.secondHandle)
@@ -665,7 +665,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             item.ChangeVisualState(true);
         }
 
-        private static bool IsPointerCaptured(RadListViewItem listViewItem, Pointer pointer)
+        private static bool CanCapturePointer(RadListViewItem listViewItem, Pointer pointer)
         {
             if (listViewItem.CapturePointer(pointer))
             {
