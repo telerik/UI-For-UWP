@@ -27,7 +27,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         }
 
         /// <summary>
-        /// Gets or sets the diplay mode for the row details - whether they should be visualized or not.
+        /// Gets or sets the display mode for the row details - whether they should be visualized or not.
         /// </summary>
         public DataGridRowDetailsMode RowDetailsDisplayMode
         {
@@ -47,16 +47,16 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// <summary>
         /// Hide the row details.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">The item for which the row details should be hide.</param>
         public void HideRowDetailsForItem(object item)
         {
             this.rowDetailsService.CollapseDetailsForItem(item);
         }
 
         /// <summary>
-        /// Showt the row details.
+        /// Show the row details.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">The item that should have its row details visualized.</param>
         public void ShowRowDetailsForItem(object item)
         {
             this.rowDetailsService.ExpandDetailsForItem(item);

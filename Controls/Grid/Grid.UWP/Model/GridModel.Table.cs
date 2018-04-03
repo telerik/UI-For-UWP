@@ -265,7 +265,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             this.ArrangeLineDecorators(finalSize);
 
             this.ApplyLayersClipping(result);
-
             
             return result;
         }

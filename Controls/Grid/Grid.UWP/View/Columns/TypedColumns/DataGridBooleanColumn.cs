@@ -26,14 +26,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultCellStyle == null)
+                if (this.defaultCellStyle == null)
                 {
-                    defaultCellStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultBooleanColumnStyle.xaml",
                         "DefaultColumnStyle") as Style;
                 }
-                return defaultCellStyle;
+                return this.defaultCellStyle;
             }
         }
 
@@ -41,14 +41,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultCellEditorStyle == null)
+                if (this.defaultCellEditorStyle == null)
                 {
-                    defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultBooleanColumnEditorStyle.xaml",
                         "DefaultColumnEditorStyle") as Style;
                 }
-                return defaultCellEditorStyle;
+                return this.defaultCellEditorStyle;
             }
         }
 

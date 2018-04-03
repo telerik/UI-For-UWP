@@ -47,14 +47,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultCellEditorStyle == null)
+                if (this.defaultCellEditorStyle == null)
                 {
-                    defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultTextColumnEditorStyle.xaml",
                         "DefaultColumnEditorStyle") as Style;
                 }
-                return defaultCellEditorStyle;
+                return this.defaultCellEditorStyle;
             }
         }
 
@@ -62,14 +62,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultTextCellStyle == null)
+                if (this.defaultTextCellStyle == null)
                 {
-                    defaultTextCellStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultTextCellStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultTextColumnStyle.xaml",
                         "DefaultColumnStyle") as Style;
                 }
-                return defaultTextCellStyle;
+                return this.defaultTextCellStyle;
             }
         }
 
@@ -77,14 +77,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultCellFlyoutContentStyle == null)
+                if (this.defaultCellFlyoutContentStyle == null)
                 {
-                    defaultCellFlyoutContentStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellFlyoutContentStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultTextColumnFlyoutContentStyle.xaml",
                         "DefaultColumnFlyoutStyle") as Style;
                 }
-                return defaultCellFlyoutContentStyle;
+                return this.defaultCellFlyoutContentStyle;
             }
         }
 
