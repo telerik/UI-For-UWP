@@ -28,7 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether if handling is enabled.
+        /// Gets a value indicating whether if handling is enabled.
         /// </summary>
         public bool IsHandleEnabled
         {

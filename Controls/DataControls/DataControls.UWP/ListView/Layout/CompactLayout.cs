@@ -760,6 +760,12 @@ namespace Telerik.Data.Core.Layouts
             return items;
         }
 
+        internal virtual void GetCollapseRange(GroupInfo groupInfo, out int slot, out int slotSpan)
+        {
+            slot = groupInfo.Index + 1;
+            slotSpan = groupInfo.GetLineSpan() - 1;
+        }
+
         protected override void SetItemsSourceOverride(IReadOnlyList<object> source, bool restoreCollapsed)
         {
             this.collapsedSlotsTable.Clear();
@@ -824,12 +830,6 @@ namespace Telerik.Data.Core.Layouts
             {
                 return hasItems;
             }
-        }
-
-        internal virtual void GetCollapseRange(GroupInfo groupInfo, out int slot, out int slotSpan)
-        {
-            slot = groupInfo.Index + 1;
-            slotSpan = groupInfo.GetLineSpan() - 1;
         }
 
         private void CollapseCore(GroupInfo info, bool raiseExpanded)

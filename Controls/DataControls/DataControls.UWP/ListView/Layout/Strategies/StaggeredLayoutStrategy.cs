@@ -142,7 +142,9 @@ namespace Telerik.Data.Core.Layouts
         {
             List<GeneratedItemModel> containers;
             if (this.generatedContainers.TryGetValue(slot, out containers))
-	            return containers.FirstOrDefault(model => model.ItemInfo.Id == id);
+            {
+                return containers.FirstOrDefault(model => model.ItemInfo.Id == id);
+            }
 
             return null;
         }

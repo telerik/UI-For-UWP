@@ -233,38 +233,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             return isInvalidated;
         }
 
-        /// <summary>
-        /// Prepares the swipe drag hadles of the item.
-        /// </summary>
-        protected internal void PrepareSwipeDragHandles()
-        {
-            if (this.IsActionOnSwipeEnabled)
-            {
-                switch (this.SwipeDirection)
-                {
-                    case ListViewItemSwipeDirection.All:
-                        this.PrepareFirstSwipeHandle(true);
-                        this.PrepareSecondSwipeHandle(true);
-                        break;
-                    case ListViewItemSwipeDirection.Forward:
-                        this.PrepareFirstSwipeHandle(true);
-                        this.PrepareSecondSwipeHandle(false);
-                        break;
-                    case ListViewItemSwipeDirection.Backwards:
-                        this.PrepareFirstSwipeHandle(false);
-                        this.PrepareSecondSwipeHandle(true);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                this.PrepareFirstSwipeHandle(false);
-                this.PrepareSecondSwipeHandle(false);
-            }
-        }
-
         internal void PrepareDragVisual(DragAction action)
         {
             var owner = this.ListView;
@@ -329,6 +297,38 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <summary>
+        /// Prepares the swipe drag handles of the item.
+        /// </summary>
+        protected internal void PrepareSwipeDragHandles()
+        {
+            if (this.IsActionOnSwipeEnabled)
+            {
+                switch (this.SwipeDirection)
+                {
+                    case ListViewItemSwipeDirection.All:
+                        this.PrepareFirstSwipeHandle(true);
+                        this.PrepareSecondSwipeHandle(true);
+                        break;
+                    case ListViewItemSwipeDirection.Forward:
+                        this.PrepareFirstSwipeHandle(true);
+                        this.PrepareSecondSwipeHandle(false);
+                        break;
+                    case ListViewItemSwipeDirection.Backwards:
+                        this.PrepareFirstSwipeHandle(false);
+                        this.PrepareSecondSwipeHandle(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                this.PrepareFirstSwipeHandle(false);
+                this.PrepareSecondSwipeHandle(false);
+            }
+        }
+
         /// <inheritdoc/>
         protected override Size MeasureOverride(Size availableSize)
         {
@@ -385,82 +385,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             this.PrepareSwipeDragHandles();
             this.ChangeVisualState();
-        }
-
-        private void BindToListViewProperties()
-        {
-            if (this.ListView == null)
-            {
-                return;
-            }
-
-            Binding binding = new Binding();
-            binding.Path = new PropertyPath(nameof(this.DisabledStateOpacity));
-            binding.Source = this.ListView;
-
-            this.SetBinding(RadListViewItem.DisabledStateOpacityProperty, binding);
-        }
-
-        private void PrepareFirstSwipeHandle(bool isVisible)
-        {
-            if (isVisible)
-            {
-                if (this.firstHandle != null)
-                {
-                    this.firstHandle.ManipulationMode = ManipulationModes.None;
-                    DragDrop.SetAllowDrag(this.firstHandle, true);
-                    this.firstHandle.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                if (this.firstHandle != null)
-                {
-                    this.firstHandle.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-        private void PrepareSecondSwipeHandle(bool isVisible)
-        {
-            if (isVisible)
-            {
-                if (this.secondHandle != null)
-                {
-                    this.secondHandle.ManipulationMode = ManipulationModes.None;
-                    DragDrop.SetAllowDrag(this.secondHandle, true);
-                    this.secondHandle.Visibility = Visibility.Visible;
-                }
-            }
-            else
-            {
-                if (this.secondHandle != null)
-                {
-                    this.secondHandle.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-
-        private void PrepareReorderHandle()
-        {
-            if (this.IsHandleEnabled)
-            {
-                if (this.reorderHandle == null)
-                {
-                    this.reorderHandle = this.GetTemplateChild("PART_ReorderHandle") as FrameworkElement;
-                }
-
-                if (this.reorderHandle != null)
-                {
-                    this.reorderHandle.PointerPressed += OnReorderHandlePointerPressed;
-                }
-            }
-            else
-            {
-                if (this.reorderHandle != null)
-                {
-                    this.reorderHandle.PointerPressed -= OnReorderHandlePointerPressed;
-                }
-            }
         }
 
         /// <inheritdoc/>
@@ -681,6 +605,82 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
 
             return false;
+        }
+        private void BindToListViewProperties()
+        {
+            if (this.ListView == null)
+            {
+                return;
+            }
+
+            Binding binding = new Binding();
+            binding.Path = new PropertyPath(nameof(this.DisabledStateOpacity));
+            binding.Source = this.ListView;
+
+            this.SetBinding(RadListViewItem.DisabledStateOpacityProperty, binding);
+        }
+
+        private void PrepareFirstSwipeHandle(bool isVisible)
+        {
+            if (isVisible)
+            {
+                if (this.firstHandle != null)
+                {
+                    this.firstHandle.ManipulationMode = ManipulationModes.None;
+                    DragDrop.SetAllowDrag(this.firstHandle, true);
+                    this.firstHandle.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                if (this.firstHandle != null)
+                {
+                    this.firstHandle.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void PrepareSecondSwipeHandle(bool isVisible)
+        {
+            if (isVisible)
+            {
+                if (this.secondHandle != null)
+                {
+                    this.secondHandle.ManipulationMode = ManipulationModes.None;
+                    DragDrop.SetAllowDrag(this.secondHandle, true);
+                    this.secondHandle.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                if (this.secondHandle != null)
+                {
+                    this.secondHandle.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void PrepareReorderHandle()
+        {
+            if (this.IsHandleEnabled)
+            {
+                if (this.reorderHandle == null)
+                {
+                    this.reorderHandle = this.GetTemplateChild("PART_ReorderHandle") as FrameworkElement;
+                }
+
+                if (this.reorderHandle != null)
+                {
+                    this.reorderHandle.PointerPressed += this.OnReorderHandlePointerPressed;
+                }
+            }
+            else
+            {
+                if (this.reorderHandle != null)
+                {
+                    this.reorderHandle.PointerPressed -= this.OnReorderHandlePointerPressed;
+                }
+            }
         }
 
         private void OnReorderHandlePointerPressed(object sender, PointerRoutedEventArgs e)

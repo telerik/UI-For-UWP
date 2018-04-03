@@ -664,11 +664,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets if the listView should scroll to the current item on tap
-        /// </summary>
-        protected bool ScrollToCurrentItemOnTap { get; set; }
-
         internal ListViewDragBehavior DragBehavior
         {
             get
@@ -712,6 +707,11 @@ namespace Telerik.UI.Xaml.Controls.Data
                 return this.model;
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether if the listView should scroll to the current item on tap.
+        /// </summary>
+        protected bool ScrollToCurrentItemOnTap { get; set; }
 
         private static bool ShouldExecuteOperationsSyncroniously
         {
@@ -1078,7 +1078,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// <summary>
         /// Throws the command when group header gets tapped.
         /// </summary>
-        /// <param name="header"></param>
+        /// <param name="header">The tapped header.</param>
         protected internal virtual void OnGroupHeaderTap(ListViewGroupHeader header)
         {
             var context = header.DataContext as GroupHeaderContext;

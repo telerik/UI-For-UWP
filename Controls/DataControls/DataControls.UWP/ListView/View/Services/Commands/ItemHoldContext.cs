@@ -14,7 +14,7 @@
         }
 
         /// <summary>
-        /// Gets the holded item.
+        /// Gets the hold item.
         /// </summary>
         public object Item { get; private set; }
     }
