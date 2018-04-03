@@ -43,7 +43,7 @@ namespace Telerik.Core
         }
 
         /// <summary>
-        /// Gets the start date of this appointment.
+        /// Gets or sets the start date of this appointment.
         /// </summary>
         public DateTime StartDate
         {
@@ -62,7 +62,7 @@ namespace Telerik.Core
         }
 
         /// <summary>
-        /// Gets the end date of this appointment.
+        /// Gets or sets the end date of this appointment.
         /// </summary>
         public DateTime EndDate
         {
@@ -81,7 +81,7 @@ namespace Telerik.Core
         }
 
         /// <summary>
-        /// Gets the description of this appointment.
+        /// Gets or sets the description of this appointment.
         /// </summary>
         public string Description
         {
@@ -138,7 +138,7 @@ namespace Telerik.Core
         }
 
         /// <summary>
-        /// Gets or sets value indicating whether the appointment is all day.
+        /// Gets or sets a value indicating whether the appointment is all day.
         /// </summary>
         public bool IsAllDay
         {

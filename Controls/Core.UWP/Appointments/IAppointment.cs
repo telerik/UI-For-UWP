@@ -54,7 +54,7 @@ namespace Telerik.Core
         }
 
         /// <summary>
-        /// Gets or sets whether the appointment is all day.
+        /// Gets or sets a value indicating whether the appointment is all day.
         /// </summary>
         bool IsAllDay
         {
