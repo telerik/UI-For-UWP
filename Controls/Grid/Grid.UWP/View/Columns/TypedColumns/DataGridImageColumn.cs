@@ -94,6 +94,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares all bindings and content set to the Image visualized when entering edit mode.
         /// </summary>
         /// <param name="editorContent">The editor itself.</param>
+        /// <param name="binding">The binding set to the editor of the cell.</param>
         public override void PrepareEditorContentVisual(FrameworkElement editorContent, Windows.UI.Xaml.Data.Binding binding)
         {
         }
@@ -106,6 +107,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
         }
 
+        /// <inheritdoc/>
         public override void ClearCell(object container)
         {
             base.ClearCell(container);
@@ -136,6 +138,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             return size;
         }
 
+        /// <inheritdoc/>
         public override async void PrepareCell(object container, object value, object item)
         {
             base.PrepareCell(container, value, item);

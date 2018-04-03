@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Telerik.UI.Xaml.Controls.Grid
+﻿namespace Telerik.UI.Xaml.Controls.Grid
 {
+    /// <summary>
+    /// The mode that defines whether the row details should be visualized.
+    /// </summary>
     public enum DataGridRowDetailsMode
     {
         /// <summary>

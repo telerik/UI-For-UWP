@@ -99,7 +99,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the background of the <see cref="SegmentedCustomEditor"/> when it gets selected.
+        /// Gets or sets the background of the SegmentedCustomEditor when it gets selected.
         /// </summary>
         public Brush SelectedBackground
         {
@@ -108,7 +108,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the foreground of the <see cref="SegmentedCustomEditor"/> when it gets selected.
+        /// Gets or sets the foreground of the SegmentedCustomEditor when it gets selected.
         /// </summary>
         public Brush SelectedForeground
         {
@@ -117,7 +117,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the foreground of the <see cref="SegmentedCustomEditor"/> when it gets disabled.
+        /// Gets or sets the foreground of the SegmentedCustomEditor when it gets disabled.
         /// </summary>
         public Brush DisabledForeground
         {

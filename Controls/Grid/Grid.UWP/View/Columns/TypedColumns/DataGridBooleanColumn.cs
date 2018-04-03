@@ -96,11 +96,13 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares all bindings and content set to the CheckBox visualized when entering edit mode.
         /// </summary>
         /// <param name="editorContent">The editor itself.</param>
+        /// <param name="binding">The binding set to the editor of the cell.</param>
         public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
         {
             editorContent.SetBinding(CheckBox.IsCheckedProperty, binding);
         }
-        
+
+        /// <inheritdoc/>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Windows.UI.Xaml.Controls.TextBlock.put_Text(System.String)")]
         public override void PrepareCell(object container, object value, object item)
         {

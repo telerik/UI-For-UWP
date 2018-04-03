@@ -18,6 +18,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.DefaultStyleKey = typeof(AppointmentControl);
         }
 
+        /// <inheritdoc/>
         protected override void OnTapped(TappedRoutedEventArgs e)
         {
             if (this.calendar != null)

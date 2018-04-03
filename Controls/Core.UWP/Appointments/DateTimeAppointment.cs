@@ -118,6 +118,9 @@ namespace Telerik.Core
             }
         }
 
+        /// <summary>
+        /// Gets or sets the background color of the appointment.
+        /// </summary>
         public Brush Color
         {
             get
@@ -134,6 +137,9 @@ namespace Telerik.Core
             }
         }
 
+        /// <summary>
+        /// Gets or sets value indicating whether the appointment is all day.
+        /// </summary>
         public bool IsAllDay
         {
             get

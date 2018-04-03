@@ -1075,6 +1075,10 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.updateService.RegisterUpdate((int)UpdateFlags.AllButData);
         }
 
+        /// <summary>
+        /// Throws the command when group header gets tapped.
+        /// </summary>
+        /// <param name="header"></param>
         protected internal virtual void OnGroupHeaderTap(ListViewGroupHeader header)
         {
             var context = header.DataContext as GroupHeaderContext;

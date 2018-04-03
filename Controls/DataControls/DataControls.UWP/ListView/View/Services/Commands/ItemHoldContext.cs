@@ -1,7 +1,7 @@
 ﻿namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 {
     /// <summary>
-    /// Represents the context that is passed as a parameter of a <see cref="CommandId.ItemHold" command/>.
+    /// Represents the context that is passed as a parameter of a <see cref="CommandId.ItemHold"/> command.
     /// </summary>
     public class ItemHoldContext
     {

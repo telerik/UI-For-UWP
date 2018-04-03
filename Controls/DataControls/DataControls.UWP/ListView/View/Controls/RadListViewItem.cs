@@ -152,6 +152,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the item is currently reordering.
+        /// </summary>
         public bool IsReordering
         {
             get
@@ -230,6 +233,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             return isInvalidated;
         }
 
+        /// <summary>
+        /// Prepares the swipe drag hadles of the item.
+        /// </summary>
         protected internal void PrepareSwipeDragHandles()
         {
             if (this.IsActionOnSwipeEnabled)
@@ -471,6 +477,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             this.ChangeVisualState(true);
         }
 
+        /// <inheritdoc/>
         protected override void OnPointerMoved(PointerRoutedEventArgs e)
         {
             base.OnPointerMoved(e);

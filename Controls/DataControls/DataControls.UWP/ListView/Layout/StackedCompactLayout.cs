@@ -632,7 +632,7 @@ namespace Telerik.Data.Core.Layouts
             GroupInfo groupInfo;
             int lowerBound;
 
-            while (currentRowIndex < this.TotalSlotCount)
+            while (currentFlatSlotIndex < this.TotalSlotCount)
             {
                 if (this.GroupHeadersTable.TryGetValue(currentFlatSlotIndex, out groupInfo, out lowerBound))
                 {

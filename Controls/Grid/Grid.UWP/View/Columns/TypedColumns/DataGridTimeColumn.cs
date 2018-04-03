@@ -61,6 +61,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares all bindings and content set to the RadTimePicker visualized when entering edit mode.
         /// </summary>
         /// <param name="editorContent">The editor itself.</param>
+        /// <param name="binding">The binding set to the editor of the cell.</param>
         public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
         {
             editorContent.SetBinding(RadTimePicker.ValueProperty, binding);

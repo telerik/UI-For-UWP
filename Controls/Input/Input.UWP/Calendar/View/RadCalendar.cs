@@ -1815,6 +1815,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.Invalidate();
         }
 
+        /// <summary>
+        /// Scrolls to a specific appointment.
+        /// </summary>
+        /// <param name="appointment">The appointment that should be scrolled to.</param>
         public void ScrollAppointmentIntoView(IAppointment appointment)
         {
             if (this.timeRulerLayer != null)
@@ -3444,6 +3448,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Implementation of the <see cref="ICollectionChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -3501,6 +3510,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        /// <summary>
+        /// Implementation of the <see cref="IPropertyChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (sender is IAppointment)

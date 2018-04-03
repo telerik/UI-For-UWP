@@ -91,6 +91,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        /// <summary>
+        /// Gets the color of the appointment.
+        /// </summary>
         public Brush Brush
         {
             get
@@ -104,6 +107,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        /// <summary>
+        /// Gets information if the appointment is all day.
+        /// </summary>
         public bool IsAllDay
         {
             get

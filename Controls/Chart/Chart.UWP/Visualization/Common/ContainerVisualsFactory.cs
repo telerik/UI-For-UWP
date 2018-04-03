@@ -272,6 +272,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// </summary>
         /// <param name="containerVisual">The <see cref="ContainerVisual"/> that is used by the <see cref="Compositor"/> API.</param>
         /// <param name="points"> The Point used for the calculation of the Size and Offset of the <see cref="ContainerVisual"/>.</param>
+        /// <param name="stroke"> The stroke set to the <see cref="ContainerVisual"/> and used by its color brush.</param>
+        /// <param name="strokeThickness"> The thickness of the stroke.</param>
         protected internal virtual ContainerVisual PrepareLineRenderVisual(ContainerVisual containerVisual, IEnumerable<Point> points, Brush stroke, double strokeThickness)
         {
             containerVisual.Children.RemoveAll();

@@ -453,6 +453,9 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        /// <summary>
+        /// Gets information whether the <see cref="RadCalendar" /> has been loaded.
+        /// </summary>
         public bool IsOwnerLoaded
         {
             get
@@ -826,6 +829,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.owner.timeRulerLayer?.RecycleTimeRulerItems(this.owner.Model.multiDayViewModel.timeRulerItems);
         }
 
+        /// <summary>
+        /// Implementation of the <see cref="ICollectionChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -885,6 +893,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        /// <summary>
+        /// Implementation of the <see cref="IPropertyChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (sender is Slot)

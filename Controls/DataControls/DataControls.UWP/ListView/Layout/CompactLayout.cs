@@ -140,38 +140,33 @@ namespace Telerik.Data.Core.Layouts
         public override void Expand(object item)
         {
             var groupInfo = this.GetGroupInfo(item);
+            bool isCollapsed = groupInfo != null ? !groupInfo.IsExpanded : false;
 
-            if (groupInfo != null && !groupInfo.IsExpanded)
+            if (isCollapsed)
             {
                 groupInfo.IsExpanded = true;
                 if (groupInfo.IsVisible())
                 {
-                    this.ExpandCore(groupInfo);
+                    int groupSlot = 0;
+                    int groupSlotSpan = 0;
+                    this.GetCollapseRange(groupInfo, out groupSlot, out groupSlotSpan);
+
+                    this.collapsedSlotsTable.RemoveValues(groupSlot, groupSlotSpan);
+                    int expandedCount = groupSlotSpan;
+
+                    foreach (var collapsedGroup in this.CollapsedChildItems(groupInfo.Item))
+                    {
+                        int slot;
+                        int slotSpan;
+                        this.GetCollapseRange(collapsedGroup, out slot, out slotSpan);
+                        expandedCount -= slotSpan;
+                        this.collapsedSlotsTable.AddValues(slot, slotSpan, true);
+                    }
+
+                    this.VisibleLineCount += expandedCount;
+                    this.RaiseExpanded(new ExpandCollapseEventArgs(item, groupSlot, groupSlotSpan));
                 }
             }
-        }
-
-        private void ExpandCore(GroupInfo info)
-        {
-            int slot = 0;
-            int slotSpan = 0;
-
-            this.GetCollapseRange(info, out slot, out slotSpan);
-            this.collapsedSlotsTable.RemoveValues(slot, slotSpan);
-
-            this.VisibleLineCount += slotSpan;
-
-            for (int offset = 0; offset < slotSpan; offset++)
-            {
-                this.renderInfo.Update(slot + offset, DefaultItemLength);
-            }
-
-            foreach (var collapsedGroup in this.CollapsedChildItems(info.Item))
-            {
-                this.CollapseCore(collapsedGroup, false);
-            }
-
-            this.RaiseExpanded(new ExpandCollapseEventArgs(info, slot, slotSpan));
         }
 
         public override void Collapse(object item)
@@ -519,6 +514,20 @@ namespace Telerik.Data.Core.Layouts
             return null;
         }
 
+        internal override double PhysicalOffsetFromSlot(int slot)
+        {
+            var physicalOffset = this.RenderInfo.OffsetFromIndex(slot);
+            var collapsedSlot = this.collapsedSlotsTable.GetPreviousIndex(slot + 1);
+
+            while (collapsedSlot >= 0)
+            {
+                physicalOffset -= this.RenderInfo.ValueForIndex(collapsedSlot);
+                collapsedSlot = this.collapsedSlotsTable.GetPreviousIndex(collapsedSlot);
+            }
+
+            return physicalOffset;
+        }
+
         internal override double SlotFromPhysicalOffset(double physicalOffset, bool includeCollapsed = false)
         {
             var logicalOffset = this.RenderInfo.IndexFromOffset(physicalOffset);
@@ -823,7 +832,7 @@ namespace Telerik.Data.Core.Layouts
             slotSpan = groupInfo.GetLineSpan() - 1;
         }
 
-        private void CollapseCore(GroupInfo info, bool raiseEvent)
+        private void CollapseCore(GroupInfo info, bool raiseExpanded)
         {
             info.IsExpanded = false;
 
@@ -836,12 +845,7 @@ namespace Telerik.Data.Core.Layouts
 
             this.VisibleLineCount -= collapsedItems;
 
-            for (int offset = 0; offset < slotSpan; offset++)
-            {
-                this.renderInfo.Update(slot + offset, 0);
-            }
-
-            if (raiseEvent)
+            if (raiseExpanded)
             {
                 this.RaiseCollapsed(new ExpandCollapseEventArgs(info.Item, slot, slotSpan));
             }

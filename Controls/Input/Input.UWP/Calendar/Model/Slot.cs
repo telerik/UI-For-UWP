@@ -4,6 +4,9 @@ using Telerik.Core;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
+    /// <summary>
+    /// A class that represents destination slot.
+    /// </summary>
     public class Slot : ViewModelBase
     {
         internal RadRect layoutSlot;
@@ -41,7 +44,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         /// <summary>
-        /// Gets or sets the start <see cref="DateTime"/> of the <see cref="IDateSpan"/>.
+        /// Gets or sets the start <see cref="DateTime"/> of the <see cref="Slot"/>.
         /// </summary>
         public DateTime Start
         {
@@ -60,7 +63,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         /// <summary>
-        /// Gets or sets the end <see cref="DateTime"/> of the <see cref="IDateSpan"/>.
+        /// Gets or sets the end <see cref="DateTime"/> of the <see cref="Slot"/>.
         /// </summary>
         public DateTime End
         {
@@ -89,6 +92,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return string.Format(CultureInfo.CurrentCulture, "Start: {0}, End: {1}", this.start, this.end);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             var slot = obj as Slot;
@@ -98,6 +102,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             return base.Equals(obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

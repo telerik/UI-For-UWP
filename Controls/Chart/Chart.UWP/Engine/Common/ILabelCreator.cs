@@ -9,7 +9,7 @@
         /// Decides whether the Label should be created or not.
         /// </summary>
         /// <param name="owner">The owner.</param>
-        /// <param name="content">The content to be formatted.</param>
+        /// <param name="labelContent">The content to be formatted.</param>
         /// <returns>If True is returned the Label should be created. If False is returned no Label should be created.</returns>
         bool ShouldCreateAxisLabel(object owner, object labelContent);
     }

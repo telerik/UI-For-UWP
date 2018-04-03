@@ -123,6 +123,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares the control visualized by the cell when it is not edited.
         /// </summary>
         /// <param name="container">The container visualizing the cell data when it is not edited.</param>
+        /// <param name="value">The value of the cell.</param>
+        /// <param name="item">The item visualized in the cell.</param>
         public abstract void PrepareCell(object container, object value, object item);
 
         /// <summary>
