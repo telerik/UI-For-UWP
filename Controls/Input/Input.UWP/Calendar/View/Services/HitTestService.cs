@@ -25,8 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return null;
         }
 
-        internal static Slot GetSlotFromPoint(Point hitPoint, ElementCollection<CalendarTimeRulerItem> calendarTimeRulerItems, 
-            ElementCollection<CalendarCellModel> calendarCells, int visibleDays)
+        internal static Slot GetSlotFromPoint(Point hitPoint, ElementCollection<CalendarTimeRulerItem> calendarTimeRulerItems, ElementCollection<CalendarCellModel> calendarCells, int visibleDays)
         {
             Slot slot = new Slot();
             foreach (CalendarTimeRulerItem item in calendarTimeRulerItems)

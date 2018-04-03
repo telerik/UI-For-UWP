@@ -10,8 +10,8 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 {
     internal class WrapLayoutStrategy : BaseLayoutStrategy
     {
-        private WrapLayout layout;
         private readonly HashSet<object> generatedContainerItems = new HashSet<object>();
+        private WrapLayout layout;
 
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "These virtual calls do not rely on uninitialized base state.")]
         public WrapLayoutStrategy(ItemModelGenerator generator, IOrientedParentView owner, double defaultItemLength, double defaultItemOppositeLength) : base(generator, owner)
@@ -136,7 +136,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
         {
             List<GeneratedItemModel> containers;
             if (this.generatedContainers.TryGetValue(slot, out containers))
+            {
                 return containers.FirstOrDefault(model => model.ItemInfo.Id == id);
+            }
 
             return null;
         }

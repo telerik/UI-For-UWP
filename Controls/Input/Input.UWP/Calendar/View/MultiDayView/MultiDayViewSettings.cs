@@ -434,7 +434,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             set
             {
-                SetValue(AllDayAreaBackgroundProperty, value);
+                this.SetValue(AllDayAreaBackgroundProperty, value);
             }
         }
 
@@ -449,10 +449,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             set
             {
-                SetValue(TimelineBackgroundProperty, value);
+                this.SetValue(TimelineBackgroundProperty, value);
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the <see cref="RadCalendar" /> has been loaded.
+        /// </summary>
         public bool IsOwnerLoaded
         {
             get
@@ -464,6 +467,83 @@ namespace Telerik.UI.Xaml.Controls.Input
                 }
 
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Implementation of the <see cref="ICollectionChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender">The collection sending the event.</param>
+        /// <param name="e">The event args.</param>
+        public void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (Slot slot in e.NewItems)
+                    {
+                        WeakPropertyChangedListener newListener = WeakPropertyChangedListener.CreateIfNecessary(slot, this);
+                        if (newListener != null)
+                        {
+                            this.specialSlotsPropertyChangedListeners.Add(newListener);
+                        }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    if (this.specialSlotsPropertyChangedListeners != null && this.specialSlotsPropertyChangedListeners.Count > 0)
+                    {
+                        foreach (Slot slot in e.OldItems)
+                        {
+                            WeakPropertyChangedListener oldPropertyListener = this.specialSlotsPropertyChangedListeners[e.OldStartingIndex];
+                            if (oldPropertyListener != null)
+                            {
+                                this.specialSlotsPropertyChangedListeners.Remove(oldPropertyListener);
+                                oldPropertyListener.Detach();
+                                oldPropertyListener = null;
+                            }
+                        }
+                    }
+
+                    this.owner.timeRulerLayer?.RecycleSlots(e.OldItems.Cast<Slot>());
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    WeakPropertyChangedListener propertyListener = this.specialSlotsPropertyChangedListeners[e.OldStartingIndex];
+                    if (propertyListener != null)
+                    {
+                        this.specialSlotsPropertyChangedListeners.Remove(propertyListener);
+                        propertyListener.Detach();
+                        propertyListener = null;
+                    }
+
+                    WeakPropertyChangedListener listener = WeakPropertyChangedListener.CreateIfNecessary(e.NewItems[0], this);
+                    if (listener != null)
+                    {
+                        this.specialSlotsPropertyChangedListeners.Add(listener);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+
+            if (sender == this.SpecialSlotsSource)
+            {
+                this.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
+            }
+        }
+
+        /// <summary>
+        /// Implementation of the <see cref="IPropertyChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender">The sender of the property changed.</param>
+        /// <param name="e">The arguments of the event.</param>
+        public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is Slot)
+            {
+                this.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
             }
         }
 
@@ -824,73 +904,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             this.owner.timeRulerLayer?.RecycleTimeRulerLines(this.owner.Model.multiDayViewModel.timerRulerLines);
             this.owner.timeRulerLayer?.RecycleTimeRulerItems(this.owner.Model.multiDayViewModel.timeRulerItems);
-        }
-
-        public void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    foreach (Slot slot in e.NewItems)
-                    {
-                        WeakPropertyChangedListener newListener = WeakPropertyChangedListener.CreateIfNecessary(slot, this);
-                        if (newListener != null)
-                        {
-                            this.specialSlotsPropertyChangedListeners.Add(newListener);
-                        }
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    if (this.specialSlotsPropertyChangedListeners != null && this.specialSlotsPropertyChangedListeners.Count > 0)
-                    {
-                        foreach (Slot slot in e.OldItems)
-                        {
-                            WeakPropertyChangedListener oldPropertyListener = this.specialSlotsPropertyChangedListeners[e.OldStartingIndex];
-                            if (oldPropertyListener != null)
-                            {
-                                this.specialSlotsPropertyChangedListeners.Remove(oldPropertyListener);
-                                oldPropertyListener.Detach();
-                                oldPropertyListener = null;
-                            }
-                        }
-                    }
-
-                    this.owner.timeRulerLayer?.RecycleSlots(e.OldItems.Cast<Slot>());
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                case NotifyCollectionChangedAction.Replace:
-                    WeakPropertyChangedListener propertyListener = this.specialSlotsPropertyChangedListeners[e.OldStartingIndex];
-                    if (propertyListener != null)
-                    {
-                        this.specialSlotsPropertyChangedListeners.Remove(propertyListener);
-                        propertyListener.Detach();
-                        propertyListener = null;
-                    }
-
-                    WeakPropertyChangedListener listener = WeakPropertyChangedListener.CreateIfNecessary(e.NewItems[0], this);
-                    if (listener != null)
-                    {
-                        this.specialSlotsPropertyChangedListeners.Add(listener);
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    break;
-                default:
-                    break;
-            }
-
-            if (sender == this.SpecialSlotsSource)
-            {
-                this.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
-            }
-        }
-
-        public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (sender is Slot)
-            {
-                this.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
-            }
         }
     }
 }

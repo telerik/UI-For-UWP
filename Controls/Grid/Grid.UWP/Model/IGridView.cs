@@ -25,9 +25,9 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         IDecorationPresenter<SelectionRegionModel> FrozenSelectionDecorationsPresenter { get; }
 
-        IDataView GetDataView();
-
         RowDetailsService RowDetailsService { get; }
+
+        IDataView GetDataView();
 
         void RebuildUI();
 

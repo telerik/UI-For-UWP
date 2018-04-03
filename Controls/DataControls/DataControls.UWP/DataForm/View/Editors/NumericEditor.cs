@@ -97,7 +97,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         public Brush ButtonsBackground
         {
             get { return (Brush)GetValue(ButtonsBackgroundProperty); }
-            set { SetValue(ButtonsBackgroundProperty, value); }
+            set { this.SetValue(ButtonsBackgroundProperty, value); }
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         public Brush ButtonsPointerOverBackgroundBrush
         {
             get { return (Brush)GetValue(ButtonsPointerOverBackgroundBrushProperty); }
-            set { SetValue(ButtonsPointerOverBackgroundBrushProperty, value); }
+            set { this.SetValue(ButtonsPointerOverBackgroundBrushProperty, value); }
         }
 
         /// <summary>

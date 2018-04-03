@@ -53,7 +53,7 @@ namespace Telerik.UI.Xaml.Controls.DataVisualization
         }
 
         /// <summary>
-        /// Gets a list of SegmentInfos. These infos are 
+        /// Gets a list of Segment info. These info are 
         /// used during the creation of the visual representation of
         /// the segments.
         /// </summary>

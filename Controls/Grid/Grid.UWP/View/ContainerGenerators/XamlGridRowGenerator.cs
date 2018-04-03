@@ -34,28 +34,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.PrepareGroupRow(decorator, decorator.Container as DataGridGroupHeader);
         }
 
-        private void PrepareExpandedRowDetailsControl(GridRowModel decorator, DataGridRowDetailsControl control)
-        {
-            if (control != null)
-            {
-                control.Content = decorator.ItemInfo.Item;
-
-                if (this.owner.RowDetailsTemplate != control.ContentTemplate)
-                {
-                    control.ContentTemplate = this.owner.RowDetailsTemplate;
-                }
-            }
-        }
-
-        private void PrepareLoadingDataControl(DataGridLoadDataControl control)
-        {
-            if (control != null)
-            {
-                control.Owner = this.owner;
-                this.owner.visualStateService.RegisterDataLoadingListener((IDataStatusListener)control);
-            }
-        }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         public void ClearContainerForItem(GridRowModel decorator)
         {
@@ -95,7 +73,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return loadingDataControlType;
             }
 
-            //TODO: detach this if possible from the owner
+            // TODO: detach this if possible from the owner
             if (this.owner.rowDetailsService.HasExpandedRowDetails(context.Info.Item))
             {
                 return rowDetailType;
@@ -198,6 +176,28 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 container.Visibility = Visibility.Collapsed;
                 container.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            }
+        }
+
+        private void PrepareLoadingDataControl(DataGridLoadDataControl control)
+        {
+            if (control != null)
+            {
+                control.Owner = this.owner;
+                this.owner.visualStateService.RegisterDataLoadingListener((IDataStatusListener)control);
+            }
+        }
+
+        private void PrepareExpandedRowDetailsControl(GridRowModel decorator, DataGridRowDetailsControl control)
+        {
+            if (control != null)
+            {
+                control.Content = decorator.ItemInfo.Item;
+
+                if (this.owner.RowDetailsTemplate != control.ContentTemplate)
+                {
+                    control.ContentTemplate = this.owner.RowDetailsTemplate;
+                }
             }
         }
 

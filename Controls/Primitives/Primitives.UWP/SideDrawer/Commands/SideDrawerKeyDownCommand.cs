@@ -2,13 +2,18 @@
 
 namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
 {
+    /// <summary>
+    /// A command executed when the key is pressed down inside an element placed in the SideDrawer.
+    /// </summary>
     public class SideDrawerKeyDownCommand : SideDrawerCommand
     {
+        /// <inheritdoc/>
         public override bool CanExecute(object parameter)
         {
             return parameter is KeyRoutedEventArgs;
         }
 
+        /// <inheritdoc/>
         public override void Execute(object parameter)
         {
             base.Execute(parameter);

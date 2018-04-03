@@ -155,8 +155,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                             info.IsAllDay = appointment.IsAllDay;
 
                             int xCoeff = (calendarCell.Date - appointment.StartDate.Date).Days;
-                            RadRect layoutSlot = new RadRect(calendarCell.layoutSlot.X - this.timeRulerWidth,
-                                startY, calendarCell.layoutSlot.Width, endY - startY);
+                            RadRect layoutSlot = new RadRect(calendarCell.layoutSlot.X - this.timeRulerWidth, startY, calendarCell.layoutSlot.Width, endY - startY);
                             info.layoutSlot = layoutSlot;
                             this.appointmentInfos.Add(info);
                         }
@@ -165,6 +164,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                 this.ArrangeIntersectedAppointments();
             }
+        }
+
+        protected override void ArrangeCalendarHeaders(RadRect viewRect)
+        {
+            this.EnsureCalendarHeaderCells();
+            this.ArrangeCalendarColumnHeaders(viewRect);
         }
 
         private void ArrangeIntersectedAppointments()
@@ -257,12 +262,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        protected override void ArrangeCalendarHeaders(RadRect viewRect)
-        {
-            this.EnsureCalendarHeaderCells();
-            this.ArrangeCalendarColumnHeaders(viewRect);
-        }
-
         private void ArrangeCalendarTimerRuler(RadRect viewRect)
         {
             switch (this.updateFlag)
@@ -346,7 +345,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.todaySlot.End = today.AddTicks(settings.DayEndTime.Ticks);
             }
 
-            double startY = DateToVerticalPosition(today, this.todaySlot.Start);
+            double startY = this.DateToVerticalPosition(today, this.todaySlot.Start);
             DateTime endDate = this.todaySlot.End.TimeOfDay > settings.DayEndTime
                 ? endDate = this.todaySlot.End.Add(TimeSpan.FromTicks(settings.DayEndTime.Ticks - this.todaySlot.End.TimeOfDay.Ticks))
                 : endDate = this.todaySlot.End;
@@ -415,8 +414,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         {
                             int widthCoeff = (appointment.EndDate - appointment.StartDate).Days;
                             int xCoeff = (cell.Date - appointment.StartDate.Date).Days;
-                            RadRect layoutSlot = new RadRect(cell.layoutSlot.X - (xCoeff * cell.layoutSlot.Width), prevBottom, 
-                                cell.layoutSlot.Width + (cell.layoutSlot.Width * widthCoeff) + (this.Calendar.GridLinesThickness * widthCoeff), appoitmentHeight);
+                            RadRect layoutSlot = new RadRect(cell.layoutSlot.X - (xCoeff * cell.layoutSlot.Width), prevBottom, cell.layoutSlot.Width + (cell.layoutSlot.Width * widthCoeff) + (this.Calendar.GridLinesThickness * widthCoeff), appoitmentHeight);
                             if (containedInfos.FirstOrDefault(a => a.layoutSlot.IntersectsWith(layoutSlot)) == null)
                             {
                                 CalendarAppointmentInfo containedInfo = containedInfos.FirstOrDefault(a => a.childAppointment == appointment);
@@ -613,7 +611,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             TimeSpan timeSlotTime = settings.DayStartTime;
             string textToMeasure = timeSlotTime.ToString(model.TimeFormat, model.Culture);
             this.halfTextHeight = model.View.MeasureContent(null, textToMeasure).Height / 2;
-            double previousBottom = viewRect.Y - halfTextHeight;
+            double previousBottom = viewRect.Y - this.halfTextHeight;
 
             string labelText = string.Empty;
             double heightCoeff;
@@ -636,8 +634,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 heightCoeff = (timerRulerItem.EndTime - timerRulerItem.StartTime).Ticks / oneHourTicks;
                 timeItemHeight = settings.TimeLinesSpacing * heightCoeff;
 
-                timerRulerItem.Arrange(new RadRect(0d, previousBottom, timeWidth, timeItemHeight + halfTextHeight));
-                previousBottom = timerRulerItem.layoutSlot.Bottom - halfTextHeight;
+                timerRulerItem.Arrange(new RadRect(0d, previousBottom, timeWidth, timeItemHeight + this.halfTextHeight));
+                previousBottom = timerRulerItem.layoutSlot.Bottom - this.halfTextHeight;
 
                 labelText = timeSlotTime.ToString(this.Calendar.TimeFormat, this.Calendar.Culture);
             }

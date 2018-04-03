@@ -39,11 +39,6 @@ namespace Telerik.Data.Core.Layouts
             return this.CalculateFlatRowCount(this.ItemsSource.Count);
         }
 
-        private int CalculateFlatRowCount(int count)
-        {
-            return (int)Math.Ceiling((double)count / this.stackCount);
-        }
-
         internal override int CountAndPopulateTables(object item, int rootSlot, int level, int levels, GroupInfo parent, bool shouldIndexItem, List<GroupInfo> insert, ref int totalLines)
         {
             int subtotalItemsCount = 1;
@@ -623,6 +618,11 @@ namespace Telerik.Data.Core.Layouts
             }
 
             this.RefreshRenderInfo(false);
+        }
+
+        private int CalculateFlatRowCount(int count)
+        {
+            return (int)Math.Ceiling((double)count / this.stackCount);
         }
 
         private int GetRowSlotFromFlatSlot(int flatSlot)

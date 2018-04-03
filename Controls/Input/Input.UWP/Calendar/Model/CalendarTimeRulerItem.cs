@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
+    /// <summary>
+    /// A class that represents the time area that build the timer ruler part of the day view.
+    /// </summary>
     public class CalendarTimeRulerItem : CalendarNode
     {
         /// <summary>

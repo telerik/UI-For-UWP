@@ -115,8 +115,8 @@ namespace Telerik.Core
             context.EnsureDefaultTransforms();
             ScaleTransform transform = context.Target.GetScaleTransform();
 
-            double fromX = StartScaleX ?? transform.ScaleX;
-            double toX = EndScaleX ?? transform.ScaleX;
+            double fromX = this.StartScaleX ?? transform.ScaleX;
+            double toX = this.EndScaleX ?? transform.ScaleX;
 
             double duration = this.Duration.TimeSpan.TotalSeconds;
 

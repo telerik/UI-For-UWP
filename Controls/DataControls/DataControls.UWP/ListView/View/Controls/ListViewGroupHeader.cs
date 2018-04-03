@@ -41,7 +41,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
         }
 
         /// <summary>
-        /// Gets a value indicating whether the details are expanded or collapsed.
+        /// Gets or sets a value indicating whether the details are expanded or collapsed.
         /// </summary>
         public bool IsExpanded
         {

@@ -65,14 +65,14 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             RadAnimationManager.Play(element, animation);
         }
-        
+
         internal bool IsAnimating(ItemInfo? info)
         {
-	        return this.runningAnimations.Values.Any(tuple =>
-	        {
-		        var model = tuple.Item1 as GeneratedItemModel;
-		        return model != null && model.ItemInfo.Equals(info);
-	        });
+            return this.runningAnimations.Values.Any(tuple =>
+            {
+                var model = tuple.Item1 as GeneratedItemModel;
+                return model != null && model.ItemInfo.Equals(info);
+            });
         }
 
         internal bool HasItemsForAnimation()

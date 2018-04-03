@@ -37,7 +37,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
             set
             {
-                SetValue(ThumbBackgroundProperty, value);
+                this.SetValue(ThumbBackgroundProperty, value);
             }
         }
 

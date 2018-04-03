@@ -31,8 +31,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
             {
                 navigationStep = this.MultiDayViewSettings.VisibleDays;
-
             }
+
             this.RaiseMoveToPreviousViewCommand(navigationStep);
         }
 
@@ -46,8 +46,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
             {
                 navigationStep = this.MultiDayViewSettings.VisibleDays;
-
             }
+
             this.RaiseMoveToNextViewCommand(navigationStep);
         }
 

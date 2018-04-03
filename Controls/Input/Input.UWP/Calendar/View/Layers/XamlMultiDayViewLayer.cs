@@ -156,7 +156,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             IAppointment pendingToScrollApp = this.Owner.pendingScrollToAppointment;
             if (pendingToScrollApp != null)
             {
-                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
+                await Dispatcher.RunAsync(
+                    Windows.UI.Core.CoreDispatcherPriority.Normal, 
                     () =>
                     {
                         this.ScrollAppointmentIntoView(pendingToScrollApp);
@@ -775,14 +776,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 {
                     if (navigationWidth < this.currHorizontalOffset)
                     {
-                        currentPosition -= (navigationWidth + cellWidth / 2);
+                        currentPosition -= navigationWidth + cellWidth / 2;
                     }
                 }
                 else
                 {
                     if (navigationWidth < -this.currHorizontalOffset)
                     {
-                        currentPosition += (navigationWidth + cellWidth / 2);
+                        currentPosition += navigationWidth + cellWidth / 2;
                     }
                 }
 

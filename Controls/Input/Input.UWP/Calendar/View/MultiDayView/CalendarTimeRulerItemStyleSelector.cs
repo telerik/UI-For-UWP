@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Data;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
+    /// <summary>
+    /// Represents a class used for customizing the timer ruler part of the day view.
+    /// </summary>
     [Bindable]
     [StyleTypedProperty(Property = "VerticalLineStyle", StyleTargetType = typeof(Border))]
     [StyleTypedProperty(Property = "HorizontalLineStyle", StyleTargetType = typeof(Border))]

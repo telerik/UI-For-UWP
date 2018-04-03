@@ -213,7 +213,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Gets or sets the selector format. 
         /// This value defines which <see cref="DateTimeItem"/> parts of the selector will be visible and how they will be ordered.
-        /// For example setting "ym" will display the Year and Month items in a <see cref="RadDatePicker"/> instance.
+        /// For example setting "y" will display the Year and Month items in a <see cref="RadDatePicker"/> instance.
         /// </summary>
         /// <value>
         /// <para>

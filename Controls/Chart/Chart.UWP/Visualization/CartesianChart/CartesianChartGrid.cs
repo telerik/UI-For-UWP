@@ -1,13 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Telerik.Charting;
 using Telerik.Core;
 using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
@@ -482,9 +479,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             public void UpdateVisuals()
             {
-                if (dashArray == null)
+                if (this.dashArray == null)
                 {
-                    this.dashArray = new DoubleCollection() { 4, 2};
+                    this.dashArray = new DoubleCollection() { 4, 2 };
                 }
 
                 int arrangedVisuals = this.ArrangeLines(true);
@@ -516,7 +513,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 {
                     return 0;
                 }
-
 
                 object line;
                 int lineCount = 0;
@@ -560,7 +556,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     lineCount++;
                 }
 
-                //draw the last line
+                // draw the last line
                 if (count > 0 && (this.RenderMode & GridLineRenderMode.Last) == GridLineRenderMode.Last)
                 {
                     stripe = this.Stripes[count - 1];

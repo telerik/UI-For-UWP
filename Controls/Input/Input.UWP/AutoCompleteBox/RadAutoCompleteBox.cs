@@ -774,7 +774,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets a value indicating if the clear button should be visualized.
+        /// Gets or sets a value indicating whether if the clear button should be visualized.
         /// </summary>
         public bool IsClearButtonVisible
         {

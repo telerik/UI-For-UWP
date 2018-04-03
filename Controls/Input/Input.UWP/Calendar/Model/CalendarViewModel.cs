@@ -82,26 +82,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal abstract DateTime GetNextDateToRender(DateTime date);
         internal abstract void PrepareCalendarCell(CalendarCellModel cell, DateTime date);
 
-        protected virtual RadRect UpdateAnimatableContentClip(RadRect rect)
-        {
-            this.Calendar.AnimatableContentClip = rect;
-
-            return rect;
-        }
-
-        protected void SnapToGridLines(CalendarNode calendarCell, int rowIndex, int columnIndex)
-        {
-            this.SnapToTopGridLine(calendarCell, rowIndex);
-            this.SnapToBottomGridLine(calendarCell, rowIndex);
-
-            this.SnapToLeftGridLine(calendarCell, columnIndex);
-            this.SnapToRightGridLine(calendarCell, columnIndex);
-        }
-
-        protected virtual void ArrangeCalendarHeaders(RadRect viewRect)
-        {
-        }
-
         internal virtual void ArrangeCalendarDecorations(RadRect rect)
         {
             this.EnsureCalendarDecorations();
@@ -222,6 +202,26 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     itemIndex++;
                 }
             }
+        }
+
+        protected virtual void ArrangeCalendarHeaders(RadRect viewRect)
+        {
+        }
+
+        protected virtual RadRect UpdateAnimatableContentClip(RadRect rect)
+        {
+            this.Calendar.AnimatableContentClip = rect;
+
+            return rect;
+        }
+
+        protected void SnapToGridLines(CalendarNode calendarCell, int rowIndex, int columnIndex)
+        {
+            this.SnapToTopGridLine(calendarCell, rowIndex);
+            this.SnapToBottomGridLine(calendarCell, rowIndex);
+
+            this.SnapToLeftGridLine(calendarCell, columnIndex);
+            this.SnapToRightGridLine(calendarCell, columnIndex);
         }
 
         private void EnsureCalendarCells()

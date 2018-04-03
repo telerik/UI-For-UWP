@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using Telerik.Charting;
 using Telerik.Core;
@@ -790,7 +789,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             presenter.model.ContentFormatter = (IContentFormatter)e.NewValue;
         }
 
-
         private static void OnLabelCreatorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             Axis presenter = sender as Axis;
@@ -915,7 +913,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
                 if (this.drawWithComposition)
                 {
-                    var containerVisual = GetContainerVisual(visibleTicks);
+                    var containerVisual = this.GetContainerVisual(visibleTicks);
                     this.chart.ContainerVisualsFactory.PrepareTickVisual(containerVisual, this.GetLayoutSlot(tick, context));
 
                     visibleTicks++;
@@ -1020,7 +1018,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
             
             return containerVisual;
         }
-
 
         private RadSize MeasureLabel(AxisLabelModel label, object content)
         {

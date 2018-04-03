@@ -85,10 +85,10 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             if (this.model.renderablePoints.Count > 0)
             {
-                return this.model.renderablePoints.Where(ShouldPlotPoint).ToList();
+                return this.model.renderablePoints.Where(this.ShouldPlotPoint).ToList();
             }
 
-            return this.model.DataPointsInternal.Where(ShouldPlotPoint).ToList();
+            return this.model.DataPointsInternal.Where(this.ShouldPlotPoint).ToList();
         }
 
         protected virtual bool ShouldPlotPoint(DataPoint point)
@@ -105,6 +105,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
 
             var plotDirection = this.model.GetTypedValue<AxisPlotDirection>(AxisModel.PlotDirectionPropertyKey, AxisPlotDirection.Vertical);
+
             // empty values
             return (isWithinXPlot && double.IsNaN(point.layoutSlot.Y) && plotDirection == AxisPlotDirection.Vertical) ||
                    (isWithinYPlot && double.IsNaN(point.layoutSlot.X) && plotDirection == AxisPlotDirection.Horizontal);

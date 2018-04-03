@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Media;
 namespace Telerik.UI.Xaml.Controls.Chart
 {
     /// <summary>
-    /// This factory helps preparing the ContainerVisual that will be used for the rendering ot the Chart control.
+    /// This factory helps preparing the ContainerVisual that will be used for the rendering of the Chart control.
     /// It creates new <see cref="ContainerVisual"/> instances and position them on the Chart's Canvas.
     /// </summary>
     public class ContainerVisualsFactory
@@ -22,10 +22,38 @@ namespace Telerik.UI.Xaml.Controls.Chart
         private static readonly Color telerikChartAxisBorderBrushLightColor = Color.FromArgb(0x30, 0, 0, 0);
         private static readonly Color telerikChartAxisBorderBrushDarkColor = Color.FromArgb(0x59, 0xFF, 0xFF, 0xFF);
 
-        private DoubleCollection dashArrayCache;
         private readonly SolidColorBrush telerikChartAxisBorderBrush = new SolidColorBrush(telerikChartAxisBorderBrushLightColor);
         private readonly SolidColorBrush telerikChartStrokeBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x1E, 0x98, 0xE4));
         private readonly SolidColorBrush ohlcBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x60, 0xC2, 0xFF));
+
+        private DoubleCollection dashArrayCache;
+
+        internal void SetCompositionColorBrush(ContainerVisual containerVisual, Brush brush, bool isInternallyChanged = false)
+        {
+            var spriteVisual = containerVisual as SpriteVisual;
+            if (spriteVisual != null)
+            {
+                var solidColorBrush = brush as SolidColorBrush;
+                if (solidColorBrush == null && spriteVisual.Brush != null)
+                {
+                    spriteVisual.Brush = null;
+                }
+                else if (solidColorBrush != null)
+                {
+                    var compositionColorBrush = spriteVisual.Brush as CompositionColorBrush;
+                    if (compositionColorBrush == null)
+                    {
+                        spriteVisual.Brush = spriteVisual.Compositor.CreateColorBrush(solidColorBrush.Color);
+                        spriteVisual.Opacity = (float)solidColorBrush.Opacity;
+                    }
+                    else if (compositionColorBrush != null && compositionColorBrush.Color != solidColorBrush.Color && isInternallyChanged)
+                    {
+                        spriteVisual.Brush = spriteVisual.Compositor.CreateColorBrush(solidColorBrush.Color);
+                        spriteVisual.Opacity = (float)solidColorBrush.Opacity;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Indicates whether the visual can be drawn using the Composition API.
@@ -108,7 +136,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
 
             this.ChangeBrushesAccordingToAppTheme();
-            this.SetCompositionColorBrush(containerVisual, telerikChartAxisBorderBrush);
+            this.SetCompositionColorBrush(containerVisual, this.telerikChartAxisBorderBrush);
             containerVisual.Offset = new Vector3((float)layoutSlot.Location.X, (float)layoutSlot.Location.Y, 0);
 
             return containerVisual;
@@ -132,7 +160,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
                     if (this.dashArrayCache != null)
                     {
-                        var oldDashesSize = containerVisual.Children.Count * (dashArrayCache[0] + dashArrayCache[1]);
+                        var oldDashesSize = containerVisual.Children.Count * (this.dashArrayCache[0] + this.dashArrayCache[1]);
                         if (containerVisual.Children.Count > 0 && oldDashesSize < layoutSlot.Width)
                         {
                             this.ArrangeChartGridDashes(containerVisual, orientation, dashArray, (int)oldDashesSize);
@@ -149,7 +177,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
                     if (this.dashArrayCache != null)
                     {
-                        var oldDashesSize = containerVisual.Children.Count * (dashArrayCache[0] + dashArrayCache[1]);
+                        var oldDashesSize = containerVisual.Children.Count * (this.dashArrayCache[0] + this.dashArrayCache[1]);
                         if (containerVisual.Children.Count > 0 && oldDashesSize < layoutSlot.Height)
                         {
                             this.ArrangeChartGridDashes(containerVisual, orientation, dashArray, (int)oldDashesSize);
@@ -165,7 +193,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     this.ArrangeChartGridDashes(containerVisual, orientation, dashArray);
                     this.dashArrayCache = dashArray;
                 }
-                else if (dashArrayCache != null && (dashArrayCache[0] != dashArray[0] || dashArrayCache[1] != dashArray[1]))
+                else if (this.dashArrayCache != null && (this.dashArrayCache[0] != dashArray[0] || this.dashArrayCache[1] != dashArray[1]))
                 {
                     containerVisual.Children.RemoveAll();
                     this.ArrangeChartGridDashes(containerVisual, orientation, dashArray);
@@ -223,7 +251,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
 
-            this.SetCompositionColorBrush(containerVisual, telerikChartStrokeBrush);
+            this.SetCompositionColorBrush(containerVisual, this.telerikChartStrokeBrush);
             return containerVisual;
         }
 
@@ -262,7 +290,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
 
             this.ChangeBrushesAccordingToAppTheme();
-            this.SetCompositionColorBrush(lineContainer, telerikChartAxisBorderBrush);
+            this.SetCompositionColorBrush(lineContainer, this.telerikChartAxisBorderBrush);
 
             return lineContainer;
         }
@@ -272,6 +300,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// </summary>
         /// <param name="containerVisual">The <see cref="ContainerVisual"/> that is used by the <see cref="Compositor"/> API.</param>
         /// <param name="points"> The Point used for the calculation of the Size and Offset of the <see cref="ContainerVisual"/>.</param>
+        /// <param name="stroke"> The stroke set to the <see cref="ContainerVisual"/> and used by its color brush.</param>
+        /// <param name="strokeThickness"> The thickness of the stroke.</param>
         protected internal virtual ContainerVisual PrepareLineRenderVisual(ContainerVisual containerVisual, IEnumerable<Point> points, Brush stroke, double strokeThickness)
         {
             containerVisual.Children.RemoveAll();
@@ -288,7 +318,11 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     if (!haveStartPoint)
                     {
                         startPoint = endPoint;
-                        if (!enumerator.MoveNext()) break;
+                        if (!enumerator.MoveNext())
+                        {
+                            break;
+                        }
+
                         haveStartPoint = true;
                         endPoint = enumerator.Current;
                     }
@@ -301,7 +335,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     childSpiteVisual.RotationAngleInDegrees = (float)angle;
                     childSpiteVisual.Offset = new Vector3((float)startPoint.X, (float)startPoint.Y, 0);
                     childSpiteVisual.Size = new Vector2((float)width, (float)strokeThickness);
-                    SetCompositionColorBrush(childSpiteVisual, stroke);
+                    this.SetCompositionColorBrush(childSpiteVisual, stroke);
                     containerVisual.Children.InsertAtBottom(childSpiteVisual);
 
                     startPoint = endPoint;
@@ -325,7 +359,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 containerVisual.Size = new System.Numerics.Vector2((float)dataPoint.LayoutSlot.Width, (float)dataPoint.LayoutSlot.Height);
             }
 
-            this.SetCompositionColorBrush(containerVisual, telerikChartStrokeBrush);
+            this.SetCompositionColorBrush(containerVisual, this.telerikChartStrokeBrush);
 
             return containerVisual;
         }
@@ -347,27 +381,19 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 this.GenerateContainerVisualChildren(parentSpriteVisual, 8);
             }
 
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 0, new Vector3((float)halfBoxWidth, (float)upperShadowMinValue, 0),
-                new Vector2((float)(halfBoxWidth + thickness), thickness), ohlcBrush);
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 1, new Vector3((float)boxWidth, (float)upperShadowMinValue, 0),
-                new Vector2(thickness, (float)(lowerShadowMaxValue - upperShadowMinValue)), ohlcBrush);
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 2, new Vector3((float)boxWidth, (float)lowerShadowMaxValue, 0),
-                new Vector2((float)boxWidth, thickness), ohlcBrush, 180);
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 3, new Vector3(0, (float)lowerShadowMaxValue, 0),
-                new Vector2(thickness, (float)(lowerShadowMaxValue - upperShadowMinValue)), ohlcBrush, 180);
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 4, new Vector3(0, (float)upperShadowMinValue, 0),
-                new Vector2((float)halfBoxWidth, 2), ohlcBrush);
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 5, new Vector3((float)halfBoxWidth, 0, 0),
-                new Vector2(thickness, (float)upperShadowMinValue), ohlcBrush);
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 6, new Vector3((float)halfBoxWidth, (float)lowerShadowMaxValue, 0),
-                new Vector2(thickness, (float)boxHeight - (float)lowerShadowMaxValue), ohlcBrush);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 0, new Vector3((float)halfBoxWidth, (float)upperShadowMinValue, 0), new Vector2((float)(halfBoxWidth + thickness), thickness), this.ohlcBrush);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 1, new Vector3((float)boxWidth, (float)upperShadowMinValue, 0), new Vector2(thickness, (float)(lowerShadowMaxValue - upperShadowMinValue)), this.ohlcBrush);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 2, new Vector3((float)boxWidth, (float)lowerShadowMaxValue, 0), new Vector2((float)boxWidth, thickness), this.ohlcBrush, 180);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 3, new Vector3(0, (float)lowerShadowMaxValue, 0), new Vector2(thickness, (float)(lowerShadowMaxValue - upperShadowMinValue)), this.ohlcBrush, 180);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 4, new Vector3(0, (float)upperShadowMinValue, 0), new Vector2((float)halfBoxWidth, 2), this.ohlcBrush);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 5, new Vector3((float)halfBoxWidth, 0, 0), new Vector2(thickness, (float)upperShadowMinValue), this.ohlcBrush);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 6, new Vector3((float)halfBoxWidth, (float)lowerShadowMaxValue, 0), new Vector2(thickness, (float)boxHeight - (float)lowerShadowMaxValue), this.ohlcBrush);
 
             var fillBrush = ohlcDataPoint.IsFalling
                 ? new SolidColorBrush(Color.FromArgb(0x00, 0xFF, 0xFF, 0xFF))
-                : telerikChartStrokeBrush;
+                : this.telerikChartStrokeBrush;
 
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 7, new Vector3(0, (float)upperShadowMinValue + thickness, 0),
-                    new Vector2((float)boxWidth, (float)(lowerShadowMaxValue - upperShadowMinValue - 4)), fillBrush);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 7, new Vector3(0, (float)upperShadowMinValue + thickness, 0), new Vector2((float)boxWidth, (float)(lowerShadowMaxValue - upperShadowMinValue - 4)), fillBrush);
 
             return parentSpriteVisual;
         }
@@ -392,12 +418,9 @@ namespace Telerik.UI.Xaml.Controls.Chart
             var opacity = ohlcDataPoint.IsFalling ? 0.5 : 1;
             this.ohlcBrush.Opacity = opacity;
 
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 0, new Vector3((float)halfBoxWidth, 0, 0),
-                new Vector2(thickness, (float)boxHeight), ohlcBrush);
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 1, new Vector3(0, (float)leftTickValue, 0),
-                new Vector2((float)halfBoxWidth, thickness), ohlcBrush);
-            this.PositionOhlcDataPointVisual(parentSpriteVisual, 2, new Vector3((float)halfBoxWidth, (float)rightTickValue, 0),
-                new Vector2((float)halfBoxWidth, thickness), ohlcBrush);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 0, new Vector3((float)halfBoxWidth, 0, 0), new Vector2(thickness, (float)boxHeight), this.ohlcBrush);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 1, new Vector3(0, (float)leftTickValue, 0), new Vector2((float)halfBoxWidth, thickness), this.ohlcBrush);
+            this.PositionOhlcDataPointVisual(parentSpriteVisual, 2, new Vector3((float)halfBoxWidth, (float)rightTickValue, 0), new Vector2((float)halfBoxWidth, thickness), this.ohlcBrush);
 
             return parentSpriteVisual;
         }
@@ -474,7 +497,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 childVisual.Size = new Vector2(parentVisual.Size.X, (float)visualDashArray[0]);
             }
 
-            this.SetCompositionColorBrush(childVisual, telerikChartAxisBorderBrush);
+            this.SetCompositionColorBrush(childVisual, this.telerikChartAxisBorderBrush);
             parentVisual.Children.InsertAtBottom(childVisual);
 
             return childVisual;
@@ -487,43 +510,16 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 if (windowContent.RequestedTheme == ElementTheme.Light || windowContent.RequestedTheme == ElementTheme.Default)
                 {
-                    if (telerikChartAxisBorderBrush.Color != telerikChartAxisBorderBrushLightColor)
+                    if (this.telerikChartAxisBorderBrush.Color != telerikChartAxisBorderBrushLightColor)
                     {
-                        telerikChartAxisBorderBrush.Color = telerikChartAxisBorderBrushLightColor;
+                        this.telerikChartAxisBorderBrush.Color = telerikChartAxisBorderBrushLightColor;
                     }
                 }
                 else
                 {
-                    if (telerikChartAxisBorderBrush.Color != telerikChartAxisBorderBrushDarkColor)
+                    if (this.telerikChartAxisBorderBrush.Color != telerikChartAxisBorderBrushDarkColor)
                     {
-                        telerikChartAxisBorderBrush.Color = telerikChartAxisBorderBrushDarkColor;
-                    }
-                }
-            }
-        }
-
-        internal void SetCompositionColorBrush(ContainerVisual containerVisual, Brush brush, bool isInternallyChanged = false)
-        {
-            var spriteVisual = containerVisual as SpriteVisual;
-            if (spriteVisual != null)
-            {
-                var solidColorBrush = brush as SolidColorBrush;
-                if (solidColorBrush == null && spriteVisual.Brush != null)
-                {
-                    spriteVisual.Brush = null;
-                }
-                else if (solidColorBrush != null)
-                {
-                    var compositionColorBrush = spriteVisual.Brush as CompositionColorBrush;
-                    if (compositionColorBrush == null)
-                    {
-                        spriteVisual.Brush = spriteVisual.Compositor.CreateColorBrush(solidColorBrush.Color);
-                        spriteVisual.Opacity = (float)solidColorBrush.Opacity;
-                    }
-                    else if (compositionColorBrush != null && compositionColorBrush.Color != solidColorBrush.Color && isInternallyChanged)
-                    {
-                        spriteVisual.Brush = spriteVisual.Compositor.CreateColorBrush(solidColorBrush.Color);
-                        spriteVisual.Opacity = (float)solidColorBrush.Opacity;
+                        this.telerikChartAxisBorderBrush.Color = telerikChartAxisBorderBrushDarkColor;
                     }
                 }
             }

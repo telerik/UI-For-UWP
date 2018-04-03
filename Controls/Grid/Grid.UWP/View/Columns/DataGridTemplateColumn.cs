@@ -202,6 +202,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             return container;
         }
 
+        /// <inheritdoc/>
         public override void PrepareCell(object container, object value, object item)
         {
             InvalidateCellUI(container);
