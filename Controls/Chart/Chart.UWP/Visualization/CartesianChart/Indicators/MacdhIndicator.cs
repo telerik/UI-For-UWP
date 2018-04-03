@@ -321,7 +321,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
         }
-        
 
         private FrameworkElement GetDataPointVisual(DataPoint point, int virtualIndex)
         {

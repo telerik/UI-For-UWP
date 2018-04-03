@@ -123,7 +123,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
-         
+
             if (applied)
             {
                 if (this.drawWithComposition)
@@ -135,7 +135,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 {
                     this.renderSurface.Children.Add(this.line);
                 }
-                
             }
 
             return applied;
