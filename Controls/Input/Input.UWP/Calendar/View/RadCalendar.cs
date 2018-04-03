@@ -303,6 +303,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty NavigationControlBorderStyleProperty =
             DependencyProperty.Register(nameof(NavigationControlBorderStyle), typeof(Style), typeof(RadCalendar), new PropertyMetadata(null));
 
+        internal const string DefaultMultiDayViewPreviousButtonContent = "\xE012";
+        internal const string DefaultMultiDayViewNextButtonContent = "\xE013";
+
+        internal const string DefaultNextButtonContent = "\xE011";
+        internal const string DefaultPreviousButtonContent = "\xE010";
+
         internal static readonly Size InfinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
         internal static ResourceDictionary MultiDayViewResources;
 
@@ -321,12 +327,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal CalendarViewHost calendarViewHost;
         internal IAppointment pendingScrollToAppointment;
         internal CalendarCellStyle defaultDayNameCellStyle;
-
-        internal const string DefaultMultiDayViewPreviousButtonContent = "\xE012";
-        internal const string DefaultMultiDayViewNextButtonContent = "\xE013";
-
-        internal const string DefaultNextButtonContent = "\xE011";
-        internal const string DefaultPreviousButtonContent = "\xE010";
 
         private const string DefaultMonthViewHeaderFormatString = "{0:MMMM yyyy}";
         private const string DefaultYearViewHeaderFormatString = "{0:yyyy}";
@@ -1205,7 +1205,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             set
             {
-                SetValue(HeaderContentProperty, value);
+                this.SetValue(HeaderContentProperty, value);
             }
         }
 
@@ -1828,6 +1828,81 @@ namespace Telerik.UI.Xaml.Controls.Input
             else
             {
                 this.pendingScrollToAppointment = appointment;
+            }
+        }
+
+        /// <summary>
+        /// Implementation of the <see cref="ICollectionChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender">The collection sending the event.</param>
+        /// <param name="e">The event args.</param>
+        public void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (IAppointment appointment in e.NewItems)
+                    {
+                        WeakPropertyChangedListener newListener = WeakPropertyChangedListener.CreateIfNecessary(appointment, this);
+                        if (newListener != null)
+                        {
+                            this.appointmentSourcePropertyChangedListeners.Add(newListener);
+                        }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    if (this.appointmentSourcePropertyChangedListeners != null && this.appointmentSourcePropertyChangedListeners.Count > 0)
+                    {
+                        foreach (IAppointment appointment in e.OldItems)
+                        {
+                            WeakPropertyChangedListener oldPropertyListener = this.appointmentSourcePropertyChangedListeners[e.OldStartingIndex];
+                            if (oldPropertyListener != null)
+                            {
+                                this.appointmentSourcePropertyChangedListeners.Remove(oldPropertyListener);
+                                oldPropertyListener.Detach();
+                                oldPropertyListener = null;
+                            }
+                        }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    WeakPropertyChangedListener propertyListener = this.appointmentSourcePropertyChangedListeners[e.OldStartingIndex];
+                    if (propertyListener != null)
+                    {
+                        this.appointmentSourcePropertyChangedListeners.Remove(propertyListener);
+                        propertyListener.Detach();
+                        propertyListener = null;
+                    }
+
+                    WeakPropertyChangedListener listener = WeakPropertyChangedListener.CreateIfNecessary(e.NewItems[0], this);
+                    if (listener != null)
+                    {
+                        this.appointmentSourcePropertyChangedListeners.Add(listener);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+
+            if (sender == this.AppointmentSource.AllAppointments)
+            {
+                this.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            }
+        }
+
+        /// <summary>
+        /// Implementation of the <see cref="IPropertyChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender">The sender of the property changed.</param>
+        /// <param name="e">The arguments of the event.</param>
+        public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is IAppointment)
+            {
+                this.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
             }
         }
 
@@ -2970,8 +3045,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.AppointmentSource != null && this.IsTemplateApplied)
             {
                 DateTime startDate = GetFirstDayofMonth(this.DisplayDate, this.currentCulture.Calendar);
-                ObservableCollection<IAppointment> fetchedAppointments = this.AppointmentSource.FetchData(startDate,
-                    startDate.Month == DateTime.MaxValue.Month && startDate.Year == DateTime.MaxValue.Year ? startDate : startDate.AddMonths(1));
+                ObservableCollection<IAppointment> fetchedAppointments = this.AppointmentSource.FetchData(startDate, startDate.Month == DateTime.MaxValue.Month && startDate.Year == DateTime.MaxValue.Year ? startDate : startDate.AddMonths(1));
                 this.AppointmentSource.AllAppointments.Clear();
                 foreach (IAppointment app in fetchedAppointments)
                 {
@@ -3446,81 +3520,6 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             // NOTE: Not handling this causes the calendar control to lose focus for some reason
             e.Handled = true;
-        }
-
-        /// <summary>
-        /// Implementation of the <see cref="ICollectionChangedListener" /> interface.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    foreach (IAppointment appointment in e.NewItems)
-                    {
-                        WeakPropertyChangedListener newListener = WeakPropertyChangedListener.CreateIfNecessary(appointment, this);
-                        if (newListener != null)
-                        {
-                            this.appointmentSourcePropertyChangedListeners.Add(newListener);
-                        }
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    if (this.appointmentSourcePropertyChangedListeners != null && this.appointmentSourcePropertyChangedListeners.Count > 0)
-                    {
-                        foreach (IAppointment appointment in e.OldItems)
-                        {
-                            WeakPropertyChangedListener oldPropertyListener = this.appointmentSourcePropertyChangedListeners[e.OldStartingIndex];
-                            if (oldPropertyListener != null)
-                            {
-                                this.appointmentSourcePropertyChangedListeners.Remove(oldPropertyListener);
-                                oldPropertyListener.Detach();
-                                oldPropertyListener = null;
-                            }
-                        }
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                case NotifyCollectionChangedAction.Replace:
-                    WeakPropertyChangedListener propertyListener = this.appointmentSourcePropertyChangedListeners[e.OldStartingIndex];
-                    if (propertyListener != null)
-                    {
-                        this.appointmentSourcePropertyChangedListeners.Remove(propertyListener);
-                        propertyListener.Detach();
-                        propertyListener = null;
-                    }
-
-                    WeakPropertyChangedListener listener = WeakPropertyChangedListener.CreateIfNecessary(e.NewItems[0], this);
-                    if (listener != null)
-                    {
-                        this.appointmentSourcePropertyChangedListeners.Add(listener);
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    break;
-                default:
-                    break;
-            }
-
-            if (sender == this.AppointmentSource.AllAppointments)
-            {
-                this.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
-            }
-        }
-
-        /// <summary>
-        /// Implementation of the <see cref="IPropertyChangedListener" /> interface.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (sender is IAppointment)
-            {
-                this.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
-            }
         }
     }
 }

@@ -108,7 +108,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         /// <summary>
-        /// Gets information if the appointment is all day.
+        /// Gets a value indicating whether the appointment is all day.
         /// </summary>
         public bool IsAllDay
         {

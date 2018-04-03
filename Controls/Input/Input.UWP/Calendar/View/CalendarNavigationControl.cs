@@ -114,7 +114,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
             set
             {
-                SetValue(HeaderContentTemplateProperty, value);
+                this.SetValue(HeaderContentTemplateProperty, value);
             }
         }
 
@@ -248,8 +248,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.headerPresenter.PointerPressed -= this.OnHeaderPresenterPointerPressed;
                 this.headerPresenter.PointerReleased -= this.OnHeaderPresenterPointerReleased;
                 this.headerPresenter.PointerExited -= this.OnHeaderPresenterPointerExited;
-                this.headerPresenter.PointerEntered -= OnHeaderPresenterPointerEntered;
-                this.headerPresenter.PointerCaptureLost -= OnHeaderPresenterPointerCaptureLost;
+                this.headerPresenter.PointerEntered -= this.OnHeaderPresenterPointerEntered;
+                this.headerPresenter.PointerCaptureLost -= this.OnHeaderPresenterPointerCaptureLost;
             }
         }
 

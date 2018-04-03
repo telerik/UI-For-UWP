@@ -104,7 +104,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public Brush SelectedBackground
         {
             get { return (Brush)GetValue(SelectedBackgroundProperty); }
-            set { SetValue(SelectedBackgroundProperty, value); }
+            set { this.SetValue(SelectedBackgroundProperty, value); }
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public Brush SelectedForeground
         {
             get { return (Brush)GetValue(SelectedForegroundProperty); }
-            set { SetValue(SelectedForegroundProperty, value); }
+            set { this.SetValue(SelectedForegroundProperty, value); }
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public Brush DisabledForeground
         {
             get { return (Brush)GetValue(DisabledForegroundProperty); }
-            set { SetValue(DisabledForegroundProperty, value); }
+            set { this.SetValue(DisabledForegroundProperty, value); }
         }
 
         /// <summary>

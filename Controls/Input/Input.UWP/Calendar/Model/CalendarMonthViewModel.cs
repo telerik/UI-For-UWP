@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Globalization;
+using System.Linq;
 using Telerik.Core;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
@@ -67,24 +67,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             cell.IsFromAnotherView = date.Month != this.Calendar.DisplayDate.Month;
         }
 
-        protected override RadRect UpdateAnimatableContentClip(RadRect rect)
-        {
-            RadRect clipRect = this.GetCalendarViewRect(rect);
-            this.Calendar.AnimatableContentClip = clipRect;
-
-            return clipRect;
-        }
-
-        protected override void ArrangeCalendarHeaders(RadRect viewRect)
-        {
-            this.EnsureCalendarHeaderCells();
-
-            int itemIndex = 0;
-
-            this.ArrangeCalendarColumnHeaders(viewRect, ref itemIndex);
-            this.ArrangeCalendarRowHeaders(viewRect, itemIndex);
-        }
-
         internal void EnsureCalendarHeaderCells()
         {
             if (this.calendarHeaderCells == null)
@@ -115,6 +97,24 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             int itemIndex = 0;
             this.ArrangeCalendarColumnHeaders(viewRect, ref itemIndex);
+        }
+
+        protected override RadRect UpdateAnimatableContentClip(RadRect rect)
+        {
+            RadRect clipRect = this.GetCalendarViewRect(rect);
+            this.Calendar.AnimatableContentClip = clipRect;
+
+            return clipRect;
+        }
+
+        protected override void ArrangeCalendarHeaders(RadRect viewRect)
+        {
+            this.EnsureCalendarHeaderCells();
+
+            int itemIndex = 0;
+
+            this.ArrangeCalendarColumnHeaders(viewRect, ref itemIndex);
+            this.ArrangeCalendarRowHeaders(viewRect, itemIndex);
         }
 
         private void ArrangeCalendarColumnHeaders(RadRect viewRect, ref int itemIndex)

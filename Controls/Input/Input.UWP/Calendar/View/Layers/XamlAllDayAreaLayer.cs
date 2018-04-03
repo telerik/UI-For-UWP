@@ -56,8 +56,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.allDayAreaScrollViewer.ClearValue(FrameworkElement.VisibilityProperty);
 
-                this.allDayClipArea = new RadRect(this.allDayAreaScrollViewer.HorizontalOffset, this.allDayAreaScrollViewer.VerticalOffset,
-                           this.allDayAreaScrollViewer.Width, model.totalAllDayAreaHeight);
+                this.allDayClipArea = new RadRect(this.allDayAreaScrollViewer.HorizontalOffset, this.allDayAreaScrollViewer.VerticalOffset, this.allDayAreaScrollViewer.Width, model.totalAllDayAreaHeight);
                 this.UpdateAllDayAppointments(allDayAppointmentInfos);
             }
         }
