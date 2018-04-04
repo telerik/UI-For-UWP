@@ -1,6 +1,7 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "StyleCop.MSBuild": "4.7.55",
     "System.Numerics.Vectors": "4.1.0",
     "System.Numerics.Vectors.WindowsRuntime": "4.0.0"
   },
