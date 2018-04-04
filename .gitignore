@@ -35,6 +35,7 @@ Controls/Data.UWP/Data.UWP.nuget.targets
 Controls/DataVisualization/DataVisualization.UWP/DataVisualization.UWP.nuget.targets
 Controls/Grid/Grid.UWP/Grid.UWP.nuget.targets
 Controls/Input/Input.UWP/Input.UWP.nuget.targets
+Controls/DataControls/DataControls.UWP/DataControls.UWP.nuget.targets
 Controls/Primitives/Primitives.UWP/Primitives.UWP.nuget.targets
 Controls/Map/Map.UWP/Map.UWP.nuget.targets
 Controls/Map.Utils/Map.Utils.UWP/Map.Utils.UWP.nuget.targets

@@ -24,6 +24,8 @@
       <Value>i-th</Value>
       <Value>cloneable</Value>
       <Value>Shapefile</Value>  
+      <Value>untyped</Value>  
+      <Value>subtree</Value>  
     </CollectionProperty>
     <StringProperty Name="MergeSettingsFiles">NoMerge</StringProperty>
   </GlobalSettings>

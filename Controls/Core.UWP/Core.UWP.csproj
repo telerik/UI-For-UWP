@@ -49,7 +49,7 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <StyleCopTreatErrorsAsWarnings>true</StyleCopTreatErrorsAsWarnings>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
@@ -183,11 +183,4 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="..\..\BuildTools\CopyBinaries.targets" />
-  <Import Project="$(UserProfile)\.nuget\packages\stylecop.msbuild\4.7.55\build\StyleCop.MSBuild.Targets" Condition="Exists('$(UserProfile)\.nuget\packages\stylecop.msbuild\4.7.55\build\StyleCop.MSBuild.Targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(UserProfile)\.nuget\packages\stylecop.msbuild\4.7.55\build\StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '$(UserProfile)\.nuget\packages\stylecop.msbuild\4.7.55\build\StyleCop.MSBuild.Targets'))" />
-  </Target>
 </Project>
