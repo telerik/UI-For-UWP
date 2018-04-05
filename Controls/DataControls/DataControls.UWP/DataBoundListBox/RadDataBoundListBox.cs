@@ -189,6 +189,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.checkedItems = new CheckedItemsCollection<object>(this);
             this.PrepareCheckboxesSupport();
             this.SizeChanged += this.RadDataBoundListBox_SizeChanged;
+            this.Unloaded += (sender, args) => CompositionTarget.Rendering -= CompositionTarget_Rendering;
         }
 
         /// <summary>
