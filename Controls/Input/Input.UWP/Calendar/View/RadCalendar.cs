@@ -2859,6 +2859,8 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     this.MultiDayViewSettings.timer.Start();
                 }
+
+                this.MultiDayViewSettings.SetDefaultStyleValues();
             }
             else if (oldValue == CalendarDisplayMode.MultiDayView)
             {

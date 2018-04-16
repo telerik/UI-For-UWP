@@ -470,9 +470,9 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal void SetDefaultStyleValues()
         {
             ResourceDictionary dictionary = RadCalendar.MultiDayViewResources;
-            this.defaultTimeRulerItemStyleSelector = (CalendarTimeRulerItemStyleSelector)dictionary["CalendarTimeRulerItemStyleSelector"];
-            this.defaultCurrentTimeIndicatorStyle = (Style)dictionary["CurrentTimeIndicatorStyle"];
-            this.defaulTodaySlotStyle = (Style)dictionary["TodaySlotStyle"];
+            this.defaultTimeRulerItemStyleSelector = this.defaultTimeRulerItemStyleSelector ?? (CalendarTimeRulerItemStyleSelector)dictionary["CalendarTimeRulerItemStyleSelector"];
+            this.defaultCurrentTimeIndicatorStyle = this.defaultCurrentTimeIndicatorStyle ?? (Style)dictionary["CurrentTimeIndicatorStyle"];
+            this.defaulTodaySlotStyle = this.defaulTodaySlotStyle ?? (Style)dictionary["TodaySlotStyle"];
         }
 
         internal void DetachEvents()
