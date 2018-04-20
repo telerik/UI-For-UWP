@@ -170,7 +170,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal ListViewPanel contentPanel;
         internal Panel childrenPanel;
         internal Panel animatingChildrenPanel;
-        internal UpdateServiceBase<UpdateFlags> updateService;
+        internal ListViewUpdateService updateService;
         internal ListViewAnimationService animationSurvice;
         internal ListViewLoadDataControl loadMoreDataControl;
         internal Panel frozenGroupHeadersHost;

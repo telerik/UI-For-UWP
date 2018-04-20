@@ -20,7 +20,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
         /// </summary>
         public override void Execute(object parameter)
         {
-            base.Execute(parameter);
+            var context = (GroupHeaderContext)parameter;
+
+            context.IsExpanded = !context.IsExpanded;
         }
     }
 }

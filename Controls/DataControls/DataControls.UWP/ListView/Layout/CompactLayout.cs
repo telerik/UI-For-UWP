@@ -141,13 +141,9 @@ namespace Telerik.Data.Core.Layouts
         {
             var groupInfo = this.GetGroupInfo(item);
 
-            if (groupInfo != null && !groupInfo.IsExpanded)
+            if (groupInfo != null)
             {
-                groupInfo.IsExpanded = true;
-                if (groupInfo.IsVisible())
-                {
-                    this.ExpandCore(groupInfo);
-                }
+                this.ExpandGroup(groupInfo);
             }
         }
 
@@ -155,13 +151,9 @@ namespace Telerik.Data.Core.Layouts
         {
             var groupInfo = this.GetGroupInfo(item);
 
-            if (groupInfo != null && groupInfo.IsExpanded && this.IsCollapsible(groupInfo))
+            if (groupInfo != null)
             {
-                groupInfo.IsExpanded = false;
-                if (groupInfo.IsVisible())
-                {
-                    this.CollapseCore(groupInfo, true);
-                }
+                this.CollapseGroup(groupInfo);
             }
         }
 
@@ -776,6 +768,26 @@ namespace Telerik.Data.Core.Layouts
             }
         }
 
+        private void ExpandGroup(GroupInfo groupInfo)
+        {
+            var parentInfo = groupInfo.Parent;
+
+            if (parentInfo != null)
+            {
+                this.ExpandGroup(parentInfo);
+            }
+
+            if (!groupInfo.IsExpanded)
+            {
+                groupInfo.IsExpanded = true;
+
+                if (groupInfo.IsVisible())
+                {
+                    this.ExpandCore(groupInfo);
+                }
+            }
+        }
+
         private void ExpandCore(GroupInfo info)
         {
             int slot = 0;
@@ -820,6 +832,19 @@ namespace Telerik.Data.Core.Layouts
             bool hasItems = Enumerable.Any(this.hierarchyAdapter.GetItems(groupInfo.Item));
             {
                 return hasItems;
+            }
+        }
+
+        private void CollapseGroup(GroupInfo groupInfo)
+        {
+            if (groupInfo.IsExpanded && this.IsCollapsible(groupInfo))
+            {
+                groupInfo.IsExpanded = false;
+
+                if (groupInfo.IsVisible())
+                {
+                    this.CollapseCore(groupInfo, true);
+                }
             }
         }
 
