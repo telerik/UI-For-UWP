@@ -250,7 +250,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 MultiDayViewSettings settings = this.Calendar.multiDayViewSettings;
                 TimeSpan endTime = settings.DayEndTime;
-                string stringToMeasure = endTime.ToString(this.Calendar.TimeFormat, this.Calendar.Culture);
+                string stringToMeasure = string.Format(this.Calendar.Culture, this.Calendar.TimeFormat, calendar.DisplayDate.Date.Add(endTime));
                 panelWidth = calendar.View.MeasureContent(null, stringToMeasure).Width;
 
                 if (!string.IsNullOrEmpty(settings.AllDayAreaText))

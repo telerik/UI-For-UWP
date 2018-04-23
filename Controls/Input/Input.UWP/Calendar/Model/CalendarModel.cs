@@ -13,7 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal const string DefaultDecadeViewCellFormatString = "{0:yyyy}";
         internal const string DefaultCenturyViewCellFormatString = "{0:yyyy} ~ {1:yyyy}";
         internal const string DefaultWeekNumberFormatString = "{0}";
-        internal const string DefaultTimeFormatString = @"hh\:mm";
+        internal const string DefaultTimeFormatString = "{0:hh:mm}";
 
         internal static readonly int GridLinesVisibilityPropertyKey = PropertyKeys.Register(typeof(GridLinesVisibility), "GridLinesVisibility", CalendarInvalidateFlags.All);
         internal static readonly int GridLinesThicknessPropertyKey = PropertyKeys.Register(typeof(double), "GridLinesThickness", CalendarInvalidateFlags.All);

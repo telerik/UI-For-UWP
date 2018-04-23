@@ -26,7 +26,7 @@ namespace SDKExamples.UWP.Calendar
             this.vm = new CurrentViewModel();
             this.DataContext = this.vm;
 
-            this.calendar.TimeFormat = @"d\.hh\:mm\:ss";
+            this.calendar.TimeFormat = "{0:hh:mm:ss tt}";
         }
 
         private void AddNewAppClicked(object sender, RoutedEventArgs e)

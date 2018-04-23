@@ -629,10 +629,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             CalendarModel model = this.Calendar;
             MultiDayViewSettings settings = model.multiDayViewSettings;
+            DateTime currentDate = model.DisplayDate.Date;
 
             double timeWidth = this.dayViewLayoutSlot.X - viewRect.X;
             TimeSpan timeSlotTime = settings.DayStartTime;
-            string textToMeasure = timeSlotTime.ToString(model.TimeFormat, model.Culture);
+            string textToMeasure = string.Format(this.Calendar.Culture, this.Calendar.TimeFormat, currentDate.Add(timeSlotTime));
             RadSize timeTextSize = model.View.MeasureContent(null, textToMeasure);
             this.halfTextHeight = timeTextSize.Height / 2;
 
@@ -642,6 +643,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             double heightCoeff;
             double timeItemHeight;
             double oneHourTicks = (double)TimeSpan.FromHours(1).Ticks;
+          
             for (int hourIndex = 0; hourIndex < this.timeRulerItems.Count; hourIndex++)
             {
                 CalendarTimeRulerItem timerRulerItem = this.timeRulerItems[hourIndex];
@@ -662,7 +664,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 timerRulerItem.Arrange(new RadRect(0f, previousBottom, timeWidth, timeItemHeight + this.halfTextHeight));
                 previousBottom = timerRulerItem.layoutSlot.Bottom - this.halfTextHeight;
 
-                labelText = timeSlotTime.ToString(this.Calendar.TimeFormat, this.Calendar.Culture);
+                labelText = string.Format(this.Calendar.Culture, this.Calendar.TimeFormat, currentDate.Add(timeSlotTime));
             }
         }
 
