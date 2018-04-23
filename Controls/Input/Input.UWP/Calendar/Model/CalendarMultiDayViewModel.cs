@@ -101,8 +101,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             rect.Width += cellContentWidth;
             this.ArrangeCalendarTimerRuler(rect);
-            this.ArrangeMultiDayViewCalendarDecorations(this.dayViewLayoutSlot);
-            this.ArrangeAllDayAreaText(rect);
+
+            if (this.updateFlag != MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator)
+            {
+                this.ArrangeMultiDayViewCalendarDecorations(this.dayViewLayoutSlot);
+            }
 
             return rect;
         }
@@ -282,9 +285,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     this.EnsureTodaySlot();
                     this.ArrangeAppointments(viewRect);
                     this.ArrangeCurrentTimeIndicator(viewRect);
+                    this.ArrangeAllDayAreaText(this.layoutSlot);
                     break;
                 case MultiDayViewUpdateFlag.AffectsAppointments:
                     this.ArrangeAppointments(viewRect);
+                    this.ArrangeAllDayAreaText(this.layoutSlot);
                     break;
                 case MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator:
                     if (this.Calendar.multiDayViewSettings.ShowCurrentTimeIndicator)
@@ -369,10 +374,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void ArrangeAllDayAreaText(RadRect viewRect)
         {
-            double cellHeight = this.dayViewLayoutSlot.Height / this.SpecificColumnCount;
-            double gridLineThickness = this.Calendar.GridLinesThickness;
+            if (this.Calendar.multiDayViewSettings.ShowAllDayArea)
+            {
+                double cellHeight = this.dayViewLayoutSlot.Height / this.SpecificColumnCount;
+                double gridLineThickness = this.Calendar.GridLinesThickness;
 
-            this.allDayLabelLayout = new RadRect(viewRect.X, this.dayViewLayoutSlot.Y + cellHeight, this.dayViewLayoutSlot.X - viewRect.X, this.totalAllDayAreaHeight);
+                this.allDayLabelLayout = new RadRect(viewRect.X, this.dayViewLayoutSlot.Y + cellHeight, this.dayViewLayoutSlot.X - viewRect.X, this.totalAllDayAreaHeight);
+            }
+            else
+            {
+                this.allDayLabelLayout = RadRect.Empty;
+            }
         }
 
         private void ArrangeAppointments(RadRect viewRect)

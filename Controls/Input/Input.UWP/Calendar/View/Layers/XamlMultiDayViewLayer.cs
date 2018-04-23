@@ -33,7 +33,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private Canvas topLeftHeaderPanel;
 
         private double leftOffset;
+        private bool isPointerInsideScrollViewer;
         private bool isScrollingInvoked;
+        private int numberOfDaysToNavigateTo;
         private RadRect viewPortArea;
         private RadRect bufferedViewPortArea;
         private TextBlock measurementPresenter;
@@ -125,7 +127,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return XamlContentLayerHelper.MeasureVisual(this.measurementPresenter);
         }
 
-        internal async void UpdateUI()
+        internal async void UpdateUI(bool shouldUpdateTopHeader = true)
         {
             if (this.shouldArrange)
             {
@@ -144,8 +146,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             List<CalendarAppointmentInfo> appointmentInfos = model.multiDayViewModel.appointmentInfos;
             IEnumerable<Slot> slots = model.multiDayViewSettings.SpecialSlotsSource;
 
-            this.UpdateTimeRulerDecorations(model.multiDayViewModel, model.AreDayNamesVisible);
-            this.UpdateTimeRulerAllDayText(model.multiDayViewModel.allDayLabelLayout);
+            if (shouldUpdateTopHeader)
+            {
+                this.UpdateTimeRulerDecorations(model.multiDayViewModel, model.AreDayNamesVisible);
+                this.UpdateTimeRulerAllDayText(model.multiDayViewModel.allDayLabelLayout);
+            }
+
             this.UpdateTimeRulerItems(timeRulerItems);
             this.UpdateTimerRulerLines(timeRulerLines);
             this.UpdateAppointments(appointmentInfos);
@@ -417,25 +423,37 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdateTimeRulerAllDayText(RadRect allDayLabelLayout)
         {
-            if (this.allDayTextBlock == null)
+            if (allDayLabelLayout != RadRect.Empty)
             {
-                this.allDayTextBlock = new TextBlock();
-                this.topLeftHeaderPanel.Children.Add(this.allDayTextBlock);
-            }
+                if (this.allDayTextBlock == null)
+                {
+                    this.allDayTextBlock = new TextBlock();
+                    this.topLeftHeaderPanel.Children.Add(this.allDayTextBlock);
+                }
 
-            MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
-            Style allDayAreaTextStyle = settings.AllDayAreaTextStyle ?? settings.defaultAllDayAreaTextStyle;
-            if (allDayAreaTextStyle != null)
+                MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
+                Style allDayAreaTextStyle = settings.AllDayAreaTextStyle ?? settings.defaultAllDayAreaTextStyle;
+                if (allDayAreaTextStyle != null)
+                {
+                    this.allDayTextBlock.Style = allDayAreaTextStyle;
+                }
+
+                if (this.allDayTextBlock.Text != null && !this.IsTextExplicitlySet(this.allDayTextBlock.Style))
+                {
+                    this.allDayTextBlock.Text = settings.AllDayAreaText;
+                }
+
+                if (this.allDayTextBlock.Visibility == Visibility.Collapsed)
+                {
+                    this.allDayTextBlock.Visibility = Visibility.Visible;
+                }
+
+                XamlMultiDayViewLayer.ArrangeUIElement(this.allDayTextBlock, allDayLabelLayout, true);
+            }
+            else if (this.allDayTextBlock != null && this.allDayTextBlock.Visibility == Visibility.Visible)
             {
-                this.allDayTextBlock.Style = allDayAreaTextStyle;
+                this.allDayTextBlock.Visibility = Visibility.Collapsed;
             }
-
-            if (this.allDayTextBlock.Text != null && !this.IsTextExplicitlySet(this.allDayTextBlock.Style))
-            {
-                this.allDayTextBlock.Text = settings.AllDayAreaText;
-            }
-
-            XamlMultiDayViewLayer.ArrangeUIElement(this.allDayTextBlock, allDayLabelLayout, true);
         }
 
         internal void UpdateTimeRulerDecorations(CalendarMultiDayViewModel model, bool areDayNamesVisible)
@@ -597,6 +615,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             this.scrollViewer.RemoveHandler(UIElement.PointerPressedEvent, new PointerEventHandler(this.OnScrollViewerPointerPressed));
             this.scrollViewer.RemoveHandler(UIElement.PointerMovedEvent, new PointerEventHandler(this.OnScrollViewerPointerMoved));
+            this.scrollViewer.RemoveHandler(UIElement.PointerExitedEvent, new PointerEventHandler(this.OnScrollViewerPointerExitedEvent));
+            this.scrollViewer.RemoveHandler(UIElement.PointerEnteredEvent, new PointerEventHandler(this.OnScrollViewerPointerEnteredEvent));
+
             this.scrollViewer.ManipulationCompleted -= this.OnScrollViewerManipulationCompleted;
 
             if (this.offsetStoryboard != null)
@@ -611,6 +632,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.scrollViewer.ViewChanged += this.OnScrollViewerViewChanged;
             this.scrollViewer.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(this.OnScrollViewerPointerPressed), true);
             this.scrollViewer.AddHandler(UIElement.PointerMovedEvent, new PointerEventHandler(this.OnScrollViewerPointerMoved), true);
+            this.scrollViewer.AddHandler(UIElement.PointerExitedEvent, new PointerEventHandler(this.OnScrollViewerPointerExitedEvent), true);
+            this.scrollViewer.AddHandler(UIElement.PointerEnteredEvent, new PointerEventHandler(this.OnScrollViewerPointerEnteredEvent), true);
+
             this.scrollViewer.ManipulationCompleted += this.OnScrollViewerManipulationCompleted;
 
             if (this.offsetStoryboard != null)
@@ -829,7 +853,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             if (e.IsIntermediate || this.isScrollingInvoked)
             {
                 this.isScrollingInvoked = false;
-                this.UpdateUI();
+                this.UpdateUI(false);
             }
         }
 
@@ -845,7 +869,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void OnScrollViewerPointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (!this.isAnimationOngoing && this.scrollViewer.PointerCaptures != null && this.scrollViewer.PointerCaptures.Count > 0)
+            if (!this.isAnimationOngoing && this.isPointerInsideScrollViewer && this.scrollViewer.PointerCaptures != null && this.scrollViewer.PointerCaptures.Count > 0)
             {
                 this.currHorizontalOffset = this.prevHorizontalOffset + (this.scrollMousePosition.X - e.GetCurrentPoint(this.scrollViewer).Position.X);
                 double viewPortWidth = this.scrollViewer.Width - this.leftHeaderPanel.Width;
@@ -856,6 +880,19 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        private void OnScrollViewerPointerExitedEvent(object sender, PointerRoutedEventArgs e)
+        {
+            if (!this.isAnimationOngoing && this.scrollViewer.PointerCaptures != null && this.scrollViewer.PointerCaptures.Count > 0)
+            {
+                this.isPointerInsideScrollViewer = false;
+            }
+        }
+
+        private void OnScrollViewerPointerEnteredEvent(object sender, PointerRoutedEventArgs e)
+        {
+            this.isPointerInsideScrollViewer = true;
+        }
+
         private void OnScrollViewerManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
             if (!this.isAnimationOngoing)
@@ -864,21 +901,40 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                 RadCalendar calendar = this.Owner;
                 double cellWidth = (this.scrollViewer.Width - this.leftHeaderPanel.Width) / calendar.Model.ColumnCount;
-                double navigationWidth = cellWidth * calendar.MultiDayViewSettings.NavigationStep - cellWidth / 2;
+                double navigationWidth = (cellWidth * calendar.MultiDayViewSettings.NavigationStep) / 2;
 
                 double currentPosition = this.translateTransform.X + this.currHorizontalOffset;
+                this.numberOfDaysToNavigateTo = (int)Math.Round(this.currHorizontalOffset / cellWidth);
                 if (this.currHorizontalOffset > 0)
                 {
                     if (navigationWidth < this.currHorizontalOffset)
                     {
-                        currentPosition -= navigationWidth + cellWidth / 2;
+                        double totalPassedWidth = numberOfDaysToNavigateTo * cellWidth;
+                        if (totalPassedWidth - this.currHorizontalOffset > 0)
+                        {
+                            currentPosition = -totalPassedWidth;
+                        }
+                        else
+                        {
+                            numberOfDaysToNavigateTo += 1;
+                            currentPosition = -cellWidth * numberOfDaysToNavigateTo;
+                        }
                     }
                 }
                 else
                 {
                     if (navigationWidth < -this.currHorizontalOffset)
                     {
-                        currentPosition += navigationWidth + cellWidth / 2;
+                        double totalPassedWidth = numberOfDaysToNavigateTo * cellWidth;
+                        if (totalPassedWidth - this.currHorizontalOffset < 0)
+                        {
+                            currentPosition = -totalPassedWidth;
+                        }
+                        else
+                        {
+                            numberOfDaysToNavigateTo -= 1;
+                            currentPosition = -cellWidth * numberOfDaysToNavigateTo;
+                        }
                     }
                 }
 
@@ -916,14 +972,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             if (Math.Round(this.currHorizontalOffset) != this.prevHorizontalOffset)
             {
                 RadCalendar calendar = this.Owner;
-                int navigationStep = calendar.MultiDayViewSettings.NavigationStep;
                 if (this.translateTransform.X < 0)
                 {
-                    calendar.RaiseMoveToNextViewCommand(navigationStep);
+                    calendar.RaiseMoveToNextViewCommand(this.numberOfDaysToNavigateTo);
                 }
                 else
                 {
-                    calendar.RaiseMoveToPreviousViewCommand(navigationStep);
+                    calendar.RaiseMoveToPreviousViewCommand(-this.numberOfDaysToNavigateTo);
                 }
             }
 
