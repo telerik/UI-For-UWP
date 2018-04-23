@@ -13,7 +13,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal List<CalendarAppointmentInfo> appointmentInfos;
         internal List<CalendarAppointmentInfo> allDayAppointmentInfos;
 
-        internal CalendarGridLine horizontalRulerGridLine;
+        internal CalendarGridLine horizontalLowerAllDayAreaRulerGridLine;
+        internal CalendarGridLine horizontalUpperAllDayAreaRulerGridLine;
+        internal CalendarGridLine horizontalTopHeaderRulerGridLine;
         internal CalendarGridLine verticalRulerGridLine;
         internal CalendarGridLine currentTimeIndicator;
         internal Slot todaySlot;
@@ -482,11 +484,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void ArrangeMultiDayViewCalendarDecorations(RadRect rect)
         {
-            if (this.horizontalRulerGridLine == null && this.verticalRulerGridLine == null)
+            if (this.horizontalLowerAllDayAreaRulerGridLine == null && this.verticalRulerGridLine == null
+                && this.horizontalUpperAllDayAreaRulerGridLine == null)
             {
-                this.horizontalRulerGridLine = new CalendarGridLine();
-                this.horizontalRulerGridLine.root = this.root;
-                this.horizontalRulerGridLine.IsHorizontal = true;
+                this.horizontalLowerAllDayAreaRulerGridLine = new CalendarGridLine();
+                this.horizontalLowerAllDayAreaRulerGridLine.root = this.root;
+                this.horizontalLowerAllDayAreaRulerGridLine.IsHorizontal = true;
+
+                this.horizontalUpperAllDayAreaRulerGridLine = new CalendarGridLine();
+                this.horizontalUpperAllDayAreaRulerGridLine.root = this.root;
+                this.horizontalUpperAllDayAreaRulerGridLine.IsHorizontal = true;
+
+                this.horizontalTopHeaderRulerGridLine = new CalendarGridLine();
+                this.horizontalTopHeaderRulerGridLine.root = this.root;
+                this.horizontalTopHeaderRulerGridLine.IsHorizontal = true;
 
                 this.verticalRulerGridLine = new CalendarGridLine();
                 this.verticalRulerGridLine.root = this.root;
@@ -496,7 +507,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             double gridLineThickness = this.Calendar.GridLinesThickness;
             int gridLineHalfThickness = (int)(gridLineThickness / 2);
 
-            this.horizontalRulerGridLine.Arrange(new RadRect(rect.X, rect.Y + cellHeight + this.totalAllDayAreaHeight + gridLineThickness / 2, rect.Width, gridLineThickness));
+            this.horizontalTopHeaderRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y, this.layoutSlot.Width, gridLineThickness));
+            this.horizontalUpperAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight, this.layoutSlot.Width, gridLineThickness));
+            this.horizontalLowerAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight + this.totalAllDayAreaHeight + gridLineThickness / 2, this.layoutSlot.Width, 0));
             this.verticalRulerGridLine.Arrange(new RadRect(rect.X, rect.Y, gridLineThickness, rect.Height));
         }
 

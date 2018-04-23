@@ -2001,6 +2001,11 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         internal void UpdatePresenters(IEnumerable<CalendarCellModel> cellsToUpdate)
         {
+            if (!this.IsLoaded || !this.IsTemplateApplied)
+            {
+                return;
+            }
+
             this.EvaluateCustomCellSelectors(cellsToUpdate);
 
             this.decorationLayer.UpdateUI(cellsToUpdate);
@@ -3165,7 +3170,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
                         this.allDayAreaLayer.UpdateAllDayAreaUI();
                         this.timeRulerLayer.UpdateAppointments(multiDayViewModel.appointmentInfos);
-                        this.timeRulerLayer.UpdateTimeRulerDecorations(multiDayViewModel.horizontalRulerGridLine, multiDayViewModel.verticalRulerGridLine);
+                        this.timeRulerLayer.UpdateTimeRulerDecorations(multiDayViewModel, this.model.AreDayNamesVisible);
                         break;
                     case MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator:
                         this.timeRulerLayer.UpdateCurrentTimeIndicator();

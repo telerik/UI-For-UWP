@@ -42,6 +42,11 @@
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikSelectedBrush}"/>
     </Style>
 
+    <Style x:Key="AllDayAreaBorderStyle" TargetType="Border">
+        <Setter Property="BorderThickness" Value="4"/>
+        <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
+    </Style>
+
     <Style x:Key="DefaultNormalCellStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarNormalCellForegroundBrush}" />
         <Setter Property="Margin" Value="6,0,0,4" />

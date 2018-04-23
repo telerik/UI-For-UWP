@@ -131,6 +131,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty TimelineBackgroundProperty =
             DependencyProperty.Register(nameof(TimelineBackground), typeof(Brush), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnTimelineBackgroundChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="AllDayAreaBorderStyle"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty AllDayAreaBorderStyleProperty =
+            DependencyProperty.Register(nameof(AllDayAreaBorderStyle), typeof(Style), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnAllDayAreaBorderStyleChanged));
+
         internal RadCalendar owner;
         internal MultiDayViewUpdateFlag updateFlag;
         internal DispatcherTimer timer;
@@ -138,6 +144,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal StyleSelector defaultSpecialSlotStyleSelector;
         internal CalendarTimeRulerItemStyleSelector defaultTimeRulerItemStyleSelector;
         internal Style defaultCurrentTimeIndicatorStyle;
+        internal Style defaultAllDayAreaBorderStyle;
         internal Style defaulTodaySlotStyle;
 
         private const int DefaultMultiDayViewVisibleDays = 7;
@@ -152,6 +159,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private StyleSelector specialSlotStyleSelectorCache;
         private CalendarTimeRulerItemStyleSelector timeRulerItemStyleSelectorCache;
         private Style currentTimeIndicatorStyleCache;
+        private Style allDayAreaBorderStyleCache;
         private Style todaySlotStyleCache;
         private WeakCollectionChangedListener specialSlotsCollectionChangedListener;
         private List<WeakPropertyChangedListener> specialSlotsPropertyChangedListeners = new List<WeakPropertyChangedListener>();
@@ -454,6 +462,21 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
+        /// Gets or sets the Style that gets applied on the Border placed below the all day area.
+        /// </summary>
+        public Style AllDayAreaBorderStyle
+        {
+            get
+            {
+                return this.allDayAreaBorderStyleCache;
+            }
+            set
+            {
+                this.SetValue(AllDayAreaBorderStyleProperty, value);
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the <see cref="RadCalendar" /> has been loaded.
         /// </summary>
         public bool IsOwnerLoaded
@@ -552,6 +575,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             ResourceDictionary dictionary = RadCalendar.MultiDayViewResources;
             this.defaultTimeRulerItemStyleSelector = this.defaultTimeRulerItemStyleSelector ?? (CalendarTimeRulerItemStyleSelector)dictionary["CalendarTimeRulerItemStyleSelector"];
             this.defaultCurrentTimeIndicatorStyle = this.defaultCurrentTimeIndicatorStyle ?? (Style)dictionary["CurrentTimeIndicatorStyle"];
+            this.defaultAllDayAreaBorderStyle = this.defaultAllDayAreaBorderStyle ?? (Style)dictionary["AllDayAreaBorderStyle"];
             this.defaulTodaySlotStyle = this.defaulTodaySlotStyle ?? (Style)dictionary["TodaySlotStyle"];
         }
 
@@ -855,6 +879,19 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
             settings.UpdateAppearance(MultiDayViewUpdateFlag.AffectsTimeRuler);
+        }
+
+        private static void OnAllDayAreaBorderStyleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MultiDayViewSettings settings = (MultiDayViewSettings)sender;
+            settings.allDayAreaBorderStyleCache = (Style)args.NewValue;
+
+            if (settings.IsOwnerLoaded)
+            {
+                CalendarModel model = settings.owner.Model;
+                CalendarMultiDayViewModel multiDayViewModel = model.multiDayViewModel;
+                settings.owner.timeRulerLayer.UpdateTimeRulerDecorations(multiDayViewModel, model.AreDayNamesVisible);
+            }
         }
 
         private void UpdateDayRange(long ticks, DependencyProperty propertForUpdate)

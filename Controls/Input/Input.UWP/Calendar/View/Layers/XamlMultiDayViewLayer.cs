@@ -33,11 +33,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private Canvas topLeftHeaderPanel;
 
         private double leftOffset;
+        private bool isScrollingInvoked;
         private RadRect viewPortArea;
         private RadRect bufferedViewPortArea;
         private TextBlock measurementPresenter;
         private Border currentTimeIndicatorBorder;
-        private Border horizontalGridLineBorder;
+        private Border horizontalLowerGridLineBorder;
+        private Border horizontaUpperGridLineBorder;
+        private Border horizontaTopHeaderGridLineBorder;
         private Border verticalGridLineBorder;
         private Border todaySlotBorder;
 
@@ -140,7 +143,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             List<CalendarAppointmentInfo> appointmentInfos = model.multiDayViewModel.appointmentInfos;
             IEnumerable<Slot> slots = model.multiDayViewSettings.SpecialSlotsSource;
 
-            this.UpdateTimeRulerDecorations(model.multiDayViewModel.horizontalRulerGridLine, model.multiDayViewModel.verticalRulerGridLine);
+            this.UpdateTimeRulerDecorations(model.multiDayViewModel, model.AreDayNamesVisible);
             this.UpdateTimeRulerItems(timeRulerItems);
             this.UpdateTimerRulerLines(timeRulerLines);
             this.UpdateAppointments(appointmentInfos);
@@ -171,16 +174,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             RadCalendar calendar = this.Owner;
             if (calendar != null)
             {
-                var appointmentInfos = calendar.Model.multiDayViewModel.appointmentInfos;
+                CalendarMultiDayViewModel model = calendar.Model.multiDayViewModel;
+                var appointmentInfos = model.appointmentInfos;
                 if (appointmentInfos != null && appointmentInfos.Count > 0)
                 {
                     DateTime startDate = calendar.DisplayDate;
-                    DateTime endDate = calendar.DisplayDate.AddDays(calendar.MultiDayViewSettings.VisibleDays);
+                    DateTime endDate = calendar.DisplayDate.AddDays(calendar.MultiDayViewSettings.VisibleDays - 1);
                     CalendarAppointmentInfo appointmentInfo = appointmentInfos.FirstOrDefault(a => a.childAppointment == appointment && startDate <= a.Date && endDate >= a.Date);
                     if (appointmentInfo != null)
                     {
                         RadRect layoutSlot = appointmentInfo.layoutSlot;
-                        this.scrollViewer.ChangeView(0.0f, layoutSlot.Y, 1.0f);
+                        if (this.scrollViewer.VerticalOffset != layoutSlot.Y)
+                        {
+                            this.isScrollingInvoked = true;
+                            this.scrollViewer.ChangeView(0.0f, layoutSlot.Y, 1.0f);
+                        }
                     }
                 }
             }
@@ -405,12 +413,38 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        internal void UpdateTimeRulerDecorations(CalendarGridLine horizontalLine, CalendarGridLine verticalLine)
+        internal void UpdateTimeRulerDecorations(CalendarMultiDayViewModel model, bool areDayNamesVisible)
         {
-            if (this.horizontalGridLineBorder == null)
+            CalendarGridLine horizontalAllDayLowerLine = model.horizontalLowerAllDayAreaRulerGridLine;
+            CalendarGridLine horizontalAllDayUpperLine = model.horizontalUpperAllDayAreaRulerGridLine;
+            CalendarGridLine horizontalTopHeaderLine = model.horizontalTopHeaderRulerGridLine;
+            CalendarGridLine verticalLine = model.verticalRulerGridLine;
+
+            if (this.horizontalLowerGridLineBorder == null)
             {
-                this.horizontalGridLineBorder = new Border();
-                this.topLeftHeaderPanel.Children.Add(this.horizontalGridLineBorder);
+                this.horizontalLowerGridLineBorder = new Border();
+                this.topLeftHeaderPanel.Children.Add(this.horizontalLowerGridLineBorder);
+            }
+
+            if (this.horizontaUpperGridLineBorder == null)
+            {
+                this.horizontaUpperGridLineBorder = new Border();
+                this.topLeftHeaderPanel.Children.Add(this.horizontaUpperGridLineBorder);
+            }
+
+            if (this.horizontaTopHeaderGridLineBorder == null)
+            {
+                this.horizontaTopHeaderGridLineBorder = new Border();
+                this.topLeftHeaderPanel.Children.Add(this.horizontaTopHeaderGridLineBorder);
+            }
+
+            if (areDayNamesVisible && this.horizontaTopHeaderGridLineBorder.Visibility == Visibility.Collapsed)
+            {
+                this.horizontaTopHeaderGridLineBorder.Visibility = Visibility.Visible;
+            }
+            else if (!areDayNamesVisible && this.horizontaTopHeaderGridLineBorder.Visibility == Visibility.Visible)
+            {
+                this.horizontaTopHeaderGridLineBorder.Visibility = Visibility.Collapsed;
             }
 
             if (this.verticalGridLineBorder == null)
@@ -419,18 +453,38 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.topLeftHeaderPanel.Children.Add(this.verticalGridLineBorder);
             }
 
-            this.ApplyTimeRulerStyle(horizontalLine, this.horizontalGridLineBorder);
+            this.ApplyTimeRulerStyle(horizontalAllDayUpperLine, this.horizontaUpperGridLineBorder);
 
-            if (this.horizontalGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontalGridLineBorder.Style))
+            if (this.horizontaUpperGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontaUpperGridLineBorder.Style))
             {
-                this.horizontalGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+                this.horizontaUpperGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
             }
 
-            RadRect layoutSlot = horizontalLine.layoutSlot;
-            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontalGridLineBorder, layoutSlot, true);
+            RadRect layoutSlot = horizontalAllDayUpperLine.layoutSlot;
+            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontaUpperGridLineBorder, layoutSlot, true);
+
+            MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
+            Style allDayAreaBorderStyle = settings.AllDayAreaBorderStyle ?? settings.defaultAllDayAreaBorderStyle;
+            if (allDayAreaBorderStyle != null)
+            {
+                this.horizontalLowerGridLineBorder.Style = allDayAreaBorderStyle;
+            }
+
+            layoutSlot = horizontalAllDayLowerLine.layoutSlot;
+            layoutSlot.Height = this.horizontalLowerGridLineBorder.BorderThickness.Left;
+            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontalLowerGridLineBorder, layoutSlot, true);
+
+            this.ApplyTimeRulerStyle(horizontalTopHeaderLine, this.horizontaTopHeaderGridLineBorder);
+
+            if (this.horizontaTopHeaderGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontaTopHeaderGridLineBorder.Style))
+            {
+                this.horizontaTopHeaderGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+            }
+
+            layoutSlot = horizontalTopHeaderLine.layoutSlot;
+            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontaTopHeaderGridLineBorder, layoutSlot, true);
 
             this.ApplyTimeRulerStyle(verticalLine, this.verticalGridLineBorder);
-
             if (this.verticalGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.verticalGridLineBorder.Style))
             {
                 this.verticalGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
@@ -692,7 +746,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 visual = this.realizedAppointmentDefaultPresenters[virtualIndex];
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
-                visual.ClearValue(Canvas.ZIndexProperty);
                 visual.ClearValue(Canvas.LeftProperty);
             }
             else
@@ -732,8 +785,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            if (e.IsIntermediate)
+            if (e.IsIntermediate || this.isScrollingInvoked)
             {
+                this.isScrollingInvoked = false;
                 this.UpdateUI();
             }
         }
