@@ -104,6 +104,13 @@
             <Setter Property="BorderBrush" Value="GreenYellow"/>
             <Setter Property="BorderThickness" Value="5"/>
         </Style>
+        <Style TargetType="TextBlock" x:Key="CustomAllDayAreaTextStyle">
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Text" Value="Here type your text ... This is a long text"/>
+            <Setter Property="Padding" Value="0, 10 , 0, 0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
     </local:ExamplePageBase.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -148,7 +155,9 @@
                                             CurrentTimeIndicatorStyle="{StaticResource CurrentTimeIndicatorStyle}"
                                             TodaySlotStyle="{StaticResource TodaySlotStyle}"
                                             AllDayAreaBackground="LightBlue"
-                                            AllDayAreaBorderStyle="{StaticResource CustomAllDayAreaBorderStyle}"/>
+                                            AllDayAreaBorderStyle="{StaticResource CustomAllDayAreaBorderStyle}"
+                                            AllDayAreaText="Should not be set"
+                                            AllDayAreaTextStyle="{StaticResource CustomAllDayAreaTextStyle}"/>
             </input:RadCalendar.MultiDayViewSettings>
         </input:RadCalendar>
         <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Visible">

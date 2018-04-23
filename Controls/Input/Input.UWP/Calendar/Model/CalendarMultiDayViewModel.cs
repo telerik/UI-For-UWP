@@ -19,6 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal CalendarGridLine verticalRulerGridLine;
         internal CalendarGridLine currentTimeIndicator;
         internal Slot todaySlot;
+        internal RadRect allDayLabelLayout;
 
         internal RadRect dayViewLayoutSlot;
         internal double totalAllDayAreaHeight;
@@ -101,6 +102,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             rect.Width += cellContentWidth;
             this.ArrangeCalendarTimerRuler(rect);
             this.ArrangeMultiDayViewCalendarDecorations(this.dayViewLayoutSlot);
+            this.ArrangeAllDayAreaText(rect);
 
             return rect;
         }
@@ -365,6 +367,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        private void ArrangeAllDayAreaText(RadRect viewRect)
+        {
+            double cellHeight = this.dayViewLayoutSlot.Height / this.SpecificColumnCount;
+            double gridLineThickness = this.Calendar.GridLinesThickness;
+
+            this.allDayLabelLayout = new RadRect(viewRect.X, this.dayViewLayoutSlot.Y + cellHeight, this.dayViewLayoutSlot.X - viewRect.X, this.totalAllDayAreaHeight);
+        }
+
         private void ArrangeAppointments(RadRect viewRect)
         {
             this.ArrangeAppointments();
@@ -623,7 +633,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             double timeWidth = this.dayViewLayoutSlot.X - viewRect.X;
             TimeSpan timeSlotTime = settings.DayStartTime;
             string textToMeasure = timeSlotTime.ToString(model.TimeFormat, model.Culture);
-            this.halfTextHeight = model.View.MeasureContent(null, textToMeasure).Height / 2;
+            RadSize timeTextSize = model.View.MeasureContent(null, textToMeasure);
+            this.halfTextHeight = timeTextSize.Height / 2;
+
             double previousBottom = viewRect.Y - this.halfTextHeight;
 
             string labelText = string.Empty;
@@ -647,7 +659,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 heightCoeff = (timerRulerItem.EndTime - timerRulerItem.StartTime).Ticks / oneHourTicks;
                 timeItemHeight = settings.TimeLinesSpacing * heightCoeff;
 
-                timerRulerItem.Arrange(new RadRect(0d, previousBottom, timeWidth, timeItemHeight + this.halfTextHeight));
+                timerRulerItem.Arrange(new RadRect(0f, previousBottom, timeWidth, timeItemHeight + this.halfTextHeight));
                 previousBottom = timerRulerItem.layoutSlot.Bottom - this.halfTextHeight;
 
                 labelText = timeSlotTime.ToString(this.Calendar.TimeFormat, this.Calendar.Culture);

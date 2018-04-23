@@ -137,6 +137,18 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty AllDayAreaBorderStyleProperty =
             DependencyProperty.Register(nameof(AllDayAreaBorderStyle), typeof(Style), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnAllDayAreaBorderStyleChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="AllDayAreaTextStyle"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty AllDayAreaTextStyleProperty =
+            DependencyProperty.Register(nameof(AllDayAreaTextStyle), typeof(Style), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnAllDayAreaTextStyleChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="AllDayAreaText"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty AllDayAreaTextProperty =
+            DependencyProperty.Register(nameof(AllDayAreaText), typeof(string), typeof(MultiDayViewSettings), new PropertyMetadata(DefaultAllDayText, OnAllDayAreaTextChanged));
+
         internal RadCalendar owner;
         internal MultiDayViewUpdateFlag updateFlag;
         internal DispatcherTimer timer;
@@ -145,8 +157,10 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal CalendarTimeRulerItemStyleSelector defaultTimeRulerItemStyleSelector;
         internal Style defaultCurrentTimeIndicatorStyle;
         internal Style defaultAllDayAreaBorderStyle;
+        internal Style defaultAllDayAreaTextStyle;
         internal Style defaulTodaySlotStyle;
 
+        internal const string DefaultAllDayText = "All-day";
         private const int DefaultMultiDayViewVisibleDays = 7;
         private const int DefaultNavigationStep = 7;
         private const int MinimumtMultiDayViewVisibleDays = 1;
@@ -160,6 +174,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private CalendarTimeRulerItemStyleSelector timeRulerItemStyleSelectorCache;
         private Style currentTimeIndicatorStyleCache;
         private Style allDayAreaBorderStyleCache;
+        private Style allDayAreaTextStyleCache;
         private Style todaySlotStyleCache;
         private WeakCollectionChangedListener specialSlotsCollectionChangedListener;
         private List<WeakPropertyChangedListener> specialSlotsPropertyChangedListeners = new List<WeakPropertyChangedListener>();
@@ -477,6 +492,36 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
+        /// Gets or sets the Style that gets applied on the text of the all day area.
+        /// </summary>
+        public Style AllDayAreaTextStyle
+        {
+            get
+            {
+                return this.allDayAreaTextStyleCache;
+            }
+            set
+            {
+                this.SetValue(AllDayAreaTextStyleProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the text that gets visualized on the all day area.
+        /// </summary>
+        public string AllDayAreaText
+        {
+            get
+            {
+                return (string)GetValue(AllDayAreaTextProperty);
+            }
+            set
+            {
+                this.SetValue(AllDayAreaTextProperty, value);
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the <see cref="RadCalendar" /> has been loaded.
         /// </summary>
         public bool IsOwnerLoaded
@@ -576,6 +621,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.defaultTimeRulerItemStyleSelector = this.defaultTimeRulerItemStyleSelector ?? (CalendarTimeRulerItemStyleSelector)dictionary["CalendarTimeRulerItemStyleSelector"];
             this.defaultCurrentTimeIndicatorStyle = this.defaultCurrentTimeIndicatorStyle ?? (Style)dictionary["CurrentTimeIndicatorStyle"];
             this.defaultAllDayAreaBorderStyle = this.defaultAllDayAreaBorderStyle ?? (Style)dictionary["AllDayAreaBorderStyle"];
+            this.defaultAllDayAreaTextStyle = this.defaultAllDayAreaTextStyle ?? (Style)dictionary["DefaultAllDayTextBlockStyle"];
             this.defaulTodaySlotStyle = this.defaulTodaySlotStyle ?? (Style)dictionary["TodaySlotStyle"];
         }
 
@@ -891,6 +937,29 @@ namespace Telerik.UI.Xaml.Controls.Input
                 CalendarModel model = settings.owner.Model;
                 CalendarMultiDayViewModel multiDayViewModel = model.multiDayViewModel;
                 settings.owner.timeRulerLayer.UpdateTimeRulerDecorations(multiDayViewModel, model.AreDayNamesVisible);
+            }
+        }
+
+        private static void OnAllDayAreaTextStyleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MultiDayViewSettings settings = (MultiDayViewSettings)sender;
+            settings.allDayAreaTextStyleCache = (Style)args.NewValue;
+            MultiDayViewSettings.UpdateAllDayAreaText(settings);
+        }
+
+        private static void OnAllDayAreaTextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MultiDayViewSettings settings = (MultiDayViewSettings)sender;
+            MultiDayViewSettings.UpdateAllDayAreaText(settings);
+        }
+
+        private static void UpdateAllDayAreaText(MultiDayViewSettings settings)
+        {
+            if (settings.IsOwnerLoaded)
+            {
+                CalendarModel model = settings.owner.Model;
+                CalendarMultiDayViewModel multiDayViewModel = model.multiDayViewModel;
+                settings.owner.timeRulerLayer.UpdateTimeRulerAllDayText(multiDayViewModel.allDayLabelLayout);
             }
         }
 

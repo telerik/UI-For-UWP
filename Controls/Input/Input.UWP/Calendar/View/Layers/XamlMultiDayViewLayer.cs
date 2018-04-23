@@ -37,6 +37,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private RadRect viewPortArea;
         private RadRect bufferedViewPortArea;
         private TextBlock measurementPresenter;
+        private TextBlock allDayTextBlock;
         private Border currentTimeIndicatorBorder;
         private Border horizontalLowerGridLineBorder;
         private Border horizontaUpperGridLineBorder;
@@ -144,6 +145,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             IEnumerable<Slot> slots = model.multiDayViewSettings.SpecialSlotsSource;
 
             this.UpdateTimeRulerDecorations(model.multiDayViewModel, model.AreDayNamesVisible);
+            this.UpdateTimeRulerAllDayText(model.multiDayViewModel.allDayLabelLayout);
             this.UpdateTimeRulerItems(timeRulerItems);
             this.UpdateTimerRulerLines(timeRulerLines);
             this.UpdateAppointments(appointmentInfos);
@@ -413,6 +415,29 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        internal void UpdateTimeRulerAllDayText(RadRect allDayLabelLayout)
+        {
+            if (this.allDayTextBlock == null)
+            {
+                this.allDayTextBlock = new TextBlock();
+                this.topLeftHeaderPanel.Children.Add(this.allDayTextBlock);
+            }
+
+            MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
+            Style allDayAreaTextStyle = settings.AllDayAreaTextStyle ?? settings.defaultAllDayAreaTextStyle;
+            if (allDayAreaTextStyle != null)
+            {
+                this.allDayTextBlock.Style = allDayAreaTextStyle;
+            }
+
+            if (this.allDayTextBlock.Text != null && !this.IsTextExplicitlySet(this.allDayTextBlock.Style))
+            {
+                this.allDayTextBlock.Text = settings.AllDayAreaText;
+            }
+
+            XamlMultiDayViewLayer.ArrangeUIElement(this.allDayTextBlock, allDayLabelLayout, true);
+        }
+
         internal void UpdateTimeRulerDecorations(CalendarMultiDayViewModel model, bool areDayNamesVisible)
         {
             CalendarGridLine horizontalAllDayLowerLine = model.horizontalLowerAllDayAreaRulerGridLine;
@@ -602,6 +627,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         protected internal override void RemoveVisualChild(UIElement child)
         {
             this.contentPanel.Children.Remove(child);
+        }
+
+        private bool IsTextExplicitlySet(Style style)
+        {
+            if (style != null)
+            {
+                foreach (Setter setter in style.Setters)
+                {
+                    if (setter.Property == TextBlock.TextProperty)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         private void UpdateTimeRulerItems(ElementCollection<CalendarTimeRulerItem> timeRulerItems)

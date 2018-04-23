@@ -248,9 +248,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
             else if (calendar.DisplayMode == CalendarDisplayMode.MultiDayView)
             {
-                TimeSpan endTime = this.Calendar.multiDayViewSettings.DayEndTime;
+                MultiDayViewSettings settings = this.Calendar.multiDayViewSettings;
+                TimeSpan endTime = settings.DayEndTime;
                 string stringToMeasure = endTime.ToString(this.Calendar.TimeFormat, this.Calendar.Culture);
                 panelWidth = calendar.View.MeasureContent(null, stringToMeasure).Width;
+
+                if (!string.IsNullOrEmpty(settings.AllDayAreaText))
+                {
+                    stringToMeasure = MultiDayViewSettings.DefaultAllDayText;
+                    double allDayWidth = calendar.View.MeasureContent(null, stringToMeasure).Width;
+                    if (allDayWidth > panelWidth)
+                    {
+                        panelWidth = allDayWidth;
+                    }
+                }
             }
 
             double width = Math.Max(availableRect.Width - panelWidth, 0d);

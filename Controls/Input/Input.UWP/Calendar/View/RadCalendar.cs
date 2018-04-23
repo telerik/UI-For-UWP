@@ -3171,6 +3171,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.allDayAreaLayer.UpdateAllDayAreaUI();
                         this.timeRulerLayer.UpdateAppointments(multiDayViewModel.appointmentInfos);
                         this.timeRulerLayer.UpdateTimeRulerDecorations(multiDayViewModel, this.model.AreDayNamesVisible);
+                        this.timeRulerLayer.UpdateTimeRulerAllDayText(multiDayViewModel.allDayLabelLayout);
                         break;
                     case MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator:
                         this.timeRulerLayer.UpdateCurrentTimeIndicator();
