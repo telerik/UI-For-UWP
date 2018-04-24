@@ -16,6 +16,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal bool isArranged;
         internal IAppointment childAppointment;
         internal int? arrangeColumnIndex;
+        internal bool hasPrevDay;
+        internal bool hasNextDay;
 
         private string detailText;
         private string subject;

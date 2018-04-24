@@ -34,24 +34,49 @@
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="VerticalContentAlignment" Value="Top"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="IndicatorColor" Value="{StaticResource TelerikCalendarPreviousNextButtonForegroundBrush}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="localCalendar:AppointmentControl">
                     <Grid Background="{TemplateBinding Background}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <ContentPresenter Content="{TemplateBinding Header}" 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontFamily="Segoe UI Symbol"
+                                   Text="&#xE012;"
+                                   FontSize="15"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Left"
+                                   Foreground="{TemplateBinding IndicatorColor}"
+                                   Padding="4, 4, 0, 0"
+                                   Visibility="{TemplateBinding LeftIndicatorVisibility}"/>
+                        <TextBlock Grid.Column="1"
+                                   FontFamily="Segoe UI Symbol"
+                                   Text="&#xE013;"
+                                   FontSize="15"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Right"
+                                   Foreground="{TemplateBinding IndicatorColor}"
+                                   Padding="0, 4, 4, 0"
+                                   Visibility="{TemplateBinding RightIndicatorVisibility}"/>
+                        <ContentPresenter Grid.Row="1" Grid.ColumnSpan="2"
+                                          Content="{TemplateBinding Header}" 
                                           ContentTemplate="{TemplateBinding HeaderTemplate}"
                                           Style="{TemplateBinding HeaderStyle}"
                                           TextWrapping="Wrap"
                                           Margin="5, 0, 0, 0"/>
-                        <ContentPresenter Grid.Row="1"
+                        <ContentPresenter Grid.Row="2" Grid.ColumnSpan="2"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           TextWrapping="Wrap"
                                           Margin="5, 0, 0, 0"/>
+                        
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

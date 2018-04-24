@@ -371,6 +371,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     appointmentControl.Content = appointmentInfo.DetailText;
                     appointmentControl.Header = appointmentInfo.Subject;
                     appointmentControl.Background = appointmentInfo.Brush;
+
+                    if (appointmentInfo.hasPrevDay)
+                    {
+                        appointmentControl.LeftIndicatorVisibility = Visibility.Visible;
+                    }
+
+                    if (appointmentInfo.hasNextDay)
+                    {
+                        appointmentControl.RightIndicatorVisibility = Visibility.Visible;
+                    }
+
                     appointmentControl.appointmentInfo = appointmentInfo;
 
                     StyleSelector contentStyleSelector = calendar.AppointmentStyleSelector;
@@ -811,6 +822,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 visual = this.realizedAppointmentDefaultPresenters[virtualIndex];
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
+                visual.ClearValue(AppointmentControl.LeftIndicatorVisibilityProperty);
+                visual.ClearValue(AppointmentControl.RightIndicatorVisibilityProperty);
                 visual.ClearValue(Canvas.LeftProperty);
             }
             else

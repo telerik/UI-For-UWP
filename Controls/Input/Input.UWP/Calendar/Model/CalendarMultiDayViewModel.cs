@@ -160,6 +160,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                             info.DetailText = appointment.Description;
                             info.Subject = appointment.Subject;
                             info.IsAllDay = appointment.IsAllDay;
+                            info.hasPrevDay = appointment.StartDate.Day < calendarCell.Date.Day;
+                            info.hasNextDay = appointment.EndDate.Day > calendarCell.Date.Day;
 
                             int xCoeff = (calendarCell.Date - appointment.StartDate.Date).Days;
                             RadRect layoutSlot = new RadRect(calendarCell.layoutSlot.X - this.timeRulerWidth, startY, calendarCell.layoutSlot.Width, endY - startY);
