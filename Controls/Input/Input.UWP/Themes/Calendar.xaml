@@ -45,10 +45,13 @@
                         <ContentPresenter Content="{TemplateBinding Header}" 
                                           ContentTemplate="{TemplateBinding HeaderTemplate}"
                                           Style="{TemplateBinding HeaderStyle}"
-                                          TextWrapping="Wrap"/>
+                                          TextWrapping="Wrap"
+                                          Margin="5, 0, 0, 0"/>
                         <ContentPresenter Grid.Row="1"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          TextWrapping="Wrap"
+                                          Margin="5, 0, 0, 0"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
