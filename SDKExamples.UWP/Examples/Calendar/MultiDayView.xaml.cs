@@ -103,7 +103,7 @@ namespace SDKExamples.UWP.Calendar
             this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddHours(14), today.AddHours(18)) { Color = new SolidColorBrush(Colors.DarkOrange), Subject = "App 6", IsAllDay = true });
             this.Appointments.appointments
-                .Add(new DateTimeAppointment(today.AddHours(14), today.AddDays(1).AddHours(18)) { Color = new SolidColorBrush(Colors.AliceBlue), Subject = "App 7", IsAllDay = true });
+                .Add(new DateTimeAppointment(today.AddHours(14), today.AddDays(2).AddHours(18)) { Color = new SolidColorBrush(Colors.AliceBlue), Subject = "App 7", IsAllDay = true });
             this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(-2).AddHours(14), today.AddDays(-2).AddHours(18)) { Color = new SolidColorBrush(Colors.BurlyWood), Subject = "App 8", IsAllDay = true });
             this.Appointments.appointments

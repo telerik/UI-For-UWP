@@ -64,7 +64,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             cell.Date = date;
             cell.Label = string.Format(this.Calendar.Culture, this.Calendar.MonthViewCellFormat, date);
 
-            cell.IsFromAnotherView = date.Month != this.Calendar.DisplayDate.Month;
+            if (this.Calendar.DisplayMode != CalendarDisplayMode.MultiDayView)
+            {
+                cell.IsFromAnotherView = date.Month != this.Calendar.DisplayDate.Month;
+            }
         }
 
         internal void EnsureCalendarHeaderCells()
