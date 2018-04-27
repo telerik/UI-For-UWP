@@ -149,6 +149,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty AllDayAreaTextProperty =
             DependencyProperty.Register(nameof(AllDayAreaText), typeof(string), typeof(MultiDayViewSettings), new PropertyMetadata(DefaultAllDayText, OnAllDayAreaTextChanged));
 
+        internal const string DefaultAllDayText = "All-day";
         internal RadCalendar owner;
         internal MultiDayViewUpdateFlag updateFlag;
         internal DispatcherTimer timer;
@@ -160,7 +161,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal Style defaultAllDayAreaTextStyle;
         internal Style defaulTodaySlotStyle;
 
-        internal const string DefaultAllDayText = "All-day";
         private const int DefaultMultiDayViewVisibleDays = 7;
         private const int DefaultNavigationStep = 7;
         private const int MinimumtMultiDayViewVisibleDays = 1;
