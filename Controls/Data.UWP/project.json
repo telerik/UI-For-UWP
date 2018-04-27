@@ -5,7 +5,8 @@
   },
   "dependencies": {
     "Microsoft.NETCore": "5.0.0",
-    "Microsoft.NETCore.Portable.Compatibility": "1.0.0"
+    "Microsoft.NETCore.Portable.Compatibility": "1.0.0",
+    "StyleCop.MSBuild": "4.7.55"
   },
   "frameworks": {
     "dotnet": {

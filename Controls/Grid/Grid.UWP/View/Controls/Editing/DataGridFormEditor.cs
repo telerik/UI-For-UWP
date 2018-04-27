@@ -101,7 +101,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the Style for th DataForm.
+        /// Gets or sets the Style for the DataForm.
         /// </summary>
         public Style DataFormStyle
         {
