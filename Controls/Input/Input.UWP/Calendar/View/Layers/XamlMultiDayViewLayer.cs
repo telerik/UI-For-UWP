@@ -922,15 +922,15 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 {
                     if (navigationWidth < this.currHorizontalOffset)
                     {
-                        double totalPassedWidth = numberOfDaysToNavigateTo * cellWidth;
+                        double totalPassedWidth = this.numberOfDaysToNavigateTo * cellWidth;
                         if (totalPassedWidth - this.currHorizontalOffset > 0)
                         {
                             currentPosition = -totalPassedWidth;
                         }
                         else
                         {
-                            numberOfDaysToNavigateTo += 1;
-                            currentPosition = -cellWidth * numberOfDaysToNavigateTo;
+                            this.numberOfDaysToNavigateTo += 1;
+                            currentPosition = -cellWidth * this.numberOfDaysToNavigateTo;
                         }
                     }
                 }
@@ -938,15 +938,15 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 {
                     if (navigationWidth < -this.currHorizontalOffset)
                     {
-                        double totalPassedWidth = numberOfDaysToNavigateTo * cellWidth;
+                        double totalPassedWidth = this.numberOfDaysToNavigateTo * cellWidth;
                         if (totalPassedWidth - this.currHorizontalOffset < 0)
                         {
                             currentPosition = -totalPassedWidth;
                         }
                         else
                         {
-                            numberOfDaysToNavigateTo -= 1;
-                            currentPosition = -cellWidth * numberOfDaysToNavigateTo;
+                            this.numberOfDaysToNavigateTo -= 1;
+                            currentPosition = -cellWidth * this.numberOfDaysToNavigateTo;
                         }
                     }
                 }
