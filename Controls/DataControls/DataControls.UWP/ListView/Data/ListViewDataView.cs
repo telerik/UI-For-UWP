@@ -14,6 +14,11 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         private readonly RadListView owner;
 
+        public ListViewDataView(RadListView owner)
+        {
+            this.owner = owner;
+        }
+
         public bool IsDataReady
         {
             get
@@ -51,11 +56,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 return this.owner.currencyService.IsCurrentItemInView;
             }
-        }
-
-        public ListViewDataView(RadListView owner)
-        {
-            this.owner = owner;
         }
 
         public IDataGroup GetParentGroup(object item)
@@ -167,18 +167,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             return this.owner.currencyService.MoveCurrentToPrevious();
         }
 
-        private IEnumerable<DataGroup> EnumerateDataGroups()
-        {
-            var group = this.owner.Model.CurrentDataProvider.Results.Root.RowGroup;
-
-            if (group == null)
-            {
-                return Enumerable.Empty<DataGroup>();
-            }
-
-            return EnumerateDataGroups((DataGroup)group);
-        }
-
         private static IEnumerable<DataGroup> EnumerateDataGroups(DataGroup group)
         {
             if (!group.IsBottomLevel)
@@ -195,18 +183,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                     }
                 }
             }
-        }
-
-        private IEnumerable<object> EnumerateDataItems()
-        {
-            var group = this.owner.Model.CurrentDataProvider.Results.Root.RowGroup;
-
-            if (group == null)
-            {
-                return Enumerable.Empty<object>();
-            }
-
-            return EnumerateDataItems((DataGroup)group);
         }
 
         private static IEnumerable<object> EnumerateDataItems(DataGroup group)
@@ -232,6 +208,30 @@ namespace Telerik.UI.Xaml.Controls.Data
                     }
                 }
             }
+        }
+
+        private IEnumerable<DataGroup> EnumerateDataGroups()
+        {
+            var group = this.owner.Model.CurrentDataProvider.Results.Root.RowGroup;
+
+            if (group == null)
+            {
+                return Enumerable.Empty<DataGroup>();
+            }
+
+            return EnumerateDataGroups((DataGroup)group);
+        }
+
+        private IEnumerable<object> EnumerateDataItems()
+        {
+            var group = this.owner.Model.CurrentDataProvider.Results.Root.RowGroup;
+
+            if (group == null)
+            {
+                return Enumerable.Empty<object>();
+            }
+
+            return EnumerateDataItems((DataGroup)group);
         }
     }
 }
