@@ -508,66 +508,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.topLeftHeaderPanel.Children.Add(this.verticalGridLineBorder);
             }
 
-            this.ApplyTimeRulerStyle(horizontalAllDayUpperLine, this.horizontaUpperGridLineBorder);
-
-            if (this.horizontaUpperGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontaUpperGridLineBorder.Style))
-            {
-                this.horizontaUpperGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
-            }
-
-            RadRect layoutSlot = horizontalAllDayUpperLine.layoutSlot;
-            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontaUpperGridLineBorder, layoutSlot, true);
-
-            MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
-            Style allDayAreaBorderStyle = settings.AllDayAreaBorderStyle ?? settings.defaultAllDayAreaBorderStyle;
-            if (allDayAreaBorderStyle != null)
-            {
-                this.horizontalLowerGridLineBorder.Style = allDayAreaBorderStyle;
-            }
-
-            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.horizontalLowerGridLineBorder.Style))
-            {
-                this.horizontalLowerGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
-            }
-
-            if (this.horizontalLowerGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontalLowerGridLineBorder.Style))
-            {
-                this.horizontalLowerGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
-            }
-
-            layoutSlot = horizontalAllDayLowerLine.layoutSlot;
-            layoutSlot.Height = this.horizontalLowerGridLineBorder.BorderThickness.Left;
-            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontalLowerGridLineBorder, layoutSlot, true);
-
-            this.ApplyTimeRulerStyle(horizontalTopHeaderLine, this.horizontaTopHeaderGridLineBorder);
-
-            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.horizontaTopHeaderGridLineBorder.Style))
-            {
-                this.horizontaTopHeaderGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
-            }
-
-            if (this.horizontaTopHeaderGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontaTopHeaderGridLineBorder.Style))
-            {
-                this.horizontaTopHeaderGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
-            }
-
-            layoutSlot = horizontalTopHeaderLine.layoutSlot;
-            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontaTopHeaderGridLineBorder, layoutSlot, true);
-
-            this.ApplyTimeRulerStyle(verticalLine, this.verticalGridLineBorder);
-
-            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.verticalGridLineBorder.Style))
-            {
-                this.verticalGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
-            }
-
-            if (this.verticalGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.verticalGridLineBorder.Style))
-            {
-                this.verticalGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
-            }
-
-            layoutSlot = verticalLine.layoutSlot;
-            XamlMultiDayViewLayer.ArrangeUIElement(this.verticalGridLineBorder, layoutSlot, true);
+            this.LayoutTopAllDayAreaHorizontalBorder(horizontalAllDayUpperLine);
+            this.LayoutLowerAllDayAreaHorizontalBorder(horizontalAllDayLowerLine);
+            this.LayoutTopHeaderHorizontalBorder(horizontalTopHeaderLine);
+            this.LayoutVerticalHeaderBorder(verticalLine);
         }
 
         internal void ArrangeVisualElement()
@@ -684,6 +628,84 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         protected internal override void RemoveVisualChild(UIElement child)
         {
             this.contentPanel.Children.Remove(child);
+        }
+
+        private void LayoutVerticalHeaderBorder(CalendarGridLine verticalLine)
+        {
+            this.ApplyTimeRulerStyle(verticalLine, this.verticalGridLineBorder);
+
+            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.verticalGridLineBorder.Style))
+            {
+                this.verticalGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
+            }
+
+            if (this.verticalGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.verticalGridLineBorder.Style))
+            {
+                this.verticalGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+            }
+
+            RadRect layoutSlot = verticalLine.layoutSlot;
+            XamlMultiDayViewLayer.ArrangeUIElement(this.verticalGridLineBorder, layoutSlot, true);
+        }
+
+        private void LayoutTopHeaderHorizontalBorder(CalendarGridLine horizontalTopHeaderLine)
+        {
+            this.ApplyTimeRulerStyle(horizontalTopHeaderLine, this.horizontaTopHeaderGridLineBorder);
+
+            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.horizontaTopHeaderGridLineBorder.Style))
+            {
+                this.horizontaTopHeaderGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
+            }
+
+            if (this.horizontaTopHeaderGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontaTopHeaderGridLineBorder.Style))
+            {
+                this.horizontaTopHeaderGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+            }
+
+            RadRect layoutSlot = horizontalTopHeaderLine.layoutSlot;
+            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontaTopHeaderGridLineBorder, layoutSlot, true);
+        }
+
+        private void LayoutLowerAllDayAreaHorizontalBorder(CalendarGridLine horizontalAllDayLowerLine)
+        {
+            MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
+            Style allDayAreaBorderStyle = settings.AllDayAreaBorderStyle ?? settings.defaultAllDayAreaBorderStyle;
+            if (allDayAreaBorderStyle != null)
+            {
+                this.horizontalLowerGridLineBorder.Style = allDayAreaBorderStyle;
+            }
+
+            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.horizontalLowerGridLineBorder.Style))
+            {
+                this.horizontalLowerGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
+            }
+
+            if (this.horizontalLowerGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontalLowerGridLineBorder.Style))
+            {
+                this.horizontalLowerGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+            }
+
+            RadRect layoutSlot = horizontalAllDayLowerLine.layoutSlot;
+            layoutSlot.Height = this.horizontalLowerGridLineBorder.BorderThickness.Left;
+            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontalLowerGridLineBorder, layoutSlot, true);
+        }
+
+        private void LayoutTopAllDayAreaHorizontalBorder(CalendarGridLine horizontalAllDayUpperLine)
+        {
+            this.ApplyTimeRulerStyle(horizontalAllDayUpperLine, this.horizontaUpperGridLineBorder);
+
+            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.horizontaUpperGridLineBorder.Style))
+            {
+                this.horizontaUpperGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
+            }
+
+            if (this.horizontaUpperGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontaUpperGridLineBorder.Style))
+            {
+                this.horizontaUpperGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+            }
+
+            RadRect layoutSlot = horizontalAllDayUpperLine.layoutSlot;
+            XamlMultiDayViewLayer.ArrangeUIElement(this.horizontaUpperGridLineBorder, layoutSlot, true);
         }
 
         private bool IsTextExplicitlySet(Style style)
