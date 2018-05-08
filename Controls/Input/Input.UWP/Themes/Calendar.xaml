@@ -256,6 +256,7 @@
         <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="MinHeight" Value="200" />
         <Setter Property="MinWidth" Value="200" />
+        <Setter Property="Background" Value="{ThemeResource TelerikCalendarBackgroundBrush}"/>
         <Setter Property="GridLinesBrush" Value="{ThemeResource TelerikCalendarGridLinesBrush}" />
         <Setter Property="BorderBrush" Value="{ThemeResource TelerikCalendarGridLinesBrush}" />
         <Setter Property="BorderThickness" Value="2" />

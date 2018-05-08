@@ -368,6 +368,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 if (appointmentControl != null)
                 {
                     RadRect layoutSlot = appointmentInfo.layoutSlot;
+                    layoutSlot.Width -= 3;
                     appointmentControl.Content = appointmentInfo.DetailText;
                     appointmentControl.Header = appointmentInfo.Subject;
                     appointmentControl.Background = appointmentInfo.Brush;
@@ -524,11 +525,26 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.horizontalLowerGridLineBorder.Style = allDayAreaBorderStyle;
             }
 
+            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.horizontalLowerGridLineBorder.Style))
+            {
+                this.horizontalLowerGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
+            }
+
+            if (this.horizontalLowerGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontalLowerGridLineBorder.Style))
+            {
+                this.horizontalLowerGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+            }
+
             layoutSlot = horizontalAllDayLowerLine.layoutSlot;
             layoutSlot.Height = this.horizontalLowerGridLineBorder.BorderThickness.Left;
             XamlMultiDayViewLayer.ArrangeUIElement(this.horizontalLowerGridLineBorder, layoutSlot, true);
 
             this.ApplyTimeRulerStyle(horizontalTopHeaderLine, this.horizontaTopHeaderGridLineBorder);
+
+            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.horizontaTopHeaderGridLineBorder.Style))
+            {
+                this.horizontaTopHeaderGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
+            }
 
             if (this.horizontaTopHeaderGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.horizontaTopHeaderGridLineBorder.Style))
             {
@@ -539,6 +555,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             XamlMultiDayViewLayer.ArrangeUIElement(this.horizontaTopHeaderGridLineBorder, layoutSlot, true);
 
             this.ApplyTimeRulerStyle(verticalLine, this.verticalGridLineBorder);
+
+            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(this.verticalGridLineBorder.Style))
+            {
+                this.verticalGridLineBorder.BorderBrush = this.Owner.GridLinesBrush;
+            }
+
             if (this.verticalGridLineBorder.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(this.verticalGridLineBorder.Style))
             {
                 this.verticalGridLineBorder.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
@@ -720,6 +742,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 if (border != null)
                 {
                     this.ApplyTimeRulerStyle(gridLine, border);
+
+                    if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(border.Style))
+                    {
+                        border.BorderBrush = this.Owner.GridLinesBrush;
+                    }
 
                     if (border.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(border.Style))
                     {

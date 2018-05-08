@@ -440,7 +440,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         {
                             int widthCoeff = (appointment.EndDate - appointment.StartDate).Days;
                             int xCoeff = (cell.Date - appointment.StartDate.Date).Days;
-                            RadRect layoutSlot = new RadRect(cell.layoutSlot.X - (xCoeff * cell.layoutSlot.Width), prevBottom, cell.layoutSlot.Width + (cell.layoutSlot.Width * widthCoeff) + (this.Calendar.GridLinesThickness * widthCoeff), appoitmentHeight);
+                            RadRect layoutSlot = new RadRect(cell.layoutSlot.X - (xCoeff * cell.layoutSlot.Width), prevBottom, cell.layoutSlot.Width + (cell.layoutSlot.Width * widthCoeff) + this.Calendar.GridLinesThickness, appoitmentHeight);
                             if (containedInfos.FirstOrDefault(a => a.layoutSlot.IntersectsWith(layoutSlot)) == null)
                             {
                                 CalendarAppointmentInfo containedInfo = containedInfos.FirstOrDefault(a => a.childAppointment == appointment);
@@ -531,10 +531,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             double gridLineThickness = this.Calendar.GridLinesThickness;
             int gridLineHalfThickness = (int)(gridLineThickness / 2);
 
-            this.horizontalTopHeaderRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y, this.layoutSlot.Width, gridLineThickness));
-            this.horizontalUpperAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight, this.layoutSlot.Width, gridLineThickness));
-            this.horizontalLowerAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight + this.totalAllDayAreaHeight + gridLineThickness / 2, this.layoutSlot.Width, 0));
-            this.verticalRulerGridLine.Arrange(new RadRect(rect.X, rect.Y, gridLineThickness, rect.Height));
+            if ((this.Calendar.GridLinesVisibility & GridLinesVisibility.Horizontal) == GridLinesVisibility.Horizontal)
+            {
+                this.horizontalTopHeaderRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y, this.layoutSlot.Width, gridLineThickness));
+                this.horizontalUpperAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight, this.layoutSlot.Width, gridLineThickness));
+                this.horizontalLowerAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight + this.totalAllDayAreaHeight + gridLineThickness / 2, this.layoutSlot.Width, 0));
+            }
+
+            if ((this.Calendar.GridLinesVisibility & GridLinesVisibility.Vertical) == GridLinesVisibility.Vertical)
+            {
+                this.verticalRulerGridLine.Arrange(new RadRect(rect.X, rect.Y, gridLineThickness, rect.Height));
+            }
         }
 
         private void EnsureTimeRulerItems()

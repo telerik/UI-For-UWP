@@ -9,6 +9,7 @@
 
     <Color x:Key="TelerikSegmentedControlDisabledColor">#FF333333</Color>
 
+    <SolidColorBrush x:Key="TelerikCalendarBackgroundBrush" Color="#FF1D1D1D"/>
     <SolidColorBrush x:Key="TelerikSegmentedControlBackgroundThemeBrush" Color="Transparent" />
     <SolidColorBrush x:Key="TelerikSegmentedControlBorderThemeBrush" Color="{ThemeResource TelerikSelectedColor}" />
     <SolidColorBrush x:Key="TelerikSegmentedControlSeparatorThemeBrush" Color="{ThemeResource TelerikSelectedColor}" />

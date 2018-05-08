@@ -7,6 +7,7 @@
 
     <!--#region SegmentedControl Brushes-->
 
+    <SolidColorBrush x:Key="TelerikCalendarBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
     <SolidColorBrush x:Key="TelerikSegmentedControlBackgroundThemeBrush" Color="Transparent" />
     <SolidColorBrush x:Key="TelerikSegmentedControlBorderThemeBrush" Color="{ThemeResource TelerikSelectedColor}" />
     <SolidColorBrush x:Key="TelerikSegmentedControlSeparatorThemeBrush" Color="{ThemeResource TelerikSelectedColor}" />
