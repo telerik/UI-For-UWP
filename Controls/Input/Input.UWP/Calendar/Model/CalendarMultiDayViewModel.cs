@@ -183,28 +183,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void ArrangeIntersectedAppointments()
         {
-            double gridLineThickness = this.Calendar.GridLinesThickness == 0 ? this.Calendar.GridLinesThickness : 1;
+            double gridLineThickness = this.Calendar.GridLinesThickness > 0 ? this.Calendar.GridLinesThickness : 1;
             foreach (var appointmentInfo in this.appointmentInfos)
             {
                 if (!appointmentInfo.isArranged)
                 {
-                    List<CalendarAppointmentInfo> intersectedAppointments = this.appointmentInfos.Where(a =>
-                    {
-                        if (appointmentInfo.childAppointment.EndDate.TimeOfDay == a.childAppointment.StartDate.TimeOfDay)
-                        {
-                            a.layoutSlot.Y += gridLineThickness;
-                            return false;
-                        }
-
-                        if (appointmentInfo.childAppointment.StartDate.TimeOfDay == a.childAppointment.EndDate.TimeOfDay)
-                        {
-                            a.layoutSlot.Y -= gridLineThickness;
-                            return false;
-                        }
-
-                        return a.layoutSlot.IntersectsWith(appointmentInfo.layoutSlot) && a.columnIndex == appointmentInfo.columnIndex;
-                    }).ToList();
-
+                    List<CalendarAppointmentInfo> intersectedAppointments = this.appointmentInfos.Where(a => a.layoutSlot.IntersectsWith(appointmentInfo.layoutSlot) && a.columnIndex == appointmentInfo.columnIndex).ToList();
                     int intersectedAppointmentsCount = intersectedAppointments.Count;
                     if (intersectedAppointmentsCount > 1)
                     {
