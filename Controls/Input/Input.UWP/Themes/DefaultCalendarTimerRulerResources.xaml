@@ -28,11 +28,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
-
-    <Style x:Key="TimeRulerLineStyle" TargetType="Border">
-        <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
-    </Style>
-
+    
     <Style x:Key="TodaySlotStyle" TargetType="Border">
         <Setter Property="Background" Value="#FFFAFAFA"/>
     </Style>
@@ -44,7 +40,6 @@
 
     <Style x:Key="AllDayAreaBorderStyle" TargetType="Border">
         <Setter Property="BorderThickness" Value="4"/>
-        <Setter Property="BorderBrush" Value="#FFEBEBEB"/>
     </Style>
 
     <Style x:Key="DefaultNormalCellStyle" TargetType="TextBlock">
@@ -158,9 +153,7 @@
         </local:CalendarCellStyle.ContentStyle>
     </local:CalendarCellStyle>
 
-    <localCalendar:CalendarTimeRulerItemStyleSelector x:Key="CalendarTimeRulerItemStyleSelector"
-                                                      HorizontalLineStyle="{StaticResource TimeRulerLineStyle}"
-                                                      VerticalLineStyle="{StaticResource TimeRulerLineStyle}">
+    <localCalendar:CalendarTimeRulerItemStyleSelector x:Key="CalendarTimeRulerItemStyleSelector">
         <localCalendar:CalendarTimeRulerItemStyleSelector.TimeLabelStyle>
             <Style TargetType="TextBlock">
                 <Setter Property="TextAlignment" Value="Center" />

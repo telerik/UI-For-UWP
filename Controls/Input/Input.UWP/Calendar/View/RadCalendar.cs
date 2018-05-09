@@ -2541,6 +2541,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (calendar.IsTemplateApplied)
             {
                 calendar.decorationLayer.UpdateUI();
+
+                if (calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
+                {
+                    calendar.timeRulerLayer.UpdateUI();
+                }
             }
         }
 

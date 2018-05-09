@@ -62,6 +62,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return false;
         }
 
+        internal static bool IsStrokeBrushExplicitlySet(Style style)
+        {
+            if (style != null)
+            {
+                foreach (Setter setter in style.Setters)
+                {
+                    if (setter.Property == Border.BorderBrushProperty)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         internal void UpdateUI(IEnumerable<CalendarCellModel> cellsToUpdate = null)
         {
             bool fullUpdate = false;
@@ -135,7 +151,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.dayNamesLineSlot = RadRect.Empty;
             }
 
-            if (this.Owner.WeekNumbersVisibility == Visibility.Visible)
+            if (this.Owner.DisplayMode != CalendarDisplayMode.MultiDayView && this.Owner.WeekNumbersVisibility == Visibility.Visible)
             {
                 Border weekNumbersRightDecorationLine = this.GetCalendarDecorationVisual(this.weekNumbersLineModel, CalendarDecorationType.GridLine);
                 if (weekNumbersRightDecorationLine != null)
@@ -374,10 +390,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         {
                             visual.Style = style;
 
+                            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(visual.Style))
+                            {
+                                visual.BorderBrush = this.Owner.GridLinesBrush;
+                            }
+
                             if (visual.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(visual.Style))
                             {
                                 visual.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
                             }
+                        }
+                        else
+                        {
+                            visual.BorderBrush = this.Owner.GridLinesBrush;
+                            visual.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
                         }
                     }
                 }
