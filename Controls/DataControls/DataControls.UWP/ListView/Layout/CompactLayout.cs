@@ -800,7 +800,7 @@ namespace Telerik.Data.Core.Layouts
 
             for (int offset = 0; offset < slotSpan; offset++)
             {
-                this.renderInfo.Update(slot + offset, this.DefaultItemLength);
+                this.RenderInfo.Update(slot + offset, this.DefaultItemLength);
             }
 
             foreach (var collapsedGroup in this.CollapsedChildItems(info.Item))
@@ -863,7 +863,7 @@ namespace Telerik.Data.Core.Layouts
 
             for (int offset = 0; offset < slotSpan; offset++)
             {
-                this.renderInfo.Update(slot + offset, 0);
+                this.RenderInfo.Update(slot + offset, 0);
             }
 
             if (raiseEvent)
