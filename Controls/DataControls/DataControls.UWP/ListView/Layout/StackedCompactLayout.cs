@@ -28,9 +28,15 @@ namespace Telerik.Data.Core.Layouts
             }
         }
 
+        internal override void GetCollapseRange(GroupInfo groupInfo, out int slot, out int slotSpan)
+        {
+            slot = this.GetRowSlotFromFlatSlot(groupInfo.Index) + 1;
+            slotSpan = this.CalculateFlatRowCount(groupInfo.GetLineSpan() - 1);
+        }
+
         internal override int CalculateFlatRowCount()
         {
-            return (int)Math.Ceiling((double)this.ItemsSource.Count / this.stackCount);
+            return this.CalculateFlatRowCount(this.ItemsSource.Count);
         }
 
         internal override int CountAndPopulateTables(object item, int rootSlot, int level, int levels, GroupInfo parent, bool shouldIndexItem, List<GroupInfo> insert, ref int totalLines)
@@ -614,6 +620,11 @@ namespace Telerik.Data.Core.Layouts
             this.RefreshRenderInfo(false);
         }
 
+        private int CalculateFlatRowCount(int count)
+        {
+            return (int)Math.Ceiling((double)count / this.stackCount);
+        }
+
         private int GetRowSlotFromFlatSlot(int flatSlot)
         {
             int currentRowIndex = -1;
@@ -621,7 +632,7 @@ namespace Telerik.Data.Core.Layouts
             GroupInfo groupInfo;
             int lowerBound;
 
-            while (currentFlatSlotIndex < this.TotalSlotCount)
+            while (currentRowIndex < this.TotalSlotCount)
             {
                 if (this.GroupHeadersTable.TryGetValue(currentFlatSlotIndex, out groupInfo, out lowerBound))
                 {

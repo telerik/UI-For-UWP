@@ -45,9 +45,10 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             return label;
         }
 
+        /// <inheritdoc/>
         protected override bool GetIsReadOnly(object property)
         {
-            if (column != null && !column.CanEdit)
+            if (this.column != null && !this.column.CanEdit)
             {
                 return true;
             }

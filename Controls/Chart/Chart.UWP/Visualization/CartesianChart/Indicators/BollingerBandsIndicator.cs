@@ -126,7 +126,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 foreach (DataPointSegment dataSegment in ChartSeriesRenderer.GetDataSegments(this.lowerBandRenderer.renderPoints))
                 {
-                    this.chart.ContainerVisualsFactory.PrepareLineRenderVisual(lineRendererVisual, this.lowerBandRenderer.GetPoints(dataSegment), this.LowerBandStroke, this.StrokeThickness);
+                    this.chart.ContainerVisualsFactory.PrepareLineRenderVisual(this.lineRendererVisual, this.lowerBandRenderer.GetPoints(dataSegment), this.LowerBandStroke, this.StrokeThickness);
                 }
             }
         }

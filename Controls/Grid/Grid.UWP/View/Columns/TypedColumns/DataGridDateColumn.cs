@@ -17,20 +17,20 @@ namespace Telerik.UI.Xaml.Controls.Grid
         private static TypeInfo dateTypeInfo = typeof(DateTime).GetTypeInfo();
         private static Type datePickerType = typeof(RadDatePicker);
 
-        private static Style defaultCellEditorStyle;
+        private Style defaultCellEditorStyle;
 
         internal override Style DefaultCellEditorStyle
         {
             get
             {
-                if (defaultCellEditorStyle == null)
+                if (this.defaultCellEditorStyle == null)
                 {
-                    defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultDateColumnEditorStyle.xaml",
                         "DefaultColumnEditorStyle") as Style;
                 }
-                return defaultCellEditorStyle;
+                return this.defaultCellEditorStyle;
             }
         }
 
@@ -61,6 +61,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares all bindings and content set to the RadDatePicker visualized when entering edit mode.
         /// </summary>
         /// <param name="editorContent">The editor itself.</param>
+        /// <param name="binding">The binding set to the editor of the cell.</param>
         public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
         {
             editorContent.SetBinding(RadDatePicker.ValueProperty, binding);

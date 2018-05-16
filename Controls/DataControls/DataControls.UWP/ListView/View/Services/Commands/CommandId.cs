@@ -49,5 +49,15 @@
         /// A command associated with the Pull to refresh that occurs when swipe gesture is executed.
         /// </summary>
         RefreshRequested,
+
+        /// <summary>
+        /// A command associated with the Hold event that occurs over an item.
+        /// </summary>
+        ItemHold,
+
+        /// <summary>
+        /// A command associated with the Tap event that occurs over a group header.
+        /// </summary>
+        GroupHeaderTap
     }
 }

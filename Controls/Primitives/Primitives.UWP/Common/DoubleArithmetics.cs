@@ -40,32 +40,47 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
         public bool IsZero(double value)
         {
-            return (long)Math.Ceiling(value * this.precision) == 0;
+            return this.ConvertToPrecision(value) == 0;
         }
 
         public bool AreClose(double value1, double value2)
         {
-            return (long)Math.Ceiling(value1 * this.precision) == (long)Math.Ceiling(value2 * this.precision);
+            return this.ConvertToPrecision(value1) == this.ConvertToPrecision(value2);
         }
 
         public bool IsLessThan(double value1, double value2)
         {
-            return (long)Math.Ceiling(value1 * this.precision) < (long)Math.Ceiling(value2 * this.precision);
+            return this.ConvertToPrecision(value1) < this.ConvertToPrecision(value2);
         }
 
         public bool IsLessThanOrEqual(double value1, double value2)
         {
-            return (long)Math.Ceiling(value1 * this.precision) <= (long)Math.Ceiling(value2 * this.precision);
+            return this.ConvertToPrecision(value1) <= this.ConvertToPrecision(value2);
         }
 
         public bool IsGreaterThan(double value1, double value2)
         {
-            return (long)Math.Ceiling(value1 * this.precision) > (long)Math.Ceiling(value2 * this.precision);
+            return this.ConvertToPrecision(value1) > this.ConvertToPrecision(value2);
         }
 
         public bool IsGreaterThanOrEqual(double value1, double value2)
         {
-            return (long)Math.Ceiling(value1 * this.precision) >= (long)Math.Ceiling(value2 * this.precision);
+            return this.ConvertToPrecision(value1) >= this.ConvertToPrecision(value2);
+        }
+
+        private long ConvertToPrecision(double value)
+        {
+            if (double.IsPositiveInfinity(value))
+            {
+                return long.MaxValue;
+            }
+
+            if (double.IsNegativeInfinity(value))
+            {
+                return long.MinValue;
+            }
+
+            return (long)Math.Ceiling(value * this.precision);
         }
     }
 }

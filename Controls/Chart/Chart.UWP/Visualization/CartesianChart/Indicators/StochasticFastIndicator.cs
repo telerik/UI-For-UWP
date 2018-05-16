@@ -139,7 +139,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 foreach (DataPointSegment dataSegment in ChartSeriesRenderer.GetDataSegments(this.signalRenderer.renderPoints))
                 {
-                    this.chart.ContainerVisualsFactory.PrepareLineRenderVisual(signalRendererVisual, this.signalRenderer.GetPoints(dataSegment), this.SignalStroke, this.StrokeThickness);
+                    this.chart.ContainerVisualsFactory.PrepareLineRenderVisual(this.signalRendererVisual, this.signalRenderer.GetPoints(dataSegment), this.SignalStroke, this.StrokeThickness);
                 }
             }
         }
@@ -199,7 +199,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 this.signalRendererVisual = this.chart.ContainerVisualsFactory.CreateContainerVisual(this.Compositor, this.GetType());
                 this.ContainerVisualRoot.Children.InsertAtBottom(this.signalRendererVisual);
             }
-
 
             return applied;
         }

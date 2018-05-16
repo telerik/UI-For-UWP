@@ -49,6 +49,8 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -125,10 +127,13 @@
     <Compile Include="Common\SuspendableObject.cs" />
     <Compile Include="Common\ValidateViewModelBase.cs" />
     <Compile Include="Common\ViewModelBase.cs" />
+    <Compile Include="Common\WeakCollectionChangedListener.cs" />
+    <Compile Include="Common\WeakPropertyChangedListener.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\IFormatSelector.cs" />
     <Compile Include="Converters\NumericConverter.cs" />
     <Compile Include="Converters\StringToUpperConverter.cs" />
+    <Compile Include="Common\ICollectionChangedListener.cs" />
     <Compile Include="Data\PropertyValueLookup.cs" />
     <Compile Include="Data\ValueLookup.cs" />
     <Compile Include="DynamicHelper.cs" />
@@ -149,6 +154,7 @@
     <Compile Include="ElementTree\PropertyKeys.cs" />
     <Compile Include="ElementTree\RootElement.cs" />
     <Compile Include="ElementTree\TreeTraversalMode.cs" />
+    <Compile Include="Common\IPropertyChangedListener.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Localization\StringResourceLoader.cs" />
     <Compile Include="Math\RadCircle.cs" />

@@ -15,8 +15,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 {
     public partial class RadDataGrid
     {
-        private double cellsRowHeight = 40;
-
         private GridModel model;
 
         [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]

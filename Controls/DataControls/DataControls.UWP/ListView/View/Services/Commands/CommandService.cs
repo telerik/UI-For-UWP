@@ -132,7 +132,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
         {
             this.Owner.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
         }
-        
+
         private ListViewCommand CreateKnownCommand(CommandId id)
         {
             ListViewCommand command = null;
@@ -169,6 +169,14 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
 
                 case CommandId.ItemActionTap:
                     command = new ItemActionTapCommand();
+                    break;
+
+                case CommandId.ItemHold:
+                    command = new ItemHoldCommand();
+                    break;
+
+                case CommandId.GroupHeaderTap:
+                    command = new GroupHeaderTapCommand();
                     break;
 
                 default:

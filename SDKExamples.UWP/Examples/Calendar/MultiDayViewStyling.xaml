@@ -1,0 +1,179 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Calendar.MultiDayViewStyling"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:example="using:SDKExamples.UWP.Calendar"
+    xmlns:calendar="using:Telerik.UI.Xaml.Controls.Input.Calendar"
+    xmlns:core="using:Telerik.Core"
+    mc:Ignorable="d" x:Name="page">
+    <local:ExamplePageBase.Resources>
+        <example:NonWorkingHoursSpecialSlotStyleSelector x:Key="NonWorkingHoursSpecialSlotStyleSelector">
+            <example:NonWorkingHoursSpecialSlotStyleSelector.NonWorkingHours>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+            </example:NonWorkingHoursSpecialSlotStyleSelector.NonWorkingHours>
+            <example:NonWorkingHoursSpecialSlotStyleSelector.SpecialHours>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="Green"/>
+                </Style>
+            </example:NonWorkingHoursSpecialSlotStyleSelector.SpecialHours>
+        </example:NonWorkingHoursSpecialSlotStyleSelector>
+        <calendar:CalendarTimeRulerItemStyleSelector x:Key="CalendarTimeRulerItemStyleSelector">
+            <calendar:CalendarTimeRulerItemStyleSelector.HorizontalLineStyle>
+                <Style TargetType="Border">
+                    <Setter Property="BorderBrush" Value="Red"/>
+                </Style>
+            </calendar:CalendarTimeRulerItemStyleSelector.HorizontalLineStyle>
+            <calendar:CalendarTimeRulerItemStyleSelector.VerticalLineStyle>
+                <Style TargetType="Border">
+                    <Setter Property="BorderBrush" Value="Blue"/>
+                </Style>
+            </calendar:CalendarTimeRulerItemStyleSelector.VerticalLineStyle>
+            <calendar:CalendarTimeRulerItemStyleSelector.TimeLabelStyle>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontStyle" Value="Italic"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Style>
+            </calendar:CalendarTimeRulerItemStyleSelector.TimeLabelStyle>
+        </calendar:CalendarTimeRulerItemStyleSelector>
+
+        <Style TargetType="Border" x:Key="CurrentTimeIndicatorStyle">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="TodaySlotStyle">
+            <Setter Property="Background" Value="YellowGreen"/>
+        </Style>
+        <example:CustomAppointmentTemplateSelector x:Key="CustomAppointmentTemplateSelector">
+            <example:CustomAppointmentTemplateSelector.DefaultTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontWeight="Thin"/>
+                </DataTemplate>
+            </example:CustomAppointmentTemplateSelector.DefaultTemplate>
+            <example:CustomAppointmentTemplateSelector.SpecialTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontWeight="Bold"/>
+                </DataTemplate>
+            </example:CustomAppointmentTemplateSelector.SpecialTemplate>
+        </example:CustomAppointmentTemplateSelector>
+        <example:CustomAppointmentHeaderTemplateSelector x:Key="CustomAppointmentHeaderTemplateSelector">
+            <example:CustomAppointmentHeaderTemplateSelector.DefaultTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Red"/>
+                </DataTemplate>
+            </example:CustomAppointmentHeaderTemplateSelector.DefaultTemplate>
+            <example:CustomAppointmentHeaderTemplateSelector.SpecialTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Green"/>
+                </DataTemplate>
+            </example:CustomAppointmentHeaderTemplateSelector.SpecialTemplate>
+        </example:CustomAppointmentHeaderTemplateSelector>
+        <example:CustomAppointmentStyleSelector x:Key="CustomAppointmentStyleSelector">
+            <example:CustomAppointmentStyleSelector.DefaultStyle>
+                <Style TargetType="calendar:AppointmentControl">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="HeaderStyle">
+                        <Setter.Value>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="FontSize" Value="11"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </example:CustomAppointmentStyleSelector.DefaultStyle>
+            <example:CustomAppointmentStyleSelector.AllDayStyle>
+                <Style TargetType="calendar:AppointmentControl">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HeaderStyle">
+                        <Setter.Value>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="FontSize" Value="18"/>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </example:CustomAppointmentStyleSelector.AllDayStyle>
+        </example:CustomAppointmentStyleSelector>
+        <Style TargetType="Border" x:Key="CustomAllDayAreaBorderStyle">
+            <Setter Property="BorderBrush" Value="GreenYellow"/>
+            <Setter Property="BorderThickness" Value="5"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="CustomAllDayAreaTextStyle">
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Text" Value="Here type your text ... This is a long text"/>
+            <Setter Property="Padding" Value="0, 10 , 0, 0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </local:ExamplePageBase.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="2" Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <input:RadCalendar x:Name="calendar" Grid.Row="1"
+                           DisplayMode="MultiDayView"
+                           AppointmentSource="{Binding Appointments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           AppointmentTemplateSelector="{StaticResource CustomAppointmentTemplateSelector}"
+                           AppointmentHeaderTemplateSelector="{StaticResource CustomAppointmentHeaderTemplateSelector}"
+                           AppointmentStyleSelector="{StaticResource CustomAppointmentStyleSelector}">
+            <input:RadCalendar.Commands>
+                <example:AppointmentTapCommand/>
+                <example:SlotTapCommand/>
+            </input:RadCalendar.Commands>
+            <input:RadCalendar.HighlightedCellStyle>
+                <input:CalendarCellStyle>
+                    <input:CalendarCellStyle.DecorationStyle>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="YellowGreen" />
+                        </Style>
+                    </input:CalendarCellStyle.DecorationStyle>
+                    <input:CalendarCellStyle.ContentStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Margin" Value="6,0,0,4" />
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="20"/>
+                        </Style>
+                    </input:CalendarCellStyle.ContentStyle>
+                </input:CalendarCellStyle>
+            </input:RadCalendar.HighlightedCellStyle>
+            <input:RadCalendar.MultiDayViewSettings>
+                <input:MultiDayViewSettings SpecialSlotsSource="{Binding NonWorkingHours}"
+                                            SpecialSlotStyleSelector="{StaticResource NonWorkingHoursSpecialSlotStyleSelector}"
+                                            TimeRulerItemStyleSelector="{StaticResource CalendarTimeRulerItemStyleSelector}"
+                                            CurrentTimeIndicatorStyle="{StaticResource CurrentTimeIndicatorStyle}"
+                                            TodaySlotStyle="{StaticResource TodaySlotStyle}"
+                                            AllDayAreaBackground="LightBlue"
+                                            AllDayAreaBorderStyle="{StaticResource CustomAllDayAreaBorderStyle}"
+                                            AllDayAreaText="Should not be set"
+                                            AllDayAreaTextStyle="{StaticResource CustomAllDayAreaTextStyle}"/>
+            </input:RadCalendar.MultiDayViewSettings>
+        </input:RadCalendar>
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Visible">
+            <StackPanel  Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="5, 0, 5, 0"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Content="Add new App" Click="AddNewAppClicked"/>
+                <Button Content="Add new Slot" Click="AddNewSlotClicked"/>
+                <Button Content="Change AppointmentSource" Click="ChangeAppointmentSourceClicked"/>
+                <Button Content="Change SpecialSlotSource" Click="ChangeSpecialSlotSourceClicked"/>
+                <Button Content="Change Appointment property" Click="ChangeAppPropertyClicked"/>
+                <Button Content="Change Slot property" Click="ChangeSlotPropertyClicked"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</local:ExamplePageBase>

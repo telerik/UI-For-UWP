@@ -102,22 +102,8 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
         void ITransactionService.ErrorsChanged(object sender, string propertyName)
         {
             var property = this.Owner.Entity.GetEntityProperty(propertyName);
-            var list = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToList();
-            this.errors[propertyName] = list;
-
-            var temp = this.Dispatcher.RunAsync(
-                Windows.UI.Core.CoreDispatcherPriority.Normal,
-                () =>
-                {
-                    var errorsList = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToArray();
-
-                    property.Errors.Clear();
-
-                    foreach (var error in errorsList)
-                    {
-                        property.Errors.Add(error);
-                    }
-                });
+            var errorsList = (sender as ISupportEntityValidation).GetErrors(propertyName).OfType<object>().ToList();
+            this.errors[propertyName] = errorsList;
         }
 
         internal bool CommitPropertyCore(EntityProperty property)
@@ -164,7 +150,15 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm
                     task.Wait();
                 }
 
-                isValid = !validator.GetErrors(property.PropertyName).OfType<string>().Any();
+                var errorsList = validator.GetErrors(property.PropertyName).OfType<string>();
+
+                property.Errors.Clear();
+                foreach (var error in errorsList)
+                {
+                    property.Errors.Add(error);
+                }
+
+                isValid = !errorsList.Any();
             }
 
             this.Owner.InvokeAsync(() => this.UpdateEntityPropertyDisplayMessage(isValid, property.PropertyName));

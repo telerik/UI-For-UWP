@@ -55,7 +55,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
             set
             {
-                SetValue(SelectedBackgroundBrushProperty, value);
+                this.SetValue(SelectedBackgroundBrushProperty, value);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
             set
             {
-                SetValue(OffStateBackgroundProperty, value);
+                this.SetValue(OffStateBackgroundProperty, value);
             }
         }
 
@@ -85,7 +85,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
             set
             {
-                SetValue(PointerOverBackgroundBrushProperty, value);
+                this.SetValue(PointerOverBackgroundBrushProperty, value);
             }
         }
 
@@ -99,6 +99,30 @@ namespace Telerik.UI.Xaml.Controls.Data
             if (this.EditorControl != null)
             {
                 this.EditorControl.Loaded += this.OnToggleSwitchEditorLoaded;
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void OnPointerEntered(PointerRoutedEventArgs e)
+        {
+            base.OnPointerEntered(e);
+
+            if (this.switchKnobRect != null)
+            {
+                this.switchKnobRect.Fill = this.PointerOverBackgroundBrush;
+                this.switchKnobRect.Stroke = this.PointerOverBackgroundBrush;
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void OnPointerExited(PointerRoutedEventArgs e)
+        {
+            base.OnPointerExited(e);
+
+            if (this.switchKnobRect != null)
+            {
+                this.switchKnobRect.Fill = this.SelectedBackgroundBrush;
+                this.switchKnobRect.Stroke = this.SelectedBackgroundBrush;
             }
         }
 
@@ -141,30 +165,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 this.switchKnobOffEllipse.Fill = this.OffStateBackground;
                 this.outerBorderRect.Stroke = this.OffStateBackground;
-            }
-        }
-
-        /// <inheritdoc />
-        protected override void OnPointerEntered(PointerRoutedEventArgs e)
-        {
-            base.OnPointerEntered(e);
-
-            if (this.switchKnobRect != null)
-            {
-                this.switchKnobRect.Fill = this.PointerOverBackgroundBrush;
-                this.switchKnobRect.Stroke = this.PointerOverBackgroundBrush;
-            }
-        }
-
-        /// <inheritdoc />
-        protected override void OnPointerExited(PointerRoutedEventArgs e)
-        {
-            base.OnPointerExited(e);
-
-            if (this.switchKnobRect != null)
-            {
-                this.switchKnobRect.Fill = this.SelectedBackgroundBrush;
-                this.switchKnobRect.Stroke = this.SelectedBackgroundBrush;
             }
         }
     }

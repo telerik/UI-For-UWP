@@ -40,7 +40,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DependencyProperty.Register(nameof(DisplayMemberPath), typeof(string), typeof(DataGridComboBoxColumn), new PropertyMetadata(string.Empty, OnDisplayMemberPathChanged));
 
         private static readonly Type comboBoxType = typeof(ComboBox);
-        private static Style defaultCellEditorStyle;
+
+        private Style defaultCellEditorStyle;
         private Type itemsType;
         private Func<object, object> itemPropertyGetter;
 
@@ -110,15 +111,15 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultCellEditorStyle == null)
+                if (this.defaultCellEditorStyle == null)
                 {
-                    defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultComboBoxColumnEditorStyle.xaml",
                         "DefaultColumnEditorStyle") as Style;
                 }
 
-                return defaultCellEditorStyle;
+                return this.defaultCellEditorStyle;
             }
         }
 
@@ -188,6 +189,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares all bindings and content set to the ComboBox visualized when entering edit mode.
         /// </summary>
         /// <param name="editorContent">The editor itself.</param>
+        /// <param name="binding">The binding set to the editor of the cell.</param>
         public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
         {
             var item = binding.Source;

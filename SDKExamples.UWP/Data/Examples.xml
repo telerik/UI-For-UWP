@@ -24,6 +24,9 @@
     <Example DisplayName="Formatting" ClassName="SDKExamples.UWP.Calendar.Formatting" />
     <Example DisplayName="Styling" ClassName="SDKExamples.UWP.Calendar.Styling" />
     <Example DisplayName="Blackout Cells" ClassName="SDKExamples.UWP.Calendar.BlackoutCells" />
+    <Example DisplayName="MultiDayView" ClassName="SDKExamples.UWP.Calendar.MultiDayView" />
+    <Example DisplayName="MultiDayViewAppointmentsCRUD" ClassName="SDKExamples.UWP.Calendar.MultiDayViewAppointmentsCRUD" />
+    <Example DisplayName="MultiDayViewStyling" ClassName="SDKExamples.UWP.Calendar.MultiDayViewStyling" />
   </Control>
   <Control Name="Chart">
     <Example DisplayName="Unbound Mode" ClassName="SDKExamples.UWP.Chart.UnboundMode" />
@@ -90,6 +93,7 @@
     <Example DisplayName="Item Animations" ClassName="SDKExamples.UWP.Listview.ItemAnimations" />
     <Example DisplayName="Layouts" ClassName="SDKExamples.UWP.Listview.Layouts" />
     <Example DisplayName="Item Swipe" ClassName="SDKExamples.UWP.Listview.ItemSwipe" />
+    <Example DisplayName="Scroll index into view" ClassName="SDKExamples.UWP.Listview.ScrollIndexIntoView" />
   </Control>
   <Control Name="Grid">
     <Example DisplayName="Column DataOperations Mode" ClassName="SDKExamples.UWP.DataGrid.ColumnDataOperationsModeExample" />

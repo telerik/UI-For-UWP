@@ -46,6 +46,8 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
@@ -55,7 +57,12 @@
     <Compile Include="DataForm\View\Editors\DataFormComboBoxItem.cs" />
     <Compile Include="DataForm\View\Editors\SegmentedControlCustomEditor.cs" />
     <Compile Include="DataForm\View\Editors\SliderCustomEditor.cs" />
+    <Compile Include="ListView\Data\ListViewDataView.cs" />
     <Compile Include="ListView\View\Controls\ListViewLoadDataUICommand.cs" />
+    <Compile Include="ListView\View\RadListView.Data.cs" />
+    <Compile Include="ListView\View\Services\Commands\GroupHeaderTapCommand.cs" />
+    <Compile Include="ListView\View\Services\Commands\ItemHoldCommand.cs" />
+    <Compile Include="ListView\View\Services\Commands\ItemHoldContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataBoundListBox\AutomationPeers\RadDataBoundListBoxAutomationPeer.cs" />
     <Compile Include="DataBoundListBox\AutomationPeers\RadDataBoundListBoxItemAutomationPeer.cs" />
@@ -404,13 +411,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="..\..\..\BuildTools\CopyBinaries.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
   <Target Name="XamlGeneratedCodeWarningRemoved" AfterTargets="MarkupCompilePass2">
     <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning disable 1591 &gt; %%f.temp" />
     <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do type %%f &gt;&gt; %%f.temp" />

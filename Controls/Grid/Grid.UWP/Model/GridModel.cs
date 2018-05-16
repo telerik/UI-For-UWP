@@ -149,21 +149,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             return this.CellsController.GetCellsForRow(row.ItemInfo.Slot).Where(c => c.Column != null && c.Column.IsFrozen);
         }
 
-        internal override ModifyChildrenResult CanAddChild(Node child)
-        {
-            if (child is GridRowModel)
-            {
-                return ModifyChildrenResult.Accept;
-            }
-
-            return base.CanAddChild(child);
-        }
-
-        internal RadSize MeasureContent(object owner, object content)
-        {
-            return this.GridView.MeasureContent(owner, content);
-        }
-
         public bool HasExpandedRowDetails(int index)
         {
             var model = this.RowPool.GetDisplayedElement(index);
@@ -179,6 +164,21 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         public void SetHeightForLine(int line, double value)
         {
             this.CellsController.UpdateSlotHeight(line, value);
+        }
+
+        internal override ModifyChildrenResult CanAddChild(Node child)
+        {
+            if (child is GridRowModel)
+            {
+                return ModifyChildrenResult.Accept;
+            }
+
+            return base.CanAddChild(child);
+        }
+
+        internal RadSize MeasureContent(object owner, object content)
+        {
+            return this.GridView.MeasureContent(owner, content);
         }
     }
 }

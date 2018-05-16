@@ -42,7 +42,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             int index = 0;
-
+            RadCalendar calendar = this.Owner;
             foreach (CalendarCellModel cell in cellsToUpdate)
             {
                 CalendarAppointmentInfo info = new CalendarAppointmentInfo();
@@ -58,22 +58,35 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                     foreach (var appointment in info.Appointments)
                     {
-                        info.DetailText += (info.DetailText != null ? Environment.NewLine : string.Empty) + appointment.Subject;
+                        info.Subject += (info.Subject != null ? Environment.NewLine : string.Empty) + appointment.Subject;
                     }
 
                     element = this.GetDefaultVisual(index);
                     element.Clip = new RectangleGeometry() { Rect = new Rect(0, 0, cell.LayoutSlot.Width, cell.LayoutSlot.Height) };
-                    element.Content = info;
+                    element.Header = info.Subject;
+                    element.Background = info.Brush;
+                    element.appointmentInfo = info;
 
                     XamlContentLayerHelper.MeasureVisual(element);
                     if (element != null)
                     {
-                        if (this.Owner.AppointmentTemplateSelector != null)
+                        StyleSelector styleSelector = calendar.AppointmentStyleSelector;
+                        if (styleSelector != null)
                         {
-                            var template = this.Owner.AppointmentTemplateSelector.SelectTemplate(info, cell);
+                            var style = styleSelector.SelectStyle(info, element);
+                            if (style != null)
+                            {
+                                element.Style = style;
+                            }
+                        }
+
+                        AppointmentTemplateSelector headerTemplateSelector = calendar.AppointmentHeaderTemplateSelector;
+                        if (headerTemplateSelector != null)
+                        {
+                            DataTemplate template = headerTemplateSelector.SelectTemplate(info, info.cell);
                             if (template != null)
                             {
-                                element.ContentTemplate = template;
+                                element.HeaderTemplate = template;
                             }
                         }
 
@@ -118,6 +131,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 visual = this.realizedCalendarCellDefaultPresenters[virtualIndex];
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
                 visual.ClearValue(AppointmentControl.ContentTemplateProperty);
+                visual.ClearValue(AppointmentControl.HeaderTemplateProperty);
+                visual.ClearValue(AppointmentControl.StyleProperty);
             }
             else
             {
@@ -132,7 +147,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             AppointmentControl appointmentControl = new AppointmentControl();
 
             this.realizedCalendarCellDefaultPresenters.Add(appointmentControl);
-
             this.AddVisualChild(appointmentControl);
 
             return appointmentControl;

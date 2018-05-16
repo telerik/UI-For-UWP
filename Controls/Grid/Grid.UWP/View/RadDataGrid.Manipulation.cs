@@ -292,12 +292,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return;
             }
 
-            // KeyDown is raised twice for VirtualKey.Enter
-            if (e.Key == VirtualKey.Enter && e.KeyStatus.RepeatCount > 0)
-            {
-                return;
-            }
-
             ItemInfo? info = null;
 
             switch (e.Key)

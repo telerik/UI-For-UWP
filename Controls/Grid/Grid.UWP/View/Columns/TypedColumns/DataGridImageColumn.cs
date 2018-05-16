@@ -94,6 +94,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares all bindings and content set to the Image visualized when entering edit mode.
         /// </summary>
         /// <param name="editorContent">The editor itself.</param>
+        /// <param name="binding">The binding set to the editor of the cell.</param>
         public override void PrepareEditorContentVisual(FrameworkElement editorContent, Windows.UI.Xaml.Data.Binding binding)
         {
         }
@@ -106,6 +107,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
         }
 
+        /// <inheritdoc/>
         public override void ClearCell(object container)
         {
             base.ClearCell(container);
@@ -118,24 +120,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
-        internal override Size MeasureCellContainer(double availableWidth, UIElement container)
-        {
-            var size = base.MeasureCellContainer(availableWidth, container);
-
-            var image = container as Image;
-            if (image != null)
-            {
-                var bitmapImage = image.Source as BitmapImage;
-                if (bitmapImage != null && bitmapImage.PixelWidth > 0)
-                {
-                    size.Width = bitmapImage.PixelWidth;
-                    size.Height = bitmapImage.PixelHeight;
-                }
-            }
-
-            return size;
-        }
-
+        /// <inheritdoc/>
         public override async void PrepareCell(object container, object value, object item)
         {
             base.PrepareCell(container, value, item);
@@ -184,6 +169,24 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 image.ImageOpened += this.OnImageOpened;
             }
+        }
+
+        internal override Size MeasureCellContainer(double availableWidth, UIElement container)
+        {
+            var size = base.MeasureCellContainer(availableWidth, container);
+
+            var image = container as Image;
+            if (image != null)
+            {
+                var bitmapImage = image.Source as BitmapImage;
+                if (bitmapImage != null && bitmapImage.PixelWidth > 0)
+                {
+                    size.Width = bitmapImage.PixelWidth;
+                    size.Height = bitmapImage.PixelHeight;
+                }
+            }
+
+            return size;
         }
 
         /// <summary>

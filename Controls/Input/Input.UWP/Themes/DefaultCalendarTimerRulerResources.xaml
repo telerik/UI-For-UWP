@@ -1,0 +1,164 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:localCalendar="using:Telerik.UI.Xaml.Controls.Input.Calendar"
+    xmlns:local="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:theming="using:Telerik.UI.Xaml.Controls">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesDark.xaml"/>
+                <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Light">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesLight.xaml"/>
+                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+    
+    <Style x:Key="TodaySlotStyle" TargetType="Border">
+        <Setter Property="Background" Value="#FFFAFAFA"/>
+    </Style>
+
+    <Style x:Key="CurrentTimeIndicatorStyle" TargetType="Border">
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource TelerikSelectedBrush}"/>
+    </Style>
+
+    <Style x:Key="AllDayAreaBorderStyle" TargetType="Border">
+        <Setter Property="BorderThickness" Value="4"/>
+    </Style>
+
+    <Style x:Key="DefaultNormalCellStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarNormalCellForegroundBrush}" />
+        <Setter Property="Margin" Value="6,0,0,4" />
+    </Style>
+
+    <Style x:Key="DefaultAllDayTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#FF919191" />
+        <Setter Property="Padding" Value="0, 10, 0, 0" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="DefaultDayNameCellStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="7,4,4,4" />
+        <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarDayNamesForegroundBrush}" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+
+    <Style x:Key="DefaultAnotherViewCellStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarAnotherViewCellForegroundBrush}" />
+        <Setter Property="Margin" Value="6,0,0,4" />
+    </Style>
+
+    <local:CalendarCellStyle x:Key="NormalCellStyle">
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultNormalCellStyle}">
+                <Setter Property="FontSize" Value="13.333" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="MuldiDayViewNormalCellStyle">
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultNormalCellStyle}">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="DayNameCellStyle">
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultDayNameCellStyle}">
+                <Setter Property="FontSize" Value="13.333" />
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="MuldiDayViewDayNameCellStyle">
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultDayNameCellStyle}">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="AnotherViewCellStyle">
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultAnotherViewCellStyle}">
+                <Setter Property="FontSize" Value="13.333" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="MuldiDayViewAnotherViewCellStyle">
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultAnotherViewCellStyle}">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="HighlightedCellStyle">
+        <local:CalendarCellStyle.DecorationStyle>
+            <Style TargetType="Border">
+                <Setter Property="BorderBrush" Value="{ThemeResource TelerikCalendarHighlightedCellBorderBrush}" />
+            </Style>
+        </local:CalendarCellStyle.DecorationStyle>
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="13.333" />
+                <Setter Property="Margin" Value="6,0,0,4" />
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="MuldiDayViewHighlightedCellStyle">
+        <local:CalendarCellStyle.DecorationStyle>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource TelerikSelectedBrush}" />
+            </Style>
+        </local:CalendarCellStyle.DecorationStyle>
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Margin" Value="6,0,0,4" />
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+    </local:CalendarCellStyle>
+
+    <localCalendar:CalendarTimeRulerItemStyleSelector x:Key="CalendarTimeRulerItemStyleSelector">
+        <localCalendar:CalendarTimeRulerItemStyleSelector.TimeLabelStyle>
+            <Style TargetType="TextBlock">
+                <Setter Property="TextAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="#FF919191"/>
+            </Style>
+        </localCalendar:CalendarTimeRulerItemStyleSelector.TimeLabelStyle>
+    </localCalendar:CalendarTimeRulerItemStyleSelector>
+</ResourceDictionary>

@@ -28,7 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         private bool hasPendingDataRefresh;
         private LocalDataSourceProvider localDataProvider;
         private IDataProvider externalDataProvider;
-
+        private HashSet<Group> collapsedGroups;
         private object itemsSource;
         private BatchLoadingMode dataLoadingMode;
         private int dataLoadingBufferSize = 10;
@@ -43,6 +43,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.BufferScale = 1;
 
             this.layoutController = new LayoutController(this.View, this);
+            this.collapsedGroups = new HashSet<Group>();
 
             this.InitializeDescriptors();
         }
@@ -537,6 +538,65 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.View.SetScrollPosition(scrollPosition, true, true);
         }
 
+        private static IEnumerable<Group> EnumerataDataGroups(Group group)
+        {
+            if (!group.IsBottomLevel)
+            {
+                foreach (Group parent in group.Items)
+                {
+                    yield return parent;
+
+                    var children = EnumerataDataGroups(parent);
+
+                    foreach (var child in children)
+                    {
+                        yield return child;
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<Group> EnumerataDataGroups()
+        {
+            if (this.CurrentDataProvider != null)
+            {
+                var group = this.CurrentDataProvider.Results.Root.RowGroup as Group;
+
+                if (group != null)
+                {
+                    return EnumerataDataGroups(group);
+                }
+            }
+
+            return Enumerable.Empty<Group>();
+        }
+
+        private void SaveCollapsedState()
+        {
+            this.collapsedGroups.Clear();
+
+            foreach (var group in this.EnumerataDataGroups())
+            {
+                if (this.layoutController.Layout.IsCollapsed(group))
+                {
+                    this.collapsedGroups.Add(group);
+                }
+            }
+        }
+
+        private void RestoreCollapsedState()
+        {
+            foreach (var group in this.EnumerataDataGroups())
+            {
+                if (this.collapsedGroups.Contains(group))
+                {
+                    this.layoutController.Layout.Collapse(group);
+                }
+            }
+
+            this.collapsedGroups.Clear();
+        }
+
         private void UpdateProviderField(IDataProvider provider)
         {
             provider.IsSingleThreaded = this.executeOperationsSyncroniously;
@@ -657,6 +717,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                     }
 
                     this.SetLayoutSource();
+                    this.RestoreCollapsedState();
 
                     ListView.UpdateFlags uiUpdateflags = ListView.UpdateFlags.AffectsContent;
 
@@ -683,7 +744,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 // suspend subsequent updates since we will need a Ready notification from the data engine to resume updates
                 this.View.UpdateService.SuspendUpdates();
-
+                this.SaveCollapsedState();
                 this.isDataProviderUpdating = true;
             }
         }

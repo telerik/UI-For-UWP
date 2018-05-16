@@ -50,6 +50,8 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <None Include="project.json" />
@@ -128,6 +130,7 @@
     <Compile Include="Data\Engine\Groups\Descriptions\CollectionViewGroupDescription.cs" />
     <Compile Include="Data\Engine\IncrementalLoading\PlaceholderInfoType.cs" />
     <Compile Include="Data\Engine\DataProviders\ViewChangingEventArgs.cs" />
+    <Compile Include="Data\IDataViewCollection.cs" />
     <Compile Include="Data\IncrementalLoading\BatchLoadingEventArgs.cs" />
     <Compile Include="Data\IncrementalLoading\BatchLoadingMode.cs" />
     <Compile Include="Data\IncrementalLoading\BatchLoadingProvider.cs" />
@@ -311,11 +314,4 @@
   <PropertyGroup>
     <IsPortableAssembly>true</IsPortableAssembly>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Telerik.Core;
+using Telerik.Core.Data;
 using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.Calendar;
 using Telerik.UI.Xaml.Controls.Input.Calendar.Commands;
@@ -22,7 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Input
     /// Represents a control that enables a user to select a date by using a visual calendar display.
     /// </summary>
     [TemplatePart(Name = "PART_CalendarViewHost", Type = typeof(CalendarViewHost))]
-    public partial class RadCalendar : RadControl, IView, ICultureAware
+    public partial class RadCalendar : RadControl, IView, ICultureAware, ICollectionChangedListener, IPropertyChangedListener
     {
         /// <summary>
         /// Identifies the <see cref="DisplayDateStart"/> dependency property.
@@ -137,13 +140,13 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         public static readonly DependencyProperty HeaderContentTemplateProperty =
             DependencyProperty.Register(nameof(HeaderContentTemplate), typeof(DataTemplate), typeof(RadCalendar), new PropertyMetadata(null, OnHeaderContentTemplatePropertyChanged));
-        
+
         /// <summary>
         /// Identifies the <see cref="HeaderContent"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderContentProperty =
             DependencyProperty.Register(nameof(HeaderContent), typeof(object), typeof(RadCalendar), new PropertyMetadata(null, OnHeaderContentPropertyChanged));
-        
+
         /// <summary>
         /// Identifies the <see cref="CellStateSelector"/> dependency property.
         /// </summary>
@@ -247,6 +250,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(WeekNumberFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultWeekNumberFormatString, OnWeekNumberFormatPropertyChanged));
 
         /// <summary>
+        /// Identifies the <see cref="WeekNumberFormat"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty TimeFormatProperty =
+            DependencyProperty.Register(nameof(TimeFormat), typeof(string), typeof(RadCalendar), new PropertyMetadata(CalendarModel.DefaultTimeFormatString, OnTimeFormatPropertyChanged));
+
+        /// <summary>
         /// Identifies the <see cref="SelectedDateRange"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectedDateRangeProperty =
@@ -264,7 +273,44 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty AppointmentTemplateSelectorProperty =
             DependencyProperty.Register(nameof(AppointmentTemplateSelector), typeof(AppointmentTemplateSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentTemplateSelectorChanged));
 
+        /// <summary>
+        /// Identifies the <c cref="AppointmentHeaderTemplateSelector"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty AppointmentHeaderTemplateSelectorProperty =
+            DependencyProperty.Register(nameof(AppointmentHeaderTemplateSelector), typeof(AppointmentTemplateSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentHeaderTemplateSelectorChanged));
+
+        /// <summary>
+        /// Identifies the <c cref="AppointmentStyleSelector"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty AppointmentStyleSelectorProperty =
+            DependencyProperty.Register(nameof(AppointmentStyleSelector), typeof(StyleSelector), typeof(RadCalendar), new PropertyMetadata(null, OnAppointmentStyleSelectorChanged));
+
+        /// <summary>
+        /// Identifies the <c cref="MultiDayViewSettings"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty MultiDayViewSettingsProperty =
+            DependencyProperty.Register(nameof(MultiDayViewSettings), typeof(MultiDayViewSettings), typeof(RadCalendar), new PropertyMetadata(new MultiDayViewSettings(), OnMultiDayViewSettingsChanged));
+
+        /// <summary>
+        /// Identifies the <c cref="MultiDayViewSettings"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty HeaderVisibilityProperty =
+            DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Visible));
+
+        /// <summary>
+        /// Identifies the <c cref="NavigationControlBorderStyle"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty NavigationControlBorderStyleProperty =
+            DependencyProperty.Register(nameof(NavigationControlBorderStyle), typeof(Style), typeof(RadCalendar), new PropertyMetadata(null));
+
+        internal const string DefaultMultiDayViewPreviousButtonContent = "\xE012";
+        internal const string DefaultMultiDayViewNextButtonContent = "\xE013";
+
+        internal const string DefaultNextButtonContent = "\xE011";
+        internal const string DefaultPreviousButtonContent = "\xE010";
+
         internal static readonly Size InfinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
+        internal static ResourceDictionary MultiDayViewResources;
 
         internal readonly VisualStateService VisualStateService;
         internal readonly SelectionService SelectionService;
@@ -274,14 +320,23 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal XamlDecorationLayer decorationLayer;
         internal XamlContentLayer contentLayer;
         internal XamlAppointmentLayer appointmentLayer;
+        internal XamlMultiDayViewLayer timeRulerLayer;
+        internal XamlAllDayAreaLayer allDayAreaLayer;
         internal CalendarNavigationControl navigationPanel;
         internal List<CalendarDateRange> unattachedSelectedRanges;
         internal CalendarViewHost calendarViewHost;
+        internal IAppointment pendingScrollToAppointment;
+        internal CalendarCellStyle defaultDayNameCellStyle;
 
         private const string DefaultMonthViewHeaderFormatString = "{0:MMMM yyyy}";
         private const string DefaultYearViewHeaderFormatString = "{0:yyyy}";
         private const string DefaultDecadeViewHeaderFormatString = "{0:yyyy} ~ {1:yyyy}";
         private const string DefaultCenturyViewHeaderFormatString = "{0:yyyy} ~ {1:yyyy}";
+
+        private const string DefaultDayNameCellStyleName = "DayNameCellStyle";
+        private const string DefaultNormalCellStyleName = "NormalCellStyle";
+        private const string DefaultAnotherViewCellStyleName = "AnotherViewCellStyle";
+        private const string DefaultHighlightedCellStyleName = "HighlightedCellStyle";
 
         private const string CalendarViewHostPartName = "PART_CalendarViewHost";
         private const string NavigationControlPanelName = "navigationControl";
@@ -304,16 +359,27 @@ namespace Telerik.UI.Xaml.Controls.Input
         private DateTime displayDateStartCache = new DateTime(1900, 1, 1);
         private DateTime displayDateEndCache = new DateTime(2099, 12, 31);
         private Brush gridLinesBrushCache;
+        private CalendarDisplayMode displayModeCache;
         private CalendarCellStyleSelector cellStyleSelectorCache;
         private CalendarCellStateSelector cellStateSelectorCache;
         private CalendarDayNameCellStyleSelector dayNameCellStyleSelectorCache;
         private CalendarWeekNumberCellStyleSelector weekNumberCellStyleSelectorCache;
         private CalendarCellStyle pointerOverCellStyleCache, normalCellStyleCache, anotherViewCellStyleCache, blackoutCellStyleCache, selectedCellStyleCache, highlightedCellStyleCache, currentCellStyleCache;
         private CalendarCellStyle dayNameCellStyleCache, weekNumberCellStyleCache;
+        private CalendarCellStyle defaultNormalCellStyle;
+        private CalendarCellStyle defaultAnotherViewCellStyle;
+        private CalendarCellStyle defaultHighlightedCellStyle;
 
         private CalendarCellModel highlightedCellCache;
         private DateTime pointerOverDateCache;
-        
+        private WeakCollectionChangedListener appointmentSourceCollectionChangedListener;
+        private List<WeakPropertyChangedListener> appointmentSourcePropertyChangedListeners = new List<WeakPropertyChangedListener>();
+
+        static RadCalendar()
+        {
+            RadCalendar.MultiDayViewResources = ResourceHelper.GetResourceDictionaryByPath(typeof(RadCalendar), "Telerik.UI.Xaml.Controls.Input.Themes.DefaultCalendarTimerRulerResources.xaml");
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RadCalendar"/> class.
         /// </summary>
@@ -329,6 +395,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.hitTestService = new HitTestService(this);
             this.inputService = new InputService(this);
             this.CurrencyService = new CurrencyService(this);
+
+            MultiDayViewSettings settings = this.MultiDayViewSettings;
+            settings.owner = this;
+            this.model.multiDayViewSettings = settings;
         }
 
         /// <summary>
@@ -434,6 +504,40 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
+        /// Gets or sets an AppointmentTemplateSelector object that will be used
+        /// to display different templates for each appointment data in the visual representation of a date.
+        /// </summary>
+        public AppointmentTemplateSelector AppointmentHeaderTemplateSelector
+        {
+            get
+            {
+                return (AppointmentTemplateSelector)this.GetValue(RadCalendar.AppointmentHeaderTemplateSelectorProperty);
+            }
+
+            set
+            {
+                this.SetValue(RadCalendar.AppointmentHeaderTemplateSelectorProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets an AppointmentStyleSelector that will be used
+        /// to display different styles for each appointment data in the visual representation of a date.
+        /// </summary>
+        public StyleSelector AppointmentStyleSelector
+        {
+            get
+            {
+                return (StyleSelector)this.GetValue(RadCalendar.AppointmentStyleSelectorProperty);
+            }
+
+            set
+            {
+                this.SetValue(RadCalendar.AppointmentStyleSelectorProperty, value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the last date to be displayed. The current view will not allow navigation to dates after this value.
         /// </summary>
         /// <value>
@@ -504,7 +608,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             get
             {
-                return (CalendarDisplayMode)this.GetValue(DisplayModeProperty);
+                return this.displayModeCache;
             }
             set
             {
@@ -1101,7 +1205,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             set
             {
-                SetValue(HeaderContentProperty, value);
+                this.SetValue(HeaderContentProperty, value);
             }
         }
 
@@ -1515,6 +1619,66 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
+        /// Gets or sets the time number formatting in the calendar timer ruler area in <see cref="CalendarDisplayMode.MultiDayView"/> mode.
+        /// </summary>
+        public string TimeFormat
+        {
+            get
+            {
+                return (string)this.GetValue(TimeFormatProperty);
+            }
+            set
+            {
+                this.SetValue(TimeFormatProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the settings for the multi-day view of the Calendar.
+        /// </summary>
+        public MultiDayViewSettings MultiDayViewSettings
+        {
+            get
+            {
+                return (MultiDayViewSettings)this.GetValue(MultiDayViewSettingsProperty);
+            }
+            set
+            {
+                this.SetValue(MultiDayViewSettingsProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Visibility of the Calendar's Header.
+        /// </summary>
+        public Visibility HeaderVisibility
+        {
+            get
+            {
+                return (Visibility)this.GetValue(HeaderVisibilityProperty);
+            }
+            set
+            {
+               this.SetValue(HeaderVisibilityProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Style for the Border of the Navigation control.
+        /// </summary>
+        public Style NavigationControlBorderStyle
+        {
+            get
+            {
+                return (Style)this.GetValue(NavigationControlBorderStyleProperty);
+            }
+            set
+            {
+                this.SetValue(NavigationControlBorderStyleProperty, value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the first <see cref="CalendarDateRange"/> in the current selection or returns null if the selection is empty.
         /// </summary>
         /// <remarks>
@@ -1651,6 +1815,97 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.Invalidate();
         }
 
+        /// <summary>
+        /// Scrolls to a specific appointment.
+        /// </summary>
+        /// <param name="appointment">The appointment that should be scrolled to.</param>
+        public void ScrollAppointmentIntoView(IAppointment appointment)
+        {
+            if (this.timeRulerLayer != null)
+            {
+                this.timeRulerLayer.ScrollAppointmentIntoView(appointment);
+            }
+            else
+            {
+                this.pendingScrollToAppointment = appointment;
+            }
+        }
+
+        /// <summary>
+        /// Implementation of the <see cref="ICollectionChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender">The collection sending the event.</param>
+        /// <param name="e">The event args.</param>
+        public void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (IAppointment appointment in e.NewItems)
+                    {
+                        WeakPropertyChangedListener newListener = WeakPropertyChangedListener.CreateIfNecessary(appointment, this);
+                        if (newListener != null)
+                        {
+                            this.appointmentSourcePropertyChangedListeners.Add(newListener);
+                        }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    if (this.appointmentSourcePropertyChangedListeners != null && this.appointmentSourcePropertyChangedListeners.Count > 0)
+                    {
+                        foreach (IAppointment appointment in e.OldItems)
+                        {
+                            WeakPropertyChangedListener oldPropertyListener = this.appointmentSourcePropertyChangedListeners[e.OldStartingIndex];
+                            if (oldPropertyListener != null)
+                            {
+                                this.appointmentSourcePropertyChangedListeners.Remove(oldPropertyListener);
+                                oldPropertyListener.Detach();
+                                oldPropertyListener = null;
+                            }
+                        }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    WeakPropertyChangedListener propertyListener = this.appointmentSourcePropertyChangedListeners[e.OldStartingIndex];
+                    if (propertyListener != null)
+                    {
+                        this.appointmentSourcePropertyChangedListeners.Remove(propertyListener);
+                        propertyListener.Detach();
+                        propertyListener = null;
+                    }
+
+                    WeakPropertyChangedListener listener = WeakPropertyChangedListener.CreateIfNecessary(e.NewItems[0], this);
+                    if (listener != null)
+                    {
+                        this.appointmentSourcePropertyChangedListeners.Add(listener);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+
+            if (sender == this.AppointmentSource.AllAppointments)
+            {
+                this.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            }
+        }
+
+        /// <summary>
+        /// Implementation of the <see cref="IPropertyChangedListener" /> interface.
+        /// </summary>
+        /// <param name="sender">The sender of the property changed.</param>
+        /// <param name="e">The arguments of the event.</param>
+        public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is IAppointment)
+            {
+                this.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            }
+        }
+
         [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         void IElementPresenter.RefreshNode(object node)
         {
@@ -1660,8 +1915,17 @@ namespace Telerik.UI.Xaml.Controls.Input
         [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]
         RadSize IElementPresenter.MeasureContent(object owner, object content)
         {
-            // we know how to measure only header cells content
-            return this.headerContentLayer.MeasureContent(owner, content);
+            if (owner is CalendarHeaderCellType)
+            {
+                // we know how to measure only header cells content
+                return this.headerContentLayer.MeasureContent(owner, content);
+            }
+            else if (this.DisplayMode == CalendarDisplayMode.MultiDayView)
+            {
+                return this.timeRulerLayer.MeasureContent(content);
+            }
+
+            return new RadSize();
         }
 
         /// <summary>
@@ -1737,6 +2001,11 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         internal void UpdatePresenters(IEnumerable<CalendarCellModel> cellsToUpdate)
         {
+            if (!this.IsLoaded || !this.IsTemplateApplied)
+            {
+                return;
+            }
+
             this.EvaluateCustomCellSelectors(cellsToUpdate);
 
             this.decorationLayer.UpdateUI(cellsToUpdate);
@@ -1822,6 +2091,78 @@ namespace Telerik.UI.Xaml.Controls.Input
             return isBlackout;
         }
 
+        internal void UpdateNavigationHeaderContent()
+        {
+            if (this.navigationPanel == null)
+            {
+                return;
+            }
+
+            if (this.HeaderContent == null)
+            {
+                string headerContent = null;
+
+                switch (this.DisplayMode)
+                {
+                    case CalendarDisplayMode.MonthView:
+                        headerContent = string.Format(this.currentCulture, this.MonthViewHeaderFormat, this.DisplayDate);
+                        break;
+                    case CalendarDisplayMode.YearView:
+                        headerContent = string.Format(this.currentCulture, this.YearViewHeaderFormat, this.DisplayDate);
+                        break;
+                    case CalendarDisplayMode.DecadeView:
+                        DateTime decadeStart = CalendarMathHelper.GetFirstDateOfDecade(this.DisplayDate);
+                        DateTime decadeEnd = decadeStart.AddYears(9);
+
+                        headerContent = string.Format(this.currentCulture, this.DecadeViewHeaderFormat, decadeStart, decadeEnd);
+                        break;
+                    case CalendarDisplayMode.CenturyView:
+                        DateTime centuryStart = CalendarMathHelper.GetFirstDateOfCentury(this.DisplayDate);
+                        DateTime centuryEnd = centuryStart.AddYears(99);
+
+                        headerContent = string.Format(this.currentCulture, this.CenturyViewHeaderFormat, centuryStart, centuryEnd);
+                        break;
+                    case CalendarDisplayMode.MultiDayView:
+                        string headerText = this.MultiDayViewSettings.MultiDayViewHeaderText;
+                        if (string.IsNullOrEmpty(headerText))
+                        {
+                            DateTime firstDateOfCurrentWeek = this.DisplayDate;
+                            DateTime lastDayOfWeek = firstDateOfCurrentWeek.AddDays(this.MultiDayViewSettings.VisibleDays);
+
+                            if (firstDateOfCurrentWeek.Day == lastDayOfWeek.Subtract(TimeSpan.FromTicks(1)).Day)
+                            {
+                                string format = "{0:d MMMM yyyy}";
+                                headerContent = string.Format(this.currentCulture, format, firstDateOfCurrentWeek);
+                            }
+                            else
+                            {
+                                string format = firstDateOfCurrentWeek.Year == lastDayOfWeek.Subtract(TimeSpan.FromTicks(1)).Year ?
+                                  (firstDateOfCurrentWeek.Month == lastDayOfWeek.Subtract(TimeSpan.FromTicks(1)).Month ?
+                                  "{0:d } ~ {1:d MMMM yyyy}" :
+                                  "{0:d MMMM} ~ {1:d MMMM yyyy}") :
+                                  "{0:d MMMM yyyy} ~ {1:d MMMM yyyy}";
+
+                                headerContent = string.Format(this.currentCulture, format, firstDateOfCurrentWeek, lastDayOfWeek.Subtract(TimeSpan.FromTicks(1)));
+                            }
+                        }
+                        else
+                        {
+                            headerContent = headerText;
+                        }
+
+                        break;
+                }
+
+                this.navigationPanel.HeaderContent = headerContent;
+            }
+            else
+            {
+                this.navigationPanel.HeaderContent = this.HeaderContent;
+            }
+
+            this.navigationPanel.HeaderContentTemplate = this.HeaderContentTemplate;
+        }
+
         /// <summary>
         /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
         /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
@@ -1845,6 +2186,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             base.OnTemplateApplied();
 
+            if (this.MultiDayViewSettings != null && this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.MultiDayViewSettings.SetDefaultStyleValues();
+                this.MultiDayViewSettings.timer.Start();
+            }
+
             if (this.navigationPanel != null)
             {
                 this.navigationPanel.Owner = this;
@@ -1852,12 +2199,30 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.UpdateNavigationPreviousNextButtonsState();
             }
 
+            if (this.timeRulerLayer == null)
+            {
+                this.timeRulerLayer = new XamlMultiDayViewLayer();
+            }
+
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.inputService.AttachToTimeRulerPanel(this.timeRulerLayer.contentPanel);
+                this.AddLayer(this.timeRulerLayer, this.calendarViewHost);
+            }
+
             if (this.decorationLayer == null)
             {
                 this.decorationLayer = new XamlDecorationLayer();
             }
 
-            this.AddLayer(this.decorationLayer, this.calendarViewHost);
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.AddLayer(this.decorationLayer, this.timeRulerLayer.topHeader);
+            }
+            else
+            {
+                this.AddLayer(this.decorationLayer, this.calendarViewHost);
+            }
 
             if (this.visualStateLayer == null)
             {
@@ -1871,15 +2236,39 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.headerContentLayer = new XamlHeaderContentLayer();
             }
 
-            this.AddLayer(this.headerContentLayer, this.calendarViewHost);
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.AddLayer(this.headerContentLayer, this.timeRulerLayer.topHeader);
+            }
+            else
+            {
+                this.AddLayer(this.headerContentLayer, this.calendarViewHost);
+            }
 
             if (this.contentLayer == null)
             {
                 this.contentLayer = new XamlContentLayer();
-                this.inputService.AttachToContentPanel(this.contentLayer.VisualElement);
             }
 
-            this.AddLayer(this.contentLayer, this.calendarViewHost);
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.AddLayer(this.contentLayer, this.timeRulerLayer.topHeader);
+            }
+            else
+            {
+                this.inputService.AttachToContentPanel(this.contentLayer.VisualElement);
+                this.AddLayer(this.contentLayer, this.calendarViewHost);
+            }
+
+            if (this.allDayAreaLayer == null)
+            {
+                this.allDayAreaLayer = new XamlAllDayAreaLayer();
+            }
+
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.AddLayer(this.allDayAreaLayer, this.timeRulerLayer.topHeader);
+            }
 
             if (this.appointmentLayer == null)
             {
@@ -1891,26 +2280,32 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.calendarViewHost.SizeChanged += this.CalendarViewHostSizeChanged;
             this.calendarViewHost.PointerPressed += this.OnCalendarViewHostPointerPressed;
             this.FetchNewAppointments();
+
+            if (this.dayNameCellStyleCache == null && this.defaultDayNameCellStyle == null)
+            {
+                this.defaultDayNameCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultDayNameCellStyleName];
+            }
+
+            if (this.normalCellStyleCache == null && this.defaultNormalCellStyle == null)
+            {
+                this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultNormalCellStyleName];
+            }
+
+            if (this.anotherViewCellStyleCache == null && this.defaultAnotherViewCellStyle == null)
+            {
+                this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultAnotherViewCellStyleName];
+            }
+
+            if (this.highlightedCellCache == null && this.defaultHighlightedCellStyle == null)
+            {
+                this.defaultHighlightedCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultHighlightedCellStyleName];
+            }
         }
 
         /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
-            if (this.navigationPanel != null)
-            {
-                this.navigationPanel.Owner = null;
-            }
-
-            this.calendarViewHost.SizeChanged -= this.CalendarViewHostSizeChanged;
-            this.calendarViewHost.PointerPressed -= this.OnCalendarViewHostPointerPressed;
-
-            this.inputService.DetachFromContentPanel();
-
-            RadCalendar.RemoveLayer(this.contentLayer, this.calendarViewHost);
-            RadCalendar.RemoveLayer(this.headerContentLayer, this.calendarViewHost);
-            RadCalendar.RemoveLayer(this.decorationLayer, this.calendarViewHost);
-            RadCalendar.RemoveLayer(this.visualStateLayer, this.calendarViewHost);
-            RadCalendar.RemoveLayer(this.appointmentLayer, this.calendarViewHost);
+            this.UnloadLayout();
             base.UnapplyTemplateCore();
         }
 
@@ -1920,7 +2315,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         protected override void UnloadCore()
         {
             base.UnloadCore();
-
+            this.UnloadLayout();
             this.availableCalendarViewSize = new Size(0, 0);
         }
 
@@ -1946,6 +2341,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             // NOTE: We need to set the size explicitly so hit-testing works correctly.
             this.contentLayer.VisualContainer.Width = this.availableCalendarViewSize.Width;
             this.contentLayer.VisualContainer.Height = this.availableCalendarViewSize.Height;
+
+            // NOTE: The sizes should be set explicitly, so the ScrollViewers could works as expected.
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.allDayAreaLayer.shouldArrange = true;
+                this.timeRulerLayer.shouldArrange = true;
+            }
 
             // NOTE: We need to set the size explicitly so animation works correctly.
             this.contentLayer.AnimatableContainer.Width = this.availableCalendarViewSize.Width;
@@ -2032,11 +2434,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (calendar.IsTemplateApplied)
             {
                 calendar.visualStateLayer.ClearHoverState();
+                if (calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
+                {
+                    calendar.allDayAreaLayer.shouldArrange = true;
+                    calendar.timeRulerLayer.shouldArrange = true;
+                    calendar.CurrencyService.CurrentDate = newDisplayDate;
+                }
             }
 
             DateTime oldDisplayDate = (DateTime)args.OldValue;
 
-            if (oldDisplayDate.Year != newDisplayDate.Year || oldDisplayDate.Month != newDisplayDate.Month)
+            if (calendar.displayModeCache != CalendarDisplayMode.MultiDayView
+                && (oldDisplayDate.Year != newDisplayDate.Year || oldDisplayDate.Month != newDisplayDate.Month))
             {
                 calendar.FetchNewAppointments();
             }
@@ -2060,10 +2469,35 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             RadCalendar calendar = (RadCalendar)target;
 
-            calendar.model.DisplayMode = (CalendarDisplayMode)args.NewValue;
+            calendar.displayModeCache = (CalendarDisplayMode)args.NewValue;
+            calendar.model.DisplayMode = calendar.displayModeCache;
 
             calendar.UpdateNavigationHeaderContent();
             calendar.UpdateNavigationPreviousNextButtonsState();
+
+            if (calendar.navigationPanel != null)
+            {
+                if (calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
+                {
+                    if (calendar.navigationPanel.previousButton != null && calendar.navigationPanel.nextButton != null)
+                    {
+                        calendar.navigationPanel.previousButton.Content = DefaultMultiDayViewPreviousButtonContent;
+                        calendar.navigationPanel.nextButton.Content = DefaultMultiDayViewNextButtonContent;
+                    }
+                }
+                else if (calendar.navigationPanel.previousButton != null && calendar.navigationPanel.nextButton != null)
+                {
+                    calendar.navigationPanel.previousButton.Content = DefaultPreviousButtonContent;
+                    calendar.navigationPanel.nextButton.Content = DefaultNextButtonContent;
+                }
+            }
+
+            calendar.InitializeDefaultCellStyles((CalendarDisplayMode)args.OldValue);
+
+            if (calendar.IsLoaded)
+            {
+                calendar.ToggleDisplayModeViews((CalendarDisplayMode)args.NewValue, (CalendarDisplayMode)args.OldValue);
+            }
 
             if (calendar.IsTemplateApplied)
             {
@@ -2107,6 +2541,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (calendar.IsTemplateApplied)
             {
                 calendar.decorationLayer.UpdateUI();
+
+                if (calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
+                {
+                    calendar.timeRulerLayer.UpdateUI();
+                }
             }
         }
 
@@ -2130,25 +2569,79 @@ namespace Telerik.UI.Xaml.Controls.Input
         private static void OnAppointmentSourceChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             RadCalendar calendar = (RadCalendar)sender;
-            calendar.AppointmentSource = (AppointmentSource)e.NewValue;
+            var newAppSource = (AppointmentSource)e.NewValue;
+            calendar.AppointmentSource = newAppSource;
 
             calendar.FetchNewAppointments();
 
-            if (calendar.appointmentLayer != null)
+            if (calendar.displayModeCache != CalendarDisplayMode.MultiDayView)
             {
-                calendar.appointmentLayer.UpdateUI();
+                if (calendar.appointmentLayer != null)
+                {
+                    calendar.appointmentLayer.UpdateUI();
+                }
             }
+            else
+            {
+                calendar.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            }
+
+            INotifyCollectionChanged oldAppSource = ((AppointmentSource)e.OldValue)?.AllAppointments;
+            if (oldAppSource != null)
+            {
+                var listener = calendar.appointmentSourceCollectionChangedListener;
+                if (listener != null)
+                {
+                    listener.Detach();
+                    listener = null;
+                }
+
+                int count = calendar.appointmentSourcePropertyChangedListeners != null ? calendar.appointmentSourcePropertyChangedListeners.Count : 0;
+                while (count > 0)
+                {
+                    var propertyListener = calendar.appointmentSourcePropertyChangedListeners[0];
+                    calendar.appointmentSourcePropertyChangedListeners.RemoveAt(0);
+                    propertyListener.Detach();
+                    propertyListener = null;
+                    count--;
+                }
+            }
+
+            if (newAppSource != null)
+            {
+                calendar.appointmentSourceCollectionChangedListener = WeakCollectionChangedListener.CreateIfNecessary(newAppSource.AllAppointments, calendar);
+
+                foreach (IAppointment appointment in newAppSource.AllAppointments)
+                {
+                    var listener = WeakPropertyChangedListener.CreateIfNecessary(appointment, calendar);
+                    if (listener != null)
+                    {
+                        calendar.appointmentSourcePropertyChangedListeners.Add(listener);
+                    }
+                }
+            }
+
+            calendar.model.appointmentSource = newAppSource;
         }
 
         private static void OnAppointmentTemplateSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             RadCalendar calendar = (RadCalendar)sender;
             calendar.AppointmentTemplateSelector = (AppointmentTemplateSelector)e.NewValue;
+            calendar.UpdateAppointmentsVisualization();
+        }
 
-            if (calendar.appointmentLayer != null)
-            {
-                calendar.appointmentLayer.UpdateUI();
-            }
+        private static void OnAppointmentHeaderTemplateSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            RadCalendar calendar = (RadCalendar)sender;
+            calendar.AppointmentHeaderTemplateSelector = (AppointmentTemplateSelector)e.NewValue;
+            calendar.UpdateAppointmentsVisualization();
+        }
+
+        private static void OnAppointmentStyleSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            RadCalendar calendar = (RadCalendar)sender;
+            calendar.UpdateAppointmentsVisualization();
         }
 
         private static void OnPointerOverCellStylePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -2289,7 +2782,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             calendar.isTodayHighlightedCache = (bool)args.NewValue;
 
-            if (calendar.DisplayMode == CalendarDisplayMode.MonthView)
+            if (calendar.DisplayMode == CalendarDisplayMode.MonthView || calendar.DisplayMode == CalendarDisplayMode.MultiDayView)
             {
                 calendar.InvalidatePresenters();
             }
@@ -2323,6 +2816,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             RadCalendar calendar = (RadCalendar)sender;
             calendar.model.AreDayNamesVisible = calendar.DayNamesVisibility == Visibility.Visible;
+
+            if (calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                calendar.timeRulerLayer.shouldArrange = true;
+                calendar.allDayAreaLayer.shouldArrange = true;
+            }
         }
 
         private static void OnWeekNumbersVisibilityPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -2341,6 +2840,26 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             RadCalendar calendar = (RadCalendar)sender;
             calendar.model.WeekNumberFormat = args.NewValue as string;
+        }
+
+        private static void OnTimeFormatPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            RadCalendar calendar = (RadCalendar)sender;
+            calendar.model.TimeFormat = (string)args.NewValue;
+        }
+
+        private static void OnMultiDayViewSettingsChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            RadCalendar calendar = (RadCalendar)sender;
+
+            if (args.OldValue != null)
+            {
+                ((MultiDayViewSettings)args.OldValue).DetachEvents();
+            }
+
+            MultiDayViewSettings newSettings = (MultiDayViewSettings)args.NewValue;
+            newSettings.owner = calendar;
+            calendar.model.multiDayViewSettings = newSettings;
         }
 
         private static DateTime GetFirstDayofMonth(DateTime selectedDate, System.Globalization.Calendar calendar)
@@ -2370,13 +2889,180 @@ namespace Telerik.UI.Xaml.Controls.Input
             layer.Owner = null;
         }
 
+        private void UnloadLayout()
+        {
+            if (this.navigationPanel != null)
+            {
+                this.navigationPanel.Owner = null;
+            }
+
+            this.calendarViewHost.SizeChanged -= this.CalendarViewHostSizeChanged;
+            this.calendarViewHost.PointerPressed -= this.OnCalendarViewHostPointerPressed;
+
+            this.inputService.DetachFromContentPanel();
+            this.inputService.DetachFromTimeRulerPanel();
+
+            RadCalendar.RemoveLayer(this.contentLayer, this.calendarViewHost);
+            RadCalendar.RemoveLayer(this.headerContentLayer, this.calendarViewHost);
+            RadCalendar.RemoveLayer(this.decorationLayer, this.calendarViewHost);
+            RadCalendar.RemoveLayer(this.visualStateLayer, this.calendarViewHost);
+            RadCalendar.RemoveLayer(this.allDayAreaLayer, this.calendarViewHost);
+            RadCalendar.RemoveLayer(this.timeRulerLayer, this.calendarViewHost);
+            RadCalendar.RemoveLayer(this.appointmentLayer, this.calendarViewHost);
+            this.appointmentSourceCollectionChangedListener?.Detach();
+            if (this.appointmentSourcePropertyChangedListeners != null && this.appointmentSourcePropertyChangedListeners.Count > 0)
+            {
+                foreach (WeakPropertyChangedListener weakPropertyChangedListener in this.appointmentSourcePropertyChangedListeners)
+                {
+                    weakPropertyChangedListener.Detach();
+                }
+            }
+            this.MultiDayViewSettings?.DetachEvents();
+        }
+
+        private void ToggleDisplayModeViews(CalendarDisplayMode newValue, CalendarDisplayMode oldValue)
+        {
+            if (newValue == CalendarDisplayMode.MultiDayView)
+            {
+                this.appointmentLayer.appointmentPanel.Children.Clear();
+
+                this.inputService.DetachFromContentPanel();
+                RadCalendar.RemoveLayer(this.decorationLayer, this.calendarViewHost);
+                RadCalendar.RemoveLayer(this.headerContentLayer, this.calendarViewHost);
+                RadCalendar.RemoveLayer(this.contentLayer, this.calendarViewHost);
+
+                this.AddLayer(this.decorationLayer, this.timeRulerLayer.topHeader);
+                this.AddLayer(this.headerContentLayer, this.timeRulerLayer.topHeader);
+                this.AddLayer(this.contentLayer, this.timeRulerLayer.topHeader);
+                this.AddLayer(this.timeRulerLayer, this.calendarViewHost);
+                this.AddLayer(this.allDayAreaLayer, this.timeRulerLayer.topHeader);
+
+                this.inputService.AttachToTimeRulerPanel(this.timeRulerLayer.contentPanel);
+                this.appointmentLayer.realizedCalendarCellDefaultPresenters.Clear();
+
+                this.allDayAreaLayer.shouldArrange = true;
+                this.timeRulerLayer.shouldArrange = true;
+                this.model.multiDayViewModel.updateFlag = MultiDayViewUpdateFlag.All;
+
+                if (this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+                {
+                    this.MultiDayViewSettings.timer.Start();
+                }
+
+                this.MultiDayViewSettings.SetDefaultStyleValues();
+            }
+            else if (oldValue == CalendarDisplayMode.MultiDayView)
+            {
+                if (this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+                {
+                    this.MultiDayViewSettings.timer.Stop();
+                }
+
+                foreach (var layer in this.timeRulerLayer.topHeader.Children)
+                {
+                    Canvas.SetLeft(layer, 0);
+                }
+
+                this.inputService.DetachFromTimeRulerPanel();
+                RadCalendar.RemoveLayer(this.decorationLayer, this.timeRulerLayer.topHeader);
+                RadCalendar.RemoveLayer(this.headerContentLayer, this.timeRulerLayer.topHeader);
+                RadCalendar.RemoveLayer(this.contentLayer, this.timeRulerLayer.topHeader);
+                RadCalendar.RemoveLayer(this.timeRulerLayer, this.calendarViewHost);
+                RadCalendar.RemoveLayer(this.allDayAreaLayer, this.timeRulerLayer.topHeader);
+
+                this.AddLayer(this.decorationLayer, this.calendarViewHost);
+                this.AddLayer(this.headerContentLayer, this.calendarViewHost);
+                this.AddLayer(this.contentLayer, this.calendarViewHost);
+
+                this.inputService.AttachToContentPanel(this.contentLayer.VisualElement);
+            }
+        }
+
+        private void UpdateAppointmentsVisualization()
+        {
+            if (this.IsLoaded && this.IsTemplateApplied && this.model.IsTreeLoaded)
+            {
+                if (this.displayModeCache != CalendarDisplayMode.MultiDayView)
+                {
+                    if (this.appointmentLayer != null)
+                    {
+                        this.appointmentLayer.UpdateUI();
+                    }
+                }
+                else
+                {
+                    if (this.timeRulerLayer != null)
+                    {
+                        this.timeRulerLayer.UpdateUI();
+                    }
+
+                    if (this.allDayAreaLayer != null)
+                    {
+                        this.allDayAreaLayer.UpdateAllDayAreaUI();
+                    }
+                }
+            }
+        }
+
+        private void InitializeDefaultCellStyles(CalendarDisplayMode oldDisplayMode)
+        {
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                if (this.dayNameCellStyleCache == null)
+                {
+                    this.defaultDayNameCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewDayNameCellStyle"];
+                }
+
+                if (this.normalCellStyleCache == null)
+                {
+                    this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewNormalCellStyle"];
+                }
+
+                if (this.anotherViewCellStyleCache == null)
+                {
+                    this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewAnotherViewCellStyle"];
+                }
+
+                if (this.highlightedCellStyleCache == null)
+                {
+                    this.defaultHighlightedCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewHighlightedCellStyle"];
+                }
+            }
+            else if (oldDisplayMode == CalendarDisplayMode.MultiDayView)
+            {
+                if (this.dayNameCellStyleCache == null)
+                {
+                    this.defaultDayNameCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultDayNameCellStyleName];
+                }
+
+                if (this.normalCellStyleCache == null)
+                {
+                    this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultNormalCellStyleName];
+                }
+
+                if (this.anotherViewCellStyleCache == null)
+                {
+                    this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultAnotherViewCellStyleName];
+                }
+
+                if (this.highlightedCellStyleCache == null)
+                {
+                    this.defaultHighlightedCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultHighlightedCellStyleName];
+                }
+            }
+        }
+
         private void FetchNewAppointments()
         {
             if (this.AppointmentSource != null && this.IsTemplateApplied)
             {
                 DateTime startDate = GetFirstDayofMonth(this.DisplayDate, this.currentCulture.Calendar);
-                this.AppointmentSource.AllAppointments = this.AppointmentSource.FetchData(startDate,
-                    startDate.Month == DateTime.MaxValue.Month && startDate.Year == DateTime.MaxValue.Year ? startDate : startDate.AddMonths(1));
+                ObservableCollection<IAppointment> fetchedAppointments = this.AppointmentSource.FetchData(startDate, startDate.Month == DateTime.MaxValue.Month && startDate.Year == DateTime.MaxValue.Year ? startDate : startDate.AddMonths(1));
+                this.AppointmentSource.AllAppointments.Clear();
+                foreach (IAppointment app in fetchedAppointments)
+                {
+                    this.AppointmentSource.AllAppointments.Add(app);
+                }
             }
         }
 
@@ -2466,9 +3152,59 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void UpdatePresenters()
         {
+            if (this.displayModeCache != CalendarDisplayMode.MultiDayView)
+            {
+                this.UpdateAllPresenters();
+            }
+            else
+            {
+                CalendarMultiDayViewModel multiDayViewModel = this.model.multiDayViewModel;
+                switch (multiDayViewModel.updateFlag)
+                {
+                    case MultiDayViewUpdateFlag.All:
+                        this.UpdateAllPresenters();
+                        break;
+                    case MultiDayViewUpdateFlag.AffectsTimeRuler:
+                        this.decorationLayer.UpdateUI();
+                        this.allDayAreaLayer.UpdateAllDayAreaUI();
+                        this.timeRulerLayer.UpdateUI();
+                        break;
+                    case MultiDayViewUpdateFlag.AffectsAppointments:
+                        this.allDayAreaLayer.ArrangeVisualElement();
+                        this.timeRulerLayer.ArrangeVisualElement();
+
+                        this.allDayAreaLayer.UpdateAllDayAreaUI();
+                        this.timeRulerLayer.UpdateAppointments(multiDayViewModel.appointmentInfos);
+                        this.timeRulerLayer.UpdateTimeRulerDecorations(multiDayViewModel, this.model.AreDayNamesVisible);
+                        this.timeRulerLayer.UpdateTimeRulerAllDayText(multiDayViewModel.allDayLabelLayout);
+                        break;
+                    case MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator:
+                        this.timeRulerLayer.UpdateCurrentTimeIndicator();
+                        break;
+                    case MultiDayViewUpdateFlag.AffectsSpecialSlots:
+                        IEnumerable<Slot> slots = this.MultiDayViewSettings.SpecialSlotsSource;
+                        if (slots != null)
+                        {
+                            this.timeRulerLayer.UpdateSlots(this.MultiDayViewSettings.SpecialSlotsSource);
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+
+                multiDayViewModel.updateFlag = MultiDayViewUpdateFlag.All;
+            }
+        }
+
+        private void UpdateAllPresenters()
+        {
             this.AttachPreselectedDateRanges();
 
-            this.SelectionService.UpdateSelectedCells();
+            if (this.displayModeCache != CalendarDisplayMode.MultiDayView)
+            {
+                this.SelectionService.UpdateSelectedCells();
+            }
 
             this.EvaluateHeaderCellStyles();
             this.EvaluateCustomCellSelectors();
@@ -2476,7 +3212,18 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.decorationLayer.UpdateUI();
             this.headerContentLayer.UpdateUI();
             this.contentLayer.UpdateUI();
-            this.appointmentLayer.UpdateUI();
+
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView 
+                && this.allDayAreaLayer.Owner != null && this.timeRulerLayer.Owner != null)
+            {
+                this.allDayAreaLayer.UpdateAllDayAreaUI();
+                this.timeRulerLayer.UpdateUI();
+            }
+
+            if (this.displayModeCache != CalendarDisplayMode.MultiDayView)
+            {
+                this.appointmentLayer.UpdateUI();
+            }
         }
 
         private void AttachPreselectedDateRanges()
@@ -2521,7 +3268,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             // so we need to clear the flag explicitly in case it was set for a certain cell and does not need to be set given the current conditions.
             context.IsBlackout = this.IsBlackoutDate(cell);
             
-            if (cell.Date == DateTime.Today && this.IsTodayHighlighted && this.DisplayMode == CalendarDisplayMode.MonthView)
+            if (cell.Date == DateTime.Today && this.IsTodayHighlighted && (this.DisplayMode == CalendarDisplayMode.MonthView || this.DisplayMode == CalendarDisplayMode.MultiDayView))
             {
                 this.highlightedCellCache = cell;
                 context.IsHighlighted = true;
@@ -2566,6 +3313,10 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     style = this.AnotherViewCellStyle.DecorationStyle;
                 }
+                else
+                {
+                    style = this.defaultAnotherViewCellStyle.DecorationStyle;
+                }
             }
             else if (cell.IsHighlighted)
             {
@@ -2573,12 +3324,20 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     style = this.HighlightedCellStyle.DecorationStyle;
                 }
+                else
+                {
+                    style = this.defaultHighlightedCellStyle.DecorationStyle;
+                }
             }
             else
             {
                 if (this.NormalCellStyle != null)
                 {
                     style = this.NormalCellStyle.DecorationStyle;
+                }
+                else
+                {
+                    style = this.defaultNormalCellStyle.DecorationStyle;
                 }
             }
 
@@ -2612,13 +3371,25 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 style = this.AnotherViewCellStyle.ContentStyle;
             }
+            else if (cell.IsFromAnotherView && this.AnotherViewCellStyle == null)
+            {
+                style = this.defaultAnotherViewCellStyle.ContentStyle;
+            }
             else if (cell.IsHighlighted && this.HighlightedCellStyle != null && this.HighlightedCellStyle.ContentStyle != null)
             {
                 style = this.HighlightedCellStyle.ContentStyle;
             }
+            else if (cell.IsHighlighted && this.HighlightedCellStyle == null)
+            {
+                style = this.defaultHighlightedCellStyle.ContentStyle;
+            }
             else if (this.NormalCellStyle != null && this.NormalCellStyle.ContentStyle != null)
             {
                 style = this.NormalCellStyle.ContentStyle;
+            }
+            else if (this.NormalCellStyle == null)
+            {
+                style = this.defaultNormalCellStyle.ContentStyle;
             }
 
             return style;
@@ -2648,7 +3419,9 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 if (this.DayNameCellStyleSelector != null)
                 {
-                    var defaultDayNameCellStyle = this.DayNameCellStyle.ContentStyle;
+                    var defaultDayNameCellStyle = this.DayNameCellStyle != null 
+                        ? this.DayNameCellStyle.ContentStyle 
+                        : this.defaultDayNameCellStyle.ContentStyle;
                     var userDefinedDayNameCellStyle = this.DayNameCellStyleSelector.SelectStyle(cell.Label, this);
 
                     if (userDefinedDayNameCellStyle == null)
@@ -2662,10 +3435,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                         context.CalculatedContentCellStyle = userDefinedDayNameCellStyle;
                     }
                 }
-                else if (this.DayNameCellStyle != null)
+                else
                 {
-                    context.CalculatedDecorationCellStyle = this.DayNameCellStyle.DecorationStyle;
-                    context.CalculatedContentCellStyle = this.DayNameCellStyle.ContentStyle;
+                    CalendarCellStyle defaultDayNameCellStyle = this.DayNameCellStyle ?? this.defaultDayNameCellStyle;
+                    context.CalculatedDecorationCellStyle = defaultDayNameCellStyle.DecorationStyle;
+                    context.CalculatedContentCellStyle = defaultDayNameCellStyle.ContentStyle;
                 }
             }
             else
@@ -2711,49 +3485,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             return availableSize;
         }
 
-        private void UpdateNavigationHeaderContent()
-        {
-            if (this.navigationPanel == null)
-            {
-                return;
-            }
-
-            if (this.HeaderContent == null)
-            {
-                string headerContent = null;
-
-                switch (this.DisplayMode)
-                {
-                    case CalendarDisplayMode.MonthView:
-                        headerContent = string.Format(this.currentCulture, this.MonthViewHeaderFormat, this.DisplayDate);
-                        break;
-                    case CalendarDisplayMode.YearView:
-                        headerContent = string.Format(this.currentCulture, this.YearViewHeaderFormat, this.DisplayDate);
-                        break;
-                    case CalendarDisplayMode.DecadeView:
-                        DateTime decadeStart = CalendarMathHelper.GetFirstDateOfDecade(this.DisplayDate);
-                        DateTime decadeEnd = decadeStart.AddYears(9);
-
-                        headerContent = string.Format(this.currentCulture, this.DecadeViewHeaderFormat, decadeStart, decadeEnd);
-                        break;
-                    case CalendarDisplayMode.CenturyView:
-                        DateTime centuryStart = CalendarMathHelper.GetFirstDateOfCentury(this.DisplayDate);
-                        DateTime centuryEnd = centuryStart.AddYears(99);
-
-                        headerContent = string.Format(this.currentCulture, this.CenturyViewHeaderFormat, centuryStart, centuryEnd);
-                        break;
-                }
-
-                this.navigationPanel.HeaderContent = headerContent;
-            }
-            else
-            {
-                this.navigationPanel.HeaderContent = this.HeaderContent;
-            }
-           
-            this.navigationPanel.HeaderContentTemplate = this.HeaderContentTemplate;
-        }
-
         private void UpdateNavigationPreviousNextButtonsState()
         {
             if (this.navigationPanel == null)
@@ -2761,11 +3492,17 @@ namespace Telerik.UI.Xaml.Controls.Input
                 return;
             }
 
-            DateTime previousDate = CalendarMathHelper.IncrementByView(this.DisplayDate, -1, this.DisplayMode);
+            int increment = 1;
+            if (this.DisplayMode == CalendarDisplayMode.MultiDayView)
+            {
+                increment = this.MultiDayViewSettings.VisibleDays;
+            }
+
+            DateTime previousDate = CalendarMathHelper.IncrementByView(this.DisplayDate, -increment, this.DisplayMode);
             this.CoerceDateWithinDisplayRange(ref previousDate);
             this.navigationPanel.IsNavigationToPreviousViewEnabled = CalendarMathHelper.IsCalendarViewChanged(this.DisplayDate, previousDate, this.DisplayMode);
 
-            DateTime nextDate = CalendarMathHelper.IncrementByView(this.DisplayDate, 1, this.DisplayMode);
+            DateTime nextDate = CalendarMathHelper.IncrementByView(this.DisplayDate, increment, this.DisplayMode);
             this.CoerceDateWithinDisplayRange(ref nextDate);
             this.navigationPanel.IsNavigationToNextViewEnabled = CalendarMathHelper.IsCalendarViewChanged(this.DisplayDate, nextDate, this.DisplayMode);
         }

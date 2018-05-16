@@ -46,6 +46,8 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -62,6 +64,14 @@
     <Compile Include="Calendar\AutomationPeers\CalendarSelectableCellnfoAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\CalendarViewHostAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\RadCalendarAutomationPeer.cs" />
+    <Compile Include="Calendar\Model\CalendarTimeRulerItem.cs" />
+    <Compile Include="Calendar\Model\CalendarMultiDayViewModel.cs" />
+    <Compile Include="Calendar\Model\Slot.cs" />
+    <Compile Include="Calendar\View\Layers\XamlAllDayAreaLayer.cs" />
+    <Compile Include="Calendar\View\Layers\XamlMultiDayViewLayer.cs" />
+    <Compile Include="Calendar\View\MultiDayView\MultiDayViewSettings.cs" />
+    <Compile Include="Calendar\View\MultiDayView\MultiDayViewUpdateFlag.cs" />
+    <Compile Include="Calendar\View\MultiDayView\CalendarTimeRulerItemStyleSelector.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimeListAutomationPeer.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimeListItemAutomationPeer.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimePickerAutomationPeer.cs" />
@@ -96,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <EmbeddedResource Include="Themes\DefaultCalendarTimerRulerResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -260,13 +274,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="..\..\..\BuildTools\CopyBinaries.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
   <Target Name="XamlGeneratedCodeWarningRemoved" AfterTargets="MarkupCompilePass2">
     <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do echo #pragma warning disable 1591 > %%f.temp" />
     <Exec Command="for %%f in (@(_GeneratedCodeFiles)) do type %%f >> %%f.temp" />

@@ -43,9 +43,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             get;
         }
 
+        public virtual int SpecificColumnCount
+        {
+            get;
+            internal set;
+        }
+
+        public virtual int BufferItemsCount
+        {
+            get;
+            internal set;
+        }
+
         internal override ModifyChildrenResult CanAddChild(Node child)
         {
-            if (child is CalendarCellModel || child is CalendarHeaderCellModel || child is CalendarGridLine)
+            if (child is CalendarCellModel || child is CalendarHeaderCellModel || child is CalendarGridLine || child is CalendarTimeRulerItem)
             {
                 return ModifyChildrenResult.Accept;
             }
@@ -70,32 +82,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal abstract DateTime GetNextDateToRender(DateTime date);
         internal abstract void PrepareCalendarCell(CalendarCellModel cell, DateTime date);
 
-        protected virtual RadRect UpdateAnimatableContentClip(RadRect rect)
-        {
-            this.Calendar.AnimatableContentClip = rect;
-
-            return rect;
-        }
-
-        protected void SnapToGridLines(CalendarNode calendarCell, int rowIndex, int columnIndex)
-        {
-            this.SnapToTopGridLine(calendarCell, rowIndex);
-            this.SnapToBottomGridLine(calendarCell, rowIndex);
-
-            this.SnapToLeftGridLine(calendarCell, columnIndex);
-            this.SnapToRightGridLine(calendarCell, columnIndex);
-        }
-
-        protected virtual void ArrangeCalendarHeaders(RadRect viewRect)
-        {
-        }
-
-        private void ArrangeCalendarDecorations(RadRect rect)
+        internal virtual void ArrangeCalendarDecorations(RadRect rect)
         {
             this.EnsureCalendarDecorations();
 
-            double cellWidth = rect.Width / this.ColumnCount;
-            double cellHeight = rect.Height / this.RowCount;
+            double cellWidth = rect.Width / (this.ColumnCount + (this.BufferItemsCount * 2));
+            if (this.SpecificColumnCount == 0)
+            {
+                this.SpecificColumnCount = this.RowCount;
+            }
+
+            double cellHeight = rect.Height / this.SpecificColumnCount;
 
             double gridLineThickness = this.Calendar.GridLinesThickness;
             int gridLineHalfThickness = (int)(gridLineThickness / 2);
@@ -115,7 +112,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             if ((this.Calendar.GridLinesVisibility & GridLinesVisibility.Vertical) == GridLinesVisibility.Vertical)
             {
-                for (int columnIndex = 1; columnIndex < this.ColumnCount; columnIndex++)
+                for (int columnIndex = 1; columnIndex < this.ColumnCount + (this.BufferItemsCount * 2); columnIndex++)
                 {
                     CalendarGridLine gridLine = this.GetDecorationByColumnIndex(columnIndex);
                     gridLine.IsHorizontal = false;
@@ -125,14 +122,54 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        private void ArrangeCalendarContent(RadRect rect)
+        internal virtual void EnsureCalendarDecorations()
+        {
+            if (this.calendarDecorations == null || this.calendarDecorations.Count == 0)
+            {
+                if (this.calendarDecorations == null)
+                {
+                    this.calendarDecorations = new ElementCollection<CalendarGridLine>(this);
+                }
+
+                // we are generating models only for the inner horizontal and vertical gridlnes as
+                // first / last horizontal and vertical grid lines are drawn by RadCalendar border elements.
+                int decorationCount = this.RowCount + this.ColumnCount - 2 + (this.BufferItemsCount * 2);
+
+                for (int decorationIndex = 0; decorationIndex < decorationCount; decorationIndex++)
+                {
+                    CalendarGridLine gridLine = new CalendarGridLine();
+                    this.calendarDecorations.Add(gridLine);
+                }
+            }
+            else
+            {
+                foreach (CalendarGridLine gridLine in this.calendarDecorations)
+                {
+                    gridLine.layoutSlot = RadRect.Empty;
+                }
+            }
+        }
+
+        internal void ArrangeCalendarContent(RadRect rect)
         {
             this.EnsureCalendarCells();
 
-            double cellWidth = rect.Width / this.ColumnCount;
-            double cellHeight = rect.Height / this.RowCount;
+            double cellWidth = rect.Width / (this.ColumnCount + (this.BufferItemsCount * 2));
+
+            if (this.SpecificColumnCount == 0)
+            {
+                this.SpecificColumnCount = this.RowCount;
+            }
+
+            double cellHeight = rect.Height / this.SpecificColumnCount;
 
             DateTime dateToRender = this.GetFirstDateToRender(this.Calendar.DisplayDate);
+
+            int bufferItemsCount = this.BufferItemsCount;
+            if (bufferItemsCount > 0)
+            {
+                dateToRender = dateToRender.AddDays(-bufferItemsCount);
+            }
 
             int itemIndex = 0;
             double previousRight = rect.X;
@@ -142,7 +179,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 previousRight = rect.X;
 
-                for (int columnIndex = 0; columnIndex < this.ColumnCount; columnIndex++)
+                for (int columnIndex = 0; columnIndex < this.ColumnCount + (bufferItemsCount * 2); columnIndex++)
                 {
                     CalendarCellModel calendarCell = this.CalendarCells[itemIndex];
 
@@ -154,7 +191,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     calendarCell.Arrange(new RadRect(previousRight, previousBottom, cellWidth + horizontalDifference, cellHeight + verticalDifference));
 
                     previousRight = calendarCell.layoutSlot.Right;
-                    if (columnIndex == this.ColumnCount - 1)
+                    if (columnIndex == (this.ColumnCount + (bufferItemsCount * 2)) - 1)
                     {
                         previousBottom = calendarCell.layoutSlot.Bottom;
                     }
@@ -167,16 +204,39 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        protected virtual void ArrangeCalendarHeaders(RadRect viewRect)
+        {
+        }
+
+        protected virtual RadRect UpdateAnimatableContentClip(RadRect rect)
+        {
+            this.Calendar.AnimatableContentClip = rect;
+
+            return rect;
+        }
+
+        protected void SnapToGridLines(CalendarNode calendarCell, int rowIndex, int columnIndex)
+        {
+            this.SnapToTopGridLine(calendarCell, rowIndex);
+            this.SnapToBottomGridLine(calendarCell, rowIndex);
+
+            this.SnapToLeftGridLine(calendarCell, columnIndex);
+            this.SnapToRightGridLine(calendarCell, columnIndex);
+        }
+
         private void EnsureCalendarCells()
         {
-            if (this.calendarCells == null)
+            if (this.calendarCells == null || this.calendarCells.Count == 0)
             {
-                this.calendarCells = new ElementCollection<CalendarCellModel>(this);
+                if (this.calendarCells == null)
+                {
+                    this.calendarCells = new ElementCollection<CalendarCellModel>(this);
+                }
 
                 // New way of indexing cell models to support the ITableProvider and IGridProvider automation providers.
                 for (int i = 0; i < this.RowCount; i++)
                 {
-                    for (int j = 0; j < this.ColumnCount; j++)
+                    for (int j = 0; j < this.ColumnCount + (this.BufferItemsCount * 2); j++)
                     {
                         CalendarCellModel cell = new CalendarCellModel(i, j);
 
@@ -198,34 +258,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        private void EnsureCalendarDecorations()
-        {
-            if (this.calendarDecorations == null)
-            {
-                this.calendarDecorations = new ElementCollection<CalendarGridLine>(this);
-
-                // we are generating models only for the inner horizontal and vertical gridlnes as
-                // first / last horizontal and vertical grid lines are drawn by RadCalendar border elements.
-                int decorationCount = this.RowCount + this.ColumnCount - 2;
-
-                for (int decorationIndex = 0; decorationIndex < decorationCount; decorationIndex++)
-                {
-                    CalendarGridLine gridLine = new CalendarGridLine();
-                    this.calendarDecorations.Add(gridLine);
-                }
-            }
-            else
-            {
-                foreach (CalendarGridLine gridLine in this.calendarDecorations)
-                {
-                    gridLine.layoutSlot = RadRect.Empty;
-                }
-            }
-        }
-
         private void SnapToLeftGridLine(CalendarNode calendarCell, int columnIndex)
         {
-            if (columnIndex <= 0 || columnIndex >= this.ColumnCount)
+            if (columnIndex <= 0 || columnIndex >= (this.ColumnCount + (this.BufferItemsCount * 2)))
             {
                 return;
             }
@@ -243,7 +278,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void SnapToRightGridLine(CalendarNode calendarCell, int columnIndex)
         {
-            if (columnIndex >= this.ColumnCount - 1 || columnIndex < 0)
+            if (columnIndex >= this.ColumnCount + (this.BufferItemsCount * 2) - 1 || columnIndex < 0)
             {
                 return;
             }

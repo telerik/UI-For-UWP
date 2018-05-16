@@ -8,7 +8,7 @@
     <!--#region SegmentedControl Brushes-->
 
     <Color x:Key="TelerikSegmentedControlDisabledColor">#FFD9D9D9</Color>
-
+    <SolidColorBrush x:Key="TelerikCalendarBackgroundBrush" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="TelerikSegmentedControlBackgroundThemeBrush" Color="Transparent" />
     <SolidColorBrush x:Key="TelerikSegmentedControlBorderThemeBrush" Color="{ThemeResource TelerikSelectedColor}" />
     <SolidColorBrush x:Key="TelerikSegmentedControlSeparatorThemeBrush" Color="{ThemeResource TelerikSelectedColor}" />
@@ -211,6 +211,7 @@
 
     <!--GridLines-->
     <SolidColorBrush x:Key="TelerikCalendarGridLinesBrush" Color="#FFCCCCCC" />
+    <SolidColorBrush x:Key="TelerikSelectedBrush" Color="#FF006AC1" />
 
     <!--DayNames-->
     <SolidColorBrush x:Key="TelerikCalendarDayNamesForegroundBrush" Color="#FF767676" />

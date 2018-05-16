@@ -28,7 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether if handling is enabled.
+        /// Gets a value indicating whether if handling is enabled.
         /// </summary>
         public bool IsHandleEnabled
         {
@@ -106,7 +106,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 this.dragVisual.Width = this.ActualWidth;
                 this.dragVisual.Height = this.ActualHeight;
                 this.dragVisual.ListView = this.ListView;
-                this.dragVisual.isDragContent = true;
+                this.dragVisual.isReordering = true;
                 this.dragVisual.IsSelected = this.IsSelected;
                 this.ListView.PrepareContainerForItem(this.dragVisual, this.DataContext);
             }

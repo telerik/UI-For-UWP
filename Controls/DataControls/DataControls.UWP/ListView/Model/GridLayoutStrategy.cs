@@ -126,7 +126,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
         {
             List<GeneratedItemModel> containers;
             if (this.generatedContainers.TryGetValue(slot, out containers))
+            {
                 return containers.FirstOrDefault(model => model.ItemInfo.Id == id);
+            }
 
             return null;
         }

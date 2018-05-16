@@ -15,10 +15,17 @@
       <Value>Telerik-specific</Value>
       <Value>templated</Value>
       <Value>virtualization</Value>
-	  <Value>Kpi</Value>
-	  <Value>scrollviewer</Value>
-	  <Value>Theshold</Value>
-	  <Value>ym</Value>
+      <Value>Kpi</Value>
+      <Value>scrollviewer</Value>
+      <Value>Theshold</Value>
+      <Value>ym</Value>
+      <Value>Headered</Value>
+      <Value>Numeri</Value>
+      <Value>i-th</Value>
+      <Value>cloneable</Value>
+      <Value>Shapefile</Value>  
+      <Value>untyped</Value>  
+      <Value>subtree</Value>  
     </CollectionProperty>
     <StringProperty Name="MergeSettingsFiles">NoMerge</StringProperty>
   </GlobalSettings>

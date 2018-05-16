@@ -20,12 +20,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DependencyProperty.Register(nameof(CellContentFormat), typeof(string), typeof(DataGridTextColumn), new PropertyMetadata(null, OnCellContentFormatChanged));
 
         internal static Type TextBlockType = typeof(TextBlock);
-        private static Style defaultTextCellStyle;
-        private static Style defaultCellEditorStyle;
-        private static Style defaultCellFlyoutContentStyle;
 
         private static Type textBoxType = typeof(TextBox);
 
+        private Style defaultTextCellStyle;
+        private Style defaultCellEditorStyle;
+        private Style defaultCellFlyoutContentStyle;
         private string cellContentFormatCache;
 
         /// <summary>
@@ -47,14 +47,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultCellEditorStyle == null)
+                if (this.defaultCellEditorStyle == null)
                 {
-                    defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultTextColumnEditorStyle.xaml",
                         "DefaultColumnEditorStyle") as Style;
                 }
-                return defaultCellEditorStyle;
+                return this.defaultCellEditorStyle;
             }
         }
 
@@ -62,14 +62,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultTextCellStyle == null)
+                if (this.defaultTextCellStyle == null)
                 {
-                    defaultTextCellStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultTextCellStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultTextColumnStyle.xaml",
                         "DefaultColumnStyle") as Style;
                 }
-                return defaultTextCellStyle;
+                return this.defaultTextCellStyle;
             }
         }
 
@@ -77,14 +77,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultCellFlyoutContentStyle == null)
+                if (this.defaultCellFlyoutContentStyle == null)
                 {
-                    defaultCellFlyoutContentStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellFlyoutContentStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultTextColumnFlyoutContentStyle.xaml",
                         "DefaultColumnFlyoutStyle") as Style;
                 }
-                return defaultCellFlyoutContentStyle;
+                return this.defaultCellFlyoutContentStyle;
             }
         }
 
@@ -139,6 +139,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares all bindings and content set to the TextBox visualized when entering edit mode.
         /// </summary>
         /// <param name="editorContent">The editor itself.</param>
+        /// <param name="binding">The binding set to the editor of the cell.</param>
         public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
         {
             editorContent.SetBinding(TextBox.TextProperty, binding);
@@ -153,6 +154,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             editorContent.ClearValue(TextBox.TextProperty);
         }
 
+        /// <inheritdoc/>
         public override void PrepareCell(object container, object value, object item)
         {
             base.PrepareCell(container, value, item);

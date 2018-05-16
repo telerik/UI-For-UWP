@@ -11,15 +11,20 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 {
     internal static class ResourceHelper
     {
-        public static object LoadEmbeddedResource(Type type, string resourcePath, object key)
+        public static ResourceDictionary GetResourceDictionaryByPath(Type type, string resourcePath)
         {
             Assembly assembly = type.GetTypeInfo().Assembly;
             using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
             {
                 StreamReader reader = new StreamReader(stream);
                 ResourceDictionary dictionary = XamlReader.Load(reader.ReadToEnd()) as ResourceDictionary;
-                return dictionary[key];
+                return dictionary;
             }
+        }
+
+        public static object LoadEmbeddedResource(Type type, string resourcePath, object key)
+        {
+            return GetResourceDictionaryByPath(type, resourcePath)[key];
         }
 
         public static byte[] LoadManifestStreamBytes(Type type, string resourcePath)

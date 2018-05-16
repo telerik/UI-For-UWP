@@ -230,6 +230,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares all bindings and content set to the editor visualized when entering edit mode.
         /// </summary>
         /// <param name="editorContent">The editor itself.</param>
+        /// <param name="binding">The binding set to the editor of the cell.</param>
         public abstract void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding);
 
         /// <summary>
@@ -238,6 +239,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// <param name="editorContent">The editor itself.</param>
         public abstract void ClearEditorContentVisual(FrameworkElement editorContent);
 
+        /// <summary>
+        /// Prepares the UIElement inside which the cell is visualized.
+        /// </summary>
+        /// <param name="container">The element inside which the cell is visualized.</param>
+        /// <param name="value">The value of the cell.</param>
+        /// <param name="item">The business object represented in the cell.</param>
         public override void PrepareCell(object container, object value, object item)
         {
             FrameworkElement element = container as FrameworkElement;

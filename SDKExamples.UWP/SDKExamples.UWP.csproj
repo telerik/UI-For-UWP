@@ -144,6 +144,15 @@
     <Compile Include="Examples\Calendar\Formatting.xaml.cs">
       <DependentUpon>Formatting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Calendar\MultiDayView.xaml.cs">
+      <DependentUpon>MultiDayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Examples\Calendar\MultiDayViewAppointmentsCRUD.xaml.cs">
+      <DependentUpon>MultiDayViewAppointmentsCRUD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Examples\Calendar\MultiDayViewStyling.xaml.cs">
+      <DependentUpon>MultiDayViewStyling.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\Calendar\RemoveNavigationAnimations.xaml.cs">
       <DependentUpon>RemoveNavigationAnimations.xaml</DependentUpon>
     </Compile>
@@ -340,6 +349,9 @@
     <Compile Include="Examples\ListView\Reorder.xaml.cs">
       <DependentUpon>Reorder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\ListView\ScrollIndexIntoView.xaml.cs">
+      <DependentUpon>ScrollIndexIntoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\ListView\Selection.xaml.cs">
       <DependentUpon>Selection.xaml</DependentUpon>
     </Compile>
@@ -496,6 +508,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\Calendar\Formatting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\Calendar\MultiDayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\Calendar\MultiDayViewAppointmentsCRUD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\Calendar\MultiDayViewStyling.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -748,6 +772,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\ListView\Reorder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\ListView\ScrollIndexIntoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

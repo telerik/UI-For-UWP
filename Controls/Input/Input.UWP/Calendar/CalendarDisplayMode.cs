@@ -23,6 +23,11 @@
         /// <summary>
         /// This view represents all decades in a century.
         /// </summary>
-        CenturyView
+        CenturyView,
+
+        /// <summary>
+        /// This view represents a single or up to seven days in a week.
+        /// </summary>
+        MultiDayView
     }
 }

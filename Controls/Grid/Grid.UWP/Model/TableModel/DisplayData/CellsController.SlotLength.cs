@@ -123,6 +123,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// </summary>
         /// <param name="cellSlot">The slot which Height will be updated.</param>
         /// <param name="cellHeight">The new Height.</param>
+        /// <param name="forceUpdate">Should update if true.</param>
         /// <returns>Returns true only if Slot Height was Updated (e.g. Smaller then the new Height).</returns>
         internal bool UpdateSlotHeight(int cellSlot, double cellHeight, bool forceUpdate = true)
         {

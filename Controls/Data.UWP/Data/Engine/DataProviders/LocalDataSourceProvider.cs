@@ -591,7 +591,6 @@ namespace Telerik.Data.Core
 
         private void ProcessPendingChanges()
         {
-
             while (this.pendingCollectionChanges.Count > 0)
             {
                 var pch = this.pendingCollectionChanges[0];

@@ -33,6 +33,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar.Commands
             bool displayModeChanged = true;
             switch (this.Owner.DisplayMode)
             {
+                case CalendarDisplayMode.MonthView:
+                    this.Owner.DisplayMode = CalendarDisplayMode.MultiDayView;
+                    this.Owner.DisplayDate = date;
+                    break;
                 case CalendarDisplayMode.YearView:
                     this.Owner.DisplayMode = CalendarDisplayMode.MonthView;
                     this.Owner.DisplayDate = date;

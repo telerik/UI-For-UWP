@@ -30,6 +30,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             DependencyProperty.Register(nameof(NavigationArrowsVisibility), typeof(Visibility), typeof(CalendarNavigationControl), new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
+        /// Identifies the <c cref="NavigationControlBorderStyle"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty NavigationControlBorderStyleProperty =
+            DependencyProperty.Register(nameof(NavigationControlBorderStyle), typeof(Style), typeof(CalendarNavigationControl), new PropertyMetadata(null));
+
+        /// <summary>
         /// Identifies the <see cref="IsNavigationToPreviousViewEnabled"/> dependency property.
         /// </summary>
         internal static readonly DependencyProperty IsNavigationToPreviousViewEnabledProperty =
@@ -41,12 +47,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal static readonly DependencyProperty IsNavigationToNextViewEnabledProperty =
             DependencyProperty.Register(nameof(IsNavigationToNextViewEnabled), typeof(bool), typeof(CalendarNavigationControl), new PropertyMetadata(true));
 
+        internal Button nextButton;
+        internal Button previousButton;
+
         private const string NextButtonPartName = "navigateToNextViewButton";
         private const string PreviousButtonPartName = "navigateToPreviousViewButton";
         private const string HeaderPresenterPartName = "navigateToViewLevelContentPresenter";
 
-        private Button nextButton;
-        private Button previousButton;
         private ContentPresenter headerPresenter;
         private bool isPointerOverHeader;
 
@@ -107,7 +114,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
             set
             {
-                SetValue(HeaderContentTemplateProperty, value);
+                this.SetValue(HeaderContentTemplateProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Style for the Border of the Navigation control.
+        /// </summary>
+        public Style NavigationControlBorderStyle
+        {
+            get
+            {
+                return (Style)this.GetValue(NavigationControlBorderStyleProperty);
+            }
+            set
+            {
+                this.SetValue(NavigationControlBorderStyleProperty, value);
             }
         }
 
@@ -190,6 +212,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.headerPresenter.PointerEntered += this.OnHeaderPresenterPointerEntered;
                 this.headerPresenter.PointerCaptureLost += this.OnHeaderPresenterPointerCaptureLost;
             }
+
+            if (this.Owner.DisplayMode == CalendarDisplayMode.MultiDayView)
+            {
+                if (this.previousButton != null && this.nextButton != null)
+                {
+                    this.previousButton.Content = RadCalendar.DefaultMultiDayViewPreviousButtonContent;
+                    this.nextButton.Content = RadCalendar.DefaultMultiDayViewNextButtonContent;
+                }
+            }
+            else if (this.previousButton != null && this.nextButton != null)
+            {
+                this.previousButton.Content = RadCalendar.DefaultPreviousButtonContent;
+                this.nextButton.Content = RadCalendar.DefaultNextButtonContent;
+            }
         }
 
         /// <inheritdoc/>
@@ -212,8 +248,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.headerPresenter.PointerPressed -= this.OnHeaderPresenterPointerPressed;
                 this.headerPresenter.PointerReleased -= this.OnHeaderPresenterPointerReleased;
                 this.headerPresenter.PointerExited -= this.OnHeaderPresenterPointerExited;
-                this.headerPresenter.PointerEntered -= OnHeaderPresenterPointerEntered;
-                this.headerPresenter.PointerCaptureLost -= OnHeaderPresenterPointerCaptureLost;
+                this.headerPresenter.PointerEntered -= this.OnHeaderPresenterPointerEntered;
+                this.headerPresenter.PointerCaptureLost -= this.OnHeaderPresenterPointerCaptureLost;
             }
         }
 
@@ -225,17 +261,31 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void OnNextButtonTapped(object sender, RoutedEventArgs e)
         {
-            if (this.Owner != null)
+            RadCalendar calendar = this.Owner;
+            if (calendar != null)
             {
-                this.Owner.RaiseMoveToNextViewCommand();
+                int navigationStep = 1;
+                if (calendar.DisplayMode == CalendarDisplayMode.MultiDayView)
+                {
+                    navigationStep = calendar.MultiDayViewSettings.VisibleDays;
+                }
+
+                calendar.RaiseMoveToNextViewCommand(navigationStep);
             }
         }
 
         private void OnPrevButtonTapped(object sender, RoutedEventArgs e)
         {
-            if (this.Owner != null)
+            RadCalendar calendar = this.Owner;
+            if (calendar != null)
             {
-                this.Owner.RaiseMoveToPreviousViewCommand();
+                int navigationStep = 1;
+                if (calendar.DisplayMode == CalendarDisplayMode.MultiDayView)
+                {
+                    navigationStep = calendar.MultiDayViewSettings.VisibleDays;
+                }
+
+                this.Owner.RaiseMoveToPreviousViewCommand(navigationStep);
             }
         }
         

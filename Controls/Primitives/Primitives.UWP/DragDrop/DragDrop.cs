@@ -134,6 +134,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
 
             var context = dragDropElement.DragStarting(trigger, initializeContext);
 
+            if (context == null)
+            {
+                return;
+            }
+
             var startDragPosition = e.GetPosition(context.DragSurface.RootElement);
             var relativeStartDragPosition = e.GetPosition(uiSource);
 

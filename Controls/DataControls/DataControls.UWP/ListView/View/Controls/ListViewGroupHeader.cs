@@ -41,7 +41,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
         }
 
         /// <summary>
-        /// Gets a value indicating whether the details are expanded or collapsed.
+        /// Gets or sets a value indicating whether the details are expanded or collapsed.
         /// </summary>
         public bool IsExpanded
         {
@@ -49,7 +49,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             {
                 return (bool)this.GetValue(IsExpandedProperty);
             }
-            internal set
+            set
             {
                 this.SetValue(IsExpandedProperty, value);
             }
@@ -156,9 +156,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             }
 
             groupHeader.UpdateVisualState(groupHeader.IsTemplateApplied);
-            if (groupHeader.Owner != null)
+            if (groupHeader.Owner != null && context != null)
             {
-                groupHeader.Owner.OnGroupIsExpandedChanged();
+                groupHeader.Owner.OnGroupIsExpandedChanged(context);
             }
         }
 

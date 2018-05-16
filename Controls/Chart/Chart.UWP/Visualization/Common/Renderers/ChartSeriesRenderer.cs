@@ -85,10 +85,30 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             if (this.model.renderablePoints.Count > 0)
             {
-                return this.model.renderablePoints.Where(a => a.layoutSlot.X >= 0 && a.layoutSlot.Y >= 0).ToList();
+                return this.model.renderablePoints.Where(this.ShouldPlotPoint).ToList();
             }
 
-            return this.model.DataPointsInternal.Where(a => a.layoutSlot.X >= 0 && a.layoutSlot.Y >= 0).ToList();
+            return this.model.DataPointsInternal.Where(this.ShouldPlotPoint).ToList();
+        }
+
+        protected virtual bool ShouldPlotPoint(DataPoint point)
+        {
+            var pointBounds = point.layoutSlot;
+            var plotBounds = this.model.layoutSlot;
+
+            var isWithinXPlot = pointBounds.X <= plotBounds.X + plotBounds.Width && pointBounds.X + pointBounds.Width >= plotBounds.X;
+            var isWithinYPlot = pointBounds.Y <= plotBounds.Y + plotBounds.Height && pointBounds.Y + pointBounds.Height >= plotBounds.Y;
+
+            if (isWithinXPlot && isWithinYPlot)
+            {
+                return true;
+            }
+
+            var plotDirection = this.model.GetTypedValue<AxisPlotDirection>(AxisModel.PlotDirectionPropertyKey, AxisPlotDirection.Vertical);
+
+            // empty values
+            return (isWithinXPlot && double.IsNaN(point.layoutSlot.Y) && plotDirection == AxisPlotDirection.Vertical) ||
+                   (isWithinYPlot && double.IsNaN(point.layoutSlot.X) && plotDirection == AxisPlotDirection.Horizontal);
         }
 
         protected Brush GetPaletteBrush(PaletteVisualPart part)

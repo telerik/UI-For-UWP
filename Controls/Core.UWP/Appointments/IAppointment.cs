@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI.Xaml.Media;
 
 namespace Telerik.Core
 {
@@ -28,6 +29,34 @@ namespace Telerik.Core
         /// </summary>
         /// <value>The subject.</value>
         string Subject
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Description.
+        /// </summary>
+        /// <value>The subject.</value>
+        string Description
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the color of the appointment.
+        /// </summary>
+        Brush Color
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the appointment is all day.
+        /// </summary>
+        bool IsAllDay
         {
             get;
             set;

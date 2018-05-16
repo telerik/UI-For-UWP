@@ -27,7 +27,13 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         public void MoveToPreviousView()
         {
-            this.RaiseMoveToPreviousViewCommand();
+            int navigationStep = 1;
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                navigationStep = this.MultiDayViewSettings.VisibleDays;
+            }
+
+            this.RaiseMoveToPreviousViewCommand(navigationStep);
         }
 
         /// <summary>
@@ -36,7 +42,13 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         public void MoveToNextView()
         {
-            this.RaiseMoveToNextViewCommand();
+            int navigationStep = 1;
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                navigationStep = this.MultiDayViewSettings.VisibleDays;
+            }
+
+            this.RaiseMoveToNextViewCommand(navigationStep);
         }
 
         /// <summary>
@@ -79,22 +91,26 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.CommandService.ExecuteCommand(CommandId.MoveToDate, context);
         }
 
-        internal void RaiseMoveToPreviousViewCommand()
+        internal void RaiseMoveToPreviousViewCommand(int navigatioStep)
         {
-            CalendarViewChangeContext context = new CalendarViewChangeContext()
+            CalendarViewChangeContext context = new CalendarViewChangeContext();
+            if (this.displayModeCache != CalendarDisplayMode.MultiDayView)
             {
-                AnimationStoryboard = this.CreateMoveToPreviousViewAnimationStoryboard()
-            };
+                context.AnimationStoryboard = this.CreateMoveToPreviousViewAnimationStoryboard();
+            }
+            context.navigationStep = navigatioStep;
 
             this.CommandService.ExecuteCommand(CommandId.MoveToPreviousView, context);
         }
 
-        internal void RaiseMoveToNextViewCommand()
+        internal void RaiseMoveToNextViewCommand(int navigatioStep)
         {
-            CalendarViewChangeContext context = new CalendarViewChangeContext()
+            CalendarViewChangeContext context = new CalendarViewChangeContext();
+            if (this.displayModeCache != CalendarDisplayMode.MultiDayView)
             {
-                AnimationStoryboard = this.CreateMoveToNextViewAnimationStoryboard()
-            };
+                context.AnimationStoryboard = this.CreateMoveToNextViewAnimationStoryboard();
+            }
+            context.navigationStep = navigatioStep;
 
             this.CommandService.ExecuteCommand(CommandId.MoveToNextView, context);
         }
@@ -139,7 +155,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 this.RaiseCellPointerOverCommand(cellModel);
             }
-            else
+            else if (this.DisplayMode != CalendarDisplayMode.MultiDayView)
             {
                 this.VisualStateService.UpdateHoverDecoration(null);
             }
@@ -166,13 +182,27 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal void OnContentPanelTapped(TappedRoutedEventArgs e)
         {
-            CalendarCellModel cellModel = HitTestService.GetCellFromPoint(e.GetPosition(this.contentLayer.VisualElement), this.Model.CalendarCells);
-            if (cellModel == null)
+            if (this.displayModeCache != CalendarDisplayMode.MultiDayView)
             {
-                return;
-            }
+                CalendarCellModel cellModel = HitTestService.GetCellFromPoint(e.GetPosition(this.contentLayer.VisualElement), this.Model.CalendarCells);
+                if (cellModel == null)
+                {
+                    return;
+                }
 
-            this.RaiseCellTapCommand(cellModel);
+                this.RaiseCellTapCommand(cellModel);
+            }
+            else
+            {
+                Point hitPoint = e.GetPosition(this.timeRulerLayer.contentPanel);
+                CalendarMultiDayViewModel multiDayViewModel = this.model.multiDayViewModel;
+                hitPoint.X += multiDayViewModel.timeRulerWidth;
+                Slot slot = HitTestService.GetSlotFromPoint(hitPoint, multiDayViewModel.timeRulerItems, this.model.CalendarCells, this.MultiDayViewSettings.VisibleDays);
+                if (slot != null)
+                {
+                    this.commandService.ExecuteCommand(CommandId.TimeSlotTap, slot);
+                }
+            }
         }
 
         internal void OnContentPanelPointerMoved(PointerRoutedEventArgs e, bool isDragging)
@@ -193,7 +223,10 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal void OnContentPanelPointerExited()
         {
-            this.VisualStateService.UpdateHoverDecoration(null);
+            if (this.DisplayMode != CalendarDisplayMode.MultiDayView)
+            {
+                this.VisualStateService.UpdateHoverDecoration(null);
+            }
         }
 
         internal void OnDragStarted(Point lastPointPressed)

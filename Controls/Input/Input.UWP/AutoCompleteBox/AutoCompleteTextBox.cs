@@ -2,7 +2,6 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
 {
@@ -12,10 +11,10 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
     [TemplatePart(Name = "PART_DeleteButton", Type = typeof(Button))]
     public class AutoCompleteTextBox : TextBox
     {
-        private const string DeleteButtonPartName = "PART_DeleteButton";
-        private Button deleteButton;
-
         internal bool isClearButtonVisible = true;
+        private const string DeleteButtonPartName = "PART_DeleteButton";
+
+        private Button deleteButton;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AutoCompleteTextBox" /> class.
@@ -66,14 +65,14 @@ namespace Telerik.UI.Xaml.Controls.Input.AutoCompleteBox
         {
             if (this.deleteButton != null)
             {
-                this.TextChanged -= AutoCompleteTextBox_TextChanged;
-                this.deleteButton.Click -= DeleteButton_Click;
+                this.TextChanged -= this.AutoCompleteTextBox_TextChanged;
+                this.deleteButton.Click -= this.DeleteButton_Click;
             }
 
             base.OnApplyTemplate();
             this.deleteButton = (Button)this.GetTemplateChild(DeleteButtonPartName);
-            this.deleteButton.Click += DeleteButton_Click;
-            this.TextChanged += AutoCompleteTextBox_TextChanged;
+            this.deleteButton.Click += this.DeleteButton_Click;
+            this.TextChanged += this.AutoCompleteTextBox_TextChanged;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

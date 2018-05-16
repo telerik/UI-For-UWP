@@ -42,6 +42,9 @@
         /// </value>
         public double FinalDragOffset { get; set; }
 
-        internal RadListViewItem Container { get; set; }
+        /// <summary>
+        /// Gets the <see cref="RadListViewItem"/> currently dragged.
+        /// </summary>
+        public RadListViewItem Container { get; internal set; }
     }
 }

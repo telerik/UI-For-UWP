@@ -67,7 +67,20 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 var childVisual = child as SpriteVisual;
                 if (childVisual != null)
+                {
                     factory.SetCompositionColorBrush(childVisual, paletteStroke, true);
+                }
+            }
+        }
+
+        protected internal virtual IEnumerable<Point> GetPoints(DataPointSegment segment)
+        {
+            int pointIndex = segment.StartIndex;
+            while (pointIndex <= segment.EndIndex)
+            {
+                yield return this.renderPoints[pointIndex].Center();
+
+                pointIndex++;
             }
         }
 
@@ -113,17 +126,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     figure = null;
                     lineSegment = null;
                 }
-            }
-        }
-
-        protected internal virtual IEnumerable<Point> GetPoints(DataPointSegment segment)
-        {
-            int pointIndex = segment.StartIndex;
-            while (pointIndex <= segment.EndIndex)
-            {
-                yield return this.renderPoints[pointIndex].Center();
-
-                pointIndex++;
             }
         }
     }

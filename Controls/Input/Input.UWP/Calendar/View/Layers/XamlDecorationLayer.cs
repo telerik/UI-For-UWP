@@ -46,6 +46,38 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        internal static bool IsStrokeThicknessExplicitlySet(Style style)
+        {
+            if (style != null)
+            {
+                foreach (Setter setter in style.Setters)
+                {
+                    if (setter.Property == Border.BorderThicknessProperty)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        internal static bool IsStrokeBrushExplicitlySet(Style style)
+        {
+            if (style != null)
+            {
+                foreach (Setter setter in style.Setters)
+                {
+                    if (setter.Property == Border.BorderBrushProperty)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         internal void UpdateUI(IEnumerable<CalendarCellModel> cellsToUpdate = null)
         {
             bool fullUpdate = false;
@@ -77,22 +109,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        private static bool IsStrokeThicknessExplicitlySet(Style style)
-        {
-            if (style != null)
-            {
-                foreach (Setter setter in style.Setters)
-                {
-                    if (setter.Property == Border.BorderThicknessProperty)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
         private static bool ShouldRenderPrimaryCellDecorationVisual(CalendarNode cell)
         {
             Style effectiveStyle = cell.Context.GetEffectiveCellDecorationStyle();
@@ -119,7 +135,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 return;
             }
 
-            if (this.Owner.DayNamesVisibility == Visibility.Visible)
+            if (this.Owner.DisplayMode != CalendarDisplayMode.MultiDayView && this.Owner.DayNamesVisibility == Visibility.Visible)
             {
                 Border dayNamesBottomDecorationLine = this.GetCalendarDecorationVisual(this.dayNamesLineModel, CalendarDecorationType.GridLine);
                 if (dayNamesBottomDecorationLine != null)
@@ -135,7 +151,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.dayNamesLineSlot = RadRect.Empty;
             }
 
-            if (this.Owner.WeekNumbersVisibility == Visibility.Visible)
+            if (this.Owner.DisplayMode != CalendarDisplayMode.MultiDayView && this.Owner.WeekNumbersVisibility == Visibility.Visible)
             {
                 Border weekNumbersRightDecorationLine = this.GetCalendarDecorationVisual(this.weekNumbersLineModel, CalendarDecorationType.GridLine);
                 if (weekNumbersRightDecorationLine != null)
@@ -362,8 +378,40 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             if (decorationType == CalendarDecorationType.GridLine)
             {
-                visual.BorderBrush = this.Owner.GridLinesBrush;
-                visual.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+                RadCalendar calendar = this.Owner;
+                if (calendar.DisplayMode == CalendarDisplayMode.MultiDayView)
+                {
+                    MultiDayViewSettings settings = calendar.MultiDayViewSettings;
+                    CalendarTimeRulerItemStyleSelector styleSelector = settings.TimeRulerItemStyleSelector ?? settings.defaultTimeRulerItemStyleSelector;
+                    if (styleSelector != null)
+                    {
+                        Style style = styleSelector.SelectStyle(node, visual);
+                        if (style != null)
+                        {
+                            visual.Style = style;
+
+                            if (!XamlDecorationLayer.IsStrokeBrushExplicitlySet(visual.Style))
+                            {
+                                visual.BorderBrush = this.Owner.GridLinesBrush;
+                            }
+
+                            if (visual.BorderBrush != null && !XamlDecorationLayer.IsStrokeThicknessExplicitlySet(visual.Style))
+                            {
+                                visual.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+                            }
+                        }
+                        else
+                        {
+                            visual.BorderBrush = this.Owner.GridLinesBrush;
+                            visual.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+                        }
+                    }
+                }
+                else
+                {
+                    visual.BorderBrush = this.Owner.GridLinesBrush;
+                    visual.BorderThickness = new Thickness(this.Owner.GridLinesThickness);
+                }
             }
             else
             {

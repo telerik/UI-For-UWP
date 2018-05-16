@@ -11,10 +11,10 @@ namespace Telerik.UI.Xaml.Controls.Data.Common
     ///                 | /
     ///                 |/_________
     ///                     offset   D
-    /// In addition it translates the maxSwipeLength to stretchLimit (L) proportionally as MaxScrollStretch is the max stretch that scrollviewer can allow.
+    /// In addition it translates the maxSwipeLength to stretchLimit (L) proportionally as MaxScrollStretch is the max stretch that ScrollViewer can allow.
     /// The function is calculated as following:
-    ///   - swipeTheshold / 2 >= acceleratedOffset --> 2 * swipeTheshold/maxSwipeLength^2 * offset^2
-    ///   - acceleratedOffset > swipeTheshold / 2 and  swipeTheshold > swipeTheshold --> swipeTheshold - 2 * swipeTheshold /maxSwipeLength^2 * (maxSwipeLength - offset) ^ 2.
+    ///   - swipeThreshold / 2 >= acceleratedOffset --> 2 * swipeThreshold/maxSwipeLength^2 * offset^2
+    ///   - acceleratedOffset > swipeThreshold / 2 and  swipeThreshold > swipeThreshold --> swipeThreshold - 2 * swipeThreshold /maxSwipeLength^2 * (maxSwipeLength - offset) ^ 2.
     /// </summary>
     internal class SwipeEaseFunction
     {
@@ -24,18 +24,18 @@ namespace Telerik.UI.Xaml.Controls.Data.Common
         private double accelerateCoef;
         private double accelerateCoef2;
 
-        private double swipeTheshold;
+        private double swipeThreshold;
 
-        public SwipeEaseFunction(double swipeTheshold)
+        public SwipeEaseFunction(double swipeThreshold)
         {
-            this.swipeTheshold = swipeTheshold;
+            this.swipeThreshold = swipeThreshold;
 
             var minStretch = stretchLimit;
-            this.maxSwipeLength = Math.Min(Math.Sqrt(this.swipeTheshold) + minStretch, stretchLimit);
+            this.maxSwipeLength = Math.Min(Math.Sqrt(this.swipeThreshold) + minStretch, stretchLimit);
 
-            this.accelerateCoef = this.swipeTheshold / Math.Pow(this.maxSwipeLength, 2);
+            this.accelerateCoef = this.swipeThreshold / Math.Pow(this.maxSwipeLength, 2);
 
-            this.accelerateCoef2 = 2 * this.swipeTheshold / this.maxSwipeLength;
+            this.accelerateCoef2 = 2 * this.swipeThreshold / this.maxSwipeLength;
         }
 
         public double GetAcceleratedOffset(double currentOffset, double previousAcceleratedOffset)
@@ -51,13 +51,13 @@ namespace Telerik.UI.Xaml.Controls.Data.Common
 
             var previousOffset = previousAcceleratedOffset;
 
-            if (previousOffset < this.swipeTheshold && offset < this.maxSwipeLength)
+            if (previousOffset < this.swipeThreshold && offset < this.maxSwipeLength)
             {
                 acceleratedOffset = -this.accelerateCoef * offset * offset + this.accelerateCoef2 * offset;
             }
             else
             {
-                acceleratedOffset = this.swipeTheshold;
+                acceleratedOffset = this.swipeThreshold;
             }
 
             return acceleratedOffset;

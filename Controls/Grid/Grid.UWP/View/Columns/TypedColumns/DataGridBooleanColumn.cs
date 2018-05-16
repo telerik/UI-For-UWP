@@ -16,23 +16,24 @@ namespace Telerik.UI.Xaml.Controls.Grid
         private const string CheckedGlyph = "\u2611";
         private const string IndeterminateGlyph = "\u25A3";
 
-        private static Style defaultCellEditorStyle;
-        private static Style defaultCellStyle;
         private static Type booleanType = typeof(bool);
         private static Type checkBoxType = typeof(CheckBox);
+
+        private Style defaultCellEditorStyle;
+        private Style defaultCellStyle;
 
         internal override Style DefaultCellContentStyle
         {
             get
             {
-                if (defaultCellStyle == null)
+                if (this.defaultCellStyle == null)
                 {
-                    defaultCellStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultBooleanColumnStyle.xaml",
                         "DefaultColumnStyle") as Style;
                 }
-                return defaultCellStyle;
+                return this.defaultCellStyle;
             }
         }
 
@@ -40,14 +41,14 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             get
             {
-                if (defaultCellEditorStyle == null)
+                if (this.defaultCellEditorStyle == null)
                 {
-                    defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
+                    this.defaultCellEditorStyle = ResourceHelper.LoadEmbeddedResource(
                         typeof(DataGridTextColumn),
                         "Telerik.UI.Xaml.Controls.Grid.View.Columns.Resources.DefaultBooleanColumnEditorStyle.xaml",
                         "DefaultColumnEditorStyle") as Style;
                 }
-                return defaultCellEditorStyle;
+                return this.defaultCellEditorStyle;
             }
         }
 
@@ -95,11 +96,13 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// Prepares all bindings and content set to the CheckBox visualized when entering edit mode.
         /// </summary>
         /// <param name="editorContent">The editor itself.</param>
+        /// <param name="binding">The binding set to the editor of the cell.</param>
         public override void PrepareEditorContentVisual(FrameworkElement editorContent, Binding binding)
         {
             editorContent.SetBinding(CheckBox.IsCheckedProperty, binding);
         }
-        
+
+        /// <inheritdoc/>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Windows.UI.Xaml.Controls.TextBlock.put_Text(System.String)")]
         public override void PrepareCell(object container, object value, object item)
         {

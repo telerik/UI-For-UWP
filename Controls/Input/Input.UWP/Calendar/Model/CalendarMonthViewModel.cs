@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using Telerik.Core;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
@@ -63,7 +64,42 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             cell.Date = date;
             cell.Label = string.Format(this.Calendar.Culture, this.Calendar.MonthViewCellFormat, date);
 
-            cell.IsFromAnotherView = date.Month != this.Calendar.DisplayDate.Month;
+            if (this.Calendar.DisplayMode != CalendarDisplayMode.MultiDayView)
+            {
+                cell.IsFromAnotherView = date.Month != this.Calendar.DisplayDate.Month;
+            }
+        }
+
+        internal void EnsureCalendarHeaderCells()
+        {
+            if (this.calendarHeaderCells == null)
+            {
+                this.calendarHeaderCells = new ElementCollection<CalendarHeaderCellModel>(this);
+            }
+
+            if (this.calendarHeaderCells.Count == 0)
+            {
+                int itemCount = this.ColumnCount + this.RowCount + (this.BufferItemsCount * 2);
+                for (int cellIndex = 0; cellIndex < itemCount; cellIndex++)
+                {
+                    CalendarHeaderCellModel cell = new CalendarHeaderCellModel();
+
+                    this.calendarHeaderCells.Add(cell);
+                }
+            }
+            else
+            {
+                foreach (CalendarHeaderCellModel cell in this.calendarHeaderCells)
+                {
+                    cell.layoutSlot = RadRect.Empty;
+                }
+            }
+        }
+
+        internal void ArrangeCalendarColumnHeaders(RadRect viewRect)
+        {
+            int itemIndex = 0;
+            this.ArrangeCalendarColumnHeaders(viewRect, ref itemIndex);
         }
 
         protected override RadRect UpdateAnimatableContentClip(RadRect rect)
@@ -86,21 +122,38 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void ArrangeCalendarColumnHeaders(RadRect viewRect, ref int itemIndex)
         {
-            if (!this.Calendar.AreDayNamesVisible)
+            CalendarModel model = this.Calendar;
+            if (!model.AreDayNamesVisible)
             {
                 return;
             }
 
             double previousRight = viewRect.X;
-            double cellWidth = viewRect.Width / this.ColumnCount;
+            double cellWidth = viewRect.Width / (this.ColumnCount + (this.BufferItemsCount * 2));
             double cellHeight = viewRect.Y;
-            int firstDayOfWeek = (int)this.Calendar.Culture.DateTimeFormat.FirstDayOfWeek;
+            int firstDayOfWeek = (int)model.Culture.DateTimeFormat.FirstDayOfWeek;
 
-            for (int columnIndex = 0; columnIndex < this.ColumnCount; columnIndex++)
+            for (int columnIndex = 0; columnIndex < this.ColumnCount + (this.BufferItemsCount * 2); columnIndex++)
             {
                 CalendarHeaderCellModel calendarCell = this.calendarHeaderCells[itemIndex];
                 calendarCell.Type = CalendarHeaderCellType.DayName;
-                calendarCell.Label = this.GetFormattedDayName(columnIndex, firstDayOfWeek);
+
+                string label = string.Empty;
+                if (model.DisplayMode != CalendarDisplayMode.MultiDayView)
+                {
+                    int dayNameIndex = (firstDayOfWeek + columnIndex) % this.ColumnCount;
+                    label = this.GetFormattedDayName(dayNameIndex);
+                }
+                else
+                {
+                    CalendarCellModel cellOfHeader = this.CalendarCells.FirstOrDefault(a => a.ColumnIndex == columnIndex);
+                    if (cellOfHeader != null)
+                    {
+                        label = this.GetFormattedDayName((int)cellOfHeader.Date.DayOfWeek);
+                    }
+                }
+
+                calendarCell.Label = label;
 
                 double horizontalDifference = columnIndex * cellWidth - previousRight + viewRect.X;
                 calendarCell.Arrange(new RadRect(previousRight, 0d, cellWidth + horizontalDifference, cellHeight));
@@ -112,22 +165,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        private string GetFormattedDayName(int columnIndex, int firstDayOfWeek)
+        private string GetFormattedDayName(int dayNameIndex)
         {
-            int dayNameIndex = (firstDayOfWeek + columnIndex) % this.ColumnCount;
-
-            if (this.Calendar.DayNameFormat == CalendarDayNameFormat.FullName)
+            CalendarModel model = this.Calendar;
+            if (model.DayNameFormat == CalendarDayNameFormat.FullName)
             {
-                return this.Calendar.Culture.DateTimeFormat.DayNames[dayNameIndex];
+                return model.Culture.DateTimeFormat.DayNames[dayNameIndex];
             }
-            else if (this.Calendar.DayNameFormat == CalendarDayNameFormat.FirstLetter)
+            else if (model.DayNameFormat == CalendarDayNameFormat.FirstLetter)
             {
-                string dayName = this.Calendar.Culture.DateTimeFormat.DayNames[dayNameIndex];
+                string dayName = model.Culture.DateTimeFormat.DayNames[dayNameIndex];
                 return dayName.Substring(0, 1);
             }
             else
             {
-                return this.Calendar.Culture.DateTimeFormat.AbbreviatedDayNames[dayNameIndex];
+                return model.Culture.DateTimeFormat.AbbreviatedDayNames[dayNameIndex];
             }
         }
 
@@ -185,45 +237,40 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private RadRect GetCalendarViewRect(RadRect availableRect)
         {
             double dayNamesPanelHeight = 0d;
-            if (this.Calendar.AreDayNamesVisible)
+            CalendarModel calendar = this.Calendar;
+            if (calendar.AreDayNamesVisible)
             {
-                dayNamesPanelHeight = this.Calendar.View.MeasureContent(CalendarHeaderCellType.DayName, this.Calendar.Culture.DateTimeFormat.AbbreviatedDayNames[0]).Height;
+                dayNamesPanelHeight = calendar.View.MeasureContent(CalendarHeaderCellType.DayName, calendar.Culture.DateTimeFormat.AbbreviatedDayNames[0]).Height;
             }
 
-            double weekNumbersPanelWidth = 0d;
-            if (this.Calendar.AreWeekNumbersVisible)
+            double panelWidth = 0d;
+            if (calendar.DisplayMode == CalendarDisplayMode.MonthView && calendar.AreWeekNumbersVisible)
             {
-                string stringToMeasure = string.Format(this.Calendar.Culture, this.Calendar.WeekNumberFormat, WeekNumberMeasureString);
-                weekNumbersPanelWidth = this.Calendar.View.MeasureContent(CalendarHeaderCellType.WeekNumber, stringToMeasure).Width;
+                string stringToMeasure = string.Format(calendar.Culture, calendar.WeekNumberFormat, WeekNumberMeasureString);
+                panelWidth = calendar.View.MeasureContent(CalendarHeaderCellType.WeekNumber, stringToMeasure).Width;
+            }
+            else if (calendar.DisplayMode == CalendarDisplayMode.MultiDayView)
+            {
+                MultiDayViewSettings settings = this.Calendar.multiDayViewSettings;
+                TimeSpan endTime = settings.DayEndTime;
+                string stringToMeasure = string.Format(this.Calendar.Culture, this.Calendar.TimeFormat, calendar.DisplayDate.Date.Add(endTime));
+                panelWidth = calendar.View.MeasureContent(null, stringToMeasure).Width;
+
+                if (!string.IsNullOrEmpty(settings.AllDayAreaText))
+                {
+                    stringToMeasure = MultiDayViewSettings.DefaultAllDayText;
+                    double allDayWidth = calendar.View.MeasureContent(null, stringToMeasure).Width;
+                    if (allDayWidth > panelWidth)
+                    {
+                        panelWidth = allDayWidth;
+                    }
+                }
             }
 
-            double width = Math.Max(availableRect.Width - weekNumbersPanelWidth, 0d);
+            double width = Math.Max(availableRect.Width - panelWidth, 0d);
             double height = Math.Max(availableRect.Height - dayNamesPanelHeight, 0d);
 
-            return new RadRect(weekNumbersPanelWidth, dayNamesPanelHeight, width, height);
-        }
-
-        private void EnsureCalendarHeaderCells()
-        {
-            if (this.calendarHeaderCells == null)
-            {
-                this.calendarHeaderCells = new ElementCollection<CalendarHeaderCellModel>(this);
-
-                int itemCount = this.ColumnCount + this.RowCount;
-                for (int cellIndex = 0; cellIndex < itemCount; cellIndex++)
-                {
-                    CalendarHeaderCellModel cell = new CalendarHeaderCellModel();
-
-                    this.calendarHeaderCells.Add(cell);
-                }
-            }
-            else
-            {
-                foreach (CalendarHeaderCellModel cell in this.calendarHeaderCells)
-                {
-                    cell.layoutSlot = RadRect.Empty;
-                }
-            }
+            return new RadRect(panelWidth, dayNamesPanelHeight, width, height);
         }
     }
 }
