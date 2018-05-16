@@ -11,7 +11,7 @@
         <iconUrl>http://www.telerik.com/docs/default-source/nuget-feed-product-files/nugeticon_uwp.png?sfvrsn=2</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>UI for Universal Windows Platform is a toolset for building Universal Windows Platform apps for the Windows Store and the enterprise. The library is designed to offer the same user experience, functionality and behavior on Windows devices of all form factors.</description>
-		<releaseNotes>For full release notes see https://github.com/telerik/UI-For-UWP/releases/tag/1.0.0.9</releaseNotes>
+		<releaseNotes>For full release notes see https://github.com/telerik/UI-For-UWP/releases/tag/1.0.1</releaseNotes>
 		<tags>UWP Windows Telerik Controls XAML C#</tags>
         <language>en-US</language>
     </metadata>
