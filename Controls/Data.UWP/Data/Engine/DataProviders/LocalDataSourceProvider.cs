@@ -678,7 +678,7 @@ namespace Telerik.Data.Core
                 }
                 else
                 {
-                    itemIndex = this.DataView.InternalList.IndexOf(sender);
+                    itemIndex = this.engine.GetFilteredItemIndex(sender);
                 }
 
                 List<object> items = new List<object>(1) { sender };
