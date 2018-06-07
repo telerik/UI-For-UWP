@@ -88,6 +88,7 @@
     <Example DisplayName="Pull to Refresh" ClassName="SDKExamples.UWP.Listview.PullToRefresh" />
     <Example DisplayName="Grouping" ClassName="SDKExamples.UWP.Listview.Grouping" />
     <Example DisplayName="Reorder" ClassName="SDKExamples.UWP.Listview.Reorder" />
+    <Example DisplayName="Reorder with Groups" ClassName="SDKExamples.UWP.Listview.ReorderWithGroups" />
     <Example DisplayName="Load on Demand" ClassName="SDKExamples.UWP.Listview.LoadOnDemand" />
     <Example DisplayName="Filtering" ClassName="SDKExamples.UWP.Listview.Filtering" />
     <Example DisplayName="Item Animations" ClassName="SDKExamples.UWP.Listview.ItemAnimations" />

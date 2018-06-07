@@ -355,6 +355,9 @@
     <Compile Include="Examples\ListView\Reorder.xaml.cs">
       <DependentUpon>Reorder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\ListView\ReorderWithGroups.xaml.cs">
+      <DependentUpon>ReorderWithGroups.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\ListView\ScrollIndexIntoView.xaml.cs">
       <DependentUpon>ScrollIndexIntoView.xaml</DependentUpon>
     </Compile>
@@ -786,6 +789,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\ListView\Reorder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\ListView\ReorderWithGroups.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

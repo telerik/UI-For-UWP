@@ -131,6 +131,7 @@
     <Compile Include="Data\Engine\Groups\Descriptions\CollectionViewGroupDescription.cs" />
     <Compile Include="Data\Engine\IncrementalLoading\PlaceholderInfoType.cs" />
     <Compile Include="Data\Engine\DataProviders\ViewChangingEventArgs.cs" />
+    <Compile Include="Data\Engine\ItemPlacement.cs" />
     <Compile Include="Data\IDataViewCollection.cs" />
     <Compile Include="Data\IncrementalLoading\BatchLoadingEventArgs.cs" />
     <Compile Include="Data\IncrementalLoading\BatchLoadingMode.cs" />

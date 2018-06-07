@@ -59,8 +59,11 @@
     <Compile Include="DataForm\View\Editors\SegmentedControlCustomEditor.cs" />
     <Compile Include="DataForm\View\Editors\SliderCustomEditor.cs" />
     <Compile Include="ListView\Data\ListViewDataView.cs" />
+    <Compile Include="ListView\View\Controls\ListViewGroupHeader.IDragDropElement.cs" />
+    <Compile Include="ListView\View\Controls\ListViewGroupHeader.Reorder.cs" />
     <Compile Include="ListView\View\Controls\ListViewLoadDataUICommand.cs" />
     <Compile Include="ListView\View\RadListView.Data.cs" />
+    <Compile Include="ListView\View\Reorder\ListViewReorderItemsCoordinator.cs" />
     <Compile Include="ListView\View\Services\Commands\GroupHeaderTapCommand.cs" />
     <Compile Include="ListView\View\Services\Commands\ItemHoldCommand.cs" />
     <Compile Include="ListView\View\Services\Commands\ItemHoldContext.cs" />

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
@@ -20,10 +17,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder
         public ReorderItemsCoordinator(IReorderItemsHost host)
         {
             this.Host = host;
-            this.ReorderWithAnimation = true;
         }
-
-        internal bool ReorderWithAnimation { get; set; }
 
         internal IReorderItemsHost Host
         {
@@ -71,11 +65,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder
             this.UpdatePositionAndIndices(sourceItem, destinationItem);
         }
 
-        protected virtual void AnimateItem(IReorderItem item, Point position, Action actionCompleted)
+        protected void AnimateItem(IReorderItem source, IReorderItem destination, Point position)
         {
-            var dragPositionMode = DragDrop.GetDragPositionMode(item.Visual);
+            var dragPositionMode = DragDrop.GetDragPositionMode(destination.Visual);
 
             Storyboard b = new Storyboard();
+            Action actionCompleted = () =>
+            {
+                destination.ArrangePosition = position;
+                this.animatingElements.Remove(destination);
+                this.Host.OnItemsReordered(source, destination);
+            };
 
             this.runningAnimations.Add(b, actionCompleted);
 
@@ -86,7 +86,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder
                 topAnimation.EasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseIn };
                 topAnimation.To = position.Y;
                 Storyboard.SetTargetProperty(topAnimation, "(Canvas.Top)");
-                Storyboard.SetTarget(topAnimation, item.Visual);
+                Storyboard.SetTarget(topAnimation, destination.Visual);
                 b.Children.Add(topAnimation);
             }
 
@@ -97,7 +97,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder
                 leftAnimation.EasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseIn };
                 leftAnimation.To = position.X;
                 Storyboard.SetTargetProperty(leftAnimation, "(Canvas.Left)");
-                Storyboard.SetTarget(leftAnimation, item.Visual);
+                Storyboard.SetTarget(leftAnimation, destination.Visual);
                 b.Children.Add(leftAnimation);
             }
 
@@ -110,46 +110,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder
             b.Begin();
         }
 
-        private static Point GetRearangePosition(IReorderItem targetItem, IReorderItem adjasentItem)
-        {
-            Point position;
-
-            if (targetItem.LogicalIndex > adjasentItem.LogicalIndex)
-            {
-                position = adjasentItem.ArrangePosition;
-            }
-            else
-            {
-                double x = -1;
-                double y = -1;
-                var dragPositionMode = DragDrop.GetDragPositionMode(targetItem.Visual);
-
-                if (dragPositionMode == DragPositionMode.RailY || dragPositionMode == DragPositionMode.Free)
-                {
-                    x = adjasentItem.ArrangePosition.X;
-                    y = adjasentItem.ArrangePosition.Y + adjasentItem.ActualSize.Height - targetItem.ActualSize.Height;
-                }
-
-                if (dragPositionMode == DragPositionMode.RailX || dragPositionMode == DragPositionMode.Free)
-                {
-                    x = adjasentItem.ArrangePosition.X + adjasentItem.ActualSize.Width - targetItem.ActualSize.Width;
-                    y = adjasentItem.ArrangePosition.Y;
-                }
-                position = new Point(x, y);
-            }
-
-            return position;
-        }
-
-        private void ReorderItems(IReorderItem source, IReorderItem destination)
-        {
-            if (source != destination && !this.animatingElements.Contains(destination) && !this.animatingElements.Contains(source))
-            {
-                this.UpdatePositionAndIndices(source, destination);
-            }
-        }
-
-        private void UpdatePositionAndIndices(IReorderItem source, IReorderItem destination)
+        protected virtual void UpdatePositionAndIndices(IReorderItem source, IReorderItem destination)
         {
             var step = source.LogicalIndex < destination.LogicalIndex ? 1 : -1;
 
@@ -167,28 +128,50 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop.Reorder
 
                 this.animatingElements.Add(currentDestinationItem);
 
-                var destinationPosition = ReorderItemsCoordinator.GetRearangePosition(currentDestinationItem, source);
-                source.ArrangePosition = ReorderItemsCoordinator.GetRearangePosition(source, currentDestinationItem);
+                var destinationPosition = GetRearrangePosition(currentDestinationItem, source);
+                source.ArrangePosition = GetRearrangePosition(source, currentDestinationItem);
 
                 var index = source.LogicalIndex;
                 source.LogicalIndex = currentDestinationItem.LogicalIndex;
                 currentDestinationItem.LogicalIndex = index;
 
-                Action moveCompletedAction = () =>
-                {
-                    currentDestinationItem.ArrangePosition = destinationPosition;
-                    this.animatingElements.Remove(currentDestinationItem);
-                    this.Host.OnItemsReordered(source, currentDestinationItem);
-                };
+                this.AnimateItem(source, currentDestinationItem, destinationPosition);
+            }
+        }
 
-                if (this.ReorderWithAnimation)
+        private static Point GetRearrangePosition(IReorderItem targetItem, IReorderItem adjacentItem)
+        {
+            var position = targetItem.ArrangePosition;
+            var dragPositionMode = DragDrop.GetDragPositionMode(targetItem.Visual);
+
+            if (dragPositionMode == DragPositionMode.RailY || dragPositionMode == DragPositionMode.Free)
+            {
+                position.Y = adjacentItem.ArrangePosition.Y;
+
+                if (targetItem.LogicalIndex < adjacentItem.LogicalIndex)
                 {
-                    this.AnimateItem(currentDestinationItem, destinationPosition, moveCompletedAction);
+                    position.Y += adjacentItem.ActualSize.Height - targetItem.ActualSize.Height;
                 }
-                else
+            }
+
+            if (dragPositionMode == DragPositionMode.RailX || dragPositionMode == DragPositionMode.Free)
+            {
+                position.X = adjacentItem.ArrangePosition.X;
+
+                if (targetItem.LogicalIndex < adjacentItem.LogicalIndex)
                 {
-                    moveCompletedAction();
+                    position.X += adjacentItem.ActualSize.Width - targetItem.ActualSize.Width;
                 }
+            }
+
+            return position;
+        }
+
+        private void ReorderItems(IReorderItem source, IReorderItem destination)
+        {
+            if (source != destination && !this.animatingElements.Contains(destination) && !this.animatingElements.Contains(source))
+            {
+                this.UpdatePositionAndIndices(source, destination);
             }
         }
     }

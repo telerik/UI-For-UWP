@@ -8,7 +8,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
     /// <summary>
     /// Allows a user to view a header and expand that header to see further details, or to collapse a section up to a header.
     /// </summary>
-    public class ListViewGroupHeader : RadContentControl, IArrangeChild
+    public partial class ListViewGroupHeader : RadContentControl, IArrangeChild
     {
         /// <summary>
         /// Identifies the IsExpanded dependency property.

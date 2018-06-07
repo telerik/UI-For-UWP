@@ -68,21 +68,33 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
         }
 
-        internal void PrepareReorderItem(RadListViewItem reorderItem)
+        internal void PrepareReorderItem(IReorderItem reorderItem)
         {
             if (reorderItem != null)
             {
-                (reorderItem as IReorderItem).Coordinator = this.reorderCoordinator;
-                DragDrop.SetAllowDrop(reorderItem, true);
+                reorderItem.Coordinator = this.reorderCoordinator;
+
+                var dependencyObject = reorderItem as DependencyObject;
+
+                if (dependencyObject != null)
+                {
+                    DragDrop.SetAllowDrop(dependencyObject, true);
+                }
             }
         }
 
-        internal void CleanupReorderItem(RadListViewItem reorderItem)
+        internal void CleanupReorderItem(IReorderItem reorderItem)
         {
             if (reorderItem != null)
             {
-                (reorderItem as IReorderItem).Coordinator = null;
-                DragDrop.SetAllowDrop(reorderItem, false);
+                reorderItem.Coordinator = null;
+
+                var dependencyObject = reorderItem as DependencyObject;
+
+                if (dependencyObject != null)
+                {
+                    DragDrop.SetAllowDrop(dependencyObject, false);
+                }
             }
         }
 
@@ -106,7 +118,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         private void InitializeReorder()
         {
-            this.reorderCoordinator = new ReorderItemsCoordinator(this);
+            this.reorderCoordinator = new ListViewReorderItemsCoordinator(this);
         }
     }
 }

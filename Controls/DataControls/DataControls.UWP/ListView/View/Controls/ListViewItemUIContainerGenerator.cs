@@ -45,10 +45,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.View.Controls
 
                 this.owner.PrepareContainerForItem(listItem, element.ItemInfo.Item);
                 listItem.PrepareSwipeDragHandles();
-
-                var reorderItem = listItem as IReorderItem;
-                reorderItem.LogicalIndex = element.ItemInfo.Id;
-                this.owner.PrepareReorderItem(listItem);
             }
 
             var groupHeader = element.Container as ListViewGroupHeader;
@@ -74,6 +70,13 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.View.Controls
 
                 groupHeader.IsExpanded = context.IsExpanded;
                 this.owner.PrepareContainerForGroupHeader(groupHeader, context);
+            }
+
+            var reorderItem = element.Container as IReorderItem;
+            if (reorderItem != null)
+            {
+                reorderItem.LogicalIndex = element.ItemInfo.Id;
+                this.owner.PrepareReorderItem(reorderItem);
             }
         }
 
@@ -101,6 +104,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.View.Controls
                 item.ArrangeSize.Height = 0;
                 item.ArrangeSize.Width = 0;
 
+                this.owner.CleanupReorderItem(item);
                 this.owner.ClearContainerForGroupHeader(item);
             }
         }
