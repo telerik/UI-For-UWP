@@ -142,7 +142,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Tests
             throw new NotImplementedException();
         }
 
-        public int GetRealFilteredItemIndex(object item)
+        public int GetFilteredItemIndex(object item)
         {
             throw new NotImplementedException();
         }

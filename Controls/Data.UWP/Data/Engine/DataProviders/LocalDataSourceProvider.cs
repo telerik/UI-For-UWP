@@ -678,7 +678,7 @@ namespace Telerik.Data.Core
                 }
                 else
                 {
-                    itemIndex = this.engine.GetRealFilteredItemIndex(sender);
+                    itemIndex = this.engine.GetFilteredItemIndex(sender);
                 }
 
                 List<object> items = new List<object>(1) { sender };

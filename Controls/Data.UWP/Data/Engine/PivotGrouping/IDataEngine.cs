@@ -19,6 +19,6 @@ namespace Telerik.Data.Core.Engine
 
         List<AddRemoveResult> RemoveItems(int index, System.Collections.IEnumerable items, bool removeFilteredItem, bool canUseComparer);
 
-        int GetRealFilteredItemIndex(object item);
+        int GetFilteredItemIndex(object item);
     }
 }

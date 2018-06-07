@@ -273,7 +273,7 @@ namespace Telerik.Data.Core.Engine
             return this.Process(index, items, true, removeFilteredItem, canUseComparer);
         }
 
-        int IDataEngine.GetRealFilteredItemIndex(object item)
+        int IDataEngine.GetFilteredItemIndex(object item)
         {
             Group rowRootGroup = (Group)this.Root.RowGroup;
             IComparer<object> itemComparer = this.valueProvider.GetSortComparer();
