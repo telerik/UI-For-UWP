@@ -101,18 +101,24 @@ namespace Telerik.UI.Xaml.Controls.Input
 
                 if (control.IsTemplateApplied)
                 {
+                    if (oldSelectedIndex >= 0)
+                    {
+                        var oldContainer = control.itemsControl.ContainerFromIndex(oldSelectedIndex) as Segment;
+                        if (oldContainer != null)
+                        {
+                            oldContainer.IsSelected = false;
+                        }
+                    }
+
+                    if (selectedIndex == -1)
+                    {
+                        control.ClearSelection();
+                        return;
+                    }
+
                     var container = control.itemsControl.ContainerFromIndex(selectedIndex) as Segment;
                     if (container != null)
                     {
-                        if (oldSelectedIndex >= 0)
-                        {
-                            var oldContainer = control.itemsControl.ContainerFromIndex(oldSelectedIndex) as Segment;
-                            if (oldContainer != null)
-                            {
-                                oldContainer.IsSelected = false;
-                            }
-                        }
-
                         container.IsSelected = true;
                     }
                     else
