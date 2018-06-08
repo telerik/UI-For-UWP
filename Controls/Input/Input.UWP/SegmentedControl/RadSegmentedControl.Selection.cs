@@ -101,6 +101,12 @@ namespace Telerik.UI.Xaml.Controls.Input
 
                 if (control.IsTemplateApplied)
                 {
+                    if (selectedIndex == -1)
+                    {
+                        control.ClearSelection();
+                        return;
+                    }
+
                     var container = control.itemsControl.ContainerFromIndex(selectedIndex) as Segment;
                     if (container != null)
                     {
