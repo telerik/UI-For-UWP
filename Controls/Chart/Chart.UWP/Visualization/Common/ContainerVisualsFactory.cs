@@ -28,7 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         private DoubleCollection dashArrayCache;
 
-        internal void SetCompositionColorBrush(ContainerVisual containerVisual, Brush brush, bool isInternallyChanged = false)
+        internal async void SetCompositionColorBrush(ContainerVisual containerVisual, Brush brush, bool isInternallyChanged = false)
         {
             var spriteVisual = containerVisual as SpriteVisual;
             if (spriteVisual != null)
@@ -40,17 +40,22 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
                 else if (solidColorBrush != null)
                 {
-                    var compositionColorBrush = spriteVisual.Brush as CompositionColorBrush;
-                    if (compositionColorBrush == null)
-                    {
-                        spriteVisual.Brush = spriteVisual.Compositor.CreateColorBrush(solidColorBrush.Color);
-                        spriteVisual.Opacity = (float)solidColorBrush.Opacity;
-                    }
-                    else if (compositionColorBrush != null && compositionColorBrush.Color != solidColorBrush.Color && isInternallyChanged)
-                    {
-                        spriteVisual.Brush = spriteVisual.Compositor.CreateColorBrush(solidColorBrush.Color);
-                        spriteVisual.Opacity = (float)solidColorBrush.Opacity;
-                    }
+                    await brush.Dispatcher.RunAsync(
+                         Windows.UI.Core.CoreDispatcherPriority.Normal,
+                         () =>
+                         {
+                             var compositionColorBrush = spriteVisual.Brush as CompositionColorBrush;
+                             if (compositionColorBrush == null)
+                             {
+                                 spriteVisual.Brush = spriteVisual.Compositor.CreateColorBrush(solidColorBrush.Color);
+                                 spriteVisual.Opacity = (float)solidColorBrush.Opacity;
+                             }
+                             else if (compositionColorBrush != null && compositionColorBrush.Color != solidColorBrush.Color && isInternallyChanged)
+                             {
+                                 spriteVisual.Brush = spriteVisual.Compositor.CreateColorBrush(solidColorBrush.Color);
+                                 spriteVisual.Opacity = (float)solidColorBrush.Opacity;
+                             }
+                         });
                 }
             }
         }

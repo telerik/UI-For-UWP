@@ -100,6 +100,7 @@ This project is supported by the [.NET Foundation](https://dotnetfoundation.org)
 * [Blog: Telerik UI for UWP in Windows Template Studio](https://developer.telerik.com/topics/net/announcing-windows-template-studio/)
 * [Blog: Telerik UI for UWP toolbox support with NuGet package](http://www.telerik.com/blogs/telerik-ui-for-uwp-free-and-updated-xaml-controls) ([alternative link](https://blogs.msdn.microsoft.com/visualstudio/2017/05/30/telerik-ui-for-uwp-free-and-updated-xaml-controls/))
 * [Video: Building Windows Apps with Adaptive UI om Channel9](http://www.telerik.com/blogs/ui-controls-for-uwp-building-windows-apps-with-adaptive-ui) ([alternative link](https://channel9.msdn.com/Blogs/DevRadio/DR1734))
+* [Blog: Analyzing NEOs with Telerik UI for UWP](https://www.telerik.com/blogs/analyzing-neos-with-telerik-ui-for-uwp)
 
 ## Like what you see?
 
