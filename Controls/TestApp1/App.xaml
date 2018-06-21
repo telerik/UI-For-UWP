@@ -1,0 +1,25 @@
+﻿<cm:CaliburnApplication
+    x:Class="TestApp1.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="using:System"
+    xmlns:cm="using:Caliburn.Micro"
+    RequestedTheme="Light">
+
+    <cm:CaliburnApplication.Resources>
+        <ResourceDictionary>
+            <cm:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <!-- Style definition -->
+            <Style x:Key="SubheaderTextBlockStyle" TargetType="TextBlock" 
+                   BasedOn="{StaticResource BaseTextBlockStyle}">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="Light"/>
+                <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
+            </Style>
+            <SolidColorBrush x:Key="BackgroundBrush" Color="#FF225378" />
+            <Style x:Key="NumericTextBoxStyle" TargetType="TextBox">
+                <Setter Property="InputScope" Value="Number"/>
+            </Style>
+        </ResourceDictionary>
+    </cm:CaliburnApplication.Resources>
+</cm:CaliburnApplication>
