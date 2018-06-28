@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace TestApp1.ViewModels
 {
@@ -82,10 +83,15 @@ namespace TestApp1.ViewModels
         {
             StatKbn = SelectedColumnKbn.Kbn;
             NotifyOfPropertyChange(() => SelectedColumnKbn);
-            NotifyOfPropertyChange(() => ColumnKbns);
-            NotifyOfPropertyChange(() => ColumnIdEnable);
-            NotifyOfPropertyChange(() => ColumnNameEnable);
-            NotifyOfPropertyChange(() => ColumnPriceEnable);
+
+            Window.Current.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                NotifyOfPropertyChange(() => ColumnKbns);
+                NotifyOfPropertyChange(() => ColumnIdEnable);
+                NotifyOfPropertyChange(() => ColumnNameEnable);
+                NotifyOfPropertyChange(() => ColumnPriceEnable);
+            });
+
             NotifyOfPropertyChange(() => Records);
         }
 

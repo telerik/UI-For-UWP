@@ -26,5 +26,10 @@ namespace TestApp1.Views
         {
             this.InitializeComponent();
         }
+
+        private void SelectComboKbn_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.mainDataGrid.CancelEdit();
+        }
     }
 }

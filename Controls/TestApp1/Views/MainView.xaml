@@ -19,13 +19,13 @@
         <TextBlock Text="3. Crash the app" />
         <Grid Padding="0,18,0,0">
             <ComboBox x:Name="SelectComboKbn" PlaceholderText="Select Column"
-                          ItemsSource="{Binding ColumnKbns}"
+                          ItemsSource="{Binding ColumnKbns}" SelectionChanged="SelectComboKbn_SelectionChanged"
                           SelectedItem="{Binding SelectedColumnKbn, Mode=TwoWay}"
                           DisplayMemberPath="Caption">
             </ComboBox>
         </Grid>
         <!-- Main Begin -->
-        <telerikGrid:RadDataGrid x:Name="mainDataGrid" 
+        <telerikGrid:RadDataGrid x:Name="mainDataGrid"
                         ItemsSource="{Binding Records}"
                         IsSynchronizedWithCurrentItem="True"
                         UserGroupMode="Disabled"
