@@ -332,6 +332,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
             };
 
             var pair = editor.Container as Tuple<FrameworkElement, FrameworkElement, FrameworkElement>;
+            if (pair == null)
+            {
+                return;
+            }
 
             var validation = pair.Item3 as ValidationControl;
 
