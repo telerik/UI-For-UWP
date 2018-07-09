@@ -157,9 +157,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             if (segmentModel != null && segmentModel.LayoutSlot != RadialLayoutSlot.Invalid)
             {
                 RadialMenuItemControl menuItemControl;
-                if (recycledMenuItemControls.Count > 0)
+                if (this.recycledMenuItemControls.Count > 0)
                 {
-                    menuItemControl = recycledMenuItemControls.Dequeue();
+                    menuItemControl = this.recycledMenuItemControls.Dequeue();
                 }
                 else
                 {
