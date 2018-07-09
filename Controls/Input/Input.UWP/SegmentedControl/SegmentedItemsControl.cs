@@ -192,7 +192,9 @@ namespace Telerik.UI.Xaml.Controls.Input
         ///
         protected override DependencyObject GetContainerForItemOverride()
         {
-            return new Segment(true);
+            Segment segment = new Segment(true);
+            segment.owner = this.Owner;
+            return segment;
         }
 
         /// <inheritdoc />
