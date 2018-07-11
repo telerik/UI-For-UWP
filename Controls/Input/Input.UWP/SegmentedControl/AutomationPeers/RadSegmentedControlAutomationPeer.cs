@@ -11,6 +11,7 @@ namespace Telerik.UI.Automation.Peers
     public class RadSegmentedControlAutomationPeer : RadControlAutomationPeer, ISelectionProvider
     {
         private static string SegmentedControlName = nameof(RadSegmentedControl);
+        private RadSegmentedControl segmentedControlOwner;
 
         /// <summary>
         ///  Initializes a new instance of the <see cref="RadSegmentedControlAutomationPeer"/> class.
@@ -19,6 +20,7 @@ namespace Telerik.UI.Automation.Peers
         public RadSegmentedControlAutomationPeer(RadSegmentedControl owner) 
             : base(owner)
         {
+            this.segmentedControlOwner = owner;
         }
 
         /// <summary>
@@ -43,25 +45,17 @@ namespace Telerik.UI.Automation.Peers
             }
         }
 
-        private RadSegmentedControl SegmentedControlOwner
-        {
-            get
-            {
-                return (RadSegmentedControl)this.Owner;
-            }
-        }
-
         /// <summary>
         /// Retrieves a UI Automation provider for each child element that is selected.
         /// </summary>
         public IRawElementProviderSimple[] GetSelection()
         {
-            if (this.SegmentedControlOwner.SelectedItem == null)
+            if (this.segmentedControlOwner.SelectedItem == null)
             {
                 return new IRawElementProviderSimple[0];
             }
 
-            Segment selectedSegment = (Segment)this.SegmentedControlOwner.ItemsControl.ContainerFromItem(this.SegmentedControlOwner.SelectedItem);
+            Segment selectedSegment = (Segment)this.segmentedControlOwner.ItemsControl.ContainerFromItem(this.segmentedControlOwner.SelectedItem);
             AutomationPeer selectedItemPeer = (SegmentAutomationPeer)FrameworkElementAutomationPeer.CreatePeerForElement(selectedSegment);
             IRawElementProviderSimple selectedItemProvider = this.ProviderFromPeer(selectedItemPeer);
 
@@ -72,9 +66,9 @@ namespace Telerik.UI.Automation.Peers
         protected override IList<AutomationPeer> GetChildrenCore()
         {
             List<AutomationPeer> segmentPeers = new List<AutomationPeer>();
-            foreach (var segmentedItem in this.SegmentedControlOwner.Items)
+            foreach (var segmentedItem in this.segmentedControlOwner.Items)
             {
-                Segment segment = (Segment)this.SegmentedControlOwner.ItemsControl.ContainerFromItem(segmentedItem);
+                Segment segment = (Segment)this.segmentedControlOwner.ItemsControl.ContainerFromItem(segmentedItem);
                 AutomationPeer segmentPeer = FrameworkElementAutomationPeer.CreatePeerForElement(segment);
                 segmentPeers.Add(segmentPeer);
             }

@@ -11,6 +11,7 @@ namespace Telerik.UI.Automation.Peers
     public class SegmentAutomationPeer : FrameworkElementAutomationPeer, ISelectionItemProvider
     {
         private static string SegmentName = nameof(Segment);
+        private Segment segmentOwner;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SegmentAutomationPeer"/> class.
@@ -19,6 +20,7 @@ namespace Telerik.UI.Automation.Peers
         public SegmentAutomationPeer(Segment owner) 
             : base(owner)
         {
+            this.segmentOwner = owner;
         }
 
         /// <summary>
@@ -28,7 +30,7 @@ namespace Telerik.UI.Automation.Peers
         {
             get
             {
-                return this.SegmentOwner.IsSelected;
+                return this.segmentOwner.IsSelected;
             }
         }
 
@@ -39,21 +41,13 @@ namespace Telerik.UI.Automation.Peers
         {
             get
             {
-                RadSegmentedControl segmentedControl = this.SegmentOwner.owner;
+                RadSegmentedControl segmentedControl = this.segmentOwner.owner;
                 if (segmentedControl != null)
                 {
                     return this.ProviderFromPeer(FrameworkElementAutomationPeer.CreatePeerForElement(segmentedControl));
                 }
 
                 return null;
-            }
-        }
-
-        private Segment SegmentOwner
-        {
-            get
-            {
-                return (Segment)this.Owner;
             }
         }
 
@@ -75,7 +69,7 @@ namespace Telerik.UI.Automation.Peers
                 return;
             }
 
-            this.SegmentOwner.owner.SelectedItem = null;
+            this.segmentOwner.owner.SelectedItem = null;
             this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, true, false);
             this.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementSelected);
         }
@@ -124,8 +118,8 @@ namespace Telerik.UI.Automation.Peers
                 return;
             }
 
-            RadSegmentedControl segmentedControl = this.SegmentOwner.owner;
-            segmentedControl.SelectedItem = segmentedControl.ItemsControl.ItemFromContainer(this.SegmentOwner);
+            RadSegmentedControl segmentedControl = this.segmentOwner.owner;
+            segmentedControl.SelectedItem = segmentedControl.ItemsControl.ItemFromContainer(this.segmentOwner);
             this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, false, true);
             this.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementSelected);
         }
