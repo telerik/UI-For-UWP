@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Telerik.UI.Automation.Peers;
 using Windows.Foundation;
 using Windows.System;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
@@ -43,6 +45,8 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         public static readonly DependencyProperty DisabledForegroundProperty =
             DependencyProperty.Register(nameof(DisabledForeground), typeof(Brush), typeof(Segment), new PropertyMetadata(null));
+
+        internal RadSegmentedControl owner;
 
         private const string FocusedName = "Focused";
         private const string PointerFocusedName = "PointerFocused";
@@ -214,7 +218,13 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.OnAnimationContextChanged();
             }
         }
-        
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SegmentAutomationPeer(this);
+        }
+
         /// <inheritdoc/>
         protected override void OnApplyTemplate()
         {
