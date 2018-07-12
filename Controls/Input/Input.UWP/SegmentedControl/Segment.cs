@@ -354,6 +354,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             segment.UpdateVisualState(true);
+
+            SegmentAutomationPeer segmentAutomationPeer = FrameworkElementAutomationPeer.FromElement(segment) as SegmentAutomationPeer;
+            if (segmentAutomationPeer != null)
+            {
+                segmentAutomationPeer.RaiseSelectionAutomationEvent((bool)e.OldValue, (bool)e.NewValue);
+            }
         }
 
         private void OnSelected()
