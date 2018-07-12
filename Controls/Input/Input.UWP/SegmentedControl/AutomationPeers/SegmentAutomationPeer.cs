@@ -70,8 +70,6 @@ namespace Telerik.UI.Automation.Peers
             }
 
             this.segmentOwner.owner.SelectedItem = null;
-            this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, true, false);
-            this.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementSelected);
         }
 
         /// <summary>
@@ -80,6 +78,13 @@ namespace Telerik.UI.Automation.Peers
         public void Select()
         {
             this.SelectSegment();
+        }
+
+        /// <inheritdoc />
+        internal void RaiseSelectionAutomationEvent(bool oldValue, bool newValue)
+        {
+            this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, oldValue, newValue);
+            this.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementSelected);
         }
 
         /// <inheritdoc />
@@ -120,8 +125,6 @@ namespace Telerik.UI.Automation.Peers
 
             RadSegmentedControl segmentedControl = this.segmentOwner.owner;
             segmentedControl.SelectedItem = segmentedControl.ItemsControl.ItemFromContainer(this.segmentOwner);
-            this.RaisePropertyChangedEvent(SelectionItemPatternIdentifiers.IsSelectedProperty, false, true);
-            this.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementSelected);
         }
     }
 }
