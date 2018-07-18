@@ -33,7 +33,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             this.count = capacity;
             this.size = 8;
-            while (this.size < capacity)
+            while (this.size <= capacity)
             {
                 this.size <<= 1;
             }
@@ -194,7 +194,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             IndexStorage.CheckValue(val);
 
-            if (this.Count == this.size)
+            if (this.Count + 1 == this.size)
             {
                 this.ExtendCapacity(this.size * 2);
             }
@@ -309,21 +309,21 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.RefreshAggregateInfo();
         }
 
-        public void RemoveRange(int index, int removeItesCount)
+        public void RemoveRange(int index, int removeItemsCount)
         {
             IndexStorage.CheckIndex(index, this.size);
-            IndexStorage.CheckIndex(index + removeItesCount, this.size);
+            IndexStorage.CheckIndex(index + removeItemsCount, this.size);
 
-            Array.Copy(this.storage, index + removeItesCount, this.storage, index, this.storage.Length - index - removeItesCount);
-            Array.Copy(this.indicesWithValue, index + removeItesCount, this.indicesWithValue, index, this.indicesWithValue.Length - index - removeItesCount);
+            Array.Copy(this.storage, index + removeItemsCount, this.storage, index, this.storage.Length - index - removeItemsCount);
+            Array.Copy(this.indicesWithValue, index + removeItemsCount, this.indicesWithValue, index, this.indicesWithValue.Length - index - removeItemsCount);
 
-            for (int i = this.storage.Length - 1; i >= this.storage.Length - removeItesCount; i--)
+            for (int i = this.storage.Length - 1; i >= this.storage.Length - removeItemsCount; i--)
             {
                 this.storage[i] = 0;
                 this.indicesWithValue[i] = false;
             }
 
-            this.count -= removeItesCount;
+            this.count -= removeItemsCount;
 
             this.RefreshAggregateInfo();
         }
