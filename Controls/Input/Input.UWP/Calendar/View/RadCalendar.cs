@@ -2315,7 +2315,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         protected override void UnloadCore()
         {
             base.UnloadCore();
-            this.UnloadLayout();
             this.availableCalendarViewSize = new Size(0, 0);
         }
 
