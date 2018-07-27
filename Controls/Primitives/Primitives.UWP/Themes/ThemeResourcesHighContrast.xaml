@@ -2,6 +2,16 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:telerik="using:Telerik.UI.Xaml.Controls">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsHighContrast.xaml"/>
+        <ResourceDictionary>
+            <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
 
     <SolidColorBrush x:Key="TelerikSecondaryForegroundBrush" Color="{StaticResource TelerikSecondaryForegroundColor}"/>
     <SolidColorBrush x:Key="TelerikWhiteBrush" Color="Red"/>
@@ -89,12 +99,5 @@
     <SolidColorBrush x:Key="TelerikBusyIndicatorForegroundBrush" Color="{StaticResource TelerikSelectedColor}"/>
 
     <SolidColorBrush x:Key="TelerikAnimatedIndicatorForegroundBrush" Color="Black" />
-
-    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsHighContrast.xaml"/>
-        <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
-    </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

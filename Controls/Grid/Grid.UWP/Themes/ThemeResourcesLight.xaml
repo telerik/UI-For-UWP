@@ -1,10 +1,17 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Telerik.UI.Xaml.Controls.Grid"
-    xmlns:telerik="using:Telerik.UI.Xaml.Controls"
-    xmlns:system="using:System"
-    >
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsLight.xaml"/>
+        <ResourceDictionary>
+            <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
 
     <SolidColorBrush x:Key="TelerikGridBackgroundBrush" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="TelerikGridForegroundBrush" Color="#CC000000"/>
@@ -201,11 +208,5 @@
     <!--FilterFlyoutIcons-->
     <BitmapImage x:Key="TelerikGridFilterFlyoutHeaderIcon" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/FilterFlyout/ic_filter_header_light.png"/>
     <BitmapImage x:Key="TelerikGridFilterFlyoutExpanderIcon" UriSource="ms-appx:///Telerik.UI.Xaml.Grid.UWP/Assets/FilterFlyout/ic_arrow_down.png"/>
-    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsLight.xaml"/>
-        <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
-    </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
