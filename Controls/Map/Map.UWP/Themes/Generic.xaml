@@ -6,29 +6,24 @@
         xmlns:theming="using:Telerik.UI.Xaml.Controls"
     xmlns:telerikDrawing="using:Telerik.UI.Drawing">
 
-    <ResourceDictionary.ThemeDictionaries>
-        <ResourceDictionary x:Key="Default">
-            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Map.UWP/Themes/ThemeResourcesDark.xaml"/>
-                <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
-            </ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark" Source="ms-appx:///Telerik.UI.Xaml.Map.UWP/Themes/ThemeResourcesDark.xaml"/>
+                <ResourceDictionary x:Key="Light" Source="ms-appx:///Telerik.UI.Xaml.Map.UWP/Themes/ThemeResourcesLight.xaml"/>
+                <ResourceDictionary x:Key="HighContrast" Source="ms-appx:///Telerik.UI.Xaml.Map.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
-        <ResourceDictionary x:Key="Light">
+
+        <ResourceDictionary>
             <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Map.UWP/Themes/ThemeResourcesLight.xaml"/>
-                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
-            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark" Source="{CustomResource DarkResourcesPath}"/>
+                <ResourceDictionary x:Key="Light" Source="{CustomResource LightResourcesPath}"/>
+                <ResourceDictionary x:Key="HighContrast" Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
-        <ResourceDictionary x:Key="HighContrast">
-            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Map.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
-                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </ResourceDictionary.ThemeDictionaries>
+    </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="local:RadMap">
         <Setter Property="Background" Value="{ThemeResource TelerikMapBackgroundBrush}"/>
