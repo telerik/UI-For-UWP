@@ -127,6 +127,7 @@
     <Compile Include="Data\Engine\EntityProviders\PropertyIteratorMode.cs" />
     <Compile Include="Data\Engine\EntityProviders\RuntimeEntityProvider.cs" />
     <Compile Include="Data\Engine\EntityProviders\RuntimeEntityProperty.cs" />
+    <Compile Include="Data\Engine\Fields\Descriptions\NestedPropertyInfoFieldInfo.cs" />
     <Compile Include="Data\Engine\Groups\Descriptions\CollectionViewGroupDescription.cs" />
     <Compile Include="Data\Engine\IncrementalLoading\PlaceholderInfoType.cs" />
     <Compile Include="Data\Engine\DataProviders\ViewChangingEventArgs.cs" />

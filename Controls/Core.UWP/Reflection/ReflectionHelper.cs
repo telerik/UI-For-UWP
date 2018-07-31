@@ -83,5 +83,60 @@ namespace Telerik.Core
 
             return null;
         }
+
+        public static object GetNestedPropertyValue(object item, string nestedPropertyName)
+        {
+            if (item == null)
+            {
+                return null;
+            }
+
+            string[] splitPropertyName = nestedPropertyName.Split(new char[] { '.' });
+            foreach (string propertyName in splitPropertyName)
+            {
+                Type itemType = item.GetType();
+                PropertyInfo propertyInfo = itemType.GetProperty(propertyName);
+                if (propertyInfo == null)
+                {
+                    return null;
+                }
+
+                item = propertyInfo.GetValue(item);
+            }
+
+            return item;
+        }
+
+        public static void SetNestedPropertyValue(object item, object newValue, string nestedPropertyName)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            string[] splitPropertyName = nestedPropertyName.Split(new char[] { '.' });
+            PropertyInfo propertyInfo = null;
+
+            for (int i = 0; i < splitPropertyName.Length; i++)
+            {
+                Type itemType = item.GetType();
+                string propertyName = splitPropertyName[i];
+                propertyInfo = itemType.GetProperty(propertyName);
+                if (propertyInfo == null)
+                {
+                    return;
+                }
+
+                if (splitPropertyName.Length != i + 1)
+                {
+                    item = propertyInfo.GetValue(item);
+                }
+            }
+
+            if (propertyInfo.CanWrite)
+            {
+                propertyInfo.SetValue(item, newValue);
+            }
+        }
     }
 }
