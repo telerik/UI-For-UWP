@@ -279,7 +279,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (!model.columns.IsSuspended && model.FieldInfoData != null && model.FieldInfoData.RootFieldInfo != null)
             {
-                this.PropertyInfo = model.FieldInfoData.GetFieldDescriptionByMember(this.PropertyName);
+                this.SetPropertyInfo();
             }
         }
 
@@ -501,26 +501,27 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return;
             }
 
-            if (this.propertyInfo.Name != path)
+            if (this.propertyInfo.Name != path && this.Model != null && this.Model.FieldInfoData != null)
             {
-                if (this.Model != null && this.Model.FieldInfoData != null)
-                {
-                    this.propertyInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(this.PropertyName);
-                    if (this.propertyInfo == null && this.PropertyName.Contains(GridModel.NestedPropertySeparator))
-                    {
-                        string propertyName = this.PropertyName;
-                        string parentPath = propertyName.Substring(0, propertyName.IndexOf(GridModel.NestedPropertySeparator));
+                this.SetPropertyInfo();
+            }
+        }
 
-                        var parentFieldInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(parentPath);
-                        if (parentFieldInfo != null)
-                        {
-                            IDataFieldInfo info = GridModel.InitializePropertyInfo(propertyName, parentFieldInfo.DataType);
-                            this.PropertyInfo = info;
-                            this.Model.FieldInfoData.AddFieldInfoToCache(info);
-                        }
-                    }
+        private void SetPropertyInfo()
+        {
+            this.PropertyInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(this.PropertyName);
+            if (this.propertyInfo == null && this.PropertyName.Contains(GridModel.NestedPropertySeparator))
+            {
+                string propertyName = this.PropertyName;
+                string parentPath = propertyName.Substring(0, propertyName.IndexOf(GridModel.NestedPropertySeparator));
+
+                var parentFieldInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(parentPath);
+                if (parentFieldInfo != null)
+                {
+                    IDataFieldInfo info = GridModel.InitializePropertyInfo(propertyName, parentFieldInfo.DataType);
+                    this.PropertyInfo = info;
+                    this.Model.FieldInfoData.AddFieldInfoToCache(info);
                 }
-                this.UpdateHeader();
             }
         }
 

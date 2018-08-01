@@ -306,6 +306,9 @@
     <Compile Include="Examples\Grid\GridAdaptiveLayout.xaml.cs">
       <DependentUpon>GridAdaptiveLayout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Grid\NestedPropertyName.xaml.cs">
+      <DependentUpon>NestedPropertyName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\Grid\PriorityColumns.xaml.cs">
       <DependentUpon>PriorityColumns.xaml</DependentUpon>
     </Compile>
@@ -718,6 +721,10 @@
     <Page Include="Examples\Grid\GridAdaptiveLayout.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Examples\Grid\NestedPropertyName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\Grid\PriorityColumns.xaml">
       <SubType>Designer</SubType>

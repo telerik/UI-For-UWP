@@ -105,6 +105,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                 {
                     string propertyName = splitNestedProperty[i];
                     propertyInfo = type.GetProperty(propertyName);
+                    if (propertyInfo == null)
+                    {
+                        return null;
+                    }
+
                     propertyInfos.Add(propertyInfo);
                     type = propertyInfo.PropertyType;
                 }
