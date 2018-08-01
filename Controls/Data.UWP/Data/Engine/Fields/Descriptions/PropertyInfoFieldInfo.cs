@@ -8,6 +8,7 @@ namespace Telerik.Data.Core.Fields
     /// </summary>
     internal class PropertyInfoFieldInfo : IDataFieldInfo, IMemberAccess
     {
+        private readonly string nestedPropertyName;
         private Action<object, object> propertySetter;
         private Func<object, object> propertyAccess;
         private PropertyInfo propertyInfo;
@@ -24,6 +25,12 @@ namespace Telerik.Data.Core.Fields
             }
 
             this.propertyInfo = propertyInfo;
+        }
+
+        internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter, string nestedPropertyName)
+            : this(propertyInfo, propertyAccess, propertySetter)
+        {
+            this.nestedPropertyName = nestedPropertyName;
         }
 
         /// <summary>
@@ -73,7 +80,12 @@ namespace Telerik.Data.Core.Fields
         {
             get
             {
-                return this.propertyInfo.Name;
+                if (string.IsNullOrEmpty(this.nestedPropertyName))
+                {
+                    return this.propertyInfo.Name;
+                }
+
+                return this.nestedPropertyName;
             }
         }
 
@@ -100,7 +112,7 @@ namespace Telerik.Data.Core.Fields
         /// <inheritdoc />
         public void SetValue(object item, object fieldValue)
         {
-            if (this.propertySetter != null)
+            if (this.propertySetter != null && this.propertyInfo.CanWrite)
             {
                 this.propertySetter(item, fieldValue);
             }

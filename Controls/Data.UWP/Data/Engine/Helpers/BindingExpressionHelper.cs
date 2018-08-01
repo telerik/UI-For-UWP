@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Telerik.Data.Core
@@ -15,6 +17,50 @@ namespace Telerik.Data.Core
         {
             PropertyInfo propertyInfo = itemType.GetRuntimeProperties().Where(a => a.Name.Equals(propertyPath) && !a.GetIndexParameters().Any()).FirstOrDefault();
             return item => propertyInfo?.GetValue(item);
+        }
+
+        public static Func<object, object> CreateGetNestedValueFunc(List<PropertyInfo> propertyInfos, string baseClassName)
+        {
+            return item =>
+            {
+                if (item == null)
+                {
+                    return null;
+                }
+
+                PropertyInfo basePropertyInfo = item.GetType().GetProperty(baseClassName);
+                item = basePropertyInfo.GetValue(item);
+
+                foreach (PropertyInfo propertyInfo in propertyInfos)
+                {
+                    item = propertyInfo.GetValue(item);
+                }
+
+                return item;
+            };
+        }
+
+        public static Action<object, object> CreateSetNestedValueFunc(List<PropertyInfo> propertyInfos, string baseClassName)
+        {
+            return new Action<object, object>((item, propertyValue) =>
+            {
+                if (item == null)
+                {
+                    return;
+                }
+
+                PropertyInfo basePropertyInfo = item.GetType().GetProperty(baseClassName);
+                item = basePropertyInfo.GetValue(item);
+
+                for (int i = 0; i < propertyInfos.Count - 1; i++)
+                {
+                    PropertyInfo info = propertyInfos[i];
+                    item = info.GetValue(item);
+                }
+
+                PropertyInfo propertyInfo = propertyInfos.Last();
+                propertyInfo.SetValue(item, propertyValue);
+            });
         }
 
         internal static Action<object, object> CreateSetValueAction(Type itemType, string propertyPath)
