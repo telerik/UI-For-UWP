@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
@@ -44,8 +45,22 @@ namespace Telerik.Core
                 return (item) => BindingExpressionHelper.GetValueThroughBinding(item, propertyPath);
             }
 
-            PropertyInfo propertyInfo = itemType.GetRuntimeProperty(propertyPath);
-            return item => propertyInfo.GetValue(item);
+            var parameter = Expression.Parameter(itemType, "item");
+            Expression getter;
+            if (string.IsNullOrEmpty(propertyPath))
+            {
+                getter = parameter;
+            }
+            else
+            {
+                getter = Expression.PropertyOrField(parameter, propertyPath);
+            }
+            var lambda = Expression.Lambda(getter, parameter);
+            var compiled = lambda.Compile();
+            var methodInfo = typeof(BindingExpressionHelper).GetTypeInfo()
+                                                           .GetDeclaredMethod("ToUntypedFunc")
+                                                           .MakeGenericMethod(new[] { itemType, lambda.Body.Type });
+            return (Func<object, object>)methodInfo.Invoke(null, new object[] { compiled });
         }
 
         private static object GetValueThroughBinding(object item, Binding binding)

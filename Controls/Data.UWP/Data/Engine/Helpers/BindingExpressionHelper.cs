@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Telerik.Data.Core
@@ -58,10 +59,7 @@ namespace Telerik.Data.Core
                 }
 
                 PropertyInfo propertyInfo = propertyInfos.Last();
-                if (propertyInfo.CanWrite)
-                {
-                    propertyInfo.SetValue(item, propertyValue);
-                }
+                propertyInfo.SetValue(item, propertyValue);
             });
         }
 

@@ -509,10 +509,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private void SetPropertyInfo()
         {
-            this.PropertyInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(this.PropertyName);
-            if (this.propertyInfo == null && this.PropertyName.Contains(GridModel.NestedPropertySeparator))
+            string propertyName = this.PropertyName;
+            this.PropertyInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(propertyName);
+            if (this.propertyInfo == null && propertyName.Contains(GridModel.NestedPropertySeparator))
             {
-                string propertyName = this.PropertyName;
                 string parentPath = propertyName.Substring(0, propertyName.IndexOf(GridModel.NestedPropertySeparator));
 
                 var parentFieldInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(parentPath);
