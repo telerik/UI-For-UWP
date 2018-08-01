@@ -10,6 +10,7 @@ namespace Telerik.Data.Core.Fields
     {
         private Action<object, object> propertySetter;
         private Func<object, object> propertyAccess;
+        private readonly string nestedPropertyName;
         private PropertyInfo propertyInfo;
 
         /// <summary>
@@ -18,12 +19,13 @@ namespace Telerik.Data.Core.Fields
         /// <param name="propertyInfo">The property info.</param>
         public PropertyInfoFieldInfo(PropertyInfo propertyInfo)
         {
-            if (propertyInfo == null)
-            {
-                throw new ArgumentNullException(nameof(propertyInfo));
-            }
+            this.propertyInfo = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
+        }
 
-            this.propertyInfo = propertyInfo;
+        internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter, string nestedPropertyName)
+            : this(propertyInfo, propertyAccess, propertySetter)
+        {
+            this.nestedPropertyName = nestedPropertyName;
         }
 
         /// <summary>
@@ -34,13 +36,7 @@ namespace Telerik.Data.Core.Fields
         /// <param name="propertySetter">The property setter.</param>
         internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter) : this(propertyInfo)
         {
-            if (propertyAccess == null)
-            {
-                throw new ArgumentNullException(nameof(propertyAccess));
-            }
-
-            this.propertyAccess = propertyAccess;
-
+            this.propertyAccess = propertyAccess ?? throw new ArgumentNullException(nameof(propertyAccess));
             this.propertySetter = propertySetter;
         }
 
@@ -50,7 +46,7 @@ namespace Telerik.Data.Core.Fields
         }
 
         /// <inheritdoc />
-        public virtual string DisplayName
+        public string DisplayName
         {
             get
             {
@@ -69,11 +65,16 @@ namespace Telerik.Data.Core.Fields
         }
 
         /// <inheritdoc />
-        public virtual string Name
+        public string Name
         {
             get
             {
-                return this.propertyInfo.Name;
+                if (string.IsNullOrEmpty(this.nestedPropertyName))
+                {
+                    return this.propertyInfo.Name;
+                }
+
+                return this.nestedPropertyName;
             }
         }
 
