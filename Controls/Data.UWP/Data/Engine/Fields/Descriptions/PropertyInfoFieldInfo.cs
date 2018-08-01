@@ -8,9 +8,9 @@ namespace Telerik.Data.Core.Fields
     /// </summary>
     internal class PropertyInfoFieldInfo : IDataFieldInfo, IMemberAccess
     {
+        private readonly string nestedPropertyName;
         private Action<object, object> propertySetter;
         private Func<object, object> propertyAccess;
-        private readonly string nestedPropertyName;
         private PropertyInfo propertyInfo;
 
         /// <summary>
