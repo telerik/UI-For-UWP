@@ -19,7 +19,12 @@ namespace Telerik.Data.Core.Fields
         /// <param name="propertyInfo">The property info.</param>
         public PropertyInfoFieldInfo(PropertyInfo propertyInfo)
         {
-            this.propertyInfo = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
+            if (propertyInfo == null)
+            {
+                throw new ArgumentNullException(nameof(propertyInfo));
+            }
+
+            this.propertyInfo = propertyInfo;
         }
 
         internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter, string nestedPropertyName)
@@ -36,7 +41,13 @@ namespace Telerik.Data.Core.Fields
         /// <param name="propertySetter">The property setter.</param>
         internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter) : this(propertyInfo)
         {
-            this.propertyAccess = propertyAccess ?? throw new ArgumentNullException(nameof(propertyAccess));
+            if (propertyAccess == null)
+            {
+                throw new ArgumentNullException(nameof(propertyAccess));
+            }
+
+            this.propertyAccess = propertyAccess;
+
             this.propertySetter = propertySetter;
         }
 
