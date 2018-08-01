@@ -43,7 +43,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// </summary>
         public static readonly DependencyProperty CellEditorStyleProperty =
             DependencyProperty.Register(nameof(CellEditorStyle), typeof(Style), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnCellEditorStyleChanged));
-        
+
         private IDataFieldInfo propertyInfo;
 
         private string propertyNameCache;
@@ -108,20 +108,20 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 this.SetValue(CellContentStyleSelectorProperty, value);
             }
         }
-        
+
         /// <summary>
         /// Gets or sets the <see cref="Style"/> that will be applied to the cell editor.
         /// </summary>
         public Style CellEditorStyle
         {
-           get
-           {
-               return this.cellEditorStyleCache;
-           }
-           set
-           {
-               this.SetValue(CellEditorStyleProperty, value);
-           }
+            get
+            {
+                return this.cellEditorStyleCache;
+            }
+            set
+            {
+                this.SetValue(CellEditorStyleProperty, value);
+            }
         }
 
         internal virtual Style DefaultCellContentStyle
@@ -466,7 +466,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             definition.cellContentStyleSelectorCache = e.NewValue as StyleSelector;
             definition.OnPropertyChange(UpdateFlags.AllButData);
         }
-        
+
         private static void OnCellEditorStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as DataGridTypedColumn;
@@ -506,6 +506,19 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 if (this.Model != null && this.Model.FieldInfoData != null)
                 {
                     this.propertyInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(this.PropertyName);
+                    if (this.propertyInfo == null && this.PropertyName.Contains(GridModel.NestedPropertySeparator))
+                    {
+                        string propertyName = this.PropertyName;
+                        string parentPath = propertyName.Substring(0, propertyName.IndexOf(GridModel.NestedPropertySeparator));
+
+                        var parentFieldInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(parentPath);
+                        if (parentFieldInfo != null)
+                        {
+                            IDataFieldInfo info = GridModel.InitializePropertyInfo(propertyName, parentFieldInfo.DataType);
+                            this.PropertyInfo = info;
+                            this.Model.FieldInfoData.AddFieldInfoToCache(info);
+                        }
+                    }
                 }
                 this.UpdateHeader();
             }

@@ -50,7 +50,7 @@ namespace Telerik.Data.Core.Fields
         }
 
         /// <inheritdoc />
-        public string DisplayName
+        public virtual string DisplayName
         {
             get
             {
@@ -69,7 +69,7 @@ namespace Telerik.Data.Core.Fields
         }
 
         /// <inheritdoc />
-        public string Name
+        public virtual string Name
         {
             get
             {

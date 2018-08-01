@@ -7,7 +7,6 @@ using Telerik.Core;
 using Telerik.Data.Core;
 using Telerik.Data.Core.Fields;
 using Telerik.UI.Xaml.Controls.Grid.Commands;
-using Windows.UI.Xaml.Data;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Model
 {
@@ -19,8 +18,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
         internal static readonly int FrozenColumnCountPropertyKey = PropertyKeys.Register(typeof(GridModel), "FrozenColumnCount");
 
+        internal static char NestedPropertySeparator = '.';
         internal DataGridColumnCollection columns;
-        private static char NestedPropertySeparator = '.';
         private bool areColumnsGenerated;
 
         public int FrozenColumnCount
@@ -92,6 +91,32 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                     }
                 }
             }
+        }
+
+        internal static NestedPropertyInfoFieldInfo InitializePropertyInfo(string nestedPropertyPath, Type type)
+        {
+            string[] splitNestedProperty = nestedPropertyPath.Split(new char[] { NestedPropertySeparator });
+            NestedPropertyInfoFieldInfo nestedPropertyInfo = null;
+            List<PropertyInfo> propertyInfos = new List<PropertyInfo>();
+            if (splitNestedProperty[0] == type.Name)
+            {
+                PropertyInfo propertyInfo = null;
+                for (int i = 1; i < splitNestedProperty.Length; i++)
+                {
+                    string propertyName = splitNestedProperty[i];
+                    propertyInfo = type.GetProperty(propertyName);
+                    propertyInfos.Add(propertyInfo);
+                    type = propertyInfo.PropertyType;
+                }
+
+                var propertyAccess = Telerik.Data.Core.BindingExpressionHelper.CreateGetNestedValueFunc(propertyInfos, splitNestedProperty[0]);
+                var propertySetter = Telerik.Data.Core.BindingExpressionHelper.CreateSetNestedValueFunc(propertyInfos, splitNestedProperty[0]);
+
+                nestedPropertyInfo = new NestedPropertyInfoFieldInfo(propertyInfo, propertyAccess, propertySetter, nestedPropertyPath);
+                nestedPropertyInfo.Role = FieldInfoHelper.GetRoleForType(propertyInfo.PropertyType);
+            }
+
+            return nestedPropertyInfo;
         }
 
         internal void OnColumnsCollectionChanged(NotifyCollectionChangedEventArgs e)
@@ -243,37 +268,17 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                     {
                         typedColumn.PropertyInfo = fieldInfoNode.FieldInfo;
                     }
-                    else if (typedColumn.PropertyName.Contains(NestedPropertySeparator) && !fieldInfo.DataType.GetTypeInfo().IsPrimitive)
+                    else if (typedColumn.PropertyName.Contains(NestedPropertySeparator))
                     {
-                        string[] splitNestedProperty = typedColumn.PropertyName.Split(new char[] { NestedPropertySeparator });
-                        if (splitNestedProperty[0] == fieldInfo.Name)
+                        IDataFieldInfo info = GridModel.InitializePropertyInfo(typedColumn.PropertyName, fieldInfo.DataType);
+                        if (info != null)
                         {
-                            IDataFieldInfo info = InitializePropertyInfo(splitNestedProperty, fieldInfo.DataType, 1);
                             typedColumn.PropertyInfo = info;
                             this.FieldInfoData.AddFieldInfoToCache(info);
                         }
                     }
                 }
             }
-        }
-
-        private NestedPropertyInfoFieldInfo InitializePropertyInfo(string[] splitNestedProperty, Type type, int index)
-        {
-            NestedPropertyInfoFieldInfo nestedPropertyInfo = null;
-            PropertyInfo propertyInfo = type.GetProperty(splitNestedProperty[index]);
-            if (propertyInfo != null)
-            {
-                if (splitNestedProperty.Length != index + 1)
-                {
-                    return this.InitializePropertyInfo(splitNestedProperty, propertyInfo.PropertyType, ++index);
-                }
-
-                string fullPropertyName = string.Join(NestedPropertySeparator.ToString(), splitNestedProperty);
-                nestedPropertyInfo = new NestedPropertyInfoFieldInfo(propertyInfo, fullPropertyName);
-                nestedPropertyInfo.Role = FieldInfoHelper.GetRoleForType(propertyInfo.PropertyType);
-            }
-
-            return nestedPropertyInfo;
         }
     }
 }
