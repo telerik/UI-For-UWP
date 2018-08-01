@@ -7,8 +7,7 @@ namespace Telerik.Data.Core.Fields
     {
         private readonly string nestedPropertyName;
 
-        internal NestedPropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess,
-            Action<object, object> propertySetter, string nestedPropertyName) 
+        internal NestedPropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter, string nestedPropertyName) 
             : base(propertyInfo, propertyAccess, propertySetter)
         {
             this.nestedPropertyName = nestedPropertyName;
