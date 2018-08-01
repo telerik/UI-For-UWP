@@ -115,7 +115,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                 }
 
                 var propertyAccess = Telerik.Data.Core.BindingExpressionHelper.CreateGetNestedValueFunc(propertyInfos, splitNestedProperty[0]);
-                var propertySetter = Telerik.Data.Core.BindingExpressionHelper.CreateSetNestedValueFunc(propertyInfos, splitNestedProperty[0]);
+                var propertySetter = propertyInfo.CanWrite
+                    ? Telerik.Data.Core.BindingExpressionHelper.CreateSetNestedValueFunc(propertyInfos, splitNestedProperty[0])
+                    : null;
 
                 nestedPropertyInfo = new PropertyInfoFieldInfo(propertyInfo, propertyAccess, propertySetter, nestedPropertyPath);
                 nestedPropertyInfo.Role = FieldInfoHelper.GetRoleForType(propertyInfo.PropertyType);
