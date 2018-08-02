@@ -98,30 +98,29 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             string[] splitNestedProperty = nestedPropertyPath.Split(new char[] { NestedPropertySeparator });
             PropertyInfoFieldInfo nestedPropertyInfo = null;
             List<PropertyInfo> propertyInfos = new List<PropertyInfo>();
-            if (splitNestedProperty[0] == type.Name)
-            {
-                PropertyInfo propertyInfo = null;
-                for (int i = 1; i < splitNestedProperty.Length; i++)
-                {
-                    string propertyName = splitNestedProperty[i];
-                    propertyInfo = type.GetProperty(propertyName);
-                    if (propertyInfo == null)
-                    {
-                        return null;
-                    }
 
-                    propertyInfos.Add(propertyInfo);
-                    type = propertyInfo.PropertyType;
+            PropertyInfo propertyInfo = null;
+            for (int i = 1; i < splitNestedProperty.Length; i++)
+            {
+                string propertyName = splitNestedProperty[i];
+                propertyInfo = type.GetProperty(propertyName);
+                if (propertyInfo == null)
+                {
+                    return null;
                 }
 
-                var propertyAccess = Telerik.Data.Core.BindingExpressionHelper.CreateGetNestedValueFunc(propertyInfos, splitNestedProperty[0]);
-                var propertySetter = propertyInfo.CanWrite
-                    ? Telerik.Data.Core.BindingExpressionHelper.CreateSetNestedValueFunc(propertyInfos, splitNestedProperty[0])
-                    : null;
-
-                nestedPropertyInfo = new PropertyInfoFieldInfo(propertyInfo, propertyAccess, propertySetter, nestedPropertyPath);
-                nestedPropertyInfo.Role = FieldInfoHelper.GetRoleForType(propertyInfo.PropertyType);
+                propertyInfos.Add(propertyInfo);
+                type = propertyInfo.PropertyType;
             }
+
+            var propertyAccess = Telerik.Data.Core.BindingExpressionHelper.CreateGetNestedValueFunc(propertyInfos, splitNestedProperty[0]);
+            var propertySetter = propertyInfo.CanWrite
+                ? Telerik.Data.Core.BindingExpressionHelper.CreateSetNestedValueFunc(propertyInfos, splitNestedProperty[0])
+                : null;
+
+            nestedPropertyInfo = new PropertyInfoFieldInfo(propertyInfo, propertyAccess, propertySetter, nestedPropertyPath);
+            nestedPropertyInfo.Role = FieldInfoHelper.GetRoleForType(propertyInfo.PropertyType);
+            
 
             return nestedPropertyInfo;
         }
