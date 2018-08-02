@@ -519,8 +519,11 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 if (parentFieldInfo != null)
                 {
                     IDataFieldInfo info = GridModel.InitializePropertyInfo(propertyName, parentFieldInfo.DataType);
-                    this.PropertyInfo = info;
-                    this.Model.FieldInfoData.AddFieldInfoToCache(info);
+                    if (info != null)
+                    {
+                        this.PropertyInfo = info;
+                        this.Model.FieldInfoData.AddFieldInfoToCache(info);
+                    }
                 }
             }
         }
