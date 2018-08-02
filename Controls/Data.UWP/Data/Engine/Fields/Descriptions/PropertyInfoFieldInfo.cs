@@ -112,7 +112,7 @@ namespace Telerik.Data.Core.Fields
         /// <inheritdoc />
         public void SetValue(object item, object fieldValue)
         {
-            if (this.propertySetter != null && this.propertyInfo.CanWrite)
+            if (this.propertySetter != null)
             {
                 this.propertySetter(item, fieldValue);
             }
