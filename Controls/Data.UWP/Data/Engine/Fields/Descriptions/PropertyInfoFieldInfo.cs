@@ -9,6 +9,7 @@ namespace Telerik.Data.Core.Fields
     internal class PropertyInfoFieldInfo : IDataFieldInfo, IMemberAccess
     {
         private readonly string nestedPropertyName;
+        private readonly Type rootClassType;
         private Action<object, object> propertySetter;
         private Func<object, object> propertyAccess;
         private PropertyInfo propertyInfo;
@@ -19,18 +20,7 @@ namespace Telerik.Data.Core.Fields
         /// <param name="propertyInfo">The property info.</param>
         public PropertyInfoFieldInfo(PropertyInfo propertyInfo)
         {
-            if (propertyInfo == null)
-            {
-                throw new ArgumentNullException(nameof(propertyInfo));
-            }
-
-            this.propertyInfo = propertyInfo;
-        }
-
-        internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter, string nestedPropertyName)
-            : this(propertyInfo, propertyAccess, propertySetter)
-        {
-            this.nestedPropertyName = nestedPropertyName;
+            this.propertyInfo = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
         }
 
         /// <summary>
@@ -41,14 +31,20 @@ namespace Telerik.Data.Core.Fields
         /// <param name="propertySetter">The property setter.</param>
         internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter) : this(propertyInfo)
         {
-            if (propertyAccess == null)
-            {
-                throw new ArgumentNullException(nameof(propertyAccess));
-            }
-
-            this.propertyAccess = propertyAccess;
-
+            this.propertyAccess = propertyAccess ?? throw new ArgumentNullException(nameof(propertyAccess));
             this.propertySetter = propertySetter;
+        }
+
+        internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter, Type rootClassType)
+           : this(propertyInfo, propertyAccess, propertySetter)
+        {
+            this.rootClassType = rootClassType;
+        }
+
+        internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess, Action<object, object> propertySetter, Type rootClassType, string nestedPropertyName)
+          : this(propertyInfo, propertyAccess, propertySetter, rootClassType)
+        {
+            this.nestedPropertyName = nestedPropertyName;
         }
 
         internal PropertyInfoFieldInfo(PropertyInfo propertyInfo, Func<object, object> propertyAccess)
@@ -72,6 +68,14 @@ namespace Telerik.Data.Core.Fields
             get
             {
                 return this.propertyInfo.PropertyType;
+            }
+        }
+
+        public Type RootClassType
+        {
+            get
+            {
+                return this.rootClassType;
             }
         }
 

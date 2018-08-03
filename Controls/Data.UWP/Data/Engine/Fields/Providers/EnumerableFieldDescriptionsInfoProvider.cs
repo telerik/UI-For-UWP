@@ -95,7 +95,7 @@ namespace Telerik.Data.Core.Fields
                 {
                     var propertyAccess = BindingExpressionHelper.CreateGetValueFunc(currentType, propertyInfo.Name);
                     var propertySetter = BindingExpressionHelper.CreateSetValueAction(currentType, propertyInfo.Name);
-                    var newInfo = new PropertyInfoFieldInfo(propertyInfo, propertyAccess, propertySetter);
+                    var newInfo = new PropertyInfoFieldInfo(propertyInfo, propertyAccess, propertySetter, currentType);
                     newInfo.Role = FieldInfoHelper.GetRoleForType(propertyInfo.PropertyType);
                     infos.Add(newInfo);
                 }

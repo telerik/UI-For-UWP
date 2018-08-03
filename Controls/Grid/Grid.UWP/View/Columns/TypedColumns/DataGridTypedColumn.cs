@@ -518,7 +518,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 var parentFieldInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(parentPath);
                 if (parentFieldInfo != null)
                 {
-                    IDataFieldInfo info = GridModel.InitializePropertyInfo(propertyName, parentFieldInfo.DataType);
+                    IDataFieldInfo info = GridModel.InitializePropertyInfo(propertyName, parentFieldInfo.DataType, parentFieldInfo.RootClassType);
                     if (info != null)
                     {
                         this.PropertyInfo = info;

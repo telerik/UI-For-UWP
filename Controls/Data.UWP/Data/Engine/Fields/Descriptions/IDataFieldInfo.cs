@@ -31,5 +31,7 @@ namespace Telerik.Data.Core.Fields
         string DisplayName { get; }
 
         bool Equals(IDataFieldInfo info);
+
+        Type RootClassType { get; }
     }
 }
