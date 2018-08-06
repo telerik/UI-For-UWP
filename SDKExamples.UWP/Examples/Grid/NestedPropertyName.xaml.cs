@@ -1,17 +1,20 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Grid;
 
 namespace SDKExamples.UWP.DataGrid
 {
     public sealed partial class NestedPropertyName : ExamplePageBase
     {
+        private static int newValue = 0;
         private DataGridTextColumn textColumn;
+        private ObservableCollection<NestedPropertyNameitem> source;
         public NestedPropertyName()
         {
             this.InitializeComponent();
 
-            ObservableCollection<NestedPropertyNameitem> source = new ObservableCollection<NestedPropertyNameitem>();
+            this.source = new ObservableCollection<NestedPropertyNameitem>();
             for (int i = 0; i < 100; i++)
             {
                 source.Add(new NestedPropertyNameitem()
@@ -71,33 +74,203 @@ namespace SDKExamples.UWP.DataGrid
                 this.grid.Columns.Add(this.textColumn);
             }
         }
+
+        private void CancelEditButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            this.grid.CancelEdit();
+        }
+
+        private void OnUpdateOnPropertyChangedButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            this.grid.UpdateOnPropertyChanged = !this.grid.UpdateOnPropertyChanged;
+        }
+
+        private void OnChangeFirstItemClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Info newInfo = new Info() { Name = new Profile() { Name = "New Info" }, Value = 2000 + newValue++ };
+            this.source[0].Data.Information = newInfo;
+        }
+
+        private void OnAddItemButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var newItem = new NestedPropertyNameitem()
+            {
+                Age = 1000 + newValue,
+                Name = "New Value",
+                Data = new Data()
+                {
+                    Name = "NewData " + newValue,
+                    Information = new Info()
+                    {
+                        Value = newValue * 3,
+                        Name = new Profile()
+                        {
+                            Name = "NewProfile " + newValue
+                        }
+                    }
+                }
+            };
+
+            this.source.Add(newItem);
+        }
+
+        private void OnRemoveFirstItemButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (this.source.Count > 0)
+            {
+                this.source.RemoveAt(0);
+            }
+        }
     }
 
-    public class NestedPropertyNameitem
+    public class NestedPropertyNameitem : ViewModelBase
     {
-        public string Name { get; set; }
+        private string name;
+        private double age;
+        private Data data;
 
-        public double Age { get; set; }
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                if (this.name != value)
+                {
+                    this.name = value;
+                    this.OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
 
-        public Data Data { get; set; }
+        public double Age
+        {
+            get
+            {
+                return this.age;
+            }
+            set
+            {
+                if (this.age != value)
+                {
+                    this.age = value;
+                    this.OnPropertyChanged(nameof(Age));
+                }
+            }
+        }
+
+        public Data Data
+        {
+            get
+            {
+                return this.data;
+            }
+            set
+            {
+                if (this.data != value)
+                {
+                    this.data = value;
+                    this.OnPropertyChanged(nameof(Data));
+                }
+            }
+        }
     }
 
-    public class Data
+    public class Data : ViewModelBase
     {
-        public string Name { get; set; }
+        private string name;
+        private Info information;
 
-        public Info Information { get; set; }
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                if (this.name != value)
+                {
+                    this.name = value;
+                    this.OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
+
+        public Info Information
+        {
+            get
+            {
+                return this.information;
+            }
+            set
+            {
+                if (this.information != value)
+                {
+                    this.information = value;
+                    this.OnPropertyChanged(nameof(Information));
+                }
+            }
+        }
     }
 
-    public class Info
+    public class Info : ViewModelBase
     {
-        public int Value { get; set; }
+        private int value;
+        private Profile name;
 
-        public Profile Name { get; set; }
+        public int Value
+        {
+            get
+            {
+                return this.value;
+            }
+            set
+            {
+                if (this.value != value)
+                {
+                    this.value = value;
+                    this.OnPropertyChanged(nameof(Value));
+                }
+            }
+        }
+
+        public Profile Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                if (this.name != value)
+                {
+                    this.name = value;
+                    this.OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
     }
 
-    public class Profile
+    public class Profile : ViewModelBase
     {
-        public string Name { get; set; }
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                if (this.name != value)
+                {
+                    this.name = value;
+                    this.OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
     }
 }

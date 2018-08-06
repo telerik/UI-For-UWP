@@ -6,32 +6,51 @@
     xmlns:local="using:SDKExamples.UWP"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:sideDrawer="using:Telerik.UI.Xaml.Controls.Primitives.SideDrawer"
     mc:Ignorable="d" x:Name="page">
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
-        <StackPanel Grid.Row="1">
-            <Button Content="Change PropertyName" Click="OnChangePropertyNameClicked" Margin="5"/>
-            <Button Content="Add/Remove column" Click="AddRemoveColumnClicked" Margin="5"/>
-        </StackPanel>
-        <grid:RadDataGrid Grid.Row="2" x:Name="grid"
-                          ItemsSource="{Binding}"
-                          AutoGenerateColumns="False"
-                          UserEditMode="Inline"
-                          UserColumnReorderMode="Interactive"
-                          ColumnResizeHandleDisplayMode="Always"
-                          CanUserChooseColumns="True">
-            <grid:RadDataGrid.Columns>
-                <grid:DataGridTextColumn x:Name="nameColumn" PropertyName="Name"/>
-                <grid:DataGridTextColumn PropertyName="Data.Name" SizeMode="Fixed" Width="200"/>
-                <grid:DataGridTextColumn PropertyName="Data.Information.Value" Header="Value"/>
-                <grid:DataGridNumericalColumn PropertyName="Age" SizeMode="Stretch"/>
-            </grid:RadDataGrid.Columns>
-        </grid:RadDataGrid>
+        <primitives:RadSideDrawer Grid.Row="1" >
+            <primitives:RadSideDrawer.DrawerButtonStyle>
+                <Style TargetType="sideDrawer:DrawerButton">
+                    <Setter Property="Margin" Value="10"/>
+                    <Setter Property="MinWidth" Value="20"/>
+                    <Setter Property="MinHeight" Value="20"/>
+                </Style>
+            </primitives:RadSideDrawer.DrawerButtonStyle>
+            <primitives:RadSideDrawer.MainContent>
+                <grid:RadDataGrid x:Name="grid"
+                                  Margin="50, 0, 0, 0"
+                                  ItemsSource="{Binding}"
+                                  AutoGenerateColumns="False"
+                                  UserEditMode="Inline"
+                                  UserColumnReorderMode="Interactive"
+                                  ColumnResizeHandleDisplayMode="Always"
+                                  CanUserChooseColumns="True">
+                    <grid:RadDataGrid.Columns>
+                        <grid:DataGridTextColumn x:Name="nameColumn" PropertyName="Name"/>
+                        <grid:DataGridTextColumn PropertyName="Data.Name" SizeMode="Fixed" Width="200"/>
+                        <grid:DataGridTextColumn PropertyName="Data.Information.Value" Header="Value"/>
+                        <grid:DataGridNumericalColumn PropertyName="Age" SizeMode="Stretch"/>
+                    </grid:RadDataGrid.Columns>
+                </grid:RadDataGrid>
+            </primitives:RadSideDrawer.MainContent>
+            <primitives:RadSideDrawer.DrawerContent>
+                <StackPanel>
+                    <Button Content="Change PropertyName" Click="OnChangePropertyNameClicked" Margin="5"/>
+                    <Button Content="Add/Remove column" Click="AddRemoveColumnClicked" Margin="5"/>
+                    <Button Content="CancelEdit" Click="CancelEditButtonClicked" Margin="5"/>
+                    <Button Content="Change UpdateOnPropertyChanged" Click="OnUpdateOnPropertyChangedButtonClicked" Margin="5"/>
+                    <Button Content="Remove First Item" Click="OnRemoveFirstItemButtonClicked" Margin="5"/>
+                    <Button Content="Add Item" Click="OnAddItemButtonClicked" Margin="5"/>
+                    <Button Content="Change first item" Click="OnChangeFirstItemClicked" Margin="5"/>
+                </StackPanel>
+            </primitives:RadSideDrawer.DrawerContent>
+        </primitives:RadSideDrawer>
     </Grid>
 </local:ExamplePageBase>
