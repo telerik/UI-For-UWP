@@ -64,14 +64,6 @@ namespace Telerik.Data.Core
 
             foreach (var item in collectionView)
             {
-                //if (!this.supportsPropertyChangedInitialized)
-                //{
-                //    this.itemSupportsPropertyChanged = item is INotifyPropertyChanged;
-                //    this.supportsPropertyChangedInitialized = true;
-                //}
-
-                //this.AddPropertyChangedHandler(item);
-
                 if (!isSourceGrouped)
                 {
                     this.internalList.Add(item);
