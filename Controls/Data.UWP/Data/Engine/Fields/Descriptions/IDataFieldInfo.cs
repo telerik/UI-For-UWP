@@ -30,8 +30,8 @@ namespace Telerik.Data.Core.Fields
         /// </summary>
         string DisplayName { get; }
 
-        bool Equals(IDataFieldInfo info);
-
         Type RootClassType { get; }
+
+        bool Equals(IDataFieldInfo info);
     }
 }

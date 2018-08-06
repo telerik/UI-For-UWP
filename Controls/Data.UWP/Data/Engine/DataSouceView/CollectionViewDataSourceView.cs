@@ -246,6 +246,22 @@ namespace Telerik.Data.Core
             }
         }
 
+        object IDataSourceView.GetGroupKey(object item, int level)
+        {
+            if (this.source != null && this.source.CollectionGroups != null && level == 0)
+            {
+                foreach (ICollectionViewGroup group in this.source.CollectionGroups)
+                {
+                    if (group.GroupItems.Contains(item))
+                    {
+                        return group.Group;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         private void NestedPropertyChanged(object changedItem, object rootItem, string propertyName, string nestedPropertyName = null)
         {
             Type changedObjectType = changedItem.GetType();
@@ -306,22 +322,6 @@ namespace Telerik.Data.Core
                 int dotIndex = propertyPath.LastIndexOf('.');
                 nestedPropertyPath.Remove(dotIndex - infoName.Length, infoName.Length + 1);
             }
-        }
-
-        object IDataSourceView.GetGroupKey(object item, int level)
-        {
-            if (this.source != null && this.source.CollectionGroups != null && level == 0)
-            {
-                foreach (ICollectionViewGroup group in this.source.CollectionGroups)
-                {
-                    if (group.GroupItems.Contains(item))
-                    {
-                        return group.Group;
-                    }
-                }
-            }
-
-            return null;
         }
 
         private void InitializeBatchDataLoader(ISupportIncrementalLoading supportIncrementalLoading)
