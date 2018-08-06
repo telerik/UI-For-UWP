@@ -28,6 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         private FilterDescriptorCollection filterDescriptors;
         private AggregateDescriptorCollection aggregateDescriptors;
         private bool isCurrentItemSynchronizing = false;
+        private bool updateOnPropertyChanged;
 
         public object ItemsSource
         {
@@ -129,6 +130,19 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
         }
 
+        internal bool UpdateOnPropertyChanged
+        {
+            get
+            {
+                return this.updateOnPropertyChanged;
+            }
+            set
+            {
+                this.updateOnPropertyChanged = value;
+                this.UpdateDataViewPropertyChangeSubscription(this.updateOnPropertyChanged);
+            }
+        }
+
         void IDataDescriptorsHost.OnDataDescriptorPropertyChanged(DataDescriptor descriptor)
         {
             this.dataChangeFlags |= descriptor.UpdateFlags;
@@ -212,6 +226,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                 }
 
                 this.localDataProvider.ItemsSource = this.itemsSource;
+                this.UpdateDataViewPropertyChangeSubscription(this.updateOnPropertyChanged);
             }
 
             this.UpdateRequestedItems(null, false);
@@ -628,6 +643,21 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                     // descriptor is incompatible, remove it
                     descriptors.RemoveAt(i);
                     i--;
+                }
+            }
+        }
+
+        private void UpdateDataViewPropertyChangeSubscription(bool shouldSubscribe)
+        {
+            if (this.localDataProvider != null)
+            {
+                if (shouldSubscribe)
+                {
+                    this.localDataProvider.DataView.SubscribeToItemPropertyChanged();
+                }
+                else
+                {
+                    this.localDataProvider.DataView.UnsubscribeFromItemPropertyChanged();
                 }
             }
         }

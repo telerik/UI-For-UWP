@@ -13,6 +13,8 @@ namespace Telerik.UI.Xaml.Controls.Grid.Tests
 
         public string DisplayName { get; set; }
 
+        public Type RootClassType { get; }
+
         public bool Equals(IDataFieldInfo info)
         {
             return false;

@@ -114,6 +114,7 @@
     <Compile Include="Data\Engine\DataProviders\IDataStatusListener.cs" />
     <Compile Include="Data\Engine\DataSouceView\CollectionViewDataSourceView.cs" />
     <Compile Include="Data\Engine\DataSouceView\IDataSourceCurrency.cs" />
+    <Compile Include="Data\Engine\DataSouceView\NestedPropertyInfo.cs" />
     <Compile Include="Data\Engine\EntityProviders\Entity.cs" />
     <Compile Include="Data\Engine\EntityProviders\EntityChangedEventArgs.cs" />
     <Compile Include="Data\Engine\EntityProviders\EntityProperty.cs" />

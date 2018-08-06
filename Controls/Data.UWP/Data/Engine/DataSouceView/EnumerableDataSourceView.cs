@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using Telerik.Core;
 using Telerik.Core.Data;
 using Windows.UI.Xaml.Data;
@@ -14,12 +17,14 @@ namespace Telerik.Data.Core
         private List<object> internalList;
         private WeakEventHandler<NotifyCollectionChangedEventArgs> collectionChangedEventHandler;
         private WeakEventHandlerList<PropertyChangedEventArgs> propertyChangedEventHandler;
- 
+        private Dictionary<object, NestedPropertyInfo> nestedObjectInfos;
+
         private List<Tuple<object, NotifyCollectionChangedEventArgs>> pendingCollectionChanges = new List<Tuple<object, NotifyCollectionChangedEventArgs>>();
         private List<Tuple<object, int, int>> sourceGroups = new List<Tuple<object, int, int>>();
 
         private bool itemSupportsPropertyChanged;
         private bool supportsPropertyChangedInitialized;
+        private bool shouldSubsribeToPropertyChanged;
 
         public EnumerableDataSourceView(IEnumerable enumerableSource)
         {
@@ -37,13 +42,6 @@ namespace Telerik.Data.Core
 
             foreach (var item in enumerableSource)
             {
-                if (!this.supportsPropertyChangedInitialized)
-                {
-                    this.itemSupportsPropertyChanged = item is INotifyPropertyChanged;
-                    this.supportsPropertyChangedInitialized = true;
-                }
-
-                this.AddPropertyChangedHandler(item);
                 this.internalList.Add(item);
             }
 
@@ -68,7 +66,7 @@ namespace Telerik.Data.Core
         }
 
         public IBatchLoadingProvider BatchDataProvider { get; private set; }
-        
+
         public List<Tuple<object, int, int>> SourceGroups
         {
             get
@@ -124,8 +122,124 @@ namespace Telerik.Data.Core
                 INotifyPropertyChanged inpc = sender as INotifyPropertyChanged;
                 if (inpc != null)
                 {
-                    this.HandlePropertyChanged(sender, (PropertyChangedEventArgs)args);
+                    if (this.internalList.Contains(inpc))
+                    {
+                        if (this.nestedObjectInfos.Count > 0)
+                        {
+                            this.NestedPropertyChanged(sender, sender, ((PropertyChangedEventArgs)args).PropertyName);
+                        }
+
+                        this.HandlePropertyChanged(sender, (PropertyChangedEventArgs)args);
+                    }
+                    else
+                    {
+                        NestedPropertyInfo info;
+                        if (this.nestedObjectInfos.TryGetValue(sender, out info))
+                        {
+                            string propertyName = ((PropertyChangedEventArgs)args).PropertyName;
+                            this.NestedPropertyChanged(sender, info.rootItem, propertyName, info.nestedPropertyPath);
+                            PropertyChangedEventArgs arguments = new PropertyChangedEventArgs(info.nestedPropertyPath + propertyName);
+                            this.HandlePropertyChanged(info.rootItem, arguments);
+                        }
+                    }
                 }
+            }
+        }
+
+        void IDataSourceView.SubscribeToItemPropertyChanged()
+        {
+            this.shouldSubsribeToPropertyChanged = true;
+            if (this.nestedObjectInfos == null)
+            {
+                this.nestedObjectInfos = new Dictionary<object, NestedPropertyInfo>();
+            }
+
+            StringBuilder nestedPropertyPath = new StringBuilder();
+            for (int i = 0; i < this.internalList.Count; i++)
+            {
+                object item = this.internalList[i];
+                this.SubscribeToINotifyPropertyChanged(item, nestedPropertyPath, i);
+            }
+        }
+
+        void IDataSourceView.UnsubscribeFromItemPropertyChanged()
+        {
+            this.shouldSubsribeToPropertyChanged = false;
+            foreach (var item in this.internalList)
+            {
+                this.RemovePropertyChangedHandler(item);
+            }
+
+            if (this.nestedObjectInfos != null)
+            {
+                foreach (var nestedItem in this.nestedObjectInfos.Keys)
+                {
+                    this.RemovePropertyChangedHandler(nestedItem);
+                }
+
+                this.nestedObjectInfos.Clear();
+            }
+        }
+
+        private void NestedPropertyChanged(object changedItem, object rootItem, string propertyName, string nestedPropertyName = null)
+        {
+            Type changedObjectType = changedItem.GetType();
+            PropertyInfo propertyInfo = changedObjectType.GetRuntimeProperty(propertyName);
+            object changedObjectValue = propertyInfo.GetValue(changedItem);
+            if (changedObjectValue is INotifyPropertyChanged)
+            {
+                string pathName = nestedPropertyName + propertyName;
+                var keys = this.nestedObjectInfos.Where(a => a.Value.nestedPropertyPath.Contains(pathName) && a.Value.rootItem == rootItem).ToList();
+                foreach (var nestedItem in keys)
+                {
+                    this.RemovePropertyChangedHandler(nestedItem.Key);
+                    this.nestedObjectInfos.Remove(nestedItem.Key);
+                }
+
+                StringBuilder propertyNameBuilder = new StringBuilder();
+                nestedPropertyName += propertyName + ".";
+                propertyNameBuilder.Append(nestedPropertyName);
+
+                this.nestedObjectInfos.Add(changedObjectValue, new NestedPropertyInfo(rootItem, nestedPropertyName));
+                this.SubscribeToINotifyPropertyChanged(changedObjectValue, propertyNameBuilder, this.internalList.IndexOf(rootItem));
+
+                keys = this.nestedObjectInfos.Where(a => a.Value.nestedPropertyPath.Contains(pathName) && a.Value.rootItem == rootItem).ToList();
+            }
+        }
+
+        private void SubscribeToINotifyPropertyChanged(object item, StringBuilder nestedPropertyPath, int currentIndex)
+        {
+            if (!this.supportsPropertyChangedInitialized)
+            {
+                this.itemSupportsPropertyChanged = item is INotifyPropertyChanged;
+                this.supportsPropertyChangedInitialized = true;
+            }
+
+            this.AddPropertyChangedHandler(item);
+
+            Type itemType = item.GetType();
+            IEnumerable<PropertyInfo> properties = itemType.GetRuntimeProperties();
+
+            object tempItem = item;
+            foreach (PropertyInfo info in properties)
+            {
+                tempItem = info.GetValue(tempItem);
+                if (!(tempItem is INotifyPropertyChanged))
+                {
+                    tempItem = item;
+                    continue;
+                }
+
+                string infoName = info.Name;
+                nestedPropertyPath.Append(info.Name);
+                nestedPropertyPath.Append('.');
+                string propertyPath = nestedPropertyPath.ToString();
+
+                this.nestedObjectInfos.Add(tempItem, new NestedPropertyInfo(this.internalList[currentIndex], propertyPath));
+                this.SubscribeToINotifyPropertyChanged(tempItem, nestedPropertyPath, currentIndex);
+
+                int dotIndex = propertyPath.LastIndexOf('.');
+                nestedPropertyPath.Remove(dotIndex - infoName.Length, infoName.Length + 1);
             }
         }
 
@@ -143,11 +257,7 @@ namespace Telerik.Data.Core
 
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var pc = this.ItemPropertyChanged;
-            if (pc != null)
-            {
-                pc(sender, e);
-            }
+            this.ItemPropertyChanged?.Invoke(sender, e);
         }
 
         private void HandleCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -226,19 +336,51 @@ namespace Telerik.Data.Core
                 this.RemovePropertyChangedHandler(item);
             }
 
+            if (this.nestedObjectInfos != null)
+            {
+                foreach (var item in this.nestedObjectInfos.Keys)
+                {
+                    this.RemovePropertyChangedHandler(item);
+                }
+
+                this.nestedObjectInfos.Clear();
+            }
+
             this.internalList.Clear();
         }
 
         private void InsertItem(int newIndex, object newItem)
         {
-            this.AddPropertyChangedHandler(newItem);
             this.internalList.Insert(newIndex, newItem);
+
+            if (this.shouldSubsribeToPropertyChanged)
+            {
+                if (this.nestedObjectInfos != null && this.nestedObjectInfos.Count > 0)
+                {
+                    StringBuilder propertyName = new StringBuilder();
+                    this.SubscribeToINotifyPropertyChanged(newItem, propertyName, newIndex);
+                }
+                else
+                {
+                    this.AddPropertyChangedHandler(newItem);
+                }
+            }
         }
 
         private void RemoveItem(int index, object oldItem)
         {
             this.RemovePropertyChangedHandler(oldItem);
             this.internalList.RemoveAt(index);
+
+            if (this.nestedObjectInfos != null && this.nestedObjectInfos.Count > 0)
+            {
+                var keys = this.nestedObjectInfos.Where(a => a.Value.rootItem == oldItem).ToList();
+                foreach (var item in keys)
+                {
+                    this.RemovePropertyChangedHandler(item.Key);
+                    this.nestedObjectInfos.Remove(item.Key);
+                }
+            }
         }
 
         private void AddPropertyChangedHandler(object item)
@@ -249,7 +391,7 @@ namespace Telerik.Data.Core
                 this.supportsPropertyChangedInitialized = true;
             }
 
-            if (this.itemSupportsPropertyChanged)
+            if (this.itemSupportsPropertyChanged && this.shouldSubsribeToPropertyChanged)
             {
                 this.propertyChangedEventHandler.Subscribe(item);
             }
