@@ -130,6 +130,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
         public static readonly DependencyProperty GroupPanelPositionProperty =
             DependencyProperty.Register(nameof(GroupPanelPosition), typeof(GroupPanelPosition), typeof(RadDataGrid), new PropertyMetadata(GroupPanelPosition.Left, OnGroupPanelPositionChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="EnableLiveUpdates"/> dependency property. 
+        /// </summary>
+        public static readonly DependencyProperty EnableLiveUpdatesProperty =
+            DependencyProperty.Register(nameof(EnableLiveUpdates), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(true, OnEnableLiveUpdatesPropertyChanged));
+
         private DataGridColumnHeaderPanel columnHeadersPanel;
         private DataGridCellsPanel cellsPanel;
         private DataGridRootPanel rootPanel;
@@ -575,6 +581,21 @@ namespace Telerik.UI.Xaml.Controls.Grid
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the DataGrid should be updated if INotifyPropertyChanged item from its source is changed.
+        /// </summary>
+        public bool EnableLiveUpdates
+        {
+            get
+            {
+                return (bool)this.GetValue(EnableLiveUpdatesProperty);
+            }
+            set
+            {
+                this.SetValue(EnableLiveUpdatesProperty, value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the position of the Group Panel related to the DataGrid.
         /// </summary>
         public GroupPanelPosition GroupPanelPosition
@@ -979,6 +1000,12 @@ namespace Telerik.UI.Xaml.Controls.Grid
             {
                 grid.updateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
             }
+        }
+
+        private static void OnEnableLiveUpdatesPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RadDataGrid grid = d as RadDataGrid;
+            grid.model.EnableLiveUpdates = (bool)e.NewValue;
         }
 
         private static void OnColumnResizeModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

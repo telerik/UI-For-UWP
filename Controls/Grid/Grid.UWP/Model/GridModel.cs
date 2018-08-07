@@ -26,6 +26,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         {
             this.executeOperationsSyncroniously = shouldExecuteSyncroniously;
             this.TrackPropertyChanged = true;
+            this.EnableLiveUpdates = true;
 
             this.GroupFactory = new DataGroupFactory();
 

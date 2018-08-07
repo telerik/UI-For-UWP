@@ -62,6 +62,12 @@ namespace Telerik.Data.Core
                 throw new System.InvalidOperationException("Member access has not been initialized");
             }
 
+            IGroup group = item as IGroup;
+            if (group != null)
+            {
+                return group.Name;
+            }
+
             return this.MemberAccess.GetValue(item);
         }
 

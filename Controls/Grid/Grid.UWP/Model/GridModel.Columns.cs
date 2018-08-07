@@ -93,35 +93,30 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
         }
 
-        internal static PropertyInfoFieldInfo InitializePropertyInfo(string nestedPropertyPath, Type type)
+        internal static PropertyInfoFieldInfo InitializePropertyInfo(string nestedPropertyPath, Type type, Type rootClassType)
         {
             string[] splitNestedProperty = nestedPropertyPath.Split(new char[] { NestedPropertySeparator });
             PropertyInfoFieldInfo nestedPropertyInfo = null;
-            List<PropertyInfo> propertyInfos = new List<PropertyInfo>();
-            if (splitNestedProperty[0] == type.Name)
+            PropertyInfo propertyInfo = null;
+            for (int i = 1; i < splitNestedProperty.Length; i++)
             {
-                PropertyInfo propertyInfo = null;
-                for (int i = 1; i < splitNestedProperty.Length; i++)
+                string propertyName = splitNestedProperty[i];
+                propertyInfo = type.GetRuntimeProperty(propertyName);
+                if (propertyInfo == null)
                 {
-                    string propertyName = splitNestedProperty[i];
-                    propertyInfo = type.GetProperty(propertyName);
-                    if (propertyInfo == null)
-                    {
-                        return null;
-                    }
-
-                    propertyInfos.Add(propertyInfo);
-                    type = propertyInfo.PropertyType;
+                    return null;
                 }
 
-                var propertyAccess = Telerik.Data.Core.BindingExpressionHelper.CreateGetNestedValueFunc(propertyInfos, splitNestedProperty[0]);
-                var propertySetter = propertyInfo.CanWrite
-                    ? Telerik.Data.Core.BindingExpressionHelper.CreateSetNestedValueFunc(propertyInfos, splitNestedProperty[0])
-                    : null;
-
-                nestedPropertyInfo = new PropertyInfoFieldInfo(propertyInfo, propertyAccess, propertySetter, nestedPropertyPath);
-                nestedPropertyInfo.Role = FieldInfoHelper.GetRoleForType(propertyInfo.PropertyType);
+                type = propertyInfo.PropertyType;
             }
+
+            var propertyAccess = Telerik.Data.Core.BindingExpressionHelper.CreateGetValueFunc(rootClassType, nestedPropertyPath);
+            var propertySetter = propertyInfo.CanWrite
+                ? Telerik.Data.Core.BindingExpressionHelper.CreateSetValueAction(rootClassType, nestedPropertyPath)
+                : null;
+
+            nestedPropertyInfo = new PropertyInfoFieldInfo(propertyInfo, propertyAccess, propertySetter, rootClassType, nestedPropertyPath);
+            nestedPropertyInfo.Role = FieldInfoHelper.GetRoleForType(propertyInfo.PropertyType);
 
             return nestedPropertyInfo;
         }
@@ -277,7 +272,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                     }
                     else if (typedColumn.PropertyName.Contains(NestedPropertySeparator))
                     {
-                        IDataFieldInfo info = GridModel.InitializePropertyInfo(typedColumn.PropertyName, fieldInfo.DataType);
+                        IDataFieldInfo info = GridModel.InitializePropertyInfo(typedColumn.PropertyName, fieldInfo.DataType, fieldInfo.RootClassType);
                         if (info != null)
                         {
                             typedColumn.PropertyInfo = info;

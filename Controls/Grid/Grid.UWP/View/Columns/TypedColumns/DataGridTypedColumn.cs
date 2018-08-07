@@ -511,16 +511,20 @@ namespace Telerik.UI.Xaml.Controls.Grid
         {
             string propertyName = this.PropertyName;
             this.PropertyInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(propertyName);
-            if (this.propertyInfo == null && propertyName.Contains(GridModel.NestedPropertySeparator))
+            int dotIndex = propertyName.IndexOf(".");
+            if (this.propertyInfo == null && dotIndex != -1)
             {
-                string parentPath = propertyName.Substring(0, propertyName.IndexOf(GridModel.NestedPropertySeparator));
+                string parentPath = propertyName.Substring(0, dotIndex);
 
                 var parentFieldInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(parentPath);
                 if (parentFieldInfo != null)
                 {
-                    IDataFieldInfo info = GridModel.InitializePropertyInfo(propertyName, parentFieldInfo.DataType);
-                    this.PropertyInfo = info;
-                    this.Model.FieldInfoData.AddFieldInfoToCache(info);
+                    IDataFieldInfo info = GridModel.InitializePropertyInfo(propertyName, parentFieldInfo.DataType, parentFieldInfo.RootClassType);
+                    if (info != null)
+                    {
+                        this.PropertyInfo = info;
+                        this.Model.FieldInfoData.AddFieldInfoToCache(info);
+                    }
                 }
             }
         }
