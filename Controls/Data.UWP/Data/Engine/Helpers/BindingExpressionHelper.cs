@@ -27,7 +27,7 @@ namespace Telerik.Data.Core
         internal static Action<object, object> CreateSetValueAction(Type itemType, string propertyPath)
         {
             var setValueFunc = BindingExpressionHelper.CreateSetValueFunc(itemType, propertyPath);
-            return new Action<object, object>((item, propertyValue) => setValueFunc?.Invoke(item, propertyValue));
+            return setValueFunc != null ? new Action<object, object>((item, propertyValue) => setValueFunc?.Invoke(item, propertyValue)) : null;
         }
 
         internal static Func<object, object, object> CreateSetValueFunc(Type itemType, string propertyPath)

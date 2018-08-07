@@ -131,10 +131,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DependencyProperty.Register(nameof(GroupPanelPosition), typeof(GroupPanelPosition), typeof(RadDataGrid), new PropertyMetadata(GroupPanelPosition.Left, OnGroupPanelPositionChanged));
 
         /// <summary>
-        /// Identifies the <see cref="UpdateOnPropertyChanged"/> dependency property. 
+        /// Identifies the <see cref="EnableLiveUpdates"/> dependency property. 
         /// </summary>
-        public static readonly DependencyProperty UpdateOnPropertyChangedProperty =
-            DependencyProperty.Register(nameof(UpdateOnPropertyChanged), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false, OnUpdateOnPropertyChanged));
+        public static readonly DependencyProperty EnableLiveUpdatesProperty =
+            DependencyProperty.Register(nameof(EnableLiveUpdates), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(true, OnEnableLiveUpdatesPropertyChanged));
 
         private DataGridColumnHeaderPanel columnHeadersPanel;
         private DataGridCellsPanel cellsPanel;
@@ -583,15 +583,15 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// <summary>
         /// Gets or sets a value indicating whether the DataGrid should be updated if INotifyPropertyChanged item from its source is changed.
         /// </summary>
-        public bool UpdateOnPropertyChanged
+        public bool EnableLiveUpdates
         {
             get
             {
-                return (bool)this.GetValue(UpdateOnPropertyChangedProperty);
+                return (bool)this.GetValue(EnableLiveUpdatesProperty);
             }
             set
             {
-                this.SetValue(UpdateOnPropertyChangedProperty, value);
+                this.SetValue(EnableLiveUpdatesProperty, value);
             }
         }
 
@@ -1002,10 +1002,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
-        private static void OnUpdateOnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnEnableLiveUpdatesPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RadDataGrid grid = d as RadDataGrid;
-            grid.model.UpdateOnPropertyChanged = (bool)e.NewValue;
+            grid.model.EnableLiveUpdates = (bool)e.NewValue;
         }
 
         private static void OnColumnResizeModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

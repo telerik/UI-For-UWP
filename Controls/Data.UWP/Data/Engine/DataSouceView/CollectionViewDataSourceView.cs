@@ -186,25 +186,22 @@ namespace Telerik.Data.Core
                     INotifyPropertyChanged inpc = sender as INotifyPropertyChanged;
                     if (inpc != null)
                     {
-                        if (this.internalList.Contains(inpc))
+                        string propertyName = ((PropertyChangedEventArgs)args).PropertyName;
+                        NestedPropertyInfo info;
+                        if (this.nestedObjectInfos.TryGetValue(sender, out info))
                         {
-                            if (this.nestedObjectInfos.Count > 0)
-                            {
-                                this.NestedPropertyChanged(sender, sender, ((PropertyChangedEventArgs)args).PropertyName);
-                            }
-
-                            this.HandlePropertyChanged(sender, (PropertyChangedEventArgs)args);
+                            this.NestedPropertyChanged(sender, info.rootItem, propertyName, info.nestedPropertyPath);
+                            PropertyChangedEventArgs arguments = new PropertyChangedEventArgs(info.nestedPropertyPath + propertyName);
+                            this.HandlePropertyChanged(info.rootItem, arguments);
                         }
                         else
                         {
-                            NestedPropertyInfo info;
-                            if (this.nestedObjectInfos.TryGetValue(sender, out info))
+                            if (this.nestedObjectInfos.Count > 0)
                             {
-                                string propertyName = ((PropertyChangedEventArgs)args).PropertyName;
-                                this.NestedPropertyChanged(sender, info.rootItem, propertyName, info.nestedPropertyPath);
-                                PropertyChangedEventArgs arguments = new PropertyChangedEventArgs(info.nestedPropertyPath + propertyName);
-                                this.HandlePropertyChanged(info.rootItem, arguments);
+                                this.NestedPropertyChanged(sender, sender, propertyName);
                             }
+
+                            this.HandlePropertyChanged(sender, (PropertyChangedEventArgs)args);
                         }
                     }
                 }
@@ -219,11 +216,10 @@ namespace Telerik.Data.Core
                 this.nestedObjectInfos = new Dictionary<object, NestedPropertyInfo>();
             }
 
-            StringBuilder nestedPropertyPath = new StringBuilder();
             for (int i = 0; i < this.internalList.Count; i++)
             {
                 object item = this.internalList[i];
-                this.SubscribeToINotifyPropertyChanged(item, nestedPropertyPath, i);
+                this.SubscribeToINotifyPropertyChanged(item, item, string.Empty);
             }
         }
 
@@ -262,33 +258,28 @@ namespace Telerik.Data.Core
             return null;
         }
 
-        private void NestedPropertyChanged(object changedItem, object rootItem, string propertyName, string nestedPropertyName = null)
+        private void NestedPropertyChanged(object changedItem, object rootItem, string propertyName, string parentPropertyPath = null)
         {
             Type changedObjectType = changedItem.GetType();
             PropertyInfo propertyInfo = changedObjectType.GetRuntimeProperty(propertyName);
             object changedObjectValue = propertyInfo.GetValue(changedItem);
             if (changedObjectValue is INotifyPropertyChanged)
             {
-                string pathName = nestedPropertyName + propertyName;
-                var keys = this.nestedObjectInfos.Where(a => a.Value.nestedPropertyPath.Contains(pathName) && a.Value.rootItem == rootItem).ToList();
+                string path = parentPropertyPath + propertyName;
+                var keys = this.nestedObjectInfos.Where(a => a.Value.nestedPropertyPath.Contains(path) && a.Value.rootItem == rootItem).ToList();
                 foreach (var nestedItem in keys)
                 {
                     this.RemovePropertyChangedHandler(nestedItem.Key);
                     this.nestedObjectInfos.Remove(nestedItem.Key);
                 }
 
-                StringBuilder propertyNameBuilder = new StringBuilder();
-                nestedPropertyName += propertyName + ".";
-                propertyNameBuilder.Append(nestedPropertyName);
-
-                this.nestedObjectInfos.Add(changedObjectValue, new NestedPropertyInfo(rootItem, nestedPropertyName));
-                this.SubscribeToINotifyPropertyChanged(changedObjectValue, propertyNameBuilder, this.internalList.IndexOf(rootItem));
-
-                keys = this.nestedObjectInfos.Where(a => a.Value.nestedPropertyPath.Contains(pathName) && a.Value.rootItem == rootItem).ToList();
+                path += ".";
+                this.nestedObjectInfos.Add(changedObjectValue, new NestedPropertyInfo(rootItem, path));
+                this.SubscribeToINotifyPropertyChanged(changedObjectValue, rootItem, path);
             }
         }
 
-        private void SubscribeToINotifyPropertyChanged(object item, StringBuilder nestedPropertyPath, int currentIndex)
+        private void SubscribeToINotifyPropertyChanged(object item, object rootItem, string parentPropertyPath)
         {
             if (!this.supportsPropertyChangedInitialized)
             {
@@ -311,16 +302,11 @@ namespace Telerik.Data.Core
                     continue;
                 }
 
-                string infoName = info.Name;
-                nestedPropertyPath.Append(info.Name);
-                nestedPropertyPath.Append('.');
-                string propertyPath = nestedPropertyPath.ToString();
+                string path = string.Format("{0}{1}.", parentPropertyPath, info.Name);
+                this.nestedObjectInfos.Add(tempItem, new NestedPropertyInfo(rootItem, path));
+                this.SubscribeToINotifyPropertyChanged(tempItem, rootItem, path);
 
-                this.nestedObjectInfos.Add(tempItem, new NestedPropertyInfo(this.internalList[currentIndex], propertyPath));
-                this.SubscribeToINotifyPropertyChanged(tempItem, nestedPropertyPath, currentIndex);
-
-                int dotIndex = propertyPath.LastIndexOf('.');
-                nestedPropertyPath.Remove(dotIndex - infoName.Length, infoName.Length + 1);
+                tempItem = item;
             }
         }
 
@@ -443,8 +429,7 @@ namespace Telerik.Data.Core
             {
                 if (this.nestedObjectInfos != null && this.nestedObjectInfos.Count > 0)
                 {
-                    StringBuilder propertyName = new StringBuilder();
-                    this.SubscribeToINotifyPropertyChanged(newItem, propertyName, newIndex);
+                    this.SubscribeToINotifyPropertyChanged(newItem, newItem, string.Empty);
                 }
                 else
                 {
@@ -478,8 +463,7 @@ namespace Telerik.Data.Core
             {
                 if (this.nestedObjectInfos != null && this.nestedObjectInfos.Count > 0)
                 {
-                    StringBuilder propertyName = new StringBuilder();
-                    this.SubscribeToINotifyPropertyChanged(newItem, propertyName, index);
+                    this.SubscribeToINotifyPropertyChanged(newItem, newItem, string.Empty);
                 }
                 else
                 {

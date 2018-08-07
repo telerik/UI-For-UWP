@@ -28,7 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         private FilterDescriptorCollection filterDescriptors;
         private AggregateDescriptorCollection aggregateDescriptors;
         private bool isCurrentItemSynchronizing = false;
-        private bool updateOnPropertyChanged;
+        private bool enableLiveUpdates;
 
         public object ItemsSource
         {
@@ -130,16 +130,16 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
         }
 
-        internal bool UpdateOnPropertyChanged
+        internal bool EnableLiveUpdates
         {
             get
             {
-                return this.updateOnPropertyChanged;
+                return this.enableLiveUpdates;
             }
             set
             {
-                this.updateOnPropertyChanged = value;
-                this.UpdateDataViewPropertyChangeSubscription(this.updateOnPropertyChanged);
+                this.enableLiveUpdates = value;
+                this.UpdateDataViewPropertyChangeSubscription(this.enableLiveUpdates);
             }
         }
 
@@ -226,7 +226,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                 }
 
                 this.localDataProvider.ItemsSource = this.itemsSource;
-                this.UpdateDataViewPropertyChangeSubscription(this.updateOnPropertyChanged);
+                this.UpdateDataViewPropertyChangeSubscription(this.enableLiveUpdates);
             }
 
             this.UpdateRequestedItems(null, false);
