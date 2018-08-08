@@ -166,11 +166,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             DateTime dateToRender = this.GetFirstDateToRender(this.Calendar.DisplayDate);
 
             int bufferItemsCount = this.BufferItemsCount;
-            if (bufferItemsCount > 0)
-            {
-                dateToRender = dateToRender.AddDays(-bufferItemsCount);
-            }
-
             int itemIndex = 0;
             double previousRight = rect.X;
             double previousBottom = rect.Y;

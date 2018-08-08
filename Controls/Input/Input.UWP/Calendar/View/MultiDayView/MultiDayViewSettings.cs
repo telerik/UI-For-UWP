@@ -149,6 +149,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty AllDayAreaTextProperty =
             DependencyProperty.Register(nameof(AllDayAreaText), typeof(string), typeof(MultiDayViewSettings), new PropertyMetadata(DefaultAllDayText, OnAllDayAreaTextChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="WeekendsVisible"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty WeekendsVisibleProperty =
+            DependencyProperty.Register(nameof(WeekendsVisible), typeof(bool), typeof(MultiDayViewSettings), new PropertyMetadata(false, OnWeekendsVisibleChanged));
+
         internal const string DefaultAllDayText = "All-day";
         internal RadCalendar owner;
         internal MultiDayViewUpdateFlag updateFlag;
@@ -507,7 +513,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the text that gets visualized on the all day area.
+        /// Gets or sets a value indicating whether the weekends should be visualized.
         /// </summary>
         public string AllDayAreaText
         {
@@ -518,6 +524,21 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(AllDayAreaTextProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the weekends need to be visualized.
+        /// </summary>
+        public bool WeekendsVisible
+        {
+            get
+            {
+                return (bool)this.GetValue(WeekendsVisibleProperty);
+            }
+            set 
+            {
+                this.SetValue(WeekendsVisibleProperty, value);
             }
         }
 
@@ -951,6 +972,13 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
             MultiDayViewSettings.UpdateAllDayAreaText(settings);
+        }
+
+        private static void OnWeekendsVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MultiDayViewSettings settings = (MultiDayViewSettings)sender;
+            settings.Invalide(MultiDayViewUpdateFlag.All);
+            settings.owner?.UpdateNavigationHeaderContent();
         }
 
         private static void UpdateAllDayAreaText(MultiDayViewSettings settings)

@@ -98,8 +98,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 context.AnimationStoryboard = this.CreateMoveToPreviousViewAnimationStoryboard();
             }
-            context.navigationStep = navigatioStep;
+            else
+            {
+                context.weekendsVisible = this.MultiDayViewSettings.WeekendsVisible;
+            }
 
+            context.navigationStep = navigatioStep;
             this.CommandService.ExecuteCommand(CommandId.MoveToPreviousView, context);
         }
 
@@ -110,8 +114,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 context.AnimationStoryboard = this.CreateMoveToNextViewAnimationStoryboard();
             }
-            context.navigationStep = navigatioStep;
+            else
+            {
+                context.weekendsVisible = this.MultiDayViewSettings.WeekendsVisible;
+            }
 
+            context.navigationStep = navigatioStep;
             this.CommandService.ExecuteCommand(CommandId.MoveToNextView, context);
         }
 
