@@ -181,10 +181,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                     this.PrepareCalendarCell(calendarCell, dateToRender);
 
-                    double horizontalDifference = columnIndex * cellWidth - previousRight + rect.X;
+                    double horizontalDifference = columnIndex * this.cellWidth - previousRight + rect.X;
                     double verticalDifference = rowIndex * cellHeight - previousBottom + rect.Y;
 
-                    calendarCell.Arrange(new RadRect(previousRight, previousBottom, cellWidth + horizontalDifference, cellHeight + verticalDifference));
+                    calendarCell.Arrange(new RadRect(previousRight, previousBottom, this.cellWidth + horizontalDifference, cellHeight + verticalDifference));
 
                     previousRight = calendarCell.layoutSlot.Right;
                     if (columnIndex == (this.ColumnCount + (bufferItemsCount * 2)) - 1)
