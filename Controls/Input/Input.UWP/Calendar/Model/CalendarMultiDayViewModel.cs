@@ -485,9 +485,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                             }
                             else
                             {
-                                widthCoeff = CalendarMathHelper.GetWorkingBusinessDays(appointment.StartDate, appointment.EndDate);
+                                widthCoeff = CalendarMathHelper.GetBusinessDaysCount(appointment.StartDate, appointment.EndDate);
                                 startAppointmentDate = CalendarMathHelper.SetFirstAvailableBusinessDay(startAppointmentDate, 1);
-                                xCoeff = CalendarMathHelper.GetWorkingBusinessDays(startAppointmentDate.Date, cell.Date);
+                                xCoeff = CalendarMathHelper.GetBusinessDaysCount(startAppointmentDate.Date, cell.Date);
                             }
 
                             RadRect layoutSlot = new RadRect(cell.layoutSlot.X - (xCoeff * this.cellWidth), prevBottom, this.cellWidth + (this.cellWidth * widthCoeff) - this.Calendar.GridLinesThickness / 2, appoitmentHeight);

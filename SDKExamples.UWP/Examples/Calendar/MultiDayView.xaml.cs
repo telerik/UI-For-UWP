@@ -153,7 +153,7 @@ namespace SDKExamples.UWP.Calendar
             this.AllDayAppSpacing = new ObservableCollection<int>(new int[] { 1, 2, 4, 6, 8, 10 });
             this.SelectedAllDaySpacing = this.AllDayAppSpacing[1];
 
-            this.WeekendsVisible = false;
+            this.WeekendsVisible = true;
         }
 
         public CustomAppointmentSource Appointments { get; set; }

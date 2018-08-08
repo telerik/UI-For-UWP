@@ -187,7 +187,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return date;
         }
 
-        internal static int GetWorkingBusinessDays(DateTime from, DateTime to)
+        internal static int GetBusinessDaysCount(DateTime from, DateTime to)
         {
             int result = 0;
             for (DateTime date = from; date < to; date = date.AddDays(1))

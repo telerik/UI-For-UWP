@@ -153,7 +153,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="WeekendsVisible"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty WeekendsVisibleProperty =
-            DependencyProperty.Register(nameof(WeekendsVisible), typeof(bool), typeof(MultiDayViewSettings), new PropertyMetadata(false, OnWeekendsVisibleChanged));
+            DependencyProperty.Register(nameof(WeekendsVisible), typeof(bool), typeof(MultiDayViewSettings), new PropertyMetadata(true, OnWeekendsVisibleChanged));
 
         internal const string DefaultAllDayText = "All-day";
         internal RadCalendar owner;
