@@ -6,6 +6,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
     internal abstract class CalendarViewModel : Element
     {
+        internal double cellWidth;
         private ElementCollection<CalendarCellModel> calendarCells;
         private ElementCollection<CalendarGridLine> calendarDecorations;
 
@@ -154,7 +155,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             this.EnsureCalendarCells();
 
-            double cellWidth = rect.Width / (this.ColumnCount + (this.BufferItemsCount * 2));
+            this.cellWidth = rect.Width / (this.ColumnCount + (this.BufferItemsCount * 2));
 
             if (this.SpecificColumnCount == 0)
             {
@@ -194,6 +195,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     this.SnapToGridLines(calendarCell, rowIndex, columnIndex);
 
                     dateToRender = this.GetNextDateToRender(dateToRender);
+
                     itemIndex++;
                 }
             }

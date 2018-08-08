@@ -199,8 +199,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                                 currentAppointmentEndDate = CalendarMathHelper.SetFirstAvailableBusinessDay(currentAppointmentEndDate, -1);
                             }
 
-                            info.hasPrevDay = currentAppointmentStartDate.Day < calendarCell.Date.Day;
-                            info.hasNextDay = currentAppointmentEndDate.Day > calendarCell.Date.Day;
+                            info.hasPrevDay = currentAppointmentStartDate.Date < calendarCell.Date;
+                            info.hasNextDay = currentAppointmentEndDate.Date > calendarCell.Date;
                             int xCoeff = (calendarCell.Date - appointment.StartDate.Date).Days;
                             RadRect layoutSlot = new RadRect(calendarCell.layoutSlot.X - this.timeRulerWidth, startY, calendarCell.layoutSlot.Width, endY - startY);
                             info.layoutSlot = layoutSlot;
@@ -476,20 +476,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         while (true)
                         {
                             int widthCoeff;
+                            int xCoeff;
                             DateTime startAppointmentDate = appointment.StartDate;
                             if (this.Calendar.multiDayViewSettings.WeekendsVisible)
                             {
                                 widthCoeff = (appointment.EndDate - appointment.StartDate).Days;
+                                xCoeff = (cell.Date - startAppointmentDate.Date).Days;
                             }
                             else
                             {
                                 widthCoeff = CalendarMathHelper.GetWorkingBusinessDays(appointment.StartDate, appointment.EndDate);
                                 startAppointmentDate = CalendarMathHelper.SetFirstAvailableBusinessDay(startAppointmentDate, 1);
+                                xCoeff = CalendarMathHelper.GetWorkingBusinessDays(startAppointmentDate.Date, cell.Date);
                             }
 
-                            double gridLinesThickness = widthCoeff > 0 ? this.Calendar.GridLinesThickness : 0;
-                            int xCoeff = (cell.Date - startAppointmentDate.Date).Days;
-                            RadRect layoutSlot = new RadRect(cell.layoutSlot.X - (xCoeff * cell.layoutSlot.Width), prevBottom, cell.layoutSlot.Width + (cell.layoutSlot.Width * widthCoeff) + gridLinesThickness, appoitmentHeight);
+                            RadRect layoutSlot = new RadRect(cell.layoutSlot.X - (xCoeff * this.cellWidth), prevBottom, this.cellWidth + (this.cellWidth * widthCoeff) - this.Calendar.GridLinesThickness / 2, appoitmentHeight);
                             if (containedInfos.FirstOrDefault(a => a.layoutSlot.IntersectsWith(layoutSlot)) == null)
                             {
                                 CalendarAppointmentInfo containedInfo = containedInfos.FirstOrDefault(a => a.childAppointment == appointment);
