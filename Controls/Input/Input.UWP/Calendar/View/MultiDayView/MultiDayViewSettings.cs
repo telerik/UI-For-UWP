@@ -513,7 +513,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the weekends should be visualized.
+        /// Gets or sets the text that gets visualized on the all day area.
         /// </summary>
         public string AllDayAreaText
         {
