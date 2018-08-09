@@ -85,6 +85,7 @@ namespace SDKExamples.UWP.Calendar
         private int selectedAllDaySpacing;
         private bool showCurrentTimeIndicator;
         private int selectedNavigationStep;
+        private bool weekendsVisible;
 
         public ViewModel()
         {
@@ -110,6 +111,8 @@ namespace SDKExamples.UWP.Calendar
                 .Add(new DateTimeAppointment(today.AddDays(-2).AddHours(14), today.AddDays(-1).AddHours(18)) { Color = new SolidColorBrush(Colors.Cornsilk), Subject = "App 9", IsAllDay = true });
             this.Appointments.appointments
                 .Add(new DateTimeAppointment(today.AddDays(-1).AddHours(14), today.AddHours(18)) { Color = new SolidColorBrush(Colors.DarkOliveGreen), Subject = "App 10", IsAllDay = true });
+            this.Appointments.appointments
+                .Add(new DateTimeAppointment(today.AddDays(-15).AddHours(14), today.AddHours(18)) { Color = new SolidColorBrush(Colors.Brown), Subject = "App 11", IsAllDay = true });
 
             this.DisplayDays = this.InitializeIntCollection();
             this.Thicknesses = this.InitializeIntCollection();
@@ -149,6 +152,8 @@ namespace SDKExamples.UWP.Calendar
 
             this.AllDayAppSpacing = new ObservableCollection<int>(new int[] { 1, 2, 4, 6, 8, 10 });
             this.SelectedAllDaySpacing = this.AllDayAppSpacing[1];
+
+            this.WeekendsVisible = true;
         }
 
         public CustomAppointmentSource Appointments { get; set; }
@@ -368,6 +373,22 @@ namespace SDKExamples.UWP.Calendar
                 {
                     this.selectedNavigationStep = value;
                     this.OnPropertyChanged(nameof(this.SelectedNavigationStep));
+                }
+            }
+        }
+
+        public bool WeekendsVisible
+        {
+            get
+            {
+                return this.weekendsVisible;
+            }
+            set
+            {
+                if (this.weekendsVisible != value)
+                {
+                    this.weekendsVisible = value;
+                    this.OnPropertyChanged(nameof(this.WeekendsVisible));
                 }
             }
         }
