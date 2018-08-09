@@ -69,27 +69,18 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             DayOfWeek firstDayOfWeek = this.Calendar.GetFirstDayOfWeek();
             DateTime firstDateOfCurrentWeek = CalendarMathHelper.GetFirstDayOfCurrentWeek(date, firstDayOfWeek);
 
-            if (firstDateOfCurrentWeek.Date <= date.Date && firstDateOfCurrentWeek.AddDays(7).Date >= date.Date)
+            if (!(firstDateOfCurrentWeek.Date <= date.Date && firstDateOfCurrentWeek.AddDays(7).Date >= date.Date))
             {
-                if (!this.Calendar.multiDayViewSettings.WeekendsVisible)
-                {
-                    date = CalendarMathHelper.AddBusinessDays(date, -this.BufferItemsCount);
-                }
-                else
-                {
-                    date = date.AddDays(-this.BufferItemsCount);
-                }
+                date = firstDateOfCurrentWeek;
+            }
+
+            if (!this.Calendar.multiDayViewSettings.WeekendsVisible)
+            {
+                date = CalendarMathHelper.AddBusinessDays(date, -this.BufferItemsCount);
             }
             else
             {
-                if (!this.Calendar.multiDayViewSettings.WeekendsVisible)
-                {
-                    date = CalendarMathHelper.AddBusinessDays(date, -this.BufferItemsCount);
-                }
-                else
-                {
-                    date = firstDateOfCurrentWeek.AddDays(-this.BufferItemsCount);
-                }
+                date = date.AddDays(-this.BufferItemsCount);
             }
 
             return date;
@@ -102,11 +93,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 return date;
             }
 
-            date = date.AddDays(1);
-            if (!this.Calendar.multiDayViewSettings.WeekendsVisible && (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday))
+            if (!this.Calendar.multiDayViewSettings.WeekendsVisible)
             {
-                int daysToAdd = date.DayOfWeek == DayOfWeek.Saturday ? 2 : 1;
-                date = date.AddDays(daysToAdd);
+                date = CalendarMathHelper.AddBusinessDays(date, 1);
+            }
+            else
+            {
+                date = date.AddDays(1);
             }
 
             return date;
@@ -480,12 +473,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                             DateTime startAppointmentDate = appointment.StartDate;
                             if (this.Calendar.multiDayViewSettings.WeekendsVisible)
                             {
-                                widthCoeff = (appointment.EndDate - appointment.StartDate).Days;
+                                widthCoeff = (appointment.EndDate - startAppointmentDate).Days;
                                 xCoeff = (cell.Date - startAppointmentDate.Date).Days;
                             }
                             else
                             {
-                                widthCoeff = CalendarMathHelper.GetBusinessDaysCount(appointment.StartDate, appointment.EndDate);
+                                widthCoeff = CalendarMathHelper.GetBusinessDaysCount(startAppointmentDate, appointment.EndDate);
                                 startAppointmentDate = CalendarMathHelper.SetFirstAvailableBusinessDay(startAppointmentDate, 1);
                                 xCoeff = CalendarMathHelper.GetBusinessDaysCount(startAppointmentDate.Date, cell.Date);
                             }
