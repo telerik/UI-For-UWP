@@ -200,6 +200,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 }
 
                 this.localDataProvider.ItemsSource = this.itemsSource;
+                this.localDataProvider.DataView.SubscribeToItemPropertyChanged();
             }
 
             this.UpdateRequestedItems(null, false);

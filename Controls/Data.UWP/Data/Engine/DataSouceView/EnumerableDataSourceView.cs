@@ -209,7 +209,7 @@ namespace Telerik.Data.Core
             this.AddPropertyChangedHandler(item);
 
             Type itemType = item.GetType();
-            IEnumerable<PropertyInfo> properties = itemType.GetRuntimeProperties();
+            IEnumerable<PropertyInfo> properties = itemType.GetRuntimeProperties().Where(a => !a.GetIndexParameters().Any());
 
             object tempItem = item;
             foreach (PropertyInfo info in properties)
