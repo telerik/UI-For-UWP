@@ -1,13 +1,15 @@
-﻿namespace Telerik.Data.Core
+﻿using System.Collections.Generic;
+
+namespace Telerik.Data.Core
 {
     internal class NestedPropertyInfo
     {
-        internal readonly object rootItem;
+        internal readonly HashSet<object> rootItems;
         internal readonly string nestedPropertyPath;
 
-        internal NestedPropertyInfo(object rootItem, string nestedPropertyPath)
+        internal NestedPropertyInfo(HashSet<object> rootItems, string nestedPropertyPath)
         {
-            this.rootItem = rootItem;
+            this.rootItems = rootItems;
             this.nestedPropertyPath = nestedPropertyPath;
         }
     }
