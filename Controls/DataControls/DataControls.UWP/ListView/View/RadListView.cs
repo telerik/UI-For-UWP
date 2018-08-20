@@ -30,7 +30,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     public partial class RadListView : RadControl, IListView
     {
         /// <summary>
-        /// Identifies the <see cref="RealizedItemsBufferScale"/> dependency property. 
+        /// Identifies the <see cref="RealizedItemsBufferScale"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty RealizedItemsBufferScaleProperty =
             DependencyProperty.Register(nameof(RealizedItemsBufferScale), typeof(double), typeof(RadListView), new PropertyMetadata(1, OnRealizedItemsBufferScaleChanged));
@@ -509,7 +509,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether a busy indicator will appear when the data from the source is being loaded. 
+        /// Gets or sets a value indicating whether a busy indicator will appear when the data from the source is being loaded.
         /// </summary>
         public bool IsBusyIndicatorEnabled
         {
@@ -524,7 +524,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
-        /// Gets or sets the source used to generate the content of the control. 
+        /// Gets or sets the source used to generate the content of the control.
         /// </summary>
         public object ItemsSource
         {
@@ -823,7 +823,10 @@ namespace Telerik.UI.Xaml.Controls.Data
         public void RebuildUI()
         {
             this.ResetActionContent();
-            this.contentPanel.InvalidateMeasure();
+            if (this.contentPanel != null)
+            {
+                this.contentPanel.InvalidateMeasure();
+            }
         }
 
         /// <inheritdoc/>
@@ -1104,7 +1107,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             return new ListViewGroupHeader();
         }
-        
+
         /// <summary>
         /// Prepare the <see cref="ListViewLoadDataControl"/>.
         /// </summary>
@@ -1192,7 +1195,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             item.ClearValue(FrameworkElement.DataContextProperty);
         }
-        
+
         /// <summary>
         /// Prepare the element to act as the ItemUI for the corresponding group header.
         /// </summary>
