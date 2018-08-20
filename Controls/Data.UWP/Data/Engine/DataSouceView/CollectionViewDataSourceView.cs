@@ -298,7 +298,7 @@ namespace Telerik.Data.Core
             }
 
             Type itemType = item.GetType();
-            IEnumerable<PropertyInfo> properties = itemType.GetRuntimeProperties();
+            IEnumerable<PropertyInfo> properties = itemType.GetRuntimeProperties().Where(a => a.GetMethod != null && a.GetMethod.IsPublic && !a.GetIndexParameters().Any());
 
             object tempItem = item;
             foreach (PropertyInfo info in properties)
