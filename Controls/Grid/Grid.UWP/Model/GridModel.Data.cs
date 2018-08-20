@@ -94,15 +94,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
         }
 
-        IDataProvider IDataDescriptorsHost.CurrentDataProvider
-        {
-            get
-            {
-                return this.CurrentDataProvider;
-            }
-        }
-
-        internal IDataProvider CurrentDataProvider
+        public IDataProvider CurrentDataProvider
         {
             get
             {
