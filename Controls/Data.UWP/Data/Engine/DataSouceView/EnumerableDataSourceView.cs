@@ -42,6 +42,13 @@ namespace Telerik.Data.Core
 
             foreach (var item in enumerableSource)
             {
+                if (!this.supportsPropertyChangedInitialized)
+                {
+                    this.itemSupportsPropertyChanged = item is INotifyPropertyChanged;
+                    this.supportsPropertyChangedInitialized = true;
+                }
+
+                this.AddPropertyChangedHandler(item);
                 this.internalList.Add(item);
             }
 
@@ -124,7 +131,7 @@ namespace Telerik.Data.Core
                 {
                     string propertyName = ((PropertyChangedEventArgs)args).PropertyName;
                     NestedPropertyInfo info;
-                    if (this.nestedObjectInfos.TryGetValue(sender, out info))
+                    if (this.nestedObjectInfos != null && this.nestedObjectInfos.TryGetValue(sender, out info))
                     {
                         this.NestedPropertyChanged(sender, info.rootItems, propertyName, info.nestedPropertyPath);
                         PropertyChangedEventArgs arguments = new PropertyChangedEventArgs(info.nestedPropertyPath + propertyName);
@@ -136,7 +143,7 @@ namespace Telerik.Data.Core
                     }
                     else
                     {
-                        if (this.nestedObjectInfos.Count > 0)
+                        if (this.nestedObjectInfos != null && this.nestedObjectInfos.Count > 0)
                         {
                             this.NestedPropertyChanged(sender, new HashSet<object> { sender }, propertyName);
                         }
@@ -147,7 +154,7 @@ namespace Telerik.Data.Core
             }
         }
 
-        void IDataSourceView.SubscribeToItemPropertyChanged()
+        void IDataSourceView.SubscribeToNestedItemPropertyChanged()
         {
             this.shouldSubsribeToPropertyChanged = true;
             if (this.nestedObjectInfos == null)
@@ -158,17 +165,14 @@ namespace Telerik.Data.Core
             for (int i = 0; i < this.internalList.Count; i++)
             {
                 object item = this.internalList[i];
+                this.RemovePropertyChangedHandler(item);
                 this.SubscribeToINotifyPropertyChanged(item, item, string.Empty);
             }
         }
 
-        void IDataSourceView.UnsubscribeFromItemPropertyChanged()
+        void IDataSourceView.UnsubscribeFromNestedItemPropertyChanged()
         {
             this.shouldSubsribeToPropertyChanged = false;
-            foreach (var item in this.internalList)
-            {
-                this.RemovePropertyChangedHandler(item);
-            }
 
             if (this.nestedObjectInfos != null)
             {
@@ -370,16 +374,13 @@ namespace Telerik.Data.Core
         {
             this.internalList.Insert(newIndex, newItem);
 
-            if (this.shouldSubsribeToPropertyChanged)
+            if (this.shouldSubsribeToPropertyChanged && this.nestedObjectInfos != null && this.nestedObjectInfos.Count > 0)
             {
-                if (this.nestedObjectInfos != null && this.nestedObjectInfos.Count > 0)
-                {
-                    this.SubscribeToINotifyPropertyChanged(newItem, newItem, string.Empty);
-                }
-                else
-                {
-                    this.AddPropertyChangedHandler(newItem);
-                }
+                this.SubscribeToINotifyPropertyChanged(newItem, newItem, string.Empty);
+            }
+            else
+            {
+                this.AddPropertyChangedHandler(newItem);
             }
         }
 
@@ -414,7 +415,7 @@ namespace Telerik.Data.Core
                 this.supportsPropertyChangedInitialized = true;
             }
 
-            if (this.itemSupportsPropertyChanged && this.shouldSubsribeToPropertyChanged)
+            if (this.itemSupportsPropertyChanged)
             {
                 this.propertyChangedEventHandler.Subscribe(item);
             }

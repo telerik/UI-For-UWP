@@ -131,10 +131,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DependencyProperty.Register(nameof(GroupPanelPosition), typeof(GroupPanelPosition), typeof(RadDataGrid), new PropertyMetadata(GroupPanelPosition.Left, OnGroupPanelPositionChanged));
 
         /// <summary>
-        /// Identifies the <see cref="EnableLiveUpdates"/> dependency property. 
+        /// Identifies the <see cref="ListenForNestedPropertyChange"/> dependency property. 
         /// </summary>
-        public static readonly DependencyProperty EnableLiveUpdatesProperty =
-            DependencyProperty.Register(nameof(EnableLiveUpdates), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(true, OnEnableLiveUpdatesPropertyChanged));
+        public static readonly DependencyProperty ListenForNestedPropertyChangeProperty =
+            DependencyProperty.Register(nameof(ListenForNestedPropertyChange), typeof(bool), typeof(RadDataGrid), new PropertyMetadata(false, OnListenForNestedPropertyChangePropertyChanged));
 
         private DataGridColumnHeaderPanel columnHeadersPanel;
         private DataGridCellsPanel cellsPanel;
@@ -583,15 +583,15 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// <summary>
         /// Gets or sets a value indicating whether the DataGrid should be updated if INotifyPropertyChanged item from its source is changed.
         /// </summary>
-        public bool EnableLiveUpdates
+        public bool ListenForNestedPropertyChange
         {
             get
             {
-                return (bool)this.GetValue(EnableLiveUpdatesProperty);
+                return (bool)this.GetValue(ListenForNestedPropertyChangeProperty);
             }
             set
             {
-                this.SetValue(EnableLiveUpdatesProperty, value);
+                this.SetValue(ListenForNestedPropertyChangeProperty, value);
             }
         }
 
@@ -1002,10 +1002,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
-        private static void OnEnableLiveUpdatesPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnListenForNestedPropertyChangePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RadDataGrid grid = d as RadDataGrid;
-            grid.model.EnableLiveUpdates = (bool)e.NewValue;
+            grid.model.ListenForNestedPropertyChange = (bool)e.NewValue;
         }
 
         private static void OnColumnResizeModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -23,7 +23,7 @@ namespace Telerik.Data.Core
         void Dispose();
         object GetGroupKey(object item, int level);
 
-        void SubscribeToItemPropertyChanged();
-        void UnsubscribeFromItemPropertyChanged();
+        void SubscribeToNestedItemPropertyChanged();
+        void UnsubscribeFromNestedItemPropertyChanged();
     }
 }
