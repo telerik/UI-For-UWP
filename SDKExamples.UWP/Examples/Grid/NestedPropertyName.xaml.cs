@@ -90,11 +90,9 @@ namespace SDKExamples.UWP.DataGrid
 
         private void OnChangeFirstItemClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            //Info newInfo = new Info() { Name = new Profile() { Name = "New Info" }, Value = 2000 + newValue++ };
-            //this.source[0].Data.Information = newInfo;
-            newValue++;
+            Info newInfo = new Info() { Name = new Profile() { Name = "New Info" }, Value = 2000 + newValue++ };
+            this.source[0].Data.Information = newInfo;
             this.source[0].Data.Information.Value += newValue;
-            //this.source[0].Age += newValue;
         }
 
         private void OnAddItemButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
