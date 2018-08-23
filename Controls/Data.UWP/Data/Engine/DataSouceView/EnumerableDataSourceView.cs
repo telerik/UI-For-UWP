@@ -185,6 +185,11 @@ namespace Telerik.Data.Core
         {
             Type changedObjectType = changedItem.GetType();
             PropertyInfo propertyInfo = changedObjectType.GetRuntimeProperty(propertyName);
+            if (propertyInfo == null)
+            {
+                return;
+            }
+
             object changedObjectValue = propertyInfo.GetValue(changedItem);
             if (changedObjectValue is INotifyPropertyChanged)
             {
@@ -235,6 +240,12 @@ namespace Telerik.Data.Core
                 string path = string.Format("{0}{1}.", parentPropertyPath, info.Name);
                 if (this.nestedObjectInfos.ContainsKey(tempItem))
                 {
+                    if (this.nestedObjectInfos[tempItem].rootItems.Contains(rootItem))
+                    {
+                        tempItem = item;
+                        break;
+                    }
+
                     this.nestedObjectInfos[tempItem].rootItems.Add(rootItem);
                 }
                 else
