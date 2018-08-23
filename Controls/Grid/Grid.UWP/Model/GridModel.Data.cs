@@ -28,7 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         private FilterDescriptorCollection filterDescriptors;
         private AggregateDescriptorCollection aggregateDescriptors;
         private bool isCurrentItemSynchronizing = false;
-        private bool enableLiveUpdates;
+        private bool listenForNestedPropertyChange;
 
         public object ItemsSource
         {
@@ -122,16 +122,16 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
         }
 
-        internal bool EnableLiveUpdates
+        internal bool ListenForNestedPropertyChange
         {
             get
             {
-                return this.enableLiveUpdates;
+                return this.listenForNestedPropertyChange;
             }
             set
             {
-                this.enableLiveUpdates = value;
-                this.UpdateDataViewPropertyChangeSubscription(this.enableLiveUpdates);
+                this.listenForNestedPropertyChange = value;
+                this.UpdateDataViewPropertyChangeSubscription(this.listenForNestedPropertyChange);
             }
         }
 
@@ -140,7 +140,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             this.dataChangeFlags |= descriptor.UpdateFlags;
             this.GridView.UpdateService.RegisterUpdate((int)UpdateFlags.AffectsData);
         }
-        
+
         internal IEnumerable ForEachDataDescriptor()
         {
             foreach (var descriptor in this.filterDescriptors)
@@ -218,7 +218,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                 }
 
                 this.localDataProvider.ItemsSource = this.itemsSource;
-                this.UpdateDataViewPropertyChangeSubscription(this.enableLiveUpdates);
+                this.UpdateDataViewPropertyChangeSubscription(this.listenForNestedPropertyChange);
             }
 
             this.UpdateRequestedItems(null, false);
@@ -324,7 +324,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             this.filterDescriptors.DescriptionCollection = provider.FilterDescriptions;
             this.aggregateDescriptors.DescriptionCollection = provider.AggregateDescriptions;
         }
-        
+
         private void CurrencyService_CurrentChanged(object sender, EventArgs e)
         {
             if (!this.isCurrentItemSynchronizing)
@@ -468,7 +468,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
             int groupDescriptionCount = this.CurrentDataProvider.Settings.RowGroupDescriptions.Count;
             bool keepCollapsedState = (this.dataChangeFlags & DataChangeFlags.Group) == DataChangeFlags.None;
-           
+
             if (this.ShouldDisplayIncrementalLoadingIndicator)
             {
                 this.rowLayout.LayoutStrategies.Add(new PlaceholderStrategy());
@@ -645,11 +645,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             {
                 if (shouldSubscribe)
                 {
-                    this.localDataProvider.DataView.SubscribeToItemPropertyChanged();
+                    this.localDataProvider.DataView.SubscribeToNestedItemPropertyChanged();
                 }
                 else
                 {
-                    this.localDataProvider.DataView.UnsubscribeFromItemPropertyChanged();
+                    this.localDataProvider.DataView.UnsubscribeFromNestedItemPropertyChanged();
                 }
             }
         }

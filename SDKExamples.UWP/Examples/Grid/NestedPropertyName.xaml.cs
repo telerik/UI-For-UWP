@@ -85,7 +85,7 @@ namespace SDKExamples.UWP.DataGrid
 
         private void OnUpdateOnPropertyChangedButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            this.grid.EnableLiveUpdates = !this.grid.EnableLiveUpdates;
+            this.grid.ListenForNestedPropertyChange = !this.grid.ListenForNestedPropertyChange;
         }
 
         private void OnChangeFirstItemClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
