@@ -268,8 +268,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         this.currentTimeIndicatorBorder.Style = currentTimeIndicatorStyle;
                     }
 
-                    XamlMultiDayViewLayer.ArrangeUIElement(this.currentTimeIndicatorBorder, currentTimeIndicator.layoutSlot);
                     Canvas.SetLeft(this.currentTimeIndicatorBorder, -this.leftOffset);
+                    Canvas.SetTop(this.currentTimeIndicatorBorder, currentTimeIndicator.layoutSlot.Y);
+                    this.currentTimeIndicatorBorder.Width = currentTimeIndicator.layoutSlot.Width;
                 }
                 else if (this.currentTimeIndicatorBorder?.Visibility == Visibility.Visible)
                 {
