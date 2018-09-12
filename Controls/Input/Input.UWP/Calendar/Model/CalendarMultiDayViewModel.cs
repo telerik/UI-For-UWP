@@ -411,7 +411,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 double cellHeight = this.dayViewLayoutSlot.Height / this.SpecificColumnCount;
                 double gridLineThickness = this.Calendar.GridLinesThickness;
 
-                this.allDayLabelLayout = new RadRect(viewRect.X, this.dayViewLayoutSlot.Y + cellHeight, this.dayViewLayoutSlot.X - viewRect.X, this.totalAllDayAreaHeight);
+                this.allDayLabelLayout = new RadRect(viewRect.X, this.dayViewLayoutSlot.Y + cellHeight + gridLineThickness, this.dayViewLayoutSlot.X - viewRect.X, this.totalAllDayAreaHeight);
             }
             else
             {

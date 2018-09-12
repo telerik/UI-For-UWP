@@ -39,6 +39,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private RadRect viewPortArea;
         private RadRect bufferedViewPortArea;
         private TextBlock measurementPresenter;
+        private Border allDayTextBorder;
         private TextBlock allDayTextBlock;
         private Border currentTimeIndicatorBorder;
         private Border horizontalLowerGridLineBorder;
@@ -441,10 +442,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             if (allDayLabelLayout != RadRect.Empty)
             {
-                if (this.allDayTextBlock == null)
+                if (this.allDayTextBlock == null && this.allDayTextBorder == null)
                 {
                     this.allDayTextBlock = new TextBlock();
-                    this.topLeftHeaderPanel.Children.Add(this.allDayTextBlock);
+                    this.allDayTextBorder = new Border();
+                    this.allDayTextBorder.Child = this.allDayTextBlock;
+                    this.topLeftHeaderPanel.Children.Add(this.allDayTextBorder);
                 }
 
                 MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
@@ -452,6 +455,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 if (allDayAreaTextStyle != null)
                 {
                     this.allDayTextBlock.Style = allDayAreaTextStyle;
+                }
+                else if (this.allDayTextBlock.Style != null)
+                {
+                    this.allDayTextBlock.Style = null;
+                }
+
+                Style allDayAreaTextBorderStyle = settings.AllDayAreaTextBorderStyle;
+                if (allDayAreaTextBorderStyle != null)
+                {
+                    this.allDayTextBorder.Style = allDayAreaTextBorderStyle;
+                }
+                else if (this.allDayTextBorder.Style != null)
+                {
+                    this.allDayTextBorder.Style = null;
                 }
 
                 if (this.allDayTextBlock.Text != null && !this.IsTextExplicitlySet(this.allDayTextBlock.Style))
@@ -464,7 +481,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     this.allDayTextBlock.Visibility = Visibility.Visible;
                 }
 
-                XamlMultiDayViewLayer.ArrangeUIElement(this.allDayTextBlock, allDayLabelLayout, true);
+                XamlMultiDayViewLayer.ArrangeUIElement(this.allDayTextBorder, allDayLabelLayout, true);
             }
             else if (this.allDayTextBlock != null && this.allDayTextBlock.Visibility == Visibility.Visible)
             {
