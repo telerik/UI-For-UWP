@@ -135,7 +135,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        internal static DateTime IncrementByView(DateTime date, int increment, CalendarDisplayMode displayMode)
+        internal static DateTime IncrementByView(DateTime date, int increment, CalendarDisplayMode displayMode, bool weekendsVisible = true)
         {
             switch (displayMode)
             {
@@ -146,14 +146,69 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 case CalendarDisplayMode.CenturyView:
                     return CouldAddYearsToDate(date.Year + (increment * 100)) ? date.AddYears(increment * 100) : date;
                 case CalendarDisplayMode.MultiDayView:
-                    return date.Year == DateTime.MinValue.Year && date.Month == DateTime.MinValue.Month && date.Day - increment < 0
-                        || date.Year == DateTime.MaxValue.Year && date.Month == DateTime.MaxValue.Month && date.Day + increment > 31
-                        ? date : date.AddDays(increment);
+                    if (!weekendsVisible)
+                    {
+                        date = AddBusinessDays(date, increment);
+                    }
+                    else
+                    {
+                        date = date.Year == DateTime.MinValue.Year && date.Month == DateTime.MinValue.Month && date.Day - increment < 0
+                            || date.Year == DateTime.MaxValue.Year && date.Month == DateTime.MaxValue.Month && date.Day + increment > 31
+                            ? date : date.AddDays(increment);
+                    }
+
+                    return date;
                 default:
                     return date.Year == DateTime.MinValue.Year && date.Month == DateTime.MinValue.Month && increment < 0 
                         || date.Year == DateTime.MaxValue.Year && date.Month == DateTime.MaxValue.Month && increment > 0
                         ? date : date.AddMonths(increment);
             }
+        }
+
+        internal static DateTime AddBusinessDays(DateTime date, int increment)
+        {
+            var sign = Math.Sign(increment);
+            var daysToIncrement = Math.Abs(increment);
+            for (int i = 0; i < daysToIncrement; i++)
+            {
+                if (date.Year == DateTime.MinValue.Year && date.Month == DateTime.MinValue.Month && date.Day - increment < 0
+                    || date.Year == DateTime.MaxValue.Year && date.Month == DateTime.MaxValue.Month && date.Day + increment > 31)
+                {
+                    break;
+                }
+
+                do
+                {
+                    date = date.AddDays(sign);
+                }
+                while (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday);
+            }
+
+            return date;
+        }
+
+        internal static int GetBusinessDaysCount(DateTime from, DateTime to)
+        {
+            int result = 0;
+            for (DateTime date = from; date < to; date = date.AddDays(1))
+            {
+                if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday && date.Date != to.Date)
+                {
+                    result++;
+                }
+            }
+
+            return result;
+        }
+
+        internal static DateTime SetFirstAvailableBusinessDay(DateTime date, int increment)
+        {
+            while (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+            {
+                date = date.AddDays(increment);
+            }
+
+            return date;
         }
 
         internal static bool CouldAddYearsToDate(int year)

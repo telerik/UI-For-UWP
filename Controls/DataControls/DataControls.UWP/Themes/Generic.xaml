@@ -1,52 +1,41 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:telerikCore="using:Telerik.Core"
+    xmlns:theming="using:Telerik.UI.Xaml.Controls"
     xmlns:local="using:Telerik.UI.Xaml.Controls.Data"
+    xmlns:dataForm="using:Telerik.UI.Xaml.Controls.Data.DataForm"
     xmlns:localHexView="using:Telerik.UI.Xaml.Controls.Data.HexView"
+    xmlns:listView="using:Telerik.UI.Xaml.Controls.Data.ListView"
     xmlns:listViewPrimitives="using:Telerik.UI.Xaml.Controls.Data.ListView.Primitives"
+    xmlns:localAutoComplete="using:Telerik.UI.Xaml.Controls.Input.AutoCompleteBox"
     xmlns:telerikPrimitives="using:Telerik.UI.Xaml.Controls.Primitives"
     xmlns:telerikPrimitivesBusyIndicator="using:Telerik.UI.Xaml.Controls.Primitives.BusyIndicator"
-    xmlns:listView="using:Telerik.UI.Xaml.Controls.Data.ListView"
-    xmlns:telerikCore="using:Telerik.Core"
     xmlns:busyIndicator="using:Telerik.UI.Xaml.Controls.Primitives.BusyIndicator"
-    xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
-    xmlns:dataForm="using:Telerik.UI.Xaml.Controls.Data.DataForm"
-    xmlns:inputTextBox="using:Telerik.UI.Xaml.Controls.Input.NumericBox"
-    xmlns:primitivesCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
-    xmlns:localDateTime="using:Telerik.UI.Xaml.Controls.Input.DateTimePickers"
-    xmlns:localAutoComplete="using:Telerik.UI.Xaml.Controls.Input.AutoCompleteBox"
-    xmlns:theming="using:Telerik.UI.Xaml.Controls">
-
-    <ResourceDictionary.ThemeDictionaries>
-        <ResourceDictionary x:Key="Default">
-            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesDark.xaml"/>
-                <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-        <ResourceDictionary x:Key="Light">
-            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesLight.xaml"/>
-                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-        <ResourceDictionary x:Key="HighContrast">
-            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
-                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </ResourceDictionary.ThemeDictionaries>
+    xmlns:primitivesCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/DataForm.xaml"/>
         <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ListBox.xaml"/>
         <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/Resources.xaml"/>
         <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/Calendar.xaml"/>
-        <!--<ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input/Themes/Generic.xaml"/>-->
+
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark" Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesDark.xaml"/>
+                <ResourceDictionary x:Key="Light" Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesLight.xaml"/>
+                <ResourceDictionary x:Key="HighContrast" Source="ms-appx:///Telerik.UI.Xaml.Controls.Data.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+
+        <ResourceDictionary>
+            <theming:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark" Source="{CustomResource DarkResourcesPath}"/>
+                <ResourceDictionary x:Key="Light" Source="{CustomResource LightResourcesPath}"/>
+                <ResourceDictionary x:Key="HighContrast" Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
     <listView:OrientationToRotateDegreesConverter x:Key="orientationToRotateDegreesConverter" />

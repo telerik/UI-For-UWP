@@ -43,7 +43,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// </summary>
         public static readonly DependencyProperty CellEditorStyleProperty =
             DependencyProperty.Register(nameof(CellEditorStyle), typeof(Style), typeof(DataGridTypedColumn), new PropertyMetadata(null, OnCellEditorStyleChanged));
-        
+
         private IDataFieldInfo propertyInfo;
 
         private string propertyNameCache;
@@ -108,20 +108,20 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 this.SetValue(CellContentStyleSelectorProperty, value);
             }
         }
-        
+
         /// <summary>
         /// Gets or sets the <see cref="Style"/> that will be applied to the cell editor.
         /// </summary>
         public Style CellEditorStyle
         {
-           get
-           {
-               return this.cellEditorStyleCache;
-           }
-           set
-           {
-               this.SetValue(CellEditorStyleProperty, value);
-           }
+            get
+            {
+                return this.cellEditorStyleCache;
+            }
+            set
+            {
+                this.SetValue(CellEditorStyleProperty, value);
+            }
         }
 
         internal virtual Style DefaultCellContentStyle
@@ -279,7 +279,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             if (!model.columns.IsSuspended && model.FieldInfoData != null && model.FieldInfoData.RootFieldInfo != null)
             {
-                this.PropertyInfo = model.FieldInfoData.GetFieldDescriptionByMember(this.PropertyName);
+                this.SetPropertyInfo();
             }
         }
 
@@ -466,7 +466,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             definition.cellContentStyleSelectorCache = e.NewValue as StyleSelector;
             definition.OnPropertyChange(UpdateFlags.AllButData);
         }
-        
+
         private static void OnCellEditorStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = d as DataGridTypedColumn;
@@ -501,13 +501,31 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 return;
             }
 
-            if (this.propertyInfo.Name != path)
+            if (this.propertyInfo.Name != path && this.Model != null && this.Model.FieldInfoData != null)
             {
-                if (this.Model != null && this.Model.FieldInfoData != null)
+                this.SetPropertyInfo();
+            }
+        }
+
+        private void SetPropertyInfo()
+        {
+            string propertyName = this.PropertyName;
+            this.PropertyInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(propertyName);
+            int dotIndex = propertyName.IndexOf(".");
+            if (this.propertyInfo == null && dotIndex != -1)
+            {
+                string parentPath = propertyName.Substring(0, dotIndex);
+
+                var parentFieldInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(parentPath);
+                if (parentFieldInfo != null)
                 {
-                    this.propertyInfo = this.Model.FieldInfoData.GetFieldDescriptionByMember(this.PropertyName);
+                    IDataFieldInfo info = GridModel.InitializePropertyInfo(propertyName, parentFieldInfo.DataType, parentFieldInfo.RootClassType);
+                    if (info != null)
+                    {
+                        this.PropertyInfo = info;
+                        this.Model.FieldInfoData.AddFieldInfoToCache(info);
+                    }
                 }
-                this.UpdateHeader();
             }
         }
 

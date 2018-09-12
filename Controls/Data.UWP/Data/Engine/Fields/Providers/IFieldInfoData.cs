@@ -15,5 +15,7 @@
         /// </summary>
         /// <param name="name">Name of a description.</param>
         IDataFieldInfo GetFieldDescriptionByMember(string name);
+
+        void AddFieldInfoToCache(IDataFieldInfo fieldInfo);
     }
 }

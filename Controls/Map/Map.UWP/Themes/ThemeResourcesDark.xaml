@@ -24,7 +24,6 @@
     <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
 
     <ResourceDictionary.MergedDictionaries>
-        <!--<ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsDark.xaml"/>-->
         <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
     </ResourceDictionary.MergedDictionaries>
 

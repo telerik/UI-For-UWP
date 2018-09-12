@@ -1,17 +1,24 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using Telerik.Data.Core.Fields;
 
 namespace Telerik.Data.Core.Fields
 {
     internal class ExpandoObjectFieldInfo : IDataFieldInfo, IMemberAccess
     {
+        private readonly Type rootClassType;
         private string name;
         private Type dataType;
 
         public ExpandoObjectFieldInfo(string name)
         {
             this.name = name;
+        }
+
+        public ExpandoObjectFieldInfo(string name, Type rootClassType)
+        {
+            this.name = name;
+            this.rootClassType = rootClassType;
         }
 
         public string Name
@@ -27,6 +34,14 @@ namespace Telerik.Data.Core.Fields
             get
             {
                 return this.dataType;
+            }
+        }
+
+        public Type RootClassType
+        {
+            get
+            {
+                return this.rootClassType;
             }
         }
 

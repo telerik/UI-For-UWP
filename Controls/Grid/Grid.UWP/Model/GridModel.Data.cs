@@ -28,6 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
         private FilterDescriptorCollection filterDescriptors;
         private AggregateDescriptorCollection aggregateDescriptors;
         private bool isCurrentItemSynchronizing = false;
+        private bool listenForNestedPropertyChange;
 
         public object ItemsSource
         {
@@ -93,15 +94,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
         }
 
-        IDataProvider IDataDescriptorsHost.CurrentDataProvider
-        {
-            get
-            {
-                return this.CurrentDataProvider;
-            }
-        }
-
-        internal IDataProvider CurrentDataProvider
+        public IDataProvider CurrentDataProvider
         {
             get
             {
@@ -129,12 +122,25 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             }
         }
 
+        internal bool ListenForNestedPropertyChange
+        {
+            get
+            {
+                return this.listenForNestedPropertyChange;
+            }
+            set
+            {
+                this.listenForNestedPropertyChange = value;
+                this.UpdateDataViewPropertyChangeSubscription(this.listenForNestedPropertyChange);
+            }
+        }
+
         void IDataDescriptorsHost.OnDataDescriptorPropertyChanged(DataDescriptor descriptor)
         {
             this.dataChangeFlags |= descriptor.UpdateFlags;
             this.GridView.UpdateService.RegisterUpdate((int)UpdateFlags.AffectsData);
         }
-        
+
         internal IEnumerable ForEachDataDescriptor()
         {
             foreach (var descriptor in this.filterDescriptors)
@@ -212,6 +218,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                 }
 
                 this.localDataProvider.ItemsSource = this.itemsSource;
+                this.UpdateDataViewPropertyChangeSubscription(this.listenForNestedPropertyChange);
             }
 
             this.UpdateRequestedItems(null, false);
@@ -317,7 +324,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
             this.filterDescriptors.DescriptionCollection = provider.FilterDescriptions;
             this.aggregateDescriptors.DescriptionCollection = provider.AggregateDescriptions;
         }
-        
+
         private void CurrencyService_CurrentChanged(object sender, EventArgs e)
         {
             if (!this.isCurrentItemSynchronizing)
@@ -461,7 +468,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
 
             int groupDescriptionCount = this.CurrentDataProvider.Settings.RowGroupDescriptions.Count;
             bool keepCollapsedState = (this.dataChangeFlags & DataChangeFlags.Group) == DataChangeFlags.None;
-           
+
             if (this.ShouldDisplayIncrementalLoadingIndicator)
             {
                 this.rowLayout.LayoutStrategies.Add(new PlaceholderStrategy());
@@ -628,6 +635,21 @@ namespace Telerik.UI.Xaml.Controls.Grid.Model
                     // descriptor is incompatible, remove it
                     descriptors.RemoveAt(i);
                     i--;
+                }
+            }
+        }
+
+        private void UpdateDataViewPropertyChangeSubscription(bool shouldSubscribe)
+        {
+            if (this.localDataProvider != null)
+            {
+                if (shouldSubscribe)
+                {
+                    this.localDataProvider.DataView.SubscribeToNestedItemPropertyChanged();
+                }
+                else
+                {
+                    this.localDataProvider.DataView.UnsubscribeFromNestedItemPropertyChanged();
                 }
             }
         }

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using Telerik.Core;
 using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -21,6 +20,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
         private Storyboard hideStoryBoard;
         private Storyboard navigateFromStoryboard;
         private Storyboard navigateToStoryboard;
+        private Queue<RadialMenuItemControl> recycledMenuItemControls = new Queue<RadialMenuItemControl>();
 
         internal Panel ContentItemsPanel
         {
@@ -142,7 +142,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             if (segment != null && segment.LayoutSlot != RadialLayoutSlot.Invalid)
             {
                 var control = segment.Visual as RadialMenuItemControl;
-
                 if (control != null)
                 {
                     control.IsEnabled = segment.TargetItem.IsEnabled;
@@ -157,7 +156,15 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
         {
             if (segmentModel != null && segmentModel.LayoutSlot != RadialLayoutSlot.Invalid)
             {
-                var menuItemControl = new RadialMenuItemControl();
+                RadialMenuItemControl menuItemControl;
+                if (this.recycledMenuItemControls.Count > 0)
+                {
+                    menuItemControl = this.recycledMenuItemControls.Dequeue();
+                }
+                else
+                {
+                    menuItemControl = new RadialMenuItemControl();
+                }
 
                 this.ContentItemsPanel.Children.Add(menuItemControl);
 
@@ -165,7 +172,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
                 menuItemControl.Header = segmentModel.TargetItem.Header;
                 menuItemControl.Segment = segmentModel;
                 menuItemControl.IsEnabled = segmentModel.TargetItem.IsEnabled;
-
                 segmentModel.Visual = menuItemControl;
 
                 this.ArrangeMenuItemControl(segmentModel);
@@ -176,10 +182,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
         {
             if (segment != null)
             {
-                var element = segment.Visual as UIElement;
-
+                var element = segment.Visual as RadialMenuItemControl;
                 if (element != null)
                 {
+                    this.recycledMenuItemControls.Enqueue(element);
                     this.ContentItemsPanel.Children.Remove(element);
                 }
 
@@ -217,13 +223,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
         private void ArrangeMenuItemControl(RadialSegment segmentModel)
         {
             var centerPointPolar = CoordinatesUtils.GetCenterPosition(segmentModel.LayoutSlot);
-
             var centerPoint = RadMath.ToCartesianCoordinates(centerPointPolar.Radius, centerPointPolar.Angle);
-
             var tranformedCenterPoint = new Point(centerPoint.X + this.Model.OuterRadius, this.Model.OuterRadius - centerPoint.Y);
 
-            var element = segmentModel.Visual as UIElement;
-
+            var element = segmentModel.Visual as RadialMenuItemControl;
             element.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
 
             var arrangeSlot = new Rect(tranformedCenterPoint.X - element.DesiredSize.Width / 2.0, tranformedCenterPoint.Y - element.DesiredSize.Height / 2.0, element.DesiredSize.Width, element.DesiredSize.Height);

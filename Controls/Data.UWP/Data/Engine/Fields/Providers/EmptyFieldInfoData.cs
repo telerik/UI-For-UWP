@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-
-namespace Telerik.Data.Core.Fields
+﻿namespace Telerik.Data.Core.Fields
 {
     internal class EmptyFieldInfoData : IFieldInfoData
     {
@@ -16,6 +12,10 @@ namespace Telerik.Data.Core.Fields
         public ContainerNode RootFieldInfo
         {
             get { return this.rootFieldInfo; }
+        }
+
+        public void AddFieldInfoToCache(IDataFieldInfo fieldInfo)
+        {
         }
 
         public IDataFieldInfo GetFieldDescriptionByMember(string name)

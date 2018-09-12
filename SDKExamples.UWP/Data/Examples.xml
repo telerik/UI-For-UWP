@@ -106,6 +106,7 @@
     <Example DisplayName="Edit Mode" ClassName="SDKExamples.UWP.DataGrid.EditMode" />
     <Example DisplayName="Selection" ClassName="SDKExamples.UWP.DataGrid.GridSelection" />
     <Example DisplayName="Frozen Columns" ClassName="SDKExamples.UWP.DataGrid.FrozenColumnsExample" />
+    <Example DisplayName="Nested PropertyName" ClassName="SDKExamples.UWP.DataGrid.NestedPropertyName" />
   </Control>
   <Control Name="LoopingList">
     <Example DisplayName="Customizations" ClassName="SDKExamples.UWP.LoopingList.Customizations" />

@@ -3,7 +3,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:telerik="using:Telerik.UI.Xaml.Controls">
 
-    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer" />
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsLight.xaml"/>
+        <ResourceDictionary>
+            <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
 
     <!--#region SegmentedControl Brushes-->
 
@@ -252,9 +260,4 @@
     <SolidColorBrush x:Key="TelerikCalendarCurrentCellBorderBrush" Color="#FF0066CC" />
 
     <!--#endregion-->
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsLight.xaml" />
-        <ResourceDictionary Source="{CustomResource LightResourcesPath}" />
-    </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

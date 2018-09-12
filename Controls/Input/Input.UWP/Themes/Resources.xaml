@@ -1,39 +1,31 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Telerik.UI.Xaml.Controls.Input"
     xmlns:localAutoComplete="using:Telerik.UI.Xaml.Controls.Input.AutoCompleteBox"
     xmlns:localDateTime="using:Telerik.UI.Xaml.Controls.Input.DateTimePickers"
-    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
-    xmlns:primitivesCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
     xmlns:localRangeSlider="using:Telerik.UI.Xaml.Controls.Input.RangeSlider"
-    xmlns:localRangeSliderPrimitives="using:Telerik.UI.Xaml.Controls.Primitives"
-    >
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    xmlns:localRangeSliderPrimitives="using:Telerik.UI.Xaml.Controls.Primitives">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/CommonResources.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark" Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesDark.xaml"/>
+                <ResourceDictionary x:Key="Light" Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesLight.xaml"/>
+                <ResourceDictionary x:Key="HighContrast" Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
 
-    <ResourceDictionary.ThemeDictionaries>
-        <ResourceDictionary x:Key="Default">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesDark.xaml"/>
-                <ResourceDictionary Source="{CustomResource DarkResourcesPath}"/>
-            </ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark" Source="{CustomResource DarkResourcesPath}"/>
+                <ResourceDictionary x:Key="Light" Source="{CustomResource LightResourcesPath}"/>
+                <ResourceDictionary x:Key="HighContrast" Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
-        <ResourceDictionary x:Key="Light">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesLight.xaml"/>
-                <ResourceDictionary Source="{CustomResource LightResourcesPath}"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-        <ResourceDictionary x:Key="HighContrast">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Input.UWP/Themes/ThemeResourcesHighContrast.xaml"/>
-                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </ResourceDictionary.ThemeDictionaries>
+    </ResourceDictionary.MergedDictionaries>
 
     <!-- Common -->
     <primitives:ContentToVisibilityConverter x:Key="ContentToVisibilityConverter"/>

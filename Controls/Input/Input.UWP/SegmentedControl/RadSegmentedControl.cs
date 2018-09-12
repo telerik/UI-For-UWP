@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Windows.Input;
 using Telerik.Core;
+using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Markup;
@@ -280,6 +282,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 handler(this, new SegmentAnimationContextEventArgs(segment));
             }
+        }
+
+        /// <inheritdoc/>
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new RadSegmentedControlAutomationPeer(this);
         }
 
         /// <inheritdoc/>

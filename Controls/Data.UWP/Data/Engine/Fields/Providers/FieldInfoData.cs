@@ -41,6 +41,14 @@ namespace Telerik.Data.Core.Fields
             }
         }
 
+        public void AddFieldInfoToCache(IDataFieldInfo fieldInfo)
+        {
+            if (fieldInfo != null)
+            {
+                this.cachedFieldDescriptions[fieldInfo.Name] = fieldInfo;
+            }
+        }
+
         private IDataFieldInfo GetFieldDescriptionFromCache(string name)
         {
             if (this.cachedFieldDescriptions.ContainsKey(name))

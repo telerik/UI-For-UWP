@@ -2127,9 +2127,19 @@ namespace Telerik.UI.Xaml.Controls.Input
                         if (string.IsNullOrEmpty(headerText))
                         {
                             DateTime firstDateOfCurrentWeek = this.DisplayDate;
-                            DateTime lastDayOfWeek = firstDateOfCurrentWeek.AddDays(this.MultiDayViewSettings.VisibleDays);
+                            DateTime lastDayOfWeek;
+                            int visibleDays = this.MultiDayViewSettings.VisibleDays;
+                            if (this.MultiDayViewSettings.WeekendsVisible)
+                            {
+                                lastDayOfWeek = firstDateOfCurrentWeek.AddDays(visibleDays);
+                            }
+                            else
+                            {
+                                firstDateOfCurrentWeek = CalendarMathHelper.SetFirstAvailableBusinessDay(firstDateOfCurrentWeek, 1);
+                                lastDayOfWeek = CalendarMathHelper.AddBusinessDays(firstDateOfCurrentWeek, visibleDays);
+                            }
 
-                            if (firstDateOfCurrentWeek.Day == lastDayOfWeek.Subtract(TimeSpan.FromTicks(1)).Day)
+                            if (visibleDays == 1)
                             {
                                 string format = "{0:d MMMM yyyy}";
                                 headerContent = string.Format(this.currentCulture, format, firstDateOfCurrentWeek);
@@ -2142,7 +2152,13 @@ namespace Telerik.UI.Xaml.Controls.Input
                                   "{0:d MMMM} ~ {1:d MMMM yyyy}") :
                                   "{0:d MMMM yyyy} ~ {1:d MMMM yyyy}";
 
-                                headerContent = string.Format(this.currentCulture, format, firstDateOfCurrentWeek, lastDayOfWeek.Subtract(TimeSpan.FromTicks(1)));
+                                lastDayOfWeek = lastDayOfWeek.Subtract(TimeSpan.FromTicks(1));
+                                if (!this.MultiDayViewSettings.WeekendsVisible)
+                                {
+                                    lastDayOfWeek = CalendarMathHelper.SetFirstAvailableBusinessDay(lastDayOfWeek, -1);
+                                }
+
+                                headerContent = string.Format(this.currentCulture, format, firstDateOfCurrentWeek, lastDayOfWeek);
                             }
                         }
                         else
@@ -2315,7 +2331,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         protected override void UnloadCore()
         {
             base.UnloadCore();
-            this.UnloadLayout();
             this.availableCalendarViewSize = new Size(0, 0);
         }
 
@@ -3498,11 +3513,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                 increment = this.MultiDayViewSettings.VisibleDays;
             }
 
-            DateTime previousDate = CalendarMathHelper.IncrementByView(this.DisplayDate, -increment, this.DisplayMode);
+            DateTime previousDate = CalendarMathHelper.IncrementByView(this.DisplayDate, -increment, this.DisplayMode, this.MultiDayViewSettings.WeekendsVisible);
             this.CoerceDateWithinDisplayRange(ref previousDate);
             this.navigationPanel.IsNavigationToPreviousViewEnabled = CalendarMathHelper.IsCalendarViewChanged(this.DisplayDate, previousDate, this.DisplayMode);
 
-            DateTime nextDate = CalendarMathHelper.IncrementByView(this.DisplayDate, increment, this.DisplayMode);
+            DateTime nextDate = CalendarMathHelper.IncrementByView(this.DisplayDate, increment, this.DisplayMode, this.MultiDayViewSettings.WeekendsVisible);
             this.CoerceDateWithinDisplayRange(ref nextDate);
             this.navigationPanel.IsNavigationToNextViewEnabled = CalendarMathHelper.IsCalendarViewChanged(this.DisplayDate, nextDate, this.DisplayMode);
         }

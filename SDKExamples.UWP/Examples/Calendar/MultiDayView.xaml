@@ -46,6 +46,7 @@
                                                     AllDayAppointmentSpacing="{Binding SelectedAllDaySpacing, Mode=TwoWay}"
                                                     ShowCurrentTimeIndicator="{Binding ShowCurrentTimeIndicator, Mode=TwoWay}"
                                                     NavigationStep="{Binding SelectedNavigationStep, Mode=TwoWay}"
+                                                    WeekendsVisible="{Binding WeekendsVisible, Mode=TwoWay}"
                                                     AllDayAreaText="Apps"/>
                     </input:RadCalendar.MultiDayViewSettings>
                 </input:RadCalendar>
@@ -89,6 +90,7 @@
                         <CheckBox IsChecked="{Binding ShowCurrentTimeIndicator, Mode=TwoWay}" Content="Show current time indicator" Margin="0, 7, 0, 0"/>
                         <TextBlock Text="Navigation step"/>
                         <ComboBox ItemsSource="{Binding NavigationSteps}" SelectedItem="{Binding SelectedNavigationStep, Mode=TwoWay}"/>
+                        <CheckBox IsChecked="{Binding WeekendsVisible, Mode=TwoWay}" Content="Show weekends" Margin="0, 7, 0, 0"/>
                     </StackPanel>
                 </ScrollViewer>
             </primitives:RadSideDrawer.DrawerContent>

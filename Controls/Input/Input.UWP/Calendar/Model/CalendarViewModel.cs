@@ -6,6 +6,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
     internal abstract class CalendarViewModel : Element
     {
+        internal double cellWidth;
         private ElementCollection<CalendarCellModel> calendarCells;
         private ElementCollection<CalendarGridLine> calendarDecorations;
 
@@ -154,7 +155,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             this.EnsureCalendarCells();
 
-            double cellWidth = rect.Width / (this.ColumnCount + (this.BufferItemsCount * 2));
+            this.cellWidth = rect.Width / (this.ColumnCount + (this.BufferItemsCount * 2));
 
             if (this.SpecificColumnCount == 0)
             {
@@ -166,11 +167,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             DateTime dateToRender = this.GetFirstDateToRender(this.Calendar.DisplayDate);
 
             int bufferItemsCount = this.BufferItemsCount;
-            if (bufferItemsCount > 0)
-            {
-                dateToRender = dateToRender.AddDays(-bufferItemsCount);
-            }
-
             int itemIndex = 0;
             double previousRight = rect.X;
             double previousBottom = rect.Y;
@@ -185,10 +181,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                     this.PrepareCalendarCell(calendarCell, dateToRender);
 
-                    double horizontalDifference = columnIndex * cellWidth - previousRight + rect.X;
+                    double horizontalDifference = columnIndex * this.cellWidth - previousRight + rect.X;
                     double verticalDifference = rowIndex * cellHeight - previousBottom + rect.Y;
 
-                    calendarCell.Arrange(new RadRect(previousRight, previousBottom, cellWidth + horizontalDifference, cellHeight + verticalDifference));
+                    calendarCell.Arrange(new RadRect(previousRight, previousBottom, this.cellWidth + horizontalDifference, cellHeight + verticalDifference));
 
                     previousRight = calendarCell.layoutSlot.Right;
                     if (columnIndex == (this.ColumnCount + (bufferItemsCount * 2)) - 1)
@@ -199,6 +195,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     this.SnapToGridLines(calendarCell, rowIndex, columnIndex);
 
                     dateToRender = this.GetNextDateToRender(dateToRender);
+
                     itemIndex++;
                 }
             }
