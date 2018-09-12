@@ -517,7 +517,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 int maxVisibleRows = settings.AllDayMaxVisibleRows;
                 this.totalAllDayAreaHeight = this.allDayAreaRowCount > maxVisibleRows
                     ? maxVisibleRows * appoitmentHeight + maxVisibleRows * settings.AllDayAppointmentSpacing + appoitmentHeight / 2
-                    : this.allDayAreaRowCount * appoitmentHeight + this.allDayAreaRowCount * settings.AllDayAppointmentSpacing + appoitmentHeight / 2;
+                    : this.allDayAreaRowCount * appoitmentHeight + this.allDayAreaRowCount * settings.AllDayAppointmentSpacing;
 
                 if (this.allDayAreaRowCount == 0)
                 {

@@ -372,7 +372,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     layoutSlot.Width -= 3;
                     appointmentControl.Content = appointmentInfo.DetailText;
                     appointmentControl.Header = appointmentInfo.Subject;
-                    appointmentControl.Background = appointmentInfo.Brush;
+                    if (appointmentInfo.Brush != null)
+                    {
+                        appointmentControl.Background = appointmentInfo.Brush;
+                    }
 
                     if (appointmentInfo.hasPrevDay)
                     {
@@ -872,6 +875,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 visual = this.realizedAppointmentDefaultPresenters[virtualIndex];
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
+                visual.ClearValue(AppointmentControl.BackgroundProperty);
+                visual.ClearValue(AppointmentControl.HeaderProperty);
+                visual.ClearValue(AppointmentControl.ContentProperty);
+                visual.ClearValue(AppointmentControl.StyleProperty);
                 visual.ClearValue(AppointmentControl.LeftIndicatorVisibilityProperty);
                 visual.ClearValue(AppointmentControl.RightIndicatorVisibilityProperty);
                 visual.ClearValue(Canvas.LeftProperty);
