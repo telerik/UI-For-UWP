@@ -24,6 +24,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         public XamlAllDayAreaLayer()
         {
             this.allDayAreaPanel = new Canvas();
+            this.allDayAreaPanel.VerticalAlignment = VerticalAlignment.Top;
             this.allDayAreaScrollViewer = new ScrollViewer();
             this.allDayAreaScrollViewer.Content = this.allDayAreaPanel;
 
@@ -155,7 +156,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 {
                     RadRect layoutSlot = appInfo.layoutSlot;
                     appointmentControl.Header = appInfo.Subject;
-                    appointmentControl.Background = appInfo.Brush;
+                    if (appInfo.Brush != null)
+                    {
+                        appointmentControl.Background = appInfo.Brush;
+                    }
+
                     appointmentControl.appointmentInfo = appInfo;
 
                     StyleSelector styleSelector = calendar.AppointmentStyleSelector;
@@ -202,6 +207,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 visual = this.realizedAllDayAppointmentDefaultPresenters[virtualIndex];
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
+                visual.ClearValue(AppointmentControl.BackgroundProperty);
+                visual.ClearValue(AppointmentControl.HeaderProperty);
+                visual.ClearValue(AppointmentControl.ContentProperty);
+                visual.ClearValue(AppointmentControl.StyleProperty);
                 visual.ClearValue(Canvas.ZIndexProperty);
                 visual.ClearValue(Canvas.LeftProperty);
             }
