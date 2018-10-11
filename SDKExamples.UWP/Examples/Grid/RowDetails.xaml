@@ -1,0 +1,50 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.DataGrid.RowDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <grid:RadDataGrid x:Name="DataGrid" 
+                                 UserGroupMode="Disabled"
+                                 AutoGenerateColumns="False"
+                                 RowDetailsDisplayMode="Single"
+                                 UserFilterMode="Enabled">
+            <grid:RadDataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <grid:RadDataGrid ItemsSource="{Binding Details}"
+                                             Background="LightGray"
+                                             UserGroupMode="Disabled"
+                                             UserEditMode="Inline"
+                                             AutoGenerateColumns="False">
+                        <grid:RadDataGrid.Columns>
+                            <grid:DataGridTextColumn PropertyName="Name"/>
+                            <grid:DataGridTextColumn PropertyName="Company"/>
+                            <grid:DataGridTextColumn PropertyName="Email"/>
+                        </grid:RadDataGrid.Columns>
+                    </grid:RadDataGrid>
+                </DataTemplate>
+            </grid:RadDataGrid.RowDetailsTemplate>
+            <grid:RadDataGrid.Columns>
+                <grid:DataGridTemplateColumn SizeMode="Fixed" Width="40">
+                    <grid:DataGridTemplateColumn.CellContentTemplate>
+                        <DataTemplate>
+                            <CheckBox Checked="CheckBox_Checked" 
+                                      Unchecked="CheckBox_Unchecked" 
+                                      Margin="10"/>
+                        </DataTemplate>
+                    </grid:DataGridTemplateColumn.CellContentTemplate>
+                </grid:DataGridTemplateColumn>
+                <grid:DataGridTextColumn CanUserFilter="True" 
+                                         PropertyName="Country"/>
+
+                <grid:DataGridTextColumn CanUserFilter="True" 
+                                         PropertyName="Capital"/>
+            </grid:RadDataGrid.Columns>
+        </grid:RadDataGrid>
+    </Grid>
+</local:ExamplePageBase>
