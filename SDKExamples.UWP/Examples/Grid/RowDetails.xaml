@@ -1,0 +1,48 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.DataGrid.RowDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:grid="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" x:Name="page"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <grid:RadDataGrid x:Name="DataGrid"
+                          Grid.Row="1"
+                          UserGroupMode="Disabled"
+                          AutoGenerateColumns="False"
+                          RowDetailsDisplayMode="Single">
+            <grid:RadDataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <grid:RadDataGrid ItemsSource="{Binding Details}"
+                                      UserGroupMode="Disabled"
+                                      AutoGenerateColumns="False">
+                        <grid:RadDataGrid.Columns>
+                            <grid:DataGridTextColumn PropertyName="Name"/>
+                            <grid:DataGridTextColumn PropertyName="Company"/>
+                            <grid:DataGridTextColumn SizeMode="Stretch" PropertyName="Email"/>
+                        </grid:RadDataGrid.Columns>
+                    </grid:RadDataGrid>
+                </DataTemplate>
+            </grid:RadDataGrid.RowDetailsTemplate>
+            <grid:RadDataGrid.Columns>
+                <grid:DataGridTemplateColumn SizeMode="Fixed" Width="40">
+                    <grid:DataGridTemplateColumn.CellContentTemplate>
+                        <DataTemplate>
+                            <CheckBox Margin="10" IsChecked="{Binding HasRowDetails, Mode=TwoWay}" Click="OnCheckBoxClick"/>
+                        </DataTemplate>
+                    </grid:DataGridTemplateColumn.CellContentTemplate>
+                </grid:DataGridTemplateColumn>
+                <grid:DataGridTextColumn PropertyName="Country"/>
+                <grid:DataGridTextColumn PropertyName="Capital"/>
+            </grid:RadDataGrid.Columns>
+        </grid:RadDataGrid>
+    </Grid>
+</local:ExamplePageBase>
