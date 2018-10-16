@@ -53,8 +53,6 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         /// </summary>
         public DataGridFormEditor()
         {
-            this.SaveCommand = new ExternalEditorActionCommand(this, Commands.ExternalEditorCommandId.Save);
-            this.CancelCommand = new ExternalEditorActionCommand(this, Commands.ExternalEditorCommandId.Cancel);
             this.DefaultStyleKey = typeof(DataGridFormEditor);
         }
 
@@ -161,6 +159,9 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
+
+            this.SaveCommand = new ExternalEditorActionCommand(this, Commands.ExternalEditorCommandId.Save);
+            this.CancelCommand = new ExternalEditorActionCommand(this, Commands.ExternalEditorCommandId.Cancel);
 
             this.dataForm = this.GetTemplatePartField<RadDataForm>("PART_DataForm");
             applied = this.dataForm != null;
