@@ -144,6 +144,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(AllDayAreaTextStyle), typeof(Style), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnAllDayAreaTextStyleChanged));
 
         /// <summary>
+        /// Identifies the <see cref="AllDayAreaTextBorderStyle"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty AllDayAreaTextBorderStyleProperty =
+            DependencyProperty.Register(nameof(AllDayAreaTextBorderStyle), typeof(Style), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnAllDayAreaTextBorderStyleChanged));
+
+        /// <summary>
         /// Identifies the <see cref="AllDayAreaText"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty AllDayAreaTextProperty =
@@ -181,6 +187,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private Style currentTimeIndicatorStyleCache;
         private Style allDayAreaBorderStyleCache;
         private Style allDayAreaTextStyleCache;
+        private Style allDayAreaTextBorderStyleCache;
         private Style todaySlotStyleCache;
         private WeakCollectionChangedListener specialSlotsCollectionChangedListener;
         private List<WeakPropertyChangedListener> specialSlotsPropertyChangedListeners = new List<WeakPropertyChangedListener>();
@@ -509,6 +516,21 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(AllDayAreaTextStyleProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Style that gets applied on the Border that holds the text of the all day area.
+        /// </summary>
+        public Style AllDayAreaTextBorderStyle
+        {
+            get
+            {
+                return this.allDayAreaTextBorderStyleCache;
+            }
+            set
+            {
+                this.SetValue(AllDayAreaTextBorderStyleProperty, value);
             }
         }
 
@@ -965,6 +987,13 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
             settings.allDayAreaTextStyleCache = (Style)args.NewValue;
+            MultiDayViewSettings.UpdateAllDayAreaText(settings);
+        }
+
+        private static void OnAllDayAreaTextBorderStyleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MultiDayViewSettings settings = (MultiDayViewSettings)sender;
+            settings.allDayAreaTextBorderStyleCache = (Style)args.NewValue;
             MultiDayViewSettings.UpdateAllDayAreaText(settings);
         }
 

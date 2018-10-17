@@ -312,6 +312,9 @@
     <Compile Include="Examples\Grid\PriorityColumns.xaml.cs">
       <DependentUpon>PriorityColumns.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Grid\RowDetails.xaml.cs">
+      <DependentUpon>RowDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\HubTile\HexHubTile.xaml.cs">
       <DependentUpon>HexHubTile.xaml</DependentUpon>
     </Compile>
@@ -727,6 +730,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\Grid\PriorityColumns.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\Grid\RowDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

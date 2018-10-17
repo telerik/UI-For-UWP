@@ -64,6 +64,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     element = this.GetDefaultVisual(index);
                     element.Clip = new RectangleGeometry() { Rect = new Rect(0, 0, cell.LayoutSlot.Width, cell.LayoutSlot.Height) };
                     element.Header = info.Subject;
+                    if (info.Brush != null)
+                    {
+                        element.Background = info.Brush;
+                    }
+
                     element.Background = info.Brush;
                     element.appointmentInfo = info;
 

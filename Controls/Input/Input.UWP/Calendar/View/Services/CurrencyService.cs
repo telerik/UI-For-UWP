@@ -259,7 +259,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.currentCellsToUpdate.Clear();
             }
 
-            if (oldCurrentDate != DateTime.MinValue && oldCurrentDate != newCurrentDate)
+            if (oldCurrentDate != DateTime.MinValue && oldCurrentDate.Date != newCurrentDate.Date)
             {
                 oldCurrentDate = CalendarMathHelper.GetCellDateForViewLevel(oldCurrentDate, this.Owner.DisplayMode);
                 CalendarCellModel previousCell = this.Owner.GetCellByDate(oldCurrentDate);
