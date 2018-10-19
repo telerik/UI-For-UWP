@@ -16,19 +16,19 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public static readonly DependencyProperty SelectedBackgroundBrushProperty =
             DependencyProperty.Register(nameof(SelectedBackgroundBrush), typeof(Brush), typeof(ToggleSwitchCustomEditor), new PropertyMetadata(null, OnSelectedBackgroundBrushChanged));
-        
+
         /// <summary>
         /// Identifies the <see cref="OffStateBackground"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty PointerOverBackgroundBrushProperty =
             DependencyProperty.Register(nameof(PointerOverBackgroundBrush), typeof(Brush), typeof(ToggleSwitchCustomEditor), new PropertyMetadata(null, OnPointerOverBackgroundBrushPropertyChanged));
-        
+
         /// <summary>
         /// Identifies the <see cref="OffStateBackground"/> dependency property. 
         /// </summary>
         public static readonly DependencyProperty OffStateBackgroundProperty =
             DependencyProperty.Register(nameof(OffStateBackground), typeof(Brush), typeof(ToggleSwitchCustomEditor), new PropertyMetadata(null, OnOffStateBackgroundPropertyChanged));
-        
+
         private const string SwitchKnobBoundsPartName = "SwitchKnobBounds";
         private const string SwitchKnobOffPartName = "SwitchKnobOff";
         private const string OuterBorderPartName = "OuterBorder";
@@ -91,7 +91,13 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         object IEditor.GetCurrentValue()
         {
-            return this.EditorControl.IsOn;
+            var editor = this.EditorControl;
+            if (editor != null)
+            {
+                return editor.IsOn;
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -154,11 +160,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.switchKnobRect = ElementTreeHelper.FindVisualDescendant<Rectangle>(this.EditorControl, a => a.GetType() == typeof(Rectangle) && ((Rectangle)a).Name == SwitchKnobBoundsPartName);
             this.switchKnobOffEllipse = ElementTreeHelper.FindVisualDescendant<Ellipse>(this.EditorControl, a => a.GetType() == typeof(Ellipse) && ((Ellipse)a).Name == SwitchKnobOffPartName);
             this.outerBorderRect = ElementTreeHelper.FindVisualDescendant<Rectangle>(this.EditorControl, a => a.GetType() == typeof(Rectangle) && ((Rectangle)a).Name == OuterBorderPartName);
-            
+
             this.UpdateSwitchBrushes();
             this.EditorControl.Loaded -= this.OnToggleSwitchEditorLoaded;
         }
-        
+
         private void UpdateSwitchBrushes()
         {
             if (this.switchKnobRect != null)
