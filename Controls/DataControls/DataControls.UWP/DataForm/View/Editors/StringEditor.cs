@@ -78,6 +78,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             set { this.SetValue(ErrorIconStyleProperty, value); }
         }
 
+        object IEditor.GetCurrentValue()
+        {
+            return this.Text;
+        }
+
         /// <summary>
         /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
         /// </summary>
@@ -101,11 +106,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             b3.Converter = new IsEnabledEditorConvetrer();
             b3.Path = new PropertyPath(string.Empty);
             this.SetBinding(StringEditor.IsEnabledProperty, b3);
-        }
-
-        object IEditor.GetCurrentValue()
-        {
-            return this.Text;
         }
     }
 }

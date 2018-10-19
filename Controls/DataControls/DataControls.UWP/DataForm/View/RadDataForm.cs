@@ -239,6 +239,14 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        bool IDataFormView.IsTemplateApplied
+        {
+            get
+            {
+                return this.IsTemplateApplied;
+            }
+        }
+
         internal DataFormModel Model { get; set; }
 
         internal Entity Entity
@@ -333,15 +341,15 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.Model.RefreshLayout();
         }
 
+        /// <summary>
+        /// Gets the editor current value. Used in tests.
+        /// </summary>
+        /// <param name="entityProperty">The property associated with the editor.</param>
+        /// <returns>The editor value.</returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public object GetEditorValueForProperty(EntityProperty entityProperty)
         {
             return this.Model.GetEditorCurrentValue(entityProperty);
-        }
-
-        bool IDataFormView.IsTemplateApplied
-        {
-            get => this.IsTemplateApplied;
         }
 
         void IDataFormView.PrepareEditor(object editor, object groupVisual)

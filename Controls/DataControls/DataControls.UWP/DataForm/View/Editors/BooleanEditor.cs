@@ -40,6 +40,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        object IEditor.GetCurrentValue()
+        {
+            return this.IsChecked;
+        }
+
         /// <summary>
         /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
         /// </summary>
@@ -53,11 +58,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             b3.Converter = new IsEnabledEditorConvetrer();
             b3.Path = new PropertyPath(string.Empty);
             this.SetBinding(BooleanEditor.IsEnabledProperty, b3);
-        }
-
-        object IEditor.GetCurrentValue()
-        {
-            return this.IsChecked;
         }
     }
 }

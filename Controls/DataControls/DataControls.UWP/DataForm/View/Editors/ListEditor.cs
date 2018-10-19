@@ -18,6 +18,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.DefaultStyleKey = typeof(ListEditor);
         }
 
+        object IEditor.GetCurrentValue()
+        {
+            return this.SelectedItem;
+        }
+
         /// <summary>
         /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
         /// </summary>
@@ -50,11 +55,6 @@ namespace Telerik.UI.Xaml.Controls.Data
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new DataFormComboBoxItem();
-        }
-
-        object IEditor.GetCurrentValue()
-        {
-            return this.SelectedItem;
         }
     }
 }

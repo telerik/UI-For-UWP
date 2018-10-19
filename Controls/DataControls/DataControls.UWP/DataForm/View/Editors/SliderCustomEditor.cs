@@ -41,6 +41,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        object IEditor.GetCurrentValue()
+        {
+            return this.Value;
+        }
+
         /// <summary>
         /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
         /// </summary>
@@ -66,11 +71,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             Binding b5 = new Binding() { Mode = BindingMode.TwoWay };
             b5.Path = new PropertyPath("PropertyValue");
             this.SetBinding(SliderCustomEditor.ValueProperty, b5);
-        }
-
-        object IEditor.GetCurrentValue()
-        {
-            return this.Value;
         }
     }
 }

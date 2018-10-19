@@ -78,6 +78,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             set { this.SetValue(IconDisplayModeProperty, value); }
         }
 
+        object IEditor.GetCurrentValue()
+        {
+            return this.Text;
+        }
+
         /// <summary>
         /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
         /// </summary>
@@ -105,11 +110,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             Binding b4 = new Binding();
             b4.Path = new PropertyPath("ValueOptions");
             this.SetBinding(AutoCompleteEditor.ItemsSourceProperty, b4);
-        }
-
-        object IEditor.GetCurrentValue()
-        {
-            return this.Text;
         }
     }
 }

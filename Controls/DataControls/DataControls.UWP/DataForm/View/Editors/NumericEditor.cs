@@ -109,6 +109,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             set { this.SetValue(ButtonsPointerOverBackgroundBrushProperty, value); }
         }
 
+        object IEditor.GetCurrentValue()
+        {
+            return this.Value;
+        }
+
         /// <summary>
         /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
         /// </summary>
@@ -142,11 +147,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             rangeB.Path = new PropertyPath("Range.Max");
             rangeB.FallbackValue = double.MaxValue;
             this.SetBinding(NumericEditor.MaximumProperty, rangeB);
-        }
-
-        object IEditor.GetCurrentValue()
-        {
-            return this.Value;
         }
     }
 }

@@ -89,6 +89,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        object IEditor.GetCurrentValue()
+        {
+            return this.EditorControl.IsOn;
+        }
+
         /// <summary>
         /// Occurs when the <see cref="M:OnApplyTemplate" /> method has been called and the template is already successfully applied.
         /// </summary>
@@ -166,11 +171,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.switchKnobOffEllipse.Fill = this.OffStateBackground;
                 this.outerBorderRect.Stroke = this.OffStateBackground;
             }
-        }
-
-        object IEditor.GetCurrentValue()
-        {
-            return this.EditorControl.IsOn;
         }
     }
 }

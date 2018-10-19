@@ -126,6 +126,13 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.BuildEditors();
         }
 
+        internal object GetEditorCurrentValue(EntityProperty entityProperty)
+        {
+            EntityPropertyControl control;
+            this.propertyToEditor.TryGetValue(entityProperty, out control);
+            return control?.GetCurrentValue();
+        }
+
         private void Validator_ErrorsChanged(object sender, System.ComponentModel.DataErrorsChangedEventArgs e)
         {
             this.TransactionService.ErrorsChanged(sender, e.PropertyName);
@@ -182,13 +189,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
 
             return container;
-        }
-
-        internal object GetEditorCurrentValue(EntityProperty entityProperty)
-        {
-            EntityPropertyControl control;
-            this.propertyToEditor.TryGetValue(entityProperty, out control);
-            return control?.GetCurrentValue();
         }
     }
 }

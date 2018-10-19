@@ -18,7 +18,12 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             this.DefaultStyleKey = typeof(SegmentedCustomEditor);
         }
-        
+
+        object IEditor.GetCurrentValue()
+        {
+            return this.SelectedItem;
+        }
+
         /// <summary>
         /// Method used for generating bindings for the <see cref="ITypeEditor"/> properties.
         /// </summary>
@@ -36,11 +41,6 @@ namespace Telerik.UI.Xaml.Controls.Data
             b3.Converter = new IsEnabledEditorConvetrer();
             b3.Path = new PropertyPath(string.Empty);
             this.SetBinding(SegmentedCustomEditor.IsEnabledProperty, b3);
-        }
-
-        object IEditor.GetCurrentValue()
-        {
-            return this.SelectedItem;
         }
     }
 }

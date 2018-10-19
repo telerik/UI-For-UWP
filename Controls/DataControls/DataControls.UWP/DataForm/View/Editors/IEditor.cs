@@ -1,6 +1,6 @@
 ﻿namespace Telerik.UI.Xaml.Controls.Data
 {
-    interface IEditor
+    internal interface IEditor
     {
         object GetCurrentValue();
     }
