@@ -1,4 +1,5 @@
-﻿using Telerik.Data.Core;
+﻿using System;
+using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -70,7 +71,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public static readonly DependencyProperty PositiveMessageViewColumnProperty =
             DependencyProperty.Register(nameof(PositiveMessageViewColumn), typeof(int), typeof(EntityPropertyControl), new PropertyMetadata(0, PositiveMessageViewColumnChanged));
-        
+
         internal Grid container;
         private EntityProperty property;
 
@@ -90,7 +91,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             get { return (int)GetValue(RowCountProperty); }
             set { this.SetValue(RowCountProperty, value); }
         }
-        
+
         /// <summary>
         /// Gets or sets number of columns in the control.
         /// </summary>
@@ -220,6 +221,17 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        internal object GetCurrentValue()
+        {
+            var editor = this.View as IEditor;
+            if (editor != null)
+            {
+                return editor.GetCurrentValue();
+            }
+
+            return null;
+        }
+
         /// <inheritdoc/>
         protected override bool ApplyTemplateCore()
         {
@@ -271,7 +283,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 editor.PositiveMessageView.SetValue(Grid.ColumnProperty, e.NewValue);
             }
         }
-        
+
         private static void OnRowCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var editor = d as EntityPropertyControl;

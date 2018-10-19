@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Telerik.UI.Xaml.Controls.Data.DataForm.View;
@@ -8,8 +10,8 @@ namespace Telerik.UI.Xaml.Controls.Data
     internal partial class DataFormModel
     {
         private Entity entity;
-
         private EntityEditorGenerator containerGenerator;
+        private Dictionary<EntityProperty, EntityPropertyControl> propertyToEditor = new Dictionary<EntityProperty, EntityPropertyControl>();
 
         internal DataFormModel(IDataFormView view)
         {
@@ -86,10 +88,14 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.CreateDefaultEntityProvider();
             }
 
-            this.entityProvider.OnItemChanged(newItem);
-            this.containerGenerator.RemoveAll();
-            this.Entity = this.entityProvider.GenerateEntity();
-            this.Entity.IsReadOnly = this.View.IsReadOnly;
+            if (this.entityProvider.Context != newItem)
+            {
+                this.entityProvider.OnItemChanged(newItem);
+                this.containerGenerator.RemoveAll();
+                this.Entity = this.entityProvider.GenerateEntity();
+                this.Entity.IsReadOnly = this.View.IsReadOnly;
+            }
+
             this.BuildEditors();
         }
 
@@ -120,6 +126,13 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.BuildEditors();
         }
 
+        internal object GetEditorCurrentValue(EntityProperty entityProperty)
+        {
+            EntityPropertyControl control;
+            this.propertyToEditor.TryGetValue(entityProperty, out control);
+            return control?.GetCurrentValue();
+        }
+
         private void Validator_ErrorsChanged(object sender, System.ComponentModel.DataErrorsChangedEventArgs e)
         {
             this.TransactionService.ErrorsChanged(sender, e.PropertyName);
@@ -132,30 +145,34 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         private void BuildEditors()
         {
-            var properties = this.entity.Properties.OrderBy((property) => property.Index);
-
-            foreach (var entityProperty in properties)
+            if (this.View.IsTemplateApplied)
             {
-                object groupContainer = null;
+                this.propertyToEditor.Clear();
 
-                if (entityProperty.GroupKey != null)
+                var properties = this.entity.Properties.OrderBy((property) => property.Index);
+
+                foreach (var entityProperty in properties)
                 {
-                    groupContainer = this.GetOrCreateGroupContainer(entityProperty.GroupKey);
-                }
-
-                var editor = this.containerGenerator.CreateContainer(entityProperty);
-
-                if (editor != null)
-                {
-                    this.containerGenerator.PrepareContainer(editor, entityProperty);
-
-                    if (entityProperty.GroupKey == null)
+                    object groupContainer = null;
+                    if (entityProperty.GroupKey != null)
                     {
-                        this.View.AddEditor(editor);
+                        groupContainer = this.GetOrCreateGroupContainer(entityProperty.GroupKey);
                     }
-                    else
+
+                    var editor = this.containerGenerator.CreateContainer(entityProperty);
+                    if (editor != null)
                     {
-                        this.containerGenerator.AddViewToGroupContainer(groupContainer, editor);
+                        this.propertyToEditor.Add(entityProperty, editor);
+                        this.containerGenerator.PrepareContainer(editor, entityProperty);
+
+                        if (entityProperty.GroupKey == null)
+                        {
+                            this.View.AddEditor(editor);
+                        }
+                        else
+                        {
+                            this.containerGenerator.AddViewToGroupContainer(groupContainer, editor);
+                        }
                     }
                 }
             }

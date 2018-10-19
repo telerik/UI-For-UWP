@@ -11,6 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         CommandService CommandService { get; }
         ITransactionService TransactionService { get; }
 
+        bool IsTemplateApplied { get; }
         bool IsReadOnly { get; }
 
         void AddEditor(object element);

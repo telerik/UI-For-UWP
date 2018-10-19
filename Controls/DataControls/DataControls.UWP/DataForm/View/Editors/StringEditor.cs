@@ -8,7 +8,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// <summary>
     /// Represents a StringEditor control.
     /// </summary>
-    public class StringEditor : TextBox, ITypeEditor
+    public class StringEditor : TextBox, ITypeEditor, IEditor
     {
         /// <summary>
         /// Identifies the <see cref="LabelIconStyle"/> dependency property. 
@@ -76,6 +76,11 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             get { return (Style)GetValue(ErrorIconStyleProperty); }
             set { this.SetValue(ErrorIconStyleProperty, value); }
+        }
+
+        object IEditor.GetCurrentValue()
+        {
+            return this.Text;
         }
 
         /// <summary>

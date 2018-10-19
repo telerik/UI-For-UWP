@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using Telerik.Data.Core;
 using Telerik.UI.Automation.Peers;
@@ -18,65 +19,65 @@ namespace Telerik.UI.Xaml.Controls.Data
     public class RadDataForm : RadControl, IDataFormView
     {
         /// <summary>
-        /// Identifies the <see cref="LayoutDefinition"/> dependency property. 
+        /// Identifies the <see cref="LayoutDefinition"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty LayoutDefinitionProperty =
             DependencyProperty.Register(nameof(LayoutDefinition), typeof(DataFormLayoutDefinition), typeof(RadDataForm), new PropertyMetadata(null, OnLayoutDefinitionChanged));
 
         /// <summary>
-        /// Identifies the <see cref="ValidationMode"/> dependency property. 
+        /// Identifies the <see cref="ValidationMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValidationModeProperty =
             DependencyProperty.Register(nameof(ValidationMode), typeof(ValidationMode), typeof(RadDataForm), new PropertyMetadata(ValidationMode.OnCommit));
 
         /// <summary>
-        /// Identifies the <see cref="PropertyIteratorMode"/> dependency property. 
+        /// Identifies the <see cref="PropertyIteratorMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty PropertyIteratorModeProperty =
             DependencyProperty.Register(nameof(PropertyIteratorMode), typeof(PropertyIteratorMode), typeof(RadDataForm), new PropertyMetadata(PropertyIteratorMode.All, OnPropertyIteratorModeChanged));
 
         /// <summary>
-        /// Identifies the <see cref="Item"/> dependency property. 
+        /// Identifies the <see cref="Item"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ItemProperty =
             DependencyProperty.Register(nameof(Item), typeof(object), typeof(RadDataForm), new PropertyMetadata(null, OnItemChanged));
 
         /// <summary>
-        /// Identifies the <see cref="EditorFactory"/> dependency property. 
+        /// Identifies the <see cref="EditorFactory"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EditorFactoryProperty =
             DependencyProperty.Register(nameof(EditorFactory), typeof(EditorFactory), typeof(RadDataForm), new PropertyMetadata(null, OnEditorFactoryChanged));
 
         /// <summary>
-        /// Identifies the <see cref="IsReadOnly"/> dependency property. 
+        /// Identifies the <see cref="IsReadOnly"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty IsReadOnlyProperty =
             DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(RadDataForm), new PropertyMetadata(false, OnIsReadOnlyChanged));
 
         /// <summary>
-        /// Identifies the <see cref="GroupHeaderTemplateSelector"/> dependency property. 
+        /// Identifies the <see cref="GroupHeaderTemplateSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty GroupHeaderTemplateSelectorProperty =
             DependencyProperty.Register(nameof(GroupHeaderTemplateSelector), typeof(DataTemplateSelector), typeof(RadDataForm), new PropertyMetadata(null));
 
         /// <summary>
-        /// Identifies the <see cref="EditorStyleSelector"/> dependency property. 
+        /// Identifies the <see cref="EditorStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EditorStyleSelectorProperty =
             DependencyProperty.Register(nameof(EditorStyleSelector), typeof(StyleSelector), typeof(RadDataForm), new PropertyMetadata(null));
 
         /// <summary>
-        /// Identifies the <see cref="EntityProvider"/> dependency property. 
+        /// Identifies the <see cref="EntityProvider"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty EntityProviderProperty =
             DependencyProperty.Register(nameof(EntityProvider), typeof(EntityProvider), typeof(RadDataForm), new PropertyMetadata(null, OnEntityProviderChanged));
 
         /// <summary>
-        /// Identifies the <see cref="CommitMode"/> dependency property. 
+        /// Identifies the <see cref="CommitMode"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CommitModeProperty =
             DependencyProperty.Register(nameof(CommitMode), typeof(CommitMode), typeof(RadDataForm), new PropertyMetadata(CommitMode.Immediate, OnCommitModeChanged));
-        
+
         internal ContentControl childrensPanelPresenter;
         internal Panel RootPanel;
         private TransactionService transactionService;
@@ -140,7 +141,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Windows.UI.Xaml.Controls.DataTemplateSelector"/> used to choose DataTemplate to display the group headers that are part of the control. 
+        /// Gets or sets the <see cref="Windows.UI.Xaml.Controls.DataTemplateSelector"/> used to choose DataTemplate to display the group headers that are part of the control.
         /// This is a dependency property.
         /// </summary>
         public DataTemplateSelector GroupHeaderTemplateSelector
@@ -148,7 +149,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             get { return (DataTemplateSelector)GetValue(GroupHeaderTemplateSelectorProperty); }
             set { this.SetValue(GroupHeaderTemplateSelectorProperty, value); }
         }
-        
+
         /// <summary>
         /// Gets the collection with all the custom commands registered with the <see cref="CommandService"/>. Custom commands have higher priority than the built-in (default) ones.
         /// </summary>
@@ -161,7 +162,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Windows.UI.Xaml.Controls.StyleSelector"/> used to choose Style to display each editor of the control. 
+        /// Gets or sets the <see cref="Windows.UI.Xaml.Controls.StyleSelector"/> used to choose Style to display each editor of the control.
         /// This is a dependency property.
         /// </summary>
         public StyleSelector EditorStyleSelector
@@ -224,7 +225,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.SetValue(PropertyIteratorModeProperty, value);
             }
         }
-        
+
         ITransactionService IDataFormView.TransactionService
         {
             get { return this.TransactionService; }
@@ -235,6 +236,14 @@ namespace Telerik.UI.Xaml.Controls.Data
             get
             {
                 return this.IsReadOnly;
+            }
+        }
+
+        bool IDataFormView.IsTemplateApplied
+        {
+            get
+            {
+                return this.IsTemplateApplied;
             }
         }
 
@@ -330,6 +339,17 @@ namespace Telerik.UI.Xaml.Controls.Data
         public void RefreshFormLayout()
         {
             this.Model.RefreshLayout();
+        }
+
+        /// <summary>
+        /// Gets the editor current value. Used in tests.
+        /// </summary>
+        /// <param name="entityProperty">The property associated with the editor.</param>
+        /// <returns>The editor value.</returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public object GetEditorValueForProperty(EntityProperty entityProperty)
+        {
+            return this.Model.GetEditorCurrentValue(entityProperty);
         }
 
         void IDataFormView.PrepareEditor(object editor, object groupVisual)
@@ -455,7 +475,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             return new RadDataFormAutomationPeer(this);
         }
-        
+
         private static void OnLayoutDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var form = d as RadDataForm;
@@ -478,10 +498,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         private static void OnItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RadDataForm form = d as RadDataForm;
-            if (form.IsTemplateApplied)
-            {
-                form.Model.OnItemChanged(e.NewValue);
-            }
+            form.Model.OnItemChanged(e.NewValue);
         }
 
         private static void OnEntityProviderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

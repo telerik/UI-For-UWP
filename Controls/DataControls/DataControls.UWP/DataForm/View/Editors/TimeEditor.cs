@@ -11,7 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// <summary>
     /// Represents a TimeEditor control.
     /// </summary>
-    public class TimeEditor : RadTimePicker, ITypeEditor
+    public class TimeEditor : RadTimePicker, ITypeEditor, IEditor
     {
         /// <summary>
         /// Identifies the <see cref="IconDisplayMode"/> dependency property. 
@@ -124,6 +124,11 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             get { return (Brush)GetValue(SelectedForegroundProperty); }
             set { this.SetValue(SelectedForegroundProperty, value); }
+        }
+
+        object IEditor.GetCurrentValue()
+        {
+            return this.Value;
         }
 
         /// <summary>
