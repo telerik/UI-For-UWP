@@ -9,7 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// <summary>
     /// Represents a ToggleSwitchCustomEditor control.
     /// </summary>
-    public class ToggleSwitchCustomEditor : CustomEditorBase<ToggleSwitch>
+    public class ToggleSwitchCustomEditor : CustomEditorBase<ToggleSwitch>, IEditor
     {
         /// <summary>
         /// Identifies the <see cref="SelectedBackgroundBrush"/> dependency property. 
@@ -166,6 +166,11 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.switchKnobOffEllipse.Fill = this.OffStateBackground;
                 this.outerBorderRect.Stroke = this.OffStateBackground;
             }
+        }
+
+        object IEditor.GetCurrentValue()
+        {
+            return this.EditorControl.IsOn;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// <summary>
     /// Represents a DateEditor control.
     /// </summary>
-    public class DateEditor : RadDatePicker, ITypeEditor
+    public class DateEditor : RadDatePicker, ITypeEditor, IEditor
     {
         /// <summary>
         /// Identifies the <see cref="LabelIconStyle"/> dependency property. 
@@ -149,6 +149,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             b3.Converter = new IsEnabledEditorConvetrer();
             b3.Path = new PropertyPath(string.Empty);
             this.SetBinding(DateEditor.IsEnabledProperty, b3);
+        }
+
+        object IEditor.GetCurrentValue()
+        {
+            return this.Value;
         }
     }
 }

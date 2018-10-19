@@ -9,7 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// <summary>
     /// Represents a SegmentedCustomEditor control.
     /// </summary>
-    public class SegmentedCustomEditor : RadSegmentedControl, ITypeEditor
+    public class SegmentedCustomEditor : RadSegmentedControl, ITypeEditor, IEditor
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SegmentedCustomEditor"/> class.
@@ -36,6 +36,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             b3.Converter = new IsEnabledEditorConvetrer();
             b3.Path = new PropertyPath(string.Empty);
             this.SetBinding(SegmentedCustomEditor.IsEnabledProperty, b3);
+        }
+
+        object IEditor.GetCurrentValue()
+        {
+            return this.SelectedItem;
         }
     }
 }

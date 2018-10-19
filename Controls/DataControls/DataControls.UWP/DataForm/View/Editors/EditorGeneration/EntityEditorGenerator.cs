@@ -28,7 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Data.DataForm.View
 
         internal EditorFactory EditorFactory { get; set; }
 
-        public object CreateContainer(EntityProperty entityProperty)
+        public EntityPropertyControl CreateContainer(EntityProperty entityProperty)
         {
             var element = this.EditorFactory.CreateEditor(entityProperty);
 

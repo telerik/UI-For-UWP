@@ -9,7 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// <summary>
     /// Represents a NumericEditor control.
     /// </summary>
-    public class NumericEditor : RadNumericBox, ITypeEditor
+    public class NumericEditor : RadNumericBox, ITypeEditor, IEditor
     {
         /// <summary>
         /// Identifies the <see cref="ErrorIconStyle"/> dependency property. 
@@ -142,6 +142,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             rangeB.Path = new PropertyPath("Range.Max");
             rangeB.FallbackValue = double.MaxValue;
             this.SetBinding(NumericEditor.MaximumProperty, rangeB);
+        }
+
+        object IEditor.GetCurrentValue()
+        {
+            return this.Value;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Telerik.Data.Core;
+﻿using System;
+using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -218,6 +219,16 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 this.container.Children.Add(view);
             }
+        }
+
+        internal object GetCurrentValue()
+        {
+            if (this.View is IEditor editor)
+            {
+                return editor.GetCurrentValue();
+            }
+
+            return null;
         }
 
         /// <inheritdoc/>

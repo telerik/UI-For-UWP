@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using Telerik.Data.Core;
 using Telerik.UI.Automation.Peers;
@@ -332,6 +333,14 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.Model.RefreshLayout();
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public object GetEditorValueForProperty(EntityProperty entityProperty)
+        {
+            return this.Model.GetEditorCurrentValue(entityProperty);
+        }
+
+        bool IDataFormView.IsTemplateApplied { get => this.IsTemplateApplied; }
+
         void IDataFormView.PrepareEditor(object editor, object groupVisual)
         {
             var editorElement = editor as EntityPropertyControl;
@@ -478,10 +487,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         private static void OnItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RadDataForm form = d as RadDataForm;
-            if (form.IsTemplateApplied)
-            {
-                form.Model.OnItemChanged(e.NewValue);
-            }
+            form.Model.OnItemChanged(e.NewValue);
         }
 
         private static void OnEntityProviderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
