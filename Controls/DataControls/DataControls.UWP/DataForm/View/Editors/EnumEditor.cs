@@ -20,7 +20,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         object IEditor.GetCurrentValue()
         {
-            return this.SelectedIndex;
+            return this.SelectedItem;
         }
 
         /// <summary>
