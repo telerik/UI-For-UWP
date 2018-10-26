@@ -7,19 +7,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
 {
     public partial class ListViewGroupHeader : IDragDropElement
     {
-        private bool skipHitTest;
-
-        bool IDragDropElement.SkipHitTest
-        {
-            get
-            {
-                return this.skipHitTest;
-            }
-            set
-            {
-                this.skipHitTest = value;
-            }
-        }
+        bool IDragDropElement.SkipHitTest { get; set; }
 
         bool IDragDropElement.CanDrop(DragContext dragContext)
         {
@@ -33,14 +21,10 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
 
         void IDragDropElement.DragEnter(DragContext context)
         {
-            if (this.Owner.Orientation == Orientation.Vertical)
-            {
-                DragDrop.SetDragPositionMode(this, DragPositionMode.RailY);
-            }
-            else
-            {
-                DragDrop.SetDragPositionMode(this, DragPositionMode.RailX);
-            }
+            var positionMode = this.Owner.Orientation == Orientation.Vertical ?
+                DragPositionMode.RailY : DragPositionMode.RailX;
+
+            DragDrop.SetDragPositionMode(this, positionMode);
         }
 
         void IDragDropElement.DragLeave(DragContext context)
@@ -101,7 +85,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
 
         private bool ShouldReorder(Point position, ReorderItemsDragOperation data)
         {
-            if (this.reorderCoordinator == null)
+            if (this.reorderCoordinator == null || data.CurrentSourceReorderIndex == 0)
             {
                 return false;
             }

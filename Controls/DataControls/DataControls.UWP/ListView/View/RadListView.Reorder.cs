@@ -68,33 +68,21 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
         }
 
-        internal void PrepareReorderItem(IReorderItem reorderItem)
+        internal void PrepareReorderItem(DependencyObject reorderItem)
         {
             if (reorderItem != null)
             {
-                reorderItem.Coordinator = this.reorderCoordinator;
-
-                var dependencyObject = reorderItem as DependencyObject;
-
-                if (dependencyObject != null)
-                {
-                    DragDrop.SetAllowDrop(dependencyObject, true);
-                }
+                (reorderItem as IReorderItem).Coordinator = this.reorderCoordinator;
+                DragDrop.SetAllowDrop(reorderItem, true);
             }
         }
 
-        internal void CleanupReorderItem(IReorderItem reorderItem)
+        internal void CleanupReorderItem(DependencyObject reorderItem)
         {
             if (reorderItem != null)
             {
-                reorderItem.Coordinator = null;
-
-                var dependencyObject = reorderItem as DependencyObject;
-
-                if (dependencyObject != null)
-                {
-                    DragDrop.SetAllowDrop(dependencyObject, false);
-                }
+                (reorderItem as IReorderItem).Coordinator = null;
+                DragDrop.SetAllowDrop(reorderItem, false);
             }
         }
 

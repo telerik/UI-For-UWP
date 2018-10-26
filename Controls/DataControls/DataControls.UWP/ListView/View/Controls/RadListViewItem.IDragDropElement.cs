@@ -278,15 +278,15 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                     destinationDataGroup = this.listView.Model.FindItemParentGroup(destinationDataItem);
                 }
 
-                ItemPlacement placement;
+                ItemReorderPlacement placement;
 
                 if (data.InitialSourceIndex < data.CurrentSourceReorderIndex)
                 {
-                    placement = ItemPlacement.After;
+                    placement = ItemReorderPlacement.After;
                 }
                 else
                 {
-                    placement = ItemPlacement.Before;
+                    placement = ItemReorderPlacement.Before;
                 }
 
                 var commandContext = new ItemReorderCompleteContext(dataItem, dataGroup, destinationDataItem, destinationDataGroup, placement);
@@ -298,13 +298,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                     // Remove this workaround once we fix the reordering in the data provider.
                     if (this.listView.GroupDescriptors.Count > 0)
                     {
-                        var dataProvider = this.listView.Model.CurrentDataProvider as DataProviderBase;
-
-                        if (dataProvider != null)
-                        {
-                            dataProvider.Invalidate();
-                            dataProvider.Refresh();
-                        }
+                        this.listView.updateService.RegisterUpdate((int)UpdateFlags.AffectsData);
                     }
                 }
                 else

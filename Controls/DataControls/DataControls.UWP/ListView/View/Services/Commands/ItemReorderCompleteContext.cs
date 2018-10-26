@@ -10,7 +10,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemReorderCompleteContext"/> class.
         /// </summary>
-        public ItemReorderCompleteContext(object dataItem, object destinationItem, ItemPlacement placement)
+        public ItemReorderCompleteContext(object dataItem, object destinationItem, ItemReorderPlacement placement)
             : this(dataItem, null, destinationItem, null, placement)
         {
         }
@@ -18,7 +18,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemReorderCompleteContext"/> class.
         /// </summary>
-        public ItemReorderCompleteContext(object dataItem, IDataGroup dataGroup, object destinationItem, IDataGroup destinationGroup, ItemPlacement placement)
+        public ItemReorderCompleteContext(object dataItem, IDataGroup dataGroup, object destinationItem, IDataGroup destinationGroup, ItemReorderPlacement placement)
         {
             this.Item = dataItem;
             this.Group = dataGroup;
@@ -48,8 +48,8 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Commands
         public IDataGroup DestinationGroup { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the dargged item should be placed before or after the destination item.
+        /// Gets or sets a value indicating whether the dragged item should be placed before or after the destination item.
         /// </summary>
-        public ItemPlacement Placement { get; set; }
+        public ItemReorderPlacement Placement { get; set; }
     }
 }

@@ -101,7 +101,7 @@ namespace SDKExamples.UWP.Listview
             var destinationGroup = context.DestinationGroup;
             var destinationIndex = items.IndexOf(destinationItem);
 
-            if (context.Placement == ItemPlacement.After)
+            if (context.Placement == ItemReorderPlacement.After)
             {
                 destinationIndex++;
             }
