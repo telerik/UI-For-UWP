@@ -116,7 +116,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         private TextBox textBox;
         private Button increaseButton;
         private Button decreaseButton;
-        private KeyEventHandler textBoxKeyDownHandler;
         private bool isNegative;
         private bool isDecimal;
         private bool isEditing;
@@ -131,9 +130,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         public RadNumericBox()
         {
             this.DefaultStyleKey = typeof(RadNumericBox);
-
-            this.textBoxKeyDownHandler = new KeyEventHandler(this.OnTextBoxKeyDown);
-
             this.allowNullValueCache = true;
         }
 
@@ -683,7 +679,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.CoerceValue(this.Value);
 
             this.UpdateInputScope(this.InputScope);
-            this.textBox.AddHandler(TextBox.KeyDownEvent, this.textBoxKeyDownHandler, true);
+            this.textBox.PreviewKeyDown += this.OnTextBoxPreviewKeyDown;
             this.textBox.TextChanged += this.OnTextBoxTextChanged;
             this.textBox.GotFocus += this.OnTextBoxGotFocus;
             this.textBox.LostFocus += this.OnTextBoxLostFocus;
@@ -699,7 +695,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             base.UnapplyTemplateCore();
 
-            this.textBox.RemoveHandler(TextBox.KeyDownEvent, this.textBoxKeyDownHandler);
+            this.textBox.PreviewKeyDown -= this.OnTextBoxPreviewKeyDown;
             this.textBox.TextChanged -= this.OnTextBoxTextChanged;
             this.textBox.GotFocus -= this.OnTextBoxGotFocus;
             this.textBox.LostFocus -= this.OnTextBoxLostFocus;
@@ -956,9 +952,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.CommitEdit();
         }
 
-        private void OnTextBoxKeyDown(object sender, KeyRoutedEventArgs e)
+        private void OnTextBoxPreviewKeyDown(object sender, KeyRoutedEventArgs e)
         {
-            // marking the event as Handled will prevent the TextBox from updating its Text in case invalid character is pressed.
             e.Handled = !this.PreviewKeyDown(e.Key);
         }
 
