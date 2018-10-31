@@ -57,9 +57,8 @@ namespace Telerik.Data.Core.Layouts
             }
         }
 
-        public override void ArrangeContent(RadSize adjustedfinalSize, double topOffset)
+        public override void ArrangeContent(RadSize adjustedfinalSize, double initialOffset)
         {
-            bool initialized = false;
             var topLeft = new RadPoint(0, 0);
 
             foreach (var pair in this.GetDisplayedElements())
@@ -79,27 +78,13 @@ namespace Telerik.Data.Core.Layouts
 
                     var offset = decorator.ItemInfo.Slot != 0 ? this.layout.ColumnRenderInfo.PhysicalOffsetFromSlot(decorator.ItemInfo.Id) : 0;
 
-                    if (!initialized)
-                    {
-                        initialized = true;
-
-                        if (this.IsHorizontal)
-                        {
-                            // topLeft.X = offset;
-                        }
-                        else
-                        {
-                            topLeft.Y = topOffset;
-                        }
-                    }
-
                     if (this.IsHorizontal)
                     {
-                        topLeft.X = offset;
+                        topLeft.X = offset + initialOffset;
                     }
                     else
                     {
-                        topLeft.Y = offset;
+                        topLeft.Y = offset + initialOffset;
                     }
 
                     itemlength = this.layout.PhysicalLengthForSlot(decorator.ItemInfo.Slot);
@@ -115,7 +100,7 @@ namespace Telerik.Data.Core.Layouts
                     {
                         topLeft.X = elementSequenceNumber * stackLength;
                         var oppositeLength = decorator.ItemInfo.Item is Telerik.Data.Core.IGroup ? adjustedfinalSize.Width : stackLength;
-                        arrangeRect = new RadRect(topLeft.X, topLeft.Y, oppositeLength, itemlength + topOffset);
+                        arrangeRect = new RadRect(topLeft.X, topLeft.Y, oppositeLength, itemlength);
                         largestLength = Math.Max(largestLength, arrangeRect.Height);
                     }
 

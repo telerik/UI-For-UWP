@@ -70,6 +70,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             {
                 this.headerControl.Measure(availableSize.ToSize());
 
+                if (this.Owner.Orientation == Orientation.Horizontal)
+                {
+                    return new RadSize(this.headerControl.DesiredSize.Width, availableSize.Height);
+                }
+
                 return new RadSize(availableSize.Width, this.headerControl.DesiredSize.Height);
             }
 
@@ -81,6 +86,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             if (this.displayFooter)
             {
                 this.footerControl.Measure(availableSize.ToSize());
+
+                if (this.Owner.Orientation == Orientation.Horizontal)
+                {
+                    return new RadSize(this.footerControl.DesiredSize.Width, availableSize.Height);
+                }
 
                 return new RadSize(availableSize.Width, this.footerControl.DesiredSize.Height);
             }
