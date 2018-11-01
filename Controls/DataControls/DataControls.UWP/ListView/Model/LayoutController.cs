@@ -48,36 +48,57 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
         public RadSize MeasureContent(RadSize newAvailableSize)
         {
+            double widthToSubstract = 0;
             double heightToSubstract = 0;
             var headerSize = this.MeasureHeader(newAvailableSize);
-            heightToSubstract += headerSize.Height;
-
             var footerSize = this.MeasureFooter(newAvailableSize);
-            heightToSubstract += footerSize.Height;
 
-            this.availableSize = new RadSize(newAvailableSize.Width, newAvailableSize.Height - heightToSubstract);
+            if (this.strategy.IsHorizontal)
+            {
+                widthToSubstract = headerSize.Width + footerSize.Width;
+            }
+            else
+            {
+                heightToSubstract = headerSize.Height + footerSize.Height;
+            }
+
+            this.availableSize = new RadSize(newAvailableSize.Width - widthToSubstract, newAvailableSize.Height - heightToSubstract);
             var emptyContentSize = this.MeasureEmptyContent(this.availableSize);
 
             var resultSize = this.strategy.MeasureContent(this.availableSize, this.owner.ScrollOffset, this.model.BufferScale);
             this.strategy.RecycleAfterMeasure();
 
-            var emptyContentPosition = new RadSize(0, this.headerModel.LayoutSlot.Bottom + resultSize.Height);
+            RadSize emptyContentPosition;
+
+            if (this.strategy.IsHorizontal)
+            {
+                emptyContentPosition = new RadSize(this.headerModel.LayoutSlot.Right + resultSize.Width, 0);
+            }
+            else
+            {
+                emptyContentPosition = new RadSize(0, this.headerModel.LayoutSlot.Bottom + resultSize.Height);
+            }
+
             this.UpdateEmptyContentLayoutSlotPosition(emptyContentPosition);
 
-            var footerPosition = new RadSize(0, this.emptyContentModel.LayoutSlot.Bottom);
+            RadSize footerPosition;
+
+            if (this.strategy.IsHorizontal)
+            {
+                footerPosition = new RadSize(this.emptyContentModel.LayoutSlot.Right, 0);
+            }
+            else
+            {
+                footerPosition = new RadSize(0, this.emptyContentModel.LayoutSlot.Bottom);
+            }
+
             this.UpdateFooterLayoutSlotPosition(footerPosition);
 
             this.model.View.ItemCheckBoxService.GenerateVisuals();
 
             this.strategy.GenerateFrozenContainers();
-            if (this.strategy.IsHorizontal)
-            {
-                return new RadSize(resultSize.Width + this.emptyContentModel.LayoutSlot.Width, resultSize.Height + this.emptyContentModel.LayoutSlot.Height);
-            }
-            else
-            {
-                return new RadSize(resultSize.Width + this.emptyContentModel.LayoutSlot.Width, resultSize.Height + this.emptyContentModel.LayoutSlot.Height + heightToSubstract);
-            }
+
+            return new RadSize(resultSize.Width + this.emptyContentModel.LayoutSlot.Width + widthToSubstract, resultSize.Height + this.emptyContentModel.LayoutSlot.Height + heightToSubstract);
         }
 
         public void ArrangeContent(RadSize adjustedfinalSize)
@@ -96,7 +117,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             var rect = this.ArrangeHeader();
 
             var finalSize = new RadSize(adjustedfinalSize.Width, adjustedfinalSize.Height);
-            var offset = this.strategy.IsHorizontal ? 0 : rect.Bottom;
+            var offset = this.strategy.IsHorizontal ? rect.Right : rect.Bottom;
             this.strategy.ArrangeContent(finalSize, offset);
 
             this.ArrangeFooter();

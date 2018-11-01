@@ -41,16 +41,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 return base.ArrangeOverride(finalSize);
             }
 
-            double topOffset = 0;
-            double bottomOffset = 0;
-
-            if (this.Owner != null && this.Owner.Orientation == Orientation.Horizontal && this.Owner.headerFooterLayerCache != null)
-            {
-                topOffset = this.Owner.headerFooterLayerCache.topOffset;
-                bottomOffset = this.Owner.headerFooterLayerCache.bottomOffset;
-            }
-
-            var rect = new Rect(0, topOffset, finalSize.Width, Math.Max(0, finalSize.Height - bottomOffset - topOffset));
+            var rect = new Rect(0, 0, finalSize.Width, finalSize.Height);
             this.Owner.ScrollViewer.Arrange(rect);
 
             if (this.Owner.AdornerHost != null)

@@ -95,6 +95,7 @@
     <Example DisplayName="Layouts" ClassName="SDKExamples.UWP.Listview.Layouts" />
     <Example DisplayName="Item Swipe" ClassName="SDKExamples.UWP.Listview.ItemSwipe" />
     <Example DisplayName="Scroll index into view" ClassName="SDKExamples.UWP.Listview.ScrollIndexIntoView" />
+    <Example DisplayName="Header/Footer" ClassName="SDKExamples.UWP.Listview.HeaderFooter" />
   </Control>
   <Control Name="Grid">
     <Example DisplayName="Column DataOperations Mode" ClassName="SDKExamples.UWP.DataGrid.ColumnDataOperationsModeExample" />

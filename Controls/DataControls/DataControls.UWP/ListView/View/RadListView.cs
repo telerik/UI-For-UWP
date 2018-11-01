@@ -1642,14 +1642,7 @@ namespace Telerik.UI.Xaml.Controls.Data
                 this.headerFooterLayerCache = new HeaderFooterListViewLayer();
             }
 
-            if (this.Orientation == Orientation.Vertical)
-            {
-                this.AddLayer(this.headerFooterLayerCache, this.childrenPanel);
-            }
-            else
-            {
-                this.AddLayer(this.headerFooterLayerCache, this.listViewRootPanel);
-            }
+            this.AddLayer(this.headerFooterLayerCache, this.childrenPanel);
 
             if (this.emptyContentLayerCahce == null)
             {

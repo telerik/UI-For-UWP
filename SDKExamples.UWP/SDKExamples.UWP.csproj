@@ -337,6 +337,9 @@
     <Compile Include="Examples\ListView\Grouping.xaml.cs">
       <DependentUpon>Grouping.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\ListView\HeaderFooter.xaml.cs">
+      <DependentUpon>HeaderFooter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\ListView\ItemAnimations.xaml.cs">
       <DependentUpon>ItemAnimations.xaml</DependentUpon>
     </Compile>
@@ -765,6 +768,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\ListView\Grouping.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\ListView\HeaderFooter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
