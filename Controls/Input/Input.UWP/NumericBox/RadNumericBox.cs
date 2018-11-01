@@ -5,6 +5,7 @@ using Telerik.Core;
 using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.NumericBox;
 using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.Foundation.Metadata;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
@@ -124,6 +125,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private bool updatingValue;
         private bool allowNullValueCache;
         private double? valueCache;
+        private bool isPreviewKeyDownPresent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RadNumericBox" /> class.
@@ -132,7 +134,11 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             this.DefaultStyleKey = typeof(RadNumericBox);
 
-            this.textBoxKeyDownHandler = new KeyEventHandler(this.OnTextBoxKeyDown);
+            this.isPreviewKeyDownPresent = ApiInformation.IsEventPresent("Windows.UI.Xaml.UIElement", "PreviewKeyDown");
+            if (!this.isPreviewKeyDownPresent)
+            {
+                this.textBoxKeyDownHandler = new KeyEventHandler(this.OnTextBoxPreviewKeyDown);
+            }
 
             this.allowNullValueCache = true;
         }
@@ -683,7 +689,16 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.CoerceValue(this.Value);
 
             this.UpdateInputScope(this.InputScope);
-            this.textBox.AddHandler(TextBox.KeyDownEvent, this.textBoxKeyDownHandler, true);
+
+            if (this.isPreviewKeyDownPresent)
+            {
+                this.textBox.PreviewKeyDown += this.OnTextBoxPreviewKeyDown;
+            }
+            else
+            {
+                this.textBox.AddHandler(TextBox.KeyDownEvent, this.textBoxKeyDownHandler, true);
+            }
+
             this.textBox.TextChanged += this.OnTextBoxTextChanged;
             this.textBox.GotFocus += this.OnTextBoxGotFocus;
             this.textBox.LostFocus += this.OnTextBoxLostFocus;
@@ -699,7 +714,15 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             base.UnapplyTemplateCore();
 
-            this.textBox.RemoveHandler(TextBox.KeyDownEvent, this.textBoxKeyDownHandler);
+            if (this.isPreviewKeyDownPresent)
+            {
+                this.textBox.PreviewKeyDown -= this.OnTextBoxPreviewKeyDown;
+            }
+            else
+            {
+                this.textBox.RemoveHandler(TextBox.KeyDownEvent, this.textBoxKeyDownHandler);
+            }
+
             this.textBox.TextChanged -= this.OnTextBoxTextChanged;
             this.textBox.GotFocus -= this.OnTextBoxGotFocus;
             this.textBox.LostFocus -= this.OnTextBoxLostFocus;
@@ -956,7 +979,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.CommitEdit();
         }
 
-        private void OnTextBoxKeyDown(object sender, KeyRoutedEventArgs e)
+        private void OnTextBoxPreviewKeyDown(object sender, KeyRoutedEventArgs e)
         {
             // marking the event as Handled will prevent the TextBox from updating its Text in case invalid character is pressed.
             e.Handled = !this.PreviewKeyDown(e.Key);
