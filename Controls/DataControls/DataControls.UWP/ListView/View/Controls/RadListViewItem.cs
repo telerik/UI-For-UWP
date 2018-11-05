@@ -517,6 +517,11 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         {
             base.OnKeyDown(e);
 
+            if (e.OriginalSource != this)
+            {
+                return;
+            }
+
             bool success = false;
             this.ListView.currentLogicalIndex = this.logicalIndex;
 
