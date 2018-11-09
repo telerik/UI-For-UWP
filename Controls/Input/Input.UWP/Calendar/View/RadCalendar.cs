@@ -2463,7 +2463,12 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             DateTime oldDisplayDate = (DateTime)args.OldValue;
 
-            if (calendar.displayModeCache != CalendarDisplayMode.MultiDayView
+            if (calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                calendar.FetchNewAppointments();
+                calendar.model.multiDayViewModel.updateFlag = MultiDayViewUpdateFlag.All;
+            }
+            else if (calendar.displayModeCache == CalendarDisplayMode.MonthView
                 && (oldDisplayDate.Year != newDisplayDate.Year || oldDisplayDate.Month != newDisplayDate.Month))
             {
                 calendar.FetchNewAppointments();
@@ -2528,6 +2533,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (calendarPeer != null)
             {
                 calendarPeer.ClearCache();
+            }
+
+            if (calendar.displayModeCache == CalendarDisplayMode.MonthView || calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                calendar.FetchNewAppointments();
             }
         }
 
