@@ -2205,7 +2205,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.MultiDayViewSettings != null && this.displayModeCache == CalendarDisplayMode.MultiDayView)
             {
                 this.MultiDayViewSettings.SetDefaultStyleValues();
-                this.MultiDayViewSettings.timer.Start();
+
+                if (this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+                {
+                    this.MultiDayViewSettings.timer.Start();
+                }
             }
 
             if (this.navigationPanel != null)
