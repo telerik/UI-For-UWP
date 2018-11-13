@@ -2538,6 +2538,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (calendar.displayModeCache == CalendarDisplayMode.MonthView || calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
             {
                 calendar.FetchNewAppointments();
+                calendar.model.multiDayViewModel.updateFlag = MultiDayViewUpdateFlag.All;
             }
         }
 
