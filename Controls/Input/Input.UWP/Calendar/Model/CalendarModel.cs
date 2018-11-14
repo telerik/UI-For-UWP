@@ -447,7 +447,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                 DateTime monthStartDate = CalendarMathHelper.GetFirstDateOfMonth(date);
 
-                int daysToSubtract = (int) monthStartDate.DayOfWeek - (int) firstDayOfWeekToUse;
+                int daysToSubtract = (int)monthStartDate.DayOfWeek - (int)firstDayOfWeekToUse;
                 if (daysToSubtract <= 0)
                 {
                     daysToSubtract += 7;
@@ -465,7 +465,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
             else if (displayMode == CalendarDisplayMode.CenturyView)
             {
-                firstDateToRender =  CalendarMathHelper.GetFirstDateOfCentury(date);
+                firstDateToRender = CalendarMathHelper.GetFirstDateOfCentury(date);
             }
 
             return firstDateToRender;
