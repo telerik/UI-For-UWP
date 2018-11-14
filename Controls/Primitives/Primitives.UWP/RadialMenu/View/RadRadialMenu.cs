@@ -506,31 +506,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
-        /// Exposed for testing purposes.
-        /// </summary>
-        internal void HandleOnBackButtonPressed()
-        {
-            var menuLevels = this.model.viewState.MenuLevels;
-
-            if (menuLevels.Count > 0)
-            {
-                var sourceItem = menuLevels.Pop();
-                var targetLevel = menuLevels.FirstOrDefault();
-                var startAngleLevels = this.model.viewState.StartAngleLevels;
-
-                startAngleLevels.RemoveAt(startAngleLevels.Count - 1);
-                var startAngle = startAngleLevels.LastOrDefault();
-
-                this.RaiseNavigateCommand(targetLevel, sourceItem, startAngle, true);
-
-                if (targetLevel == null)
-                {
-                    this.menuButton.TransformToNormal();
-                }
-            }
-        }
-
-        /// <summary>
         /// Called when selection is changed .
         /// </summary>
         /// <param name="item">The changed menu item.</param>
@@ -867,7 +842,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 }
                 else
                 {
-                    this.HandleOnBackButtonPressed();
+                    this.CommandService.ExecuteCommand(CommandId.NavigateBack, null);
                 }
             }
         }
