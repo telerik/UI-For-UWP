@@ -108,6 +108,7 @@
     <Compile Include="RadialMenu\Services\CommandService.cs" />
     <Compile Include="RadialMenu\Services\Commands\CloseMenuCommand.cs" />
     <Compile Include="RadialMenu\Services\Commands\CommandId.cs" />
+    <Compile Include="RadialMenu\Services\Commands\NavigateBackCommand.cs" />
     <Compile Include="RadialMenu\Services\Commands\NavigateCommand.cs" />
     <Compile Include="RadialMenu\Services\Commands\NavigateContext.cs" />
     <Compile Include="RadialMenu\Services\Commands\OpenMenuCommand.cs" />
