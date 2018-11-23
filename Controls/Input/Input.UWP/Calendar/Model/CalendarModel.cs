@@ -420,6 +420,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal DateTime GetFirstDateToRenderForDisplayMode(DateTime date, CalendarDisplayMode displayMode)
         {
+            date = date.Date;
             DateTime firstDateToRender = date;
 
             if (displayMode == CalendarDisplayMode.MultiDayView)
