@@ -266,31 +266,37 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
             {
                 this.FinalizeReorder(context);
 
-                var dataItem = data.Data;
-                var destinationDataItem = this.GetDestinationDataItem(data.CurrentSourceReorderIndex);
+                var isExecuted = false;
 
-                IDataGroup dataGroup = null;
-                IDataGroup destinationDataGroup = null;
-
-                if (this.listView.GroupDescriptors.Count > 0)
+                if (data.InitialSourceIndex != data.CurrentSourceReorderIndex)
                 {
-                    dataGroup = this.listView.Model.FindItemParentGroup(dataItem);
-                    destinationDataGroup = this.listView.Model.FindItemParentGroup(destinationDataItem);
-                }
+                    var dataItem = data.Data;
+                    var destinationDataItem = this.GetDestinationDataItem(data.CurrentSourceReorderIndex);
 
-                ItemReorderPlacement placement;
+                    IDataGroup dataGroup = null;
+                    IDataGroup destinationDataGroup = null;
 
-                if (data.InitialSourceIndex < data.CurrentSourceReorderIndex)
-                {
-                    placement = ItemReorderPlacement.After;
-                }
-                else
-                {
-                    placement = ItemReorderPlacement.Before;
-                }
+                    if (this.listView.GroupDescriptors.Count > 0)
+                    {
+                        dataGroup = this.listView.Model.FindItemParentGroup(dataItem);
+                        destinationDataGroup = this.listView.Model.FindItemParentGroup(destinationDataItem);
+                    }
 
-                var commandContext = new ItemReorderCompleteContext(dataItem, dataGroup, destinationDataItem, destinationDataGroup, placement);
-                var isExecuted = this.ListView.commandService.ExecuteCommand(CommandId.ItemReorderComplete, commandContext);
+                    ItemReorderPlacement placement;
+
+                    if (data.InitialSourceIndex < data.CurrentSourceReorderIndex)
+                    {
+                        placement = ItemReorderPlacement.After;
+                    }
+                    else
+                    {
+                        placement = ItemReorderPlacement.Before;
+                    }
+
+                    var commandContext = new ItemReorderCompleteContext(dataItem, dataGroup, destinationDataItem, destinationDataGroup, placement);
+
+                    isExecuted = this.ListView.commandService.ExecuteCommand(CommandId.ItemReorderComplete, commandContext);
+                }
 
                 if (isExecuted)
                 {
