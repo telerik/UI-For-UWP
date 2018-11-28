@@ -267,28 +267,28 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 this.FinalizeReorder(context);
 
                 var isExecuted = false;
-                var destinationItem = default(RadListViewItem);
-                var placement = default(ItemReorderPlacement);
+                RadListViewItem destinationItem = null;
+                ItemReorderPlacement placement = 0;
 
                 if (data.InitialSourceIndex < data.CurrentSourceReorderIndex)
                 {
-                    destinationItem = this.GetDestinationItem(data.CurrentSourceReorderIndex - 1);
+                    destinationItem = this.reorderCoordinator.Host.ElementAt(data.CurrentSourceReorderIndex - 1) as RadListViewItem;
                     placement = ItemReorderPlacement.After;
 
                     if (destinationItem == null)
                     {
-                        destinationItem = this.GetDestinationItem(data.CurrentSourceReorderIndex + 1);
+                        destinationItem = this.reorderCoordinator.Host.ElementAt(data.CurrentSourceReorderIndex + 1) as RadListViewItem;
                         placement = ItemReorderPlacement.Before;
                     }
                 }
                 else if (data.InitialSourceIndex > data.CurrentSourceReorderIndex)
                 {
-                    destinationItem = this.GetDestinationItem(data.CurrentSourceReorderIndex + 1);
+                    destinationItem = this.reorderCoordinator.Host.ElementAt(data.CurrentSourceReorderIndex + 1) as RadListViewItem;
                     placement = ItemReorderPlacement.Before;
 
                     if (destinationItem == null)
                     {
-                        destinationItem = this.GetDestinationItem(data.CurrentSourceReorderIndex - 1);
+                        destinationItem = this.reorderCoordinator.Host.ElementAt(data.CurrentSourceReorderIndex - 1) as RadListViewItem;
                         placement = ItemReorderPlacement.After;
                     }
                 }

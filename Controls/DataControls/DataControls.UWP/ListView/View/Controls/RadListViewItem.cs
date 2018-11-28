@@ -831,10 +831,5 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             return canReorderColumn && (draggingFromStart || draggingFromEnd);
         }
-
-        private RadListViewItem GetDestinationItem(int index)
-        {
-            return this.reorderCoordinator.Host.ElementAt(index) as RadListViewItem;
-        }
     }
 }
