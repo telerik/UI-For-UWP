@@ -267,11 +267,36 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                 this.FinalizeReorder(context);
 
                 var isExecuted = false;
+                RadListViewItem destinationItem = null;
+                ItemReorderPlacement placement = 0;
 
-                if (data.InitialSourceIndex != data.CurrentSourceReorderIndex)
+                if (data.InitialSourceIndex < data.CurrentSourceReorderIndex)
+                {
+                    destinationItem = this.reorderCoordinator.Host.ElementAt(data.CurrentSourceReorderIndex - 1) as RadListViewItem;
+                    placement = ItemReorderPlacement.After;
+
+                    if (destinationItem == null)
+                    {
+                        destinationItem = this.reorderCoordinator.Host.ElementAt(data.CurrentSourceReorderIndex + 1) as RadListViewItem;
+                        placement = ItemReorderPlacement.Before;
+                    }
+                }
+                else if (data.InitialSourceIndex > data.CurrentSourceReorderIndex)
+                {
+                    destinationItem = this.reorderCoordinator.Host.ElementAt(data.CurrentSourceReorderIndex + 1) as RadListViewItem;
+                    placement = ItemReorderPlacement.Before;
+
+                    if (destinationItem == null)
+                    {
+                        destinationItem = this.reorderCoordinator.Host.ElementAt(data.CurrentSourceReorderIndex - 1) as RadListViewItem;
+                        placement = ItemReorderPlacement.After;
+                    }
+                }
+
+                if (destinationItem != null)
                 {
                     var dataItem = data.Data;
-                    var destinationDataItem = this.GetDestinationDataItem(data.CurrentSourceReorderIndex);
+                    var destinationDataItem = destinationItem.DataContext;
 
                     IDataGroup dataGroup = null;
                     IDataGroup destinationDataGroup = null;
@@ -280,17 +305,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
                     {
                         dataGroup = this.listView.Model.FindItemParentGroup(dataItem);
                         destinationDataGroup = this.listView.Model.FindItemParentGroup(destinationDataItem);
-                    }
-
-                    ItemReorderPlacement placement;
-
-                    if (data.InitialSourceIndex < data.CurrentSourceReorderIndex)
-                    {
-                        placement = ItemReorderPlacement.After;
-                    }
-                    else
-                    {
-                        placement = ItemReorderPlacement.Before;
                     }
 
                     var commandContext = new ItemReorderCompleteContext(dataItem, dataGroup, destinationDataItem, destinationDataGroup, placement);

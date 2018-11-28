@@ -831,24 +831,5 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
             return canReorderColumn && (draggingFromStart || draggingFromEnd);
         }
-
-        private object GetDestinationDataItem(int index)
-        {
-            int actualIndex = index;
-            if (this.listView.GroupDescriptors.Count == 0)
-            {
-                actualIndex = this.listView.Model.layoutController.strategy.GetElementFlatIndex(actualIndex);
-            }
-
-            var info = this.listView.Model.FindDataItemFromIndex(actualIndex);
-
-            object item = null;
-            if (info.HasValue)
-            {
-                item = info.Value.Item;
-            }
-
-            return item;
-        }
     }
 }
