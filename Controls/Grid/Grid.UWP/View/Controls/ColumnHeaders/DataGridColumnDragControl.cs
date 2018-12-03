@@ -40,5 +40,11 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
                 this.SetValue(FilterGlyphVisibilityProperty, value);
             }
         }
+
+        protected override void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            base.OnUnloaded(sender, e);
+            this.Content = null;
+        }
     }
 }
