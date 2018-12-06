@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Grid.Primitives
 {
@@ -41,6 +36,7 @@ namespace Telerik.UI.Xaml.Controls.Grid.Primitives
             }
         }
 
+        /// <inheritdoc />
         protected override void OnUnloaded(object sender, RoutedEventArgs e)
         {
             base.OnUnloaded(sender, e);
