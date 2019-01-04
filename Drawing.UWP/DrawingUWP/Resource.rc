@@ -66,11 +66,11 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "Telerik AD"
+            VALUE "CompanyName", "Progress Software Corporation"
             VALUE "FileDescription", "Telerik UI For UWP"
             VALUE "FileVersion", STRFILEVER
             VALUE "InternalName", "Native.dll"
-            VALUE "LegalCopyright", "Copyright © 2015-2018 Telerik AD. All rights reserved."
+            VALUE "LegalCopyright", "Copyright Â© 2015-2019 Progress Software Corporation and/or one of its subsidiaries or affiliates. All rights reserved."
             VALUE "OriginalFilename", "Native.dll"
             VALUE "ProductName", "Telerik UI For UWP"
             VALUE "ProductVersion", STRPRODUCTVER
