@@ -11,6 +11,9 @@ obj
 *.VC.db
 *.VC.opendb
 *.pdb
+*.Cache
+*.lock
+*.ide*
 
 project.lock.json
 

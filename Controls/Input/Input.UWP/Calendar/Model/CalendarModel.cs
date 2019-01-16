@@ -418,6 +418,60 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return this.View.MeasureContent(owner, content);
         }
 
+        internal DateTime GetFirstDateToRenderForDisplayMode(DateTime date, CalendarDisplayMode displayMode)
+        {
+            date = date.Date;
+            DateTime firstDateToRender = date;
+
+            if (displayMode == CalendarDisplayMode.MultiDayView)
+            {
+                DayOfWeek firstDayOfWeek = this.GetFirstDayOfWeek();
+                DateTime firstDateOfCurrentWeek = CalendarMathHelper.GetFirstDayOfCurrentWeek(date, firstDayOfWeek);
+
+                if (!(firstDateOfCurrentWeek.Date <= date.Date && firstDateOfCurrentWeek.AddDays(7).Date >= date.Date))
+                {
+                    firstDateToRender = firstDateOfCurrentWeek;
+                }
+
+                if (!this.multiDayViewSettings.WeekendsVisible)
+                {
+                    firstDateToRender = CalendarMathHelper.AddBusinessDays(date, -this.multiDayViewSettings.VisibleDays);
+                }
+                else
+                {
+                    firstDateToRender = date.AddDays(-this.multiDayViewSettings.VisibleDays);
+                }
+            }
+            else if (displayMode == CalendarDisplayMode.MonthView)
+            {
+                DayOfWeek firstDayOfWeekToUse = this.GetFirstDayOfWeek();
+
+                DateTime monthStartDate = CalendarMathHelper.GetFirstDateOfMonth(date);
+
+                int daysToSubtract = (int)monthStartDate.DayOfWeek - (int)firstDayOfWeekToUse;
+                if (daysToSubtract <= 0)
+                {
+                    daysToSubtract += 7;
+                }
+
+                firstDateToRender = monthStartDate.Date == DateTime.MinValue.Date ? monthStartDate : monthStartDate.AddDays(-daysToSubtract);
+            }
+            else if (displayMode == CalendarDisplayMode.YearView)
+            {
+                firstDateToRender = CalendarMathHelper.GetFirstDateOfYear(date);
+            }
+            else if (displayMode == CalendarDisplayMode.DecadeView)
+            {
+                firstDateToRender = CalendarMathHelper.GetFirstDateOfDecade(date);
+            }
+            else if (displayMode == CalendarDisplayMode.CenturyView)
+            {
+                firstDateToRender = CalendarMathHelper.GetFirstDateOfCentury(date);
+            }
+
+            return firstDateToRender;
+        }
+
         private void UpdateCurrentView()
         {
             switch (this.DisplayMode)

@@ -8,6 +8,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -19,7 +20,7 @@
     <AssemblyName>Telerik.UI.Xaml.Controls.Data.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -50,16 +51,17 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Common\ContainerGeneration\HexItemModelGenerator.cs" />
     <Compile Include="DataForm\View\Editors\DataFormComboBoxItem.cs" />
+    <Compile Include="DataForm\View\Editors\IEditor.cs" />
     <Compile Include="DataForm\View\Editors\SegmentedControlCustomEditor.cs" />
     <Compile Include="DataForm\View\Editors\SliderCustomEditor.cs" />
     <Compile Include="ListView\Data\ListViewDataView.cs" />
+    <Compile Include="ListView\View\Controls\ListViewGroupHeader.IDragDropElement.cs" />
+    <Compile Include="ListView\View\Controls\ListViewGroupHeader.Reorder.cs" />
     <Compile Include="ListView\View\Controls\ListViewLoadDataUICommand.cs" />
     <Compile Include="ListView\View\RadListView.Data.cs" />
+    <Compile Include="ListView\View\Reorder\ListViewReorderItemsCoordinator.cs" />
     <Compile Include="ListView\View\Services\Commands\GroupHeaderTapCommand.cs" />
     <Compile Include="ListView\View\Services\Commands\ItemHoldCommand.cs" />
     <Compile Include="ListView\View\Services\Commands\ItemHoldContext.cs" />
@@ -401,6 +403,14 @@
     <Content Include="$(MSBuildThisFileDirectory)ListView\Resources\reorder-handle-light.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="StyleCop.MSBuild">
+      <Version>4.7.55</Version>
+    </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

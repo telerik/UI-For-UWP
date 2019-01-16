@@ -67,6 +67,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
             this.defaultCommands[(int)CommandId.Open] = this.CreateKnownCommand(CommandId.Open);
             this.defaultCommands[(int)CommandId.Close] = this.CreateKnownCommand(CommandId.Close);
             this.defaultCommands[(int)CommandId.NavigateToView] = this.CreateKnownCommand(CommandId.NavigateToView);
+            this.defaultCommands[(int)CommandId.NavigateBack] = this.CreateKnownCommand(CommandId.NavigateBack);
         }
 
         private RadialMenuCommand CreateKnownCommand(CommandId id)
@@ -83,6 +84,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu
                     break;
                 case CommandId.NavigateToView:
                     command = new NavigateCommand();
+                    break;
+                case CommandId.NavigateBack:
+                    command = new NavigateBackCommand();
                     break;
                 default:
                     throw new ArgumentException("Unknown command id!", "id");

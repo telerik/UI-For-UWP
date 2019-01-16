@@ -2205,7 +2205,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.MultiDayViewSettings != null && this.displayModeCache == CalendarDisplayMode.MultiDayView)
             {
                 this.MultiDayViewSettings.SetDefaultStyleValues();
-                this.MultiDayViewSettings.timer.Start();
+
+                if (this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+                {
+                    this.MultiDayViewSettings.timer.Start();
+                }
             }
 
             if (this.navigationPanel != null)
@@ -2453,13 +2457,17 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     calendar.allDayAreaLayer.shouldArrange = true;
                     calendar.timeRulerLayer.shouldArrange = true;
-                    calendar.CurrencyService.CurrentDate = newDisplayDate;
                 }
             }
 
             DateTime oldDisplayDate = (DateTime)args.OldValue;
 
-            if (calendar.displayModeCache != CalendarDisplayMode.MultiDayView
+            if (calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                calendar.FetchNewAppointments();
+                calendar.model.multiDayViewModel.updateFlag = MultiDayViewUpdateFlag.All;
+            }
+            else if (calendar.displayModeCache == CalendarDisplayMode.MonthView
                 && (oldDisplayDate.Year != newDisplayDate.Year || oldDisplayDate.Month != newDisplayDate.Month))
             {
                 calendar.FetchNewAppointments();
@@ -2524,6 +2532,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (calendarPeer != null)
             {
                 calendarPeer.ClearCache();
+            }
+
+            if (calendar.displayModeCache == CalendarDisplayMode.MonthView || calendar.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                calendar.FetchNewAppointments();
+                calendar.model.multiDayViewModel.updateFlag = MultiDayViewUpdateFlag.All;
             }
         }
 
@@ -3069,10 +3083,23 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void FetchNewAppointments()
         {
-            if (this.AppointmentSource != null && this.IsTemplateApplied)
+            if (this.AppointmentSource != null)
             {
-                DateTime startDate = GetFirstDayofMonth(this.DisplayDate, this.currentCulture.Calendar);
-                ObservableCollection<IAppointment> fetchedAppointments = this.AppointmentSource.FetchData(startDate, startDate.Month == DateTime.MaxValue.Month && startDate.Year == DateTime.MaxValue.Year ? startDate : startDate.AddMonths(1));
+                var rowCount = this.model.RowCount;
+                int columnCount;
+                if (this.DisplayMode == CalendarDisplayMode.MultiDayView)
+                {
+                    columnCount = 3 * this.MultiDayViewSettings.VisibleDays;
+                }
+                else
+                {
+                    columnCount = this.model.ColumnCount;
+                }
+
+                DateTime startDate = this.model.GetFirstDateToRenderForDisplayMode(this.DisplayDate, this.DisplayMode);
+                DateTime endDate = startDate.AddDays(rowCount * columnCount);
+
+                ObservableCollection<IAppointment> fetchedAppointments = this.AppointmentSource.FetchData(startDate, startDate.Month == DateTime.MaxValue.Month && startDate.Year == DateTime.MaxValue.Year ? startDate : endDate);
                 this.AppointmentSource.AllAppointments.Clear();
                 foreach (IAppointment app in fetchedAppointments)
                 {

@@ -53,7 +53,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             }
         }
 
-        public override void ArrangeContent(Core.RadSize adjustedfinalSize, double topOffset)
+        public override void ArrangeContent(Core.RadSize adjustedfinalSize, double initialOffset)
         {
             bool initialized = false;
             var topLeft = new RadPoint(0, 0);
@@ -78,11 +78,11 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
                         if (this.IsHorizontal)
                         {
-                            topLeft.X = offset;
+                            topLeft.X = offset + initialOffset;
                         }
                         else
                         {
-                            topLeft.Y = offset + topOffset;
+                            topLeft.Y = offset + initialOffset;
                         }
                     }
 
@@ -99,7 +99,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                     {
                         topLeft.X = elementSequenceNumber * stackLength;
                         var oppositeLength = decorator.ItemInfo.Item is Telerik.Data.Core.IGroup ? adjustedfinalSize.Width : stackLength;
-                        arrangeRect = new RadRect(topLeft.X, topLeft.Y, oppositeLength, itemlength + topOffset);
+                        arrangeRect = new RadRect(topLeft.X, topLeft.Y, oppositeLength, itemlength);
                         largestLength = Math.Max(largestLength, arrangeRect.Height);
                     }
 

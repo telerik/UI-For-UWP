@@ -8,7 +8,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// <summary>
     /// Represents a ListEditor control.
     /// </summary>
-    public class ListEditor : ComboBox, ITypeEditor
+    public class ListEditor : ComboBox, ITypeEditor, IEditor
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ListEditor"/> class.
@@ -16,6 +16,11 @@ namespace Telerik.UI.Xaml.Controls.Data
         public ListEditor()
         {
             this.DefaultStyleKey = typeof(ListEditor);
+        }
+
+        object IEditor.GetCurrentValue()
+        {
+            return this.SelectedItem;
         }
 
         /// <summary>

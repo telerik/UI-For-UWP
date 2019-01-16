@@ -25,7 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal override DateTime GetFirstDateToRender(DateTime date)
         {
-            return CalendarMathHelper.GetFirstDateOfCentury(date);
+            return this.Calendar.GetFirstDateToRenderForDisplayMode(date, CalendarDisplayMode.CenturyView);
         }
 
         internal override DateTime GetNextDateToRender(DateTime date)

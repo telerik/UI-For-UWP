@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Telerik.UI.Xaml.Controls.Primitives.Menu.Commands
+﻿namespace Telerik.UI.Xaml.Controls.Primitives.Menu.Commands
 {
     /// <summary>
     /// Defines the known commands that are available within a <see cref="RadRadialMenu"/> control.
@@ -30,5 +24,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Menu.Commands
         /// A command associated with the action of navigating to specific <see cref="RadialMenuItem"/>.
         /// </summary>
         NavigateToView,
+
+        /// <summary>
+        /// A command associated with the action of navigating back to the previous <see cref="RadialMenuItem"/>.
+        /// </summary>
+        NavigateBack
     }
 }

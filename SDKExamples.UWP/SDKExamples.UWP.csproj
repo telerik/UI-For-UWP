@@ -11,8 +11,8 @@
     <AssemblyName>SDKExamples.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -337,6 +337,9 @@
     <Compile Include="Examples\ListView\Grouping.xaml.cs">
       <DependentUpon>Grouping.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\ListView\HeaderFooter.xaml.cs">
+      <DependentUpon>HeaderFooter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\ListView\ItemAnimations.xaml.cs">
       <DependentUpon>ItemAnimations.xaml</DependentUpon>
     </Compile>
@@ -354,6 +357,9 @@
     </Compile>
     <Compile Include="Examples\ListView\Reorder.xaml.cs">
       <DependentUpon>Reorder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Examples\ListView\ReorderWithGroups.xaml.cs">
+      <DependentUpon>ReorderWithGroups.xaml</DependentUpon>
     </Compile>
     <Compile Include="Examples\ListView\ScrollIndexIntoView.xaml.cs">
       <DependentUpon>ScrollIndexIntoView.xaml</DependentUpon>
@@ -765,6 +771,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Examples\ListView\HeaderFooter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Examples\ListView\ItemAnimations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -786,6 +796,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\ListView\Reorder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\ListView\ReorderWithGroups.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

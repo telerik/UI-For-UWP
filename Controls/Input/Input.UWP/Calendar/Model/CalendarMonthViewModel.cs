@@ -41,17 +41,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal override DateTime GetFirstDateToRender(DateTime date)
         {
-            DayOfWeek firstDayOfWeekToUse = this.Calendar.GetFirstDayOfWeek();
-
-            DateTime monthStartDate = CalendarMathHelper.GetFirstDateOfMonth(date);
-
-            int daysToSubtract = (int)monthStartDate.DayOfWeek - (int)firstDayOfWeekToUse;
-            if (daysToSubtract <= 0)
-            {
-                daysToSubtract += 7;
-            }
-
-            return monthStartDate.Date == DateTime.MinValue.Date ? monthStartDate : monthStartDate.AddDays(-daysToSubtract);
+            return this.Calendar.GetFirstDateToRenderForDisplayMode(date, CalendarDisplayMode.MonthView);
         }
 
         internal override DateTime GetNextDateToRender(DateTime dateToRender)

@@ -56,7 +56,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             }
         }
 
-        public override void ArrangeContent(RadSize adjustedfinalSize, double topOffset)
+        public override void ArrangeContent(RadSize adjustedfinalSize, double initialOffset)
         {
             bool initialized = false;
             var topLeft = new RadPoint(0, 0);
@@ -79,11 +79,11 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
                         if (this.IsHorizontal)
                         {
-                            topLeft.X = offset;
+                            topLeft.X = offset + initialOffset;
                         }
                         else
                         {
-                            topLeft.Y = offset + topOffset;
+                            topLeft.Y = offset + initialOffset;
                         }
                     }
 
@@ -94,12 +94,12 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
                     if (this.IsHorizontal)
                     {
                         var arrangeHeight = shouldStretch ? oppositAvalilableLength : this.ItemWidth;
-                        arrangeRect = new RadRect(topLeft.X, topLeft.Y, itemEnd - topLeft.X, arrangeHeight);
+                        arrangeRect = new RadRect(topLeft.X, topLeft.Y, itemEnd - topLeft.X + initialOffset, arrangeHeight);
                     }
                     else
                     {
                         var arrangeWidth = shouldStretch ? oppositAvalilableLength : this.ItemWidth;
-                        arrangeRect = new RadRect(topLeft.X, topLeft.Y, arrangeWidth, itemEnd - topLeft.Y + topOffset);
+                        arrangeRect = new RadRect(topLeft.X, topLeft.Y, arrangeWidth, itemEnd - topLeft.Y + initialOffset);
                     }
 
                     decorator.LayoutSlot = arrangeRect;

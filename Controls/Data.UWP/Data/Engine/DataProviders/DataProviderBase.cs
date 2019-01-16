@@ -260,7 +260,7 @@ namespace Telerik.Data.Core
         /// Notify that changes were applied that would alter the data results.
         /// Queues an automatic <see cref="Refresh"/>.
         /// </summary>
-        protected void Invalidate()
+        internal void Invalidate()
         {
             if (!this.invalidated)
             {

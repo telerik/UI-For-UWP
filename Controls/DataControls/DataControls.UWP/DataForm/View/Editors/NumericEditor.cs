@@ -9,7 +9,7 @@ namespace Telerik.UI.Xaml.Controls.Data
     /// <summary>
     /// Represents a NumericEditor control.
     /// </summary>
-    public class NumericEditor : RadNumericBox, ITypeEditor
+    public class NumericEditor : RadNumericBox, ITypeEditor, IEditor
     {
         /// <summary>
         /// Identifies the <see cref="ErrorIconStyle"/> dependency property. 
@@ -107,6 +107,11 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             get { return (Brush)GetValue(ButtonsPointerOverBackgroundBrushProperty); }
             set { this.SetValue(ButtonsPointerOverBackgroundBrushProperty, value); }
+        }
+
+        object IEditor.GetCurrentValue()
+        {
+            return this.Value;
         }
 
         /// <summary>

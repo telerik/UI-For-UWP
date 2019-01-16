@@ -163,7 +163,6 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal const string DefaultAllDayText = "All-day";
         internal RadCalendar owner;
-        internal MultiDayViewUpdateFlag updateFlag;
         internal DispatcherTimer timer;
 
         internal StyleSelector defaultSpecialSlotStyleSelector;

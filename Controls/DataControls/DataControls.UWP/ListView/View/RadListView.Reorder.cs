@@ -68,7 +68,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
         }
 
-        internal void PrepareReorderItem(RadListViewItem reorderItem)
+        internal void PrepareReorderItem(DependencyObject reorderItem)
         {
             if (reorderItem != null)
             {
@@ -77,7 +77,7 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
-        internal void CleanupReorderItem(RadListViewItem reorderItem)
+        internal void CleanupReorderItem(DependencyObject reorderItem)
         {
             if (reorderItem != null)
             {
@@ -106,7 +106,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
         private void InitializeReorder()
         {
-            this.reorderCoordinator = new ReorderItemsCoordinator(this);
+            this.reorderCoordinator = new ListViewReorderItemsCoordinator(this);
         }
     }
 }

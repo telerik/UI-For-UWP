@@ -66,24 +66,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal override DateTime GetFirstDateToRender(DateTime date)
         {
-            DayOfWeek firstDayOfWeek = this.Calendar.GetFirstDayOfWeek();
-            DateTime firstDateOfCurrentWeek = CalendarMathHelper.GetFirstDayOfCurrentWeek(date, firstDayOfWeek);
-
-            if (!(firstDateOfCurrentWeek.Date <= date.Date && firstDateOfCurrentWeek.AddDays(7).Date >= date.Date))
-            {
-                date = firstDateOfCurrentWeek;
-            }
-
-            if (!this.Calendar.multiDayViewSettings.WeekendsVisible)
-            {
-                date = CalendarMathHelper.AddBusinessDays(date, -this.BufferItemsCount);
-            }
-            else
-            {
-                date = date.AddDays(-this.BufferItemsCount);
-            }
-
-            return date;
+            return this.Calendar.GetFirstDateToRenderForDisplayMode(date, CalendarDisplayMode.MultiDayView);
         }
 
         internal override DateTime GetNextDateToRender(DateTime date)
