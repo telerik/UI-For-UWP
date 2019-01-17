@@ -3,6 +3,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:telerik="using:Telerik.UI.Xaml.Controls">
 
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/ThemeColorsDark.xaml"/>
+        <ResourceDictionary>
+            <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
     <SolidColorBrush x:Key="TelerikMapBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}"/>
     <SolidColorBrush x:Key="TelerikMapBorderBrush" Color="{ThemeResource SystemColorButtonTextColor}"/>
 
@@ -20,11 +30,5 @@
 
     <SolidColorBrush x:Key="TelerikMapToolTipForeground" Color="{ThemeResource SystemColorButtonTextColor}" />
     <SolidColorBrush x:Key="TelerikMapToolTipBackground" Color="{ThemeResource SystemColorWindowColor}" />
-
-    <telerik:UserThemeResources x:Key="ResourceLoaderInitializer"/>
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="{CustomResource HighContrastResourcesPath}"/>
-    </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
