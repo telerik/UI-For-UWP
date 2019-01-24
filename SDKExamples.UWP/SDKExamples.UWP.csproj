@@ -917,7 +917,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\Telerik.UI.Xaml.DataVisualization.UWP.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.UI.Xaml.Grid.UWP, Version=0.0.0.0, Culture=neutral, PublicKeyToken=da696acf63be444a, processorArchitecture=MSIL">
+    <Reference Include="Telerik.UI.Xaml.Grid.UWP">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\Telerik.UI.Xaml.Grid.UWP.dll</HintPath>
     </Reference>
