@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Telerik.Charting;
+using Telerik.Core;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Media;
 
@@ -93,7 +94,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         protected virtual bool ShouldPlotPoint(DataPoint point)
         {
-            var pointBounds = point.layoutSlot;
+            var pointBounds = RadRect.Round(point.layoutSlot);
             var plotBounds = this.model.layoutSlot;
 
             var isWithinXPlot = pointBounds.X <= plotBounds.X + plotBounds.Width && pointBounds.X + pointBounds.Width >= plotBounds.X;
