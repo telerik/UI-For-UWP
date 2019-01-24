@@ -232,7 +232,59 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 }
             }
 
-            this.selectionService.Select(cellInfo.Cell);
+            // If we are using Single or Multiple selection modes just select the cell
+            if (this.SelectionMode == DataGridSelectionMode.Single || this.SelectionMode == DataGridSelectionMode.Multiple)
+            {
+                this.selectionService.Select(cellInfo.Cell);
+            }
+            else if (this.SelectionMode == DataGridSelectionMode.Extended)
+            {
+                // If we are using the extended selection mode we'll need to check if we are using any modifier keys
+
+                // Check if ctrl or shift is pressed, if one of them is execute it accordingly
+                if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift))
+                {
+                    int startColumn = 0;
+                    int startRow = 0;
+
+                    // If there is a previously selected cell we will start our selection from there.
+                    // If not we will start the selection at the first row.
+                    if (this.previouslySelectedCellInfo != null)
+                    {
+                        startRow = this.previouslySelectedCellInfo.RowItemInfo.Slot;
+                        startColumn = this.previouslySelectedCellInfo.Column.ItemInfo.Slot;
+                    }
+
+                    // Select the range of cells/rows requested
+                    this.selectionService.SelectRange( startColumn, startRow, cellInfo.Column.ItemInfo.Slot, cellInfo.RowItemInfo.Slot );
+
+                    // Set the previouslySelectedCellInfo to the current cell.
+                    // If the cell was deselected just set the value to null
+                    previouslySelectedCellInfo = (this.SelectedItem == null ? null : cellInfo);
+                }
+                else if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Control))
+                {
+                    // Select the cell
+                    this.selectionService.Select(cellInfo.Cell);
+
+                    // Set the previouslySelectedCellInfo to the current cell.
+                    // If the cell was deselected just set the value to null
+                    this.previouslySelectedCellInfo = (this.SelectedItem == null ? null : cellInfo);
+                }
+                else
+                {
+                    // Since we only want to select a single cell/row at a time clear the previous selections
+                    this.selectionService.ClearSelection();
+
+                    // Select the cell
+                    this.selectionService.Select(cellInfo.Cell);
+
+                    // Set the previouslySelectedCellInfo to the current cell.
+                    // If the cell was deselected just set the value to null
+                    this.previouslySelectedCellInfo = (this.SelectedItem == null ? null : cellInfo);
+                }
+            }
+
             this.CurrencyService.ChangeCurrentItem(cellInfo.RowItemInfo.Item, true, true);
 
             if (cellInfo.Column != null)
@@ -410,6 +462,13 @@ namespace Telerik.UI.Xaml.Controls.Grid
                                 }
                             }
                         }
+                    }
+                    break;
+                case VirtualKey.A:
+                    // This allows the user to use ctrl+a to select all the rows.
+                    if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Control) && this.SelectionMode == DataGridSelectionMode.Extended)
+                    {
+                        this.selectionService.SelectAll();
                     }
                     break;
             }

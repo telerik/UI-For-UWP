@@ -28,6 +28,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
             DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(RadDataGrid), new PropertyMetadata(null, OnSelectedItemChanged));
 
         internal SelectionService selectionService;
+        internal DataGridCellInfo previouslySelectedCellInfo;
 
         /// <summary>
         /// Gets or sets the selection unit of the DataGrid. The default value is <c>DataGridSelectionUnit.Row</c>

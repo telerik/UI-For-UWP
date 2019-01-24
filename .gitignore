@@ -21,6 +21,7 @@ project.lock.json
 !UWPControls.sln
 !UWPMap.sln
 
+.vs/*
 Binaries/*
 Build/*
 Controls/.nuget/*
@@ -59,3 +60,6 @@ QA/*
 QSF/*
 SampleApps/*
 *VSIX*
+/SDKExamples.UWP/SDKExamples.UWP.sln.DotSettings.user
+/Controls/UWPMap.sln.DotSettings.user
+/Controls/UWPControls.sln.DotSettings.user
