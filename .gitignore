@@ -14,6 +14,7 @@ obj
 *.Cache
 *.lock
 *.ide*
+*.DotSettings.user
 
 project.lock.json
 
@@ -59,3 +60,4 @@ QA/*
 QSF/*
 SampleApps/*
 *VSIX*
+.vs/*
