@@ -226,13 +226,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
                 if (offset == this.AnimationDuration.TimeSpan.Milliseconds && e.IsInertial)
                 {
-                    this.IsOpen = false;
-                    this.shouldAnimate = false;
+                    this.CloseDrawerWithoutAnimation();
                 }
                 else if (offset == 0 && e.IsInertial)
                 {
-                    this.IsOpen = true;
-                    this.shouldAnimate = false;
+                    this.OpenDrawerWithoutAnimation();
                 }
             }
         }
@@ -392,15 +390,35 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
                 if (offset == this.AnimationDuration.TimeSpan.Milliseconds && e.IsInertial)
                 {
-                    this.IsOpen = true;
-                    this.shouldAnimate = false;
+                    this.OpenDrawerWithoutAnimation();
                 }
                 else if (offset == 0 && e.IsInertial)
                 {
-                    this.IsOpen = false;
-                    this.shouldAnimate = false;
+                    this.CloseDrawerWithoutAnimation();
                 }
             }
+        }
+
+        private void CloseDrawerWithoutAnimation()
+        {
+            this.shouldAnimate = false;
+
+            this.Context.DrawerStoryBoard.Stop();
+            this.Context.MainContentStoryBoard.Stop();
+
+            this.ResetDrawer();
+        }
+
+        private void OpenDrawerWithoutAnimation()
+        {
+            if (this.IsOpen)
+            {
+                return;
+            }
+
+            this.IsOpen = true;
+            this.shouldAnimate = false;
+            this.DrawerState = DrawerState.Opened;
         }
     }
 }
