@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Telerik.Core;
+﻿using System;
+using System.Linq;
 using Telerik.Data.Core.Layouts;
 using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Grid.Commands;
@@ -23,7 +23,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
         internal CommandService commandService;
         private Storyboard cellFlyoutShowTimeOutAnimationBoard;
         private DoubleAnimation cellFlyoutShowTimeOutAnimation;
-            
+        private object itemToSelectFrom;
+
         /// <summary>
         /// Gets the <see cref="HitTestService"/> instance that provides methods for retrieving rows and cells from a given physical location.
         /// </summary>
@@ -232,57 +233,31 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 }
             }
 
-            // If we are using Single or Multiple selection modes just select the cell
-            if (this.SelectionMode == DataGridSelectionMode.Single || this.SelectionMode == DataGridSelectionMode.Multiple)
+            switch (this.SelectionMode)
             {
-                this.selectionService.Select(cellInfo.Cell);
-            }
-            else if (this.SelectionMode == DataGridSelectionMode.Extended)
-            {
-                // If we are using the extended selection mode we'll need to check if we are using any modifier keys
-
-                // Check if ctrl or shift is pressed, if one of them is execute it accordingly
-                if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift))
-                {
-                    int startColumn = 0;
-                    int startRow = 0;
-
-                    // If there is a previously selected cell we will start our selection from there.
-                    // If not we will start the selection at the first row.
-                    if (this.previouslySelectedCellInfo != null)
+                case DataGridSelectionMode.Single:
+                case DataGridSelectionMode.Multiple:
+                    this.selectionService.Select(cellInfo.Cell);
+                    this.itemToSelectFrom = cellInfo;
+                    break;
+                case DataGridSelectionMode.Extended:
+                    if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift))
                     {
-                        startRow = this.previouslySelectedCellInfo.RowItemInfo.Slot;
-                        startColumn = this.previouslySelectedCellInfo.Column.ItemInfo.Slot;
+                        var startColumnAndRow = this.GetExtendedSelectionStartRowAndColumn();
+                        this.selectionService.SelectRange(startColumnAndRow.Item1, startColumnAndRow.Item2, cellInfo.Column.ItemInfo.Slot, cellInfo.RowItemInfo.Slot);
                     }
-
-                    // Select the range of cells/rows requested
-                    this.selectionService.SelectRange(startColumn, startRow, cellInfo.Column.ItemInfo.Slot, cellInfo.RowItemInfo.Slot);
-
-                    // Set the previouslySelectedCellInfo to the current cell.
-                    // If the cell was deselected just set the value to null
-                    previouslySelectedCellInfo = (this.SelectedItem == null ? null : cellInfo);
-                }
-                else if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Control))
-                {
-                    // Select the cell
-                    this.selectionService.Select(cellInfo.Cell);
-
-                    // Set the previouslySelectedCellInfo to the current cell.
-                    // If the cell was deselected just set the value to null
-                    this.previouslySelectedCellInfo = (this.SelectedItem == null ? null : cellInfo);
-                }
-                else
-                {
-                    // Since we only want to select a single cell/row at a time clear the previous selections
-                    this.selectionService.ClearSelection();
-
-                    // Select the cell
-                    this.selectionService.Select(cellInfo.Cell);
-
-                    // Set the previouslySelectedCellInfo to the current cell.
-                    // If the cell was deselected just set the value to null
-                    this.previouslySelectedCellInfo = (this.SelectedItem == null ? null : cellInfo);
-                }
+                    else if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Control))
+                    {
+                        this.selectionService.Select(cellInfo.Cell);
+                        this.itemToSelectFrom = cellInfo;
+                    }
+                    else
+                    {
+                        this.selectionService.ClearSelection();
+                        this.selectionService.Select(cellInfo.Cell);
+                        this.itemToSelectFrom = cellInfo;
+                    }
+                    break;
             }
 
             this.CurrencyService.ChangeCurrentItem(cellInfo.RowItemInfo.Item, true, true);
@@ -465,10 +440,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     }
                     break;
                 case VirtualKey.A:
-                    // This allows the user to use ctrl+a to select all the rows.
-                    if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Control) && this.SelectionMode == DataGridSelectionMode.Extended)
+                    if (e.OriginalSource is RadDataGrid && KeyboardHelper.IsModifierKeyDown(VirtualKey.Control))
                     {
                         this.selectionService.SelectAll();
+                        e.Handled = true;
                     }
                     break;
             }
@@ -588,6 +563,42 @@ namespace Telerik.UI.Xaml.Controls.Grid
         private void FrozenContentHost_Tapped(object sender, TappedRoutedEventArgs e)
         {
             this.OnCellsPanelTapped(e);
+        }
+
+        private Tuple<int, int> GetExtendedSelectionStartRowAndColumn()
+        {
+            int startRow = 0;
+            int startColumn = 0;
+
+            var selectedItem = this.itemToSelectFrom as DataGridCellInfo;
+            if (selectedItem != null)
+            {
+                var rowInfo = selectedItem.RowItemInfo;
+                if (rowInfo.Equals(ItemInfo.Invalid))
+                {
+                    var info = this.model.FindItemInfo(selectedItem.Item);
+                    if (info.HasValue)
+                    {
+                        startRow = info.Value.Slot;
+                    }
+                }
+                else
+                {
+                    startRow = rowInfo.Slot;
+                }
+
+                startColumn = selectedItem.Column.ItemInfo.Slot;
+            }
+            else if (this.itemToSelectFrom != null)
+            {
+                var info = this.model.FindItemInfo(this.itemToSelectFrom);
+                if (info.HasValue)
+                {
+                    startRow = info.Value.Slot;
+                }
+            }
+
+            return new Tuple<int, int>(startColumn, startRow);
         }
     }
 }

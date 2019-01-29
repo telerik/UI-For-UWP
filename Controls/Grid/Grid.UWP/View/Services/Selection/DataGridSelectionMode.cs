@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Telerik.UI.Xaml.Controls.Grid
+﻿namespace Telerik.UI.Xaml.Controls.Grid
 {
     /// <summary>
     /// Defines the available selection modes within a <see cref="RadDataGrid"/> component.

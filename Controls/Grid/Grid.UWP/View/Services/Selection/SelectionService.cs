@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Telerik.Core;
 using Telerik.Data.Core;
-using Telerik.Data.Core.Layouts;
 using Telerik.UI.Automation.Peers;
-using Telerik.UI.Xaml.Controls.Grid.Primitives;
 using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Grid
 {
-    internal class SelectionService : Telerik.UI.Xaml.Controls.Primitives.ServiceBase<RadDataGrid>
+    internal class SelectionService : Controls.Primitives.ServiceBase<RadDataGrid>
     {
         internal HashSet<object> selectedRowsSet;
         internal HashSet<DataGridCellInfo> selectedCellsSet;
@@ -31,8 +26,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
 
             this.selectedItems = new SelectedItemCollection();
-            this.selectedItems.AllowMultipleSelect = (this.Owner.SelectionMode == DataGridSelectionMode.Multiple ||
-                                                      this.Owner.SelectionMode == DataGridSelectionMode.Extended);
+            this.selectedItems.AllowMultipleSelect = 
+                this.Owner.SelectionMode == DataGridSelectionMode.Multiple || this.Owner.SelectionMode == DataGridSelectionMode.Extended;
             this.selectedItems.SelectionUnit = this.Owner.SelectionUnit;
 
             this.selectedItems.CollectionChanged += this.OnSelectedItemsCollectionChanged;
@@ -67,71 +62,39 @@ namespace Telerik.UI.Xaml.Controls.Grid
             }
         }
 
-        internal async void Select(GridCellModel gridCellModel, bool toggleSelection = true)
+        internal async void Select(GridCellModel gridCellModel, bool uiSelect = true)
         {
-            var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this.Owner) as RadDataGridAutomationPeer;
-            if (dataGridPeer != null && dataGridPeer.childrenCache != null)
-            {
-                if (dataGridPeer.childrenCache.Count == 0)
-                {
-                    dataGridPeer.GetChildren();
-                }
-
-                var cellPeer = dataGridPeer.childrenCache.FirstOrDefault(a => a.Row == gridCellModel.ParentRow.ItemInfo.Slot && a.Column == gridCellModel.Column.ItemInfo.Slot) as DataGridCellInfoAutomationPeer;
-                if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
-                {
-                    await Dispatcher.RunAsync(
-                        Windows.UI.Core.CoreDispatcherPriority.Normal,
-                        () => 
-                        {
-                            cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
-                            cellPeer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementAddedToSelection);
-                            cellPeer.RaiseValuePropertyChangedEvent(false, true);
-                        });
-                }
-            }
+            await this.RaiseAutomationSelection(gridCellModel);
 
             switch (this.Owner.SelectionUnit)
             {
                 case DataGridSelectionUnit.Row:
-                    this.SelectItem((gridCellModel.Parent as GridRowModel).ItemInfo.Item, true, toggleSelection);
+                    this.SelectItem(((GridRowModel)gridCellModel.Parent).ItemInfo.Item, true, uiSelect);
                     break;
                 case DataGridSelectionUnit.Cell:
                     var cellInfo = new DataGridCellInfo(gridCellModel.ParentRow.ItemInfo, gridCellModel.Column);
-                    this.SelectCellInfo(cellInfo, true, toggleSelection);
+                    this.SelectCellInfo(cellInfo, true, uiSelect);
                     break;
                 default:
                     throw new ArgumentException("Unknown selection unit type", "this.Owner.SelectionUnit");
             }
         }
 
-        /// <summary>
-        /// Selects a range of cells/rows
-        /// </summary>
-        /// <param name="fromColumn">The column to start selecting from</param>
-        /// <param name="fromRow">The row to start selecting from</param>
-        /// <param name="toColumn">The column to select to</param>
-        /// <param name="toRow">The row to select to</param>
-        internal void SelectRange(int fromColumn, int fromRow, int toColumn, int toRow)
+        internal void SelectRange(int startColumnIndex, int startRowIndex, int endColumnIndex, int endRowIndex)
         {
-            // This ensures that we only select the columns in the range
-            ClearSelection();
-
-            // If the selection row's index is higher than the previous selection
-            if (fromRow <= toRow)
+            this.ClearSelection();
+            if (endRowIndex >= startRowIndex)
             {
-                // Loop through all the rows and select each row within the selection
-                for (int index = fromRow; index <= toRow; index++)
+                for (int index = startRowIndex; index <= endRowIndex; index++)
                 {
-                    SelectRangeUnits(index, fromColumn, toColumn);
+                    this.SelectRangeUnits(index, startColumnIndex, endColumnIndex);
                 }
             }
             else
             {
-                // Loop through all the rows and select each row within the selection
-                for (int index = fromRow; index >= toRow; index--)
+                for (int index = startRowIndex; index >= endRowIndex; index--)
                 {
-                    SelectRangeUnits(index, fromColumn, toColumn);
+                    this.SelectRangeUnits(index, startColumnIndex, endColumnIndex);
                 }
             }
         }
@@ -171,13 +134,13 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 this.ClearSelection();
             }
 
-            this.selectedItems.AllowMultipleSelect = (dataGridSelectionMode == DataGridSelectionMode.Multiple ||
-                                                      dataGridSelectionMode == DataGridSelectionMode.Extended);
+            this.selectedItems.AllowMultipleSelect = dataGridSelectionMode == DataGridSelectionMode.Multiple ||
+                dataGridSelectionMode == DataGridSelectionMode.Extended;
         }
 
         internal void SelectAll()
         {
-            if (this.SelectionMode != DataGridSelectionMode.Multiple)
+            if (this.SelectionMode == DataGridSelectionMode.Single || this.SelectionMode == DataGridSelectionMode.None)
             {
                 return;
             }
@@ -550,36 +513,26 @@ namespace Telerik.UI.Xaml.Controls.Grid
             this.OnSelectionChanged();
         }
 
-        /// <summary>
-        /// Aids in the range selection process and will select based on the SelectionUnit's value
-        /// </summary>
-        /// <param name="row">The row for the selection</param>
-        /// <param name="fromColumn">The column to start selecting from</param>
-        /// <param name="toColumn">The column to select to</param>
-        private void SelectRangeUnits(int row, int fromColumn, int toColumn)
+        private void SelectRangeUnits(int row, int startColumnIndex, int endColumnIndex)
         {
-            if (SelectionUnit == DataGridSelectionUnit.Row)
+            if (this.SelectionUnit == DataGridSelectionUnit.Row)
             {
-                // Since we are in row selection mode just select the entire row.
-                SelectRangeCells(row);
+                this.SelectRangeCells(row);
             }
             else
             {
-                // If we are selecting cells, check if their column is before or after the current column
-                if (fromColumn <= toColumn)
+                if (startColumnIndex <= endColumnIndex)
                 {
-                    // The selected to column is after the currently select column
-                    for (int columnIndex = fromColumn; columnIndex <= toColumn; columnIndex++)
+                    for (int columnIndex = startColumnIndex; columnIndex <= endColumnIndex; columnIndex++)
                     {
-                        SelectRangeCells(row, columnIndex);
+                        this.SelectRangeCells(row, columnIndex);
                     }
                 }
                 else
                 {
-                    // The selected to column is before the currently select column
-                    for (int columnIndex = fromColumn; columnIndex >= toColumn; columnIndex--)
+                    for (int columnIndex = startColumnIndex; columnIndex >= endColumnIndex; columnIndex--)
                     {
-                        SelectRangeCells(row, columnIndex);
+                        this.SelectRangeCells(row, columnIndex);
                     }
                 }
             }
@@ -587,14 +540,10 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
         private void SelectRangeCells(int row, int column = -1)
         {
-            // The correct GridCellModel based on if we are doing a row selection or cell selection
-            GridCellModel model = column == -1 ?
-                this.Owner.Model.CellsController.GetCellsForRow(row).FirstOrDefault() :
-                this.Owner.Model.CellsController.GetCellsForRow(row).FirstOrDefault(a => a.Column.ItemInfo.Slot == column);
-
+            var cells = this.Owner.Model.CellsController.GetCellsForRow(row);
+            GridCellModel model = column != -1 ? cells.FirstOrDefault(a => a.Column.ItemInfo.Slot == column) : cells.FirstOrDefault();
             if (model != null)
             {
-                // Perform the selection
                 this.Select(model, false);
             }
         }
@@ -602,6 +551,31 @@ namespace Telerik.UI.Xaml.Controls.Grid
         private void OnSelectionChanged()
         {
             this.Owner.updateService.RegisterUpdate(UpdateFlags.AffectsDecorations);
+        }
+
+        private async Task RaiseAutomationSelection(GridCellModel gridCellModel)
+        {
+            var dataGridPeer = FrameworkElementAutomationPeer.FromElement(this.Owner) as RadDataGridAutomationPeer;
+            if (dataGridPeer != null && dataGridPeer.childrenCache != null)
+            {
+                if (dataGridPeer.childrenCache.Count == 0)
+                {
+                    dataGridPeer.GetChildren();
+                }
+
+                var cellPeer = dataGridPeer.childrenCache.FirstOrDefault(a => a.Row == gridCellModel.ParentRow.ItemInfo.Slot && a.Column == gridCellModel.Column.ItemInfo.Slot) as DataGridCellInfoAutomationPeer;
+                if (cellPeer != null && cellPeer.ChildTextBlockPeer != null)
+                {
+                    await Dispatcher.RunAsync(
+                        Windows.UI.Core.CoreDispatcherPriority.Normal,
+                        () =>
+                        {
+                            cellPeer.RaiseAutomationEvent(AutomationEvents.AutomationFocusChanged);
+                            cellPeer.RaiseAutomationEvent(AutomationEvents.SelectionItemPatternOnElementAddedToSelection);
+                            cellPeer.RaiseValuePropertyChangedEvent(false, true);
+                        });
+                }
+            }
         }
     }
 }
