@@ -34,6 +34,10 @@ namespace SDKExamples.UWP.DataGrid
             source.Add(new Item { Name = "Rosi", Age = 27, Birthday = DateTime.Today.AddYears(-27) });
             source.Add(new Item { Name = "Ivan", Age = 26, Birthday = DateTime.Today.AddYears(-26) });
             source.Add(new Item { Name = "Kaloyan", Age = 30, Birthday = DateTime.Today.AddYears(-30) });
+            source.Add(new Item { Name = "Greg", Age = 35, Birthday = DateTime.Today.AddYears(-35) });
+            source.Add(new Item { Name = "Mike", Age = 15, Birthday = DateTime.Today.AddYears(-15) });
+            source.Add(new Item { Name = "Erik", Age = 20, Birthday = DateTime.Today.AddYears(-20) });
+            source.Add(new Item { Name = "Caitlin", Age = 16, Birthday = DateTime.Today.AddYears(-16) });
 
             this.DataContext = source;
             this.comboMode.ItemsSource = Enum.GetValues(typeof(DataGridSelectionMode));

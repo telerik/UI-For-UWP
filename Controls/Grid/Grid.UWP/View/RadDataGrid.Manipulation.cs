@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Telerik.Core;
+﻿using System;
+using System.Linq;
 using Telerik.Data.Core.Layouts;
 using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Grid.Commands;
@@ -23,7 +23,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
         internal CommandService commandService;
         private Storyboard cellFlyoutShowTimeOutAnimationBoard;
         private DoubleAnimation cellFlyoutShowTimeOutAnimation;
-            
+        private object itemToSelectFrom;
+
         /// <summary>
         /// Gets the <see cref="HitTestService"/> instance that provides methods for retrieving rows and cells from a given physical location.
         /// </summary>
@@ -232,7 +233,33 @@ namespace Telerik.UI.Xaml.Controls.Grid
                 }
             }
 
-            this.selectionService.Select(cellInfo.Cell);
+            switch (this.SelectionMode)
+            {
+                case DataGridSelectionMode.Single:
+                case DataGridSelectionMode.Multiple:
+                    this.selectionService.Select(cellInfo.Cell);
+                    this.itemToSelectFrom = cellInfo;
+                    break;
+                case DataGridSelectionMode.Extended:
+                    if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift))
+                    {
+                        var startColumnAndRow = this.GetExtendedSelectionStartRowAndColumn();
+                        this.selectionService.SelectRange(startColumnAndRow.Item1, startColumnAndRow.Item2, cellInfo.Column.ItemInfo.Slot, cellInfo.RowItemInfo.Slot);
+                    }
+                    else if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Control))
+                    {
+                        this.selectionService.Select(cellInfo.Cell);
+                        this.itemToSelectFrom = cellInfo;
+                    }
+                    else
+                    {
+                        this.selectionService.ClearSelection();
+                        this.selectionService.Select(cellInfo.Cell);
+                        this.itemToSelectFrom = cellInfo;
+                    }
+                    break;
+            }
+
             this.CurrencyService.ChangeCurrentItem(cellInfo.RowItemInfo.Item, true, true);
 
             if (cellInfo.Column != null)
@@ -412,6 +439,13 @@ namespace Telerik.UI.Xaml.Controls.Grid
                         }
                     }
                     break;
+                case VirtualKey.A:
+                    if (e.OriginalSource is RadDataGrid && KeyboardHelper.IsModifierKeyDown(VirtualKey.Control))
+                    {
+                        this.selectionService.SelectAll();
+                        e.Handled = true;
+                    }
+                    break;
             }
 
             if (info != null)
@@ -529,6 +563,42 @@ namespace Telerik.UI.Xaml.Controls.Grid
         private void FrozenContentHost_Tapped(object sender, TappedRoutedEventArgs e)
         {
             this.OnCellsPanelTapped(e);
+        }
+
+        private Tuple<int, int> GetExtendedSelectionStartRowAndColumn()
+        {
+            int startRow = 0;
+            int startColumn = 0;
+
+            var selectedItem = this.itemToSelectFrom as DataGridCellInfo;
+            if (selectedItem != null)
+            {
+                var rowInfo = selectedItem.RowItemInfo;
+                if (rowInfo.Equals(ItemInfo.Invalid))
+                {
+                    var info = this.model.FindItemInfo(selectedItem.Item);
+                    if (info.HasValue)
+                    {
+                        startRow = info.Value.Slot;
+                    }
+                }
+                else
+                {
+                    startRow = rowInfo.Slot;
+                }
+
+                startColumn = selectedItem.Column.ItemInfo.Slot;
+            }
+            else if (this.itemToSelectFrom != null)
+            {
+                var info = this.model.FindItemInfo(this.itemToSelectFrom);
+                if (info.HasValue)
+                {
+                    startRow = info.Value.Slot;
+                }
+            }
+
+            return new Tuple<int, int>(startColumn, startRow);
         }
     }
 }
