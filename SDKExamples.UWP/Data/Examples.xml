@@ -114,6 +114,9 @@
   <Control Name="LoopingList">
     <Example DisplayName="Customizations" ClassName="SDKExamples.UWP.LoopingList.Customizations" />
   </Control>
+  <Control Name="Map">
+    <Example DisplayName="Getting Started" ClassName="SDKExamples.UWP.Examples.Map.GettingStarted" />
+  </Control>
   <Control Name="NumericBox">
     <Example DisplayName="Styling" ClassName="SDKExamples.UWP.NumericBox.Styling" />
     <Example DisplayName="Configurations" ClassName="SDKExamples.UWP.NumericBox.Configurations" />
@@ -127,6 +130,7 @@
     <Example DisplayName="Change Item Template" ClassName="SDKExamples.UWP.RadialMenu.RadialMenuItemTemplate" />
     <Example DisplayName="Styling" ClassName="SDKExamples.UWP.RadialMenu.Styling" />
     <Example DisplayName="Radial Menu as Context Menu" ClassName="SDKExamples.UWP.RadialMenu.ContextMenu" />
+    <Example DisplayName="Navigate Back Command" ClassName="SDKExamples.UWP.Examples.RadialMenu.NavigateBackCommand" />
   </Control>
   <Control Name="RangeSlider">
     <Example DisplayName="Configurations" ClassName="SDKExamples.UWP.Slider.Configurations" />

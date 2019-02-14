@@ -1,0 +1,36 @@
+﻿<uwp:ExamplePageBase
+    x:Class="SDKExamples.UWP.Examples.RadialMenu.NavigateBackCommand"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:SDKExamples.UWP"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="page">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <primitives:RadRadialMenu x:Name="radialMenu" Grid.Row="1" IsOpen="True">
+            <primitives:RadRadialMenu.Items>
+                <primitives:RadialMenuItem Header="Item 1">
+                    <primitives:RadialMenuItem.ChildItems>
+                        <primitives:RadialMenuItem Header="SubItem 1"/>
+                        <primitives:RadialMenuItem Header="SubItem 2"/>
+                        <primitives:RadialMenuItem Header="SubItem 3">
+                            <primitives:RadialMenuItem Header="SubItem 3.1">
+                                <primitives:RadialMenuItem Header="SubItem 3.1.1"/>
+                            </primitives:RadialMenuItem>
+                        </primitives:RadialMenuItem>
+                    </primitives:RadialMenuItem.ChildItems>
+                </primitives:RadialMenuItem>
+            </primitives:RadRadialMenu.Items>
+        </primitives:RadRadialMenu>
+        <Button Grid.Row="2" Content="Navigate Back" Click="NavigateBackClick"/>
+    </Grid>
+</uwp:ExamplePageBase>
