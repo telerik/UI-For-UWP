@@ -96,6 +96,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Examples\Map\Shapes\world.dbf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Examples\Map\Shapes\world.shp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -373,6 +379,9 @@
     <Compile Include="Examples\LoopingList\Customizations.xaml.cs">
       <DependentUpon>Customizations.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Map\GettingStarted.xaml.cs">
+      <DependentUpon>GettingStarted.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\NumericBox\Configurations.xaml.cs">
       <DependentUpon>Configurations.xaml</DependentUpon>
     </Compile>
@@ -387,6 +396,9 @@
     </Compile>
     <Compile Include="Examples\RadialMenu\Customizations.xaml.cs">
       <DependentUpon>Customizations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Examples\RadialMenu\NavigateBackCommand.xaml.cs">
+      <DependentUpon>NavigateBackCommand.xaml</DependentUpon>
     </Compile>
     <Compile Include="Examples\RadialMenu\RadialMenuItemTemplate.xaml.cs">
       <DependentUpon>RadialMenuItemTemplate.xaml</DependentUpon>
@@ -819,6 +831,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Examples\Map\GettingStarted.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Examples\NumericBox\Configurations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -836,6 +852,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\RadialMenu\Customizations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\RadialMenu\NavigateBackCommand.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -906,6 +926,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\Telerik.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Geospatial.UWP">
+      <HintPath>..\Binaries\Telerik.Geospatial.UWP.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.UI.Drawing">
+      <HintPath>..\Binaries\x86\Telerik.UI.Drawing.winmd</HintPath>
+    </Reference>
     <Reference Include="Telerik.UI.Xaml.Chart.UWP">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\Telerik.UI.Xaml.Chart.UWP.dll</HintPath>
@@ -925,6 +951,9 @@
     <Reference Include="Telerik.UI.Xaml.Input.UWP">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\Telerik.UI.Xaml.Input.UWP.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.UI.Xaml.Map.UWP">
+      <HintPath>..\Binaries\x86\Telerik.UI.Xaml.Map.UWP.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.UI.Xaml.Primitives.UWP">
       <SpecificVersion>False</SpecificVersion>
