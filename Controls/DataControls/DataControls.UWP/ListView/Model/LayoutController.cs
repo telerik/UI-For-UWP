@@ -13,8 +13,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
         private readonly ItemModelGenerator modelGenerator;
 
-        private RadSize availableSize;
-
         private IListView owner;
 
         private ListViewModel model;
@@ -48,57 +46,22 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
         public RadSize MeasureContent(RadSize newAvailableSize)
         {
-            double widthToSubstract = 0;
-            double heightToSubstract = 0;
-            var headerSize = this.MeasureHeader(newAvailableSize);
-            var footerSize = this.MeasureFooter(newAvailableSize);
+            RadSize resultSize;
 
             if (this.strategy.IsHorizontal)
             {
-                widthToSubstract = headerSize.Width + footerSize.Width;
+                resultSize = this.MeasureHorizontal(newAvailableSize);
             }
             else
             {
-                heightToSubstract = headerSize.Height + footerSize.Height;
+                resultSize = this.MeasureVertical(newAvailableSize);
             }
 
-            this.availableSize = new RadSize(newAvailableSize.Width - widthToSubstract, newAvailableSize.Height - heightToSubstract);
-            var emptyContentSize = this.MeasureEmptyContent(this.availableSize);
-
-            var resultSize = this.strategy.MeasureContent(this.availableSize, this.owner.ScrollOffset, this.model.BufferScale);
             this.strategy.RecycleAfterMeasure();
-
-            RadSize emptyContentPosition;
-
-            if (this.strategy.IsHorizontal)
-            {
-                emptyContentPosition = new RadSize(this.headerModel.LayoutSlot.Right + resultSize.Width, 0);
-            }
-            else
-            {
-                emptyContentPosition = new RadSize(0, this.headerModel.LayoutSlot.Bottom + resultSize.Height);
-            }
-
-            this.UpdateEmptyContentLayoutSlotPosition(emptyContentPosition);
-
-            RadSize footerPosition;
-
-            if (this.strategy.IsHorizontal)
-            {
-                footerPosition = new RadSize(this.emptyContentModel.LayoutSlot.Right, 0);
-            }
-            else
-            {
-                footerPosition = new RadSize(0, this.emptyContentModel.LayoutSlot.Bottom);
-            }
-
-            this.UpdateFooterLayoutSlotPosition(footerPosition);
-
             this.model.View.ItemCheckBoxService.GenerateVisuals();
-
             this.strategy.GenerateFrozenContainers();
 
-            return new RadSize(resultSize.Width + this.emptyContentModel.LayoutSlot.Width + widthToSubstract, resultSize.Height + this.emptyContentModel.LayoutSlot.Height + heightToSubstract);
+            return resultSize;
         }
 
         public void ArrangeContent(RadSize adjustedfinalSize)
@@ -221,6 +184,120 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             (sender as LayoutDefinitionBase).UpdateStrategy(this.strategy);
             this.strategy.FullyRecycle();
             this.owner.UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
+        }
+
+        private RadSize MeasureHorizontal(RadSize newAvailableSize)
+        {
+            var measureConstraints = newAvailableSize;
+
+            measureConstraints.Width = double.PositiveInfinity;
+
+            var headerSize = this.MeasureHeader(measureConstraints);
+            var footerSize = this.MeasureFooter(measureConstraints);
+            var emptyContentSize = this.MeasureEmptyContent(measureConstraints);
+            var emptyContentAvailableWidth = newAvailableSize.Width - headerSize.Width - footerSize.Width;
+
+            if (emptyContentSize.Width > 0 && emptyContentSize.Width < emptyContentAvailableWidth)
+            {
+                measureConstraints.Width = emptyContentAvailableWidth;
+                emptyContentSize = this.MeasureEmptyContent(measureConstraints);
+            }
+
+            var availableSize = newAvailableSize;
+            var startOffset = this.owner.ScrollOffset;
+
+            if (startOffset < headerSize.Width)
+            {
+                availableSize.Width -= headerSize.Width - startOffset;
+
+                if (availableSize.Width < 0)
+                {
+                    availableSize.Width = 0;
+                }
+
+                startOffset = 0;
+            }
+            else
+            {
+                startOffset -= headerSize.Width;
+            }
+
+            var resultSize = this.strategy.MeasureContent(availableSize, startOffset, this.model.BufferScale);
+            var contentRemainingWidth = availableSize.Width - resultSize.Width + startOffset;
+
+            if (contentRemainingWidth > 0 && footerSize.Width > 0)
+            {
+                availableSize.Width -= contentRemainingWidth;
+                resultSize = this.strategy.MeasureContent(availableSize, startOffset, this.model.BufferScale);
+            }
+
+            var emptyContentPosition = new RadSize(this.headerModel.LayoutSlot.Right + resultSize.Width, 0);
+            this.UpdateEmptyContentLayoutSlotPosition(emptyContentPosition);
+
+            var footerPosition = new RadSize(this.emptyContentModel.LayoutSlot.Right, 0);
+            this.UpdateFooterLayoutSlotPosition(footerPosition);
+
+            resultSize.Width += emptyContentSize.Width + headerSize.Width + footerSize.Width;
+            resultSize.Height += emptyContentSize.Height;
+
+            return resultSize;
+        }
+
+        private RadSize MeasureVertical(RadSize newAvailableSize)
+        {
+            var measureConstraints = newAvailableSize;
+
+            measureConstraints.Height = double.PositiveInfinity;
+
+            var headerSize = this.MeasureHeader(measureConstraints);
+            var footerSize = this.MeasureFooter(measureConstraints);
+            var emptyContentSize = this.MeasureEmptyContent(measureConstraints);
+            var emptyContentAvailableHeight = newAvailableSize.Height - headerSize.Height - footerSize.Height;
+
+            if (emptyContentSize.Height > 0 && emptyContentSize.Height < emptyContentAvailableHeight)
+            {
+                measureConstraints.Height = emptyContentAvailableHeight;
+                emptyContentSize = this.MeasureEmptyContent(measureConstraints);
+            }
+
+            var availableSize = newAvailableSize;
+            var startOffset = this.owner.ScrollOffset;
+
+            if (startOffset < headerSize.Height)
+            {
+                availableSize.Height -= headerSize.Height - startOffset;
+
+                if (availableSize.Height < 0)
+                {
+                    availableSize.Height = 0;
+                }
+
+                startOffset = 0;
+            }
+            else
+            {
+                startOffset -= headerSize.Height;
+            }
+
+            var resultSize = this.strategy.MeasureContent(availableSize, startOffset, this.model.BufferScale);
+            var contentRemainingHeight = availableSize.Height - resultSize.Height + startOffset;
+
+            if (contentRemainingHeight > 0 && footerSize.Height > 0)
+            {
+                availableSize.Height -= contentRemainingHeight;
+                resultSize = this.strategy.MeasureContent(availableSize, startOffset, this.model.BufferScale);
+            }
+
+            var emptyContentPosition = new RadSize(0, this.headerModel.LayoutSlot.Bottom + resultSize.Height);
+            this.UpdateEmptyContentLayoutSlotPosition(emptyContentPosition);
+
+            var footerPosition = new RadSize(0, this.emptyContentModel.LayoutSlot.Bottom);
+            this.UpdateFooterLayoutSlotPosition(footerPosition);
+
+            resultSize.Width += emptyContentSize.Width;
+            resultSize.Height += emptyContentSize.Height + headerSize.Height + footerSize.Height;
+
+            return resultSize;
         }
     }
 }
