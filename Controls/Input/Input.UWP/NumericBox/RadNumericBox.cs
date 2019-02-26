@@ -819,7 +819,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() != DeviceType.Phone)
             {
-                return false;
+                return KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift) ^ KeyboardHelper.IsModifierKeyLocked(VirtualKey.CapitalLock);
             }
 
             if (key >= VirtualKey.Number0 && key <= VirtualKey.Number9)
