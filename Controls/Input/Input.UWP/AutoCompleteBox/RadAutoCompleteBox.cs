@@ -167,6 +167,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty IsClearButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsClearButtonVisible), typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(true, OnIsClearButtonVisibleChanted));
 
+        /// <summary>
+        /// Identifies the <see cref="SelectAllOnFocus"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty SelectAllOnFocusProperty =
+            DependencyProperty.Register(nameof(SelectAllOnFocus), typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(true));
+
         internal const double PopupOffsetFromTextBox = 2.0;
 
         internal Popup suggestionsPopup;
@@ -790,6 +796,21 @@ namespace Telerik.UI.Xaml.Controls.Input
                 }
 
                 return this.suggestionsControl.DesiredHeight;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the control should select all of the text when it gets the focus.
+        /// </summary>
+        public bool SelectAllOnFocus
+        {
+            get
+            {
+                return (bool)this.GetValue(SelectAllOnFocusProperty);
+            }
+            set
+            {
+                this.SetValue(SelectAllOnFocusProperty, value);
             }
         }
 
@@ -1601,7 +1622,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.isUserTyping = true;
 
             this.UpdateWatermarkVisibility();
-            this.UpdateCaretPosition();
+
+            if (this.SelectAllOnFocus)
+            {
+                this.UpdateCaretPosition();
+            }
         }
 
         private void OnTextBoxLostFocus(object sender, RoutedEventArgs args)
