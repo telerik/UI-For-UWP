@@ -171,7 +171,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="SelectAllOnKeyboardFocus"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectAllOnKeyboardFocusProperty =
-            DependencyProperty.Register(nameof(SelectAllOnKeyboardFocus), typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(true, OnSelectAllOnFocusChanged));
+            DependencyProperty.Register(nameof(SelectAllOnKeyboardFocus), typeof(bool), typeof(RadAutoCompleteBox), new PropertyMetadata(true, OnSelectAllOnKeyboardFocusChanged));
 
         internal const double PopupOffsetFromTextBox = 2.0;
 
@@ -1065,6 +1065,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.textbox.LostFocus += this.OnTextBoxLostFocus;
 
             this.textbox.Text = this.textCache ?? string.Empty;
+            if (!this.SelectAllOnKeyboardFocus)
+            {
+                this.ClearTextSelection();
+            }
 
             this.suggestionsControl.owner = this;
             this.suggestionsControl.MaxHeight = this.DropDownMaxHeight;
@@ -1345,7 +1349,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
-        private static void OnSelectAllOnFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSelectAllOnKeyboardFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(bool)e.NewValue)
             {
@@ -1660,6 +1664,11 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void ClearTextSelection()
         {
+            if (this.textbox == null)
+            {
+                return;
+            }
+
             this.textbox.SelectionStart = this.textbox.Text.Length;
             this.textbox.SelectionLength = 0;
         }
