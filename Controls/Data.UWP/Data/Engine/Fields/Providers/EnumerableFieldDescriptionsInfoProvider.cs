@@ -90,7 +90,7 @@ namespace Telerik.Data.Core.Fields
                     }
                 }
 
-                var props = currentType.GetRuntimeProperties().Where(pi => pi.GetMethod != null && !pi.GetIndexParameters().Any() && pi.GetMethod.IsPublic && pi.GetCustomAttribute<SkipAutoGenerateAttribute>() == null);
+                var props = currentType.GetRuntimeProperties().Where(pi => pi.GetMethod != null && !pi.GetIndexParameters().Any() && pi.GetMethod.IsPublic && !pi.GetMethod.IsStatic && pi.GetCustomAttribute<SkipAutoGenerateAttribute>() == null);
                 foreach (var propertyInfo in props)
                 {
                     var propertyAccess = BindingExpressionHelper.CreateGetValueFunc(currentType, propertyInfo.Name);

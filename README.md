@@ -69,7 +69,7 @@ UI for UWP is free and open-source. We encourage and support an active, healthy 
 
 Before contributing to UI for UWP, please:
 
-1. Read and sign the [Telerik UI for UWP Contribution License Agreement](https://docs.google.com/forms/d/e/1FAIpQLSfQAzVxnnfwRQmtJCVmB41_ig1gYow--Gr8qLvaDxJRNHPtUQ/viewform), to confirm you've read and acknowledged the legal aspects of your contributions, and
+1. Read and sign the [Telerik UI for UWP Contribution License Agreement](https://docs.google.com/forms/d/e/1FAIpQLScXkQkYKKZZKXV9aTkhvCT3Q1cACosyhKUILPdOl7Ly9PIL_g/viewform), to confirm you've read and acknowledged the legal aspects of your contributions, and
 2. Read our [contribution guide](CONTRIBUTING.md), which houses all of the necessary info to:
   * submit bugs,
   * request new features, and,

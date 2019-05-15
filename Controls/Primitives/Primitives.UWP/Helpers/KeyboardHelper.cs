@@ -1,5 +1,4 @@
-﻿using System;
-using Windows.System;
+﻿using Windows.System;
 using Windows.UI.Core;
 
 namespace Telerik.UI.Xaml.Controls.Primitives
@@ -8,14 +7,25 @@ namespace Telerik.UI.Xaml.Controls.Primitives
     {
         public static bool IsModifierKeyDown(VirtualKey key)
         {
+            var state = KeyboardHelper.GetKeyState(key);
+            return (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+        }
+
+        public static bool IsModifierKeyLocked(VirtualKey key)
+        {
+            var state = KeyboardHelper.GetKeyState(key);
+            return (state & CoreVirtualKeyStates.Locked) == CoreVirtualKeyStates.Locked;
+        }
+
+        private static CoreVirtualKeyStates GetKeyState(VirtualKey key)
+        {
             var window = CoreWindow.GetForCurrentThread();
             if (window == null)
             {
-                return false;
+                return CoreVirtualKeyStates.None;
             }
 
-            var state = window.GetKeyState(key);
-            return (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+            return window.GetKeyState(key);
         }
     }
 }
