@@ -5,8 +5,10 @@ using Telerik.Core;
 using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.NumericBox;
 using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.Devices.Input;
 using Windows.Foundation.Metadata;
 using Windows.System;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
@@ -112,6 +114,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private const int CommaKey = 188;
         private const int DashKey = 189;
         private const int DotKey = 190;
+        private static bool shiftPrePressed;
 
         private CultureInfo currentCulture = CultureInfo.CurrentCulture;
         private TextBox textBox;
@@ -817,9 +820,43 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private static bool IsNumericKey(VirtualKey key)
         {
-            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() == DeviceType.Desktop)
+            bool onScreenKeyboardVisible = InputPane.GetForCurrentView().OccludedRect.Height > 0;
+            bool keyModifierUsed = KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift) ^ KeyboardHelper.IsModifierKeyLocked(VirtualKey.CapitalLock);
+            DeviceType deviceType = DeviceTypeHelper.GetDeviceType();
+
+            if (deviceType == DeviceType.Tablet && key == VirtualKey.Shift && onScreenKeyboardVisible)
             {
-                return KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift) ^ KeyboardHelper.IsModifierKeyLocked(VirtualKey.CapitalLock);
+                shiftPrePressed = true;
+            }
+
+            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && deviceType != DeviceType.Phone)
+            {
+                if (deviceType == DeviceType.Tablet)
+                {
+                    if (shiftPrePressed)
+                    {
+                        shiftPrePressed = false;
+                        return true;
+                    }   
+                    else
+                    {
+                        if (onScreenKeyboardVisible)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return keyModifierUsed;
+                        }
+                    }
+                }
+
+                return keyModifierUsed;
+            }
+
+            if (deviceType == DeviceType.Tablet && key != VirtualKey.Shift)
+            {
+                shiftPrePressed = false;
             }
 
             if (key >= VirtualKey.Number0 && key <= VirtualKey.Number9)
@@ -841,7 +878,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (RadNumericBox.IsAzertyKeyboard)
             {
-                isNegativeSign = isNegativeSign || (key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() == DeviceType.Desktop);
+                isNegativeSign = isNegativeSign || (key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() != DeviceType.Phone);
             }
 
             return isNegativeSign;
