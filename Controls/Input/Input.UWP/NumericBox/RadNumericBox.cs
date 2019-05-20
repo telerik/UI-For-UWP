@@ -147,7 +147,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Occurs when the current value has changed.
         /// </summary>
         public event EventHandler ValueChanged;
-        
+
         /// <summary>
         /// Gets or sets the context for input used by this RadNumericBox.
         /// </summary>
@@ -480,7 +480,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.currentCulture = CultureInfo.CurrentCulture;
             }
         }
-        
+
         internal override void OnMaximumChanged(double oldMaximum, double newMaximum)
         {
             base.OnMaximumChanged(oldMaximum, newMaximum);
@@ -738,7 +738,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             base.OnGotFocus(e);
-            
+
             this.IsTabStop = false;
         }
 
@@ -817,7 +817,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private static bool IsNumericKey(VirtualKey key)
         {
-            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() != DeviceType.Phone)
+            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() == DeviceType.Desktop)
             {
                 return KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift) ^ KeyboardHelper.IsModifierKeyLocked(VirtualKey.CapitalLock);
             }
@@ -841,7 +841,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (RadNumericBox.IsAzertyKeyboard)
             {
-                isNegativeSign = isNegativeSign || (key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() != DeviceType.Phone);
+                isNegativeSign = isNegativeSign || (key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() == DeviceType.Desktop);
             }
 
             return isNegativeSign;
@@ -891,7 +891,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     numericBox.UpdateTextBoxText();
                 }
-                
+
                 numericBox.OnValueChanged();
             }
 
