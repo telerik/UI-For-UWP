@@ -114,7 +114,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private const int CommaKey = 188;
         private const int DashKey = 189;
         private const int DotKey = 190;
-        private static bool shiftPrePressed;
+        private static bool isInputPaneNumber;
 
         private CultureInfo currentCulture = CultureInfo.CurrentCulture;
         private TextBox textBox;
@@ -474,6 +474,14 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        private static bool OnScreenKeyboardVisible
+        {
+            get
+            {
+                return InputPane.GetForCurrentView().OccludedRect.Height > 0;
+            }
+        }
+
         void ICultureAware.OnCultureChanged(CultureInfo oldValue, CultureInfo newValue)
         {
             this.currentCulture = newValue;
@@ -820,43 +828,37 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private static bool IsNumericKey(VirtualKey key)
         {
-            bool onScreenKeyboardVisible = InputPane.GetForCurrentView().OccludedRect.Height > 0;
-            bool keyModifierUsed = KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift) ^ KeyboardHelper.IsModifierKeyLocked(VirtualKey.CapitalLock);
             DeviceType deviceType = DeviceTypeHelper.GetDeviceType();
+            bool isTablet = deviceType == DeviceType.Tablet;
 
-            if (deviceType == DeviceType.Tablet && key == VirtualKey.Shift && onScreenKeyboardVisible)
+            if (isTablet && key == VirtualKey.Shift && OnScreenKeyboardVisible)
             {
-                shiftPrePressed = true;
+                isInputPaneNumber = true;
             }
 
             if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && deviceType != DeviceType.Phone)
             {
-                if (deviceType == DeviceType.Tablet)
+                bool keyModifierUsed = KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift) ^ KeyboardHelper.IsModifierKeyLocked(VirtualKey.CapitalLock);
+
+                if (isTablet)
                 {
-                    if (shiftPrePressed)
+                    if (isInputPaneNumber)
                     {
-                        shiftPrePressed = false;
+                        isInputPaneNumber = false;
                         return true;
-                    }   
-                    else
+                    }
+                    else if (OnScreenKeyboardVisible)
                     {
-                        if (onScreenKeyboardVisible)
-                        {
-                            return false;
-                        }
-                        else
-                        {
-                            return keyModifierUsed;
-                        }
+                        return false;
                     }
                 }
 
                 return keyModifierUsed;
             }
 
-            if (deviceType == DeviceType.Tablet && key != VirtualKey.Shift)
+            if (isTablet && key != VirtualKey.Shift)
             {
-                shiftPrePressed = false;
+                isInputPaneNumber = false;
             }
 
             if (key >= VirtualKey.Number0 && key <= VirtualKey.Number9)
