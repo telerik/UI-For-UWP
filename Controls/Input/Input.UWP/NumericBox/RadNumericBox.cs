@@ -114,7 +114,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private const int CommaKey = 188;
         private const int DashKey = 189;
         private const int DotKey = 190;
-        private static bool isInputPaneNumber;
+        private static bool IsInputPaneNumber;
 
         private CultureInfo currentCulture = CultureInfo.CurrentCulture;
         private TextBox textBox;
@@ -833,7 +833,8 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (isTablet && key == VirtualKey.Shift && OnScreenKeyboardVisible)
             {
-                isInputPaneNumber = true;
+                IsInputPaneNumber = true;
+                return false;
             }
 
             if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && deviceType != DeviceType.Phone)
@@ -842,9 +843,9 @@ namespace Telerik.UI.Xaml.Controls.Input
 
                 if (isTablet)
                 {
-                    if (isInputPaneNumber)
+                    if (IsInputPaneNumber)
                     {
-                        isInputPaneNumber = false;
+                        IsInputPaneNumber = false;
                         return true;
                     }
                     else if (OnScreenKeyboardVisible)
@@ -858,7 +859,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (isTablet && key != VirtualKey.Shift)
             {
-                isInputPaneNumber = false;
+                IsInputPaneNumber = false;
             }
 
             if (key >= VirtualKey.Number0 && key <= VirtualKey.Number9)
