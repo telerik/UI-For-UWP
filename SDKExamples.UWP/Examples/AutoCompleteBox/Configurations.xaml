@@ -33,12 +33,20 @@
        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-       
-        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
 
-        <input:RadAutoCompleteBox Watermark="Watermark" Header="Header" x:Name="autoComplete" Margin="10" MinWidth="200" Grid.Row="1">
+        <TextBlock Text="{Binding Title, ElementName=page}" Style="{StaticResource ExampleHeaderTextBlockStyle}" />
+        <CheckBox x:Name="cb" Grid.Row="1" Content="Select all on focus"/>
+
+        <input:RadAutoCompleteBox Watermark="Watermark" 
+                                  Header="Header" 
+                                  x:Name="autoComplete" 
+                                  Margin="10" 
+                                  MinWidth="200" 
+                                  Grid.Row="2"
+                                  SelectAllOnKeyboardFocus="{Binding ElementName=cb, Path=IsChecked}">
             <input:RadAutoCompleteBox.WatermarkTemplate>
                 <DataTemplate>
                     <TextBlock Foreground="Green" FontStyle="Italic" Text="{Binding}" />

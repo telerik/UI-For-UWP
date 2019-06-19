@@ -5,8 +5,10 @@ using Telerik.Core;
 using Telerik.UI.Automation.Peers;
 using Telerik.UI.Xaml.Controls.Input.NumericBox;
 using Telerik.UI.Xaml.Controls.Primitives;
+using Windows.Devices.Input;
 using Windows.Foundation.Metadata;
 using Windows.System;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
@@ -112,6 +114,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private const int CommaKey = 188;
         private const int DashKey = 189;
         private const int DotKey = 190;
+        private static bool IsInputPaneNumber;
 
         private CultureInfo currentCulture = CultureInfo.CurrentCulture;
         private TextBox textBox;
@@ -147,7 +150,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Occurs when the current value has changed.
         /// </summary>
         public event EventHandler ValueChanged;
-        
+
         /// <summary>
         /// Gets or sets the context for input used by this RadNumericBox.
         /// </summary>
@@ -471,6 +474,14 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        private static bool OnScreenKeyboardVisible
+        {
+            get
+            {
+                return InputPane.GetForCurrentView().OccludedRect.Height > 0;
+            }
+        }
+
         void ICultureAware.OnCultureChanged(CultureInfo oldValue, CultureInfo newValue)
         {
             this.currentCulture = newValue;
@@ -480,7 +491,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.currentCulture = CultureInfo.CurrentCulture;
             }
         }
-        
+
         internal override void OnMaximumChanged(double oldMaximum, double newMaximum)
         {
             base.OnMaximumChanged(oldMaximum, newMaximum);
@@ -738,7 +749,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             base.OnGotFocus(e);
-            
+
             this.IsTabStop = false;
         }
 
@@ -817,9 +828,38 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private static bool IsNumericKey(VirtualKey key)
         {
-            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && DeviceTypeHelper.GetDeviceType() != DeviceType.Phone)
+            DeviceType deviceType = DeviceTypeHelper.GetDeviceType();
+            bool isTablet = deviceType == DeviceType.Tablet;
+
+            if (isTablet && key == VirtualKey.Shift && OnScreenKeyboardVisible)
             {
-                return KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift) ^ KeyboardHelper.IsModifierKeyLocked(VirtualKey.CapitalLock);
+                IsInputPaneNumber = true;
+                return false;
+            }
+
+            if (RadNumericBox.IsAzertyKeyboard && key == VirtualKey.Number6 && deviceType != DeviceType.Phone)
+            {
+                bool keyModifierUsed = KeyboardHelper.IsModifierKeyDown(VirtualKey.Shift) ^ KeyboardHelper.IsModifierKeyLocked(VirtualKey.CapitalLock);
+
+                if (isTablet)
+                {
+                    if (IsInputPaneNumber)
+                    {
+                        IsInputPaneNumber = false;
+                        return true;
+                    }
+                    else if (OnScreenKeyboardVisible)
+                    {
+                        return false;
+                    }
+                }
+
+                return keyModifierUsed;
+            }
+
+            if (isTablet && key != VirtualKey.Shift)
+            {
+                IsInputPaneNumber = false;
             }
 
             if (key >= VirtualKey.Number0 && key <= VirtualKey.Number9)
@@ -891,7 +931,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     numericBox.UpdateTextBoxText();
                 }
-                
+
                 numericBox.OnValueChanged();
             }
 
