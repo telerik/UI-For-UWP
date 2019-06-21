@@ -26,11 +26,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal double timeRulerWidth;
         internal int allDayAreaRowCount;
         internal MultiDayViewUpdateFlag updateFlag;
+        internal double halfTextHeight;
 
         private const int DefaultSpecificColumnCount = 6;
         private static double DefaultCurrentTimeIndicatorHeight = 2d;
-
-        private double halfTextHeight;
 
         public override int RowCount
         {

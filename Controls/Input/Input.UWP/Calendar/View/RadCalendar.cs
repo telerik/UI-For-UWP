@@ -326,6 +326,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal List<CalendarDateRange> unattachedSelectedRanges;
         internal CalendarViewHost calendarViewHost;
         internal IAppointment pendingScrollToAppointment;
+        internal Action pendingScrollTimeRuler;
         internal CalendarCellStyle defaultDayNameCellStyle;
 
         private const string DefaultMonthViewHeaderFormatString = "{0:MMMM yyyy}";
@@ -1659,7 +1660,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             set
             {
-               this.SetValue(HeaderVisibilityProperty, value);
+                this.SetValue(HeaderVisibilityProperty, value);
             }
         }
 
@@ -1828,6 +1829,22 @@ namespace Telerik.UI.Xaml.Controls.Input
             else
             {
                 this.pendingScrollToAppointment = appointment;
+            }
+        }
+
+        /// <summary>
+        /// Scrolls the TimeRuler to the specified time.
+        /// </summary>
+        /// <param name="time">Time that should be scrolled into view.</param>
+        public void ScrollTimeRuler(TimeSpan time)
+        {
+            if (this.timeRulerLayer != null && this.timeRulerLayer.Owner != null)
+            {
+                this.timeRulerLayer.ScrollTimeRuler(time);
+            }
+            else
+            {
+                this.pendingScrollTimeRuler = () => { this.timeRulerLayer.ScrollTimeRuler(time); };
             }
         }
 
@@ -3255,7 +3272,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.headerContentLayer.UpdateUI();
             this.contentLayer.UpdateUI();
 
-            if (this.displayModeCache == CalendarDisplayMode.MultiDayView 
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView
                 && this.allDayAreaLayer.Owner != null && this.timeRulerLayer.Owner != null)
             {
                 this.allDayAreaLayer.UpdateAllDayAreaUI();
@@ -3309,7 +3326,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             // NOTE: DisplayDateStart / End property change will trigger cell state evaluation but will not invalidate the models
             // so we need to clear the flag explicitly in case it was set for a certain cell and does not need to be set given the current conditions.
             context.IsBlackout = this.IsBlackoutDate(cell);
-            
+
             if (cell.Date == DateTime.Today && this.IsTodayHighlighted && (this.DisplayMode == CalendarDisplayMode.MonthView || this.DisplayMode == CalendarDisplayMode.MultiDayView))
             {
                 this.highlightedCellCache = cell;
@@ -3461,8 +3478,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 if (this.DayNameCellStyleSelector != null)
                 {
-                    var defaultDayNameCellStyle = this.DayNameCellStyle != null 
-                        ? this.DayNameCellStyle.ContentStyle 
+                    var defaultDayNameCellStyle = this.DayNameCellStyle != null
+                        ? this.DayNameCellStyle.ContentStyle
                         : this.defaultDayNameCellStyle.ContentStyle;
                     var userDefinedDayNameCellStyle = this.DayNameCellStyleSelector.SelectStyle(cell.Label, this);
 
