@@ -34,7 +34,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private double leftOffset;
         private bool isPointerInsideScrollViewer;
-        private bool isScrollingInvoked;
         private int numberOfDaysToNavigateTo;
         private RadRect viewPortArea;
         private RadRect bufferedViewPortArea;
@@ -141,7 +140,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             double xOfsset = this.scrollViewer.HorizontalOffset + this.leftHeaderPanel.Width;
             this.bufferedViewPortArea = new RadRect(xOfsset, this.scrollViewer.VerticalOffset, this.leftOffset * 3, this.scrollViewer.Height);
 
-            CalendarModel model = this.Owner.Model;
+            var calendar = this.Owner;
+            CalendarModel model = calendar.Model;
             ElementCollection<CalendarTimeRulerItem> timeRulerItems = model.multiDayViewModel.timeRulerItems;
             ElementCollection<CalendarGridLine> timeRulerLines = model.multiDayViewModel.timerRulerLines;
             List<CalendarAppointmentInfo> appointmentInfos = model.multiDayViewModel.appointmentInfos;
@@ -165,15 +165,15 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.UpdateCurrentTimeIndicator();
 
             // If there is a pending Appointment that needs to be scrolled we are dispatching it.
-            IAppointment pendingToScrollApp = this.Owner.pendingScrollToAppointment;
+            IAppointment pendingToScrollApp = calendar.pendingScrollToAppointment;
             if (pendingToScrollApp != null)
             {
                 await Dispatcher.RunAsync(
-                    Windows.UI.Core.CoreDispatcherPriority.Normal, 
+                    Windows.UI.Core.CoreDispatcherPriority.Normal,
                     () =>
                     {
                         this.ScrollAppointmentIntoView(pendingToScrollApp);
-                        this.Owner.pendingScrollToAppointment = null;
+                        calendar.pendingScrollToAppointment = null;
                     });
             }
         }
@@ -195,9 +195,47 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         RadRect layoutSlot = appointmentInfo.layoutSlot;
                         if (this.scrollViewer.VerticalOffset != layoutSlot.Y)
                         {
-                            this.isScrollingInvoked = true;
                             this.scrollViewer.ChangeView(0.0f, layoutSlot.Y, 1.0f);
                         }
+                    }
+                }
+            }
+        }
+
+        internal void ScrollTimeRuler(TimeSpan time)
+        {
+            var calendar = this.Owner;
+            if (calendar == null)
+            {
+                return;
+            }
+
+            var model = calendar.Model.multiDayViewModel;
+            var timeRulerInfos = model.timeRulerItems;
+            if (timeRulerInfos != null && timeRulerInfos.Count > 0)
+            {
+                var multiDayViewSettings = calendar.MultiDayViewSettings;
+                var timeRuler = timeRulerInfos.FirstOrDefault(a => a.StartTime <= time && a.EndTime > time);
+                if (timeRuler != null)
+                {
+                    var heightCoeff = (time - timeRuler.StartTime).Ticks / (double)TimeSpan.FromHours(1).Ticks;
+                    var timeItemHeight = multiDayViewSettings.TimeLinesSpacing * heightCoeff;
+
+                    var offset = timeRuler.layoutSlot.Y + timeItemHeight + model.halfTextHeight;
+                    if (this.scrollViewer.VerticalOffset != offset)
+                    {
+                        this.scrollViewer.ChangeView(0.0f, offset, 1.0f);
+                    }
+                }
+                else
+                {
+                    if (time > multiDayViewSettings.DayEndTime)
+                    {
+                        this.scrollViewer.ChangeView(0.0f, this.scrollViewer.ScrollableHeight, 1.0f);
+                    }
+                    else
+                    {
+                        this.scrollViewer.ChangeView(0.0f, 0.0f, 1.0f);
                     }
                 }
             }
@@ -610,6 +648,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             base.DetachUI(parent);
             this.scrollViewer.ViewChanged -= this.OnScrollViewerViewChanged;
+            this.scrollViewer.Loaded -= this.OnScrollViewerLoaded;
 
             this.scrollViewer.RemoveHandler(UIElement.PointerPressedEvent, new PointerEventHandler(this.OnScrollViewerPointerPressed));
             this.scrollViewer.RemoveHandler(UIElement.PointerMovedEvent, new PointerEventHandler(this.OnScrollViewerPointerMoved));
@@ -628,6 +667,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             base.AttachUI(parent);
             this.scrollViewer.ViewChanged += this.OnScrollViewerViewChanged;
+            this.scrollViewer.Loaded += this.OnScrollViewerLoaded;
+
             this.scrollViewer.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(this.OnScrollViewerPointerPressed), true);
             this.scrollViewer.AddHandler(UIElement.PointerMovedEvent, new PointerEventHandler(this.OnScrollViewerPointerMoved), true);
             this.scrollViewer.AddHandler(UIElement.PointerExitedEvent, new PointerEventHandler(this.OnScrollViewerPointerExitedEvent), true);
@@ -935,13 +976,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return appointmentControl;
         }
 
+        private void OnScrollViewerLoaded(object sender, RoutedEventArgs e)
+        {
+            var calendar = this.Owner;
+            var pendingScrollTimeRuler = calendar.pendingScrollTimeRuler;
+            if (pendingScrollTimeRuler != null)
+            {
+                pendingScrollTimeRuler.Invoke();
+                calendar.pendingScrollTimeRuler = null;
+            }
+        }
+
         private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            if (e.IsIntermediate || this.isScrollingInvoked)
-            {
-                this.isScrollingInvoked = false;
-                this.UpdateUI(false);
-            }
+            this.UpdateUI(false);
         }
 
         private void OnScrollViewerPointerPressed(object sender, PointerRoutedEventArgs e)

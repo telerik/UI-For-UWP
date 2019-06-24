@@ -26,11 +26,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal double timeRulerWidth;
         internal int allDayAreaRowCount;
         internal MultiDayViewUpdateFlag updateFlag;
+        internal double halfTextHeight;
 
         private const int DefaultSpecificColumnCount = 6;
         private static double DefaultCurrentTimeIndicatorHeight = 2d;
-
-        private double halfTextHeight;
 
         public override int RowCount
         {
@@ -557,17 +556,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             double gridLineThickness = this.Calendar.GridLinesThickness;
             int gridLineHalfThickness = (int)(gridLineThickness / 2);
 
-            if ((this.Calendar.GridLinesVisibility & GridLinesVisibility.Horizontal) == GridLinesVisibility.Horizontal)
-            {
-                this.horizontalTopHeaderRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y, this.layoutSlot.Width, gridLineThickness));
-                this.horizontalUpperAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight, this.layoutSlot.Width, gridLineThickness));
-                this.horizontalLowerAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight + this.totalAllDayAreaHeight + gridLineThickness / 2, this.layoutSlot.Width, 0));
-            }
+            this.horizontalTopHeaderRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y, this.layoutSlot.Width, gridLineThickness));
+            this.horizontalUpperAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight, this.layoutSlot.Width, gridLineThickness));
+            this.horizontalLowerAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight + this.totalAllDayAreaHeight + gridLineThickness / 2, this.layoutSlot.Width, 0));
 
-            if ((this.Calendar.GridLinesVisibility & GridLinesVisibility.Vertical) == GridLinesVisibility.Vertical)
-            {
-                this.verticalRulerGridLine.Arrange(new RadRect(rect.X, rect.Y, gridLineThickness, rect.Height));
-            }
+            this.verticalRulerGridLine.Arrange(new RadRect(rect.X, rect.Y, gridLineThickness, rect.Height));
         }
 
         private void EnsureTimeRulerItems()

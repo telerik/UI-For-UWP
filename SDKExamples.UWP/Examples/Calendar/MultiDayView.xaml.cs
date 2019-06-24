@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Telerik.Core;
-using Telerik.UI.Xaml.Controls.Input.Calendar;
+using Telerik.UI.Xaml.Controls.Input;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI;
 using Windows.UI.Xaml.Data;
@@ -66,6 +66,17 @@ namespace SDKExamples.UWP.Calendar
             else
             {
                 this.calendar.DayNamesVisibility = Windows.UI.Xaml.Visibility.Collapsed;
+            }
+        }
+
+        private void OnRadTimePickerValueChanged(object sender, EventArgs e)
+        {
+            var timePicker = (RadTimePicker)sender;
+            var selectedTime = timePicker.Value;
+            if (selectedTime.HasValue)
+            {
+                var currentTime = selectedTime.Value.TimeOfDay;
+                this.calendar.ScrollTimeRuler(new TimeSpan(currentTime.Hours, currentTime.Minutes, 0));
             }
         }
     }
