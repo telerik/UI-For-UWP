@@ -259,5 +259,20 @@
 
     <SolidColorBrush x:Key="TelerikCalendarCurrentCellBorderBrush" Color="#FF0066CC" />
 
+    <!--SpecialSlots-->
+    <SolidColorBrush x:Key="TelerikSpecialSlotBackground" Color="Red" Opacity="0.5"/>
+    <LinearGradientBrush x:Key="TelerikSpecialSlotBackgroundReadOnly" 
+                         MappingMode="Absolute" 
+                         SpreadMethod="Repeat" 
+                         StartPoint="0,0" 
+                         EndPoint="1,1">
+        <LinearGradientBrush.Transform>
+            <ScaleTransform ScaleX="3" ScaleY="3" />
+        </LinearGradientBrush.Transform>
+        <GradientStop Offset="0.15" Color="#FF4040C2" />
+        <GradientStop Offset="0.15" Color="White" />
+    </LinearGradientBrush>
+
+
     <!--#endregion-->
 </ResourceDictionary>

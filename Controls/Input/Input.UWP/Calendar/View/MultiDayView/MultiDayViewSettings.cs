@@ -161,6 +161,8 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty WeekendsVisibleProperty =
             DependencyProperty.Register(nameof(WeekendsVisible), typeof(bool), typeof(MultiDayViewSettings), new PropertyMetadata(true, OnWeekendsVisibleChanged));
 
+        internal static SolidColorBrush DefaultBackground;
+
         internal const string DefaultAllDayText = "All-day";
         internal RadCalendar owner;
         internal DispatcherTimer timer;
@@ -665,6 +667,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.defaultAllDayAreaBorderStyle = this.defaultAllDayAreaBorderStyle ?? (Style)dictionary["AllDayAreaBorderStyle"];
             this.defaultAllDayAreaTextStyle = this.defaultAllDayAreaTextStyle ?? (Style)dictionary["DefaultAllDayTextBlockStyle"];
             this.defaulTodaySlotStyle = this.defaulTodaySlotStyle ?? (Style)dictionary["TodaySlotStyle"];
+            this.defaultSpecialSlotStyleSelector = this.defaultSpecialSlotStyleSelector ?? (SpecialSlotStyleSelector)dictionary["SpecialSlotStyleSelector"];
+            MultiDayViewSettings.DefaultBackground = (SolidColorBrush)dictionary["TelerikCalendarBackgroundBrush"];
         }
 
         internal void DetachEvents()

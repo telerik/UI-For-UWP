@@ -13,6 +13,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private DateTime end;
         private DateTime start;
+        private bool isReadOnly;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Slot"/> class.
@@ -82,6 +83,28 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this slot is read only.
+        /// </summary>
+        /// <value>
+        /// 	<c>True</c> if this slot is read only; otherwise, <c>False</c>.
+        /// </value>
+        public bool IsReadOnly
+        {
+            get
+            {
+                return this.isReadOnly;
+            }
+            set
+            {
+                if (this.isReadOnly != value)
+                {
+                    this.isReadOnly = value;
+                    this.OnPropertyChanged(nameof(this.IsReadOnly));
+                }
+            }
+        }
+
+        /// <summary>
         /// Returns a <see cref="System.String"/> that represents this instance.
         /// </summary>
         /// <returns>
@@ -104,10 +127,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return base.Equals(obj);
         }
 
-        /// <inheritdoc/>
-        public override int GetHashCode()
+        internal bool IntersectsWith(Slot slot)
         {
-            return base.GetHashCode();
+            if (slot == null)
+            {
+                return false;
+            }
+
+            return (slot.Start <= this.start && this.end < slot.End) || (this.start <= slot.Start && slot.Start < this.end);
         }
     }
 }

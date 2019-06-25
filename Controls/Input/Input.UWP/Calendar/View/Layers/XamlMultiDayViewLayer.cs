@@ -26,7 +26,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private const int DefaultLineZIndex = 500;
         private const int DefaultCurrentTimeIndicatorZIndex = 750;
         private const int DefaultAppointmentZIndex = 1000;
-        private static SolidColorBrush DefaultBackground = new SolidColorBrush(Colors.White);
 
         private ScrollViewer scrollViewer;
         private Canvas leftHeaderPanel;
@@ -84,12 +83,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             this.topLeftHeaderPanel = new Canvas();
             this.topLeftHeaderPanel.ManipulationMode = ManipulationModes.None;
-            this.topLeftHeaderPanel.Background = XamlMultiDayViewLayer.DefaultBackground;
+            this.topLeftHeaderPanel.Background = MultiDayViewSettings.DefaultBackground;
 
             Canvas.SetZIndex(this.topLeftHeaderPanel, DefaultTopLeftHeaderZIndex);
 
             this.topHeader = new Canvas();
-            this.topHeader.Background = XamlMultiDayViewLayer.DefaultBackground;
+            this.topHeader.Background = MultiDayViewSettings.DefaultBackground;
             this.topHeader.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.System;
             Canvas.SetZIndex(this.topHeader, DefaultToptHeaderZIndex);
 
@@ -345,8 +344,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     }
 
                     XamlContentLayer.ArrangeUIElement(slotVisual, slot.layoutSlot, true);
-                    Canvas.SetZIndex(slotVisual, XamlMultiDayViewLayer.DefaultSlotZIndex);
                     Canvas.SetLeft(slotVisual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
+                    Canvas.SetZIndex(slotVisual, XamlMultiDayViewLayer.DefaultSlotZIndex);
                 }
             }
 
@@ -623,7 +622,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdatePanelsBackground(Brush background)
         {
-            Brush defaultCalendarBrush = this.Owner.Background ?? XamlMultiDayViewLayer.DefaultBackground;
+            Brush defaultCalendarBrush = this.Owner.Background ?? MultiDayViewSettings.DefaultBackground;
             if (this.contentPanel.Background != background)
             {
                 if (background != null)
@@ -913,8 +912,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                 visual.ClearValue(Border.VisibilityProperty);
                 visual.ClearValue(Border.StyleProperty);
-                visual.ClearValue(Border.BorderThicknessProperty);
                 visual.ClearValue(Canvas.ZIndexProperty);
+                visual.ClearValue(Canvas.LeftProperty);
             }
             else
             {
