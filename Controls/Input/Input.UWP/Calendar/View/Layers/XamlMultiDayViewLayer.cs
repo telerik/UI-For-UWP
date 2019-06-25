@@ -345,7 +345,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                     XamlContentLayer.ArrangeUIElement(slotVisual, slot.layoutSlot, true);
                     Canvas.SetLeft(slotVisual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
-                    Canvas.SetZIndex(slotVisual, XamlMultiDayViewLayer.DefaultSlotZIndex);
+
+                    if (!this.IsCanvasZIndexExplicitlySet(slotVisual.Style))
+                    {
+                        Canvas.SetZIndex(slotVisual, XamlMultiDayViewLayer.DefaultSlotZIndex);
+                    }
                 }
             }
 
@@ -776,6 +780,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 foreach (Setter setter in style.Setters)
                 {
                     if (setter.Property == TextBlock.TextProperty)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool IsCanvasZIndexExplicitlySet(Style style)
+        {
+            if (style != null)
+            {
+                foreach (Setter setter in style.Setters)
+                {
+                    if (setter.Property == Canvas.ZIndexProperty)
                     {
                         return true;
                     }
