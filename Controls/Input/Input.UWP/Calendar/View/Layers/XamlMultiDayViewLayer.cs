@@ -48,11 +48,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private Dictionary<CalendarTimeRulerItem, TextBlock> realizedTimerRulerItemsPresenters;
         private Dictionary<CalendarGridLine, Border> realizedTimerRulerLinePresenters;
-        private Dictionary<Slot, Border> realizedSlotPresenters;
+        private Dictionary<Slot, SlotControl> realizedSlotPresenters;
 
         private Queue<TextBlock> recycledTimeRulerItems;
         private Queue<Border> recycledTimeRulerLines;
-        private Queue<Border> recycledSlots;
+        private Queue<SlotControl> recycledSlots;
         private List<AppointmentControl> realizedAppointmentDefaultPresenters;
 
         private Point scrollMousePosition;
@@ -99,11 +99,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             this.realizedTimerRulerItemsPresenters = new Dictionary<CalendarTimeRulerItem, TextBlock>();
             this.realizedTimerRulerLinePresenters = new Dictionary<CalendarGridLine, Border>();
-            this.realizedSlotPresenters = new Dictionary<Slot, Border>();
+            this.realizedSlotPresenters = new Dictionary<Slot, SlotControl>();
 
             this.recycledTimeRulerItems = new Queue<TextBlock>();
             this.recycledTimeRulerLines = new Queue<Border>();
-            this.recycledSlots = new Queue<Border>();
+            this.recycledSlots = new Queue<SlotControl>();
 
             this.realizedAppointmentDefaultPresenters = new List<AppointmentControl>();
 
@@ -270,7 +270,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             foreach (Slot slot in slots)
             {
-                Border visual;
+                SlotControl visual;
                 if (this.realizedSlotPresenters.TryGetValue(slot, out visual))
                 {
                     this.realizedSlotPresenters.Remove(slot);
@@ -329,9 +329,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     continue;
                 }
 
-                Border slotVisual = this.GetDefaultSlotVisual(slot);
+                var slotVisual = this.GetDefaultSlotVisual(slot);
                 if (slotVisual != null)
                 {
+                    slotVisual.DataContext = slot;
+
                     MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
                     StyleSelector specialSlotStyleSelector = settings.SpecialSlotStyleSelector ?? settings.defaultSpecialSlotStyleSelector;
                     if (specialSlotStyleSelector != null)
@@ -353,7 +355,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 }
             }
 
-            foreach (Border slot in this.recycledSlots)
+            foreach (var slot in this.recycledSlots)
             {
                 slot.Visibility = Visibility.Collapsed;
             }
@@ -923,21 +925,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return visual;
         }
 
-        private Border GetDefaultSlotVisual(Slot slot)
+        private SlotControl GetDefaultSlotVisual(Slot slot)
         {
-            Border visual;
+            SlotControl visual;
             if (this.recycledSlots.Count > 0)
             {
                 visual = this.recycledSlots.Dequeue();
 
-                visual.ClearValue(Border.VisibilityProperty);
-                visual.ClearValue(Border.StyleProperty);
+                visual.ClearValue(SlotControl.VisibilityProperty);
+                visual.ClearValue(SlotControl.StyleProperty);
+                visual.ClearValue(SlotControl.DataContextProperty);
                 visual.ClearValue(Canvas.ZIndexProperty);
                 visual.ClearValue(Canvas.LeftProperty);
             }
             else
             {
-                visual = this.CreateBorderVisual();
+                visual = this.CreateSlotVisual();
             }
 
             this.realizedSlotPresenters.Add(slot, visual);
@@ -993,6 +996,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.AddVisualChild(appointmentControl);
 
             return appointmentControl;
+        }
+
+        private SlotControl CreateSlotVisual()
+        {
+            SlotControl slot = new SlotControl();
+            this.AddVisualChild(slot);
+
+            return slot;
         }
 
         private void OnScrollViewerLoaded(object sender, RoutedEventArgs e)

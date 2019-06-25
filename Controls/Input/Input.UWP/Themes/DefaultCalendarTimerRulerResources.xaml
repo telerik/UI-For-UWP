@@ -62,11 +62,6 @@
         <Setter Property="Margin" Value="6,0,0,4" />
     </Style>
 
-    <Style x:Key="DefaultSpecialSlotBorderStyle" TargetType="Border">
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="BorderBrush" Value="{x:Null}" />
-    </Style>
-
     <local:CalendarCellStyle x:Key="NormalCellStyle">
         <local:CalendarCellStyle.ContentStyle>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultNormalCellStyle}">
@@ -165,12 +160,12 @@
 
     <localCalendar:SpecialSlotStyleSelector x:Key="SpecialSlotStyleSelector">
         <localCalendar:SpecialSlotStyleSelector.DefaultStyle>
-            <Style TargetType="Border">
+            <Style TargetType="localCalendar:SlotControl">
                 <Setter Property="Background" Value="{StaticResource TelerikSpecialSlotBackground}" />
             </Style>
         </localCalendar:SpecialSlotStyleSelector.DefaultStyle>
         <localCalendar:SpecialSlotStyleSelector.ReadOnlyStyle>
-            <Style TargetType="Border">
+            <Style TargetType="localCalendar:SlotControl">
                 <Setter Property="Background" Value="{StaticResource TelerikSpecialSlotBackgroundReadOnly}" />
             </Style>
         </localCalendar:SpecialSlotStyleSelector.ReadOnlyStyle>

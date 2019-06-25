@@ -79,6 +79,22 @@
         </Setter>
     </Style>
 
+    <Style TargetType="localCalendar:SlotControl">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localCalendar:SlotControl">
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Background="{TemplateBinding Background}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="CalendarLeftArrowButtonStyle" TargetType="Button">
         <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarPreviousNextButtonForegroundBrush}" />
         <Setter Property="FontSize" Value="18" />

@@ -73,6 +73,7 @@
     <Compile Include="Calendar\View\MultiDayView\MultiDayViewSettings.cs" />
     <Compile Include="Calendar\View\MultiDayView\MultiDayViewUpdateFlag.cs" />
     <Compile Include="Calendar\View\MultiDayView\CalendarTimeRulerItemStyleSelector.cs" />
+    <Compile Include="Calendar\View\MultiDayView\SlotControl.cs" />
     <Compile Include="Calendar\View\MultiDayView\SpecialSlotStyleSelector.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimeListAutomationPeer.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimeListItemAutomationPeer.cs" />
