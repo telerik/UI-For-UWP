@@ -157,10 +157,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.UpdateTimeRulerItems(timeRulerItems);
             this.UpdateTimerRulerLines(timeRulerLines);
             this.UpdateAppointments(appointmentInfos);
-            if (slots != null)
-            {
-                this.UpdateSlots(slots);
-            }
+            this.UpdateSlots(slots);
 
             this.UpdateTodaySlot();
             this.UpdateCurrentTimeIndicator();
@@ -322,6 +319,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdateSlots(IEnumerable<Slot> slots)
         {
+            if (slots == null)
+            {
+                return;
+            }
+
             foreach (var slot in slots)
             {
                 SlotControl visual;
@@ -334,7 +336,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             foreach (var slot in slots)
             {
                 SlotControl visual;
-                this.realizedSlotPresenters.TryGetValue(slot, out visual);
+                this.visibleSlotPresenters.TryGetValue(slot, out visual);
 
                 if (!this.bufferedViewPortArea.IntersectsWith(slot.layoutSlot))
                 {
