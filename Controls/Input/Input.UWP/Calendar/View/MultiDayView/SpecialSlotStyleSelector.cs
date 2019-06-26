@@ -29,7 +29,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         /// <param name="item">The content.</param>
         /// <param name="container">The element to which the style will be applied.</param>
         /// <returns>Returns an application-specific style to apply; otherwise, null.</returns>
-		protected override Style SelectStyleCore(object item, DependencyObject container)
+        protected override Style SelectStyleCore(object item, DependencyObject container)
         {
             Slot slot = item as Slot;
             if (slot != null && slot.IsReadOnly)

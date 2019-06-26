@@ -86,7 +86,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         /// Gets or sets a value indicating whether this slot is read only.
         /// </summary>
         /// <value>
-        /// 	<c>True</c> if this slot is read only; otherwise, <c>False</c>.
+        /// True if this slot is read only; otherwise, False.
         /// </value>
         public bool IsReadOnly
         {
@@ -134,7 +134,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 return false;
             }
 
-            return (slot.Start <= this.start && this.start < slot.End) ||(this.start <= slot.Start && slot.Start < this.end);
+            return (slot.Start <= this.start && this.start < slot.End) || (this.start <= slot.Start && slot.Start < this.end);
         }
     }
 }
