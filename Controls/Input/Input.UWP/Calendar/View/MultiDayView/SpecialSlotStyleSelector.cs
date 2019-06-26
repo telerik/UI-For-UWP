@@ -16,12 +16,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         /// <summary>
         /// Gets or sets the default style of the SpecialSlot.
         /// </summary>
-		public Style DefaultStyle { get; set; }
+        public Style DefaultStyle { get; set; }
 
         /// <summary>
         /// Gets or sets the read-only style of the SpecialSlot.
         /// </summary>
-		public Style ReadOnlyStyle { get; set; }
+        public Style ReadOnlyStyle { get; set; }
 
         /// <summary>
         /// When overridden in a derived class, returns a Style based on custom logic.

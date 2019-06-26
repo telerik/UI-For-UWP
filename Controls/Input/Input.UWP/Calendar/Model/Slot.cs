@@ -134,7 +134,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 return false;
             }
 
-            return (slot.Start <= this.start && this.end < slot.End) || (this.start <= slot.Start && slot.Start < this.end);
+            return (slot.Start <= this.start && this.start < slot.End) ||(this.start <= slot.Start && slot.Start < this.end);
         }
     }
 }
