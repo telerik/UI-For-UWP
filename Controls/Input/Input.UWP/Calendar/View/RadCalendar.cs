@@ -326,7 +326,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal List<CalendarDateRange> unattachedSelectedRanges;
         internal CalendarViewHost calendarViewHost;
         internal IAppointment pendingScrollToAppointment;
-        internal Action pendingScrollTimeRuler;
         internal CalendarCellStyle defaultDayNameCellStyle;
 
         private const string DefaultMonthViewHeaderFormatString = "{0:MMMM yyyy}";
@@ -375,6 +374,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private DateTime pointerOverDateCache;
         private WeakCollectionChangedListener appointmentSourceCollectionChangedListener;
         private List<WeakPropertyChangedListener> appointmentSourcePropertyChangedListeners = new List<WeakPropertyChangedListener>();
+        private Action pendingScrollTimeRuler;
 
         static RadCalendar()
         {
@@ -1822,7 +1822,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <param name="appointment">The appointment that should be scrolled to.</param>
         public void ScrollAppointmentIntoView(IAppointment appointment)
         {
-            if (this.timeRulerLayer != null)
+            if (this.timeRulerLayer != null && this.timeRulerLayer.Owner != null && this.model.IsTreeLoaded)
             {
                 this.timeRulerLayer.ScrollAppointmentIntoView(appointment);
             }
@@ -1838,7 +1838,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <param name="time">Time that should be scrolled into view.</param>
         public void ScrollTimeRuler(TimeSpan time)
         {
-            if (this.timeRulerLayer != null && this.timeRulerLayer.Owner != null)
+            if (this.timeRulerLayer != null && this.timeRulerLayer.Owner != null && this.model.IsTreeLoaded)
             {
                 this.timeRulerLayer.ScrollTimeRuler(time);
             }
@@ -3151,7 +3151,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.invalidateScheduled = false;
         }
 
-        private void CallUpdateUI()
+        private async void CallUpdateUI()
         {
             if (!this.IsTemplateApplied)
             {
@@ -3163,6 +3163,12 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             CalendarLayoutContext context = new CalendarLayoutContext(this.availableCalendarViewSize);
             this.UpdateUI(context);
+
+            if (this.pendingScrollTimeRuler != null)
+            {
+                await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => this.pendingScrollTimeRuler.Invoke());
+                this.pendingScrollTimeRuler = null;
+            }
         }
 
         private void UpdateCalendar()
