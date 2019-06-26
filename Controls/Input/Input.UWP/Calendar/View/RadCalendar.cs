@@ -3244,7 +3244,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                         IEnumerable<Slot> slots = this.MultiDayViewSettings.SpecialSlotsSource;
                         if (slots != null)
                         {
-                            this.timeRulerLayer.UpdateSlots(this.MultiDayViewSettings.SpecialSlotsSource);
+                            this.timeRulerLayer.UpdateSlots(slots);
                         }
 
                         break;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Core;
 using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -48,10 +47,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private Dictionary<CalendarTimeRulerItem, TextBlock> realizedTimerRulerItemsPresenters;
         private Dictionary<CalendarGridLine, Border> realizedTimerRulerLinePresenters;
         private Dictionary<Slot, SlotControl> realizedSlotPresenters;
+        private Dictionary<Slot, SlotControl> visibleSlotPresenters;
 
         private Queue<TextBlock> recycledTimeRulerItems;
         private Queue<Border> recycledTimeRulerLines;
         private Queue<SlotControl> recycledSlots;
+        private Queue<SlotControl> fullyRecycledSlots;
         private List<AppointmentControl> realizedAppointmentDefaultPresenters;
 
         private Point scrollMousePosition;
@@ -99,10 +100,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.realizedTimerRulerItemsPresenters = new Dictionary<CalendarTimeRulerItem, TextBlock>();
             this.realizedTimerRulerLinePresenters = new Dictionary<CalendarGridLine, Border>();
             this.realizedSlotPresenters = new Dictionary<Slot, SlotControl>();
+            this.visibleSlotPresenters = new Dictionary<Slot, SlotControl>();
 
             this.recycledTimeRulerItems = new Queue<TextBlock>();
             this.recycledTimeRulerLines = new Queue<Border>();
             this.recycledSlots = new Queue<SlotControl>();
+            this.fullyRecycledSlots = new Queue<SlotControl>();
 
             this.realizedAppointmentDefaultPresenters = new List<AppointmentControl>();
 
@@ -272,8 +275,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 SlotControl visual;
                 if (this.realizedSlotPresenters.TryGetValue(slot, out visual))
                 {
-                    this.realizedSlotPresenters.Remove(slot);
-                    this.recycledSlots.Enqueue(visual);
+                    this.RecycleSlotVisual(slot, visual);
                 }
             }
         }
@@ -320,39 +322,60 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdateSlots(IEnumerable<Slot> slots)
         {
-            this.RecycleSlots(slots);
             foreach (var slot in slots)
             {
+                SlotControl visual;
+                if (this.realizedSlotPresenters.TryGetValue(slot, out visual))
+                {
+                    this.visibleSlotPresenters.Add(slot, visual);
+                }
+            }
+
+            foreach (var slot in slots)
+            {
+                SlotControl visual;
+                this.realizedSlotPresenters.TryGetValue(slot, out visual);
+
                 if (!this.bufferedViewPortArea.IntersectsWith(slot.layoutSlot))
                 {
+                    if (visual != null)
+                    {
+                        this.RecycleSlotVisual(slot, visual);
+                    }
+
                     continue;
                 }
 
-                var slotVisual = this.GetDefaultSlotVisual(slot);
-                if (slotVisual != null)
+                if (visual != null)
                 {
-                    slotVisual.DataContext = slot;
+                    Canvas.SetLeft(visual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
+                    continue;
+                }
+
+                visual = this.GetDefaultSlotVisual(slot);
+                if (visual != null)
+                {
+                    visual.DataContext = slot;
 
                     MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
                     StyleSelector specialSlotStyleSelector = settings.SpecialSlotStyleSelector ?? settings.defaultSpecialSlotStyleSelector;
-                    if (specialSlotStyleSelector != null)
-                    {
-                        var style = specialSlotStyleSelector.SelectStyle(slot, slotVisual);
-                        if (style != null)
-                        {
-                            slotVisual.Style = style;
-                        }
-                    }
+                    var style = specialSlotStyleSelector.SelectStyle(slot, visual);
+                    visual.Style = style;
 
-                    XamlContentLayer.ArrangeUIElement(slotVisual, slot.layoutSlot, true);
-                    Canvas.SetLeft(slotVisual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
+                    XamlContentLayer.ArrangeUIElement(visual, slot.layoutSlot, true);
+                    Canvas.SetLeft(visual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
                 }
             }
 
-            foreach (var slot in this.recycledSlots)
+            foreach (var visual in this.recycledSlots)
             {
-                slot.Visibility = Visibility.Collapsed;
+                visual.Visibility = Visibility.Collapsed;
+                visual.DataContext = null;
+                this.fullyRecycledSlots.Enqueue(visual);
             }
+
+            this.recycledSlots.Clear();
+            this.visibleSlotPresenters.Clear();
         }
 
         internal void UpdateTodaySlot()
@@ -691,6 +714,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.contentPanel.Children.Remove(child);
         }
 
+        private void RecycleSlotVisual(Slot slot, SlotControl visual)
+        {
+            this.realizedSlotPresenters.Remove(slot);
+            this.recycledSlots.Enqueue(visual);
+        }
+
         private void LayoutVerticalHeaderBorder(CalendarGridLine verticalLine)
         {
             this.ApplyTimeRulerStyle(verticalLine, this.verticalGridLineBorder);
@@ -909,12 +938,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             if (this.recycledSlots.Count > 0)
             {
                 visual = this.recycledSlots.Dequeue();
-
+            }
+            else if (this.fullyRecycledSlots.Count > 0)
+            {
+                visual = this.fullyRecycledSlots.Dequeue();
                 visual.ClearValue(SlotControl.VisibilityProperty);
-                visual.ClearValue(SlotControl.StyleProperty);
-                visual.ClearValue(SlotControl.DataContextProperty);
-                visual.ClearValue(Canvas.ZIndexProperty);
-                visual.ClearValue(Canvas.LeftProperty);
             }
             else
             {
