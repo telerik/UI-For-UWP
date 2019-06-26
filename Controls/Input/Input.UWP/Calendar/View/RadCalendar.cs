@@ -2353,6 +2353,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             base.UnloadCore();
             this.availableCalendarViewSize = new Size(0, 0);
+            this.UnloadMultiDayView();
         }
 
         /// <summary>
@@ -2955,6 +2956,10 @@ namespace Telerik.UI.Xaml.Controls.Input
             RadCalendar.RemoveLayer(this.allDayAreaLayer, this.calendarViewHost);
             RadCalendar.RemoveLayer(this.timeRulerLayer, this.calendarViewHost);
             RadCalendar.RemoveLayer(this.appointmentLayer, this.calendarViewHost);
+        }
+
+        private void UnloadMultiDayView()
+        {
             this.appointmentSourceCollectionChangedListener?.Detach();
             if (this.appointmentSourcePropertyChangedListeners != null && this.appointmentSourcePropertyChangedListeners.Count > 0)
             {
