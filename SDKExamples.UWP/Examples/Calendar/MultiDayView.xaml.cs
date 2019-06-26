@@ -3,8 +3,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Input;
+using Telerik.UI.Xaml.Controls.Input.Calendar;
 using Telerik.UI.Xaml.Controls.Primitives;
 using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
@@ -23,7 +26,8 @@ namespace SDKExamples.UWP.Calendar
         {
             this.InitializeComponent();
 
-            this.vm = new ViewModel();
+            DateTime firstDateOfCurrentWeek = this.GetFirstDayOfCurrentWeek(this.calendar.DisplayDate, DayOfWeek.Monday);
+            this.vm = new ViewModel(firstDateOfCurrentWeek);
             this.DataContext = this.vm;
 
             this.rnd = new Random();
@@ -79,6 +83,18 @@ namespace SDKExamples.UWP.Calendar
                 this.calendar.ScrollTimeRuler(new TimeSpan(currentTime.Hours, currentTime.Minutes, 0));
             }
         }
+
+        private DateTime GetFirstDayOfCurrentWeek(DateTime date, DayOfWeek startDayOfWeek)
+        {
+            DayOfWeek currentDayOfWeek = date.DayOfWeek;
+            int daysToSubtract = currentDayOfWeek - startDayOfWeek;
+            if (daysToSubtract <= 0)
+            {
+                daysToSubtract += 7;
+            }
+
+            return date.Date == DateTime.MinValue.Date ? date : date.AddDays(-daysToSubtract);
+        }
     }
 
     public class ViewModel : ViewModelBase
@@ -98,7 +114,7 @@ namespace SDKExamples.UWP.Calendar
         private int selectedNavigationStep;
         private bool weekendsVisible;
 
-        public ViewModel()
+        public ViewModel(DateTime firstDateOfCurrentWeek)
         {
             DateTime today = DateTime.Now.Date;
             this.Appointments = new CustomAppointmentSource();
@@ -158,15 +174,27 @@ namespace SDKExamples.UWP.Calendar
             this.AppHeights = new ObservableCollection<int>(new int[] { 10, 20, 30, 40 });
             this.SelectedAppHeight = this.AppHeights[1];
 
-            this.MaxVisibleRows = new ObservableCollection<int>(new int[] { 1, 2, 3, 4, 5});
+            this.MaxVisibleRows = new ObservableCollection<int>(new int[] { 1, 2, 3, 4, 5 });
             this.SelectedMaxRow = this.MaxVisibleRows[1];
 
             this.AllDayAppSpacing = new ObservableCollection<int>(new int[] { 1, 2, 4, 6, 8, 10 });
             this.SelectedAllDaySpacing = this.AllDayAppSpacing[1];
 
             this.WeekendsVisible = true;
+
+            DateTime start = firstDateOfCurrentWeek.AddHours(8);
+            DateTime end = firstDateOfCurrentWeek.AddHours(18);
+
+            this.NonWorkingHours = new ObservableCollection<Slot>();
+            for (int i = 0; i < 5; i++)
+            {
+                var date = firstDateOfCurrentWeek.AddDays(i);
+                this.NonWorkingHours.Add(new Slot(date, start.AddDays(i)) { IsReadOnly = true });
+                this.NonWorkingHours.Add(new Slot(end.AddDays(i), date.AddHours(24)));
+            }
         }
 
+        public ObservableCollection<Slot> NonWorkingHours { get; set; }
         public CustomAppointmentSource Appointments { get; set; }
         public ObservableCollection<int> DisplayDays { get; set; }
         public ObservableCollection<string> TickLengths { get; set; }
@@ -458,6 +486,23 @@ namespace SDKExamples.UWP.Calendar
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    public class TestStyle : StyleSelector
+    {
+        public Style NonWorkingHours { get; set; }
+        public Style SpecialHours { get; set; }
+
+        protected override Style SelectStyleCore(object item, DependencyObject container)
+        {
+            Slot slot = (Slot)item;
+            if (slot.IsReadOnly)
+            {
+                return this.NonWorkingHours;
+            }
+
+            return this.SpecialHours;
         }
     }
 }
