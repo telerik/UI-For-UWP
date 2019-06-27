@@ -25,8 +25,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="TodaySlotStyle" TargetType="Border">
-        <Setter Property="Background" Value="#FFF5F5F5"/>
-        <Setter Property="Opacity" Value="0.5"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikTodayMultiDayViewBackground}"/>
     </Style>
 
     <Style x:Key="CurrentTimeIndicatorStyle" TargetType="Border">
