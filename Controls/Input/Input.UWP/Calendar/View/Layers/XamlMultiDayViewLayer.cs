@@ -673,7 +673,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             base.DetachUI(parent);
             this.scrollViewer.ViewChanged -= this.OnScrollViewerViewChanged;
-            this.scrollViewer.Loaded -= this.OnScrollViewerLoaded;
 
             this.scrollViewer.RemoveHandler(UIElement.PointerPressedEvent, new PointerEventHandler(this.OnScrollViewerPointerPressed));
             this.scrollViewer.RemoveHandler(UIElement.PointerMovedEvent, new PointerEventHandler(this.OnScrollViewerPointerMoved));
@@ -692,7 +691,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             base.AttachUI(parent);
             this.scrollViewer.ViewChanged += this.OnScrollViewerViewChanged;
-            this.scrollViewer.Loaded += this.OnScrollViewerLoaded;
 
             this.scrollViewer.AddHandler(UIElement.PointerPressedEvent, new PointerEventHandler(this.OnScrollViewerPointerPressed), true);
             this.scrollViewer.AddHandler(UIElement.PointerMovedEvent, new PointerEventHandler(this.OnScrollViewerPointerMoved), true);
@@ -1013,17 +1011,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.AddVisualChild(slot);
 
             return slot;
-        }
-
-        private void OnScrollViewerLoaded(object sender, RoutedEventArgs e)
-        {
-            var calendar = this.Owner;
-            var pendingScrollTimeRuler = calendar.pendingScrollTimeRuler;
-            if (pendingScrollTimeRuler != null)
-            {
-                pendingScrollTimeRuler.Invoke();
-                calendar.pendingScrollTimeRuler = null;
-            }
         }
 
         private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
