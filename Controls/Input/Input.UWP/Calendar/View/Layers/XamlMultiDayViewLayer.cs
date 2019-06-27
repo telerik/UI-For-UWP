@@ -350,6 +350,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                 if (visual != null)
                 {
+                    XamlContentLayer.ArrangeUIElement(visual, slot.layoutSlot, true);
                     Canvas.SetLeft(visual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
                     continue;
                 }
