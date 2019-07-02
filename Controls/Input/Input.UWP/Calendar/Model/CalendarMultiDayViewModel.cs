@@ -12,7 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal ElementCollection<CalendarGridLine> timerRulerLines;
         internal List<CalendarAppointmentInfo> appointmentInfos;
         internal List<CalendarAppointmentInfo> allDayAppointmentInfos;
-        internal List<KeyValuePair<Slot,Slot>> specialSlots;
+        internal List<KeyValuePair<Slot, Slot>> specialSlots;
 
         internal CalendarGridLine horizontalLowerAllDayAreaRulerGridLine;
         internal CalendarGridLine horizontalUpperAllDayAreaRulerGridLine;
@@ -324,7 +324,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             if (this.specialSlots == null)
             {
-                this.specialSlots = new List<KeyValuePair<Slot,Slot>>();
+                this.specialSlots = new List<KeyValuePair<Slot, Slot>>();
             }
             else
             {
