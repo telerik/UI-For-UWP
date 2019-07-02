@@ -12,6 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal ElementCollection<CalendarGridLine> timerRulerLines;
         internal List<CalendarAppointmentInfo> appointmentInfos;
         internal List<CalendarAppointmentInfo> allDayAppointmentInfos;
+        internal List<KeyValuePair<Slot,Slot>> specialSlots;
 
         internal CalendarGridLine horizontalLowerAllDayAreaRulerGridLine;
         internal CalendarGridLine horizontalUpperAllDayAreaRulerGridLine;
@@ -321,15 +322,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void EnsureSlots()
         {
+            if (this.specialSlots == null)
+            {
+                this.specialSlots = new List<KeyValuePair<Slot,Slot>>();
+            }
+            else
+            {
+                foreach (var slot in this.specialSlots)
+                {
+                    slot.Value.layoutSlot = RadRect.Empty;
+                }
+            }
+
             MultiDayViewSettings settings = this.Calendar.multiDayViewSettings;
             IEnumerable<Slot> slots = settings.SpecialSlotsSource;
             if (slots != null && slots.Count() > 0)
             {
-                foreach (Slot slot in slots)
-                {
-                    slot.layoutSlot = RadRect.Empty;
-                }
-
                 foreach (var calendarCell in this.CalendarCells)
                 {
                     var slotsPerCell = slots.Where(a => calendarCell.Date.Date >= a.Start.Date && calendarCell.Date.Date <= a.End.Date);
@@ -350,7 +358,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         if (startY < endY)
                         {
                             RadRect layoutSlot = new RadRect(calendarCell.layoutSlot.X - this.timeRulerWidth, startY, calendarCell.layoutSlot.Width, endY - startY);
-                            slot.layoutSlot = layoutSlot;
+
+                            var specialSlot = this.specialSlots.FirstOrDefault(a => a.Key == slot && a.Value.layoutSlot == RadRect.Empty);
+                            if (specialSlot.Value != null)
+                            {
+                                specialSlot.Value.layoutSlot = layoutSlot;
+                            }
+                            else
+                            {
+                                slot.layoutSlot = layoutSlot;
+                                this.specialSlots.Add(new KeyValuePair<Slot, Slot>(slot, slot.Copy()));
+                            }
                         }
                     }
                 }

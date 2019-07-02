@@ -146,7 +146,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             ElementCollection<CalendarTimeRulerItem> timeRulerItems = model.multiDayViewModel.timeRulerItems;
             ElementCollection<CalendarGridLine> timeRulerLines = model.multiDayViewModel.timerRulerLines;
             List<CalendarAppointmentInfo> appointmentInfos = model.multiDayViewModel.appointmentInfos;
-            IEnumerable<Slot> slots = model.multiDayViewSettings.SpecialSlotsSource;
 
             if (shouldUpdateTopHeader)
             {
@@ -157,7 +156,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.UpdateTimeRulerItems(timeRulerItems);
             this.UpdateTimerRulerLines(timeRulerLines);
             this.UpdateAppointments(appointmentInfos);
-            this.UpdateSlots(slots);
+            this.UpdateSlots();
 
             this.UpdateTodaySlot();
             this.UpdateCurrentTimeIndicator();
@@ -265,14 +264,26 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        internal void RecycleSlots(IEnumerable<Slot> slots)
+        internal void RecycleModelSlots(IEnumerable<Slot> slots)
         {
-            foreach (Slot slot in slots)
+            var multiDayViewModel = this.Owner.Model.multiDayViewModel;
+            if (multiDayViewModel != null)
             {
-                SlotControl visual;
-                if (this.realizedSlotPresenters.TryGetValue(slot, out visual))
+                var specialSlots = multiDayViewModel.specialSlots;
+                foreach (var slot in slots)
                 {
-                    this.RecycleSlotVisual(slot, visual);
+                    var slotsToRemove = specialSlots.Where(a => a.Key == slot).ToList();
+                    for (int i = 0; i < slotsToRemove.Count; i++)
+                    {
+                        var slotToRemove = slotsToRemove[i];
+                        SlotControl visual;
+                        if (this.realizedSlotPresenters.TryGetValue(slotToRemove.Value, out visual))
+                        {
+                            this.RecycleSlotVisual(slotToRemove.Value, visual);
+                        }
+
+                        specialSlots.Remove(slotToRemove);
+                    }
                 }
             }
         }
@@ -317,8 +328,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        internal void UpdateSlots(IEnumerable<Slot> slots)
+        internal void UpdateSlots()
         {
+            var slots = this.Owner.Model.multiDayViewModel.specialSlots;
             if (slots == null)
             {
                 return;
@@ -326,23 +338,25 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             foreach (var slot in slots)
             {
+                var specialSlot = slot.Value;
                 SlotControl visual;
-                if (this.realizedSlotPresenters.TryGetValue(slot, out visual))
+                if (this.realizedSlotPresenters.TryGetValue(specialSlot, out visual))
                 {
-                    this.visibleSlotPresenters.Add(slot, visual);
+                    this.visibleSlotPresenters.Add(specialSlot, visual);
                 }
             }
 
             foreach (var slot in slots)
             {
+                var specialSlot = slot.Value;
                 SlotControl visual;
-                this.visibleSlotPresenters.TryGetValue(slot, out visual);
+                this.visibleSlotPresenters.TryGetValue(specialSlot, out visual);
 
-                if (!this.bufferedViewPortArea.IntersectsWith(slot.layoutSlot))
+                if (!this.bufferedViewPortArea.IntersectsWith(specialSlot.layoutSlot))
                 {
                     if (visual != null)
                     {
-                        this.RecycleSlotVisual(slot, visual);
+                        this.RecycleSlotVisual(specialSlot, visual);
                     }
 
                     continue;
@@ -350,23 +364,23 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                 if (visual != null)
                 {
-                    XamlContentLayer.ArrangeUIElement(visual, slot.layoutSlot, true);
-                    Canvas.SetLeft(visual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
+                    XamlContentLayer.ArrangeUIElement(visual, specialSlot.layoutSlot, true);
+                    Canvas.SetLeft(visual, specialSlot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
                     continue;
                 }
 
-                visual = this.GetDefaultSlotVisual(slot);
+                visual = this.GetDefaultSlotVisual(specialSlot);
                 if (visual != null)
                 {
-                    visual.DataContext = slot;
+                    visual.DataContext = specialSlot;
 
                     MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
                     StyleSelector specialSlotStyleSelector = settings.SpecialSlotStyleSelector ?? settings.defaultSpecialSlotStyleSelector;
-                    var style = specialSlotStyleSelector.SelectStyle(slot, visual);
+                    var style = specialSlotStyleSelector.SelectStyle(specialSlot, visual);
                     visual.Style = style;
 
-                    XamlContentLayer.ArrangeUIElement(visual, slot.layoutSlot, true);
-                    Canvas.SetLeft(visual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
+                    XamlContentLayer.ArrangeUIElement(visual, specialSlot.layoutSlot, true);
+                    Canvas.SetLeft(visual, specialSlot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
                 }
             }
 

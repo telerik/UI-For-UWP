@@ -7,7 +7,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     /// <summary>
     /// A class that represents destination slot.
     /// </summary>
-    public class Slot : ViewModelBase
+    public class Slot : ViewModelBase, ICopyable<Slot>
     {
         internal RadRect layoutSlot;
 
@@ -125,6 +125,32 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             return base.Equals(obj);
+        }
+
+        /// <inheritdoc/>
+        public Slot Copy()
+        {
+            var slot = new Slot();
+            slot.CopyFrom(this);
+            return slot;
+        }
+
+        /// <summary>
+        /// <b>Deep</b> copies all properties from <paramref name="other"/> to this <see cref="Slot"/>.
+        /// </summary>
+        /// <param name="other">The <see cref="Slot"/> which properties are copied.</param>
+        public virtual void CopyFrom(Slot other)
+        {
+            var otherSlot = other as Slot;
+            if (otherSlot == null)
+            {
+                return;
+            }
+
+            this.Start = other.Start;
+            this.End = other.End;
+            this.IsReadOnly = other.IsReadOnly;
+            this.layoutSlot = other.layoutSlot;
         }
 
         internal bool IntersectsWith(Slot slot)

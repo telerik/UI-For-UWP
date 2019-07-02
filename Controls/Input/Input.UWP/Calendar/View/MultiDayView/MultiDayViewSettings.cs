@@ -616,7 +616,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                         }
                     }
 
-                    this.owner.timeRulerLayer?.RecycleSlots(e.OldItems.Cast<Slot>());
+                    this.owner.timeRulerLayer?.RecycleModelSlots(e.OldItems.Cast<Slot>());
                     break;
                 case NotifyCollectionChangedAction.Move:
                 case NotifyCollectionChangedAction.Replace:
@@ -912,7 +912,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (oldSlotsSource != null && settings.IsOwnerLoaded)
             {
-                settings.owner.timeRulerLayer.RecycleSlots((IEnumerable<Slot>)oldSlotsSource);
+                settings.owner.timeRulerLayer.RecycleModelSlots((IEnumerable<Slot>)oldSlotsSource);
             }
 
             settings.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
@@ -925,7 +925,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (settings.IsOwnerLoaded)
             {
-                settings.owner.timeRulerLayer.UpdateSlots(settings.SpecialSlotsSource);
+                settings.owner.timeRulerLayer.UpdateSlots();
             }
         }
 

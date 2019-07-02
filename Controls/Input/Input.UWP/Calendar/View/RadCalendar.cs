@@ -3252,12 +3252,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.timeRulerLayer.UpdateCurrentTimeIndicator();
                         break;
                     case MultiDayViewUpdateFlag.AffectsSpecialSlots:
-                        IEnumerable<Slot> slots = this.MultiDayViewSettings.SpecialSlotsSource;
-                        if (slots != null)
-                        {
-                            this.timeRulerLayer.UpdateSlots(slots);
-                        }
-
+                        this.timeRulerLayer.UpdateSlots();
                         break;
                     default:
                         break;
