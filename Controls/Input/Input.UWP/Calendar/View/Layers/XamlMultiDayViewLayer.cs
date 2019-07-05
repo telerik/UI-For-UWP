@@ -187,8 +187,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 var appointmentInfos = model.appointmentInfos;
                 if (appointmentInfos != null && appointmentInfos.Count > 0)
                 {
-                    DateTime startDate = calendar.DisplayDate;
-                    DateTime endDate = calendar.DisplayDate.AddDays(calendar.MultiDayViewSettings.VisibleDays - 1);
+                    DateTime startDate = calendar.DisplayDate.Date;
+                    DateTime endDate = startDate.AddDays(calendar.MultiDayViewSettings.VisibleDays - 1);
                     CalendarAppointmentInfo appointmentInfo = appointmentInfos.FirstOrDefault(a => a.childAppointment == appointment && startDate <= a.Date && endDate >= a.Date);
                     if (appointmentInfo != null)
                     {
