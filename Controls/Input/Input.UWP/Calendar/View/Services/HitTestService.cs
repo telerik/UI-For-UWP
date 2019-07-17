@@ -25,32 +25,79 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return null;
         }
 
-        internal static Slot GetSlotFromPoint(Point hitPoint, ElementCollection<CalendarTimeRulerItem> calendarTimeRulerItems, ElementCollection<CalendarCellModel> calendarCells, int visibleDays)
+        public static int GetCellIndexFromPoint(Point point, ElementCollection<CalendarCellModel> cellModels)
         {
-            Slot slot = new Slot();
+            for (int i = 0; i < cellModels.Count; i++)
+            {
+                var cell = cellModels[i];
+                if (cell.layoutSlot.X <= point.X && cell.layoutSlot.X + cell.layoutSlot.Width >= point.X)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public static CalendarTimeRulerItem GetTimeRulerItemFromPoint(Point hitPoint, ElementCollection<CalendarTimeRulerItem> calendarTimeRulerItems)
+        {
             foreach (CalendarTimeRulerItem item in calendarTimeRulerItems)
             {
-                if (item.layoutSlot.Y <= hitPoint.Y && item.layoutSlot.Y + item.layoutSlot.Height >= hitPoint.Y)
+                var layoutSlot = item.layoutSlot;
+                if (layoutSlot.Y <= hitPoint.Y && layoutSlot.Y + layoutSlot.Height >= hitPoint.Y)
                 {
-                    int cellsCount = calendarCells.Count;
-                    for (int i = 0; i < cellsCount; i++)
-                    {
-                        CalendarCellModel cell = calendarCells[i];
-                        if (cell.layoutSlot.X <= hitPoint.X && cell.layoutSlot.X + cell.layoutSlot.Width >= hitPoint.X
-                            && i + visibleDays < cellsCount)
-                        {
-                            DateTime date = cell.Date.AddDays(visibleDays);
-                            TimeSpan startTime = item.StartTime;
-                            slot.Start = new DateTime(date.Year, date.Month, date.Day, startTime.Hours, startTime.Minutes, startTime.Seconds);
+                    return item;
+                }
+            }
 
-                            TimeSpan endTime = item.EndTime;
-                            slot.End = new DateTime(date.Year, date.Month, date.Day, endTime.Hours, endTime.Minutes, endTime.Seconds);
+            return null;
+        }
+
+        internal Slot GetSlotFromPoint(Point hitPoint)
+        {
+            var calendar = this.Owner;
+            var model = calendar.Model;
+
+            var calendarTimeRulerItems = model.multiDayViewModel.timeRulerItems;
+            var cellModels = model.CalendarCells;
+
+            var multiDayViewSettings = calendar.MultiDayViewSettings;
+            var visibleDays = multiDayViewSettings.VisibleDays;
+
+            var timeRulerItem = HitTestService.GetTimeRulerItemFromPoint(hitPoint, calendarTimeRulerItems);
+            var calendarCellIndex = HitTestService.GetCellIndexFromPoint(hitPoint, cellModels);
+            var calendarCell = cellModels[calendarCellIndex + visibleDays];
+
+            DateTime slotDate = calendarCell.Date;
+            TimeSpan slotStartTime = timeRulerItem.StartTime;
+            TimeSpan slotEndTime = timeRulerItem.EndTime;
+
+            Slot slot = new Slot(slotDate.Add(slotStartTime), slotDate.Add(slotEndTime));
+            slot.IsReadOnly = this.IsSlotReadOnly(slot);
+
+            return slot;
+        }
+
+        private bool IsSlotReadOnly(Slot slot)
+        {
+            var multiDayViewSettings = this.Owner.MultiDayViewSettings;
+            var specialSlots = multiDayViewSettings.SpecialSlotsSource;
+            bool isReadOnly = false;
+            if (specialSlots != null)
+            {
+                foreach (var specialSlot in specialSlots)
+                {
+                    if (specialSlot.IntersectsWith(slot))
+                    {
+                        if (specialSlot.IsReadOnly)
+                        {
+                            return true;
                         }
                     }
                 }
             }
 
-            return slot;
+            return isReadOnly;
         }
     }
 }

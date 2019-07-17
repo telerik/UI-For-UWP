@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Telerik.Core;
 using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -21,12 +20,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private const int DefaultTopLeftHeaderZIndex = 1000;
         private const int DefaultToptHeaderZIndex = 500;
         private const int DefaultLeftHeaderZIndex = 750;
-        private const int DefaultSlotZIndex = 250;
         private const int DefaultTodaySlotZIndex = 200;
         private const int DefaultLineZIndex = 500;
         private const int DefaultCurrentTimeIndicatorZIndex = 750;
         private const int DefaultAppointmentZIndex = 1000;
-        private static SolidColorBrush DefaultBackground = new SolidColorBrush(Colors.White);
 
         private ScrollViewer scrollViewer;
         private Canvas leftHeaderPanel;
@@ -49,11 +46,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private Dictionary<CalendarTimeRulerItem, TextBlock> realizedTimerRulerItemsPresenters;
         private Dictionary<CalendarGridLine, Border> realizedTimerRulerLinePresenters;
-        private Dictionary<Slot, Border> realizedSlotPresenters;
+        private Dictionary<Slot, SlotControl> realizedSlotPresenters;
+        private Dictionary<Slot, SlotControl> visibleSlotPresenters;
 
         private Queue<TextBlock> recycledTimeRulerItems;
         private Queue<Border> recycledTimeRulerLines;
-        private Queue<Border> recycledSlots;
+        private Queue<SlotControl> recycledSlots;
+        private Queue<SlotControl> fullyRecycledSlots;
         private List<AppointmentControl> realizedAppointmentDefaultPresenters;
 
         private Point scrollMousePosition;
@@ -84,12 +83,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             this.topLeftHeaderPanel = new Canvas();
             this.topLeftHeaderPanel.ManipulationMode = ManipulationModes.None;
-            this.topLeftHeaderPanel.Background = XamlMultiDayViewLayer.DefaultBackground;
+            this.topLeftHeaderPanel.Background = MultiDayViewSettings.DefaultBackground;
 
             Canvas.SetZIndex(this.topLeftHeaderPanel, DefaultTopLeftHeaderZIndex);
 
             this.topHeader = new Canvas();
-            this.topHeader.Background = XamlMultiDayViewLayer.DefaultBackground;
+            this.topHeader.Background = MultiDayViewSettings.DefaultBackground;
             this.topHeader.ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.System;
             Canvas.SetZIndex(this.topHeader, DefaultToptHeaderZIndex);
 
@@ -100,11 +99,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             this.realizedTimerRulerItemsPresenters = new Dictionary<CalendarTimeRulerItem, TextBlock>();
             this.realizedTimerRulerLinePresenters = new Dictionary<CalendarGridLine, Border>();
-            this.realizedSlotPresenters = new Dictionary<Slot, Border>();
+            this.realizedSlotPresenters = new Dictionary<Slot, SlotControl>();
+            this.visibleSlotPresenters = new Dictionary<Slot, SlotControl>();
 
             this.recycledTimeRulerItems = new Queue<TextBlock>();
             this.recycledTimeRulerLines = new Queue<Border>();
-            this.recycledSlots = new Queue<Border>();
+            this.recycledSlots = new Queue<SlotControl>();
+            this.fullyRecycledSlots = new Queue<SlotControl>();
 
             this.realizedAppointmentDefaultPresenters = new List<AppointmentControl>();
 
@@ -145,7 +146,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             ElementCollection<CalendarTimeRulerItem> timeRulerItems = model.multiDayViewModel.timeRulerItems;
             ElementCollection<CalendarGridLine> timeRulerLines = model.multiDayViewModel.timerRulerLines;
             List<CalendarAppointmentInfo> appointmentInfos = model.multiDayViewModel.appointmentInfos;
-            IEnumerable<Slot> slots = model.multiDayViewSettings.SpecialSlotsSource;
 
             if (shouldUpdateTopHeader)
             {
@@ -156,10 +156,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.UpdateTimeRulerItems(timeRulerItems);
             this.UpdateTimerRulerLines(timeRulerLines);
             this.UpdateAppointments(appointmentInfos);
-            if (slots != null)
-            {
-                this.UpdateSlots(slots);
-            }
+            this.UpdateSlots();
 
             this.UpdateTodaySlot();
             this.UpdateCurrentTimeIndicator();
@@ -267,15 +264,26 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        internal void RecycleSlots(IEnumerable<Slot> slots)
+        internal void RecycleModelSlots(IEnumerable<Slot> slots)
         {
-            foreach (Slot slot in slots)
+            var multiDayViewModel = this.Owner.Model.multiDayViewModel;
+            if (multiDayViewModel != null)
             {
-                Border visual;
-                if (this.realizedSlotPresenters.TryGetValue(slot, out visual))
+                var specialSlots = multiDayViewModel.specialSlots;
+                foreach (var slot in slots)
                 {
-                    this.realizedSlotPresenters.Remove(slot);
-                    this.recycledSlots.Enqueue(visual);
+                    var slotsToRemove = specialSlots.Where(a => a.Key == slot).ToList();
+                    for (int i = 0; i < slotsToRemove.Count; i++)
+                    {
+                        var slotToRemove = slotsToRemove[i];
+                        SlotControl visual;
+                        if (this.realizedSlotPresenters.TryGetValue(slotToRemove.Value, out visual))
+                        {
+                            this.RecycleSlotVisual(slotToRemove.Value, visual);
+                        }
+
+                        specialSlots.Remove(slotToRemove);
+                    }
                 }
             }
         }
@@ -320,40 +328,71 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        internal void UpdateSlots(IEnumerable<Slot> slots)
+        internal void UpdateSlots()
         {
-            this.RecycleSlots(slots);
+            var slots = this.Owner.Model.multiDayViewModel.specialSlots;
+            if (slots == null)
+            {
+                return;
+            }
+
             foreach (var slot in slots)
             {
-                if (!this.bufferedViewPortArea.IntersectsWith(slot.layoutSlot))
+                var specialSlot = slot.Value;
+                SlotControl visual;
+                if (this.realizedSlotPresenters.TryGetValue(specialSlot, out visual))
                 {
+                    this.visibleSlotPresenters.Add(specialSlot, visual);
+                }
+            }
+
+            foreach (var slot in slots)
+            {
+                var specialSlot = slot.Value;
+                SlotControl visual;
+                this.visibleSlotPresenters.TryGetValue(specialSlot, out visual);
+
+                if (!this.bufferedViewPortArea.IntersectsWith(specialSlot.layoutSlot))
+                {
+                    if (visual != null)
+                    {
+                        this.RecycleSlotVisual(specialSlot, visual);
+                    }
+
                     continue;
                 }
 
-                Border slotVisual = this.GetDefaultSlotVisual(slot);
-                if (slotVisual != null)
+                if (visual != null)
                 {
+                    XamlContentLayer.ArrangeUIElement(visual, specialSlot.layoutSlot, true);
+                    Canvas.SetLeft(visual, specialSlot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
+                    continue;
+                }
+
+                visual = this.GetDefaultSlotVisual(specialSlot);
+                if (visual != null)
+                {
+                    visual.DataContext = specialSlot;
+
                     MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
                     StyleSelector specialSlotStyleSelector = settings.SpecialSlotStyleSelector ?? settings.defaultSpecialSlotStyleSelector;
-                    if (specialSlotStyleSelector != null)
-                    {
-                        var style = specialSlotStyleSelector.SelectStyle(slot, slotVisual);
-                        if (style != null)
-                        {
-                            slotVisual.Style = style;
-                        }
-                    }
+                    var style = specialSlotStyleSelector.SelectStyle(specialSlot, visual);
+                    visual.Style = style;
 
-                    XamlContentLayer.ArrangeUIElement(slotVisual, slot.layoutSlot, true);
-                    Canvas.SetZIndex(slotVisual, XamlMultiDayViewLayer.DefaultSlotZIndex);
-                    Canvas.SetLeft(slotVisual, slot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
+                    XamlContentLayer.ArrangeUIElement(visual, specialSlot.layoutSlot, true);
+                    Canvas.SetLeft(visual, specialSlot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
                 }
             }
 
-            foreach (Border slot in this.recycledSlots)
+            foreach (var visual in this.recycledSlots)
             {
-                slot.Visibility = Visibility.Collapsed;
+                visual.Visibility = Visibility.Collapsed;
+                visual.DataContext = null;
+                this.fullyRecycledSlots.Enqueue(visual);
             }
+
+            this.recycledSlots.Clear();
+            this.visibleSlotPresenters.Clear();
         }
 
         internal void UpdateTodaySlot()
@@ -623,7 +662,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdatePanelsBackground(Brush background)
         {
-            Brush defaultCalendarBrush = this.Owner.Background ?? XamlMultiDayViewLayer.DefaultBackground;
+            Brush defaultCalendarBrush = this.Owner.Background ?? MultiDayViewSettings.DefaultBackground;
             if (this.contentPanel.Background != background)
             {
                 if (background != null)
@@ -688,6 +727,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         protected internal override void RemoveVisualChild(UIElement child)
         {
             this.contentPanel.Children.Remove(child);
+        }
+
+        private void RecycleSlotVisual(Slot slot, SlotControl visual)
+        {
+            this.realizedSlotPresenters.Remove(slot);
+            this.recycledSlots.Enqueue(visual);
         }
 
         private void LayoutVerticalHeaderBorder(CalendarGridLine verticalLine)
@@ -902,21 +947,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return visual;
         }
 
-        private Border GetDefaultSlotVisual(Slot slot)
+        private SlotControl GetDefaultSlotVisual(Slot slot)
         {
-            Border visual;
+            SlotControl visual;
             if (this.recycledSlots.Count > 0)
             {
                 visual = this.recycledSlots.Dequeue();
-
-                visual.ClearValue(Border.VisibilityProperty);
-                visual.ClearValue(Border.StyleProperty);
-                visual.ClearValue(Border.BorderThicknessProperty);
-                visual.ClearValue(Canvas.ZIndexProperty);
+            }
+            else if (this.fullyRecycledSlots.Count > 0)
+            {
+                visual = this.fullyRecycledSlots.Dequeue();
+                visual.ClearValue(SlotControl.VisibilityProperty);
             }
             else
             {
-                visual = this.CreateBorderVisual();
+                visual = this.CreateSlotVisual();
             }
 
             this.realizedSlotPresenters.Add(slot, visual);
@@ -972,6 +1017,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.AddVisualChild(appointmentControl);
 
             return appointmentControl;
+        }
+
+        private SlotControl CreateSlotVisual()
+        {
+            SlotControl slot = new SlotControl();
+            this.AddVisualChild(slot);
+
+            return slot;
         }
 
         private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
