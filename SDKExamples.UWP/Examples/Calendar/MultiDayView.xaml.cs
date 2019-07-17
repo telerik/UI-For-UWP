@@ -488,21 +488,4 @@ namespace SDKExamples.UWP.Calendar
             throw new NotImplementedException();
         }
     }
-
-    public class TestStyle : StyleSelector
-    {
-        public Style NonWorkingHours { get; set; }
-        public Style SpecialHours { get; set; }
-
-        protected override Style SelectStyleCore(object item, DependencyObject container)
-        {
-            Slot slot = (Slot)item;
-            if (slot.IsReadOnly)
-            {
-                return this.NonWorkingHours;
-            }
-
-            return this.SpecialHours;
-        }
-    }
 }
