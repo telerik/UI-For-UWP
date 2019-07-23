@@ -640,7 +640,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             CalendarTimeRulerItem currentTimRulerItem = null;
             TimeSpan timeOfDay;
-            double verticalPosition = this.halfTextHeight + this.Calendar.GridLinesThickness / 2;
+            double verticalPosition = this.halfTextHeight - this.Calendar.GridLinesThickness / 2;
             if (currentDate.Date.Date < dateToMeasure.Date)
             {
                 currentTimRulerItem = this.timeRulerItems.Last();
