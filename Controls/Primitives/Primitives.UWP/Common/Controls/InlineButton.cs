@@ -132,6 +132,8 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
 
             this.repeatTimer = new DispatcherTimer();
             this.repeatTimer.Tick += this.OnRepeatTimerTick;
+
+            // The peer that is associated with the Button needs to be taken. Thus when the narrator is on and Invoke of the peer is called the click will be executed as expected.
             this.automationPeer = (ButtonAutomationPeer)FrameworkElementAutomationPeer.FromElement(this);
         }
 
