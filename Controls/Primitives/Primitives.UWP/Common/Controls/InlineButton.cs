@@ -132,8 +132,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
 
             this.repeatTimer = new DispatcherTimer();
             this.repeatTimer.Tick += this.OnRepeatTimerTick;
-
-            this.automationPeer = new ButtonAutomationPeer(this);
+            this.automationPeer = (ButtonAutomationPeer)FrameworkElementAutomationPeer.FromElement(this);
         }
 
         /// <summary>
@@ -495,9 +494,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.Common
         {
             if (this.currentlyRepeating)
             {
-#if !WINDOWS_UWP
                 this.automationPeer.Invoke();
-#endif
             }
             else
             {
