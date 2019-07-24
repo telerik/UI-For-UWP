@@ -42,6 +42,56 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the associated month cell is special.
+        /// </summary>
+        public bool IsSpecial
+        {
+            get
+            {
+                var monthCell = this.cell as CalendarMonthCellModel;
+                if (monthCell != null)
+                {
+                    return monthCell.IsSpecial;
+                }
+
+                return false;
+            }
+            set
+            {
+                var monthCell = this.cell as CalendarMonthCellModel;
+                if (monthCell != null)
+                {
+                    monthCell.IsSpecial = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the associated month cell is special and is read-only.
+        /// </summary>
+        public bool IsSpecialReadOnly
+        {
+            get
+            {
+                var monthCell = this.cell as CalendarMonthCellModel;
+                if (monthCell != null)
+                {
+                    return monthCell.IsSpecialReadOnly;
+                }
+
+                return false;
+            }
+            set
+            {
+                var monthCell = this.cell as CalendarMonthCellModel;
+                if (monthCell != null)
+                {
+                    monthCell.IsSpecialReadOnly = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the associated calendar cell is highlighted.
         /// </summary>
         public bool IsHighlighted

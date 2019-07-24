@@ -3374,7 +3374,16 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private CalendarCellStyleContext CreateCurrentCellStyleContext(CalendarCellModel cell, CalendarCellStateContext stateContext)
         {
-            CalendarCellStyleContext context = new CalendarCellStyleContext(stateContext);
+            CalendarCellStyleContext context;
+            if (this.displayModeCache == CalendarDisplayMode.MonthView || this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                context = new CalendarMonthCellStyleContext(stateContext);
+            }
+            else
+            {
+                context = new CalendarCellStyleContext(stateContext);
+            }
+
             context.CalculatedDecorationCellStyle = this.EvaluateCellDecorationStyle(cell);
             context.CalculatedContentCellStyle = this.EvaluateCellContentStyle(cell);
 
