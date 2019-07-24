@@ -292,7 +292,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(MultiDayViewSettings), typeof(MultiDayViewSettings), typeof(RadCalendar), new PropertyMetadata(new MultiDayViewSettings(), OnMultiDayViewSettingsChanged));
 
         /// <summary>
-        /// Identifies the <c cref="MultiDayViewSettings"/> dependency property.
+        /// Identifies the <c cref="MonthViewSettings"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty MonthViewSettingsProperty =
+            DependencyProperty.Register(nameof(MonthViewSettings), typeof(MonthViewSettings), typeof(RadCalendar), new PropertyMetadata(new MonthViewSettings(), OnMonthViewSettingsPropertyChanged));
+
+        /// <summary>
+        /// Identifies the <c cref="HeaderVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderVisibilityProperty =
             DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Visible));
@@ -400,6 +406,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             MultiDayViewSettings settings = this.MultiDayViewSettings;
             settings.owner = this;
             this.model.multiDayViewSettings = settings;
+            this.model.monthViewSettings = this.MonthViewSettings;
         }
 
         /// <summary>
@@ -1646,6 +1653,21 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(MultiDayViewSettingsProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the settings for the month view of the Calendar.
+        /// </summary>
+        public MonthViewSettings MonthViewSettings
+        {
+            get
+            {
+                return (MonthViewSettings)this.GetValue(MonthViewSettingsProperty);
+            }
+            set
+            {
+                this.SetValue(MonthViewSettingsProperty, value);
             }
         }
 
@@ -2909,6 +2931,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             calendar.model.multiDayViewSettings = newSettings;
         }
 
+        private static void OnMonthViewSettingsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MonthViewSettings settings = (MonthViewSettings)args.NewValue;
+            RadCalendar calendar = (RadCalendar)sender;
+            calendar.model.monthViewSettings = settings;
+        }
+
         private static DateTime GetFirstDayofMonth(DateTime selectedDate, System.Globalization.Calendar calendar)
         {
             return new DateTime(calendar.GetYear(selectedDate), calendar.GetMonth(selectedDate), 1, 1, 1, 1);
@@ -3333,7 +3362,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             // so we need to clear the flag explicitly in case it was set for a certain cell and does not need to be set given the current conditions.
             context.IsBlackout = this.IsBlackoutDate(cell);
 
-            if (cell.Date == DateTime.Today && this.IsTodayHighlighted && (this.DisplayMode == CalendarDisplayMode.MonthView || this.DisplayMode == CalendarDisplayMode.MultiDayView))
+            var displayMode = this.DisplayMode;
+            if (cell.Date == DateTime.Today && this.IsTodayHighlighted && (displayMode == CalendarDisplayMode.MonthView || displayMode == CalendarDisplayMode.MultiDayView))
             {
                 this.highlightedCellCache = cell;
                 context.IsHighlighted = true;

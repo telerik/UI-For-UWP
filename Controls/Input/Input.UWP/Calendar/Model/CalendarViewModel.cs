@@ -16,6 +16,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 return this.calendarCells;
             }
+            internal set
+            {
+                this.calendarCells = value;
+            }
         }
 
         public ElementCollection<CalendarGridLine> CalendarDecorations
@@ -221,7 +225,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.SnapToRightGridLine(calendarCell, columnIndex);
         }
 
-        private void EnsureCalendarCells()
+        protected virtual void EnsureCalendarCells()
         {
             if (this.calendarCells == null || this.calendarCells.Count == 0)
             {
