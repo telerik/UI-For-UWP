@@ -1,4 +1,6 @@
-﻿namespace Telerik.UI.Xaml.Controls.Input.Calendar
+﻿using System.Collections.Generic;
+
+namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
     /// <summary>
     /// Represents a context passed to a <see cref="CalendarMonthCellStyleContext"/> instance.
@@ -25,6 +27,15 @@
         /// Gets a value indicating whether the associated calendar cell is special and read-only.
         /// </summary>
         public bool IsSpecialReadOnly
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
+        /// Gets a value of the special slots that are associated with the cell.
+        /// </summary>
+        public IEnumerable<Slot> SpecialSlots
         {
             get;
             internal set;

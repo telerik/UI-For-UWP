@@ -70,6 +70,22 @@
         </local:CalendarCellStyle.ContentStyle>
     </local:CalendarCellStyle>
 
+    <local:CalendarCellStyle x:Key="SpecialCellStyle">
+        <local:CalendarCellStyle.DecorationStyle>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource TelerikSpecialSlotBackground}" />
+            </Style>
+        </local:CalendarCellStyle.DecorationStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="SpecialReadOnlyCellStyle">
+        <local:CalendarCellStyle.DecorationStyle>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource TelerikSpecialSlotBackgroundReadOnly}" />
+            </Style>
+        </local:CalendarCellStyle.DecorationStyle>
+    </local:CalendarCellStyle>
+
     <local:CalendarCellStyle x:Key="MuldiDayViewNormalCellStyle">
         <local:CalendarCellStyle.ContentStyle>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultNormalCellStyle}">

@@ -19,6 +19,16 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty SpecialSlotsSourceProperty =
             DependencyProperty.Register(nameof(SpecialSlotsSource), typeof(IEnumerable<Slot>), typeof(MonthViewSettings), new PropertyMetadata(null, OnSpecialSlotsSourcePropertyChanged));
 
+        /// <summary>
+        /// Identifies the <see cref="SpecialSlotCellStyleSelector"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty SpecialSlotCellStyleSelectorProperty =
+            DependencyProperty.Register(nameof(SpecialSlotCellStyleSelector), typeof(CalendarCellStyleSelector), typeof(MonthViewSettings), new PropertyMetadata(null, OnSpecialSlotCellStyleSelectorPropertyChanged));
+
+        internal CalendarCellStyle defaultSpecialCellStyle;
+        internal CalendarCellStyle defaultSpecialReadOnlyCellStyle;
+
+        private CalendarCellStyleSelector specialSlotCellStyleSelectorCache;
         private WeakCollectionChangedListener specialSlotsCollectionChangedListener;
         private List<WeakPropertyChangedListener> specialSlotsPropertyChangedListeners = new List<WeakPropertyChangedListener>();
 
@@ -35,6 +45,21 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(SpecialSlotsSourceProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the StyleSelector that will be used for setting custom style for the cell in the month that are special.
+        /// </summary>
+        public CalendarCellStyleSelector SpecialSlotCellStyleSelector
+        {
+            get
+            {
+                return this.specialSlotCellStyleSelectorCache;
+            }
+            set
+            {
+                this.SetValue(SpecialSlotCellStyleSelectorProperty, value);
             }
         }
 
@@ -76,6 +101,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                     }
                 }
             }
+        }
+
+        private static void OnSpecialSlotCellStyleSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MonthViewSettings settings = (MonthViewSettings)sender;
+            settings.specialSlotCellStyleSelectorCache = (CalendarCellStyleSelector)args.NewValue;
         }
 
         /// <summary>
@@ -143,6 +174,13 @@ namespace Telerik.UI.Xaml.Controls.Input
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             // TODO: Update when property changes
+        }
+
+        internal void SetDefaultStyleValues()
+        {
+            ResourceDictionary dictionary = RadCalendar.MultiDayViewResources;
+            this.defaultSpecialCellStyle = this.defaultSpecialCellStyle ?? (CalendarCellStyle)dictionary["SpecialCellStyle"];
+            this.defaultSpecialReadOnlyCellStyle = this.defaultSpecialReadOnlyCellStyle ?? (CalendarCellStyle)dictionary["SpecialReadOnlyCellStyle"];
         }
     }
 }

@@ -189,8 +189,8 @@ namespace SDKExamples.UWP.Calendar
             for (int i = 0; i < 5; i++)
             {
                 var date = firstDateOfCurrentWeek.AddDays(i);
-                this.NonWorkingHours.Add(new Slot(date, start.AddDays(i)) { IsReadOnly = true });
-                this.NonWorkingHours.Add(new Slot(end.AddDays(i), date.AddHours(24)));
+                this.NonWorkingHours.Add(new Slot(date, start.AddDays(i)) { IsReadOnly = i == 0 });
+                this.NonWorkingHours.Add(new Slot(end.AddDays(i), date.AddHours(24).AddSeconds(-1)));
             }
         }
 

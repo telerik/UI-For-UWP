@@ -60,6 +60,7 @@
     <Compile Include="Common\Controls\AutomationPeers\RadContentControlAutomationPeer.cs" />
     <Compile Include="Common\Controls\AutomationPeers\RadControlAutomationPeer.cs" />
     <Compile Include="Common\Controls\AutomationPeers\RadHeaderedControlAutomationPeer.cs" />
+    <Compile Include="Common\StyleManager.cs" />
     <Compile Include="ExpanderControl\RadExpanderControlAutomationPeer.cs" />
     <Compile Include="HubTile\AutomationPeers\FlipControlAutomationPeer.cs" />
     <Compile Include="HubTile\AutomationPeers\HubTileBaseAutomationPeer.cs" />

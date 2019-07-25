@@ -1,4 +1,5 @@
-﻿using Telerik.Core;
+﻿using System.Collections.Generic;
+using Telerik.Core;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
@@ -7,6 +8,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     /// </summary>
     public class CalendarMonthCellModel : CalendarCellModel
     {
+        internal List<Slot> slots;
+
         internal static readonly int IsSpecialPropertyKey = PropertyKeys.Register(typeof(bool), "IsSpecial");
         internal static readonly int IsSpecialReadOnlyPropertyKey = PropertyKeys.Register(typeof(bool), "IsSpecialReadOnly");
 

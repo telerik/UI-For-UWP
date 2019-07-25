@@ -2022,12 +2022,21 @@ namespace Telerik.UI.Xaml.Controls.Input
                     this.CellStateSelector.SelectState(stateContext, this);
                 }
 
-                if (stateContext.IsBlackout && this.DisplayMode == CalendarDisplayMode.MonthView)
+                if (stateContext.IsBlackout && this.displayModeCache == CalendarDisplayMode.MonthView)
                 {
                     this.SelectionService.selectedDateRanges.SplitRangeByDate(cell);
                 }
 
-                CalendarCellStyleContext styleContext = this.CreateCurrentCellStyleContext(cell, stateContext);
+                CalendarCellStyleContext styleContext;
+                if (this.displayModeCache == CalendarDisplayMode.MonthView || this.displayModeCache == CalendarDisplayMode.MultiDayView)
+                {
+                    styleContext = this.CreateCurrentMonthCellStyleContext((CalendarMonthCellModel)cell, stateContext);
+                }
+                else
+                {
+                    styleContext = this.CreateCurrentCellStyleContext(cell, stateContext);
+                }
+
                 if (this.CellStyleSelector != null)
                 {
                     this.CellStyleSelector.SelectStyle(styleContext, this);
@@ -2249,6 +2258,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     this.MultiDayViewSettings.timer.Start();
                 }
+            }
+
+            var monthViewSettings = this.MonthViewSettings;
+            if (monthViewSettings != null && (this.displayModeCache == CalendarDisplayMode.MonthView || this.displayModeCache == CalendarDisplayMode.MultiDayView))
+            {
+                monthViewSettings.SetDefaultStyleValues();
             }
 
             if (this.navigationPanel != null)
@@ -3374,21 +3389,57 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private CalendarCellStyleContext CreateCurrentCellStyleContext(CalendarCellModel cell, CalendarCellStateContext stateContext)
         {
-            CalendarCellStyleContext context;
-            if (this.displayModeCache == CalendarDisplayMode.MonthView || this.displayModeCache == CalendarDisplayMode.MultiDayView)
-            {
-                context = new CalendarMonthCellStyleContext(stateContext);
-            }
-            else
-            {
-                context = new CalendarCellStyleContext(stateContext);
-            }
-
+            CalendarCellStyleContext context = new CalendarCellStyleContext(stateContext);
             context.CalculatedDecorationCellStyle = this.EvaluateCellDecorationStyle(cell);
             context.CalculatedContentCellStyle = this.EvaluateCellContentStyle(cell);
 
             cell.Context = context;
 
+            return context;
+        }
+
+        private CalendarCellStyleContext CreateCurrentMonthCellStyleContext(CalendarMonthCellModel cell, CalendarCellStateContext stateContext)
+        {
+            var context = new CalendarMonthCellStyleContext(stateContext);
+            context.SpecialSlots = cell.slots;
+
+            var defaultDecorationCellStyle = this.EvaluateCellDecorationStyle(cell);
+            context.CalculatedDecorationCellStyle = defaultDecorationCellStyle;
+
+            var defaultContentCellStyle = this.EvaluateCellContentStyle(cell);
+            context.CalculatedContentCellStyle = defaultContentCellStyle;
+
+            var monthViewSettings = this.model.monthViewSettings;
+            if (monthViewSettings != null)
+            {
+                if (cell.IsSpecialReadOnly)
+                {
+                    var specialReadOnlyStyle = monthViewSettings.defaultSpecialReadOnlyCellStyle;
+                    context.CalculatedDecorationCellStyle = StyleManager.MergeStyles(defaultDecorationCellStyle, specialReadOnlyStyle.DecorationStyle);
+                    context.CalculatedContentCellStyle = StyleManager.MergeStyles(defaultContentCellStyle, specialReadOnlyStyle.ContentStyle);
+                }
+                else if (cell.IsSpecial)
+                {
+                    var specialStyle = monthViewSettings.defaultSpecialCellStyle;
+                    context.CalculatedDecorationCellStyle = StyleManager.MergeStyles(defaultDecorationCellStyle, specialStyle.DecorationStyle);
+                    context.CalculatedContentCellStyle = StyleManager.MergeStyles(defaultContentCellStyle, specialStyle.ContentStyle);
+                }
+
+                var styleSelector = monthViewSettings.SpecialSlotCellStyleSelector;
+                if (styleSelector != null)
+                {
+                    styleSelector.SelectStyle(context, this);
+
+                    var style = context.CellStyle;
+                    if (style != null)
+                    {
+                        context.CalculatedDecorationCellStyle = style.DecorationStyle;
+                        context.CalculatedContentCellStyle = style.ContentStyle;
+                    }
+                }
+            }
+
+            cell.Context = context;
             return context;
         }
 

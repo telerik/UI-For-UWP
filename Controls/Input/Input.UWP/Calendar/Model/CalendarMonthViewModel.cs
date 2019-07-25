@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Telerik.Core;
@@ -61,6 +62,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             var monthViewSettings = calendar.monthViewSettings;
+            var monthCell = ((CalendarMonthCellModel)cell);
             if (monthViewSettings != null)
             {
                 var specialSlots = monthViewSettings.SpecialSlotsSource;
@@ -71,13 +73,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     {
                         if (cellDate >= slot.Start.Date && cellDate <= slot.End.Date)
                         {
-                            if (slot.IsReadOnly)
+                            if (monthCell.slots == null)
                             {
-                                ((CalendarMonthCellModel)cell).IsSpecialReadOnly = true;
-                                break;
+                                monthCell.slots = new List<Slot>();
                             }
-                            
-                            ((CalendarMonthCellModel)cell).IsSpecial = true;
+
+                            monthCell.slots.Add(slot);
+                            if (!monthCell.IsSpecialReadOnly)
+                            {
+                                if (slot.IsReadOnly)
+                                {
+                                    monthCell.IsSpecialReadOnly = true;
+                                }
+
+                                monthCell.IsSpecial = true;
+                            }
                         }
                     }
                 }
@@ -117,6 +127,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     cell.ClearValue(CalendarMonthCellModel.IsPointerOverPropertyKey);
                     cell.ClearValue(CalendarMonthCellModel.IsSpecialPropertyKey);
                     cell.ClearValue(CalendarMonthCellModel.IsSpecialReadOnlyPropertyKey);
+                    cell.slots?.Clear();
+                    cell.slots = null;
                 }
             }
         }
