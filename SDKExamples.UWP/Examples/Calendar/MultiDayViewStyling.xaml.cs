@@ -51,7 +51,7 @@ namespace SDKExamples.UWP.Calendar
             for (int i = 0; i < 100; i++)
             {
                 rnd.NextBytes(b);
-                DateTimeAppointment app = new DateTimeAppointment(today.AddHours(step + i), today.AddHours(step + step/2 + i))
+                DateTimeAppointment app = new DateTimeAppointment(today.AddHours(step + i), today.AddHours(step + step / 2 + i))
                 {
                     Color = new SolidColorBrush(Color.FromArgb(255, b[0], b[1], b[2])),
                     Subject = "App " + i
@@ -288,6 +288,22 @@ namespace SDKExamples.UWP.Calendar
             }
 
             return this.DefaultStyle;
+        }
+    }
+
+    public class CustomSpecialSlotContentTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate FridayTemplate { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            var slot = item as Slot;
+            if (slot != null && slot.Start.Date.DayOfWeek == DayOfWeek.Friday)
+            {
+                return this.FridayTemplate;
+            }
+
+            return base.SelectTemplateCore(item);
         }
     }
 }
