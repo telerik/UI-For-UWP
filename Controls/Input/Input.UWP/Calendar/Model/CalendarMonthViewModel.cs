@@ -62,7 +62,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             var monthViewSettings = calendar.monthViewSettings;
-            var monthCell = ((CalendarMonthCellModel)cell);
+            var monthCell = (CalendarMonthCellModel)cell;
             if (monthViewSettings != null)
             {
                 var specialSlots = monthViewSettings.SpecialSlotsSource;
@@ -92,6 +92,38 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     }
                 }
             }
+        }
+
+        internal void EnsureCalendarHeaderCells()
+        {
+            if (this.calendarHeaderCells == null)
+            {
+                this.calendarHeaderCells = new ElementCollection<CalendarHeaderCellModel>(this);
+            }
+
+            if (this.calendarHeaderCells.Count == 0)
+            {
+                int itemCount = this.ColumnCount + this.RowCount + (this.BufferItemsCount * 2);
+                for (int cellIndex = 0; cellIndex < itemCount; cellIndex++)
+                {
+                    CalendarHeaderCellModel cell = new CalendarHeaderCellModel();
+
+                    this.calendarHeaderCells.Add(cell);
+                }
+            }
+            else
+            {
+                foreach (CalendarHeaderCellModel cell in this.calendarHeaderCells)
+                {
+                    cell.layoutSlot = RadRect.Empty;
+                }
+            }
+        }
+
+        internal void ArrangeCalendarColumnHeaders(RadRect viewRect)
+        {
+            int itemIndex = 0;
+            this.ArrangeCalendarColumnHeaders(viewRect, ref itemIndex);
         }
 
         protected override void EnsureCalendarCells()
@@ -131,38 +163,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     cell.slots = null;
                 }
             }
-        }
-
-        internal void EnsureCalendarHeaderCells()
-        {
-            if (this.calendarHeaderCells == null)
-            {
-                this.calendarHeaderCells = new ElementCollection<CalendarHeaderCellModel>(this);
-            }
-
-            if (this.calendarHeaderCells.Count == 0)
-            {
-                int itemCount = this.ColumnCount + this.RowCount + (this.BufferItemsCount * 2);
-                for (int cellIndex = 0; cellIndex < itemCount; cellIndex++)
-                {
-                    CalendarHeaderCellModel cell = new CalendarHeaderCellModel();
-
-                    this.calendarHeaderCells.Add(cell);
-                }
-            }
-            else
-            {
-                foreach (CalendarHeaderCellModel cell in this.calendarHeaderCells)
-                {
-                    cell.layoutSlot = RadRect.Empty;
-                }
-            }
-        }
-
-        internal void ArrangeCalendarColumnHeaders(RadRect viewRect)
-        {
-            int itemIndex = 0;
-            this.ArrangeCalendarColumnHeaders(viewRect, ref itemIndex);
         }
 
         protected override RadRect UpdateAnimatableContentClip(RadRect rect)

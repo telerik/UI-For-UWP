@@ -8,10 +8,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     /// </summary>
     public class CalendarMonthCellModel : CalendarCellModel
     {
-        internal List<Slot> slots;
-
         internal static readonly int IsSpecialPropertyKey = PropertyKeys.Register(typeof(bool), "IsSpecial");
         internal static readonly int IsSpecialReadOnlyPropertyKey = PropertyKeys.Register(typeof(bool), "IsSpecialReadOnly");
+
+        internal List<Slot> slots;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CalendarMonthCellModel"/> class.
@@ -38,14 +38,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        internal new bool IsNormal
-        {
-            get
-            {
-                return !this.IsFromAnotherView && !this.IsBlackout && !this.IsSelected && !this.IsHighlighted && !this.IsPointerOver && !this.IsCurrent && !this.IsSpecial && !this.IsSpecialReadOnly;
-            }
-        }
-
         /// <summary>
         /// Gets a value indicating whether the month cell is special and is read-only.
         /// </summary>
@@ -61,6 +53,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        internal new bool IsNormal
+        {
+            get
+            {
+                return !this.IsFromAnotherView && !this.IsBlackout && !this.IsSelected && !this.IsHighlighted && !this.IsPointerOver && !this.IsCurrent && !this.IsSpecial && !this.IsSpecialReadOnly;
+            }
+        }
+
         internal override void OnPropertyChanging(RadPropertyEventArgs e)
         {
             base.OnPropertyChanging(e);
@@ -73,7 +73,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     this.IsSelected = false;
                 }
             }
-            else if (e.Key == IsSelectedPropertyKey && e.NewValue != null)
+            else if (e.Key == CalendarCellModel.IsSelectedPropertyKey && e.NewValue != null)
             {
                 bool isSelected = (bool)e.NewValue;
                 if (isSelected && this.IsSpecialReadOnly)

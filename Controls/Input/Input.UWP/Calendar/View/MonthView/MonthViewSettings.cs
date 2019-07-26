@@ -63,52 +63,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
-        private static void OnSpecialSlotsSourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            MonthViewSettings settings = (MonthViewSettings)sender;
-            INotifyCollectionChanged oldSlotsSource = args.OldValue as INotifyCollectionChanged;
-            if (oldSlotsSource != null)
-            {
-                var listener = settings.specialSlotsCollectionChangedListener;
-                if (listener != null)
-                {
-                    listener.Detach();
-                    listener = null;
-                }
-
-                int count = settings.specialSlotsPropertyChangedListeners != null ? settings.specialSlotsPropertyChangedListeners.Count : 0;
-                while (count > 0)
-                {
-                    var propertyListener = settings.specialSlotsPropertyChangedListeners[0];
-                    settings.specialSlotsPropertyChangedListeners.RemoveAt(0);
-                    propertyListener.Detach();
-                    propertyListener = null;
-                    count--;
-                }
-            }
-
-            INotifyCollectionChanged newSlotsSource = args.NewValue as INotifyCollectionChanged;
-            if (newSlotsSource != null)
-            {
-                settings.specialSlotsCollectionChangedListener = WeakCollectionChangedListener.CreateIfNecessary(newSlotsSource, settings);
-
-                foreach (Slot slot in (IEnumerable<Slot>)newSlotsSource)
-                {
-                    var listener = WeakPropertyChangedListener.CreateIfNecessary(slot, settings);
-                    if (listener != null)
-                    {
-                        settings.specialSlotsPropertyChangedListeners.Add(listener);
-                    }
-                }
-            }
-        }
-
-        private static void OnSpecialSlotCellStyleSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            MonthViewSettings settings = (MonthViewSettings)sender;
-            settings.specialSlotCellStyleSelectorCache = (CalendarCellStyleSelector)args.NewValue;
-        }
-
         /// <summary>
         /// Implementation of the <see cref="ICollectionChangedListener" /> interface.
         /// </summary>
@@ -181,6 +135,52 @@ namespace Telerik.UI.Xaml.Controls.Input
             ResourceDictionary dictionary = RadCalendar.MultiDayViewResources;
             this.defaultSpecialCellStyle = this.defaultSpecialCellStyle ?? (CalendarCellStyle)dictionary["SpecialCellStyle"];
             this.defaultSpecialReadOnlyCellStyle = this.defaultSpecialReadOnlyCellStyle ?? (CalendarCellStyle)dictionary["SpecialReadOnlyCellStyle"];
+        }
+
+        private static void OnSpecialSlotsSourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MonthViewSettings settings = (MonthViewSettings)sender;
+            INotifyCollectionChanged oldSlotsSource = args.OldValue as INotifyCollectionChanged;
+            if (oldSlotsSource != null)
+            {
+                var listener = settings.specialSlotsCollectionChangedListener;
+                if (listener != null)
+                {
+                    listener.Detach();
+                    listener = null;
+                }
+
+                int count = settings.specialSlotsPropertyChangedListeners != null ? settings.specialSlotsPropertyChangedListeners.Count : 0;
+                while (count > 0)
+                {
+                    var propertyListener = settings.specialSlotsPropertyChangedListeners[0];
+                    settings.specialSlotsPropertyChangedListeners.RemoveAt(0);
+                    propertyListener.Detach();
+                    propertyListener = null;
+                    count--;
+                }
+            }
+
+            INotifyCollectionChanged newSlotsSource = args.NewValue as INotifyCollectionChanged;
+            if (newSlotsSource != null)
+            {
+                settings.specialSlotsCollectionChangedListener = WeakCollectionChangedListener.CreateIfNecessary(newSlotsSource, settings);
+
+                foreach (Slot slot in (IEnumerable<Slot>)newSlotsSource)
+                {
+                    var listener = WeakPropertyChangedListener.CreateIfNecessary(slot, settings);
+                    if (listener != null)
+                    {
+                        settings.specialSlotsPropertyChangedListeners.Add(listener);
+                    }
+                }
+            }
+        }
+
+        private static void OnSpecialSlotCellStyleSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MonthViewSettings settings = (MonthViewSettings)sender;
+            settings.specialSlotCellStyleSelectorCache = (CalendarCellStyleSelector)args.NewValue;
         }
     }
 }
