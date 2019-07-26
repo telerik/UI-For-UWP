@@ -84,6 +84,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                                 if (slot.IsReadOnly)
                                 {
                                     monthCell.IsSpecialReadOnly = true;
+                                    continue;
                                 }
 
                                 monthCell.IsSpecial = true;

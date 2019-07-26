@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
@@ -148,6 +149,23 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             get
             {
                 return this.cell.IsCurrent;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value of the special slots that are associated with the cell. Slots are only available for month view.
+        /// </summary>
+        public IEnumerable<Slot> SpecialSlots
+        {
+            get
+            {
+                var monthViewCellModel = this.cell as CalendarMonthCellModel;
+                if (monthViewCellModel != null)
+                {
+                    return monthViewCellModel.slots;
+                }
+
+                return null;
             }
         }
     }

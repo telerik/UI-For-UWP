@@ -340,6 +340,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private const string DefaultCenturyViewHeaderFormatString = "{0:yyyy} ~ {1:yyyy}";
 
         private const string DefaultDayNameCellStyleName = "DayNameCellStyle";
+        private const string DefaultBlackoutCellStyleName = "BlackoutCellStyle";
         private const string DefaultNormalCellStyleName = "NormalCellStyle";
         private const string DefaultAnotherViewCellStyleName = "AnotherViewCellStyle";
         private const string DefaultHighlightedCellStyleName = "HighlightedCellStyle";
@@ -373,6 +374,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private CalendarCellStyle pointerOverCellStyleCache, normalCellStyleCache, anotherViewCellStyleCache, blackoutCellStyleCache, selectedCellStyleCache, highlightedCellStyleCache, currentCellStyleCache;
         private CalendarCellStyle dayNameCellStyleCache, weekNumberCellStyleCache;
         private CalendarCellStyle defaultNormalCellStyle;
+        private CalendarCellStyle defaultBlackOutCellStyle;
         private CalendarCellStyle defaultAnotherViewCellStyle;
         private CalendarCellStyle defaultHighlightedCellStyle;
 
@@ -2253,11 +2255,11 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             base.OnTemplateApplied();
 
-            if (this.MultiDayViewSettings != null && this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            if (this.MultiDayViewSettings != null)
             {
                 this.MultiDayViewSettings.SetDefaultStyleValues();
 
-                if (this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+                if (this.displayModeCache == CalendarDisplayMode.MultiDayView && this.MultiDayViewSettings.ShowCurrentTimeIndicator)
                 {
                     this.MultiDayViewSettings.timer.Start();
                 }
@@ -2366,6 +2368,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.normalCellStyleCache == null && this.defaultNormalCellStyle == null)
             {
                 this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultNormalCellStyleName];
+            }
+
+            if (this.blackoutCellStyleCache == null && this.defaultBlackOutCellStyle == null)
+            {
+                this.defaultBlackOutCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultBlackoutCellStyleName];
             }
 
             if (this.anotherViewCellStyleCache == null && this.defaultAnotherViewCellStyle == null)
@@ -3130,6 +3137,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                     this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewNormalCellStyle"];
                 }
 
+                if (this.blackoutCellStyleCache == null)
+                {
+                    this.defaultBlackOutCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewBlackoutCellStyle"];
+                }
+
                 if (this.anotherViewCellStyleCache == null)
                 {
                     this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewAnotherViewCellStyle"];
@@ -3150,6 +3162,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                 if (this.normalCellStyleCache == null)
                 {
                     this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultNormalCellStyleName];
+                }
+
+                if (this.blackoutCellStyleCache == null)
+                {
+                    this.defaultBlackOutCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultBlackoutCellStyleName];
                 }
 
                 if (this.anotherViewCellStyleCache == null)
@@ -3313,6 +3330,13 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.timeRulerLayer.UpdateCurrentTimeIndicator();
                         break;
                     case MultiDayViewUpdateFlag.AffectsSpecialSlots:
+                        if (this.MultiDayViewSettings?.SpecialSlotsSource == this.MonthViewSettings?.SpecialSlotsSource)
+                        {
+                            this.EvaluateCustomCellSelectors();
+
+                            this.decorationLayer.UpdateUI();
+                            this.contentLayer.UpdateUI();
+                        }
                         this.timeRulerLayer.UpdateSlots();
                         break;
                     default:
@@ -3470,6 +3494,10 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     style = this.BlackoutCellStyle.DecorationStyle;
                 }
+                else
+                {
+                    style = this.defaultBlackOutCellStyle.DecorationStyle;
+                }
             }
             else if (cell.IsSelected)
             {
@@ -3530,9 +3558,16 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 style = this.CurrentCellStyle.ContentStyle;
             }
-            else if (cell.IsBlackout && this.BlackoutCellStyle != null && this.BlackoutCellStyle.ContentStyle != null)
+            else if (cell.IsBlackout)
             {
-                style = this.BlackoutCellStyle.ContentStyle;
+                if (this.BlackoutCellStyle != null && this.BlackoutCellStyle.ContentStyle != null)
+                {
+                    style = this.BlackoutCellStyle.ContentStyle;
+                }
+                else
+                {
+                    style = this.defaultBlackOutCellStyle.ContentStyle;
+                }
             }
             else if (cell.IsSelected && this.SelectedCellStyle != null && this.SelectedCellStyle.ContentStyle != null)
             {

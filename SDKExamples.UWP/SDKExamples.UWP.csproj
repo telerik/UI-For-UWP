@@ -150,6 +150,9 @@
     <Compile Include="Examples\Calendar\Formatting.xaml.cs">
       <DependentUpon>Formatting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\Calendar\MonthViewSpecialSlots.xaml.cs">
+      <DependentUpon>MonthViewSpecialSlots.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\Calendar\MultiDayView.xaml.cs">
       <DependentUpon>MultiDayView.xaml</DependentUpon>
     </Compile>
@@ -532,6 +535,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Examples\Calendar\Formatting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\Calendar\MonthViewSpecialSlots.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

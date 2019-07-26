@@ -1,0 +1,90 @@
+﻿<local:ExamplePageBase
+    x:Class="SDKExamples.UWP.Calendar.MonthViewSpecialSlots"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:SDKExamples.UWP"
+    xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:calendar="using:SDKExamples.UWP.Calendar"
+    xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    x:Name="page">
+    <primitives:RadSideDrawer DrawerLength="240">
+        <primitives:RadSideDrawer.MainContent>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding Title, ElementName=page}" 
+                           Style="{StaticResource ExampleHeaderTextBlockStyle}"
+                           HorizontalTextAlignment="Center"/>
+                <input:RadCalendar x:Name="calendar"
+                                   Grid.Row="1"
+                                   SelectionMode="{Binding ElementName=selectionModeCombo, Path=SelectedItem}"
+                                   DisplayMode="{Binding ElementName=displayModeCombo, Path=SelectedItem}">
+                    <input:RadCalendar.CellStateSelector>
+                        <calendar:MonthViewSpecialSlotsCellStateSelector/>
+                    </input:RadCalendar.CellStateSelector>
+                    <input:RadCalendar.MonthViewSettings>
+                        <input:MonthViewSettings SpecialSlotsSource="{Binding NonWorkingHours, Mode=TwoWay}">
+                            <input:MonthViewSettings.SpecialSlotCellStyleSelector>
+                                <calendar:MonthViewSpecialSlotCellStyleSelector>
+                                    <calendar:MonthViewSpecialSlotCellStyleSelector.GreenStyle>
+                                        <input:CalendarCellStyle>
+                                            <input:CalendarCellStyle.DecorationStyle>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Background" Value="LightGreen"/>
+                                                </Style>
+                                            </input:CalendarCellStyle.DecorationStyle>
+                                        </input:CalendarCellStyle>
+                                    </calendar:MonthViewSpecialSlotCellStyleSelector.GreenStyle>
+                                </calendar:MonthViewSpecialSlotCellStyleSelector>
+                            </input:MonthViewSettings.SpecialSlotCellStyleSelector>
+                        </input:MonthViewSettings>
+                    </input:RadCalendar.MonthViewSettings>
+                    <input:RadCalendar.MultiDayViewSettings>
+                        <input:MultiDayViewSettings SpecialSlotsSource="{Binding NonWorkingHours, Mode=TwoWay}"/>
+                    </input:RadCalendar.MultiDayViewSettings>
+                </input:RadCalendar>
+            </Grid>
+        </primitives:RadSideDrawer.MainContent>
+        <primitives:RadSideDrawer.DrawerContent>
+            <ScrollViewer>
+                <ScrollViewer.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="0, 7, 0, 0"/>
+                    </Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="0, 7, 0, 0"/>
+                    </Style>
+                </ScrollViewer.Resources>
+                <StackPanel Background="White"
+                            Padding="25, 60, 0, 0">
+                    <TextBlock Text="Selection mode:"/>
+                    <ComboBox x:Name="selectionModeCombo"
+                              ItemsSource="{Binding SelectionModes}"
+                              SelectedIndex="1"/>
+                    <Button Command="{Binding AddSlotCommand}"
+                            Content="Add Slot"/>
+                    <Button Command="{Binding DeleteSlotCommand}"
+                            Content="Delete Slot"/>
+                    <Button Command="{Binding UpdateSlotCommand}"
+                            Content="Update Slot ReadOnly"/>
+                    <Button Command="{Binding ClearSlotsCommand}"
+                            Content="Clear Slots"/>
+                    <Button Command="{Binding SetSlotsToNullCommand}"
+                            Content="Set Slots to NULL"/>
+                    <Button Command="{Binding ChangeSlotsSourceCommand}"
+                            Content="Change Slots Source"/>
+                    <TextBlock Text="Display mode:"/>
+                    <ComboBox x:Name="displayModeCombo"
+                              ItemsSource="{Binding DisplayModes}"
+                              SelectedIndex="0"/>
+                </StackPanel>
+            </ScrollViewer>
+        </primitives:RadSideDrawer.DrawerContent>
+    </primitives:RadSideDrawer>
+</local:ExamplePageBase>

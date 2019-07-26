@@ -314,6 +314,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     break;
                 case MultiDayViewUpdateFlag.AffectsSpecialSlots:
                     this.EnsureSlots();
+                    this.ArrangeCalendarContent(this.dayViewLayoutSlot);
                     break;
                 default:
                     break;
@@ -721,7 +722,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 timeItemHeight = settings.TimeLinesSpacing * heightCoeff;
                 if (hourIndex == itemsCount - 1)
                 {
-                    timeItemHeight += this.halfTextHeight;
+                    timeItemHeight += this.halfTextHeight - this.Calendar.GridLinesThickness;
                 }
 
                 timerRulerItem.Arrange(new RadRect(0f, previousBottom, timeWidth, timeItemHeight));
