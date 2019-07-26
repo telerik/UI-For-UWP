@@ -3394,8 +3394,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             // so we need to clear the flag explicitly in case it was set for a certain cell and does not need to be set given the current conditions.
             context.IsBlackout = this.IsBlackoutDate(cell);
 
-            var displayMode = this.DisplayMode;
-            if (cell.Date == DateTime.Today && this.IsTodayHighlighted && (displayMode == CalendarDisplayMode.MonthView || displayMode == CalendarDisplayMode.MultiDayView))
+            if (cell.Date == DateTime.Today && this.IsTodayHighlighted && (this.displayModeCache == CalendarDisplayMode.MonthView || this.displayModeCache == CalendarDisplayMode.MultiDayView))
             {
                 this.highlightedCellCache = cell;
                 context.IsHighlighted = true;
