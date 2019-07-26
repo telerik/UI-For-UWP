@@ -62,12 +62,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             var monthViewSettings = calendar.monthViewSettings;
-            var monthCell = (CalendarMonthCellModel)cell;
             if (monthViewSettings != null)
             {
                 var specialSlots = monthViewSettings.SpecialSlotsSource;
                 if (specialSlots != null)
                 {
+                    var monthCell = (CalendarMonthCellModel)cell;
                     var cellDate = cell.Date.Date;
                     foreach (var slot in specialSlots)
                     {

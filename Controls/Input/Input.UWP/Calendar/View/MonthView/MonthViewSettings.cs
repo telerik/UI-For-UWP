@@ -25,6 +25,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         public static readonly DependencyProperty SpecialSlotCellStyleSelectorProperty =
             DependencyProperty.Register(nameof(SpecialSlotCellStyleSelector), typeof(CalendarCellStyleSelector), typeof(MonthViewSettings), new PropertyMetadata(null, OnSpecialSlotCellStyleSelectorPropertyChanged));
 
+        internal RadCalendar owner;
         internal CalendarCellStyle defaultSpecialCellStyle;
         internal CalendarCellStyle defaultSpecialReadOnlyCellStyle;
 
@@ -118,6 +119,8 @@ namespace Telerik.UI.Xaml.Controls.Input
                 default:
                     break;
             }
+
+            this.Invalidate();
         }
 
         /// <summary>
@@ -127,7 +130,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <param name="e">The arguments of the event.</param>
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // TODO: Update when property changes
+            this.Invalidate();
         }
 
         internal void SetDefaultStyleValues()
@@ -135,6 +138,15 @@ namespace Telerik.UI.Xaml.Controls.Input
             ResourceDictionary dictionary = RadCalendar.MultiDayViewResources;
             this.defaultSpecialCellStyle = this.defaultSpecialCellStyle ?? (CalendarCellStyle)dictionary["SpecialCellStyle"];
             this.defaultSpecialReadOnlyCellStyle = this.defaultSpecialReadOnlyCellStyle ?? (CalendarCellStyle)dictionary["SpecialReadOnlyCellStyle"];
+        }
+
+        internal void Invalidate()
+        {
+            RadCalendar calendar = this.owner;
+            if (calendar != null && calendar.IsTemplateApplied && calendar.Model.IsTreeLoaded)
+            {
+                calendar.Invalidate();
+            }
         }
 
         private static void OnSpecialSlotsSourcePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -175,12 +187,15 @@ namespace Telerik.UI.Xaml.Controls.Input
                     }
                 }
             }
+
+            settings.Invalidate();
         }
 
         private static void OnSpecialSlotCellStyleSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MonthViewSettings settings = (MonthViewSettings)sender;
             settings.specialSlotCellStyleSelectorCache = (CalendarCellStyleSelector)args.NewValue;
+            settings.Invalidate();
         }
     }
 }

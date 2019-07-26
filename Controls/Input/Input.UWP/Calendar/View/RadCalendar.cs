@@ -403,10 +403,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.inputService = new InputService(this);
             this.CurrencyService = new CurrencyService(this);
 
-            MultiDayViewSettings settings = this.MultiDayViewSettings;
-            settings.owner = this;
-            this.model.multiDayViewSettings = settings;
-            this.model.monthViewSettings = this.MonthViewSettings;
+            MultiDayViewSettings multiDayViewSettings = this.MultiDayViewSettings;
+            multiDayViewSettings.owner = this;
+            this.model.multiDayViewSettings = multiDayViewSettings;
+
+            MonthViewSettings monthViewSettings = this.MonthViewSettings;
+            monthViewSettings.owner = this;
+            this.model.monthViewSettings = monthViewSettings;
         }
 
         /// <summary>
@@ -2934,22 +2937,36 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private static void OnMultiDayViewSettingsChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            RadCalendar calendar = (RadCalendar)sender;
-
             if (args.OldValue != null)
             {
                 ((MultiDayViewSettings)args.OldValue).DetachEvents();
             }
 
-            MultiDayViewSettings newSettings = (MultiDayViewSettings)args.NewValue;
-            newSettings.owner = calendar;
-            calendar.model.multiDayViewSettings = newSettings;
+            RadCalendar calendar = (RadCalendar)sender;
+            MultiDayViewSettings settings = args.NewValue as MultiDayViewSettings;
+            if (settings != null)
+            {
+                settings.owner = calendar;
+            }
+           
+            calendar.model.multiDayViewSettings = settings;
         }
 
         private static void OnMonthViewSettingsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            MonthViewSettings settings = (MonthViewSettings)args.NewValue;
-            RadCalendar calendar = (RadCalendar)sender;
+            var oldSettings = args.OldValue as MultiDayViewSettings;
+            if (oldSettings != null)
+            {
+                oldSettings.owner = null;
+            }
+
+            var settings = args.NewValue as MonthViewSettings;
+            var calendar = (RadCalendar)sender;
+            if (settings != null)
+            {
+                settings.owner = calendar;
+            }
+
             calendar.model.monthViewSettings = settings;
         }
 

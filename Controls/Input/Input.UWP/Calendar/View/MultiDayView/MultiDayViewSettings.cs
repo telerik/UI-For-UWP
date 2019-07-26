@@ -695,6 +695,8 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal void DetachEvents()
         {
+            this.owner = null;
+
             if (this.timer != null)
             {
                 this.timer.Tick -= this.TimerCallback;
