@@ -164,11 +164,6 @@ namespace SDKExamples.UWP.Calendar
                 context.IsSpecial = false;
             }
 
-            if ((container.DisplayMode == CalendarDisplayMode.MonthView || container.DisplayMode == CalendarDisplayMode.MultiDayView) && context.Date.Day % 2 == 0)
-            {
-                context.IsBlackout = true;
-            }
-
             base.SelectStateCore(context, container);
         }
     }
