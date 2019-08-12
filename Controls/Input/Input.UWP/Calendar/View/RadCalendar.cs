@@ -2266,7 +2266,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             var monthViewSettings = this.MonthViewSettings;
-            if (monthViewSettings != null && (this.displayModeCache == CalendarDisplayMode.MonthView || this.displayModeCache == CalendarDisplayMode.MultiDayView))
+            if (monthViewSettings != null)
             {
                 monthViewSettings.SetDefaultStyleValues();
             }
