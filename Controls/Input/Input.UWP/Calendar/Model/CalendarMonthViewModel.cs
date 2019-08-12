@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Telerik.Core;
@@ -51,12 +52,46 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal override void PrepareCalendarCell(CalendarCellModel cell, DateTime date)
         {
+            var calendar = this.Calendar;
             cell.Date = date;
-            cell.Label = string.Format(this.Calendar.Culture, this.Calendar.MonthViewCellFormat, date);
+            cell.Label = string.Format(calendar.Culture, calendar.MonthViewCellFormat, date);
 
-            if (this.Calendar.DisplayMode != CalendarDisplayMode.MultiDayView)
+            if (calendar.DisplayMode != CalendarDisplayMode.MultiDayView)
             {
-                cell.IsFromAnotherView = date.Month != this.Calendar.DisplayDate.Month;
+                cell.IsFromAnotherView = date.Month != calendar.DisplayDate.Month;
+            }
+
+            var monthViewSettings = calendar.monthViewSettings;
+            if (monthViewSettings != null)
+            {
+                var specialSlots = monthViewSettings.SpecialSlotsSource;
+                if (specialSlots != null)
+                {
+                    var monthCell = (CalendarMonthCellModel)cell;
+                    var cellDate = cell.Date.Date;
+                    foreach (var slot in specialSlots)
+                    {
+                        if (cellDate >= slot.Start.Date && cellDate <= slot.End.Date)
+                        {
+                            if (monthCell.slots == null)
+                            {
+                                monthCell.slots = new List<Slot>();
+                            }
+
+                            monthCell.slots.Add(slot);
+                            if (!monthCell.IsSpecialReadOnly)
+                            {
+                                if (slot.IsReadOnly)
+                                {
+                                    monthCell.IsSpecialReadOnly = true;
+                                    continue;
+                                }
+
+                                monthCell.IsSpecial = true;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -90,6 +125,45 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             int itemIndex = 0;
             this.ArrangeCalendarColumnHeaders(viewRect, ref itemIndex);
+        }
+
+        protected override void EnsureCalendarCells()
+        {
+            var calendarCells = this.CalendarCells;
+            if (calendarCells == null || calendarCells.Count == 0)
+            {
+                if (calendarCells == null)
+                {
+                    calendarCells = new ElementCollection<CalendarCellModel>(this);
+                }
+
+                for (int i = 0; i < this.RowCount; i++)
+                {
+                    for (int j = 0; j < this.ColumnCount + (this.BufferItemsCount * 2); j++)
+                    {
+                        CalendarMonthCellModel cell = new CalendarMonthCellModel(i, j);
+                        calendarCells.Add(cell);
+                    }
+                }
+
+                this.CalendarCells = calendarCells;
+            }
+            else
+            {
+                foreach (CalendarMonthCellModel cell in calendarCells)
+                {
+                    cell.ClearValue(CalendarMonthCellModel.IsBlackoutPropertyKey);
+                    cell.ClearValue(CalendarMonthCellModel.IsHighlightedPropertyKey);
+                    cell.ClearValue(CalendarMonthCellModel.IsSelectedPropertyKey);
+                    cell.ClearValue(CalendarMonthCellModel.IsFromAnotherViewPropertyKey);
+                    cell.ClearValue(CalendarMonthCellModel.IsCurrentPropertyKey);
+                    cell.ClearValue(CalendarMonthCellModel.IsPointerOverPropertyKey);
+                    cell.ClearValue(CalendarMonthCellModel.IsSpecialPropertyKey);
+                    cell.ClearValue(CalendarMonthCellModel.IsSpecialReadOnlyPropertyKey);
+                    cell.slots?.Clear();
+                    cell.slots = null;
+                }
+            }
         }
 
         protected override RadRect UpdateAnimatableContentClip(RadRect rect)

@@ -379,6 +379,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     var style = specialSlotStyleSelector.SelectStyle(specialSlot, visual);
                     visual.Style = style;
 
+                    var specialSlotTemplateSelector = settings.SpecialSlotContentTemplateSelector;
+                    if (specialSlotTemplateSelector != null)
+                    {
+                        visual.ContentTemplate = specialSlotTemplateSelector.SelectTemplate(specialSlot, visual);
+                    }
+
                     XamlContentLayer.ArrangeUIElement(visual, specialSlot.layoutSlot, true);
                     Canvas.SetLeft(visual, specialSlot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
                 }
@@ -832,9 +838,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private void UpdateTimeRulerItems(ElementCollection<CalendarTimeRulerItem> timeRulerItems)
         {
             this.RecycleTimeRulerItems(timeRulerItems);
-            foreach (var item in timeRulerItems)
+            for (int i = 0; i < timeRulerItems.Count; i++)
             {
-                if (!this.viewPortArea.IntersectsWith(item.layoutSlot))
+                var item = timeRulerItems[i];
+                if (!this.viewPortArea.IntersectsWith(item.layoutSlot) || i == 0)
                 {
                     continue;
                 }

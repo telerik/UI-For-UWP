@@ -9,8 +9,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     /// data-bound element.
     /// </summary>
     [Bindable]
-    [StyleTypedProperty(Property = "DefaultStyle", StyleTargetType = typeof(Border))]
-    [StyleTypedProperty(Property = "ReadOnlyStyle", StyleTargetType = typeof(Border))]
     public class SpecialSlotStyleSelector : StyleSelector
     {
         /// <summary>

@@ -292,7 +292,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(MultiDayViewSettings), typeof(MultiDayViewSettings), typeof(RadCalendar), new PropertyMetadata(new MultiDayViewSettings(), OnMultiDayViewSettingsChanged));
 
         /// <summary>
-        /// Identifies the <c cref="MultiDayViewSettings"/> dependency property.
+        /// Identifies the <c cref="MonthViewSettings"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty MonthViewSettingsProperty =
+            DependencyProperty.Register(nameof(MonthViewSettings), typeof(MonthViewSettings), typeof(RadCalendar), new PropertyMetadata(new MonthViewSettings(), OnMonthViewSettingsPropertyChanged));
+
+        /// <summary>
+        /// Identifies the <c cref="HeaderVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderVisibilityProperty =
             DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Visible));
@@ -334,6 +340,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private const string DefaultCenturyViewHeaderFormatString = "{0:yyyy} ~ {1:yyyy}";
 
         private const string DefaultDayNameCellStyleName = "DayNameCellStyle";
+        private const string DefaultBlackoutCellStyleName = "BlackoutCellStyle";
         private const string DefaultNormalCellStyleName = "NormalCellStyle";
         private const string DefaultAnotherViewCellStyleName = "AnotherViewCellStyle";
         private const string DefaultHighlightedCellStyleName = "HighlightedCellStyle";
@@ -367,6 +374,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private CalendarCellStyle pointerOverCellStyleCache, normalCellStyleCache, anotherViewCellStyleCache, blackoutCellStyleCache, selectedCellStyleCache, highlightedCellStyleCache, currentCellStyleCache;
         private CalendarCellStyle dayNameCellStyleCache, weekNumberCellStyleCache;
         private CalendarCellStyle defaultNormalCellStyle;
+        private CalendarCellStyle defaultBlackOutCellStyle;
         private CalendarCellStyle defaultAnotherViewCellStyle;
         private CalendarCellStyle defaultHighlightedCellStyle;
 
@@ -397,9 +405,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.inputService = new InputService(this);
             this.CurrencyService = new CurrencyService(this);
 
-            MultiDayViewSettings settings = this.MultiDayViewSettings;
-            settings.owner = this;
-            this.model.multiDayViewSettings = settings;
+            MultiDayViewSettings multiDayViewSettings = this.MultiDayViewSettings;
+            multiDayViewSettings.owner = this;
+            this.model.multiDayViewSettings = multiDayViewSettings;
+
+            MonthViewSettings monthViewSettings = this.MonthViewSettings;
+            monthViewSettings.owner = this;
+            this.model.monthViewSettings = monthViewSettings;
         }
 
         /// <summary>
@@ -1650,6 +1662,21 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
+        /// Gets or sets the settings for the month view of the Calendar.
+        /// </summary>
+        public MonthViewSettings MonthViewSettings
+        {
+            get
+            {
+                return (MonthViewSettings)this.GetValue(MonthViewSettingsProperty);
+            }
+            set
+            {
+                this.SetValue(MonthViewSettingsProperty, value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the Visibility of the Calendar's Header.
         /// </summary>
         public Visibility HeaderVisibility
@@ -2000,12 +2027,21 @@ namespace Telerik.UI.Xaml.Controls.Input
                     this.CellStateSelector.SelectState(stateContext, this);
                 }
 
-                if (stateContext.IsBlackout && this.DisplayMode == CalendarDisplayMode.MonthView)
+                if (stateContext.IsBlackout && this.displayModeCache == CalendarDisplayMode.MonthView)
                 {
                     this.SelectionService.selectedDateRanges.SplitRangeByDate(cell);
                 }
 
-                CalendarCellStyleContext styleContext = this.CreateCurrentCellStyleContext(cell, stateContext);
+                CalendarCellStyleContext styleContext;
+                if (this.displayModeCache == CalendarDisplayMode.MonthView || this.displayModeCache == CalendarDisplayMode.MultiDayView)
+                {
+                    styleContext = this.CreateCurrentMonthCellStyleContext((CalendarMonthCellModel)cell, stateContext);
+                }
+                else
+                {
+                    styleContext = this.CreateCurrentCellStyleContext(cell, stateContext);
+                }
+
                 if (this.CellStyleSelector != null)
                 {
                     this.CellStyleSelector.SelectStyle(styleContext, this);
@@ -2219,14 +2255,20 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             base.OnTemplateApplied();
 
-            if (this.MultiDayViewSettings != null && this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            if (this.MultiDayViewSettings != null)
             {
                 this.MultiDayViewSettings.SetDefaultStyleValues();
 
-                if (this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+                if (this.displayModeCache == CalendarDisplayMode.MultiDayView && this.MultiDayViewSettings.ShowCurrentTimeIndicator)
                 {
                     this.MultiDayViewSettings.timer.Start();
                 }
+            }
+
+            var monthViewSettings = this.MonthViewSettings;
+            if (monthViewSettings != null)
+            {
+                monthViewSettings.SetDefaultStyleValues();
             }
 
             if (this.navigationPanel != null)
@@ -2326,6 +2368,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (this.normalCellStyleCache == null && this.defaultNormalCellStyle == null)
             {
                 this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultNormalCellStyleName];
+            }
+
+            if (this.blackoutCellStyleCache == null && this.defaultBlackOutCellStyle == null)
+            {
+                this.defaultBlackOutCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultBlackoutCellStyleName];
             }
 
             if (this.anotherViewCellStyleCache == null && this.defaultAnotherViewCellStyle == null)
@@ -2897,16 +2944,37 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private static void OnMultiDayViewSettingsChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            RadCalendar calendar = (RadCalendar)sender;
-
             if (args.OldValue != null)
             {
                 ((MultiDayViewSettings)args.OldValue).DetachEvents();
             }
 
-            MultiDayViewSettings newSettings = (MultiDayViewSettings)args.NewValue;
-            newSettings.owner = calendar;
-            calendar.model.multiDayViewSettings = newSettings;
+            RadCalendar calendar = (RadCalendar)sender;
+            MultiDayViewSettings settings = args.NewValue as MultiDayViewSettings;
+            if (settings != null)
+            {
+                settings.owner = calendar;
+            }
+           
+            calendar.model.multiDayViewSettings = settings;
+        }
+
+        private static void OnMonthViewSettingsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            var oldSettings = args.OldValue as MultiDayViewSettings;
+            if (oldSettings != null)
+            {
+                oldSettings.owner = null;
+            }
+
+            var settings = args.NewValue as MonthViewSettings;
+            var calendar = (RadCalendar)sender;
+            if (settings != null)
+            {
+                settings.owner = calendar;
+            }
+
+            calendar.model.monthViewSettings = settings;
         }
 
         private static DateTime GetFirstDayofMonth(DateTime selectedDate, System.Globalization.Calendar calendar)
@@ -3069,6 +3137,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                     this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewNormalCellStyle"];
                 }
 
+                if (this.blackoutCellStyleCache == null)
+                {
+                    this.defaultBlackOutCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewBlackoutCellStyle"];
+                }
+
                 if (this.anotherViewCellStyleCache == null)
                 {
                     this.defaultAnotherViewCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources["MuldiDayViewAnotherViewCellStyle"];
@@ -3089,6 +3162,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                 if (this.normalCellStyleCache == null)
                 {
                     this.defaultNormalCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultNormalCellStyleName];
+                }
+
+                if (this.blackoutCellStyleCache == null)
+                {
+                    this.defaultBlackOutCellStyle = (CalendarCellStyle)RadCalendar.MultiDayViewResources[DefaultBlackoutCellStyleName];
                 }
 
                 if (this.anotherViewCellStyleCache == null)
@@ -3252,6 +3330,13 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.timeRulerLayer.UpdateCurrentTimeIndicator();
                         break;
                     case MultiDayViewUpdateFlag.AffectsSpecialSlots:
+                        if (this.MultiDayViewSettings?.SpecialSlotsSource == this.MonthViewSettings?.SpecialSlotsSource)
+                        {
+                            this.EvaluateCustomCellSelectors();
+
+                            this.decorationLayer.UpdateUI();
+                            this.contentLayer.UpdateUI();
+                        }
                         this.timeRulerLayer.UpdateSlots();
                         break;
                     default:
@@ -3333,7 +3418,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             // so we need to clear the flag explicitly in case it was set for a certain cell and does not need to be set given the current conditions.
             context.IsBlackout = this.IsBlackoutDate(cell);
 
-            if (cell.Date == DateTime.Today && this.IsTodayHighlighted && (this.DisplayMode == CalendarDisplayMode.MonthView || this.DisplayMode == CalendarDisplayMode.MultiDayView))
+            if (cell.Date == DateTime.Today && this.IsTodayHighlighted && (this.displayModeCache == CalendarDisplayMode.MonthView || this.displayModeCache == CalendarDisplayMode.MultiDayView))
             {
                 this.highlightedCellCache = cell;
                 context.IsHighlighted = true;
@@ -3353,6 +3438,51 @@ namespace Telerik.UI.Xaml.Controls.Input
             return context;
         }
 
+        private CalendarCellStyleContext CreateCurrentMonthCellStyleContext(CalendarMonthCellModel cell, CalendarCellStateContext stateContext)
+        {
+            var context = new CalendarMonthCellStyleContext(stateContext);
+            context.SpecialSlots = cell.slots;
+
+            var defaultDecorationCellStyle = this.EvaluateCellDecorationStyle(cell);
+            context.CalculatedDecorationCellStyle = defaultDecorationCellStyle;
+
+            var defaultContentCellStyle = this.EvaluateCellContentStyle(cell);
+            context.CalculatedContentCellStyle = defaultContentCellStyle;
+
+            var monthViewSettings = this.model.monthViewSettings;
+            if (monthViewSettings != null)
+            {
+                if (cell.IsSpecialReadOnly)
+                {
+                    var specialReadOnlyStyle = monthViewSettings.defaultSpecialReadOnlyCellStyle;
+                    context.CalculatedDecorationCellStyle = StyleManager.MergeStyles(defaultDecorationCellStyle, specialReadOnlyStyle.DecorationStyle);
+                    context.CalculatedContentCellStyle = StyleManager.MergeStyles(defaultContentCellStyle, specialReadOnlyStyle.ContentStyle);
+                }
+                else if (cell.IsSpecial)
+                {
+                    var specialStyle = monthViewSettings.defaultSpecialCellStyle;
+                    context.CalculatedDecorationCellStyle = StyleManager.MergeStyles(defaultDecorationCellStyle, specialStyle.DecorationStyle);
+                    context.CalculatedContentCellStyle = StyleManager.MergeStyles(defaultContentCellStyle, specialStyle.ContentStyle);
+                }
+
+                var styleSelector = monthViewSettings.SpecialSlotCellStyleSelector;
+                if (styleSelector != null)
+                {
+                    styleSelector.SelectStyle(context, this);
+
+                    var style = context.CellStyle;
+                    if (style != null)
+                    {
+                        context.CalculatedDecorationCellStyle = style.DecorationStyle;
+                        context.CalculatedContentCellStyle = style.ContentStyle;
+                    }
+                }
+            }
+
+            cell.Context = context;
+            return context;
+        }
+
         private Style EvaluateCellDecorationStyle(CalendarCellModel cell)
         {
             Style style = null;
@@ -3363,6 +3493,10 @@ namespace Telerik.UI.Xaml.Controls.Input
                 if (this.BlackoutCellStyle != null)
                 {
                     style = this.BlackoutCellStyle.DecorationStyle;
+                }
+                else
+                {
+                    style = this.defaultBlackOutCellStyle.DecorationStyle;
                 }
             }
             else if (cell.IsSelected)
@@ -3424,9 +3558,16 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 style = this.CurrentCellStyle.ContentStyle;
             }
-            else if (cell.IsBlackout && this.BlackoutCellStyle != null && this.BlackoutCellStyle.ContentStyle != null)
+            else if (cell.IsBlackout)
             {
-                style = this.BlackoutCellStyle.ContentStyle;
+                if (this.BlackoutCellStyle != null && this.BlackoutCellStyle.ContentStyle != null)
+                {
+                    style = this.BlackoutCellStyle.ContentStyle;
+                }
+                else
+                {
+                    style = this.defaultBlackOutCellStyle.ContentStyle;
+                }
             }
             else if (cell.IsSelected && this.SelectedCellStyle != null && this.SelectedCellStyle.ContentStyle != null)
             {

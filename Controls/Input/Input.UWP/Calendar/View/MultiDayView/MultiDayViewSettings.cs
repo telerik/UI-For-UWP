@@ -102,6 +102,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(SpecialSlotStyleSelector), typeof(StyleSelector), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnSpecialSlotStyleSelectorPropertyChanged));
 
         /// <summary>
+        /// Identifies the <see cref="SpecialSlotContentTemplateSelector"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty SpecialSlotContentTemplateSelectorProperty =
+            DependencyProperty.Register(nameof(SpecialSlotContentTemplateSelector), typeof(DataTemplateSelector), typeof(MultiDayViewSettings), new PropertyMetadata(null, OnSpecialSlotContentTemplateSelectorPropertyChanged));
+
+        /// <summary>
         /// Identifies the <see cref="TimeRulerItemStyleSelector"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty TimeRulerItemStyleSelectorProperty =
@@ -184,6 +190,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private const int DefaultAllDayMaxVisibleRows = 2;
 
         private StyleSelector specialSlotStyleSelectorCache;
+        private DataTemplateSelector specialSlotContentTemplateSelectorCache;
         private CalendarTimeRulerItemStyleSelector timeRulerItemStyleSelectorCache;
         private Style currentTimeIndicatorStyleCache;
         private Style allDayAreaBorderStyleCache;
@@ -412,6 +419,21 @@ namespace Telerik.UI.Xaml.Controls.Input
             set
             {
                 this.SetValue(SpecialSlotStyleSelectorProperty, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the StyleSelector that will be used for setting custom DataTemplate for each generated SpecialSlot.
+        /// </summary>
+        public DataTemplateSelector SpecialSlotContentTemplateSelector
+        {
+            get
+            {
+                return this.specialSlotContentTemplateSelectorCache;
+            }
+            set
+            {
+                this.SetValue(SpecialSlotContentTemplateSelectorProperty, value);
             }
         }
 
@@ -673,6 +695,8 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         internal void DetachEvents()
         {
+            this.owner = null;
+
             if (this.timer != null)
             {
                 this.timer.Tick -= this.TimerCallback;
@@ -922,6 +946,17 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
             settings.specialSlotStyleSelectorCache = (StyleSelector)args.NewValue;
+
+            if (settings.IsOwnerLoaded)
+            {
+                settings.owner.timeRulerLayer.UpdateSlots();
+            }
+        }
+
+        private static void OnSpecialSlotContentTemplateSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            MultiDayViewSettings settings = (MultiDayViewSettings)sender;
+            settings.specialSlotContentTemplateSelectorCache = (DataTemplateSelector)args.NewValue;
 
             if (settings.IsOwnerLoaded)
             {

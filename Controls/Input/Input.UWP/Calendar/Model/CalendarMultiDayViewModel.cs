@@ -242,7 +242,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             && a.columnIndex == intersectedAppointment.columnIndex).ToList();
 
             RadRect layout = intersectedAppointment.layoutSlot;
-           
+
             double offset = (layout.Width - maxWidth) * intersectedAppointment.arrangeColumnIndex.Value;
             layout.X -= offset;
             layout.Width = maxWidth;
@@ -314,6 +314,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     break;
                 case MultiDayViewUpdateFlag.AffectsSpecialSlots:
                     this.EnsureSlots();
+                    this.ArrangeCalendarContent(this.dayViewLayoutSlot);
                     break;
                 default:
                     break;
@@ -701,8 +702,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             double heightCoeff;
             double timeItemHeight;
             double oneHourTicks = (double)TimeSpan.FromHours(1).Ticks;
-          
-            for (int hourIndex = 0; hourIndex < this.timeRulerItems.Count; hourIndex++)
+
+            var itemsCount = this.timeRulerItems.Count;
+            for (int hourIndex = 0; hourIndex < itemsCount; hourIndex++)
             {
                 CalendarTimeRulerItem timerRulerItem = this.timeRulerItems[hourIndex];
                 timerRulerItem.StartTime = timeSlotTime;
@@ -718,10 +720,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                 heightCoeff = (timerRulerItem.EndTime - timerRulerItem.StartTime).Ticks / oneHourTicks;
                 timeItemHeight = settings.TimeLinesSpacing * heightCoeff;
+                if (hourIndex == itemsCount - 1)
+                {
+                    timeItemHeight += this.halfTextHeight - this.Calendar.GridLinesThickness;
+                }
 
-                timerRulerItem.Arrange(new RadRect(0f, previousBottom, timeWidth, timeItemHeight + this.halfTextHeight));
-                previousBottom = timerRulerItem.layoutSlot.Bottom - this.halfTextHeight;
+                timerRulerItem.Arrange(new RadRect(0f, previousBottom, timeWidth, timeItemHeight));
 
+                previousBottom = timerRulerItem.layoutSlot.Bottom;
                 labelText = string.Format(this.Calendar.Culture, this.Calendar.TimeFormat, currentDate.Add(timeSlotTime));
             }
         }

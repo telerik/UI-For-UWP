@@ -70,6 +70,22 @@
         </local:CalendarCellStyle.ContentStyle>
     </local:CalendarCellStyle>
 
+    <local:CalendarCellStyle x:Key="SpecialCellStyle">
+        <local:CalendarCellStyle.DecorationStyle>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource TelerikSpecialSlotBackground}" />
+            </Style>
+        </local:CalendarCellStyle.DecorationStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="SpecialReadOnlyCellStyle">
+        <local:CalendarCellStyle.DecorationStyle>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource TelerikSpecialSlotBackgroundReadOnly}" />
+            </Style>
+        </local:CalendarCellStyle.DecorationStyle>
+    </local:CalendarCellStyle>
+
     <local:CalendarCellStyle x:Key="MuldiDayViewNormalCellStyle">
         <local:CalendarCellStyle.ContentStyle>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultNormalCellStyle}">
@@ -88,6 +104,22 @@
         </local:CalendarCellStyle.ContentStyle>
     </local:CalendarCellStyle>
 
+    <local:CalendarCellStyle x:Key="BlackoutCellStyle">
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarBlackoutCellForegroundBrush}" />
+                <Setter Property="FontSize" Value="13.333" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+                <Setter Property="Margin" Value="6,0,0,4" />
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+        <local:CalendarCellStyle.DecorationStyle>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource TelerikCalendarBlackoutCellBackgroundBrush}" />
+            </Style>
+        </local:CalendarCellStyle.DecorationStyle>
+    </local:CalendarCellStyle>
+
     <local:CalendarCellStyle x:Key="MuldiDayViewDayNameCellStyle">
         <local:CalendarCellStyle.ContentStyle>
             <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultDayNameCellStyle}">
@@ -95,6 +127,22 @@
                 <Setter Property="HorizontalAlignment" Value="Center" />
             </Style>
         </local:CalendarCellStyle.ContentStyle>
+    </local:CalendarCellStyle>
+
+    <local:CalendarCellStyle x:Key="MuldiDayViewBlackoutCellStyle">
+        <local:CalendarCellStyle.ContentStyle>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarBlackoutCellForegroundBrush}" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+        </local:CalendarCellStyle.ContentStyle>
+        <local:CalendarCellStyle.DecorationStyle>
+            <Style TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource TelerikCalendarBlackoutCellBackgroundBrush}" />
+            </Style>
+        </local:CalendarCellStyle.DecorationStyle>
     </local:CalendarCellStyle>
 
     <local:CalendarCellStyle x:Key="AnotherViewCellStyle">

@@ -27,6 +27,7 @@
     <Example DisplayName="MultiDayView" ClassName="SDKExamples.UWP.Calendar.MultiDayView" />
     <Example DisplayName="MultiDayViewAppointmentsCRUD" ClassName="SDKExamples.UWP.Calendar.MultiDayViewAppointmentsCRUD" />
     <Example DisplayName="MultiDayViewStyling" ClassName="SDKExamples.UWP.Calendar.MultiDayViewStyling" />
+    <Example DisplayName="MonthViewSpecialSlots" ClassName="SDKExamples.UWP.Calendar.MonthViewSpecialSlots" />
   </Control>
   <Control Name="Chart">
     <Example DisplayName="Unbound Mode" ClassName="SDKExamples.UWP.Chart.UnboundMode" />

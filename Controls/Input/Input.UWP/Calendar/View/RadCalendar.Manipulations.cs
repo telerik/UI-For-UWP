@@ -263,7 +263,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             CalendarCellModel cell = this.GetCellModelByPoint(point);
             if ((cell != null && !cell.IsBlackout) &&
                 this.SelectionMode == CalendarSelectionMode.Multiple &&
-                this.DisplayMode == CalendarDisplayMode.MonthView)
+                this.DisplayMode == CalendarDisplayMode.MonthView && !((CalendarMonthCellModel)cell).IsSpecialReadOnly)
             {
                 return true;
             }

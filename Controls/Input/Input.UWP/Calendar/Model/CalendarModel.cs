@@ -44,6 +44,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal AppointmentSource appointmentSource;
         internal MultiDayViewSettings multiDayViewSettings;
+        internal MonthViewSettings monthViewSettings;
 
         public CalendarModel(IView calendar)
         {

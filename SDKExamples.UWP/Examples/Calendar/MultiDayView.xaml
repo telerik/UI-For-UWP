@@ -37,6 +37,9 @@
                     <input:RadCalendar.Commands>
                         <example:SlotTapCommand/>
                     </input:RadCalendar.Commands>
+                    <input:RadCalendar.MonthViewSettings>
+                        <input:MonthViewSettings SpecialSlotsSource="{Binding NonWorkingHours}"/>
+                    </input:RadCalendar.MonthViewSettings>
                     <input:RadCalendar.MultiDayViewSettings>
                         <input:MultiDayViewSettings VisibleDays="{Binding SelectedVisibleDays, Mode=TwoWay}" 
                                                     SpecialSlotsSource="{Binding NonWorkingHours}"
