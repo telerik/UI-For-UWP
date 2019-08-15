@@ -415,6 +415,11 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
+        /// Occurs when the <see cref="DisplayDate"/> property is changed.
+        /// </summary>
+        public event EventHandler<DisplayDateChangedEventArgs> DisplayDateChanged;
+
+        /// <summary>
         /// Occurs when the collection returned by the <see cref="SelectedDateRanges"/> property is changed.
         /// </summary>
         public event EventHandler<CurrentSelectionChangedEventArgs> SelectionChanged
@@ -2546,6 +2551,8 @@ namespace Telerik.UI.Xaml.Controls.Input
                     peer.RaiseValuePropertyChangedEvent(oldDisplayDate.ToString(), newDisplayDate.ToString());
                 }
             }
+
+            calendar.DisplayDateChanged?.Invoke(calendar, new DisplayDateChangedEventArgs(oldDisplayDate, newDisplayDate));
         }
 
         private static void OnDisplayModePropertyChanged(DependencyObject target, DependencyPropertyChangedEventArgs args)
