@@ -595,7 +595,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             get
             {
                 if (this.owner != null && this.owner.IsLoaded && this.owner.IsTemplateApplied 
-                    && this.owner.Model.IsTreeLoaded)
+                    && this.owner.Model.IsTreeLoaded && this.owner.DisplayMode == CalendarDisplayMode.MultiDayView)
                 {
                     return true;
                 }
@@ -664,7 +664,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (sender == this.SpecialSlotsSource)
             {
-                this.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
+                this.Invalidate(MultiDayViewUpdateFlag.AffectsSpecialSlots);
             }
         }
 
@@ -677,7 +677,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             if (sender is Slot)
             {
-                this.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
+                this.Invalidate(MultiDayViewUpdateFlag.AffectsSpecialSlots);
             }
         }
 
@@ -712,7 +712,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
-        internal void Invalide(MultiDayViewUpdateFlag flag)
+        internal void Invalidate(MultiDayViewUpdateFlag flag)
         {
             RadCalendar calendar = this.owner;
             if (calendar != null && calendar.IsTemplateApplied && calendar.Model.IsTreeLoaded)
@@ -770,7 +770,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                settings.Invalide(MultiDayViewUpdateFlag.All);
+                settings.Invalidate(MultiDayViewUpdateFlag.All);
                 settings.owner?.UpdateNavigationHeaderContent();
 
                 if (value < settings.NavigationStep)
@@ -795,7 +795,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                settings.Invalide(MultiDayViewUpdateFlag.AffectsTimeRuler);
+                settings.Invalidate(MultiDayViewUpdateFlag.AffectsTimeRuler);
             }
         }
 
@@ -828,31 +828,31 @@ namespace Telerik.UI.Xaml.Controls.Input
         private static void OnTimeLinesSpacingChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsTimeRuler);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsTimeRuler);
         }
 
         private static void OnShowAllDayAreaChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
         }
 
         private static void OnAllDayAppointmentMinHeightChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
         }
 
         private static void OnAllDayMaxVisibleRowsChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
         }
 
         private static void OnAllDayAppointmentSpacingChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
         }
 
         private static void OnShowCurrentTimeIndicator(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -868,7 +868,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 settings.timer.Stop();
             }
 
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator);
         }
 
         private static void OnMultiDayViewHeaderTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -939,7 +939,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 settings.owner.timeRulerLayer.RecycleModelSlots((IEnumerable<Slot>)oldSlotsSource);
             }
 
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsSpecialSlots);
         }
 
         private static void OnSpecialSlotStyleSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -1044,7 +1044,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private static void OnWeekendsVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.All);
+            settings.Invalidate(MultiDayViewUpdateFlag.All);
             settings.owner?.UpdateNavigationHeaderContent();
         }
 
@@ -1070,7 +1070,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                this.Invalide(MultiDayViewUpdateFlag.AffectsTimeRuler);
+                this.Invalidate(MultiDayViewUpdateFlag.AffectsTimeRuler);
             }
         }
 
@@ -1098,7 +1098,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void TimerCallback(object sender, object e)
         {
-            this.Invalide(MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator);
+            this.Invalidate(MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator);
         }
 
         private void RecycleTimeRulerVisuals()
