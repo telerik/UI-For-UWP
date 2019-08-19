@@ -404,6 +404,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal void UpdateTodaySlot()
         {
             Slot todaySlot = this.Owner.Model.multiDayViewModel.todaySlot;
+            if (todaySlot == null)
+            {
+                return;
+            }
+
             if (this.todaySlotBorder == null)
             {
                 this.todaySlotBorder = new Border();
@@ -440,6 +445,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdateAppointments(List<CalendarAppointmentInfo> appointmentInfos)
         {
+            if (appointmentInfos == null)
+            {
+                return;
+            }
+
             int index = 0;
             RadCalendar calendar = this.Owner;
             foreach (var appointmentInfo in appointmentInfos)
@@ -562,10 +572,25 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.topLeftHeaderPanel.Children.Add(this.verticalGridLineBorder);
             }
 
-            this.LayoutTopAllDayAreaHorizontalBorder(horizontalAllDayUpperLine);
-            this.LayoutLowerAllDayAreaHorizontalBorder(horizontalAllDayLowerLine);
-            this.LayoutTopHeaderHorizontalBorder(horizontalTopHeaderLine);
-            this.LayoutVerticalHeaderBorder(verticalLine);
+            if (horizontalAllDayUpperLine != null)
+            {
+                this.LayoutTopAllDayAreaHorizontalBorder(horizontalAllDayUpperLine);
+            }
+
+            if (horizontalAllDayLowerLine != null)
+            {
+                this.LayoutLowerAllDayAreaHorizontalBorder(horizontalAllDayLowerLine);
+            }
+
+            if (horizontalTopHeaderLine != null)
+            {
+                this.LayoutTopHeaderHorizontalBorder(horizontalTopHeaderLine);
+            }
+
+            if (verticalLine != null)
+            {
+                this.LayoutVerticalHeaderBorder(verticalLine);
+            }
         }
 
         internal void ArrangeVisualElement()
@@ -787,6 +812,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void UpdateTimeRulerItems(ElementCollection<CalendarTimeRulerItem> timeRulerItems)
         {
+            if (timeRulerItems == null)
+            {
+                return;
+            }
+
             this.RecycleTimeRulerItems(timeRulerItems);
             for (int i = 0; i < timeRulerItems.Count; i++)
             {
@@ -814,6 +844,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void UpdateTimerRulerLines(ElementCollection<CalendarGridLine> timeRulerLines)
         {
+            if (timeRulerLines == null)
+            {
+                return;
+            }
+
             this.RecycleTimeRulerLines(timeRulerLines);
             foreach (var gridLine in timeRulerLines)
             {
