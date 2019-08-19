@@ -154,39 +154,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 AppointmentControl appointmentControl = this.GetDefaultAllDayAppointmentVisual(index);
                 if (appointmentControl != null)
                 {
+                    calendar.PrepareContainerForAppointment(appointmentControl, appInfo);
+
                     RadRect layoutSlot = appInfo.layoutSlot;
-                    appointmentControl.Header = appInfo.Subject;
-                    if (appInfo.Brush != null)
-                    {
-                        appointmentControl.Background = appInfo.Brush;
-                    }
-
-                    appointmentControl.appointmentInfo = appInfo;
-
-                    StyleSelector styleSelector = calendar.AppointmentStyleSelector;
-                    if (styleSelector != null)
-                    {
-                        var style = styleSelector.SelectStyle(appInfo, appointmentControl);
-                        if (style != null)
-                        {
-                            appointmentControl.Style = style;
-                        }
-                    }
-                    else if (appointmentControl.Style != null)
-                    {
-                        appointmentControl.ClearValue(AppointmentControl.StyleProperty);
-                    }
-
-                    AppointmentTemplateSelector headerTemplateSelector = calendar.AppointmentHeaderTemplateSelector;
-                    if (headerTemplateSelector != null)
-                    {
-                        DataTemplate template = headerTemplateSelector.SelectTemplate(appInfo, appInfo.cell);
-                        if (template != null)
-                        {
-                            appointmentControl.HeaderTemplate = template;
-                        }
-                    }
-
                     XamlContentLayer.ArrangeUIElement(appointmentControl, layoutSlot, true);
                     index++;
                 }

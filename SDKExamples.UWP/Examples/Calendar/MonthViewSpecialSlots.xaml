@@ -19,8 +19,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="{Binding Title, ElementName=page}" 
-                           Style="{StaticResource ExampleHeaderTextBlockStyle}"
-                           HorizontalTextAlignment="Center"/>
+                           Style="{StaticResource ExampleHeaderTextBlockStyle}"/>
                 <input:RadCalendar x:Name="calendar"
                                    Grid.Row="1"
                                    SelectionMode="{Binding ElementName=selectionModeCombo, Path=SelectedItem}"

@@ -454,58 +454,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 {
                     RadRect layoutSlot = appointmentInfo.layoutSlot;
                     layoutSlot.Width -= 3;
-                    appointmentControl.Content = appointmentInfo.DetailText;
-                    appointmentControl.Header = appointmentInfo.Subject;
-                    if (appointmentInfo.Brush != null)
-                    {
-                        appointmentControl.Background = appointmentInfo.Brush;
-                    }
 
-                    if (appointmentInfo.hasPrevDay)
-                    {
-                        appointmentControl.LeftIndicatorVisibility = Visibility.Visible;
-                    }
-
-                    if (appointmentInfo.hasNextDay)
-                    {
-                        appointmentControl.RightIndicatorVisibility = Visibility.Visible;
-                    }
-
-                    appointmentControl.appointmentInfo = appointmentInfo;
-
-                    StyleSelector contentStyleSelector = calendar.AppointmentStyleSelector;
-                    if (contentStyleSelector != null)
-                    {
-                        var style = contentStyleSelector.SelectStyle(appointmentInfo, appointmentControl);
-                        if (style != null)
-                        {
-                            appointmentControl.Style = style;
-                        }
-                    }
-                    else if (appointmentControl.Style != null)
-                    {
-                        appointmentControl.ClearValue(AppointmentControl.StyleProperty);
-                    }
-
-                    AppointmentTemplateSelector templateSelector = calendar.AppointmentTemplateSelector;
-                    if (templateSelector != null)
-                    {
-                        DataTemplate template = templateSelector.SelectTemplate(appointmentInfo, appointmentInfo.cell);
-                        if (template != null)
-                        {
-                            appointmentControl.ContentTemplate = template;
-                        }
-                    }
-
-                    AppointmentTemplateSelector headerTemplateSelector = calendar.AppointmentHeaderTemplateSelector;
-                    if (headerTemplateSelector != null)
-                    {
-                        DataTemplate template = headerTemplateSelector.SelectTemplate(appointmentInfo, appointmentInfo.cell);
-                        if (template != null)
-                        {
-                            appointmentControl.HeaderTemplate = template;
-                        }
-                    }
+                    calendar.PrepareContainerForAppointment(appointmentControl, appointmentInfo);
 
                     XamlContentLayer.ArrangeUIElement(appointmentControl, layoutSlot, true);
                     Canvas.SetZIndex(appointmentControl, XamlMultiDayViewLayer.DefaultAppointmentZIndex);
