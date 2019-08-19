@@ -103,6 +103,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
                 visual.ClearValue(AppointmentControl.ContentTemplateProperty);
                 visual.ClearValue(AppointmentControl.HeaderTemplateProperty);
+                visual.ClearValue(AppointmentControl.HeaderProperty);
+                visual.ClearValue(AppointmentControl.ContentProperty);
                 visual.ClearValue(AppointmentControl.StyleProperty);
             }
             else
