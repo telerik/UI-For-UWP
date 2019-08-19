@@ -1938,7 +1938,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (sender == this.AppointmentSource.AllAppointments)
             {
-                this.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+                this.MultiDayViewSettings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
             }
         }
 
@@ -1951,7 +1951,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             if (sender is IAppointment)
             {
-                this.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+                this.MultiDayViewSettings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
             }
         }
 
@@ -2684,7 +2684,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                calendar.MultiDayViewSettings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+                calendar.MultiDayViewSettings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
             }
 
             INotifyCollectionChanged oldAppSource = ((AppointmentSource)e.OldValue)?.AllAppointments;
