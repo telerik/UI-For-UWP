@@ -1986,7 +1986,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                this.PrepareContainerForTimeRulerAppointment(element, appointment);
+                this.PrepareContainerForAppointmentLayer(element, appointment);
             }
         }
 
@@ -3786,22 +3786,15 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void PrepareContainerForTimeRulerAppointment(AppointmentControl element, CalendarAppointmentInfo appointment)
         {
-            if (element.Content == null)
-            {
-                element.Content = appointment.DetailText;
-            }
-
-            if (element.Header == null)
-            {
-                element.Header = appointment.Subject;
-            }
+            element.Content = appointment.DetailText;
+            element.Header = appointment.Subject;
 
             if (appointment.Brush != null)
             {
                 element.Background = appointment.Brush;
             }
 
-            if (appointment.hasPrevDay)
+            if (appointment.hasPreviousDay)
             {
                 element.LeftIndicatorVisibility = Visibility.Visible;
             }
@@ -3850,11 +3843,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void PrepareContainerForAllDayAreaAppointment(AppointmentControl element, CalendarAppointmentInfo appointment)
         {
-            if (element.Header == null)
-            {
-                element.Header = appointment.Subject;
-            }
-
+            element.Header = appointment.Subject;
             if (appointment.Brush != null)
             {
                 element.Background = appointment.Brush;
@@ -3889,11 +3878,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void PrepareContainerForAppointmentLayer(AppointmentControl element, CalendarAppointmentInfo appointment)
         {
-            if (element.Header == null)
-            {
-                element.Header = appointment.Subject;
-            }
-        
+            element.Header = appointment.Subject;
             if (appointment.Brush != null)
             {
                 element.Background = appointment.Brush;

@@ -175,7 +175,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                                 currentAppointmentEndDate = CalendarMathHelper.SetFirstAvailableBusinessDay(currentAppointmentEndDate, -1);
                             }
 
-                            info.hasPrevDay = currentAppointmentStartDate.Date < calendarCell.Date;
+                            info.hasPreviousDay = currentAppointmentStartDate.Date < calendarCell.Date;
                             info.hasNextDay = currentAppointmentEndDate.Date > calendarCell.Date;
                             int xCoeff = (calendarCell.Date - appointment.StartDate.Date).Days;
                             RadRect layoutSlot = new RadRect(calendarCell.layoutSlot.X - this.timeRulerWidth, startY, calendarCell.layoutSlot.Width, endY - startY);
