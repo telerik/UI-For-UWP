@@ -19,7 +19,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private ScrollViewer allDayAreaScrollViewer;
         private Canvas allDayAreaPanel;
         private RadRect allDayClipArea;
-        private List<AppointmentControl> realizedAllDayAppointmentDefaultPresenters;
+
+        private Dictionary<CalendarAppointmentInfo, AppointmentControl> realizedAppointmentPresenters;
+        private Dictionary<CalendarAppointmentInfo, AppointmentControl> visibleAppointmentPresenters;
+        private Queue<AppointmentControl> recycledAppointments;
+        private Queue<AppointmentControl> fullyRecycledAppointments;
 
         public XamlAllDayAreaLayer()
         {
@@ -28,7 +32,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.allDayAreaScrollViewer = new ScrollViewer();
             this.allDayAreaScrollViewer.Content = this.allDayAreaPanel;
 
-            this.realizedAllDayAppointmentDefaultPresenters = new List<AppointmentControl>();
+            this.realizedAppointmentPresenters = new Dictionary<CalendarAppointmentInfo, AppointmentControl>();
+            this.visibleAppointmentPresenters = new Dictionary<CalendarAppointmentInfo, AppointmentControl>();
+            this.recycledAppointments = new Queue<AppointmentControl>();
+            this.fullyRecycledAppointments = new Queue<AppointmentControl>();
         }
 
         protected internal override UIElement VisualElement
@@ -62,12 +69,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        internal void RecycleAppointments()
+        internal void ClearRealizedAppointmentVisuals()
         {
-            foreach (AppointmentControl appControl in this.realizedAllDayAppointmentDefaultPresenters)
-            {
-                appControl.Visibility = Visibility.Collapsed;
-            }
+            this.RecycleAppointments(this.realizedAppointmentPresenters.Values);
+            this.realizedAppointmentPresenters.Clear();
         }
 
         internal void ArrangeVisualElement()
@@ -142,16 +147,44 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void UpdateAllDayAppointments(List<CalendarAppointmentInfo> allDayAppointmentInfos)
         {
-            int index = 0;
+            if (allDayAppointmentInfos == null)
+            {
+                return;
+            }
+
+            foreach (var appointmentInfo in allDayAppointmentInfos)
+            {
+                AppointmentControl appControl;
+                if (this.realizedAppointmentPresenters.TryGetValue(appointmentInfo, out appControl))
+                {
+                    this.visibleAppointmentPresenters.Add(appointmentInfo, appControl);
+                }
+            }
+
             RadCalendar calendar = this.Owner;
             foreach (var appInfo in allDayAppointmentInfos)
             {
+                AppointmentControl appointmentControl;
+                this.visibleAppointmentPresenters.TryGetValue(appInfo, out appointmentControl);
+
                 if (!this.allDayClipArea.IntersectsWith(appInfo.layoutSlot))
                 {
+                    if (appointmentControl != null)
+                    {
+                        this.RecycleAppointmentVisual(appInfo, appointmentControl);
+                    }
+
                     continue;
                 }
 
-                AppointmentControl appointmentControl = this.GetDefaultAllDayAppointmentVisual(index);
+                if (appointmentControl != null)
+                {
+                    RadRect layoutSlot = appInfo.layoutSlot;
+                    XamlContentLayer.ArrangeUIElement(appointmentControl, layoutSlot, true);
+                    continue;
+                }
+
+                appointmentControl = this.GetDefaultAllDayAppointmentVisual(appInfo);
                 if (appointmentControl != null)
                 {
                     appointmentControl.appointmentInfo = appInfo;
@@ -159,35 +192,32 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                     RadRect layoutSlot = appInfo.layoutSlot;
                     XamlContentLayer.ArrangeUIElement(appointmentControl, layoutSlot, true);
-                    index++;
                 }
             }
 
-            while (index < this.realizedAllDayAppointmentDefaultPresenters.Count)
-            {
-                this.realizedAllDayAppointmentDefaultPresenters[index].Visibility = Visibility.Collapsed;
-                index++;
-            }
+            this.RecycleAppointments(this.recycledAppointments);
+            this.recycledAppointments.Clear();
+            this.visibleAppointmentPresenters.Clear();
         }
 
-        private AppointmentControl GetDefaultAllDayAppointmentVisual(int virtualIndex)
+        private AppointmentControl GetDefaultAllDayAppointmentVisual(CalendarAppointmentInfo info)
         {
             AppointmentControl visual;
-
-            if (virtualIndex < this.realizedAllDayAppointmentDefaultPresenters.Count)
+            if (this.recycledAppointments.Count > 0)
             {
-                visual = this.realizedAllDayAppointmentDefaultPresenters[virtualIndex];
+                visual = this.recycledAppointments.Dequeue();
+            }
+            else if (this.fullyRecycledAppointments.Count > 0)
+            {
+                visual = this.fullyRecycledAppointments.Dequeue();
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
-                visual.ClearValue(AppointmentControl.BackgroundProperty);
-                visual.ClearValue(AppointmentControl.StyleProperty);
-                visual.ClearValue(Canvas.ZIndexProperty);
-                visual.ClearValue(Canvas.LeftProperty);
             }
             else
             {
                 visual = this.CreateDefaultAllDayAppointmentVisual();
             }
 
+            this.realizedAppointmentPresenters.Add(info, visual);
             return visual;
         }
 
@@ -195,18 +225,29 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             AppointmentControl appointmentControl = new AppointmentControl();
             appointmentControl.calendar = this.Owner;
-            this.realizedAllDayAppointmentDefaultPresenters.Add(appointmentControl);
             this.AddVisualChild(appointmentControl);
 
             return appointmentControl;
         }
 
+        private void RecycleAppointments(IEnumerable<AppointmentControl> realizedPresenters)
+        {
+            foreach (AppointmentControl appControl in realizedPresenters)
+            {
+                appControl.Visibility = Visibility.Collapsed;
+                this.fullyRecycledAppointments.Enqueue(appControl);
+            }
+        }
+
+        private void RecycleAppointmentVisual(CalendarAppointmentInfo appointmentInfo, AppointmentControl visual)
+        {
+            this.realizedAppointmentPresenters.Remove(appointmentInfo);
+            this.recycledAppointments.Enqueue(visual);
+        }
+
         private void OnAllDayAreaScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            if (e.IsIntermediate)
-            {
-                this.UpdateAllDayAreaUI();
-            }
+            this.UpdateAllDayAreaUI();
         }
     }
 }
