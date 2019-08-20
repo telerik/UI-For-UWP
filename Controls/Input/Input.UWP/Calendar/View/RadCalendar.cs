@@ -1848,6 +1848,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </remarks>
         public void InvalidateUI()
         {
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
+                this.timeRulerLayer?.ClearRealizedAppointmentVisuals();
+            }
+         
             this.Invalidate();
         }
 
