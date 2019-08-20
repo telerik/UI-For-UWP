@@ -83,21 +83,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
-        /// <summary>
-        /// Gets or sets the info associated with the control.
-        /// </summary>
-        public CalendarAppointmentInfo AppointmentInfo
-        {
-            get
-            {
-                return this.appointmentInfo;
-            }
-            set
-            {
-                this.appointmentInfo = value;
-            }
-        }
-
         /// <inheritdoc/>
         protected override void OnTapped(TappedRoutedEventArgs e)
         {

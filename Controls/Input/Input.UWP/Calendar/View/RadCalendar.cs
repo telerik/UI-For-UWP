@@ -3804,8 +3804,6 @@ namespace Telerik.UI.Xaml.Controls.Input
                 element.RightIndicatorVisibility = Visibility.Visible;
             }
 
-            element.appointmentInfo = appointment;
-
             StyleSelector contentStyleSelector = this.AppointmentStyleSelector;
             if (contentStyleSelector != null)
             {
@@ -3849,8 +3847,6 @@ namespace Telerik.UI.Xaml.Controls.Input
                 element.Background = appointment.Brush;
             }
 
-            element.appointmentInfo = appointment;
-
             StyleSelector styleSelector = this.appointmentStyleSelectorCache;
             if (styleSelector != null)
             {
@@ -3885,7 +3881,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             element.Background = appointment.Brush;
-            element.appointmentInfo = appointment;
 
             XamlContentLayerHelper.MeasureVisual(element);
             if (element != null)

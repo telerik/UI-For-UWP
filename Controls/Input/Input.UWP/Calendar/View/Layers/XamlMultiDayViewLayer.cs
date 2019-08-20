@@ -499,6 +499,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     RadRect layoutSlot = appointmentInfo.layoutSlot;
                     layoutSlot.Width -= 3;
 
+                    appointmentControl.appointmentInfo = appointmentInfo;
                     calendar.PrepareContainerForAppointment(appointmentControl, appointmentInfo);
 
                     XamlContentLayer.ArrangeUIElement(appointmentControl, layoutSlot, true);
@@ -695,6 +696,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        internal void ClearRealizedAppointmentVisuals()
+        {
+            this.ClearAppointmentVisuals(this.realizedAppointmentPresenters.Values);
+            this.realizedAppointmentPresenters.Clear();
+        }
+
         protected internal override void DetachUI(Panel parent)
         {
             base.DetachUI(parent);
@@ -758,9 +765,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             foreach (var visual in appointments)
             {
                 visual.Visibility = Visibility.Collapsed;
-                visual.DataContext = null;
-                visual.Content = null;
-                visual.Header = null;
+                this.fullyRecycledAppointments.Enqueue(visual);
             }
         }
 
@@ -1019,11 +1024,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 visual = this.fullyRecycledAppointments.Dequeue();
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
-                visual.ClearValue(AppointmentControl.BackgroundProperty);
-                visual.ClearValue(AppointmentControl.StyleProperty);
-                visual.ClearValue(AppointmentControl.LeftIndicatorVisibilityProperty);
-                visual.ClearValue(AppointmentControl.RightIndicatorVisibilityProperty);
-                visual.ClearValue(Canvas.LeftProperty);
             }
             else
             {

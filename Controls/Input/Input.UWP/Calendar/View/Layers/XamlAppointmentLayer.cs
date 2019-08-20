@@ -61,6 +61,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                     var element = this.GetDefaultVisual(index);
                     element.Clip = new RectangleGeometry() { Rect = new Rect(0, 0, cell.LayoutSlot.Width, cell.LayoutSlot.Height) };
+                    element.appointmentInfo = info;
                     calendar.PrepareContainerForAppointment(element, info);
 
                     RadRect layoutSlot = cell.layoutSlot;

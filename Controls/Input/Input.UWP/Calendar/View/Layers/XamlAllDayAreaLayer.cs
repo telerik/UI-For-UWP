@@ -154,6 +154,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 AppointmentControl appointmentControl = this.GetDefaultAllDayAppointmentVisual(index);
                 if (appointmentControl != null)
                 {
+                    appointmentControl.appointmentInfo = appInfo;
                     calendar.PrepareContainerForAppointment(appointmentControl, appInfo);
 
                     RadRect layoutSlot = appInfo.layoutSlot;

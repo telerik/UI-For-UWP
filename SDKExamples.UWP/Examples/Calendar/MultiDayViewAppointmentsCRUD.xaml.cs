@@ -283,6 +283,7 @@ namespace SDKExamples.UWP.Calendar
             if (this.shouldDeleteTappedAppointment)
             {
                 this.Appointments.AllAppointments.Remove(this.currentTappedAppointment);
+                this.Appointments.appointments.Remove(this.currentTappedAppointment);
                 this.shouldDeleteTappedAppointment = false;
             }
             else
