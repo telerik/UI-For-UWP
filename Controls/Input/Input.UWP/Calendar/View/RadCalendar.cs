@@ -3804,7 +3804,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 element.RightIndicatorVisibility = Visibility.Visible;
             }
 
-            StyleSelector contentStyleSelector = this.AppointmentStyleSelector;
+            StyleSelector contentStyleSelector = this.appointmentStyleSelectorCache;
             if (contentStyleSelector != null)
             {
                 var style = contentStyleSelector.SelectStyle(appointment, element);

@@ -148,13 +148,24 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         /// <summary>
-        /// Gets a value indicating whether the appointment is several days long.
+        /// Gets the model of the cell that holds the appointment.
         /// </summary>
         public bool HasNextDay
         {
             get
             {
                 return this.hasNextDay;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the appointment is several days long.
+        /// </summary>
+        public CalendarCellModel Cell
+        {
+            get
+            {
+                return this.cell;
             }
         }
     }
