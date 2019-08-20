@@ -1973,9 +1973,9 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
             {
-                var showAllDayArea = this.model.multiDayViewSettings?.ShowAllDayArea;
                 if (appointment.IsAllDay)
                 {
+                    var showAllDayArea = this.model.multiDayViewSettings?.ShowAllDayArea;
                     if (showAllDayArea.HasValue && showAllDayArea.Value)
                     {
                         this.PrepareContainerForAllDayAreaAppointment(element, appointment);
