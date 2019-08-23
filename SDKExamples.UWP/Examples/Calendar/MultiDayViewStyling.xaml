@@ -111,15 +111,6 @@
             <Setter Property="Padding" Value="0, 10 , 0, 0"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
-        <example:CustomSpecialSlotContentTemplateSelector x:Key="CustomSpecialSlotContentTemplateSelector">
-            <example:CustomSpecialSlotContentTemplateSelector.FridayTemplate>
-                <DataTemplate>
-                    <TextBlock Text="Friday! :)"
-                               FontSize="16"
-                               Foreground="DarkBlue"/>
-                </DataTemplate>
-            </example:CustomSpecialSlotContentTemplateSelector.FridayTemplate>
-        </example:CustomSpecialSlotContentTemplateSelector>
     </local:ExamplePageBase.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
