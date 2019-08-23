@@ -383,6 +383,9 @@ namespace Telerik.UI.Xaml.Controls.Input
         private WeakCollectionChangedListener appointmentSourceCollectionChangedListener;
         private List<WeakPropertyChangedListener> appointmentSourcePropertyChangedListeners = new List<WeakPropertyChangedListener>();
         private Action pendingScrollTimeRuler;
+        private AppointmentTemplateSelector appointmentTemplateSelectorCache;
+        private AppointmentTemplateSelector appointmentHeaderTemplateSelectorCache;
+        private StyleSelector appointmentStyleSelectorCache;
 
         static RadCalendar()
         {
@@ -512,7 +515,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             get
             {
-                return (AppointmentTemplateSelector)this.GetValue(RadCalendar.AppointmentTemplateSelectorProperty);
+                return this.appointmentTemplateSelectorCache;
             }
 
             set
@@ -529,7 +532,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             get
             {
-                return (AppointmentTemplateSelector)this.GetValue(RadCalendar.AppointmentHeaderTemplateSelectorProperty);
+                return this.appointmentHeaderTemplateSelectorCache;
             }
 
             set
@@ -546,7 +549,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             get
             {
-                return (StyleSelector)this.GetValue(RadCalendar.AppointmentStyleSelectorProperty);
+                return this.appointmentStyleSelectorCache;
             }
 
             set
@@ -1845,6 +1848,12 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </remarks>
         public void InvalidateUI()
         {
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                this.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
+                this.timeRulerLayer?.ClearRealizedAppointmentVisuals();
+            }
+         
             this.Invalidate();
         }
 
@@ -1952,6 +1961,38 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (sender is IAppointment)
             {
                 this.MultiDayViewSettings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
+            }
+        }
+
+        /// <summary>
+        /// Prepares the specified AppointmentControl to display the specified appointment.
+        /// </summary>
+        /// <param name="element">The AppointmentControl used to display the specified appointment.</param>
+        /// <param name="appointment">Specified appointment.</param>
+        public virtual void PrepareContainerForAppointment(AppointmentControl element, CalendarAppointmentInfo appointment)
+        {
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView)
+            {
+                if (appointment.IsAllDay)
+                {
+                    var showAllDayArea = this.model.multiDayViewSettings?.ShowAllDayArea;
+                    if (showAllDayArea.HasValue && showAllDayArea.Value)
+                    {
+                        this.PrepareContainerForAllDayAreaAppointment(element, appointment);
+                    }
+                    else
+                    {
+                        this.PrepareContainerForTimeRulerAppointment(element, appointment);
+                    }
+                }
+                else
+                {
+                    this.PrepareContainerForTimeRulerAppointment(element, appointment);
+                }
+            }
+            else
+            {
+                this.PrepareContainerForAppointmentLayer(element, appointment);
             }
         }
 
@@ -2728,20 +2769,21 @@ namespace Telerik.UI.Xaml.Controls.Input
         private static void OnAppointmentTemplateSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             RadCalendar calendar = (RadCalendar)sender;
-            calendar.AppointmentTemplateSelector = (AppointmentTemplateSelector)e.NewValue;
+            calendar.appointmentTemplateSelectorCache = (AppointmentTemplateSelector)e.NewValue;
             calendar.UpdateAppointmentsVisualization();
         }
 
         private static void OnAppointmentHeaderTemplateSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             RadCalendar calendar = (RadCalendar)sender;
-            calendar.AppointmentHeaderTemplateSelector = (AppointmentTemplateSelector)e.NewValue;
+            calendar.appointmentHeaderTemplateSelectorCache = (AppointmentTemplateSelector)e.NewValue;
             calendar.UpdateAppointmentsVisualization();
         }
 
         private static void OnAppointmentStyleSelectorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             RadCalendar calendar = (RadCalendar)sender;
+            calendar.appointmentStyleSelectorCache = (StyleSelector)e.NewValue;
             calendar.UpdateAppointmentsVisualization();
         }
 
@@ -3746,6 +3788,129 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             // NOTE: Not handling this causes the calendar control to lose focus for some reason
             e.Handled = true;
+        }
+
+        private void PrepareContainerForTimeRulerAppointment(AppointmentControl element, CalendarAppointmentInfo appointment)
+        {
+            element.Content = appointment.DetailText;
+            element.Header = appointment.Subject;
+
+            if (appointment.Brush != null)
+            {
+                element.Background = appointment.Brush;
+            }
+
+            if (appointment.hasPreviousDay)
+            {
+                element.LeftIndicatorVisibility = Visibility.Visible;
+            }
+
+            if (appointment.hasNextDay)
+            {
+                element.RightIndicatorVisibility = Visibility.Visible;
+            }
+
+            StyleSelector contentStyleSelector = this.appointmentStyleSelectorCache;
+            if (contentStyleSelector != null)
+            {
+                var style = contentStyleSelector.SelectStyle(appointment, element);
+                if (style != null)
+                {
+                    element.Style = style;
+                }
+            }
+            else if (element.Style != null)
+            {
+                element.ClearValue(AppointmentControl.StyleProperty);
+            }
+
+            AppointmentTemplateSelector templateSelector = this.appointmentTemplateSelectorCache;
+            if (templateSelector != null)
+            {
+                DataTemplate template = templateSelector.SelectTemplate(appointment, appointment.cell);
+                if (template != null)
+                {
+                    element.ContentTemplate = template;
+                }
+            }
+
+            AppointmentTemplateSelector headerTemplateSelector = this.appointmentHeaderTemplateSelectorCache;
+            if (headerTemplateSelector != null)
+            {
+                DataTemplate template = headerTemplateSelector.SelectTemplate(appointment, appointment.cell);
+                if (template != null)
+                {
+                    element.HeaderTemplate = template;
+                }
+            }
+        }
+
+        private void PrepareContainerForAllDayAreaAppointment(AppointmentControl element, CalendarAppointmentInfo appointment)
+        {
+            element.Header = appointment.Subject;
+            if (appointment.Brush != null)
+            {
+                element.Background = appointment.Brush;
+            }
+
+            StyleSelector styleSelector = this.appointmentStyleSelectorCache;
+            if (styleSelector != null)
+            {
+                var style = styleSelector.SelectStyle(appointment, element);
+                if (style != null)
+                {
+                    element.Style = style;
+                }
+            }
+            else if (element.Style != null)
+            {
+                element.ClearValue(AppointmentControl.StyleProperty);
+            }
+
+            AppointmentTemplateSelector headerTemplateSelector = this.appointmentHeaderTemplateSelectorCache;
+            if (headerTemplateSelector != null)
+            {
+                DataTemplate template = headerTemplateSelector.SelectTemplate(appointment, appointment.cell);
+                if (template != null)
+                {
+                    element.HeaderTemplate = template;
+                }
+            }
+        }
+
+        private void PrepareContainerForAppointmentLayer(AppointmentControl element, CalendarAppointmentInfo appointment)
+        {
+            element.Header = appointment.Subject;
+            if (appointment.Brush != null)
+            {
+                element.Background = appointment.Brush;
+            }
+
+            element.Background = appointment.Brush;
+
+            XamlContentLayerHelper.MeasureVisual(element);
+            if (element != null)
+            {
+                StyleSelector styleSelector = this.appointmentStyleSelectorCache;
+                if (styleSelector != null)
+                {
+                    var style = styleSelector.SelectStyle(appointment, element);
+                    if (style != null)
+                    {
+                        element.Style = style;
+                    }
+                }
+
+                AppointmentTemplateSelector headerTemplateSelector = this.appointmentHeaderTemplateSelectorCache;
+                if (headerTemplateSelector != null)
+                {
+                    DataTemplate template = headerTemplateSelector.SelectTemplate(appointment, appointment.cell);
+                    if (template != null)
+                    {
+                        element.HeaderTemplate = template;
+                    }
+                }
+            }
         }
     }
 }

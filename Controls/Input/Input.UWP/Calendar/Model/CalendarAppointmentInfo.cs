@@ -16,7 +16,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal bool isArranged;
         internal IAppointment childAppointment;
         internal int? arrangeColumnIndex;
-        internal bool hasPrevDay;
+        internal bool hasPreviousDay;
         internal bool hasNextDay;
 
         private string detailText;
@@ -122,6 +122,50 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.isAllDay = value;
                 this.OnPropertyChanged(nameof(this.IsAllDay));
+            }
+        }
+
+        /// <summary>
+        /// Gets the appointment associated with the current info.
+        /// </summary>
+        public IAppointment ChildAppointment
+        {
+            get
+            {
+                return this.childAppointment;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the appointment is several days long.
+        /// </summary>
+        public bool HasPreviousDay
+        {
+            get
+            {
+                return this.hasPreviousDay;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the appointment is several days long.
+        /// </summary>
+        public bool HasNextDay
+        {
+            get
+            {
+                return this.hasNextDay;
+            }
+        }
+
+        /// <summary>
+        /// Gets the model of the cell that holds the appointment.
+        /// </summary>
+        public CalendarCellModel Cell
+        {
+            get
+            {
+                return this.cell;
             }
         }
     }

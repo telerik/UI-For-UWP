@@ -116,8 +116,7 @@
                 <DataTemplate>
                     <TextBlock Text="Friday! :)"
                                FontSize="16"
-                               Foreground="DarkBlue"
-                               HorizontalTextAlignment="Center"/>
+                               Foreground="DarkBlue"/>
                 </DataTemplate>
             </example:CustomSpecialSlotContentTemplateSelector.FridayTemplate>
         </example:CustomSpecialSlotContentTemplateSelector>

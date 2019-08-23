@@ -48,12 +48,15 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private Dictionary<CalendarGridLine, Border> realizedTimerRulerLinePresenters;
         private Dictionary<Slot, SlotControl> realizedSlotPresenters;
         private Dictionary<Slot, SlotControl> visibleSlotPresenters;
+        private Dictionary<CalendarAppointmentInfo, AppointmentControl> realizedAppointmentPresenters;
+        private Dictionary<CalendarAppointmentInfo, AppointmentControl> visibleAppointmentPresenters;
 
         private Queue<TextBlock> recycledTimeRulerItems;
         private Queue<Border> recycledTimeRulerLines;
         private Queue<SlotControl> recycledSlots;
+        private Queue<AppointmentControl> recycledAppointments;
         private Queue<SlotControl> fullyRecycledSlots;
-        private List<AppointmentControl> realizedAppointmentDefaultPresenters;
+        private Queue<AppointmentControl> fullyRecycledAppointments;
 
         private Point scrollMousePosition;
         private Storyboard offsetStoryboard;
@@ -102,12 +105,16 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.realizedSlotPresenters = new Dictionary<Slot, SlotControl>();
             this.visibleSlotPresenters = new Dictionary<Slot, SlotControl>();
 
+            this.realizedAppointmentPresenters = new Dictionary<CalendarAppointmentInfo, AppointmentControl>();
+            this.visibleAppointmentPresenters = new Dictionary<CalendarAppointmentInfo, AppointmentControl>();
+
             this.recycledTimeRulerItems = new Queue<TextBlock>();
             this.recycledTimeRulerLines = new Queue<Border>();
             this.recycledSlots = new Queue<SlotControl>();
             this.fullyRecycledSlots = new Queue<SlotControl>();
 
-            this.realizedAppointmentDefaultPresenters = new List<AppointmentControl>();
+            this.recycledAppointments = new Queue<AppointmentControl>();
+            this.fullyRecycledAppointments = new Queue<AppointmentControl>();
 
             this.CreateOffsetAnimation();
         }
@@ -404,6 +411,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal void UpdateTodaySlot()
         {
             Slot todaySlot = this.Owner.Model.multiDayViewModel.todaySlot;
+            if (todaySlot == null)
+            {
+                return;
+            }
+
             if (this.todaySlotBorder == null)
             {
                 this.todaySlotBorder = new Border();
@@ -440,85 +452,65 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdateAppointments(List<CalendarAppointmentInfo> appointmentInfos)
         {
-            int index = 0;
+            if (appointmentInfos == null)
+            {
+                return;
+            }
+
+            foreach (var appointmentInfo in appointmentInfos)
+            {
+                AppointmentControl appControl;
+                if (this.realizedAppointmentPresenters.TryGetValue(appointmentInfo, out appControl))
+                {
+                    this.visibleAppointmentPresenters.Add(appointmentInfo, appControl);
+                }
+            }
+
             RadCalendar calendar = this.Owner;
             foreach (var appointmentInfo in appointmentInfos)
             {
+                AppointmentControl appointmentControl;
+                this.visibleAppointmentPresenters.TryGetValue(appointmentInfo, out appointmentControl);
+
                 if (!this.bufferedViewPortArea.IntersectsWith(appointmentInfo.layoutSlot))
                 {
+                    if (appointmentControl != null)
+                    {
+                        this.RecycleAppointmentVisual(appointmentInfo, appointmentControl);
+                    }
+
                     continue;
                 }
 
-                AppointmentControl appointmentControl = this.GetDefaultAppointmentVisual(index);
                 if (appointmentControl != null)
                 {
                     RadRect layoutSlot = appointmentInfo.layoutSlot;
                     layoutSlot.Width -= 3;
-                    appointmentControl.Content = appointmentInfo.DetailText;
-                    appointmentControl.Header = appointmentInfo.Subject;
-                    if (appointmentInfo.Brush != null)
-                    {
-                        appointmentControl.Background = appointmentInfo.Brush;
-                    }
-
-                    if (appointmentInfo.hasPrevDay)
-                    {
-                        appointmentControl.LeftIndicatorVisibility = Visibility.Visible;
-                    }
-
-                    if (appointmentInfo.hasNextDay)
-                    {
-                        appointmentControl.RightIndicatorVisibility = Visibility.Visible;
-                    }
-
-                    appointmentControl.appointmentInfo = appointmentInfo;
-
-                    StyleSelector contentStyleSelector = calendar.AppointmentStyleSelector;
-                    if (contentStyleSelector != null)
-                    {
-                        var style = contentStyleSelector.SelectStyle(appointmentInfo, appointmentControl);
-                        if (style != null)
-                        {
-                            appointmentControl.Style = style;
-                        }
-                    }
-                    else if (appointmentControl.Style != null)
-                    {
-                        appointmentControl.ClearValue(AppointmentControl.StyleProperty);
-                    }
-
-                    AppointmentTemplateSelector templateSelector = calendar.AppointmentTemplateSelector;
-                    if (templateSelector != null)
-                    {
-                        DataTemplate template = templateSelector.SelectTemplate(appointmentInfo, appointmentInfo.cell);
-                        if (template != null)
-                        {
-                            appointmentControl.ContentTemplate = template;
-                        }
-                    }
-
-                    AppointmentTemplateSelector headerTemplateSelector = calendar.AppointmentHeaderTemplateSelector;
-                    if (headerTemplateSelector != null)
-                    {
-                        DataTemplate template = headerTemplateSelector.SelectTemplate(appointmentInfo, appointmentInfo.cell);
-                        if (template != null)
-                        {
-                            appointmentControl.HeaderTemplate = template;
-                        }
-                    }
 
                     XamlContentLayer.ArrangeUIElement(appointmentControl, layoutSlot, true);
                     Canvas.SetZIndex(appointmentControl, XamlMultiDayViewLayer.DefaultAppointmentZIndex);
                     Canvas.SetLeft(appointmentControl, layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
-                    index++;
+                    continue;
+                }
+
+                appointmentControl = this.GetDefaultAppointmentVisual(appointmentInfo);
+                if (appointmentControl != null)
+                {
+                    RadRect layoutSlot = appointmentInfo.layoutSlot;
+                    layoutSlot.Width -= 3;
+
+                    appointmentControl.appointmentInfo = appointmentInfo;
+                    calendar.PrepareContainerForAppointment(appointmentControl, appointmentInfo);
+
+                    XamlContentLayer.ArrangeUIElement(appointmentControl, layoutSlot, true);
+                    Canvas.SetZIndex(appointmentControl, XamlMultiDayViewLayer.DefaultAppointmentZIndex);
+                    Canvas.SetLeft(appointmentControl, layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
                 }
             }
 
-            while (index < this.realizedAppointmentDefaultPresenters.Count)
-            {
-                this.realizedAppointmentDefaultPresenters[index].Visibility = Visibility.Collapsed;
-                index++;
-            }
+            this.ClearAppointmentVisuals(this.recycledAppointments);
+            this.recycledAppointments.Clear();
+            this.visibleAppointmentPresenters.Clear();
         }
 
         internal void UpdateTimeRulerAllDayText(RadRect allDayLabelLayout)
@@ -612,10 +604,25 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 this.topLeftHeaderPanel.Children.Add(this.verticalGridLineBorder);
             }
 
-            this.LayoutTopAllDayAreaHorizontalBorder(horizontalAllDayUpperLine);
-            this.LayoutLowerAllDayAreaHorizontalBorder(horizontalAllDayLowerLine);
-            this.LayoutTopHeaderHorizontalBorder(horizontalTopHeaderLine);
-            this.LayoutVerticalHeaderBorder(verticalLine);
+            if (horizontalAllDayUpperLine != null)
+            {
+                this.LayoutTopAllDayAreaHorizontalBorder(horizontalAllDayUpperLine);
+            }
+
+            if (horizontalAllDayLowerLine != null)
+            {
+                this.LayoutLowerAllDayAreaHorizontalBorder(horizontalAllDayLowerLine);
+            }
+
+            if (horizontalTopHeaderLine != null)
+            {
+                this.LayoutTopHeaderHorizontalBorder(horizontalTopHeaderLine);
+            }
+
+            if (verticalLine != null)
+            {
+                this.LayoutVerticalHeaderBorder(verticalLine);
+            }
         }
 
         internal void ArrangeVisualElement()
@@ -689,6 +696,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        internal void ClearRealizedAppointmentVisuals()
+        {
+            this.ClearAppointmentVisuals(this.realizedAppointmentPresenters.Values);
+            this.realizedAppointmentPresenters.Clear();
+        }
+
         protected internal override void DetachUI(Panel parent)
         {
             base.DetachUI(parent);
@@ -739,6 +752,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             this.realizedSlotPresenters.Remove(slot);
             this.recycledSlots.Enqueue(visual);
+        }
+
+        private void RecycleAppointmentVisual(CalendarAppointmentInfo info, AppointmentControl visual)
+        {
+            this.realizedAppointmentPresenters.Remove(info);
+            this.recycledAppointments.Enqueue(visual);
+        }
+
+        private void ClearAppointmentVisuals(IEnumerable<AppointmentControl> appointments)
+        {
+            foreach (var visual in appointments)
+            {
+                visual.Visibility = Visibility.Collapsed;
+                this.fullyRecycledAppointments.Enqueue(visual);
+            }
         }
 
         private void LayoutVerticalHeaderBorder(CalendarGridLine verticalLine)
@@ -837,6 +865,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void UpdateTimeRulerItems(ElementCollection<CalendarTimeRulerItem> timeRulerItems)
         {
+            if (timeRulerItems == null)
+            {
+                return;
+            }
+
             this.RecycleTimeRulerItems(timeRulerItems);
             for (int i = 0; i < timeRulerItems.Count; i++)
             {
@@ -864,6 +897,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void UpdateTimerRulerLines(ElementCollection<CalendarGridLine> timeRulerLines)
         {
+            if (timeRulerLines == null)
+            {
+                return;
+            }
+
             this.RecycleTimeRulerLines(timeRulerLines);
             foreach (var gridLine in timeRulerLines)
             {
@@ -975,27 +1013,24 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return visual;
         }
 
-        private AppointmentControl GetDefaultAppointmentVisual(int virtualIndex)
+        private AppointmentControl GetDefaultAppointmentVisual(CalendarAppointmentInfo info)
         {
             AppointmentControl visual;
-
-            if (virtualIndex < this.realizedAppointmentDefaultPresenters.Count)
+            if (this.recycledAppointments.Count > 0)
             {
-                visual = this.realizedAppointmentDefaultPresenters[virtualIndex];
+                visual = this.recycledAppointments.Dequeue();
+            }
+            else if (this.fullyRecycledAppointments.Count > 0)
+            {
+                visual = this.fullyRecycledAppointments.Dequeue();
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
-                visual.ClearValue(AppointmentControl.BackgroundProperty);
-                visual.ClearValue(AppointmentControl.HeaderProperty);
-                visual.ClearValue(AppointmentControl.ContentProperty);
-                visual.ClearValue(AppointmentControl.StyleProperty);
-                visual.ClearValue(AppointmentControl.LeftIndicatorVisibilityProperty);
-                visual.ClearValue(AppointmentControl.RightIndicatorVisibilityProperty);
-                visual.ClearValue(Canvas.LeftProperty);
             }
             else
             {
                 visual = this.CreateDefaultAppointmentVisual();
             }
 
+            this.realizedAppointmentPresenters.Add(info, visual);
             return visual;
         }
 
@@ -1020,7 +1055,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         {
             AppointmentControl appointmentControl = new AppointmentControl();
             appointmentControl.calendar = this.Owner;
-            this.realizedAppointmentDefaultPresenters.Add(appointmentControl);
             this.AddVisualChild(appointmentControl);
 
             return appointmentControl;

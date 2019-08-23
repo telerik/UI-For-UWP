@@ -743,7 +743,8 @@ namespace Telerik.UI.Xaml.Controls.Input
                     {
                         multiDayViewModel.appointmentInfos?.Clear();
                         multiDayViewModel.allDayAppointmentInfos?.Clear();
-                        calendar.allDayAreaLayer?.RecycleAppointments();
+                        calendar.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
+                        calendar.timeRulerLayer?.ClearRealizedAppointmentVisuals();
                     }
 
                     calendar.Model.multiDayViewModel.updateFlag = flag;
