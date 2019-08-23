@@ -292,12 +292,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(MultiDayViewSettings), typeof(MultiDayViewSettings), typeof(RadCalendar), new PropertyMetadata(new MultiDayViewSettings(), OnMultiDayViewSettingsChanged));
 
         /// <summary>
-        /// Identifies the <c cref="MonthViewSettings"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty MonthViewSettingsProperty =
-            DependencyProperty.Register(nameof(MonthViewSettings), typeof(MonthViewSettings), typeof(RadCalendar), new PropertyMetadata(new MonthViewSettings(), OnMonthViewSettingsPropertyChanged));
-
-        /// <summary>
         /// Identifies the <c cref="HeaderVisibility"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty HeaderVisibilityProperty =
@@ -411,10 +405,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             MultiDayViewSettings multiDayViewSettings = this.MultiDayViewSettings;
             multiDayViewSettings.owner = this;
             this.model.multiDayViewSettings = multiDayViewSettings;
-
-            MonthViewSettings monthViewSettings = this.MonthViewSettings;
-            monthViewSettings.owner = this;
-            this.model.monthViewSettings = monthViewSettings;
         }
 
         /// <summary>
@@ -1670,21 +1660,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Gets or sets the settings for the month view of the Calendar.
-        /// </summary>
-        public MonthViewSettings MonthViewSettings
-        {
-            get
-            {
-                return (MonthViewSettings)this.GetValue(MonthViewSettingsProperty);
-            }
-            set
-            {
-                this.SetValue(MonthViewSettingsProperty, value);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the Visibility of the Calendar's Header.
         /// </summary>
         public Visibility HeaderVisibility
@@ -2078,16 +2053,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                     this.SelectionService.selectedDateRanges.SplitRangeByDate(cell);
                 }
 
-                CalendarCellStyleContext styleContext;
-                if (this.displayModeCache == CalendarDisplayMode.MonthView || this.displayModeCache == CalendarDisplayMode.MultiDayView)
-                {
-                    styleContext = this.CreateCurrentMonthCellStyleContext((CalendarMonthCellModel)cell, stateContext);
-                }
-                else
-                {
-                    styleContext = this.CreateCurrentCellStyleContext(cell, stateContext);
-                }
-
+                CalendarCellStyleContext styleContext = this.CreateCurrentCellStyleContext(cell, stateContext);
                 if (this.CellStyleSelector != null)
                 {
                     this.CellStyleSelector.SelectStyle(styleContext, this);
@@ -2309,12 +2275,6 @@ namespace Telerik.UI.Xaml.Controls.Input
                 {
                     this.MultiDayViewSettings.timer.Start();
                 }
-            }
-
-            var monthViewSettings = this.MonthViewSettings;
-            if (monthViewSettings != null)
-            {
-                monthViewSettings.SetDefaultStyleValues();
             }
 
             if (this.navigationPanel != null)
@@ -3008,24 +2968,6 @@ namespace Telerik.UI.Xaml.Controls.Input
             calendar.model.multiDayViewSettings = settings;
         }
 
-        private static void OnMonthViewSettingsPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            var oldSettings = args.OldValue as MultiDayViewSettings;
-            if (oldSettings != null)
-            {
-                oldSettings.owner = null;
-            }
-
-            var settings = args.NewValue as MonthViewSettings;
-            var calendar = (RadCalendar)sender;
-            if (settings != null)
-            {
-                settings.owner = calendar;
-            }
-
-            calendar.model.monthViewSettings = settings;
-        }
-
         private static DateTime GetFirstDayofMonth(DateTime selectedDate, System.Globalization.Calendar calendar)
         {
             return new DateTime(calendar.GetYear(selectedDate), calendar.GetMonth(selectedDate), 1, 1, 1, 1);
@@ -3379,13 +3321,6 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.timeRulerLayer.UpdateCurrentTimeIndicator();
                         break;
                     case MultiDayViewUpdateFlag.AffectsSpecialSlots:
-                        if (this.MultiDayViewSettings?.SpecialSlotsSource == this.MonthViewSettings?.SpecialSlotsSource)
-                        {
-                            this.EvaluateCustomCellSelectors();
-
-                            this.decorationLayer.UpdateUI();
-                            this.contentLayer.UpdateUI();
-                        }
                         this.timeRulerLayer.UpdateSlots();
                         break;
                     default:
@@ -3484,51 +3419,6 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             cell.Context = context;
 
-            return context;
-        }
-
-        private CalendarCellStyleContext CreateCurrentMonthCellStyleContext(CalendarMonthCellModel cell, CalendarCellStateContext stateContext)
-        {
-            var context = new CalendarMonthCellStyleContext(stateContext);
-            context.SpecialSlots = cell.slots;
-
-            var defaultDecorationCellStyle = this.EvaluateCellDecorationStyle(cell);
-            context.CalculatedDecorationCellStyle = defaultDecorationCellStyle;
-
-            var defaultContentCellStyle = this.EvaluateCellContentStyle(cell);
-            context.CalculatedContentCellStyle = defaultContentCellStyle;
-
-            var monthViewSettings = this.model.monthViewSettings;
-            if (monthViewSettings != null)
-            {
-                if (cell.IsSpecialReadOnly)
-                {
-                    var specialReadOnlyStyle = monthViewSettings.defaultSpecialReadOnlyCellStyle;
-                    context.CalculatedDecorationCellStyle = StyleManager.MergeStyles(defaultDecorationCellStyle, specialReadOnlyStyle.DecorationStyle);
-                    context.CalculatedContentCellStyle = StyleManager.MergeStyles(defaultContentCellStyle, specialReadOnlyStyle.ContentStyle);
-                }
-                else if (cell.IsSpecial)
-                {
-                    var specialStyle = monthViewSettings.defaultSpecialCellStyle;
-                    context.CalculatedDecorationCellStyle = StyleManager.MergeStyles(defaultDecorationCellStyle, specialStyle.DecorationStyle);
-                    context.CalculatedContentCellStyle = StyleManager.MergeStyles(defaultContentCellStyle, specialStyle.ContentStyle);
-                }
-
-                var styleSelector = monthViewSettings.SpecialSlotCellStyleSelector;
-                if (styleSelector != null)
-                {
-                    styleSelector.SelectStyle(context, this);
-
-                    var style = context.CellStyle;
-                    if (style != null)
-                    {
-                        context.CalculatedDecorationCellStyle = style.DecorationStyle;
-                        context.CalculatedContentCellStyle = style.ContentStyle;
-                    }
-                }
-            }
-
-            cell.Context = context;
             return context;
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
@@ -39,56 +38,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             set
             {
                 this.cell.IsBlackout = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the associated month cell is special.
-        /// </summary>
-        public bool IsSpecial
-        {
-            get
-            {
-                var monthCell = this.cell as CalendarMonthCellModel;
-                if (monthCell != null)
-                {
-                    return monthCell.IsSpecial;
-                }
-
-                return false;
-            }
-            set
-            {
-                var monthCell = this.cell as CalendarMonthCellModel;
-                if (monthCell != null)
-                {
-                    monthCell.IsSpecial = value;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the associated month cell is special and is read-only.
-        /// </summary>
-        public bool IsSpecialReadOnly
-        {
-            get
-            {
-                var monthCell = this.cell as CalendarMonthCellModel;
-                if (monthCell != null)
-                {
-                    return monthCell.IsSpecialReadOnly;
-                }
-
-                return false;
-            }
-            set
-            {
-                var monthCell = this.cell as CalendarMonthCellModel;
-                if (monthCell != null)
-                {
-                    monthCell.IsSpecialReadOnly = value;
-                }
             }
         }
 
@@ -149,23 +98,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             get
             {
                 return this.cell.IsCurrent;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value of the special slots that are associated with the cell. Slots are only available for month view.
-        /// </summary>
-        public IEnumerable<Slot> SpecialSlots
-        {
-            get
-            {
-                var monthViewCellModel = this.cell as CalendarMonthCellModel;
-                if (monthViewCellModel != null)
-                {
-                    return monthViewCellModel.slots;
-                }
-
-                return null;
             }
         }
     }
