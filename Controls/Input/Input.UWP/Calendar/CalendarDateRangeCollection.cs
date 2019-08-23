@@ -313,7 +313,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                     cellToSelect = this.Owner.Model.CalendarCells[rangeStartIndex];
                 }
 
-                if (cellToSelect == null || !cellToSelect.IsBlackout || (cellToSelect is CalendarMonthCellModel && !((CalendarMonthCellModel)cellToSelect).IsSpecialReadOnly))
+                if (cellToSelect == null || !cellToSelect.IsBlackout)
                 {
                     this.Clear(false);
                     rangesToSelect.Add(range);
@@ -348,16 +348,15 @@ namespace Telerik.UI.Xaml.Controls.Input
 
                 for (int index = rangeStartIndex; index <= rangeEndIndex; index++)
                 {
-                    var cellModel = this.Owner.Model.CalendarCells[index];
-                    if (!rangeInitialized && (!cellModel.IsBlackout || (cellModel is CalendarMonthCellModel && !((CalendarMonthCellModel)cellModel).IsSpecialReadOnly)))
+                    if (!rangeInitialized && !this.Owner.Model.CalendarCells[index].IsBlackout)
                     {
-                        newRange.StartDate = cellModel.Date;
+                        newRange.StartDate = this.Owner.Model.CalendarCells[index].Date;
                         rangeInitialized = true;
 
                         continue;
                     }
 
-                    if ((cellModel.IsBlackout || (cellModel is CalendarMonthCellModel && ((CalendarMonthCellModel)cellModel).IsSpecialReadOnly)) && rangeInitialized)
+                    if (this.Owner.Model.CalendarCells[index].IsBlackout && rangeInitialized)
                     {
                         newRange.EndDate = this.Owner.Model.CalendarCells[index - 1].Date;
                         rangesToSelect.Add(newRange);
