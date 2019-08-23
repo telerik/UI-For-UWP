@@ -865,9 +865,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             this.RecycleTimeRulerItems(timeRulerItems);
-            foreach (var item in timeRulerItems)
+            for (int i = 0; i < timeRulerItems.Count; i++)
             {
-                if (!this.viewPortArea.IntersectsWith(item.layoutSlot))
+                var item = timeRulerItems[i];
+                if (!this.viewPortArea.IntersectsWith(item.layoutSlot) || i == 0)
                 {
                     continue;
                 }
