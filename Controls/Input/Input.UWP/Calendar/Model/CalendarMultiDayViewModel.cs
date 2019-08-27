@@ -98,6 +98,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.dayViewLayoutSlot.Width += cellContentWidth;
             this.Calendar.AnimatableContentClip = this.dayViewLayoutSlot;
 
+            if (this.CalendarCells == null)
+            {
+                this.updateFlag = MultiDayViewUpdateFlag.All;
+            }
+
             if (this.updateFlag == MultiDayViewUpdateFlag.All)
             {
                 this.ArrangeCalendarDecorations(this.dayViewLayoutSlot);
@@ -314,7 +319,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                     break;
                 case MultiDayViewUpdateFlag.AffectsSpecialSlots:
                     this.EnsureSlots();
-                    this.ArrangeCalendarContent(this.dayViewLayoutSlot);
                     break;
                 default:
                     break;

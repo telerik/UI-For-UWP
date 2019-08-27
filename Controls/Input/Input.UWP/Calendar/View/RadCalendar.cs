@@ -1827,6 +1827,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 this.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
                 this.timeRulerLayer?.ClearRealizedAppointmentVisuals();
+                this.timeRulerLayer?.ClearRealizedSlotVisuals();
             }
          
             this.Invalidate();
@@ -1969,6 +1970,21 @@ namespace Telerik.UI.Xaml.Controls.Input
             {
                 this.PrepareContainerForAppointmentLayer(element, appointment);
             }
+        }
+
+        /// <summary>
+        /// Prepares the specified SlotControl control to display the specified slot.
+        /// </summary>
+        /// <param name="element">The SlotControl used to display the specified slot.</param>
+        /// <param name="appointment">Specified slot.</param>
+        public virtual void PrepareContainerForSpecialSlot(SlotControl element, Slot slot)
+        {
+            element.DataContext = slot;
+
+            MultiDayViewSettings settings = this.MultiDayViewSettings;
+            StyleSelector specialSlotStyleSelector = settings.SpecialSlotStyleSelector ?? settings.defaultSpecialSlotStyleSelector;
+            var style = specialSlotStyleSelector.SelectStyle(slot, element);
+            element.Style = style;
         }
 
         [SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes")]

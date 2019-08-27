@@ -337,7 +337,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal void UpdateSlots()
         {
-            var slots = this.Owner.Model.multiDayViewModel.specialSlots;
+            var calendar = this.Owner;
+            if (calendar == null)
+            {
+                return;
+            }
+
+            var slots = calendar.Model.multiDayViewModel.specialSlots;
             if (slots == null)
             {
                 return;
@@ -379,12 +385,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 visual = this.GetDefaultSlotVisual(specialSlot);
                 if (visual != null)
                 {
-                    visual.DataContext = specialSlot;
-
-                    MultiDayViewSettings settings = this.Owner.MultiDayViewSettings;
-                    StyleSelector specialSlotStyleSelector = settings.SpecialSlotStyleSelector ?? settings.defaultSpecialSlotStyleSelector;
-                    var style = specialSlotStyleSelector.SelectStyle(specialSlot, visual);
-                    visual.Style = style;
+                    calendar.PrepareContainerForSpecialSlot(visual, specialSlot);
 
                     XamlContentLayer.ArrangeUIElement(visual, specialSlot.layoutSlot, true);
                     Canvas.SetLeft(visual, specialSlot.layoutSlot.X - this.leftOffset + this.leftHeaderPanel.Width);
@@ -696,6 +697,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.realizedAppointmentPresenters.Clear();
         }
 
+        internal void ClearRealizedSlotVisuals()
+        {
+            this.ClearSlotVisuals(this.realizedSlotPresenters.Values);
+            this.realizedSlotPresenters.Clear();
+        }
+
         protected internal override void DetachUI(Panel parent)
         {
             base.DetachUI(parent);
@@ -760,6 +767,15 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 visual.Visibility = Visibility.Collapsed;
                 this.fullyRecycledAppointments.Enqueue(visual);
+            }
+        }
+
+        private void ClearSlotVisuals(IEnumerable<SlotControl> slots)
+        {
+            foreach (var visual in slots)
+            {
+                visual.Visibility = Visibility.Collapsed;
+                this.fullyRecycledSlots.Enqueue(visual);
             }
         }
 
