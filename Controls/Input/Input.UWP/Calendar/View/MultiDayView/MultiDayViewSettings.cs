@@ -725,6 +725,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                         calendar.timeRulerLayer?.ClearRealizedAppointmentVisuals();
                     }
 
+                    if (flag == MultiDayViewUpdateFlag.AffectsSpecialSlots)
+                    {
+                        multiDayViewModel.specialSlots?.Clear();
+                        calendar.timeRulerLayer?.ClearRealizedSlotVisuals();
+                    }
+
                     calendar.Model.multiDayViewModel.updateFlag = flag;
                     calendar.timeRulerLayer.shouldArrange = true;
                     calendar.allDayAreaLayer.shouldArrange = true;

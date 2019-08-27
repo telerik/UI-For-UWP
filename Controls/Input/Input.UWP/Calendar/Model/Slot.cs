@@ -128,7 +128,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         }
 
         /// <inheritdoc/>
-        public Slot Copy()
+        public virtual Slot Copy()
         {
             var slot = new Slot();
             slot.CopyFrom(this);
