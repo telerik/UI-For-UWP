@@ -127,6 +127,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        internal double HorizontalOffset
+        {
+            get
+            {
+                return this.viewPortArea.Width;
+            }
+        }
+
         internal RadSize MeasureContent(object content)
         {
             this.EnsureMeasurementPresenter();

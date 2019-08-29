@@ -53,7 +53,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return null;
         }
 
-        internal Slot GetSlotFromPoint(Point hitPoint)
+        private static bool IsDateBetweenRange(DateTime date, DateTime start, DateTime end)
+        {
+            if (date < start)
+            {
+                return false;
+            }
+
+            if (date > end)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        internal TimeSlotTapContext GetSlotContextFromPoint(Point hitPoint, double offset)
         {
             var calendar = this.Owner;
             var model = calendar.Model;
@@ -66,38 +81,51 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             var timeRulerItem = HitTestService.GetTimeRulerItemFromPoint(hitPoint, calendarTimeRulerItems);
             var calendarCellIndex = HitTestService.GetCellIndexFromPoint(hitPoint, cellModels);
-            var calendarCell = cellModels[calendarCellIndex + visibleDays];
+            var realIndex = calendarCellIndex + visibleDays;
+            var calendarCell = cellModels[realIndex];
 
             DateTime slotDate = calendarCell.Date;
             TimeSpan slotStartTime = timeRulerItem.StartTime;
             TimeSpan slotEndTime = timeRulerItem.EndTime;
 
-            Slot slot = new Slot(slotDate.Add(slotStartTime), slotDate.Add(slotEndTime));
-            slot.IsReadOnly = this.IsSlotReadOnly(slot);
+            var startDate = slotDate.Add(slotStartTime);
+            var endDate = slotDate.Add(slotEndTime);
 
-            return slot;
-        }
+            var exactStartDate = startDate;
+            var exactEndDate = endDate;
 
-        private bool IsSlotReadOnly(Slot slot)
-        {
-            var multiDayViewSettings = this.Owner.MultiDayViewSettings;
             var specialSlots = multiDayViewSettings.SpecialSlotsSource;
             bool isReadOnly = false;
             if (specialSlots != null)
             {
                 foreach (var specialSlot in specialSlots)
                 {
-                    if (specialSlot.IntersectsWith(slot))
+                    var layoutSlot = specialSlot.layoutSlot;
+                    if (layoutSlot.Y <= hitPoint.Y && layoutSlot.Y + layoutSlot.Height >= hitPoint.Y 
+                        && layoutSlot.X <= (hitPoint.X + offset) && layoutSlot.X + layoutSlot.Width >= (hitPoint.X + offset))
+                    {
+                        isReadOnly = true;
+                        break;
+                    }
+                    else
                     {
                         if (specialSlot.IsReadOnly)
                         {
-                            return true;
+                            if (IsDateBetweenRange(specialSlot.Start, startDate, endDate) && exactEndDate > specialSlot.Start)
+                            {
+                                exactEndDate = specialSlot.Start;
+                            }
+
+                            if (IsDateBetweenRange(specialSlot.End, startDate, endDate) && exactStartDate < specialSlot.End)
+                            {
+                                exactStartDate = specialSlot.End;
+                            }
                         }
                     }
                 }
             }
 
-            return isReadOnly;
+            return new TimeSlotTapContext(startDate, endDate, exactStartDate, exactEndDate, isReadOnly);
         }
     }
 }

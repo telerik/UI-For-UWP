@@ -206,8 +206,9 @@ namespace Telerik.UI.Xaml.Controls.Input
                 CalendarMultiDayViewModel multiDayViewModel = this.model.multiDayViewModel;
                 hitPoint.X += multiDayViewModel.timeRulerWidth;
 
-                Slot slot = this.hitTestService.GetSlotFromPoint(hitPoint);
-                this.commandService.ExecuteCommand(CommandId.TimeSlotTap, slot);
+                var horizontalOffset = this.timeRulerLayer.HorizontalOffset;
+                var slotContext = this.hitTestService.GetSlotContextFromPoint(hitPoint, horizontalOffset);
+                this.commandService.ExecuteCommand(CommandId.TimeSlotTap, slotContext);
             }
         }
 
