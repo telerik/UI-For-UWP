@@ -39,12 +39,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return -1;
         }
 
-        public static CalendarTimeRulerItem GetTimeRulerItemFromPoint(Point hitPoint, ElementCollection<CalendarTimeRulerItem> calendarTimeRulerItems)
+        public static CalendarTimeRulerItem GetTimeRulerItemFromPoint(Point hitPoint, ElementCollection<CalendarTimeRulerItem> calendarTimeRulerItems, double halfTextHeight, double lineThickness)
         {
             foreach (CalendarTimeRulerItem item in calendarTimeRulerItems)
             {
                 var layoutSlot = item.layoutSlot;
-                if (layoutSlot.Y <= hitPoint.Y && layoutSlot.Y + layoutSlot.Height >= hitPoint.Y)
+                var layoutY = layoutSlot.Y + halfTextHeight - lineThickness / 2;
+                if (layoutY <= hitPoint.Y && layoutY + layoutSlot.Height >= hitPoint.Y)
                 {
                     return item;
                 }
@@ -68,7 +69,21 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return true;
         }
 
-        internal TimeSlotTapContext GetSlotContextFromPoint(Point hitPoint, double offset)
+        private static TimeSpan GetExactTimeFromPoint(Point hitPoint, CalendarTimeRulerItem item, double halfTextHeight, double lineThickness)
+        {
+            var layoutSlot = item.layoutSlot;
+            var layoutSlotY = layoutSlot.Y + halfTextHeight - lineThickness / 2;
+
+            var yDiff = hitPoint.Y - layoutSlotY;
+            var coeff = yDiff / layoutSlot.Height;
+            TimeSpan totalSlotTimeLenght = item.EndTime - item.StartTime;
+            var exactTimeMilliseconds = totalSlotTimeLenght.TotalMilliseconds * coeff;
+            var exactTime = TimeSpan.FromMilliseconds(exactTimeMilliseconds);
+
+            return item.StartTime.Add(exactTime);
+        }
+
+        internal TimeSlotTapContext GetSlotContextFromPoint(Point hitPoint)
         {
             var calendar = this.Owner;
             var model = calendar.Model;
@@ -79,7 +94,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             var multiDayViewSettings = calendar.MultiDayViewSettings;
             var visibleDays = multiDayViewSettings.VisibleDays;
 
-            var timeRulerItem = HitTestService.GetTimeRulerItemFromPoint(hitPoint, calendarTimeRulerItems);
+            var halfTextHeight = model.multiDayViewModel.halfTextHeight;
+            var thickness = calendar.GridLinesThickness;
+            var timeRulerItem = HitTestService.GetTimeRulerItemFromPoint(hitPoint, calendarTimeRulerItems, halfTextHeight, thickness);
+            if (timeRulerItem == null)
+            {
+                return null;
+            }
+
             var calendarCellIndex = HitTestService.GetCellIndexFromPoint(hitPoint, cellModels);
             var realIndex = calendarCellIndex + visibleDays;
             var calendarCell = cellModels[realIndex];
@@ -94,18 +116,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             var exactStartDate = startDate;
             var exactEndDate = endDate;
 
+            var exactTime = GetExactTimeFromPoint(hitPoint, timeRulerItem, halfTextHeight, thickness);
+            var exactDate = calendarCell.Date.AddMilliseconds(exactTime.TotalMilliseconds);
+
             var specialSlots = multiDayViewSettings.SpecialSlotsSource;
             bool isReadOnly = false;
             if (specialSlots != null)
             {
                 foreach (var specialSlot in specialSlots)
                 {
-                    var layoutSlot = specialSlot.layoutSlot;
-                    if (layoutSlot.Y <= hitPoint.Y && layoutSlot.Y + layoutSlot.Height >= hitPoint.Y 
-                        && layoutSlot.X <= (hitPoint.X + offset) && layoutSlot.X + layoutSlot.Width >= (hitPoint.X + offset))
+                    if (exactDate >= specialSlot.Start && exactDate <= specialSlot.End)
                     {
-                        isReadOnly = true;
-                        break;
+                        if (specialSlot.IsReadOnly)
+                        {
+                            isReadOnly = true;
+                            break;
+                        }
                     }
                     else
                     {
