@@ -237,7 +237,7 @@ namespace SDKExamples.UWP.Calendar
             ContentDialog dialog = new ContentDialog
             {
                 Title = "SlotTapped",
-                Content = "Slot Start: " + slot.StartTime + " End: " + slot.EndTime + " was tapped and IsReadOnly: " + slot.IsReadOnly + ".",
+                Content = "Slot Start: " + slot.StartTime + " End: " + slot.EndTime + "Slot Exact Start: " + slot.ExactStartTime + " End Exact: " + slot.ExactEndTime + " was tapped and IsReadOnly: " + slot.IsReadOnly + ".",
                 PrimaryButtonText = "OK"
             };
 
