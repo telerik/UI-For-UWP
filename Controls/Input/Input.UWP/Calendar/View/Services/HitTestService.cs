@@ -54,35 +54,6 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return null;
         }
 
-        private static bool IsDateBetweenRange(DateTime date, DateTime start, DateTime end)
-        {
-            if (date < start)
-            {
-                return false;
-            }
-
-            if (date > end)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static TimeSpan GetExactTimeFromPoint(Point hitPoint, CalendarTimeRulerItem item, double halfTextHeight, double lineThickness)
-        {
-            var layoutSlot = item.layoutSlot;
-            var layoutSlotY = layoutSlot.Y + halfTextHeight - lineThickness / 2;
-
-            var yDiff = hitPoint.Y - layoutSlotY;
-            var coeff = yDiff / layoutSlot.Height;
-            TimeSpan totalSlotTimeLenght = item.EndTime - item.StartTime;
-            var exactTimeMilliseconds = totalSlotTimeLenght.TotalMilliseconds * coeff;
-            var exactTime = TimeSpan.FromMilliseconds(exactTimeMilliseconds);
-
-            return item.StartTime.Add(exactTime);
-        }
-
         internal TimeSlotTapContext GetSlotContextFromPoint(Point hitPoint)
         {
             var calendar = this.Owner;
@@ -152,6 +123,35 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             return new TimeSlotTapContext(startDate, endDate, exactStartDate, exactEndDate, isReadOnly);
+        }
+
+        private static bool IsDateBetweenRange(DateTime date, DateTime start, DateTime end)
+        {
+            if (date < start)
+            {
+                return false;
+            }
+
+            if (date > end)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static TimeSpan GetExactTimeFromPoint(Point hitPoint, CalendarTimeRulerItem item, double halfTextHeight, double lineThickness)
+        {
+            var layoutSlot = item.layoutSlot;
+            var layoutSlotY = layoutSlot.Y + halfTextHeight - lineThickness / 2;
+
+            var yDiff = hitPoint.Y - layoutSlotY;
+            var coeff = yDiff / layoutSlot.Height;
+            TimeSpan totalSlotTimeLenght = item.EndTime - item.StartTime;
+            var exactTimeMilliseconds = totalSlotTimeLenght.TotalMilliseconds * coeff;
+            var exactTime = TimeSpan.FromMilliseconds(exactTimeMilliseconds);
+
+            return item.StartTime.Add(exactTime);
         }
     }
 }
