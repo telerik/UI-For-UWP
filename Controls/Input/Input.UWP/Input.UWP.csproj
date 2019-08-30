@@ -77,6 +77,7 @@
     <Compile Include="Calendar\View\MultiDayView\CalendarTimeRulerItemStyleSelector.cs" />
     <Compile Include="Calendar\View\MultiDayView\SlotControl.cs" />
     <Compile Include="Calendar\View\MultiDayView\SpecialSlotStyleSelector.cs" />
+    <Compile Include="Calendar\View\Services\Commands\TimeSlotTapContext.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimeListAutomationPeer.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimeListItemAutomationPeer.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\DateTimePickerAutomationPeer.cs" />

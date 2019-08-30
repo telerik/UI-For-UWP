@@ -39,12 +39,13 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return -1;
         }
 
-        public static CalendarTimeRulerItem GetTimeRulerItemFromPoint(Point hitPoint, ElementCollection<CalendarTimeRulerItem> calendarTimeRulerItems)
+        public static CalendarTimeRulerItem GetTimeRulerItemFromPoint(Point hitPoint, ElementCollection<CalendarTimeRulerItem> calendarTimeRulerItems, double halfTextHeight, double lineThickness)
         {
             foreach (CalendarTimeRulerItem item in calendarTimeRulerItems)
             {
                 var layoutSlot = item.layoutSlot;
-                if (layoutSlot.Y <= hitPoint.Y && layoutSlot.Y + layoutSlot.Height >= hitPoint.Y)
+                var layoutY = layoutSlot.Y + halfTextHeight - lineThickness / 2;
+                if (layoutY <= hitPoint.Y && layoutY + layoutSlot.Height >= hitPoint.Y)
                 {
                     return item;
                 }
@@ -53,7 +54,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return null;
         }
 
-        internal Slot GetSlotFromPoint(Point hitPoint)
+        internal TimeSlotTapContext GetSlotContextFromPoint(Point hitPoint)
         {
             var calendar = this.Owner;
             var model = calendar.Model;
@@ -64,40 +65,93 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             var multiDayViewSettings = calendar.MultiDayViewSettings;
             var visibleDays = multiDayViewSettings.VisibleDays;
 
-            var timeRulerItem = HitTestService.GetTimeRulerItemFromPoint(hitPoint, calendarTimeRulerItems);
+            var halfTextHeight = model.multiDayViewModel.halfTextHeight;
+            var thickness = calendar.GridLinesThickness;
+            var timeRulerItem = HitTestService.GetTimeRulerItemFromPoint(hitPoint, calendarTimeRulerItems, halfTextHeight, thickness);
+            if (timeRulerItem == null)
+            {
+                return null;
+            }
+
             var calendarCellIndex = HitTestService.GetCellIndexFromPoint(hitPoint, cellModels);
-            var calendarCell = cellModels[calendarCellIndex + visibleDays];
+            var realIndex = calendarCellIndex + visibleDays;
+            var calendarCell = cellModels[realIndex];
 
             DateTime slotDate = calendarCell.Date;
             TimeSpan slotStartTime = timeRulerItem.StartTime;
             TimeSpan slotEndTime = timeRulerItem.EndTime;
 
-            Slot slot = new Slot(slotDate.Add(slotStartTime), slotDate.Add(slotEndTime));
-            slot.IsReadOnly = this.IsSlotReadOnly(slot);
+            var startDate = slotDate.Add(slotStartTime);
+            var endDate = slotDate.Add(slotEndTime);
 
-            return slot;
-        }
+            var exactStartDate = startDate;
+            var exactEndDate = endDate;
 
-        private bool IsSlotReadOnly(Slot slot)
-        {
-            var multiDayViewSettings = this.Owner.MultiDayViewSettings;
+            var exactTime = GetExactTimeFromPoint(hitPoint, timeRulerItem, halfTextHeight, thickness);
+            var exactDate = calendarCell.Date.AddMilliseconds(exactTime.TotalMilliseconds);
+
             var specialSlots = multiDayViewSettings.SpecialSlotsSource;
             bool isReadOnly = false;
             if (specialSlots != null)
             {
                 foreach (var specialSlot in specialSlots)
                 {
-                    if (specialSlot.IntersectsWith(slot))
+                    if (exactDate >= specialSlot.Start && exactDate <= specialSlot.End)
                     {
                         if (specialSlot.IsReadOnly)
                         {
-                            return true;
+                            isReadOnly = true;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (specialSlot.IsReadOnly)
+                        {
+                            if (IsDateBetweenRange(specialSlot.Start, startDate, endDate) && exactEndDate > specialSlot.Start)
+                            {
+                                exactEndDate = specialSlot.Start;
+                            }
+
+                            if (IsDateBetweenRange(specialSlot.End, startDate, endDate) && exactStartDate < specialSlot.End)
+                            {
+                                exactStartDate = specialSlot.End;
+                            }
                         }
                     }
                 }
             }
 
-            return isReadOnly;
+            return new TimeSlotTapContext(startDate, endDate, exactStartDate, exactEndDate, isReadOnly);
+        }
+
+        private static bool IsDateBetweenRange(DateTime date, DateTime start, DateTime end)
+        {
+            if (date < start)
+            {
+                return false;
+            }
+
+            if (date > end)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static TimeSpan GetExactTimeFromPoint(Point hitPoint, CalendarTimeRulerItem item, double halfTextHeight, double lineThickness)
+        {
+            var layoutSlot = item.layoutSlot;
+            var layoutSlotY = layoutSlot.Y + halfTextHeight - lineThickness / 2;
+
+            var yDiff = hitPoint.Y - layoutSlotY;
+            var coeff = yDiff / layoutSlot.Height;
+            TimeSpan totalSlotTimeLenght = item.EndTime - item.StartTime;
+            var exactTimeMilliseconds = totalSlotTimeLenght.TotalMilliseconds * coeff;
+            var exactTime = TimeSpan.FromMilliseconds(exactTimeMilliseconds);
+
+            return item.StartTime.Add(exactTime);
         }
     }
 }
