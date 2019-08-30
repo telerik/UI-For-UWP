@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
+    /// <summary>
+    /// A class that represents the tapped slot.
+    /// </summary>
     public class TimeSlotTapContext
     {
         private DateTime startTime;
@@ -10,6 +13,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         private DateTime exactEndTime;
         private bool isReadOnly;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimeSlotTapContext"/> class.
+        /// </summary>
         public TimeSlotTapContext(DateTime startTime, DateTime endTime, DateTime exactStartTime, DateTime exactEndTime, bool isReadOnly)
         {
             this.startTime = startTime;
@@ -19,6 +25,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.isReadOnly = isReadOnly;
         }
 
+        /// <summary>
+        /// Gets the start <see cref="DateTime"/> of the tapped slot.
+        /// </summary>
         public DateTime StartTime
         {
             get
@@ -27,6 +36,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        /// <summary>
+        /// Gets the end <see cref="DateTime"/> of the tapped slot.
+        /// </summary>
         public DateTime EndTime
         {
             get
@@ -35,6 +47,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        /// <summary>
+        /// Gets the exact start <see cref="DateTime"/> of the tapped slot.
+        /// </summary>
         public DateTime ExactStartTime
         {
             get
@@ -43,6 +58,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        /// <summary>
+        /// Gets the exact end <see cref="DateTime"/> of the tapped slot.
+        /// </summary>
         public DateTime ExactEndTime
         {
             get
@@ -51,6 +69,12 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the tapped slot is read only.
+        /// </summary>
+        /// <value>
+        /// True if this slot is read only; otherwise, False.
+        /// </value>
         public bool IsReadOnly
         {
             get
