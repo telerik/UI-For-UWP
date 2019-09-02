@@ -2415,6 +2415,16 @@ namespace Telerik.UI.Xaml.Controls.Input
             base.UnapplyTemplateCore();
         }
 
+        /// <inheritdoc/>
+        protected override void LoadCore()
+        {
+            base.LoadCore();
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView && this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+            {
+                this.MultiDayViewSettings.timer.Start();
+            }
+        }
+
         /// <summary>
         /// Called within the handler of the <see cref="E:Unloaded" /> event. Allows inheritors to provide their specific logic.
         /// </summary>
@@ -2422,7 +2432,10 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             base.UnloadCore();
             this.availableCalendarViewSize = new Size(0, 0);
-            this.UnloadMultiDayView();
+            if (this.displayModeCache == CalendarDisplayMode.MultiDayView && this.MultiDayViewSettings.ShowCurrentTimeIndicator)
+            {
+                this.MultiDayViewSettings.timer.Stop();
+            }
         }
 
         /// <summary>
@@ -3031,6 +3044,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             RadCalendar.RemoveLayer(this.allDayAreaLayer, this.calendarViewHost);
             RadCalendar.RemoveLayer(this.timeRulerLayer, this.calendarViewHost);
             RadCalendar.RemoveLayer(this.appointmentLayer, this.calendarViewHost);
+            this.UnloadMultiDayView();
         }
 
         private void UnloadMultiDayView()

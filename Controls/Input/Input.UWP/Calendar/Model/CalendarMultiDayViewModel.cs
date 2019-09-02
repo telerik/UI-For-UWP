@@ -98,7 +98,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             this.dayViewLayoutSlot.Width += cellContentWidth;
             this.Calendar.AnimatableContentClip = this.dayViewLayoutSlot;
 
-            if (this.CalendarCells == null)
+            if (this.CalendarCells == null || this.CalendarCells.Count == 0)
             {
                 this.updateFlag = MultiDayViewUpdateFlag.All;
             }
