@@ -13,12 +13,12 @@
     <local:ExamplePageBase.Resources>
         <example:NonWorkingHoursSpecialSlotStyleSelector x:Key="NonWorkingHoursSpecialSlotStyleSelector">
             <example:NonWorkingHoursSpecialSlotStyleSelector.NonWorkingHours>
-                <Style TargetType="Border">
+                <Style TargetType="calendar:SlotControl">
                     <Setter Property="Background" Value="LightGray"/>
                 </Style>
             </example:NonWorkingHoursSpecialSlotStyleSelector.NonWorkingHours>
             <example:NonWorkingHoursSpecialSlotStyleSelector.SpecialHours>
-                <Style TargetType="Border">
+                <Style TargetType="calendar:SlotControl">
                     <Setter Property="Background" Value="Green"/>
                 </Style>
             </example:NonWorkingHoursSpecialSlotStyleSelector.SpecialHours>

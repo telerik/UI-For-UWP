@@ -12,6 +12,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal ElementCollection<CalendarGridLine> timerRulerLines;
         internal List<CalendarAppointmentInfo> appointmentInfos;
         internal List<CalendarAppointmentInfo> allDayAppointmentInfos;
+        internal List<KeyValuePair<Slot, Slot>> specialSlots;
 
         internal CalendarGridLine horizontalLowerAllDayAreaRulerGridLine;
         internal CalendarGridLine horizontalUpperAllDayAreaRulerGridLine;
@@ -26,11 +27,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         internal double timeRulerWidth;
         internal int allDayAreaRowCount;
         internal MultiDayViewUpdateFlag updateFlag;
+        internal double halfTextHeight;
 
         private const int DefaultSpecificColumnCount = 6;
         private static double DefaultCurrentTimeIndicatorHeight = 2d;
-
-        private double halfTextHeight;
 
         public override int RowCount
         {
@@ -97,6 +97,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             this.dayViewLayoutSlot.Width += cellContentWidth;
             this.Calendar.AnimatableContentClip = this.dayViewLayoutSlot;
+
+            if (this.CalendarCells == null || this.CalendarCells.Count == 0)
+            {
+                this.updateFlag = MultiDayViewUpdateFlag.All;
+            }
 
             if (this.updateFlag == MultiDayViewUpdateFlag.All)
             {
@@ -175,7 +180,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                                 currentAppointmentEndDate = CalendarMathHelper.SetFirstAvailableBusinessDay(currentAppointmentEndDate, -1);
                             }
 
-                            info.hasPrevDay = currentAppointmentStartDate.Date < calendarCell.Date;
+                            info.hasPreviousDay = currentAppointmentStartDate.Date < calendarCell.Date;
                             info.hasNextDay = currentAppointmentEndDate.Date > calendarCell.Date;
                             int xCoeff = (calendarCell.Date - appointment.StartDate.Date).Days;
                             RadRect layoutSlot = new RadRect(calendarCell.layoutSlot.X - this.timeRulerWidth, startY, calendarCell.layoutSlot.Width, endY - startY);
@@ -242,7 +247,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             && a.columnIndex == intersectedAppointment.columnIndex).ToList();
 
             RadRect layout = intersectedAppointment.layoutSlot;
-           
+
             double offset = (layout.Width - maxWidth) * intersectedAppointment.arrangeColumnIndex.Value;
             layout.X -= offset;
             layout.Width = maxWidth;
@@ -322,15 +327,22 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         private void EnsureSlots()
         {
+            if (this.specialSlots == null)
+            {
+                this.specialSlots = new List<KeyValuePair<Slot, Slot>>();
+            }
+            else
+            {
+                foreach (var slot in this.specialSlots)
+                {
+                    slot.Value.layoutSlot = RadRect.Empty;
+                }
+            }
+
             MultiDayViewSettings settings = this.Calendar.multiDayViewSettings;
             IEnumerable<Slot> slots = settings.SpecialSlotsSource;
             if (slots != null && slots.Count() > 0)
             {
-                foreach (Slot slot in slots)
-                {
-                    slot.layoutSlot = RadRect.Empty;
-                }
-
                 foreach (var calendarCell in this.CalendarCells)
                 {
                     var slotsPerCell = slots.Where(a => calendarCell.Date.Date >= a.Start.Date && calendarCell.Date.Date <= a.End.Date);
@@ -351,7 +363,17 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                         if (startY < endY)
                         {
                             RadRect layoutSlot = new RadRect(calendarCell.layoutSlot.X - this.timeRulerWidth, startY, calendarCell.layoutSlot.Width, endY - startY);
-                            slot.layoutSlot = layoutSlot;
+
+                            var specialSlot = this.specialSlots.FirstOrDefault(a => a.Key == slot && a.Value.layoutSlot == RadRect.Empty);
+                            if (specialSlot.Value != null)
+                            {
+                                specialSlot.Value.layoutSlot = layoutSlot;
+                            }
+                            else
+                            {
+                                slot.layoutSlot = layoutSlot;
+                                this.specialSlots.Add(new KeyValuePair<Slot, Slot>(slot, slot.Copy()));
+                            }
                         }
                     }
                 }
@@ -557,17 +579,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             double gridLineThickness = this.Calendar.GridLinesThickness;
             int gridLineHalfThickness = (int)(gridLineThickness / 2);
 
-            if ((this.Calendar.GridLinesVisibility & GridLinesVisibility.Horizontal) == GridLinesVisibility.Horizontal)
-            {
-                this.horizontalTopHeaderRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y, this.layoutSlot.Width, gridLineThickness));
-                this.horizontalUpperAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight, this.layoutSlot.Width, gridLineThickness));
-                this.horizontalLowerAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight + this.totalAllDayAreaHeight + gridLineThickness / 2, this.layoutSlot.Width, 0));
-            }
+            this.horizontalTopHeaderRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y, this.layoutSlot.Width, gridLineThickness));
+            this.horizontalUpperAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight, this.layoutSlot.Width, gridLineThickness));
+            this.horizontalLowerAllDayAreaRulerGridLine.Arrange(new RadRect(this.layoutSlot.X, rect.Y + cellHeight + this.totalAllDayAreaHeight + gridLineThickness / 2, this.layoutSlot.Width, 0));
 
-            if ((this.Calendar.GridLinesVisibility & GridLinesVisibility.Vertical) == GridLinesVisibility.Vertical)
-            {
-                this.verticalRulerGridLine.Arrange(new RadRect(rect.X, rect.Y, gridLineThickness, rect.Height));
-            }
+            this.verticalRulerGridLine.Arrange(new RadRect(rect.X, rect.Y, gridLineThickness, rect.Height));
         }
 
         private void EnsureTimeRulerItems()
@@ -690,8 +706,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             double heightCoeff;
             double timeItemHeight;
             double oneHourTicks = (double)TimeSpan.FromHours(1).Ticks;
-          
-            for (int hourIndex = 0; hourIndex < this.timeRulerItems.Count; hourIndex++)
+
+            var itemsCount = this.timeRulerItems.Count;
+            for (int hourIndex = 0; hourIndex < itemsCount; hourIndex++)
             {
                 CalendarTimeRulerItem timerRulerItem = this.timeRulerItems[hourIndex];
                 timerRulerItem.StartTime = timeSlotTime;
@@ -707,10 +724,14 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                 heightCoeff = (timerRulerItem.EndTime - timerRulerItem.StartTime).Ticks / oneHourTicks;
                 timeItemHeight = settings.TimeLinesSpacing * heightCoeff;
+                if (hourIndex == itemsCount - 1)
+                {
+                    timeItemHeight += this.halfTextHeight - this.Calendar.GridLinesThickness;
+                }
 
-                timerRulerItem.Arrange(new RadRect(0f, previousBottom, timeWidth, timeItemHeight + this.halfTextHeight));
-                previousBottom = timerRulerItem.layoutSlot.Bottom - this.halfTextHeight;
+                timerRulerItem.Arrange(new RadRect(0f, previousBottom, timeWidth, timeItemHeight));
 
+                previousBottom = timerRulerItem.layoutSlot.Bottom;
                 labelText = string.Format(this.Calendar.Culture, this.Calendar.TimeFormat, currentDate.Add(timeSlotTime));
             }
         }

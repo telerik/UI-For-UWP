@@ -54,53 +54,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
                 if (info.Appointments.Count > 0)
                 {
-                    AppointmentControl element = new AppointmentControl();
-
                     foreach (var appointment in info.Appointments)
                     {
                         info.Subject += (info.Subject != null ? Environment.NewLine : string.Empty) + appointment.Subject;
                     }
 
-                    element = this.GetDefaultVisual(index);
+                    var element = this.GetDefaultVisual(index);
                     element.Clip = new RectangleGeometry() { Rect = new Rect(0, 0, cell.LayoutSlot.Width, cell.LayoutSlot.Height) };
-                    element.Header = info.Subject;
-                    if (info.Brush != null)
-                    {
-                        element.Background = info.Brush;
-                    }
-
-                    element.Background = info.Brush;
                     element.appointmentInfo = info;
+                    calendar.PrepareContainerForAppointment(element, info);
 
-                    XamlContentLayerHelper.MeasureVisual(element);
-                    if (element != null)
-                    {
-                        StyleSelector styleSelector = calendar.AppointmentStyleSelector;
-                        if (styleSelector != null)
-                        {
-                            var style = styleSelector.SelectStyle(info, element);
-                            if (style != null)
-                            {
-                                element.Style = style;
-                            }
-                        }
-
-                        AppointmentTemplateSelector headerTemplateSelector = calendar.AppointmentHeaderTemplateSelector;
-                        if (headerTemplateSelector != null)
-                        {
-                            DataTemplate template = headerTemplateSelector.SelectTemplate(info, info.cell);
-                            if (template != null)
-                            {
-                                element.HeaderTemplate = template;
-                            }
-                        }
-
-                        RadRect layoutSlot = cell.layoutSlot;
-                        layoutSlot = XamlContentLayerHelper.ApplyLayoutSlotAlignment(element, layoutSlot);
-                        XamlContentLayer.ArrangeUIElement(element, layoutSlot, false);
-
-                        index++;
-                    }
+                    RadRect layoutSlot = cell.layoutSlot;
+                    layoutSlot = XamlContentLayerHelper.ApplyLayoutSlotAlignment(element, layoutSlot);
+                    XamlContentLayer.ArrangeUIElement(element, layoutSlot, false);
+                    index++;
                 }
             }
 
@@ -137,6 +104,8 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 visual.ClearValue(AppointmentControl.VisibilityProperty);
                 visual.ClearValue(AppointmentControl.ContentTemplateProperty);
                 visual.ClearValue(AppointmentControl.HeaderTemplateProperty);
+                visual.ClearValue(AppointmentControl.HeaderProperty);
+                visual.ClearValue(AppointmentControl.ContentProperty);
                 visual.ClearValue(AppointmentControl.StyleProperty);
             }
             else

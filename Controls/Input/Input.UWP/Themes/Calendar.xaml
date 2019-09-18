@@ -79,6 +79,23 @@
         </Setter>
     </Style>
 
+    <Style TargetType="localCalendar:SlotControl">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+        <Setter Property="Canvas.ZIndex" Value="250"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="localCalendar:SlotControl">
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Background="{TemplateBinding Background}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="CalendarLeftArrowButtonStyle" TargetType="Button">
         <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarPreviousNextButtonForegroundBrush}" />
         <Setter Property="FontSize" Value="18" />
@@ -289,25 +306,6 @@
                     <local:CalendarCellStyle.DecorationStyle>
                         <Style TargetType="Border">
                             <Setter Property="BorderBrush" Value="{ThemeResource TelerikCalendarCurrentCellBorderBrush}" />
-                        </Style>
-                    </local:CalendarCellStyle.DecorationStyle>
-                </local:CalendarCellStyle>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="BlackoutCellStyle">
-            <Setter.Value>
-                <local:CalendarCellStyle>
-                    <local:CalendarCellStyle.ContentStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarBlackoutCellForegroundBrush}" />
-                            <Setter Property="FontSize" Value="13.333" />
-                            <Setter Property="VerticalAlignment" Value="Bottom" />
-                            <Setter Property="Margin" Value="6,0,0,4" />
-                        </Style>
-                    </local:CalendarCellStyle.ContentStyle>
-                    <local:CalendarCellStyle.DecorationStyle>
-                        <Style TargetType="Border">
-                            <Setter Property="Background" Value="{ThemeResource TelerikCalendarBlackoutCellBackgroundBrush}" />
                         </Style>
                     </local:CalendarCellStyle.DecorationStyle>
                 </local:CalendarCellStyle>

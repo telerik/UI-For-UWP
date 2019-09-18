@@ -259,5 +259,12 @@
 
     <SolidColorBrush x:Key="TelerikCalendarCurrentCellBorderBrush" Color="#FF0066CC" />
 
+    <!--SpecialSlots-->
+    <SolidColorBrush x:Key="TelerikSpecialSlotBackground" Color="#919191" Opacity="0.27"/>
+    <SolidColorBrush x:Key="TelerikSpecialSlotBackgroundReadOnly" Color="#CCCCCC" Opacity="0.3"/>
+
+    <!--Today MultiDayView-->
+    <SolidColorBrush x:Key="TelerikTodayMultiDayViewBackground" Color="#FFF5F5F5" Opacity="0.5"/>
+
     <!--#endregion-->
 </ResourceDictionary>

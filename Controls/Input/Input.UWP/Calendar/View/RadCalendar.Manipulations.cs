@@ -205,10 +205,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                 Point hitPoint = e.GetPosition(this.timeRulerLayer.contentPanel);
                 CalendarMultiDayViewModel multiDayViewModel = this.model.multiDayViewModel;
                 hitPoint.X += multiDayViewModel.timeRulerWidth;
-                Slot slot = HitTestService.GetSlotFromPoint(hitPoint, multiDayViewModel.timeRulerItems, this.model.CalendarCells, this.MultiDayViewSettings.VisibleDays);
-                if (slot != null)
+
+                var slotContext = this.hitTestService.GetSlotContextFromPoint(hitPoint);
+                if (slotContext != null)
                 {
-                    this.commandService.ExecuteCommand(CommandId.TimeSlotTap, slot);
+                    this.commandService.ExecuteCommand(CommandId.TimeSlotTap, slotContext);
                 }
             }
         }

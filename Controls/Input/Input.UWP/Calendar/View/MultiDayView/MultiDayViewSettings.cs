@@ -162,6 +162,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(WeekendsVisible), typeof(bool), typeof(MultiDayViewSettings), new PropertyMetadata(true, OnWeekendsVisibleChanged));
 
         internal const string DefaultAllDayText = "All-day";
+        internal static SolidColorBrush DefaultBackground;
+
         internal RadCalendar owner;
         internal DispatcherTimer timer;
 
@@ -571,7 +573,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             get
             {
                 if (this.owner != null && this.owner.IsLoaded && this.owner.IsTemplateApplied 
-                    && this.owner.Model.IsTreeLoaded)
+                    && this.owner.Model.IsTreeLoaded && this.owner.DisplayMode == CalendarDisplayMode.MultiDayView)
                 {
                     return true;
                 }
@@ -614,7 +616,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                         }
                     }
 
-                    this.owner.timeRulerLayer?.RecycleSlots(e.OldItems.Cast<Slot>());
+                    this.owner.timeRulerLayer?.RecycleModelSlots(e.OldItems.Cast<Slot>());
                     break;
                 case NotifyCollectionChangedAction.Move:
                 case NotifyCollectionChangedAction.Replace:
@@ -640,7 +642,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (sender == this.SpecialSlotsSource)
             {
-                this.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
+                this.Invalidate(MultiDayViewUpdateFlag.AffectsSpecialSlots);
             }
         }
 
@@ -653,7 +655,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         {
             if (sender is Slot)
             {
-                this.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
+                this.Invalidate(MultiDayViewUpdateFlag.AffectsSpecialSlots);
             }
         }
 
@@ -665,10 +667,14 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.defaultAllDayAreaBorderStyle = this.defaultAllDayAreaBorderStyle ?? (Style)dictionary["AllDayAreaBorderStyle"];
             this.defaultAllDayAreaTextStyle = this.defaultAllDayAreaTextStyle ?? (Style)dictionary["DefaultAllDayTextBlockStyle"];
             this.defaulTodaySlotStyle = this.defaulTodaySlotStyle ?? (Style)dictionary["TodaySlotStyle"];
+            this.defaultSpecialSlotStyleSelector = this.defaultSpecialSlotStyleSelector ?? (SpecialSlotStyleSelector)dictionary["SpecialSlotStyleSelector"];
+            MultiDayViewSettings.DefaultBackground = (SolidColorBrush)dictionary["TelerikCalendarBackgroundBrush"];
         }
 
         internal void DetachEvents()
         {
+            this.owner = null;
+
             if (this.timer != null)
             {
                 this.timer.Tick -= this.TimerCallback;
@@ -684,7 +690,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
-        internal void Invalide(MultiDayViewUpdateFlag flag)
+        internal void Invalidate(MultiDayViewUpdateFlag flag)
         {
             RadCalendar calendar = this.owner;
             if (calendar != null && calendar.IsTemplateApplied && calendar.Model.IsTreeLoaded)
@@ -715,7 +721,14 @@ namespace Telerik.UI.Xaml.Controls.Input
                     {
                         multiDayViewModel.appointmentInfos?.Clear();
                         multiDayViewModel.allDayAppointmentInfos?.Clear();
-                        calendar.allDayAreaLayer?.RecycleAppointments();
+                        calendar.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
+                        calendar.timeRulerLayer?.ClearRealizedAppointmentVisuals();
+                    }
+
+                    if (flag == MultiDayViewUpdateFlag.AffectsSpecialSlots)
+                    {
+                        multiDayViewModel.specialSlots?.Clear();
+                        calendar.timeRulerLayer?.ClearRealizedSlotVisuals();
                     }
 
                     calendar.Model.multiDayViewModel.updateFlag = flag;
@@ -742,7 +755,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                settings.Invalide(MultiDayViewUpdateFlag.All);
+                settings.Invalidate(MultiDayViewUpdateFlag.All);
                 settings.owner?.UpdateNavigationHeaderContent();
 
                 if (value < settings.NavigationStep)
@@ -767,7 +780,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                settings.Invalide(MultiDayViewUpdateFlag.AffectsTimeRuler);
+                settings.Invalidate(MultiDayViewUpdateFlag.AffectsTimeRuler);
             }
         }
 
@@ -800,31 +813,31 @@ namespace Telerik.UI.Xaml.Controls.Input
         private static void OnTimeLinesSpacingChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsTimeRuler);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsTimeRuler);
         }
 
         private static void OnShowAllDayAreaChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
         }
 
         private static void OnAllDayAppointmentMinHeightChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
         }
 
         private static void OnAllDayMaxVisibleRowsChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
         }
 
         private static void OnAllDayAppointmentSpacingChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsAppointments);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsAppointments);
         }
 
         private static void OnShowCurrentTimeIndicator(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -840,7 +853,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 settings.timer.Stop();
             }
 
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator);
         }
 
         private static void OnMultiDayViewHeaderTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -908,10 +921,10 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (oldSlotsSource != null && settings.IsOwnerLoaded)
             {
-                settings.owner.timeRulerLayer.RecycleSlots((IEnumerable<Slot>)oldSlotsSource);
+                settings.owner.timeRulerLayer.RecycleModelSlots((IEnumerable<Slot>)oldSlotsSource);
             }
 
-            settings.Invalide(MultiDayViewUpdateFlag.AffectsSpecialSlots);
+            settings.Invalidate(MultiDayViewUpdateFlag.AffectsSpecialSlots);
         }
 
         private static void OnSpecialSlotStyleSelectorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
@@ -921,7 +934,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (settings.IsOwnerLoaded)
             {
-                settings.owner.timeRulerLayer.UpdateSlots(settings.SpecialSlotsSource);
+                settings.owner.timeRulerLayer.UpdateSlots();
             }
         }
 
@@ -1005,7 +1018,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         private static void OnWeekendsVisibleChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
             MultiDayViewSettings settings = (MultiDayViewSettings)sender;
-            settings.Invalide(MultiDayViewUpdateFlag.All);
+            settings.Invalidate(MultiDayViewUpdateFlag.All);
             settings.owner?.UpdateNavigationHeaderContent();
         }
 
@@ -1031,7 +1044,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
             else
             {
-                this.Invalide(MultiDayViewUpdateFlag.AffectsTimeRuler);
+                this.Invalidate(MultiDayViewUpdateFlag.AffectsTimeRuler);
             }
         }
 
@@ -1059,7 +1072,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void TimerCallback(object sender, object e)
         {
-            this.Invalide(MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator);
+            this.Invalidate(MultiDayViewUpdateFlag.AffectsCurrentTimeIndicator);
         }
 
         private void RecycleTimeRulerVisuals()

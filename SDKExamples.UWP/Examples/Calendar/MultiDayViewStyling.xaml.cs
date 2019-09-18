@@ -233,11 +233,11 @@ namespace SDKExamples.UWP.Calendar
         {
             base.Execute(parameter);
 
-            Slot slot = (Slot)parameter;
+            var slot = (TimeSlotTapContext)parameter;
             ContentDialog dialog = new ContentDialog
             {
                 Title = "SlotTapped",
-                Content = "Slot Start: " + slot.Start + " End: " + slot.End + " was tapped.",
+                Content = "Slot Start: " + slot.StartTime + " End: " + slot.EndTime + "Slot Exact Start: " + slot.ExactStartTime + " End Exact: " + slot.ExactEndTime + " was tapped and IsReadOnly: " + slot.IsReadOnly + ".",
                 PrimaryButtonText = "OK"
             };
 
