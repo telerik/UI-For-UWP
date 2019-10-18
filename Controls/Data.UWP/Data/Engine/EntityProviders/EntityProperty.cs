@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Windows.UI.Xaml.Data;
+using System.Runtime.CompilerServices;
 
 namespace Telerik.Data.Core
 {
@@ -91,8 +91,7 @@ namespace Telerik.Data.Core
             }
             set
             {
-                this.range = value;
-                this.OnPropertyChanged(nameof(this.Range));
+                this.UpdateValue(ref this.range, value);
             }
         }
 
@@ -110,11 +109,12 @@ namespace Telerik.Data.Core
             }
             set
             {
-                this.propertyValue = value;
-
-                this.DisplayPositiveMessage = false;
-
-                this.OnPropertyChanged(nameof(this.PropertyValue));
+                if (!object.Equals(this.propertyValue, value))
+                {
+                    this.propertyValue = value;
+                    this.DisplayPositiveMessage = false;
+                    this.OnPropertyChanged(nameof(this.PropertyValue));
+                }
             }
         }
 
@@ -132,8 +132,7 @@ namespace Telerik.Data.Core
             }
             set
             {
-                this.displayPositiveMessage = value;
-                this.OnPropertyChanged(nameof(this.DisplayPositiveMessage));
+                this.UpdateValue(ref this.displayPositiveMessage, value);
             }
         }
 
@@ -151,8 +150,7 @@ namespace Telerik.Data.Core
             }
             set
             {
-                this.label = value;
-                this.OnPropertyChanged(nameof(this.Label));
+                this.UpdateValue(ref this.label, value);
             }
         }
 
@@ -170,8 +168,7 @@ namespace Telerik.Data.Core
             }
             set
             {
-                this.postitiveMessage = value;
-                this.OnPropertyChanged(nameof(this.PositiveMessage));
+                this.UpdateValue(ref this.postitiveMessage, value);
             }
         }
 
@@ -189,8 +186,7 @@ namespace Telerik.Data.Core
             }
             set
             {
-                this.watermark = value;
-                this.OnPropertyChanged(nameof(this.Watermark));
+                this.UpdateValue(ref this.watermark, value);
             }
         }
 
@@ -248,6 +244,11 @@ namespace Telerik.Data.Core
             }
             internal set
             {
+                if (!object.Equals(this.propertyValue, value))
+                {
+                    return;
+                }
+
                 if (this.errors != null)
                 {
                     this.errors.CollectionChanged -= this.Errors_CollectionChanged;
@@ -280,11 +281,7 @@ namespace Telerik.Data.Core
             }
             set
             {
-                if (this.isValid != value)
-                {
-                    this.isValid = value;
-                    this.OnPropertyChanged(nameof(this.IsValid));
-                }
+                this.UpdateValue(ref this.isValid, value);
             }
         }
 
@@ -409,10 +406,29 @@ namespace Telerik.Data.Core
         protected abstract INumericalRange GetValueRange(object property);
 
         /// <summary>
+        /// Tries to update the underlying field of a property.
+        /// </summary>
+        /// <param name="field">The field to be updated.</param>
+        /// <param name="value">The new value that should be set.</param>
+        /// <param name="propertyName">The name of the property being updated.</param>
+        /// <returns>True if the update was successful, i.e. the property's value changed.</returns>
+        protected bool UpdateValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!object.Equals(field, value))
+            {
+                field = value;
+                this.OnPropertyChanged(propertyName);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Called when property changed.
         /// </summary>
         /// <param name="name">The name of property changed.</param>
-        protected void OnPropertyChanged(string name)
+        protected void OnPropertyChanged([CallerMemberName]string name = null)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;
             if (handler != null)
