@@ -61,6 +61,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         public TimeEditor()
         {
             this.DefaultStyleKey = typeof(TimeEditor);
+            this.UpdateValueTrigger = DateTimePickerUpdateValueTrigger.Immediate;
         }
 
         /// <summary>
