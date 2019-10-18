@@ -84,6 +84,7 @@
     <Compile Include="DateTimePicker\AutomationPeers\DateTimePickerButtonAutomationPeer.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\RadDatePickerAutomationPeer.cs" />
     <Compile Include="DateTimePicker\AutomationPeers\RadTimePickerAutomationPeer.cs" />
+    <Compile Include="DateTimePicker\DateTimePickerUpdateValueTrigger.cs" />
     <Compile Include="NumericBox\AutomationPeers\NumericTextBoxAutomationPeer.cs" />
     <Compile Include="NumericBox\AutomationPeers\RadNumericBoxAutomationPeer.cs" />
     <Compile Include="NumericBox\NumericBoxUpdateValueTrigger.cs" />

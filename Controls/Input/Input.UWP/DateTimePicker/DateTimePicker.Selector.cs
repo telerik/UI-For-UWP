@@ -502,6 +502,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        internal DateTimePickerUpdateValueTrigger UpdateValueTrigger { get; set; }
+
 #if WINDOWS_PHONE_APP
         /// <summary>
         /// Gets the page that hosts this window.
@@ -1408,7 +1410,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             this.selectorUtcValue = selectionChanger.UtcListValue;
             this.updatingSelection--;
 #if !WINDOWS_PHONE_APP
-            if (this.DisplayMode == DateTimePickerDisplayMode.Inline)
+            if (this.DisplayMode == DateTimePickerDisplayMode.Inline ||
+                this.UpdateValueTrigger == DateTimePickerUpdateValueTrigger.Immediate)
             {
                 this.Value = this.GetValueFromKind(this.selectorUtcValue);
             }
