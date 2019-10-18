@@ -706,6 +706,8 @@ namespace Telerik.UI.Xaml.Controls.Input
                         multiDayViewModel.allDayAppointmentInfos?.Clear();
                         multiDayViewModel.appointmentInfos?.Clear();
 
+                        calendar.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
+                        calendar.timeRulerLayer?.ClearRealizedAppointmentVisuals();
                         calendar.contentLayer?.RecycleAllVisuals();
                     }
 
