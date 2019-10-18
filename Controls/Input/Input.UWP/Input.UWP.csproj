@@ -86,6 +86,7 @@
     <Compile Include="DateTimePicker\AutomationPeers\RadTimePickerAutomationPeer.cs" />
     <Compile Include="NumericBox\AutomationPeers\NumericTextBoxAutomationPeer.cs" />
     <Compile Include="NumericBox\AutomationPeers\RadNumericBoxAutomationPeer.cs" />
+    <Compile Include="NumericBox\NumericBoxUpdateValueTrigger.cs" />
     <Compile Include="RangeSlider\RadRangeSlider.cs" />
     <Compile Include="RangeSlider\RadRangeSliderAutomationPeer.cs" />
     <Compile Include="RangeSlider\RangeSliderPanel.cs" />

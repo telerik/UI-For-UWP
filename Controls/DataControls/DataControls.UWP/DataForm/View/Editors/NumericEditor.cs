@@ -53,6 +53,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         public NumericEditor()
         {
             this.DefaultStyleKey = typeof(NumericEditor);
+            this.UpdateValueTrigger = NumericBoxUpdateValueTrigger.Immediate;
         }
 
         /// <summary>
