@@ -67,6 +67,9 @@
                     </ScrollViewer.Resources>
                     <StackPanel Margin="10">
                         <Button Content="Change view" Click="ChangeViewBtnClicked"/>
+                        <Button Content="Change to month" Click="MonthViewChangeBtnClick"/>
+                        <Button Content="Change to day" Click="DayViewChangeBtnClick"/>
+                        <Button Content="Change to multiday" Click="MultiDayViewChangeBtnClick"/>
                         <Button Content="Change week visibility" Click="Button_Click"/>
                         <Button Content="Scroll to random appointment" Click="ScrollToAppointmentBtnClicked"/>
                         <TextBlock x:Name="scrollToTb" Visibility="Collapsed"/>
