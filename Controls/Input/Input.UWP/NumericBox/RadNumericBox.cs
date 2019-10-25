@@ -466,6 +466,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
         }
 
+        internal NumericBoxUpdateValueTrigger UpdateValueTrigger { get; set; }
+
         private static bool IsAzertyKeyboard
         {
             get
@@ -523,8 +525,6 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// </summary>
         internal void BeginEdit()
         {
-            this.isEditing = true;
-
             this.UpdateVisualState(true);
 
             var value = this.Value;
@@ -552,17 +552,13 @@ namespace Telerik.UI.Xaml.Controls.Input
             });
 
             this.Value = this.TryParseValue();
-
-            this.isEditing = false;
-
-            this.UpdateTextBoxText();
         }
 
         /// <summary>
         /// Exposed for testing purposes only.
         /// </summary>
         /// <returns>True if the key is a valid character in the numeric context.</returns>
-        internal bool PreviewKeyDown(VirtualKey key)
+        internal bool IsValidKeyDown(VirtualKey key)
         {
             if (KeyboardHelper.IsModifierKeyDown(VirtualKey.Control))
             {
@@ -1011,18 +1007,21 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void OnTextBoxGotFocus(object sender, RoutedEventArgs e)
         {
+            this.isEditing = true;
             this.BeginEdit();
         }
 
         private void OnTextBoxLostFocus(object sender, RoutedEventArgs e)
         {
             this.CommitEdit();
+            this.isEditing = false;
+            this.UpdateTextBoxText();
         }
 
         private void OnTextBoxPreviewKeyDown(object sender, KeyRoutedEventArgs e)
         {
             // marking the event as Handled will prevent the TextBox from updating its Text in case invalid character is pressed.
-            e.Handled = !this.PreviewKeyDown(e.Key);
+            e.Handled = !this.IsValidKeyDown(e.Key);
         }
 
         private void OnTextBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -1038,6 +1037,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             if (peer != null)
             {
                 peer.RaisePropertyChangedEvent(AutomationElementIdentifiers.ItemStatusProperty, string.Empty, this.TextBox.Text);
+            }
+
+            if (this.UpdateValueTrigger == NumericBoxUpdateValueTrigger.Immediate)
+            {
+                this.CommitEdit();
             }
         }
 
@@ -1114,9 +1118,11 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private void KillTextBoxFocus()
         {
-            if (this.textBox.FocusState != FocusState.Unfocused)
+            if (this.isEditing)
             {
                 this.CommitEdit();
+                this.isEditing = false;
+                this.UpdateTextBoxText();
             }
 
             // kill text box focus (will commit the current edit)
