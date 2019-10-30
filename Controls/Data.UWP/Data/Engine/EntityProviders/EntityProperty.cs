@@ -244,7 +244,7 @@ namespace Telerik.Data.Core
             }
             internal set
             {
-                if (!object.Equals(this.propertyValue, value))
+                if (object.Equals(this.errors, value))
                 {
                     return;
                 }
