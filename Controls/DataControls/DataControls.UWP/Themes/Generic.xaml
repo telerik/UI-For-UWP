@@ -40,6 +40,7 @@
 
     <listView:OrientationToRotateDegreesConverter x:Key="orientationToRotateDegreesConverter" />
     <telerikCore:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    <telerikPrimitives:ContentToVisibilityConverter x:Key="ContentToVisibilityConverter" />
 
     <Style TargetType="listView:ItemCheckBoxControl">
         <Setter Property="MinWidth" Value="29" />
@@ -291,7 +292,11 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <ContentControl Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" Style="{TemplateBinding HeaderStyle}" IsTabStop="False"/>
+                        <ContentControl Content="{TemplateBinding Header}" 
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}" 
+                                        Style="{TemplateBinding HeaderStyle}" 
+                                        Visibility="{Binding Header, Converter={StaticResource ContentToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" 
+                                        IsTabStop="False" />
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
