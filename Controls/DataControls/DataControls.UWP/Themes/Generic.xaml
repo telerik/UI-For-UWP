@@ -40,7 +40,6 @@
 
     <listView:OrientationToRotateDegreesConverter x:Key="orientationToRotateDegreesConverter" />
     <telerikCore:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-    <telerikPrimitives:ContentToVisibilityConverter x:Key="ContentToVisibilityConverter" />
 
     <Style TargetType="listView:ItemCheckBoxControl">
         <Setter Property="MinWidth" Value="29" />
@@ -288,16 +287,7 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <ContentControl Content="{TemplateBinding Header}" 
-                                        ContentTemplate="{TemplateBinding HeaderTemplate}" 
-                                        Style="{TemplateBinding HeaderStyle}" 
-                                        Visibility="{Binding Header, Converter={StaticResource ContentToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" 
-                                        IsTabStop="False" />
-                        <Grid Grid.Row="1">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -316,7 +306,7 @@
                                                            Grid.Column="2" Style="{TemplateBinding IncreaseButtonStyle}"/>
                         </Grid>
                         <ContentControl x:Name="Watermark" Visibility="Collapsed" IsTabStop="False" IsHitTestVisible="False" Content="{TemplateBinding Watermark}" ContentTemplate="{TemplateBinding WatermarkTemplate}"
-                            Foreground="{ThemeResource TelerikNumericBoxWatermarkForegroundBrush}" Padding="4,0,0,2" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="Center"/>
+                            Foreground="{ThemeResource TelerikNumericBoxWatermarkForegroundBrush}" Padding="4,0,0,2" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

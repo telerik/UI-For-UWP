@@ -17,7 +17,6 @@
     <telerikPrimitives:BooleanNotConverter x:Key="IsEnabledConverter" />
     <dataForm:EditorIconVisibilityConverter x:Key="IconVisibilityConverter" />
     <telerikCore:BoolToVisibilityConverter x:Key="HasErrorsToVisibilityConverter" />
-    <telerikPrimitives:ContentToVisibilityConverter x:Key="ContentToVisibilityConverter" />
 
     <x:Double x:Key="SliderOutsideTickBarThemeHeight">4</x:Double>
     <x:Double x:Key="SliderTrackThemeHeight">2</x:Double>
@@ -909,18 +908,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:DateEditor">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid Visibility="{Binding Header, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ContentToVisibilityConverter}}">
-                            <ContentControl Content="{TemplateBinding Header}"
-                                            ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                            Style="{TemplateBinding HeaderStyle}"
-                                            IsTabStop="False" FlowDirection="{TemplateBinding FlowDirection}"
-                                            Visibility="{Binding DisplayMode, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DisplayModeConverter}}"/>
-                        </Grid>
-                        <dataForm:DataFormDateTimePickerButton x:Name="PART_PickerButton" Grid.Row="1"
+                        <dataForm:DataFormDateTimePickerButton x:Name="PART_PickerButton"
                                                                HighlightFillBrush="{TemplateBinding HighlightFillBrush}"
                                                 ErrorIconStyle="{TemplateBinding ErrorIconStyle}"
                                                 HasErrors="{TemplateBinding HasErrors}"
