@@ -908,16 +908,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:DateEditor">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <ContentControl Content="{TemplateBinding Header}"
-                            ContentTemplate="{TemplateBinding HeaderTemplate}"
-                            Style="{TemplateBinding HeaderStyle}"
-                            IsTabStop="False" FlowDirection="{TemplateBinding FlowDirection}"
-                            Visibility="{Binding DisplayMode, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource DisplayModeConverter}}"/>
-                        <dataForm:DataFormDateTimePickerButton x:Name="PART_PickerButton" Grid.Row="1"
+                        <dataForm:DataFormDateTimePickerButton x:Name="PART_PickerButton"
                                                                HighlightFillBrush="{TemplateBinding HighlightFillBrush}"
                                                 ErrorIconStyle="{TemplateBinding ErrorIconStyle}"
                                                 HasErrors="{TemplateBinding HasErrors}"
