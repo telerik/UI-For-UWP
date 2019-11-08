@@ -56,7 +56,7 @@ namespace Telerik.Data.Core
         {
             if (this.SetMethod != null)
             {
-                var value = this.PropertyConverter != null ? this.PropertyConverter.ConvertBack(this.PropertyValue) : this.PropertyValue;
+                var value = this.PropertyValue;
                 var type = this.PropertyType;
 
                 if (value != null && value.GetType() != type)

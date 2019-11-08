@@ -90,6 +90,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             Binding b = new Binding() { Mode = BindingMode.TwoWay, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, };
             b.Path = new PropertyPath("PropertyValue");
+            EditorsHelper.AddPropertyValueConverter(b, this);
             this.SetBinding(StringEditor.TextProperty, b);
 
             Binding b1 = new Binding();

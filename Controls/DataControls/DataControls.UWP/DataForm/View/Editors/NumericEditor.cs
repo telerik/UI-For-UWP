@@ -121,6 +121,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         public void BindEditor()
         {
             Binding b = new Binding() { Mode = BindingMode.TwoWay };
+            EditorsHelper.AddPropertyValueConverter(b, this);
             b.Path = new PropertyPath("PropertyValue");
             this.SetBinding(NumericEditor.ValueProperty, b);
 

@@ -59,7 +59,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// Identifies the <see cref="Value"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(object), typeof(DateTimePicker), new PropertyMetadata(null, OnValueChanged));
+            DependencyProperty.Register(nameof(Value), typeof(DateTime?), typeof(DateTimePicker), new PropertyMetadata(null, OnValueChanged));
 
         /// <summary>
         /// Identifies the <see cref="DisplayValueFormat"/> dependency property.

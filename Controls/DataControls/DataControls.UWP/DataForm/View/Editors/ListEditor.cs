@@ -34,6 +34,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             Binding b = new Binding() { Mode = BindingMode.TwoWay };
             b.Path = new PropertyPath("PropertyValue");
+            EditorsHelper.AddPropertyValueConverter(b, this);
             this.SetBinding(ListEditor.SelectedItemProperty, b);
 
             Binding b2 = new Windows.UI.Xaml.Data.Binding();

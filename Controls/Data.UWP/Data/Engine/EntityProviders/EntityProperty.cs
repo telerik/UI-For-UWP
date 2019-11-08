@@ -333,8 +333,7 @@ namespace Telerik.Data.Core
             this.GroupKey = this.GetPropertyGroupKey(this.PropertyContext);
             this.Index = this.GetPropertyIndex(this.PropertyContext);
 
-            var originalValue = this.PropertyConverter != null ? this.PropertyConverter.Convert(this.GetOriginalValue()) : this.GetOriginalValue();
-            this.PropertyValue = originalValue;
+            this.PropertyValue = this.GetOriginalValue();
             this.IsRequired = this.GetIsRequired(this.PropertyContext);
             this.ValueOptions = this.GetValueOptions(this.PropertyContext);
             this.Range = this.GetValueRange(this.PropertyContext);
@@ -344,6 +343,40 @@ namespace Telerik.Data.Core
         /// Gets the original value of source object.
         /// </summary>
         public abstract object GetOriginalValue();
+
+        internal object GetConvertValue(object value)
+        {
+            object result;
+            IPropertyConverter propertyConverter = this.PropertyConverter;
+
+            if (propertyConverter != null)
+            {
+                result = propertyConverter.Convert(value);
+            }
+            else
+            {
+                result = value;
+            }
+
+            return result;
+        }
+
+        internal object GetConvertBackValue(object value)
+        {
+            object result;
+            IPropertyConverter propertyConverter = this.PropertyConverter;
+
+            if (propertyConverter != null)
+            {
+                result = propertyConverter.ConvertBack(value);
+            }
+            else
+            {
+                result = value;
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Gets the property value is required based on the property context.

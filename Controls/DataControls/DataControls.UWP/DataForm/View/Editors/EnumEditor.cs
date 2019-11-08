@@ -30,7 +30,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             Binding b = new Binding() { Mode = BindingMode.TwoWay };
             b.Path = new PropertyPath("PropertyValue");
+            EditorsHelper.AddPropertyValueConverter(b, this);
             this.SetBinding(EnumEditor.SelectedItemProperty, b);
+
             Binding b1 = new Binding();
             b1.Converter = new EnumToItemsSourceConverter();
             b1.Path = new PropertyPath("PropertyType");
