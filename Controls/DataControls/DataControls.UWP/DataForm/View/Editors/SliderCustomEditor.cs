@@ -70,6 +70,7 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             Binding b5 = new Binding() { Mode = BindingMode.TwoWay };
             b5.Path = new PropertyPath("PropertyValue");
+            EditorsHelper.AddPropertyValueConverter(b5, this);
             this.SetBinding(SliderCustomEditor.ValueProperty, b5);
         }
     }

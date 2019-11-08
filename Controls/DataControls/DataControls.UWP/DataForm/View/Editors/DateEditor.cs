@@ -1,4 +1,5 @@
-﻿using Telerik.UI.Xaml.Controls.Data.DataForm;
+﻿using System;
+using Telerik.UI.Xaml.Controls.Data.DataForm;
 using Telerik.UI.Xaml.Controls.Input;
 using Telerik.UI.Xaml.Controls.Input.DateTimePickers;
 using Windows.UI.Xaml;
@@ -138,6 +139,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             Binding b = new Binding() { Mode = BindingMode.TwoWay };
             b.Path = new Windows.UI.Xaml.PropertyPath("PropertyValue");
+            EditorsHelper.AddPropertyValueConverter(b, this);
             this.SetBinding(DateEditor.ValueProperty, b);
 
             Binding b1 = new Binding();
