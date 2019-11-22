@@ -198,6 +198,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorGeneration\EntityEditorGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorGeneration\IEntityPropertyEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorIconDisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorValueChangedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EntityPropertyControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EnumEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\ErrorsControl.cs" />

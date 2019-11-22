@@ -96,6 +96,11 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
+        /// Raised when an editor changes its value.
+        /// </summary>
+        public event EventHandler<EditorValueChangedEventArgs> EditorValueChanged;
+
+        /// <summary>
         /// Gets or sets the item of the <see cref="RadDataForm"/>.
         /// </summary>
         public object Item
@@ -433,6 +438,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             return groupHeader;
         }
 
+        internal void RaiseEditorValueChanged(string propertyName, object newValue)
+        {
+            this.EditorValueChanged?.Invoke(this, new EditorValueChangedEventArgs(propertyName, newValue));
+        }
+
         /// <summary>
         /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
         /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
@@ -540,13 +550,17 @@ namespace Telerik.UI.Xaml.Controls.Data
         {
             if (e.PropertyName == "PropertyValue")
             {
+                EntityProperty entityProperty = (EntityProperty)sender;
+
+                this.RaiseEditorValueChanged(entityProperty.PropertyName, entityProperty.PropertyValue);
+
                 if (this.ValidationMode == Data.ValidationMode.Immediate)
                 {
-                    this.CommandService.ExecuteCommand(CommandId.Validate, sender as EntityProperty);
+                    this.CommandService.ExecuteCommand(CommandId.Validate, entityProperty);
                 }
                 if (this.CommitMode == Data.CommitMode.Immediate)
                 {
-                    this.CommandService.ExecuteCommand(CommandId.Commit, sender as EntityProperty);
+                    this.CommandService.ExecuteCommand(CommandId.Commit, entityProperty);
                 }
             }
         }
