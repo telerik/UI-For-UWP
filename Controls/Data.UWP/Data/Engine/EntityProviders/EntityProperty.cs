@@ -19,7 +19,7 @@ namespace Telerik.Data.Core
         private bool displayPositiveMessage;
         private string watermark;
         private bool isValid = true;
-
+        private IList valueOptions;
         private INumericalRange range;
 
         /// <summary>
@@ -75,7 +75,17 @@ namespace Telerik.Data.Core
         /// <value>
         /// The value options.
         /// </value>
-        public IList ValueOptions { get; set; }
+        public IList ValueOptions
+        {
+            get
+            {
+                return this.valueOptions;
+            }
+            set
+            {
+                this.UpdateValue(ref this.valueOptions, value);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the range of a property.
