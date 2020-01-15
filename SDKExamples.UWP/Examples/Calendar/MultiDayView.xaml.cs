@@ -95,7 +95,7 @@ namespace SDKExamples.UWP.Calendar
 
             return date.Date == DateTime.MinValue.Date ? date : date.AddDays(-daysToSubtract);
         }
-
+        
         private void MonthViewChangeBtnClick(object sender, RoutedEventArgs e)
         {
             this.calendar.DisplayMode = CalendarDisplayMode.MonthView;
