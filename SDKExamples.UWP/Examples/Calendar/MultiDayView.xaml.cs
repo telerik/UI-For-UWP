@@ -95,6 +95,30 @@ namespace SDKExamples.UWP.Calendar
 
             return date.Date == DateTime.MinValue.Date ? date : date.AddDays(-daysToSubtract);
         }
+        
+        private void MonthViewChangeBtnClick(object sender, RoutedEventArgs e)
+        {
+            this.calendar.DisplayMode = CalendarDisplayMode.MonthView;
+        }
+
+        private void DayViewChangeBtnClick(object sender, RoutedEventArgs e)
+        {
+            this.calendar.MultiDayViewSettings.VisibleDays = 1;
+            if (this.calendar.DisplayMode != CalendarDisplayMode.MultiDayView)
+            {
+                this.calendar.DisplayMode = CalendarDisplayMode.MultiDayView;
+            }
+          
+        }
+
+        private void MultiDayViewChangeBtnClick(object sender, RoutedEventArgs e)
+        {
+            this.calendar.MultiDayViewSettings.VisibleDays = 7;
+            if (this.calendar.DisplayMode != CalendarDisplayMode.MultiDayView)
+            {
+                this.calendar.DisplayMode = CalendarDisplayMode.MultiDayView;
+            }
+        }
     }
 
     public class ViewModel : ViewModelBase

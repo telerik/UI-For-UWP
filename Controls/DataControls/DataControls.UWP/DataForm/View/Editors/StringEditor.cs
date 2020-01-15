@@ -88,8 +88,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         /// </summary>
         public void BindEditor()
         {
-            Binding b = new Binding() { Mode = BindingMode.TwoWay };
+            Binding b = new Binding() { Mode = BindingMode.TwoWay, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, };
             b.Path = new PropertyPath("PropertyValue");
+            EditorsHelper.AddPropertyValueConverter(b, this);
             this.SetBinding(StringEditor.TextProperty, b);
 
             Binding b1 = new Binding();

@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="Common\ContainerGeneration\HexItemModelGenerator.cs" />
     <Compile Include="DataForm\View\Editors\DataFormComboBoxItem.cs" />
+    <Compile Include="DataForm\View\Editors\EditorsHelper\EditorsHelper.cs" />
+    <Compile Include="DataForm\View\Editors\EditorsHelper\EntityPropertyValueConverter.cs" />
     <Compile Include="DataForm\View\Editors\IEditor.cs" />
     <Compile Include="DataForm\View\Editors\SegmentedControlCustomEditor.cs" />
     <Compile Include="DataForm\View\Editors\SliderCustomEditor.cs" />
@@ -196,6 +198,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorGeneration\EntityEditorGenerator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorGeneration\IEntityPropertyEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorIconDisplayMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EditorValueChangedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EntityPropertyControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\EnumEditor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataForm\View\Editors\ErrorsControl.cs" />
