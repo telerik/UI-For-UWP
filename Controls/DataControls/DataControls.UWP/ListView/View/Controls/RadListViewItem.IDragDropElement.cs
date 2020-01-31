@@ -3,6 +3,7 @@ using Telerik.Data.Core;
 using Telerik.UI.Xaml.Controls.Data.ListView.Commands;
 using Telerik.UI.Xaml.Controls.Data.ListView.View.Controls;
 using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Data.ListView
@@ -119,9 +120,12 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
 
                         this.UpdateActionContentClipping(0);
 
+                        CanvasDragSurface dragSurface = new CanvasDragSurface(this.ListView.childrenPanel, this.ListView.childrenPanel as Canvas, false);
+                        dragSurface.MaxPositionOffset = this.listView.ItemSwipeOffset;
+
                         context = new DragStartingContext
                         {
-                            DragSurface = new CanvasDragSurface(this.ListView.childrenPanel, this.ListView.childrenPanel as Canvas, false),
+                            DragSurface = dragSurface,
                             DragVisual = this.dragVisual,
                             HitTestStrategy = new ListViewItemHittestStrategy(this, this),
                             Payload = DragAction.ItemAction

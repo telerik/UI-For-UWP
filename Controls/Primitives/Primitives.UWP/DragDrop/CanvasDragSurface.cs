@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using Telerik.UI.Xaml.Controls.Primitives.DragDrop;
-using Windows.Foundation;
+﻿using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -9,6 +6,8 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
 {
     internal class CanvasDragSurface : DragSurfaceBase
     {
+        internal Thickness MaxPositionOffset = DragVisualContext.InfinityThickness;
+
         private Canvas adorner;
         private FrameworkElement owner;
 
@@ -38,6 +37,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
         {
             var context = new ContentControlDragVisualContext();
             this.adorner.Children.Add(context.DragVisualHost);
+            context.MaxPositionOffset = this.MaxPositionOffset;
             return context;
         }
 
