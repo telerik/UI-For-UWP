@@ -75,7 +75,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.View.Controls
                     Canvas.SetZIndex(groupHeader, MaxGroupCount - element.ItemInfo.Level);
                 }
 
-                groupHeader.IsExpanded = context.IsExpanded;
                 this.owner.PrepareContainerForGroupHeader(groupHeader, context);
                 this.owner.PrepareReorderItem(groupHeader);
             }
@@ -102,8 +101,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.View.Controls
                 var item = element.Container as ListViewGroupHeader;
                 item.ClearValue(ListViewGroupHeader.WidthProperty);
                 item.ClearValue(ListViewGroupHeader.HeightProperty);
-                item.ArrangeSize.Height = 0;
-                item.ArrangeSize.Width = 0;
 
                 this.owner.CleanupReorderItem(item);
                 this.owner.ClearContainerForGroupHeader(item);
