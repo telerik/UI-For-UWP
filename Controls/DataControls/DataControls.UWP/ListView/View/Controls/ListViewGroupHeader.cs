@@ -18,12 +18,8 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
 
         /// <inheritdoc/>
         public Rect arrangeRect;
-        
-        internal bool OwnerArranging;
 
-        internal Size ArrangeSize;
-
-        private Size lastDesiredSize = Size.Empty;
+        internal bool IsInternalUpdate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListViewGroupHeader"/> class.
@@ -156,7 +152,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             }
 
             groupHeader.UpdateVisualState(groupHeader.IsTemplateApplied);
-            if (groupHeader.Owner != null && context != null)
+            if (groupHeader.Owner != null && context != null && !groupHeader.IsInternalUpdate)
             {
                 groupHeader.Owner.OnGroupIsExpandedChanged(context);
             }

@@ -934,11 +934,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                 Canvas.SetLeft(element, container.LayoutSlot.X);
                 Canvas.SetTop(element, container.LayoutSlot.Y);
             }
-
-            if (groupHeader != null)
-            {
-                groupHeader.OwnerArranging = false;
-            }
         }
 
         void IListView.SetScrollPosition(RadPoint point, bool updateUI, bool updateScrollViewer)
@@ -1202,6 +1197,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         protected internal virtual void PrepareContainerForGroupHeader(ListViewGroupHeader groupHeader, GroupHeaderContext context)
         {
             groupHeader.DataContext = context;
+            groupHeader.IsInternalUpdate = true;
+            groupHeader.IsExpanded = context.IsExpanded;
+            groupHeader.IsInternalUpdate = false;
 
             var style = this.GroupHeaderStyle;
             if (style == null)
