@@ -482,13 +482,14 @@ namespace Telerik.UI.Xaml.Controls.Data
         internal ItemInfo? FindDataItemFromIndex(int index, object dataItem = null)
         {
             var enumerator = this.layoutController.strategy.Layout.GetLines(index, true).GetEnumerator();
+            var itemType = dataItem is IDataGroup ? GroupType.Subheading : GroupType.BottomLevel;
 
             ItemInfo? info = null;
             while (enumerator.MoveNext())
             {
                 foreach (var item in enumerator.Current)
                 {
-                    if (item.ItemType == GroupType.BottomLevel)
+                    if (item.ItemType == itemType)
                     {
                         if (dataItem == null || object.Equals(item.Item, dataItem))
                         {
