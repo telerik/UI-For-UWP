@@ -1085,6 +1085,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.commandService.ExecuteCommand(CommandId.GroupHeaderTap, context);
 
             header.IsExpanded = context.IsExpanded;
+
+            if (header.IsFrozen)
+            {
+                this.ScrollItemIntoView(context.Group);
+            }
         }
 
         /// <summary>
