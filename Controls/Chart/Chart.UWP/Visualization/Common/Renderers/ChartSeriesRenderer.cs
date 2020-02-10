@@ -82,34 +82,18 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
+        // When rendering all the points a blurriness might be experienced. This happens when there are a lot of points outside the viewport.
+        // This is a limitation of UWP. More information about it could be found on the following link:
+        // https://social.msdn.microsoft.com/Forums/en-US/9a62ce20-af0f-4def-b5c4-db5b82566ec0/blurry-lines-in-xaml-winrt?forum=winappswithcsharp
+        // In scenarios when there is a need to render a great amount of points outside of the viewport it is recommended to use the Composition mechanism - this is the default mechanism of the series' rendering.
         protected virtual IList<DataPoint> GetRenderPoints()
         {
             if (this.model.renderablePoints.Count > 0)
             {
-                return this.model.renderablePoints.Where(this.ShouldPlotPoint).ToList();
+                return this.model.renderablePoints;
             }
-
-            return this.model.DataPointsInternal.Where(this.ShouldPlotPoint).ToList();
-        }
-
-        protected virtual bool ShouldPlotPoint(DataPoint point)
-        {
-            var pointBounds = RadRect.Round(point.layoutSlot);
-            var plotBounds = this.model.layoutSlot;
-
-            var isWithinXPlot = pointBounds.X <= plotBounds.X + plotBounds.Width && pointBounds.X + pointBounds.Width >= plotBounds.X;
-            var isWithinYPlot = pointBounds.Y <= plotBounds.Y + plotBounds.Height && pointBounds.Y + pointBounds.Height >= plotBounds.Y;
-
-            if (isWithinXPlot && isWithinYPlot)
-            {
-                return true;
-            }
-
-            var plotDirection = this.model.GetTypedValue<AxisPlotDirection>(AxisModel.PlotDirectionPropertyKey, AxisPlotDirection.Vertical);
-
-            // empty values
-            return (isWithinXPlot && double.IsNaN(point.layoutSlot.Y) && plotDirection == AxisPlotDirection.Vertical) ||
-                   (isWithinYPlot && double.IsNaN(point.layoutSlot.X) && plotDirection == AxisPlotDirection.Horizontal);
+            
+            return this.model.DataPointsInternal;
         }
 
         protected Brush GetPaletteBrush(PaletteVisualPart part)
