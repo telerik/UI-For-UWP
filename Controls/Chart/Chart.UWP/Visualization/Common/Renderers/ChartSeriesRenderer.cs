@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Telerik.Charting;
+using Telerik.Core;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Media;
 
@@ -79,19 +80,33 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
         }
-
-        // When rendering all the points a blurriness might be experienced. This happens when there are a lot of points outside the viewport.
-        // This is a limitation of UWP. More information about it could be found on the following link:
-        // https://social.msdn.microsoft.com/Forums/en-US/9a62ce20-af0f-4def-b5c4-db5b82566ec0/blurry-lines-in-xaml-winrt?forum=winappswithcsharp
-        // In scenarios when there is a need to render a great amount of points outside of the viewport it is recommended to use the Composition mechanism - this is the default mechanism of the series' rendering.
         protected virtual IList<DataPoint> GetRenderPoints()
         {
             if (this.model.renderablePoints.Count > 0)
             {
-                return this.model.renderablePoints;
+                return this.GetRenderPoints(this.model.renderablePoints);
             }
+
+            return this.GetRenderPoints(this.model.DataPointsInternal);
+        }
+
+        protected virtual bool ShouldPlotPoint(RadRect point)
+        {
+            var plotBounds = this.model.layoutSlot;
+
+            var isWithinXPlot = point.X <= plotBounds.X + plotBounds.Width && point.X + point.Width >= plotBounds.X;
+            var isWithinYPlot = point.Y <= plotBounds.Y + plotBounds.Height && point.Y + point.Height >= plotBounds.Y;
+
+            if (isWithinXPlot && isWithinYPlot)
+            {
+                return true;
+            }
+
+            var plotDirection = this.model.GetTypedValue<AxisPlotDirection>(AxisModel.PlotDirectionPropertyKey, AxisPlotDirection.Vertical);
             
-            return this.model.DataPointsInternal;
+            // empty values
+            return (isWithinXPlot && double.IsNaN(point.Y) && plotDirection == AxisPlotDirection.Vertical) ||
+                   (isWithinYPlot && double.IsNaN(point.X) && plotDirection == AxisPlotDirection.Horizontal);
         }
 
         protected Brush GetPaletteBrush(PaletteVisualPart part)
@@ -108,5 +123,67 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected abstract void Reset();
 
         protected abstract void RenderCore();
+
+        private static bool LineIntersectsRect(RadPoint firstPoint, RadPoint secondPoint, RadRect rect)
+        {
+            return LineIntersectsLine(firstPoint, secondPoint, new RadPoint(rect.X, rect.Y), new RadPoint(rect.X + rect.Width, rect.Y)) ||
+                LineIntersectsLine(firstPoint, secondPoint, new RadPoint(rect.X + rect.Width, rect.Y), new RadPoint(rect.X + rect.Width, rect.Y + rect.Height)) ||
+                LineIntersectsLine(firstPoint, secondPoint, new RadPoint(rect.X + rect.Width, rect.Y + rect.Height), new RadPoint(rect.X, rect.Y + rect.Height)) ||
+                LineIntersectsLine(firstPoint, secondPoint, new RadPoint(rect.X, rect.Y + rect.Height), new RadPoint(rect.X, rect.Y)) ||
+                (rect.Contains(firstPoint.X, firstPoint.Y) && rect.Contains(secondPoint.X, secondPoint.Y));
+        }
+
+        private static bool LineIntersectsLine(RadPoint firstLineFirstPoint, RadPoint firstLineSecondPoint, RadPoint secondLineFirstPoint, RadPoint secondLineSecondPoint)
+        {
+            var d = (firstLineSecondPoint.X - firstLineFirstPoint.X) * (secondLineSecondPoint.Y - secondLineFirstPoint.Y) - (firstLineSecondPoint.Y - firstLineFirstPoint.Y) * (secondLineSecondPoint.X - secondLineFirstPoint.X);
+            if (d == 0)
+            {
+                return false;
+            }
+
+            var q = (firstLineFirstPoint.Y - secondLineFirstPoint.Y) * (secondLineSecondPoint.X - secondLineFirstPoint.X) - (firstLineFirstPoint.X - secondLineFirstPoint.X) * (secondLineSecondPoint.Y - secondLineFirstPoint.Y);
+            var r = q / d;
+
+            q = (firstLineFirstPoint.Y - secondLineFirstPoint.Y) * (firstLineSecondPoint.X - firstLineFirstPoint.X) - (firstLineFirstPoint.X - secondLineFirstPoint.X) * (firstLineSecondPoint.Y - firstLineFirstPoint.Y);
+            var s = q / d;
+            if (r < 0 || r > 1 || s < 0 || s > 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private List<DataPoint> GetRenderPoints(IList<DataPoint> points)
+        {
+            var renderPoints = new List<DataPoint>();
+            for (int i = 0; i < points.Count; i++)
+            {
+                var point = points[i];
+                var pointBounds = RadRect.Round(point.layoutSlot);
+                if (this.ShouldPlotPoint(pointBounds))
+                {
+                    renderPoints.Add(point);
+                    continue;
+                }
+
+                RadRect nextPointBounds = RadRect.Empty;
+                if (i + 1 < points.Count)
+                {
+                    nextPointBounds = RadRect.Round(points[i + 1].layoutSlot);
+                }
+                else if (i - 1 > -1)
+                {
+                    nextPointBounds = RadRect.Round(points[i - 1].layoutSlot);
+                }
+
+                if (LineIntersectsRect(pointBounds.Location, nextPointBounds.Location, this.model.layoutSlot))
+                {
+                    renderPoints.Add(points[i]);
+                }
+            }
+
+            return renderPoints;
+        }
     }
 }
