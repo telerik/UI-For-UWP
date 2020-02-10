@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Telerik.Charting;
-using Telerik.Core;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Media;
 
