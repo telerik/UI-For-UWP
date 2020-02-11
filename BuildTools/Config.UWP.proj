@@ -15,6 +15,7 @@
     <X86Platform>x86</X86Platform>
     <X64Platform>x64</X64Platform>
     <ArmPlatform>ARM</ArmPlatform>
+    <Arm64Platform>ARM64</Arm64Platform>
   </PropertyGroup>
 
 </Project>
