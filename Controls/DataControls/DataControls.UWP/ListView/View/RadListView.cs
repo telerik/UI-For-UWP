@@ -760,6 +760,16 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
+        /// Scrolls the <see cref="RadListView"/> to the specified position.
+        /// </summary>
+        /// <param name="position">The position to scroll to.</param>
+        public void ScrollToPosition(Point position)
+        {
+            this.SetHorizontalOffset(position.X, true, true);
+            this.SetVerticalOffset(position.Y, true, true);
+        }
+
+        /// <summary>
         /// Attempts to bring the specified data item into view asynchronously.
         /// </summary>
         /// <param name="item">The data item to scroll to.</param>
