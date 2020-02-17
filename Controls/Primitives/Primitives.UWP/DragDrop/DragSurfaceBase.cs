@@ -54,8 +54,8 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
 
         private static Point GetRestrictedDragPoint(DragVisualContext context, Point dragPoint, Point relativeStartPosition, Thickness maxPositionOffset)
         {
-            double x = RadMath.CoerceValue(dragPoint.X - relativeStartPosition.X, -maxPositionOffset.Left, maxPositionOffset.Right);
-            double y = RadMath.CoerceValue(dragPoint.Y - relativeStartPosition.Y, -maxPositionOffset.Top, maxPositionOffset.Bottom);
+            double x = RadMath.CoerceValue(dragPoint.X - relativeStartPosition.X, -maxPositionOffset.Right, maxPositionOffset.Left);
+            double y = RadMath.CoerceValue(dragPoint.Y - relativeStartPosition.Y, -maxPositionOffset.Bottom, maxPositionOffset.Top);
 
             switch (context.PositionRestriction)
             {
