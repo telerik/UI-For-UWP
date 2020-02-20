@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using Telerik.UI.Xaml.Controls.Input.Calendar.AutomationPeers;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
@@ -60,6 +62,11 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             {
                 this.calendarFooterButton.Click -= CalendarFooterButtonClick;
             }
+        }
+
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new CalendarFooterControlAutomationPeer(this);
         }
 
         private void CalendarFooterButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)

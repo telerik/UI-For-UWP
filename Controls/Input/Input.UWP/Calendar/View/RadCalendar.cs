@@ -3697,7 +3697,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             availableSize.Width -= this.BorderThickness.Left + this.BorderThickness.Right + this.Padding.Left + this.Padding.Right;
             availableSize.Height -= this.BorderThickness.Top + this.BorderThickness.Bottom + this.Padding.Top + this.Padding.Bottom;
 
-            if (this.navigationPanel != null)
+            if (this.navigationPanel != null && this.HeaderVisibility == Visibility.Visible)
             {
                 availableSize.Height -= this.navigationPanel.ActualHeight;
             }
@@ -3740,6 +3740,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                 navigationPanelHeight = this.navigationPanel.ActualHeight;
             }
 
+            double footerPanelHeight = 0d;
+            if (this.footerPanel != null)
+            {
+                footerPanelHeight = this.footerPanel.ActualHeight;
+            }
+
             // NOTE: We need to be able to overlap the outer border of the control with the cell decoration visuals.
             // NOTE: We need to be able to display the hold clue visualization for the first row of cells properly (multiple selection)
             RectangleGeometry clip = new RectangleGeometry();
@@ -3747,7 +3753,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 -this.BorderThickness.Left,
                 -(this.BorderThickness.Top + navigationPanelHeight),
                 (int)(this.calendarViewHost.ActualWidth + this.BorderThickness.Left + this.BorderThickness.Right + .5),
-                (int)(this.calendarViewHost.ActualHeight + navigationPanelHeight + this.BorderThickness.Top + this.BorderThickness.Bottom + .5));
+                (int)(this.calendarViewHost.ActualHeight + navigationPanelHeight + footerPanelHeight + this.BorderThickness.Top + this.BorderThickness.Bottom + .5));
 
             this.calendarViewHost.Clip = clip;
         }
