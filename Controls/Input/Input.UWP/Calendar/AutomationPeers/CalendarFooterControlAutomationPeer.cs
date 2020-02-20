@@ -5,9 +5,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar.AutomationPeers
     public class CalendarFooterControlAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CalendarNavigationControlAutomationPeer"/> class.
+        /// Initializes a new instance of the <see cref="CalendarFooterControlAutomationPeer"/> class.
         /// </summary>
-        /// <param name="owner">CalendarNavigationControl owner.</param>
+        /// <param name="owner">CalendarFooterControl owner.</param>
         public CalendarFooterControlAutomationPeer(CalendarFooterControl owner) : base(owner)
         {
         }
