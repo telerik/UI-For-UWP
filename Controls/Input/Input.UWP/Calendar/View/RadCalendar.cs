@@ -416,7 +416,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
-        /// Occurs when the <see cref="CalendarButton"/> is clicked.
+        /// Occurs when the CalendarButton is clicked.
         /// </summary>
         public event EventHandler<EventArgs> FooterButtonClicked;
 

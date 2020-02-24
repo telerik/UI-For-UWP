@@ -275,11 +275,7 @@
     </Style>
 
     <Style TargetType="localCalendar:CalendarFooterControl" x:Key="CalendarFooterControlStyle">
-        <Setter Property="ButtonStyle">
-            <Setter.Value>
-                <Style BasedOn="{StaticResource CalendarFooterControlButtonStyle}" TargetType="Button"/>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="ButtonStyle" Value="{StaticResource CalendarFooterControlButtonStyle}"/>
         <Setter Property="MinHeight" Value="48"/>
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Background" Value="{ThemeResource TelerikCalendarFooterControlBackgroundBrush}" />
