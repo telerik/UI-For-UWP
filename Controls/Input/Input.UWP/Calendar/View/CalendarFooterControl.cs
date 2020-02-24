@@ -8,10 +8,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
     public class CalendarFooterControl : RadControl
     {
         /// <summary>
-        /// Identifies the <c cref=FooterControlButtonStyle"/> dependency property.
+        /// Identifies the <c cref=ButtonStyle"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty FooterControlButtonStyleProperty =
-            DependencyProperty.Register(nameof(FooterControlButtonStyle), typeof(Style), typeof(CalendarFooterControl), new PropertyMetadata(null));
+        public static readonly DependencyProperty ButtonStyleProperty =
+            DependencyProperty.Register(nameof(ButtonStyle), typeof(Style), typeof(CalendarFooterControl), new PropertyMetadata(null));
 
         private Button calendarFooterButton;
 
@@ -23,15 +23,15 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
         /// <summary>
         /// Gets or sets the Style for the Button of the Footer control.
         /// </summary>
-        public Style FooterControlButtonStyle
+        public Style ButtonStyle
         {
             get
             {
-                return (Style)this.GetValue(FooterControlButtonStyleProperty);
+                return (Style)this.GetValue(ButtonStyleProperty);
             }
             set
             {
-                this.SetValue(FooterControlButtonStyleProperty, value);
+                this.SetValue(ButtonStyleProperty, value);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             base.OnTemplateApplied();
             if (this.calendarFooterButton != null)
             {
-                this.calendarFooterButton.Click += CalendarFooterButtonClick;
+                this.calendarFooterButton.Click += this.CalendarFooterButtonClick;
             }
         }
 
@@ -60,7 +60,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
             if (this.calendarFooterButton != null)
             {
-                this.calendarFooterButton.Click -= CalendarFooterButtonClick;
+                this.calendarFooterButton.Click -= this.CalendarFooterButtonClick;
             }
         }
 

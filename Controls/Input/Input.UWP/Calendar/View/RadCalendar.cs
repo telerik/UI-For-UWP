@@ -348,7 +348,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private const string CalendarViewHostPartName = "PART_CalendarViewHost";
         private const string NavigationControlPanelName = "navigationControl";
-        private const string FooterControlPanelName = "footerControl";
+        private const string FooterControlPanelName = "PART_FooterControl";
 
         private readonly HitTestService hitTestService;
         private readonly InputService inputService;
@@ -418,7 +418,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Occurs when the <see cref="CalendarButton"/> is clicked.
         /// </summary>
-        public event EventHandler<EventArgs> CalendarButtonClicked;
+        public event EventHandler<EventArgs> FooterButtonClicked;
 
         /// <summary>
         /// Occurs when the <see cref="DisplayDate"/> property is changed.
@@ -2290,7 +2290,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         
         internal void OnCalendarButtonClicked() 
         {
-            this.CalendarButtonClicked?.Invoke(this, EventArgs.Empty);
+            this.FooterButtonClicked?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

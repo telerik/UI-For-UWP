@@ -265,7 +265,7 @@
     </Style>
     
     <Style TargetType="Button" x:Key="CalendarFooterControlButtonStyle">
-        <Setter Property="Width" Value="47"/>
+        <Setter Property="MinWidth" Value="47"/>
         <Setter Property="Content" Value="+"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="FontSize" Value="24"/>
@@ -274,14 +274,14 @@
     </Style>
 
     <Style TargetType="localCalendar:CalendarFooterControl" x:Key="CalendarFooterControlStyle">
-        <Setter Property="FooterControlButtonStyle">
+        <Setter Property="ButtonStyle">
             <Setter.Value>
                 <Style BasedOn="{StaticResource CalendarFooterControlButtonStyle}" TargetType="Button"/>
             </Setter.Value>
         </Setter>
-        <Setter Property="Height" Value="48"/>
+        <Setter Property="MinHeight" Value="48"/>
         <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="Background" Value="#F7F7F7" />
+        <Setter Property="Background" Value="{ThemeResource TelerikCalendarFooterControlBackgroundBrush}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Template">
             <Setter.Value>
@@ -289,7 +289,7 @@
                     <Grid x:Name="calendarFooterPanel"
                           Background="{TemplateBinding Background}">
                         <Button x:Name="calendarFooterButton"
-                                Style="{TemplateBinding FooterControlButtonStyle}"/>
+                                Style="{TemplateBinding ButtonStyle}"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -396,7 +396,7 @@
                                 </Canvas.RenderTransform>
                             </localCalendar:CalendarViewHost>
 
-                            <localCalendar:CalendarFooterControl x:Name="footerControl"
+                            <localCalendar:CalendarFooterControl x:Name="PART_FooterControl"
                                                                  Grid.Row="2"
                                                                  Visibility="{TemplateBinding FooterVisibility}"/>
                         </Grid>
