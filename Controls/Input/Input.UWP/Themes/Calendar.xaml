@@ -270,7 +270,7 @@
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarFooterButtonForegroundBrush}" />
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="{ThemeResource TelerikCalendarFooterButtonBackgroundBrush}" />
     </Style>
 
     <Style TargetType="localCalendar:CalendarFooterControl" x:Key="CalendarFooterControlStyle">

@@ -255,7 +255,8 @@
 
     <!--FooterControl-->
     <SolidColorBrush x:Key="TelerikCalendarFooterButtonForegroundBrush" Color="{ThemeResource TelerikWhiteColor}" />
-    <SolidColorBrush x:Key="TelerikCalendarFooterControlBackgroundBrush" Color="#F7F7F7" />
+    <SolidColorBrush x:Key="TelerikCalendarFooterButtonBackgroundBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TelerikCalendarFooterControlBackgroundBrush" Color="#FF373737" />
 
     <!--PointerOver-->
     <SolidColorBrush x:Key="TelerikCalendarPointerOverBackgroundBrush" Color="#193399FF" />

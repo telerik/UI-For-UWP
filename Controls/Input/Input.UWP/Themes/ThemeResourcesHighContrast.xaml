@@ -253,8 +253,9 @@
     <SolidColorBrush x:Key="TelerikCalendarHeaderButtonPointerOverForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
     
     <!--FooterControl-->
-    <SolidColorBrush x:Key="TelerikCalendarFooterButtonForegroundBrush" Color="{ThemeResource SystemColorHighlightTextColor}" />
-    <SolidColorBrush x:Key="TelerikCalendarFooterControlBackgroundBrush" Color="#F7F7F7" />
+    <SolidColorBrush x:Key="TelerikCalendarFooterButtonForegroundBrush" Color="{ThemeResource SystemColorHotlightColor}" />
+    <SolidColorBrush x:Key="TelerikCalendarFooterButtonBackgroundBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="TelerikCalendarFooterControlBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
 
     <!--Hover-->
     <SolidColorBrush x:Key="TelerikCalendarPointerOverBackgroundBrush" Color="{ThemeResource SystemColorHighlightColor}" />
