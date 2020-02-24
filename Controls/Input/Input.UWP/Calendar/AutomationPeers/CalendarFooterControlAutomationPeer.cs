@@ -2,6 +2,9 @@
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar.AutomationPeers
 {
+    /// <summary>
+    /// AutomationPeer class for CalendarFooterControl.
+    /// </summary>
     public class CalendarFooterControlAutomationPeer : RadControlAutomationPeer
     {
         /// <summary>

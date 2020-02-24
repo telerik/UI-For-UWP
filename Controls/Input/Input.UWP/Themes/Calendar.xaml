@@ -268,6 +268,7 @@
         <Setter Property="MinWidth" Value="47"/>
         <Setter Property="Content" Value="+"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="AutomationProperties.Name" Value="CalendarFooterControlButton"/>
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="Foreground" Value="{ThemeResource TelerikCalendarFooterButtonForegroundBrush}" />
         <Setter Property="Background" Value="{ThemeResource TelerikCalendarFooterButtonBackgroundBrush}" />
@@ -398,6 +399,7 @@
 
                             <localCalendar:CalendarFooterControl x:Name="PART_FooterControl"
                                                                  Grid.Row="2"
+                                                                 Canvas.ZIndex="-1"
                                                                  Visibility="{TemplateBinding FooterVisibility}"/>
                         </Grid>
                     </Border>

@@ -5,16 +5,22 @@ using Windows.UI.Xaml.Controls;
 
 namespace Telerik.UI.Xaml.Controls.Input.Calendar
 {
+    /// <summary>
+    /// Represents the footer panel of the calendar control.
+    /// </summary>
     public class CalendarFooterControl : RadControl
     {
         /// <summary>
-        /// Identifies the <c cref=ButtonStyle"/> dependency property.
+        /// Identifies the <c cref="ButtonStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ButtonStyleProperty =
             DependencyProperty.Register(nameof(ButtonStyle), typeof(Style), typeof(CalendarFooterControl), new PropertyMetadata(null));
 
         private Button calendarFooterButton;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CalendarFooterControl"/> class.
+        /// </summary>
         public CalendarFooterControl()
         {
             this.DefaultStyleKey = typeof(CalendarFooterControl);
@@ -37,6 +43,10 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
 
         internal RadCalendar Owner { get; set; }
 
+        /// <summary>
+        /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
+        /// This is done to ensure that the <see cref="P:IsTemplateApplied" /> property is properly initialized.
+        /// </summary>
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -45,6 +55,9 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             return applied;
         }
 
+        /// <summary>
+        /// Occurs when the <see cref="M:OnApplyTemplate" /> method has been called and the template is already successfully applied.
+        /// </summary>
         protected override void OnTemplateApplied()
         {
             base.OnTemplateApplied();
@@ -54,6 +67,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        /// <inheritdoc/>
         protected override void UnapplyTemplateCore()
         {
             base.UnapplyTemplateCore();
@@ -64,6 +78,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
         }
 
+        /// <inheritdoc/>
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new CalendarFooterControlAutomationPeer(this);
