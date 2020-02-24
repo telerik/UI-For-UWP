@@ -59,6 +59,7 @@
     <Compile Include="AutoCompleteBox\AutomationPeers\RadAutoCompleteBoxAutomationPeer.cs" />
     <Compile Include="AutoCompleteBox\AutomationPeers\SuggestionItemAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\CalendarCellInfoBaseAutomationPeer.cs" />
+    <Compile Include="Calendar\AutomationPeers\CalendarFooterControlAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\CalendarHeaderCellInfoAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\CalendarInvokableCellInfoAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\CalendarNavigationControlAutomationPeer.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Calendar\Model\CalendarMultiDayViewModel.cs" />
     <Compile Include="Calendar\Model\ICopyable.cs" />
     <Compile Include="Calendar\Model\Slot.cs" />
+    <Compile Include="Calendar\View\CalendarFooterControl.cs" />
     <Compile Include="Calendar\View\Layers\XamlAllDayAreaLayer.cs" />
     <Compile Include="Calendar\View\Layers\XamlMultiDayViewLayer.cs" />
     <Compile Include="Calendar\View\MultiDayView\MultiDayViewSettings.cs" />
