@@ -4,7 +4,7 @@
   <PropertyGroup>
     <PlatformFolder Condition=" '$(Platform)' != 'AnyCPU' ">$(Platform)\</PlatformFolder>
     <OutputPath>bin\$(PlatformFolder)\$(Configuration)\</OutputPath>
-    <DocumentationFile Condition=" '$(Configuration)' == 'Release' OR '$(Configuration)' == 'ReleaseTrial' ">$(OutputPath)\Telerik.Geospatial.UWP.XML</DocumentationFile>
+    <DocumentationFile Condition=" '$(Configuration)' == 'Release' ">$(OutputPath)\Telerik.Geospatial.UWP.XML</DocumentationFile>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
