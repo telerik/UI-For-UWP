@@ -56,7 +56,8 @@ namespace Telerik.UI.Xaml.Controls.Data
                 {
                     if (this.DataLoadingMode == BatchLoadingMode.Explicit || this.GroupDescriptors.Count > 0)
                     {
-                        return this.View.CommandService.CanExecuteCommand(CommandId.LoadMoreData, new LoadMoreDataContext());
+                        LoadMoreDataContext context = new LoadMoreDataContext { View = this.View, DataContext = this.View.GetDataContext() };
+                        return this.View.CommandService.CanExecuteCommand(CommandId.LoadMoreData, context);
                     }
                 }
                 return false;
@@ -268,7 +269,8 @@ namespace Telerik.UI.Xaml.Controls.Data
 
             if (this.ShouldAutoRequestItems(null))
             {
-                this.View.CommandService.ExecuteCommand(CommandId.LoadMoreData, new LoadMoreDataContext());
+                LoadMoreDataContext context = new LoadMoreDataContext { View = this.View, DataContext = this.View.GetDataContext() };
+                this.View.CommandService.ExecuteCommand(CommandId.LoadMoreData, context);
             }
 
             // NOTE: If we decide that we won't zero the length of collapsed rows then this 'TotalLineCount - 1' will be incorrect.

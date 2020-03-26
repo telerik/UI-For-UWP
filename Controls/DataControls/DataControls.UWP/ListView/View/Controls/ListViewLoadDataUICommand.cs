@@ -53,7 +53,9 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView
         /// </param>
         public void Execute(object parameter)
         {
-            this.LoadDataControl.Owner.CommandService.ExecuteCommand(Commands.CommandId.LoadMoreData, new LoadMoreDataContext());
+            RadListView listView = this.LoadDataControl.Owner;
+            LoadMoreDataContext context = new LoadMoreDataContext { View = listView, DataContext = listView.DataContext };
+            listView.CommandService.ExecuteCommand(Commands.CommandId.LoadMoreData, context);
         }
     }
 }

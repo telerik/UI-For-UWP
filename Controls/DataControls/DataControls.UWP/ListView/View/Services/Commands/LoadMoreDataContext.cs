@@ -12,5 +12,15 @@
         /// </summary>
         /// <value>The size of the batch.</value>
         public uint? BatchSize { get; set; }
+
+        /// <summary>
+        /// Gets the underlying data context.
+        /// </summary>
+        public object DataContext { get; internal set; }
+
+        /// <summary>
+        /// Gets the view to which this context is associated with.
+        /// </summary>
+        public object View { get; internal set; }
     }
 }
