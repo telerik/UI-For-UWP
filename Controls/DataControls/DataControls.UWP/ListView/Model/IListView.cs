@@ -19,5 +19,7 @@ namespace Telerik.UI.Xaml.Controls.Data
         void ScrollToTop();
 
         void SetScrollPosition(RadPoint point, bool updateUI, bool updateScrollViewer);
+
+        object GetDataContext();
     }
 }

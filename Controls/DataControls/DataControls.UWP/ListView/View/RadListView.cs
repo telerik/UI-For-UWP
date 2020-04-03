@@ -978,6 +978,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             }
         }
 
+        object IListView.GetDataContext()
+        {
+            return this.DataContext;
+        }
+
         internal void InvalidatePanelMeasure(RadSize radSize)
         {
             if (this.contentPanel != null)

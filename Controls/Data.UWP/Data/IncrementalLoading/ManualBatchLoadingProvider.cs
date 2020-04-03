@@ -5,6 +5,8 @@ namespace Telerik.Core.Data
     internal class ManualBatchLoadingProvider<T> : IDisposable, IBatchLoadingProvider
     {
         private ICollection<T> loadedItemsCollection;
+        private BatchLoadingStatus? status;
+
         public ManualBatchLoadingProvider(ICollection<T> loadedItemsCollection)
         {
             this.loadedItemsCollection = loadedItemsCollection;
@@ -15,6 +17,11 @@ namespace Telerik.Core.Data
 
         public bool ShouldRequestItems(int lastRequestedIndex, int bufferSize)
         {
+            if (this.status == BatchLoadingStatus.ItemsRequested)
+            {
+                return false;
+            }
+
             return lastRequestedIndex >= this.loadedItemsCollection.Count - bufferSize;
         }
 
@@ -28,6 +35,8 @@ namespace Telerik.Core.Data
 
         public void OnStatusChanged(BatchLoadingStatus status)
         {
+            this.status = status;
+
             var handler = this.StatusChanged;
             if (handler != null)
             {
