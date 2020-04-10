@@ -695,48 +695,45 @@ namespace Telerik.UI.Xaml.Controls.Input
             RadCalendar calendar = this.owner;
             if (calendar != null && calendar.IsTemplateApplied && calendar.Model.IsTreeLoaded)
             {
-                if (calendar.IsLoaded)
+                CalendarMultiDayViewModel multiDayViewModel = this.owner.Model.multiDayViewModel;
+                if (flag == MultiDayViewUpdateFlag.All)
                 {
-                    CalendarMultiDayViewModel multiDayViewModel = this.owner.Model.multiDayViewModel;
-                    if (flag == MultiDayViewUpdateFlag.All)
-                    {
-                        multiDayViewModel.CalendarCells?.Clear();
-                        multiDayViewModel.CalendarHeaderCells?.Clear();
-                        multiDayViewModel.CalendarDecorations?.Clear();
-                        multiDayViewModel.allDayAppointmentInfos?.Clear();
-                        multiDayViewModel.appointmentInfos?.Clear();
+                    multiDayViewModel.CalendarCells?.Clear();
+                    multiDayViewModel.CalendarHeaderCells?.Clear();
+                    multiDayViewModel.CalendarDecorations?.Clear();
+                    multiDayViewModel.allDayAppointmentInfos?.Clear();
+                    multiDayViewModel.appointmentInfos?.Clear();
 
-                        calendar.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
-                        calendar.timeRulerLayer?.ClearRealizedAppointmentVisuals();
-                        calendar.contentLayer?.RecycleAllVisuals();
-                    }
-
-                    if (flag == MultiDayViewUpdateFlag.AffectsTimeRuler)
-                    {
-                        this.RecycleTimeRulerVisuals();
-                        multiDayViewModel.timeRulerItems?.Clear();
-                        multiDayViewModel.timerRulerLines?.Clear();
-                        multiDayViewModel.appointmentInfos?.Clear();
-                    }
-
-                    if (flag == MultiDayViewUpdateFlag.AffectsAppointments)
-                    {
-                        multiDayViewModel.appointmentInfos?.Clear();
-                        multiDayViewModel.allDayAppointmentInfos?.Clear();
-                        calendar.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
-                        calendar.timeRulerLayer?.ClearRealizedAppointmentVisuals();
-                    }
-
-                    if (flag == MultiDayViewUpdateFlag.AffectsSpecialSlots)
-                    {
-                        multiDayViewModel.specialSlots?.Clear();
-                        calendar.timeRulerLayer?.ClearRealizedSlotVisuals();
-                    }
-
-                    calendar.Model.multiDayViewModel.updateFlag = flag;
-                    calendar.timeRulerLayer.shouldArrange = true;
-                    calendar.allDayAreaLayer.shouldArrange = true;
+                    calendar.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
+                    calendar.timeRulerLayer?.ClearRealizedAppointmentVisuals();
+                    calendar.contentLayer?.RecycleAllVisuals();
                 }
+
+                if (flag == MultiDayViewUpdateFlag.AffectsTimeRuler)
+                {
+                    this.RecycleTimeRulerVisuals();
+                    multiDayViewModel.timeRulerItems?.Clear();
+                    multiDayViewModel.timerRulerLines?.Clear();
+                    multiDayViewModel.appointmentInfos?.Clear();
+                }
+
+                if (flag == MultiDayViewUpdateFlag.AffectsAppointments)
+                {
+                    multiDayViewModel.appointmentInfos?.Clear();
+                    multiDayViewModel.allDayAppointmentInfos?.Clear();
+                    calendar.allDayAreaLayer?.ClearRealizedAppointmentVisuals();
+                    calendar.timeRulerLayer?.ClearRealizedAppointmentVisuals();
+                }
+
+                if (flag == MultiDayViewUpdateFlag.AffectsSpecialSlots)
+                {
+                    multiDayViewModel.specialSlots?.Clear();
+                    calendar.timeRulerLayer?.ClearRealizedSlotVisuals();
+                }
+
+                calendar.Model.multiDayViewModel.updateFlag = flag;
+                calendar.timeRulerLayer.shouldArrange = true;
+                calendar.allDayAreaLayer.shouldArrange = true;
 
                 calendar.Invalidate();
             }
