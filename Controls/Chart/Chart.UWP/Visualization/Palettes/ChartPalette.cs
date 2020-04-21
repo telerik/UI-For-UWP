@@ -14,7 +14,6 @@ namespace Telerik.UI.Xaml.Controls.Chart
     /// Defines the palette semantic for a <see cref="RadChartBase"/> instance.
     /// The palette contains several <see cref="PaletteEntryCollection"/> instances, one for each <see cref="PaletteVisualPart"/> value.
     /// </summary>
-    [Bindable]
     public class ChartPalette : DependencyObject
     {
         internal const string PieFamily = "Pie";

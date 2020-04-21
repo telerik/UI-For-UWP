@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Telerik.Core;
 
 namespace Telerik.UI.Xaml.Controls.Chart.Tests

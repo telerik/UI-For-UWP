@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections;
 using System.Collections.ObjectModel;
 using Telerik.UI.Xaml.Controls.Input.AutoCompleteBox;

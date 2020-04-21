@@ -8,7 +8,6 @@ namespace Telerik.UI.Xaml.Controls.Primitives
     /// <summary>
     /// Represents an extended <see cref="DependencyObject"/> that recognizes whether a property is changed internally within the class or programmatically by the user.
     /// </summary>
-    [Bindable]
     public abstract class RadDependencyObject : DependencyObject
     {
         private byte internalPropertyChange;

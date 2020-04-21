@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using Telerik.Data.Core;
 using Telerik.Data.Core.Fields;
