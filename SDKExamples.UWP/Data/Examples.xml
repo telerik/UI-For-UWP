@@ -90,6 +90,7 @@
     <Example DisplayName="Reorder" ClassName="SDKExamples.UWP.Listview.Reorder" />
     <Example DisplayName="Reorder with Groups" ClassName="SDKExamples.UWP.Listview.ReorderWithGroups" />
     <Example DisplayName="Load on Demand" ClassName="SDKExamples.UWP.Listview.LoadOnDemand" />
+    <Example DisplayName="Load on Demand Command" ClassName="SDKExamples.UWP.Listview.LoadOnDemandCommand" />
     <Example DisplayName="Filtering" ClassName="SDKExamples.UWP.Listview.Filtering" />
     <Example DisplayName="Item Animations" ClassName="SDKExamples.UWP.Listview.ItemAnimations" />
     <Example DisplayName="Layouts" ClassName="SDKExamples.UWP.Listview.Layouts" />

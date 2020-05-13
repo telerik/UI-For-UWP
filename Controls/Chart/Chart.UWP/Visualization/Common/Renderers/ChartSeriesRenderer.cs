@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Telerik.Charting;
-using Telerik.Core;
+using Windows.Foundation;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Media;
 
@@ -11,6 +10,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
     {
         internal ChartSeriesModel model;
         internal IList<DataPoint> renderPoints;
+        private const double PlotAreaVicinity = 5.0;
 
         public void Render(bool isDrawnWithComposition = false)
         {
@@ -81,35 +81,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
             }
         }
-
         protected virtual IList<DataPoint> GetRenderPoints()
         {
             if (this.model.renderablePoints.Count > 0)
             {
-                return this.model.renderablePoints.Where(this.ShouldPlotPoint).ToList();
+                return this.GetRenderPoints(this.model.renderablePoints);
             }
 
-            return this.model.DataPointsInternal.Where(this.ShouldPlotPoint).ToList();
-        }
-
-        protected virtual bool ShouldPlotPoint(DataPoint point)
-        {
-            var pointBounds = RadRect.Round(point.layoutSlot);
-            var plotBounds = this.model.layoutSlot;
-
-            var isWithinXPlot = pointBounds.X <= plotBounds.X + plotBounds.Width && pointBounds.X + pointBounds.Width >= plotBounds.X;
-            var isWithinYPlot = pointBounds.Y <= plotBounds.Y + plotBounds.Height && pointBounds.Y + pointBounds.Height >= plotBounds.Y;
-
-            if (isWithinXPlot && isWithinYPlot)
-            {
-                return true;
-            }
-
-            var plotDirection = this.model.GetTypedValue<AxisPlotDirection>(AxisModel.PlotDirectionPropertyKey, AxisPlotDirection.Vertical);
-
-            // empty values
-            return (isWithinXPlot && double.IsNaN(point.layoutSlot.Y) && plotDirection == AxisPlotDirection.Vertical) ||
-                   (isWithinYPlot && double.IsNaN(point.layoutSlot.X) && plotDirection == AxisPlotDirection.Horizontal);
+            return this.GetRenderPoints(this.model.DataPointsInternal);
         }
 
         protected Brush GetPaletteBrush(PaletteVisualPart part)
@@ -126,5 +105,91 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected abstract void Reset();
 
         protected abstract void RenderCore();
+
+        private List<DataPoint> GetRenderPoints(IList<DataPoint> dataPoints)
+        {
+            var clipRect = this.model.layoutSlot;
+            var plotDirection = this.model.GetTypedValue<AxisPlotDirection>(AxisModel.PlotDirectionPropertyKey, AxisPlotDirection.Vertical);
+            bool isVertical = plotDirection == AxisPlotDirection.Vertical;
+            double start = isVertical ? clipRect.X - PlotAreaVicinity : clipRect.Y - PlotAreaVicinity;
+            double end = isVertical ? clipRect.Right + PlotAreaVicinity : clipRect.Bottom + PlotAreaVicinity;
+
+            bool addedPreviousPoint = false;
+            Point? previousPoint = null;
+            DataPoint previousDataPoint = null;
+            bool isPreviousPointInView = false;
+
+            var renderPoints = new List<DataPoint>();
+            for (int i = 0; i < dataPoints.Count; i++)
+            {
+                var dataPoint = dataPoints[i];
+                var point = dataPoint.Center();
+                if (dataPoints[i].isEmpty || double.IsNaN(point.X) || double.IsNaN(point.Y))
+                {
+                    // Point is empty
+                    addedPreviousPoint = false;
+                    previousPoint = null;
+                    previousDataPoint = null;
+                    isPreviousPointInView = false;
+                    continue;
+                }
+
+                double position = isVertical ? point.X : point.Y;
+                if (start <= position && position <= end)
+                {
+                    // Point is inside the viewport
+                    if (!addedPreviousPoint && previousPoint.HasValue)
+                    {
+                        renderPoints.Add(previousDataPoint);
+                    }
+
+                    renderPoints.Add(dataPoint);
+                    addedPreviousPoint = true;
+                    isPreviousPointInView = true;
+                }
+                else
+                {
+                    if (isPreviousPointInView)
+                    {
+                        // Point is not inside the viewport, but the previous point is
+                        renderPoints.Add(dataPoint);
+                        addedPreviousPoint = true;
+                    }
+                    else
+                    {
+                        // Both the current point and the previous point are not in the viewport
+                        bool lineIntersectsClipRect = false;
+                        if (previousPoint.HasValue)
+                        {
+                            double prevPosition = isVertical ? previousPoint.Value.X : previousPoint.Value.Y;
+                            position = isVertical ? point.X : point.Y;
+                            lineIntersectsClipRect = (prevPosition <= start && end <= position) || (position <= start && end <= prevPosition);
+                        }
+
+                        if (!addedPreviousPoint && lineIntersectsClipRect)
+                        {
+                            renderPoints.Add(previousDataPoint);
+                        }
+
+                        if (lineIntersectsClipRect)
+                        {
+                            renderPoints.Add(dataPoint);
+                            addedPreviousPoint = true;
+                        }
+                        else
+                        {
+                            addedPreviousPoint = false;
+                        }
+                    }
+
+                    isPreviousPointInView = false;
+                }
+
+                previousPoint = point;
+                previousDataPoint = dataPoint;
+            }
+
+            return renderPoints;
+        }
     }
 }

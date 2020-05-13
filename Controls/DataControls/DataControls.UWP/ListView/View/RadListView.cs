@@ -760,6 +760,16 @@ namespace Telerik.UI.Xaml.Controls.Data
         }
 
         /// <summary>
+        /// Scrolls the <see cref="RadListView"/> to the specified position.
+        /// </summary>
+        /// <param name="position">The position to scroll to.</param>
+        public void ScrollToPosition(Point position)
+        {
+            this.SetHorizontalOffset(position.X, true, true);
+            this.SetVerticalOffset(position.Y, true, true);
+        }
+
+        /// <summary>
         /// Attempts to bring the specified data item into view asynchronously.
         /// </summary>
         /// <param name="item">The data item to scroll to.</param>
@@ -934,11 +944,6 @@ namespace Telerik.UI.Xaml.Controls.Data
                 Canvas.SetLeft(element, container.LayoutSlot.X);
                 Canvas.SetTop(element, container.LayoutSlot.Y);
             }
-
-            if (groupHeader != null)
-            {
-                groupHeader.OwnerArranging = false;
-            }
         }
 
         void IListView.SetScrollPosition(RadPoint point, bool updateUI, bool updateScrollViewer)
@@ -971,6 +976,11 @@ namespace Telerik.UI.Xaml.Controls.Data
                     this.ScrollViewer.ChangeView(0, null, null);
                 }
             }
+        }
+
+        object IListView.GetDataContext()
+        {
+            return this.DataContext;
         }
 
         internal void InvalidatePanelMeasure(RadSize radSize)
@@ -1090,6 +1100,11 @@ namespace Telerik.UI.Xaml.Controls.Data
             this.commandService.ExecuteCommand(CommandId.GroupHeaderTap, context);
 
             header.IsExpanded = context.IsExpanded;
+
+            if (header.IsFrozen)
+            {
+                this.ScrollItemIntoView(context.Group);
+            }
         }
 
         /// <summary>
@@ -1202,6 +1217,9 @@ namespace Telerik.UI.Xaml.Controls.Data
         protected internal virtual void PrepareContainerForGroupHeader(ListViewGroupHeader groupHeader, GroupHeaderContext context)
         {
             groupHeader.DataContext = context;
+            groupHeader.IsInternalUpdate = true;
+            groupHeader.IsExpanded = context.IsExpanded;
+            groupHeader.IsInternalUpdate = false;
 
             var style = this.GroupHeaderStyle;
             if (style == null)

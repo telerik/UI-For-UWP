@@ -160,6 +160,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     }
                 }
             }
+
+            this.RaiseSelectionChanged();
         }
 
         internal bool HandleTap(Point position)

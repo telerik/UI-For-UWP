@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
@@ -10,6 +6,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
 {
     internal abstract class DragVisualContext
     {
+        internal static readonly Thickness InfinityThickness = new Thickness(double.PositiveInfinity);
+
+        private Thickness maxPositionOffset = InfinityThickness;
+
         public event EventHandler DragVisualCleared;
 
         public abstract FrameworkElement DragVisualHost { get; }
@@ -17,6 +17,12 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
         public Point DragStartPosition { get; set; }
 
         public DragPositionMode PositionRestriction { get; set; }
+        
+        public Thickness MaxPositionOffset
+        {
+            get { return this.maxPositionOffset; }
+            set { this.maxPositionOffset = value; }
+        }
 
         internal virtual void PrepareDragVisual(FrameworkElement content)
         {

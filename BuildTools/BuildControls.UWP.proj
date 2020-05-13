@@ -12,6 +12,7 @@
       BuildMapX86Platform;
       BuildMapX64Platform;
       BuildMapArmPlatform;
+      BuildMapArm64Platform;
     </BuildDependsOn>
   </PropertyGroup>
 
@@ -62,6 +63,14 @@
 
     <MSBuild Projects="$(UWPMapSolutionPath)"
              Properties="Configuration=$(Configuration);Platform=$(ArmPlatform)"
+             Targets="Rebuild" />
+
+  </Target>
+
+  <Target Name="BuildMapArm64Platform">
+
+    <MSBuild Projects="$(UWPMapSolutionPath)"
+             Properties="Configuration=$(Configuration);Platform=$(Arm64Platform)"
              Targets="Rebuild" />
 
   </Target>

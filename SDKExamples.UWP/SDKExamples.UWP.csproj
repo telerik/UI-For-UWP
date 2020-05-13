@@ -355,6 +355,9 @@
     <Compile Include="Examples\ListView\Layouts.xaml.cs">
       <DependentUpon>Layouts.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Examples\ListView\LoadOnDemandCommand.xaml.cs">
+      <DependentUpon>LoadOnDemandCommand.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Examples\ListView\LoadOnDemand.xaml.cs">
       <DependentUpon>LoadOnDemand.xaml</DependentUpon>
     </Compile>
@@ -798,6 +801,10 @@
     <Page Include="Examples\ListView\Layouts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Examples\ListView\LoadOnDemandCommand.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Examples\ListView\LoadOnDemand.xaml">
       <SubType>Designer</SubType>

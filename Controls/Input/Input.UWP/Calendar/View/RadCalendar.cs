@@ -298,6 +298,12 @@ namespace Telerik.UI.Xaml.Controls.Input
             DependencyProperty.Register(nameof(HeaderVisibility), typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Visible));
 
         /// <summary>
+        /// Identifies the <c cref="FooterVisibility"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty FooterVisibilityProperty =
+            DependencyProperty.Register(nameof(FooterVisibility), typeof(Visibility), typeof(RadCalendar), new PropertyMetadata(Visibility.Collapsed));
+
+        /// <summary>
         /// Identifies the <c cref="NavigationControlBorderStyle"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty NavigationControlBorderStyleProperty =
@@ -323,6 +329,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         internal XamlMultiDayViewLayer timeRulerLayer;
         internal XamlAllDayAreaLayer allDayAreaLayer;
         internal CalendarNavigationControl navigationPanel;
+        internal CalendarFooterControl footerPanel;
         internal List<CalendarDateRange> unattachedSelectedRanges;
         internal CalendarViewHost calendarViewHost;
         internal IAppointment pendingScrollToAppointment;
@@ -341,6 +348,7 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private const string CalendarViewHostPartName = "PART_CalendarViewHost";
         private const string NavigationControlPanelName = "navigationControl";
+        private const string FooterControlPanelName = "PART_FooterControl";
 
         private readonly HitTestService hitTestService;
         private readonly InputService inputService;
@@ -406,6 +414,11 @@ namespace Telerik.UI.Xaml.Controls.Input
             multiDayViewSettings.owner = this;
             this.model.multiDayViewSettings = multiDayViewSettings;
         }
+
+        /// <summary>
+        /// Occurs when the CalendarButton is clicked.
+        /// </summary>
+        public event EventHandler<EventArgs> FooterButtonClicked;
 
         /// <summary>
         /// Occurs when the <see cref="DisplayDate"/> property is changed.
@@ -1675,6 +1688,21 @@ namespace Telerik.UI.Xaml.Controls.Input
         }
 
         /// <summary>
+        /// Gets or sets the Visibility of the Calendar's Footer Row.
+        /// </summary>
+        public Visibility FooterVisibility
+        {
+            get
+            {
+                return (Visibility)this.GetValue(FooterVisibilityProperty);
+            }
+            set
+            {
+                this.SetValue(FooterVisibilityProperty, value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the Style for the Border of the Navigation control.
         /// </summary>
         public Style NavigationControlBorderStyle
@@ -1829,7 +1857,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.timeRulerLayer?.ClearRealizedAppointmentVisuals();
                 this.timeRulerLayer?.ClearRealizedSlotVisuals();
             }
-         
+
             this.Invalidate();
         }
 
@@ -2259,6 +2287,11 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             this.navigationPanel.HeaderContentTemplate = this.HeaderContentTemplate;
         }
+        
+        internal void OnCalendarButtonClicked() 
+        {
+            this.FooterButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
 
         /// <summary>
         /// Called when the Framework <see cref="M:OnApplyTemplate" /> is called. Inheritors should override this method should they have some custom template-related logic.
@@ -2272,6 +2305,8 @@ namespace Telerik.UI.Xaml.Controls.Input
             applied = applied && this.calendarViewHost != null;
 
             this.navigationPanel = this.GetTemplateChild(NavigationControlPanelName) as CalendarNavigationControl;
+
+            this.footerPanel = this.GetTemplateChild(FooterControlPanelName) as CalendarFooterControl;
 
             return applied;
         }
@@ -2298,6 +2333,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.navigationPanel.Owner = this;
                 this.UpdateNavigationHeaderContent();
                 this.UpdateNavigationPreviousNextButtonsState();
+            }
+
+            if (this.footerPanel != null)
+            {
+                this.footerPanel.Owner = this;
             }
 
             if (this.timeRulerLayer == null)
@@ -3031,6 +3071,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                 this.navigationPanel.Owner = null;
             }
 
+            if (this.footerPanel != null)
+            {
+                this.footerPanel.Owner = null;
+            }
+
             this.calendarViewHost.SizeChanged -= this.CalendarViewHostSizeChanged;
             this.calendarViewHost.PointerPressed -= this.OnCalendarViewHostPointerPressed;
 
@@ -3652,9 +3697,14 @@ namespace Telerik.UI.Xaml.Controls.Input
             availableSize.Width -= this.BorderThickness.Left + this.BorderThickness.Right + this.Padding.Left + this.Padding.Right;
             availableSize.Height -= this.BorderThickness.Top + this.BorderThickness.Bottom + this.Padding.Top + this.Padding.Bottom;
 
-            if (this.navigationPanel != null)
+            if (this.navigationPanel != null && this.HeaderVisibility == Visibility.Visible)
             {
                 availableSize.Height -= this.navigationPanel.ActualHeight;
+            }
+
+            if (this.footerPanel != null && this.FooterVisibility == Visibility.Visible)
+            {
+                availableSize.Height -= this.footerPanel.ActualHeight;
             }
 
             return availableSize;
@@ -3690,6 +3740,12 @@ namespace Telerik.UI.Xaml.Controls.Input
                 navigationPanelHeight = this.navigationPanel.ActualHeight;
             }
 
+            double footerPanelHeight = 0d;
+            if (this.footerPanel != null)
+            {
+                footerPanelHeight = this.footerPanel.ActualHeight;
+            }
+
             // NOTE: We need to be able to overlap the outer border of the control with the cell decoration visuals.
             // NOTE: We need to be able to display the hold clue visualization for the first row of cells properly (multiple selection)
             RectangleGeometry clip = new RectangleGeometry();
@@ -3697,7 +3753,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 -this.BorderThickness.Left,
                 -(this.BorderThickness.Top + navigationPanelHeight),
                 (int)(this.calendarViewHost.ActualWidth + this.BorderThickness.Left + this.BorderThickness.Right + .5),
-                (int)(this.calendarViewHost.ActualHeight + navigationPanelHeight + this.BorderThickness.Top + this.BorderThickness.Bottom + .5));
+                (int)(this.calendarViewHost.ActualHeight + navigationPanelHeight + footerPanelHeight + this.BorderThickness.Top + this.BorderThickness.Bottom + .5));
 
             this.calendarViewHost.Clip = clip;
         }

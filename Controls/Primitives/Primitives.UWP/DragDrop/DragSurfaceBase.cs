@@ -1,4 +1,5 @@
 ﻿using System;
+using Telerik.Core;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
@@ -28,7 +29,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
                 return Rect.Empty;
             }
 
-            Point restrictedPoint = DragSurfaceBase.GetRestrictedDragPoint(context, dragPoint, relativeStartPosition);
+            Point restrictedPoint = DragSurfaceBase.GetRestrictedDragPoint(context, dragPoint, relativeStartPosition, context.MaxPositionOffset);
 
             if (this.ShouldTruncateToBounds)
             {
@@ -51,10 +52,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives.DragDrop
             context.ClearDragVisual();
         }
 
-        private static Point GetRestrictedDragPoint(DragVisualContext context, Point dragPoint, Point relativeStartPosition)
+        private static Point GetRestrictedDragPoint(DragVisualContext context, Point dragPoint, Point relativeStartPosition, Thickness maxPositionOffset)
         {
-            double x = dragPoint.X - relativeStartPosition.X;
-            double y = dragPoint.Y - relativeStartPosition.Y;
+            double x = RadMath.CoerceValue(dragPoint.X - relativeStartPosition.X, -maxPositionOffset.Right, maxPositionOffset.Left);
+            double y = RadMath.CoerceValue(dragPoint.Y - relativeStartPosition.Y, -maxPositionOffset.Bottom, maxPositionOffset.Top);
 
             switch (context.PositionRestriction)
             {

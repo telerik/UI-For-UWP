@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -16,14 +17,16 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
         public static readonly DependencyProperty IsExpandedProperty =
             DependencyProperty.Register(nameof(IsExpanded), typeof(bool), typeof(ListViewGroupHeader), new PropertyMetadata(true, OnIsExpandedPropertyChanged));
 
+        /// <summary>
+        /// Identifies the IsFrozen dependency property.
+        /// </summary>
+        public static readonly DependencyProperty IsFrozenProperty =
+            DependencyProperty.Register(nameof(IsFrozen), typeof(bool), typeof(ListViewGroupHeader), new PropertyMetadata(false));
+
         /// <inheritdoc/>
         public Rect arrangeRect;
-        
-        internal bool OwnerArranging;
 
-        internal Size ArrangeSize;
-
-        private Size lastDesiredSize = Size.Empty;
+        internal bool IsInternalUpdate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ListViewGroupHeader"/> class.
@@ -55,6 +58,22 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the group header is frozen.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool IsFrozen
+        {
+            get
+            {
+                return (bool)this.GetValue(IsFrozenProperty);
+            }
+            set
+            {
+                this.SetValue(IsFrozenProperty, value);
+            }
+        }
+
         Rect IArrangeChild.LayoutSlot
         {
             get
@@ -62,8 +81,6 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
                 return this.arrangeRect;
             }
         }
-
-        internal bool IsFrozen { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="RadListView"/> owner.
@@ -156,7 +173,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Primitives
             }
 
             groupHeader.UpdateVisualState(groupHeader.IsTemplateApplied);
-            if (groupHeader.Owner != null && context != null)
+            if (groupHeader.Owner != null && context != null && !groupHeader.IsInternalUpdate)
             {
                 groupHeader.Owner.OnGroupIsExpandedChanged(context);
             }

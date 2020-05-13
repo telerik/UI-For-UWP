@@ -59,7 +59,11 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
             this.strategy.RecycleAfterMeasure();
             this.model.View.ItemCheckBoxService.GenerateVisuals();
-            this.strategy.GenerateFrozenContainers();
+
+            if (this.ShouldGenerateFrozenContainers())
+            {
+                this.strategy.GenerateFrozenContainers();
+            }
 
             return resultSize;
         }
@@ -184,6 +188,26 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
             (sender as LayoutDefinitionBase).UpdateStrategy(this.strategy);
             this.strategy.FullyRecycle();
             this.owner.UpdateService.RegisterUpdate((int)UpdateFlags.AffectsContent);
+        }
+
+        private bool ShouldGenerateFrozenContainers()
+        {
+            if (this.headerModel == null)
+            {
+                return true;
+            }
+
+            var layoutSlot = this.headerModel.LayoutSlot;
+            var scrollOffset = this.owner.ScrollOffset;
+
+            if (this.strategy.IsHorizontal)
+            {
+                return scrollOffset >= layoutSlot.Right;
+            }
+            else
+            {
+                return scrollOffset >= layoutSlot.Bottom;
+            }
         }
 
         private RadSize MeasureHorizontal(RadSize newAvailableSize)

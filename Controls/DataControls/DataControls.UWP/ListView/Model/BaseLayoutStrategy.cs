@@ -330,7 +330,7 @@ namespace Telerik.UI.Xaml.Controls.Data.ListView.Model
 
                 if (!realized)
                 {
-                    this.Owner.Measure(frozenDecorator, new RadSize(double.PositiveInfinity, double.PositiveInfinity));
+                    frozenDecorator.DesiredSize = this.Owner.Measure(frozenDecorator, new RadSize(double.PositiveInfinity, double.PositiveInfinity));
 
                     desiredLength = this.IsHorizontal ? frozenDecorator.DesiredSize.Width : frozenDecorator.DesiredSize.Height;
                 }
