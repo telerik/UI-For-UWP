@@ -127,8 +127,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// </remarks>
         public void SelectItem(object item)
         {
-            this.selectionService.SelectItem(item, true, false);
             this.UpdateItemToSelectFrom(item);
+            this.selectionService.SelectItem(item, true, false);
         }
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace Telerik.UI.Xaml.Controls.Grid
         /// </remarks>
         public void SelectCell(DataGridCellInfo item)
         {
-            this.selectionService.SelectCellInfo(item, true, false);
             this.UpdateItemToSelectFrom(item);
+            this.selectionService.SelectCellInfo(item, true, false);
         }
 
         /// <summary>
