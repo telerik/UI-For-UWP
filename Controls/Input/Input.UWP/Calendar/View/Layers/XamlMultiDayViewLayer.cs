@@ -666,6 +666,7 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
             }
 
             this.UpdatePanelsBackground(calendar.MultiDayViewSettings.TimelineBackground);
+            this.UpdateTopHeaderBackground();
         }
 
         internal void UpdatePanelsBackground(Brush background)
@@ -1222,6 +1223,20 @@ namespace Telerik.UI.Xaml.Controls.Input.Calendar
                 {
                     container.Style = style;
                 }
+            }
+        }
+
+        private void UpdateTopHeaderBackground()
+        {
+            Brush defaultCalendarBrush = this.Owner.Background ?? MultiDayViewSettings.DefaultBackground;
+            if (this.topHeader.Background != defaultCalendarBrush)
+            {
+                this.topHeader.Background = defaultCalendarBrush;
+            }
+
+            if (this.topLeftHeaderPanel.Background != defaultCalendarBrush)
+            {
+                this.topLeftHeaderPanel.Background = defaultCalendarBrush;
             }
         }
     }
