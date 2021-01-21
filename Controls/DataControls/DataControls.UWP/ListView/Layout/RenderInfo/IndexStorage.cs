@@ -25,6 +25,7 @@ namespace Telerik.Data.Core.Layouts
         private int size;
         private int count;
         private object syncRoot;
+        private bool initializeStorageInProgress;
         private bool aggregateInfoUpdateInProgress;
 
         private long averageItemLength;
@@ -128,7 +129,11 @@ namespace Telerik.Data.Core.Layouts
                 }
 
                 this.Set(index, value);
-                this.RefreshAggregateInfo();
+
+                if (!this.initializeStorageInProgress)
+                {
+                    this.RefreshAggregateInfo();
+                }
             }
         }
 
@@ -415,6 +420,8 @@ namespace Telerik.Data.Core.Layouts
             {
                 var currentValue = defaultValue;
 
+                this.initializeStorageInProgress = true;
+
                 for (int i = 0; capacity > 0; i++)
                 {
                     if (loadState != null)
@@ -427,6 +434,8 @@ namespace Telerik.Data.Core.Layouts
                     this[i] = currentValue;
                     capacity--;
                 }
+
+                this.initializeStorageInProgress = false;
 
                 this.RefreshAggregateInfo();
             }
