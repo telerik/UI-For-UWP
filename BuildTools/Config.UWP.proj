@@ -16,7 +16,6 @@
     <X64Platform>x64</X64Platform>
     <ArmPlatform>ARM</ArmPlatform>
     <Arm64Platform>ARM64</Arm64Platform>
-	<MSBuild16ExePath>"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin"</MSBuild16ExePath>
   </PropertyGroup>
 
 </Project>
