@@ -39,8 +39,8 @@
   </Target>
 
   <Target Name="RestoreMapSolutionNuGetPackages">
-
-    <Exec Command="$(Nuget32ToolPath) restore $(UWPMapSolutionPath) -NonInteractive -Source https://api.nuget.org/v3/index.json" />
+  
+	<MSBuild Projects="$(UWPMapSolutionPath)" Targets="Restore" />
 
   </Target>
 
