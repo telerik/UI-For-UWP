@@ -443,7 +443,7 @@ namespace Telerik.UI.Xaml.Controls.Input
         /// <summary>
         /// Occurs when the <see cref="DisplayMode"/> property is changed.
         /// </summary>
-        public event EventHandler<DisplayModeChangedEventArgs> DisplayModeChanged;
+        public event EventHandler<EventArgs> DisplayModeChanged;
 
         /// <summary>
         /// Gets the <see cref="CommandService"/> instance that manages the commanding behavior of this instance.
@@ -2687,7 +2687,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                 calendar.model.multiDayViewModel.updateFlag = MultiDayViewUpdateFlag.All;
             }
 
-            calendar.DisplayModeChanged?.Invoke(calendar, new DisplayModeChangedEventArgs(calendar.DisplayMode));
+            calendar.DisplayModeChanged?.Invoke(calendar, new EventArgs());
         }
 
         private static void OnCalendarViewHeaderFormatPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
