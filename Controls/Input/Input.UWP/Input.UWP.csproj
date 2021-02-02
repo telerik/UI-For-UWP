@@ -67,6 +67,7 @@
     <Compile Include="Calendar\AutomationPeers\CalendarViewHostAutomationPeer.cs" />
     <Compile Include="Calendar\AutomationPeers\RadCalendarAutomationPeer.cs" />
     <Compile Include="Calendar\DisplayDateChangedEventArgs.cs" />
+    <Compile Include="Calendar\DisplayModeChangedEventArgs.cs" />
     <Compile Include="Calendar\Model\CalendarTimeRulerItem.cs" />
     <Compile Include="Calendar\Model\CalendarMultiDayViewModel.cs" />
     <Compile Include="Calendar\Model\ICopyable.cs" />
