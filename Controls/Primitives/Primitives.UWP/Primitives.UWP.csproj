@@ -146,6 +146,7 @@
     <Compile Include="RangeBaseControls\AutomationPeers\RangeInputBaseAutomationPeer.cs" />
     <Compile Include="RangeBaseControls\AutomationPeers\SliderBaseAutomationPeer.cs" />
     <Compile Include="RangeSliderPrimitive\AutomationPeers\RangeSliderPrimitiveAutomationPeer.cs" />
+    <Compile Include="Shadow\RadShadow.cs" />
     <Compile Include="SideDrawer\AutomationPeer\RadSideDrawerAutomationPeer.cs" />
     <Compile Include="SideDrawer\Commands\SideDrawerKeyDownCommand.cs" />
   </ItemGroup>
