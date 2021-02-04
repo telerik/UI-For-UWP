@@ -246,6 +246,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         private void OnContentPropertyChanged()
         {
             this.invalidateShadowMask = true;
+            this.InvalidateArrange();
         }
     }
 }
