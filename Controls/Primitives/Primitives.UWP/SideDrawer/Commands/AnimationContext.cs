@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Media.Animation;
+﻿using Windows.UI.Xaml.Media.Animation;
 
 namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
 {
@@ -44,7 +39,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
             }        
         }
 
-        internal bool IsContextValid(DrawerLocation location, DrawerTransition transition)
+        internal bool IsValid(DrawerLocation location, DrawerTransition transition)
         {
             return this.IsGenerated && this.DrawerLocation == location && this.DrawerTransition == transition;
         }
