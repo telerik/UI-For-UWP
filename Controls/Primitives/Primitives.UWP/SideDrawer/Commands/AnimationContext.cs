@@ -32,12 +32,21 @@ namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
         /// </summary>
         public Storyboard DrawerStoryBoardReverse { get; set; }
 
+        internal DrawerLocation DrawerLocation { get; set; }
+
+        internal DrawerTransition DrawerTransition { get; set; }
+
         internal bool IsGenerated
         {
             get
             {
                 return this.MainContentStoryBoard != null && this.MainContentStoryBoardReverse != null && this.DrawerStoryBoard != null && this.DrawerStoryBoardReverse != null;
             }        
+        }
+
+        internal bool IsContextValid(DrawerLocation location, DrawerTransition transition)
+        {
+            return this.IsGenerated && this.DrawerLocation == location && this.DrawerTransition == transition;
         }
     }
 }
