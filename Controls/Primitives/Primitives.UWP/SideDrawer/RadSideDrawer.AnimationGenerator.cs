@@ -66,7 +66,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                     return this.GetSlideAlongAnimations();
 
                 default:
-                    return new AnimationContext();
+                    return new AnimationContext() { DrawerLocation = this.DrawerLocation, DrawerTransition = this.DrawerTransition };
             }
         }
 
@@ -165,7 +165,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 MainContentStoryBoard = this.mainContentStoryboard,
                 MainContentStoryBoardReverse = this.mainContentStoryboardReverse,
                 DrawerStoryBoardReverse = this.sideBarStoryboardReverse,
-                DrawerStoryBoard = this.sideBarStoryboard
+                DrawerStoryBoard = this.sideBarStoryboard,
+                DrawerLocation = this.DrawerLocation,
+                DrawerTransition = this.DrawerTransition
             };
         }
 
@@ -259,7 +261,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 MainContentStoryBoard = this.mainContentStoryboard,
                 MainContentStoryBoardReverse = this.mainContentStoryboardReverse,
                 DrawerStoryBoardReverse = this.sideBarStoryboardReverse,
-                DrawerStoryBoard = this.sideBarStoryboard
+                DrawerStoryBoard = this.sideBarStoryboard,
+                DrawerLocation = this.DrawerLocation,
+                DrawerTransition = this.DrawerTransition
             };
         }
 
@@ -400,7 +404,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 MainContentStoryBoard = this.mainContentStoryboard,
                 MainContentStoryBoardReverse = this.mainContentStoryboardReverse,
                 DrawerStoryBoardReverse = this.sideBarStoryboardReverse,
-                DrawerStoryBoard = this.sideBarStoryboard
+                DrawerStoryBoard = this.sideBarStoryboard,
+                DrawerLocation = this.DrawerLocation,
+                DrawerTransition = this.DrawerTransition
             };
         }
 
@@ -509,7 +515,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 MainContentStoryBoard = this.mainContentStoryboard,
                 MainContentStoryBoardReverse = this.mainContentStoryboardReverse,
                 DrawerStoryBoardReverse = this.sideBarStoryboardReverse,
-                DrawerStoryBoard = this.sideBarStoryboard
+                DrawerStoryBoard = this.sideBarStoryboard,
+                DrawerLocation = this.DrawerLocation,
+                DrawerTransition = this.DrawerTransition
             };
         }
 
@@ -651,7 +659,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 MainContentStoryBoard = this.mainContentStoryboard,
                 MainContentStoryBoardReverse = this.mainContentStoryboardReverse,
                 DrawerStoryBoardReverse = this.sideBarStoryboardReverse,
-                DrawerStoryBoard = this.sideBarStoryboard
+                DrawerStoryBoard = this.sideBarStoryboard,
+                DrawerLocation = this.DrawerLocation,
+                DrawerTransition = this.DrawerTransition
             };
         }
 
@@ -718,7 +728,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 MainContentStoryBoard = this.mainContentStoryboard,
                 MainContentStoryBoardReverse = this.mainContentStoryboardReverse,
                 DrawerStoryBoardReverse = this.sideBarStoryboardReverse,
-                DrawerStoryBoard = this.sideBarStoryboard
+                DrawerStoryBoard = this.sideBarStoryboard,
+                DrawerLocation = this.DrawerLocation,
+                DrawerTransition = this.DrawerTransition
             };
         }
 
@@ -842,7 +854,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 MainContentStoryBoard = this.mainContentStoryboard,
                 MainContentStoryBoardReverse = this.mainContentStoryboardReverse,
                 DrawerStoryBoardReverse = this.sideBarStoryboardReverse,
-                DrawerStoryBoard = this.sideBarStoryboard
+                DrawerStoryBoard = this.sideBarStoryboard,
+                DrawerLocation = this.DrawerLocation,
+                DrawerTransition = this.DrawerTransition
             };
         }
 
