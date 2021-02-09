@@ -428,7 +428,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 return;
             }
 
-            if (!this.Context.IsContextValid(this.DrawerLocation, this.DrawerTransition))
+            if (!this.Context.IsValid(this.DrawerLocation, this.DrawerTransition))
             {
                 this.UpdateLayout();
             }
