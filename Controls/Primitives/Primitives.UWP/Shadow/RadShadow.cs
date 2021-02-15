@@ -21,43 +21,44 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="Color"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ColorProperty =
-            DependencyProperty.Register(nameof(Color), typeof(Color), typeof(RadShadow),
-                new PropertyMetadata(Colors.Black, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnColorPropertyChanged((Color)e.NewValue))));
+            DependencyProperty.Register(nameof(Color), typeof(Color), typeof(RadShadow), new PropertyMetadata(Colors.Black, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnColorPropertyChanged((Color)e.NewValue))));
 
         /// <summary>
-        /// Identifies the <see cref="Offset"/> dependency property.
+        /// Identifies the <see cref="OffsetX"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty OffsetProperty =
-            DependencyProperty.Register(nameof(Offset), typeof(Point), typeof(RadShadow),
-                new PropertyMetadata(null, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnOffsetPropertyChanged((Point)e.NewValue))));
+        public static readonly DependencyProperty OffsetXProperty =
+            DependencyProperty.Register(nameof(OffsetX), typeof(double), typeof(RadShadow), new PropertyMetadata(0.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnOffsetPropertyChanged())));
+
+        /// <summary>
+        /// Identifies the <see cref="OffsetY"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty OffsetYProperty =
+            DependencyProperty.Register(nameof(OffsetY), typeof(double), typeof(RadShadow), new PropertyMetadata(0.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnOffsetPropertyChanged())));
 
         /// <summary>
         /// Identifies the <see cref="BlurRadius"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty BlurRadiusProperty =
-            DependencyProperty.Register(nameof(BlurRadius), typeof(double), typeof(RadShadow),
-                new PropertyMetadata(9.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnBlurRadiusPropertyChanged((double)e.NewValue))));
+            DependencyProperty.Register(nameof(BlurRadius), typeof(double), typeof(RadShadow), new PropertyMetadata(9.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnBlurRadiusPropertyChanged((double)e.NewValue))));
 
         /// <summary>
-        /// Identifies the <see cref="Opacity"/> dependency property.
+        /// Identifies the <see cref="ShadowOpacity"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShadowOpacityProperty =
-            DependencyProperty.Register(nameof(ShadowOpacity), typeof(double), typeof(RadShadow),
-                new PropertyMetadata(1.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnShadowOpacityPropertyChanged((double)e.NewValue))));
+            DependencyProperty.Register(nameof(ShadowOpacity), typeof(double), typeof(RadShadow), new PropertyMetadata(1.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnShadowOpacityPropertyChanged((double)e.NewValue))));
 
         /// <summary>
         /// Identifies the <see cref="Content"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register(nameof(Content), typeof(object), typeof(RadShadow),
-                new PropertyMetadata(null, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnContentPropertyChanged())));
+            DependencyProperty.Register(nameof(Content), typeof(object), typeof(RadShadow), new PropertyMetadata(null, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnContentPropertyChanged())));
+
+        private const string PartShadowName = "PART_Shadow";
 
         private bool invalidateShadowMask;
         private SpriteVisual shadowVisual;
         private DropShadow dropShadow;
         private Canvas shadowView;
-
-        private const string PartShadowName = "PART_Shadow";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RadShadow"/> class.
@@ -77,12 +78,21 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
-        /// Gets or sets the offset of the shadow from its parent view.
+        /// Gets or sets the X offset of the shadow from its content.
         /// </summary>
-        public Point Offset
+        public double OffsetX
         {
-            get { return (Point)this.GetValue(OffsetProperty); }
-            set { this.SetValue(OffsetProperty, value); }
+            get { return (double)this.GetValue(OffsetXProperty); }
+            set { this.SetValue(OffsetXProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the Y offset of the shadow from its content.
+        /// </summary>
+        public double OffsetY
+        {
+            get { return (double)this.GetValue(OffsetYProperty); }
+            set { this.SetValue(OffsetYProperty, value); }
         }
 
         /// <summary>
@@ -112,6 +122,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             set { this.SetValue(ContentProperty, value); }
         }
 
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
             var size = base.ArrangeOverride(finalSize);
@@ -131,6 +142,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             return size;
         }
 
+        /// <inheritdoc />
         protected override bool ApplyTemplateCore()
         {
             bool applied = base.ApplyTemplateCore();
@@ -153,7 +165,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.dropShadow = compositor.CreateDropShadow();
 
             this.OnColorPropertyChanged(this.Color);
-            this.OnOffsetPropertyChanged(this.Offset);
+            this.OnOffsetPropertyChanged();
             this.OnBlurRadiusPropertyChanged(this.BlurRadius);
             this.OnShadowOpacityPropertyChanged(this.ShadowOpacity);
 
@@ -169,22 +181,29 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 return;
             }
 
+            this.invalidateShadowMask = false;
+
             this.dropShadow.Mask = null;
 
-            if (content is Shape shape)
+            var shape = content as Shape;
+            if (shape != null)
             {
                 this.dropShadow.Mask = shape.GetAlphaMask();
+                return;
             }
-            else if (content is TextBlock textBlock)
+
+            var textBlock = content as TextBlock;
+            if (textBlock != null)
             {
                 this.dropShadow.Mask = textBlock.GetAlphaMask();
+                return;
             }
-            else if (content is Image image)
+
+            var image = content as Image;
+            if (image != null)
             {
                 this.dropShadow.Mask = image.GetAlphaMask();
             }
-
-            this.invalidateShadowMask = false;
         }
 
         private FrameworkElement GetVisualContent()
@@ -212,18 +231,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
-        private void OnOffsetPropertyChanged(Point offset)
+        private void OnOffsetPropertyChanged()
         {
             if (this.dropShadow != null)
             {
-                if (offset != null)
-                {
-                    this.dropShadow.Offset = new Vector3((float)offset.X, (float)offset.Y, 0.0f);
-                }
-                else
-                {
-                    this.dropShadow.Offset = Vector3.Zero;
-                }
+                this.dropShadow.Offset = new Vector3((float)this.OffsetX, (float)this.OffsetY, 0f);
             }
         }
 

@@ -5,7 +5,6 @@ using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Data;
 using Telerik.UI.Xaml.Controls.Grid;
 using Telerik.UI.Xaml.Controls.Input;
-using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -156,16 +155,13 @@ namespace SDKExamples.UWP.Shadow
         class ViewModel : ViewModelBase
         {
             private double opacity = 1.0;
-            private double blur = 9.0;
+            private double blur = 10.0;
             private double offsetX;
             private double offsetY;
-            private Color color = Colors.Red;
-            private Point offset;
+            private Color color = Colors.Black;
 
             public ViewModel()
             {
-                this.Offset = new Point(this.offsetX, this.offsetY);
-
                 this.ColorsSource = new List<Color>();
                 foreach (var color in typeof(Colors).GetRuntimeProperties())
                 {
@@ -223,22 +219,6 @@ namespace SDKExamples.UWP.Shadow
                 }
             }
 
-            public Point Offset
-            {
-                get
-                {
-                    return this.offset;
-                }
-                set
-                {
-                    if (this.offset != value)
-                    {
-                        this.offset = value;
-                        this.OnPropertyChanged();
-                    }
-                }
-            }
-
             public double OffsetX
             {
                 get
@@ -250,7 +230,6 @@ namespace SDKExamples.UWP.Shadow
                     if (this.offsetX != value)
                     {
                         this.offsetX = value;
-                        this.Offset = new Point(this.offsetX, this.offsetY);
                         this.OnPropertyChanged();
                     }
                 }
@@ -267,7 +246,6 @@ namespace SDKExamples.UWP.Shadow
                     if (this.offsetY != value)
                     {
                         this.offsetY = value;
-                        this.Offset = new Point(this.offsetX, this.offsetY);
                         this.OnPropertyChanged();
                     }
                 }

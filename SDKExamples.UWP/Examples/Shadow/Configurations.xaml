@@ -93,7 +93,8 @@
                                   VerticalContentAlignment="Center"
                                   Color="{Binding Color}"
                                   ShadowOpacity="{Binding Opacity}"
-                                  Offset="{Binding Offset}"
+                                  OffsetX="{Binding OffsetX}"
+                                  OffsetY="{Binding OffsetY}"
                                   BlurRadius="{Binding Blur}"/>
         </Grid>
     </Grid>
