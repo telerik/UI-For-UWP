@@ -45,7 +45,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="ShadowOpacity"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShadowOpacityProperty =
-            DependencyProperty.Register(nameof(ShadowOpacity), typeof(double), typeof(RadShadow), new PropertyMetadata(1.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnShadowOpacityPropertyChanged((double)e.NewValue))));
+            DependencyProperty.Register(nameof(ShadowOpacity), typeof(double), typeof(RadShadow), new PropertyMetadata(0.26, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnShadowOpacityPropertyChanged((double)e.NewValue))));
 
         /// <summary>
         /// Identifies the <see cref="Content"/> dependency property.
@@ -122,6 +122,34 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             set { this.SetValue(ContentProperty, value); }
         }
 
+        /// <summary>
+        /// Use to get the shadow mask if the Content has such mask. Views like Shapes, TextBlock and Image provide masks - you can get them through the GetAlphaMask methods.
+        /// </summary>
+        /// <param name="content">The content of the shadow control.</param>
+        /// <returns>The alpha mask applied to the shadow.</returns>
+        public virtual CompositionBrush GetShadowMask(FrameworkElement content)
+        {
+            var shape = content as Shape;
+            if (shape != null)
+            {
+                return shape.GetAlphaMask();
+            }
+
+            var textBlock = content as TextBlock;
+            if (textBlock != null)
+            {
+                return textBlock.GetAlphaMask();
+            }
+
+            var image = content as Image;
+            if (image != null)
+            {
+                return image.GetAlphaMask();
+            }
+
+            return null;
+        }
+
         /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
@@ -183,27 +211,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             this.invalidateShadowMask = false;
 
-            this.dropShadow.Mask = null;
-
-            var shape = content as Shape;
-            if (shape != null)
-            {
-                this.dropShadow.Mask = shape.GetAlphaMask();
-                return;
-            }
-
-            var textBlock = content as TextBlock;
-            if (textBlock != null)
-            {
-                this.dropShadow.Mask = textBlock.GetAlphaMask();
-                return;
-            }
-
-            var image = content as Image;
-            if (image != null)
-            {
-                this.dropShadow.Mask = image.GetAlphaMask();
-            }
+            this.dropShadow.Mask = this.GetShadowMask(content);
         }
 
         private FrameworkElement GetVisualContent()

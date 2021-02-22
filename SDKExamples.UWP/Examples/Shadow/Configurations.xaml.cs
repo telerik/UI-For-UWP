@@ -154,7 +154,7 @@ namespace SDKExamples.UWP.Shadow
 
         class ViewModel : ViewModelBase
         {
-            private double opacity = 1.0;
+            private double opacity = 0.26;
             private double blur = 10.0;
             private double offsetX;
             private double offsetY;
