@@ -40,7 +40,7 @@
 
   <Target Name="RestoreMapSolutionNuGetPackages">
   
-  <MSBuild Projects="$(UWPMapSolutionPath)" Targets="Restore" />
+	<MSBuild Projects="$(UWPMapSolutionPath)" Targets="Restore" />
 
   </Target>
 

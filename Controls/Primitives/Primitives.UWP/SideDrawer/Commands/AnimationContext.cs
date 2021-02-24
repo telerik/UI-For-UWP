@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Media.Animation;
+﻿using Windows.UI.Xaml.Media.Animation;
 
 namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
 {
@@ -32,12 +27,21 @@ namespace Telerik.UI.Xaml.Controls.Primitives.SideDrawer.Commands
         /// </summary>
         public Storyboard DrawerStoryBoardReverse { get; set; }
 
+        internal DrawerLocation DrawerLocation { get; set; }
+
+        internal DrawerTransition DrawerTransition { get; set; }
+
         internal bool IsGenerated
         {
             get
             {
                 return this.MainContentStoryBoard != null && this.MainContentStoryBoardReverse != null && this.DrawerStoryBoard != null && this.DrawerStoryBoardReverse != null;
             }        
+        }
+
+        internal bool IsValid(DrawerLocation location, DrawerTransition transition)
+        {
+            return this.IsGenerated && this.DrawerLocation == location && this.DrawerTransition == transition;
         }
     }
 }
