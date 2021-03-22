@@ -14,6 +14,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="local:RadShadow">
+        <Setter Property="Background" Value="{ThemeResource SystemAltHighColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:RadShadow">
