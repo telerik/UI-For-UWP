@@ -159,6 +159,7 @@ namespace SDKExamples.UWP.Shadow
             private double offsetX;
             private double offsetY;
             private Color color = Colors.Black;
+            private int cornerRadius;
 
             public ViewModel()
             {
@@ -246,6 +247,22 @@ namespace SDKExamples.UWP.Shadow
                     if (this.offsetY != value)
                     {
                         this.offsetY = value;
+                        this.OnPropertyChanged();
+                    }
+                }
+            }
+
+            public int CornerRadius
+            {
+                get
+                {
+                    return this.cornerRadius;
+                }
+                set
+                {
+                    if (this.cornerRadius != value)
+                    {
+                        this.cornerRadius = value;
                         this.OnPropertyChanged();
                     }
                 }

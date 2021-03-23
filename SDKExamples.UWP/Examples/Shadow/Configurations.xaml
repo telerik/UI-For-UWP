@@ -79,6 +79,12 @@
                     <Slider Minimum="-50"
                             Maximum="50"
                             Value="{Binding OffsetY, Mode=TwoWay}"/>
+                    <TextBlock Text="Corner Radius"
+                               Margin="0, 12, 0, 6"
+                               FontSize="15"/>
+                    <Slider Minimum="0"
+                            Maximum="50"
+                            Value="{Binding CornerRadius, Mode=TwoWay}"/>
                     <TextBlock Text="Content"
                                Margin="0, 12, 0, 6"
                                FontSize="15"/>
@@ -95,6 +101,7 @@
                                   ShadowOpacity="{Binding Opacity}"
                                   OffsetX="{Binding OffsetX}"
                                   OffsetY="{Binding OffsetY}"
+                                  CornerRadius="{Binding CornerRadius}"
                                   BlurRadius="{Binding Blur}"/>
         </Grid>
     </Grid>

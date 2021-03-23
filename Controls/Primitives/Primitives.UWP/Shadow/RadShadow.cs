@@ -333,7 +333,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                     this.shadowView.Children.Remove(this.radiusMask);
                 }
 
-                this.radiusMask.ClearValue(Rectangle.FillProperty);
+                this.radiusMask?.ClearValue(Rectangle.FillProperty);
                 this.radiusMask = null;
             }
 
