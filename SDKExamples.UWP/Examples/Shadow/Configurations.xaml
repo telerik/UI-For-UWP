@@ -84,6 +84,7 @@
                                FontSize="15"/>
                     <Slider Minimum="0"
                             Maximum="50"
+                            StepFrequency="0.5"
                             Value="{Binding CornerRadius, Mode=TwoWay}"/>
                     <TextBlock Text="Content"
                                Margin="0, 12, 0, 6"

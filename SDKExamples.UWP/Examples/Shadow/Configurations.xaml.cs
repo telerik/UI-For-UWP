@@ -159,7 +159,7 @@ namespace SDKExamples.UWP.Shadow
             private double offsetX;
             private double offsetY;
             private Color color = Colors.Black;
-            private int cornerRadius;
+            private double cornerRadius;
 
             public ViewModel()
             {
@@ -252,7 +252,7 @@ namespace SDKExamples.UWP.Shadow
                 }
             }
 
-            public int CornerRadius
+            public double CornerRadius
             {
                 get
                 {

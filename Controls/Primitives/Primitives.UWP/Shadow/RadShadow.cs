@@ -59,7 +59,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="CornerRadius"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register(nameof(CornerRadius), typeof(int), typeof(RadShadow), new PropertyMetadata(0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnCornerRadiusPropertyChanged())));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(double), typeof(RadShadow), new PropertyMetadata(0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnCornerRadiusPropertyChanged())));
 
         private const string PartShadowName = "PART_Shadow";
 
@@ -134,9 +134,9 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// <summary>
         /// Gets or sets the corner radius of the shadow.
         /// </summary>
-        public int CornerRadius
+        public double CornerRadius
         {
-            get { return (int)this.GetValue(CornerRadiusProperty); }
+            get { return (double)this.GetValue(CornerRadiusProperty); }
             set { this.SetValue(CornerRadiusProperty, value); }
         }
 
