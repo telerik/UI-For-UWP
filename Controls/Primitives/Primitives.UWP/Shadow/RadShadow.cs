@@ -314,12 +314,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 if (this.radiusMask == null)
                 {
                     this.radiusMask = new Rectangle();
-                    this.radiusMask.SetBinding(Rectangle.FillProperty, new Binding() 
-                    {
-                        Path = new PropertyPath(nameof(this.Background)),
-                        Source = this, Mode = BindingMode.TwoWay
-                    });
-
+                    this.radiusMask.SetBinding(Rectangle.FillProperty, new Binding() { Path = new PropertyPath(nameof(this.Background)), Source = this, Mode = BindingMode.TwoWay });
                     this.shadowView.Children.Add(this.radiusMask);
                 }
                
