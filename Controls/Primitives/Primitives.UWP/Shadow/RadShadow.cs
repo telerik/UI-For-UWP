@@ -23,7 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="Color"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ColorProperty =
-            DependencyProperty.Register(nameof(Color), typeof(Color), typeof(RadShadow), new PropertyMetadata(Colors.Black, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnColorPropertyChanged((Color)e.NewValue))));
+            DependencyProperty.Register(nameof(Color), typeof(Color), typeof(RadShadow), new PropertyMetadata(Colors.Black, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnColorPropertyChanged())));
 
         /// <summary>
         /// Identifies the <see cref="OffsetX"/> dependency property.
@@ -41,13 +41,13 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="BlurRadius"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty BlurRadiusProperty =
-            DependencyProperty.Register(nameof(BlurRadius), typeof(double), typeof(RadShadow), new PropertyMetadata(9.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnBlurRadiusPropertyChanged((double)e.NewValue))));
+            DependencyProperty.Register(nameof(BlurRadius), typeof(double), typeof(RadShadow), new PropertyMetadata(9.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnBlurRadiusPropertyChanged())));
 
         /// <summary>
         /// Identifies the <see cref="ShadowOpacity"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShadowOpacityProperty =
-            DependencyProperty.Register(nameof(ShadowOpacity), typeof(double), typeof(RadShadow), new PropertyMetadata(0.26, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnShadowOpacityPropertyChanged((double)e.NewValue))));
+            DependencyProperty.Register(nameof(ShadowOpacity), typeof(double), typeof(RadShadow), new PropertyMetadata(0.26, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnShadowOpacityPropertyChanged())));
 
         /// <summary>
         /// Identifies the <see cref="Content"/> dependency property.
@@ -224,10 +224,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.shadowVisual = compositor.CreateSpriteVisual();
             this.dropShadow = compositor.CreateDropShadow();
 
-            this.OnColorPropertyChanged(this.Color);
+            this.OnColorPropertyChanged();
             this.OnOffsetPropertyChanged();
-            this.OnBlurRadiusPropertyChanged(this.BlurRadius);
-            this.OnShadowOpacityPropertyChanged(this.ShadowOpacity);
+            this.OnBlurRadiusPropertyChanged();
+            this.OnShadowOpacityPropertyChanged();
             this.OnCornerRadiusPropertyChanged();
 
             this.shadowVisual.Shadow = this.dropShadow;
@@ -264,11 +264,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             return visualContent;
         }
 
-        private void OnColorPropertyChanged(Color color)
+        private void OnColorPropertyChanged()
         {
             if (this.dropShadow != null)
             {
-                this.dropShadow.Color = color;
+                this.dropShadow.Color = this.Color;
             }
         }
 
@@ -280,19 +280,19 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
-        private void OnBlurRadiusPropertyChanged(double blurRadius)
+        private void OnBlurRadiusPropertyChanged()
         {
             if (this.dropShadow != null)
             {
-                this.dropShadow.BlurRadius = (float)blurRadius;
+                this.dropShadow.BlurRadius = (float)this.BlurRadius;
             }
         }
 
-        private void OnShadowOpacityPropertyChanged(double opacity)
+        private void OnShadowOpacityPropertyChanged()
         {
             if (this.dropShadow != null)
             {
-                this.dropShadow.Opacity = (float)opacity;
+                this.dropShadow.Opacity = (float)this.ShadowOpacity;
             }
         }
 
