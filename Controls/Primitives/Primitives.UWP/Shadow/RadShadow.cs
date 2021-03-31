@@ -1,9 +1,11 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Markup;
 using Windows.UI.Xaml.Shapes;
@@ -21,7 +23,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="Color"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ColorProperty =
-            DependencyProperty.Register(nameof(Color), typeof(Color), typeof(RadShadow), new PropertyMetadata(Colors.Black, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnColorPropertyChanged((Color)e.NewValue))));
+            DependencyProperty.Register(nameof(Color), typeof(Color), typeof(RadShadow), new PropertyMetadata(Colors.Black, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnColorPropertyChanged())));
 
         /// <summary>
         /// Identifies the <see cref="OffsetX"/> dependency property.
@@ -39,19 +41,25 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// Identifies the <see cref="BlurRadius"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty BlurRadiusProperty =
-            DependencyProperty.Register(nameof(BlurRadius), typeof(double), typeof(RadShadow), new PropertyMetadata(9.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnBlurRadiusPropertyChanged((double)e.NewValue))));
+            DependencyProperty.Register(nameof(BlurRadius), typeof(double), typeof(RadShadow), new PropertyMetadata(9.0, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnBlurRadiusPropertyChanged())));
 
         /// <summary>
         /// Identifies the <see cref="ShadowOpacity"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ShadowOpacityProperty =
-            DependencyProperty.Register(nameof(ShadowOpacity), typeof(double), typeof(RadShadow), new PropertyMetadata(0.26, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnShadowOpacityPropertyChanged((double)e.NewValue))));
+            DependencyProperty.Register(nameof(ShadowOpacity), typeof(double), typeof(RadShadow), new PropertyMetadata(0.26, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnShadowOpacityPropertyChanged())));
 
         /// <summary>
         /// Identifies the <see cref="Content"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register(nameof(Content), typeof(object), typeof(RadShadow), new PropertyMetadata(null, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnContentPropertyChanged())));
+            DependencyProperty.Register(nameof(Content), typeof(object), typeof(RadShadow), new PropertyMetadata(null, new PropertyChangedCallback((d, e) => ((RadShadow)d).Invalidate())));
+
+        /// <summary>
+        /// Identifies the <see cref="CornerRadius"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register(nameof(CornerRadius), typeof(double), typeof(RadShadow), new PropertyMetadata(0.0d, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnCornerRadiusPropertyChanged())));
 
         private const string PartShadowName = "PART_Shadow";
 
@@ -59,6 +67,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         private SpriteVisual shadowVisual;
         private DropShadow dropShadow;
         private Canvas shadowView;
+        private Rectangle radiusMask;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RadShadow"/> class.
@@ -123,6 +132,15 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         }
 
         /// <summary>
+        /// Gets or sets the corner radius of the shadow.
+        /// </summary>
+        public double CornerRadius
+        {
+            get { return (double)this.GetValue(CornerRadiusProperty); }
+            set { this.SetValue(CornerRadiusProperty, value); }
+        }
+
+        /// <summary>
         /// Use to get the shadow mask if the Content has such mask. Views like Shapes, TextBlock and Image provide masks - you can get them through the GetAlphaMask methods.
         /// </summary>
         /// <param name="content">The content of the shadow control.</param>
@@ -147,7 +165,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
                 return image.GetAlphaMask();
             }
 
-            return null;
+            return this.radiusMask?.GetAlphaMask();
         }
 
         /// <inheritdoc />
@@ -158,13 +176,27 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             var content = this.GetVisualContent();
             if (content != null)
             {
-                this.ApplyShadowMaskIfNeeded(content);
-
                 var contentPosition = content.TransformToVisual(this);
                 var offset = contentPosition.TransformPoint(new Point(0, 0));
 
-                this.shadowVisual.Offset = new Vector3((float)offset.X - (float)this.BorderThickness.Left, (float)offset.Y - (float)this.BorderThickness.Top, 0);
-                this.shadowVisual.Size = new Vector2((float)content.ActualWidth, (float)content.ActualHeight);
+                var x = (float)offset.X - (float)this.BorderThickness.Left;
+                var y = (float)offset.Y - (float)this.BorderThickness.Top;
+                this.shadowVisual.Offset = new Vector3(x, y, 0);
+
+                var width = content.ActualWidth;
+                var height = content.ActualHeight;
+                this.shadowVisual.Size = new Vector2((float)width, (float)height);
+
+                if (this.radiusMask != null)
+                {
+                    this.radiusMask.Width = width;
+                    this.radiusMask.Height = height;
+
+                    Canvas.SetTop(this.radiusMask, y);
+                    Canvas.SetLeft(this.radiusMask, x);
+                }
+
+                this.ApplyShadowMaskIfNeeded(content);
             }
 
             return size;
@@ -192,10 +224,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.shadowVisual = compositor.CreateSpriteVisual();
             this.dropShadow = compositor.CreateDropShadow();
 
-            this.OnColorPropertyChanged(this.Color);
+            this.OnColorPropertyChanged();
             this.OnOffsetPropertyChanged();
-            this.OnBlurRadiusPropertyChanged(this.BlurRadius);
-            this.OnShadowOpacityPropertyChanged(this.ShadowOpacity);
+            this.OnBlurRadiusPropertyChanged();
+            this.OnShadowOpacityPropertyChanged();
+            this.OnCornerRadiusPropertyChanged();
 
             this.shadowVisual.Shadow = this.dropShadow;
 
@@ -231,11 +264,11 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             return visualContent;
         }
 
-        private void OnColorPropertyChanged(Color color)
+        private void OnColorPropertyChanged()
         {
             if (this.dropShadow != null)
             {
-                this.dropShadow.Color = color;
+                this.dropShadow.Color = this.Color;
             }
         }
 
@@ -247,23 +280,62 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
-        private void OnBlurRadiusPropertyChanged(double blurRadius)
+        private void OnBlurRadiusPropertyChanged()
         {
             if (this.dropShadow != null)
             {
-                this.dropShadow.BlurRadius = (float)blurRadius;
+                this.dropShadow.BlurRadius = (float)this.BlurRadius;
             }
         }
 
-        private void OnShadowOpacityPropertyChanged(double opacity)
+        private void OnShadowOpacityPropertyChanged()
         {
             if (this.dropShadow != null)
             {
-                this.dropShadow.Opacity = (float)opacity;
+                this.dropShadow.Opacity = (float)this.ShadowOpacity;
             }
         }
 
-        private void OnContentPropertyChanged()
+        private void OnCornerRadiusPropertyChanged()
+        {
+            if (this.shadowView == null)
+            {
+                return;
+            }
+
+            var cornerRadius = this.CornerRadius;
+            if (cornerRadius < 0)
+            {
+                throw new ArgumentException($"{cornerRadius} is an invalid value for {nameof(this.CornerRadius)}");
+            }
+
+            if (cornerRadius > 0)
+            {
+                if (this.radiusMask == null)
+                {
+                    this.radiusMask = new Rectangle();
+                    this.radiusMask.SetBinding(Rectangle.FillProperty, new Binding() { Path = new PropertyPath(nameof(this.Background)), Source = this, Mode = BindingMode.TwoWay });
+                    this.shadowView.Children.Add(this.radiusMask);
+                }
+               
+                this.radiusMask.RadiusY = cornerRadius;
+                this.radiusMask.RadiusX = cornerRadius;
+            }
+            else
+            {
+                if (this.shadowView.Children.Contains(this.radiusMask))
+                {
+                    this.shadowView.Children.Remove(this.radiusMask);
+                }
+
+                this.radiusMask?.ClearValue(Rectangle.FillProperty);
+                this.radiusMask = null;
+            }
+
+            this.Invalidate();
+        }
+
+        private void Invalidate()
         {
             this.invalidateShadowMask = true;
             this.InvalidateArrange();
