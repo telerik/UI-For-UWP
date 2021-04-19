@@ -417,6 +417,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl.Icon.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu.Icon.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadSideDrawer.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadShadow.Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.LoopingList.RadLoopingList.Icon.png" />
