@@ -56,10 +56,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             DependencyProperty.Register(nameof(Content), typeof(object), typeof(RadShadow), new PropertyMetadata(null, new PropertyChangedCallback((d, e) => ((RadShadow)d).Invalidate())));
 
         /// <summary>
-        /// Identifies the <see cref="CornerRadius"/> dependency property.
+        /// Identifies the <see cref="ShadowCornerRadius"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register(nameof(CornerRadius), typeof(double), typeof(RadShadow), new PropertyMetadata(0.0d, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnCornerRadiusPropertyChanged())));
+        public static readonly DependencyProperty ShadowCornerRadiusProperty =
+            DependencyProperty.Register(nameof(ShadowCornerRadius), typeof(double), typeof(RadShadow), new PropertyMetadata(0.0d, new PropertyChangedCallback((d, e) => ((RadShadow)d).OnShadowCornerRadiusPropertyChanged())));
 
         private const string PartShadowName = "PART_Shadow";
 
@@ -134,10 +134,10 @@ namespace Telerik.UI.Xaml.Controls.Primitives
         /// <summary>
         /// Gets or sets the corner radius of the shadow.
         /// </summary>
-        public double CornerRadius
+        public double ShadowCornerRadius
         {
-            get { return (double)this.GetValue(CornerRadiusProperty); }
-            set { this.SetValue(CornerRadiusProperty, value); }
+            get { return (double)this.GetValue(ShadowCornerRadiusProperty); }
+            set { this.SetValue(ShadowCornerRadiusProperty, value); }
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             this.OnOffsetPropertyChanged();
             this.OnBlurRadiusPropertyChanged();
             this.OnShadowOpacityPropertyChanged();
-            this.OnCornerRadiusPropertyChanged();
+            this.OnShadowCornerRadiusPropertyChanged();
 
             this.shadowVisual.Shadow = this.dropShadow;
 
@@ -296,17 +296,17 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             }
         }
 
-        private void OnCornerRadiusPropertyChanged()
+        private void OnShadowCornerRadiusPropertyChanged()
         {
             if (this.shadowView == null)
             {
                 return;
             }
 
-            var cornerRadius = this.CornerRadius;
+            var cornerRadius = this.ShadowCornerRadius;
             if (cornerRadius < 0)
             {
-                throw new ArgumentException($"{cornerRadius} is an invalid value for {nameof(this.CornerRadius)}");
+                throw new ArgumentException($"{cornerRadius} is an invalid value for {nameof(this.ShadowCornerRadius)}");
             }
 
             if (cornerRadius > 0)
