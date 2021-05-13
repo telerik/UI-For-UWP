@@ -143,6 +143,9 @@
     <Example DisplayName="Selection" ClassName="SDKExamples.UWP.Rating.Selection" />
     <Example DisplayName="Customizations" ClassName="SDKExamples.UWP.Rating.Customizations" />
   </Control>
+  <Control Name="Shadow">
+    <Example DisplayName="Configurations" ClassName="SDKExamples.UWP.Shadow.Configurations"/>
+  </Control>
   <Control Name="SideDrawer">
     <Example DisplayName="Animations" ClassName="SDKExamples.UWP.SideDrawer.Animations" />
     <Example DisplayName="Drawer State" ClassName="SDKExamples.UWP.SideDrawer.DrawerState" />

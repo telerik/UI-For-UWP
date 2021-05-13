@@ -146,6 +146,7 @@
     <Compile Include="RangeBaseControls\AutomationPeers\RangeInputBaseAutomationPeer.cs" />
     <Compile Include="RangeBaseControls\AutomationPeers\SliderBaseAutomationPeer.cs" />
     <Compile Include="RangeSliderPrimitive\AutomationPeers\RangeSliderPrimitiveAutomationPeer.cs" />
+    <Compile Include="Shadow\RadShadow.cs" />
     <Compile Include="SideDrawer\AutomationPeer\RadSideDrawerAutomationPeer.cs" />
     <Compile Include="SideDrawer\Commands\SideDrawerKeyDownCommand.cs" />
   </ItemGroup>
@@ -416,6 +417,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl.Icon.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu.Icon.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadSideDrawer.Icon.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.RadShadow.Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)ToolboxIcons\Telerik.UI.Xaml.Controls.Primitives.LoopingList.RadLoopingList.Icon.png" />

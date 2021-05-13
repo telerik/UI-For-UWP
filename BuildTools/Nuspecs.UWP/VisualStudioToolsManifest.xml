@@ -10,6 +10,7 @@
       <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadCustomHubTile"/>
       <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadPaginationControl"/>
       <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadRadialMenu"/>
+      <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadShadow"/>
       <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadSideDrawer"/>
       <Item Type = "Telerik.UI.Xaml.Controls.Primitives.LoopingList.RadLoopingList"/>
       <Item Type = "Telerik.UI.Xaml.Controls.Primitives.RadHexHubTile"/>

@@ -1,21 +1,44 @@
 <ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Telerik.UI.Xaml.Controls.Primitives"
-    xmlns:localCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
-    xmlns:localScale="using:Telerik.UI.Xaml.Controls.Primitives.Scale"
-    xmlns:localHubTile="using:Telerik.UI.Xaml.Controls.Primitives.HubTile"
-    xmlns:localRangeSlider="using:Telerik.UI.Xaml.Controls.Primitives.RangeSlider"
-    xmlns:localRadialMenu="using:Telerik.UI.Xaml.Controls.Primitives.Menu"
     xmlns:telerikPrimitivesBusyIndicator="using:Telerik.UI.Xaml.Controls.Primitives.BusyIndicator"
+    xmlns:localCommon="using:Telerik.UI.Xaml.Controls.Primitives.Common"
+    xmlns:localHubTile="using:Telerik.UI.Xaml.Controls.Primitives.HubTile"
     xmlns:primitivesLoopingList="using:Telerik.UI.Xaml.Controls.Primitives.LoopingList"
-    xmlns:sideDrawer="using:Telerik.UI.Xaml.Controls.Primitives.SideDrawer"
-    xmlns:theming="using:Telerik.UI.Xaml.Controls">
+    xmlns:sideDrawer="using:Telerik.UI.Xaml.Controls.Primitives.SideDrawer">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/Resources.xaml"/>
         <ResourceDictionary Source="ms-appx:///Telerik.UI.Xaml.Primitives.UWP/Themes/SharedResources.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="local:RadShadow">
+        <Setter Property="Background" Value="{ThemeResource SystemAltHighColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:RadShadow">
+                    <Grid Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                          VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                        <Canvas x:Name="PART_Shadow"/>
+                        <ContentControl x:Name="PART_Content"
+                                        Content="{TemplateBinding Content}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        FontFamily="{TemplateBinding FontFamily}"
+                                        FontWeight="{TemplateBinding FontWeight}"
+                                        Foreground="{TemplateBinding Foreground}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <!--ExpanderControl start-->
     <Style TargetType="local:RadExpanderControl">
