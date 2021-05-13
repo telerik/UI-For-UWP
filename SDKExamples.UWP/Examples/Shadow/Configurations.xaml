@@ -102,7 +102,7 @@
                                   ShadowOpacity="{Binding Opacity}"
                                   OffsetX="{Binding OffsetX}"
                                   OffsetY="{Binding OffsetY}"
-                                  CornerRadius="{Binding CornerRadius}"
+                                  ShadowCornerRadius="{Binding CornerRadius}"
                                   BlurRadius="{Binding Blur}"/>
         </Grid>
     </Grid>
