@@ -16,11 +16,7 @@
         <language>en-US</language>
     </metadata>
     <files>
-        <file src="$DeployDirectory$\$BinariesSubDir$\**" target="lib\uap10.0" exclude="$DeployDirectory$\$BinariesSubDir$\ARM\**;$DeployDirectory$\$BinariesSubDir$\ARM64\**;DeployDirectory$\$BinariesSubDir$\x86\**;$DeployDirectory$\$BinariesSubDir$\x64\**"/>
-        <file src="$DeployDirectory$\$BinariesSubDir$\ARM\**\*" target="lib\uap10.0\ARM"/>
-        <file src="$DeployDirectory$\$BinariesSubDir$\ARM64\**\*" target="lib\uap10.0\ARM64"/>
-        <file src="$DeployDirectory$\$BinariesSubDir$\x86\**\*" target="lib\uap10.0\x86"/>
-        <file src="$DeployDirectory$\$BinariesSubDir$\x64\**\*" target="lib\uap10.0\x64"/>
+        <file src="$DeployDirectory$\$BinariesSubDir$\**" target="lib\uap10.0"/>
         <file src="$NuspecsDir$\$Id$.targets" target="build\uap10.0"/>
 		<file src="$NuspecsDir$\VisualStudioToolsManifest.xml" target="tools"/>
         <file src="$DeployDirectory$\License.md" target="LicenseAgreements" />
