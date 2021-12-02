@@ -6,7 +6,7 @@
   <PropertyGroup>
     <NugetDependsOn>
       PrepareNugetProperties;
-      BuildFullNugets
+      BuildFullNugets;
       SignFullNugets
     </NugetDependsOn>
   </PropertyGroup>
