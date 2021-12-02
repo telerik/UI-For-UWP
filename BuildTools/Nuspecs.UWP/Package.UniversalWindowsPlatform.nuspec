@@ -7,7 +7,7 @@
     <authors>Progress</authors>
     <owners>Progress</owners>
     <projectUrl>http://www.telerik.com/universal-windows-platform-ui</projectUrl>
-    <license type="file">LicenseAgreements\License.md</license>
+    <license type="file">LicenseAgreements\LICENSE.md</license>
     <iconUrl>http://www.telerik.com/docs/default-source/nuget-feed-product-files/nugeticon_uwp.png?sfvrsn=2</iconUrl>
     <icon>images\uwp.png</icon>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
