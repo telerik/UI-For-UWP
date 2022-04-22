@@ -79,7 +79,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     {
                         if (info.IsFrozen)
                         {
-                            this.owner.FrozenEditRowLayer.AddVisualChild(pair.Item2);
+                            this.owner.FrozenEditRowLayer.AddVisualChild(element);
                         }
                         else
                         {
