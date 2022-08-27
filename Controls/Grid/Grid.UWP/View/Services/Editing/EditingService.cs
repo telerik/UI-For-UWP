@@ -118,20 +118,18 @@ namespace Telerik.UI.Xaml.Controls.Grid
                         if (trigger != ActionTrigger.ExternalEditor)
                         {
                             this.Owner.ExternalEditor.CommitEdit();
-                            this.Owner.CurrencyService.RefreshCurrentItem(true);
                         }
                     }
                     else
                     {
                         this.Owner.Model.CommitEdit();
                         this.Owner.EditRowLayer.EditorLayoutSlots.Clear();
-                        this.Owner.CurrencyService.RefreshCurrentItem(true);
                     }
 
                     this.Owner.Model.CurrentDataProvider.CommitEditOperation(this.EditItem);
                 })
                 {
-                    Flags = UpdateFlags.AffectsData,
+                    Flags = UpdateFlags.AffectsContent,
                     Priority = CoreDispatcherPriority.Low
                 };
 
@@ -140,7 +138,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             this.Owner.updateService.RegisterUpdate(update);
 
-            update = new DelegateUpdate<UpdateFlags>(() =>
+                update = new DelegateUpdate<UpdateFlags>(() =>
                 {
                     if (this.Owner.UserEditMode == DataGridUserEditMode.External)
                     {
