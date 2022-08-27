@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -181,26 +181,29 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     if (trigger != ActionTrigger.ExternalEditor)
                     {
                         this.Owner.ExternalEditor.CancelEdit();
+                        this.Owner.CurrencyService.RefreshCurrentItem(true);
                     }
                 }
                 else
                 {
                     this.Owner.Model.CancelEdit();
                     this.Owner.EditRowLayer.EditorLayoutSlots.Clear();
+                    this.Owner.CurrencyService.RefreshCurrentItem(true);
                 }
 
                 this.Owner.Model.CurrentDataProvider.CancelEditOperation(this.EditItem);
             })
             {
-                Flags = UpdateFlags.AffectsContent
+                Flags = UpdateFlags.AffectsData
             };
-
-            this.Owner.updateService.RegisterUpdate(update);
 
             foreach (var pair in this.operation.OriginalValues)
             {
                 pair.Key.SetValueForInstance(this.operation.EditItemInfo.Item, pair.Value);
             }
+
+            this.Owner.updateService.RegisterUpdate(update);
+
 
             if (this.operation.EditMode == DataGridUserEditMode.Inline)
             {
