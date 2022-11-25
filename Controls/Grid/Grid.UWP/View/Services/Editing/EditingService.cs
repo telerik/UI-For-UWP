@@ -202,7 +202,6 @@ namespace Telerik.UI.Xaml.Controls.Grid
 
             this.Owner.updateService.RegisterUpdate(update);
 
-
             if (this.operation.EditMode == DataGridUserEditMode.Inline)
             {
                 this.Owner.EditRowLayer.EditorLayoutSlots.Clear();
