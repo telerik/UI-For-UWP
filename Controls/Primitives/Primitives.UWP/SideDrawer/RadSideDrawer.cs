@@ -705,7 +705,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             var sideDrawer = d as RadSideDrawer;
             var mainContent = sideDrawer.MainContent as FrameworkElement;
 
-            if (mainContent != null)
+            if (mainContent != null && sideDrawer.TapOutsideToClose)
             {
                 mainContent.IsHitTestVisible = (DrawerState)e.NewValue == DrawerState.Closed;
             }
@@ -742,7 +742,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
 
             if (sideDrawer.IsTemplateApplied)
             {
-                sideDrawer.InvalidateMeasure();
+                sideDrawer.ResetDrawer();
             }
         }
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

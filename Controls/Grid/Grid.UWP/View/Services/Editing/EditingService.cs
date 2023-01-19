@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -85,7 +85,7 @@ namespace Telerik.UI.Xaml.Controls.Grid
                         this.Owner.EditRowLayer.ScheduleFirstEditorForFocus();
                     }
 
-                    this.Owner.Model.CurrentDataProvider.CommitEditOperation(this.EditItem);
+                    this.Owner.Model.CurrentDataProvider.BeginEditOperation(this.EditItem);
 
                     // hide the CurrentItem decoration
                     this.Owner.visualStateService.UpdateCurrentDecoration(-1); 
@@ -189,18 +189,18 @@ namespace Telerik.UI.Xaml.Controls.Grid
                     this.Owner.EditRowLayer.EditorLayoutSlots.Clear();
                 }
 
-                this.Owner.Model.CurrentDataProvider.CommitEditOperation(this.EditItem);
+                this.Owner.Model.CurrentDataProvider.CancelEditOperation(this.EditItem);
             })
             {
                 Flags = UpdateFlags.AffectsContent
             };
 
-            this.Owner.updateService.RegisterUpdate(update);
-
             foreach (var pair in this.operation.OriginalValues)
             {
                 pair.Key.SetValueForInstance(this.operation.EditItemInfo.Item, pair.Value);
             }
+
+            this.Owner.updateService.RegisterUpdate(update);
 
             if (this.operation.EditMode == DataGridUserEditMode.Inline)
             {
