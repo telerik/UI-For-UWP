@@ -706,7 +706,7 @@ namespace Telerik.UI.Xaml.Controls.Primitives
             var mainContent = sideDrawer.MainContent as FrameworkElement;
 
             if (mainContent != null && sideDrawer.TapOutsideToClose)
-                {
+            {
                 mainContent.IsHitTestVisible = (DrawerState)e.NewValue == DrawerState.Closed;
             }
 
