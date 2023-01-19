@@ -4,6 +4,6 @@
    ==  in this case for Telerik UI for UWP by Progress	     	 	  ==
    =========================================================================
 Telerik UI for UWP by Progress
-Copyright (C) 2015 - 2019 Progress Software Corporation
+Copyright (C) 2015 - 2023 Progress Software Corporation
 For license information see the LICENSE.md file which accompanies this NOTICE.txt file.
 Any open source software that may be delivered by Progress Software Corporation embedded in or in association with Telerik UI for UWP by Progress is provided pursuant to the open source license applicable to such software and subject to the disclaimers and limitations on liability set forth in such license. 
