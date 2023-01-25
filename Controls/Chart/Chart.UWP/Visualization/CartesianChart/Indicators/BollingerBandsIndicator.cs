@@ -122,7 +122,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             
             this.lowerBandRenderer.Render(this.drawWithComposition);
 
-            if (this.drawWithComposition && this.lowerBandRenderer.renderPoints.Count > 2)
+            if (this.drawWithComposition && this.lowerBandRenderer.renderPoints.Count >= 2)
             {
                 foreach (DataPointSegment dataSegment in ChartSeriesRenderer.GetDataSegments(this.lowerBandRenderer.renderPoints))
                 {
