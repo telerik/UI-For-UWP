@@ -135,7 +135,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             
             this.signalRenderer.Render(this.drawWithComposition);
 
-            if (this.drawWithComposition && this.signalRenderer.renderPoints.Count > 2)
+            if (this.drawWithComposition && this.signalRenderer.renderPoints.Count >= 2)
             {
                 foreach (DataPointSegment dataSegment in ChartSeriesRenderer.GetDataSegments(this.signalRenderer.renderPoints))
                 {
