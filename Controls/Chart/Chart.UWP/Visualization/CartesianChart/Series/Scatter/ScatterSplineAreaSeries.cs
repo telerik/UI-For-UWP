@@ -1,4 +1,5 @@
 ﻿using Telerik.Charting;
+using Telerik.Core;
 using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
@@ -52,7 +53,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             ScatterSplineAreaSeries series = (ScatterSplineAreaSeries)d;
             SplineAreaRenderer renderer = (SplineAreaRenderer)series.renderer;
-            renderer.splineTension = (double)e.NewValue;
+            renderer.splineTension = RadMath.CoerceValue((double)e.NewValue, SplineHelper.MinTension, SplineHelper.MaxTension);
             series.InvalidateCore();
         }
     }

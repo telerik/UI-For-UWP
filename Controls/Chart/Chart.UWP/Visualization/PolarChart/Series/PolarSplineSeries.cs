@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telerik.Core;
 using Windows.UI.Xaml;
 
 namespace Telerik.UI.Xaml.Controls.Chart
@@ -48,7 +49,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             PolarSplineSeries series = (PolarSplineSeries)d;
             PolarSplineRenderer renderer = (PolarSplineRenderer)series.renderer;
-            renderer.splineTension = (double)e.NewValue;
+            renderer.splineTension = RadMath.CoerceValue((double)e.NewValue, SplineHelper.MinTension, SplineHelper.MaxTension);
             series.InvalidateCore();
         }
     }

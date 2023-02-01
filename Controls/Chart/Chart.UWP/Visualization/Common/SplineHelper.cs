@@ -9,6 +9,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
     {
         // TODO: Should we expose these as public properties for Spline and SplineArea series?
         internal const double DefaultTension = 0.5d;
+        internal const double MinTension = 0d;
+        internal const double MaxTension = 1d;
         private const double DefaultTolerance = 5d;
 
         public static IEnumerable<Point> GetSplinePoints(IList<DataPoint> dataPoints, DataPointSegment dataSegment, double scaleFactor, double tension = DefaultTension, bool isClosedShape = false)
