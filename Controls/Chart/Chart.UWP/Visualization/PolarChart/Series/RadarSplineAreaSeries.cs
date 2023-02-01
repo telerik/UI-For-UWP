@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.UI.Automation.Peers;
-using Windows.UI.Xaml.Automation.Peers;
+﻿using Telerik.UI.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -34,16 +29,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// </summary>
         public double SplineTension
         {
-            get { return (double)GetValue(SplineTensionProperty); }
-            set { SetValue(SplineTensionProperty, value); }
-        }
-
-        private static void OnSplineTensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RadarSplineAreaSeries series = (RadarSplineAreaSeries)d;
-            RadarSplineRenderer renderer = (RadarSplineRenderer)series.renderer;
-            renderer.splineTension = (double)e.NewValue;
-            series.InvalidateCore();
+            get { return (double)this.GetValue(SplineTensionProperty); }
+            set { this.SetValue(SplineTensionProperty, value); }
         }
 
         internal override RadarLineRenderer CreateRenderer()
@@ -58,6 +45,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new RadarSplineAreaSeriesAutomationPeer(this);
+        }
+
+        private static void OnSplineTensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RadarSplineAreaSeries series = (RadarSplineAreaSeries)d;
+            RadarSplineRenderer renderer = (RadarSplineRenderer)series.renderer;
+            renderer.splineTension = (double)e.NewValue;
+            series.InvalidateCore();
         }
     }
 }

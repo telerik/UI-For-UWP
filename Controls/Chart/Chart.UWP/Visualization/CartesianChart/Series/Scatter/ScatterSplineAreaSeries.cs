@@ -1,8 +1,7 @@
-﻿using System;
-using Telerik.Charting;
+﻿using Telerik.Charting;
 using Telerik.UI.Automation.Peers;
-using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Telerik.UI.Xaml.Controls.Chart
 {
@@ -31,16 +30,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// </summary>
         public double SplineTension
         {
-            get { return (double)GetValue(SplineTensionProperty); }
-            set { SetValue(SplineTensionProperty, value); }
-        }
-
-        private static void OnSplineTensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ScatterSplineAreaSeries series = (ScatterSplineAreaSeries)d;
-            SplineAreaRenderer renderer = (SplineAreaRenderer)series.renderer;
-            renderer.splineTension = (double)e.NewValue;
-            series.InvalidateCore();
+            get { return (double)this.GetValue(SplineTensionProperty); }
+            set { this.SetValue(SplineTensionProperty, value); }
         }
 
         internal override LineRenderer CreateRenderer()
@@ -55,6 +46,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
         protected override AutomationPeer OnCreateAutomationPeer()
         {
             return new ScatterSplineAreaSeriesAutomationPeer(this);
+        }
+
+        private static void OnSplineTensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ScatterSplineAreaSeries series = (ScatterSplineAreaSeries)d;
+            SplineAreaRenderer renderer = (SplineAreaRenderer)series.renderer;
+            renderer.splineTension = (double)e.NewValue;
+            series.InvalidateCore();
         }
     }
 }

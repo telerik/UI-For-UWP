@@ -32,16 +32,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// </summary>
         public double SplineTension
         {
-            get { return (double)GetValue(SplineTensionProperty); }
-            set { SetValue(SplineTensionProperty, value); }
-        }
-
-        private static void OnSplineTensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            PolarSplineAreaSeries series = (PolarSplineAreaSeries)d;
-            PolarSplineRenderer renderer = (PolarSplineRenderer)series.renderer;
-            renderer.splineTension = (double)e.NewValue;
-            series.InvalidateCore();
+            get { return (double)this.GetValue(SplineTensionProperty); }
+            set { this.SetValue(SplineTensionProperty, value); }
         }
 
         internal override PolarLineRenderer CreateRenderer()
@@ -50,6 +42,14 @@ namespace Telerik.UI.Xaml.Controls.Chart
             {
                 splineTension = this.SplineTension
             };
+        }
+
+        private static void OnSplineTensionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            PolarSplineAreaSeries series = (PolarSplineAreaSeries)d;
+            PolarSplineRenderer renderer = (PolarSplineRenderer)series.renderer;
+            renderer.splineTension = (double)e.NewValue;
+            series.InvalidateCore();
         }
     }
 }
