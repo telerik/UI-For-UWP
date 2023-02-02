@@ -27,7 +27,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
         /// <summary>
         /// Gets or sets the <see cref="SplineTension"/> that is used to determine the tension of the additional spline points.
-        /// The default value is 0.5d.
+        /// The default value is 0.5d. The tension works with relative values between 0 and 1.
+        /// Values outside this range will be coerced internally.
         /// </summary>
         public double SplineTension
         {
