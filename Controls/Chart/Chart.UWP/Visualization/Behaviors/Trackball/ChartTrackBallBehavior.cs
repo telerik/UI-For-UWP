@@ -242,7 +242,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             if (instance == null)
             {
-                throw new ArgumentNullException();
+                return null;
             }
 
             return instance.GetValue(IntersectionTemplateProperty) as DataTemplate;
