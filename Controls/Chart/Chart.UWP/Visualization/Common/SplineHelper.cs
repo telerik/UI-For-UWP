@@ -8,10 +8,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
     internal static class SplineHelper
     {
         // TODO: Should we expose these as public properties for Spline and SplineArea series?
-        private const double DefaultTension = 0.5d;
+        internal const double DefaultTension = 0.5d;
+        internal const double MinTension = 0d;
+        internal const double MaxTension = 1d;
         private const double DefaultTolerance = 5d;
 
-        public static IEnumerable<Point> GetSplinePoints(IList<DataPoint> dataPoints, DataPointSegment dataSegment, double scaleFactor, bool isClosedShape = false)
+        public static IEnumerable<Point> GetSplinePoints(IList<DataPoint> dataPoints, DataPointSegment dataSegment, double scaleFactor, double tension = DefaultTension, bool isClosedShape = false)
         {
             double tolerance = DefaultTolerance;
             if (scaleFactor > 2)
@@ -29,7 +31,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 Point firstPoint = dataPoints[dataSegment.StartIndex].Center();
                 Point secondPoint = dataPoints[dataSegment.EndIndex].Center();
 
-                foreach (Point segmentedPoint in Segment(startPoint, firstPoint, secondPoint, endPoint, tolerance))
+                foreach (Point segmentedPoint in Segment(startPoint, firstPoint, secondPoint, endPoint, tolerance, tension))
                 {
                     yield return segmentedPoint;
                 }
@@ -48,7 +50,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
                         dataPoints[i].Center(),
                         dataPoints[i + 1].Center(),
                         dataPoints[i + 2].Center(),
-                        tolerance);
+                        tolerance,
+                        tension);
                 }
                 else if (i == dataSegment.EndIndex - 1)
                 {
@@ -57,7 +60,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
                         dataPoints[i].Center(),
                         dataPoints[i + 1].Center(),
                         endPoint,
-                        tolerance);
+                        tolerance,
+                        tension);
                 }
                 else
                 {
@@ -66,7 +70,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
                         dataPoints[i].Center(),
                         dataPoints[i + 1].Center(),
                         dataPoints[i + 2].Center(),
-                        tolerance);
+                        tolerance,
+                        tension);
                 }
 
                 foreach (Point point in segmentedPoints)
@@ -76,7 +81,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
             }
         }
 
-        public static IEnumerable<Point> GetSplinePointsConnectingAbsoluteFirstLastDataPoints(IList<DataPoint> dataPoints, double scaleFactor)
+        public static IEnumerable<Point> GetSplinePointsConnectingAbsoluteFirstLastDataPoints(IList<DataPoint> dataPoints, double scaleFactor, double tension = DefaultTension)
         {
             DataPoint firstPoint = dataPoints[0];
             DataPoint lastPoint = dataPoints[dataPoints.Count - 1];
@@ -99,18 +104,18 @@ namespace Telerik.UI.Xaml.Controls.Chart
             // return the first point since spline segmentation skips it
             yield return lastPoint.Center();
 
-            foreach (Point point in Segment(previousSignificantPointBeforeAbsoluteLast.Center(), lastPoint.Center(), firstPoint.Center(), nextSignificantPointAfterAbsoluteFirst.Center(), tolerance))
+            foreach (Point point in Segment(previousSignificantPointBeforeAbsoluteLast.Center(), lastPoint.Center(), firstPoint.Center(), nextSignificantPointAfterAbsoluteFirst.Center(), tolerance, tension))
             {
                 yield return point;
             }
         }
 
-        private static IEnumerable<Point> Segment(Point pt0, Point pt1, Point pt2, Point pt3, double tolerance)
+        private static IEnumerable<Point> Segment(Point pt0, Point pt1, Point pt2, Point pt3, double tolerance, double tension)
         {
-            double sX1 = DefaultTension * (pt2.X - pt0.X);
-            double sY1 = DefaultTension * (pt2.Y - pt0.Y);
-            double sX2 = DefaultTension * (pt3.X - pt1.X);
-            double sY2 = DefaultTension * (pt3.Y - pt1.Y);
+            double sX1 = tension * (pt2.X - pt0.X);
+            double sY1 = tension * (pt2.Y - pt0.Y);
+            double sX2 = tension * (pt3.X - pt1.X);
+            double sY2 = tension * (pt3.Y - pt1.Y);
 
             double ax = sX1 + sX2 + (2 * pt1.X) - (2 * pt2.X);
             double ay = sY1 + sY2 + (2 * pt1.Y) - (2 * pt2.Y);

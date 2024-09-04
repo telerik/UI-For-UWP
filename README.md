@@ -1,5 +1,7 @@
 # Progress Telerik UI for UWP
 
+<a href="https://www.telerik.com/universal-windows-platform-ui" target="_blank"><img src="eol.png" /></a>
+
 This is an open-source version of Telerik UI for Universal Windows Platform (UWP) by Progress. The project is community-supported on [Stack Overflow](https://stackoverflow.com/questions/tagged/telerik+uwp). Commercial support is available at [telerik.com/uwp](http://www.telerik.com/uwp) where you'll find a supported commercial trial and pricing options. Please visit [telerik.com](http://www.telerik.com/) for UI tools for ASP.NET, WPF, WinForms, or JavaScript.
 
 ![UI for UWP](http://d585tldpucybw.cloudfront.net/sfimages/default-source/default-album/oss/uwp-ui.png?sfvrsn=2)
@@ -69,8 +71,7 @@ UI for UWP is free and open-source. We encourage and support an active, healthy 
 
 Before contributing to UI for UWP, please:
 
-1. Read and sign the [Telerik UI for UWP Contribution License Agreement](https://docs.google.com/forms/d/e/1FAIpQLScXkQkYKKZZKXV9aTkhvCT3Q1cACosyhKUILPdOl7Ly9PIL_g/viewform), to confirm you've read and acknowledged the legal aspects of your contributions, and
-2. Read our [contribution guide](CONTRIBUTING.md), which houses all of the necessary info to:
+Read our [contribution guide](CONTRIBUTING.md), which houses all of the necessary info to:
   * submit bugs,
   * request new features, and,
   * walk you through the entire process of preparing your code for a Pull Request.
