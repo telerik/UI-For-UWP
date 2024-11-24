@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using Telerik.Charting;
 using Telerik.Core;
-using Telerik.UI.Xaml.Controls.Chart;
 using Telerik.UI.Xaml.Controls.Chart.Primitives;
 using Windows.Devices.Input;
 using Windows.Foundation;
@@ -276,7 +275,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         {
             if (instance == null)
             {
-                throw new ArgumentNullException(nameof(instance));
+                return null;
             }
 
             return instance.GetValue(TrackInfoTemplateProperty) as DataTemplate;
@@ -303,7 +302,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
         /// </summary>
         internal void HandleDrag(Point currentPosition)
         {
-            if (currentPosition.X > this.chart.PlotAreaDecorationSlot.X 
+            if (currentPosition.X > this.chart.PlotAreaDecorationSlot.X
                 && currentPosition.X < (this.chart.PlotAreaDecorationSlot.X + this.chart.PlotAreaDecorationSlot.Width))
             {
                 this.position = currentPosition;
@@ -561,7 +560,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     else
                     {
                         // select points only with the same category. TODO: Refactor this.
-                        points = context.DataPoints.Where(c => 
+                        points = context.DataPoints.Where(c =>
                                 c.DataPoint is CategoricalDataPoint &&
                                 point.Category.Equals(((CategoricalDataPoint)c.DataPoint).Category)).ToList();
                     }
@@ -569,8 +568,8 @@ namespace Telerik.UI.Xaml.Controls.Chart
                     context = new ChartDataContext(points, context.ClosestDataPoint);
                 }
             }
-            
-            if (context.ClosestDataPoint != null 
+
+            if (context.ClosestDataPoint != null
                 && context.ClosestDataPoint.DataPoint.LayoutSlot.X > this.chart.PlotAreaClip.X
                 && context.ClosestDataPoint.DataPoint.LayoutSlot.X < (this.chart.PlotAreaClip.X + this.chart.PlotAreaClip.Width))
             {
@@ -768,6 +767,12 @@ namespace Telerik.UI.Xaml.Controls.Chart
 
             foreach (DataPointInfo info in infos)
             {
+                DataTemplate template = GetTrackInfoTemplate(info.Series);
+                if (template == null)
+                {
+                    continue;
+                }
+
                 ContentPresenter presenter;
                 if (this.individualTrackInfos.Count > index)
                 {
@@ -782,7 +787,7 @@ namespace Telerik.UI.Xaml.Controls.Chart
                 }
 
                 presenter.Content = info;
-                presenter.ContentTemplate = GetTrackInfoTemplate(info.Series);
+                presenter.ContentTemplate = template;
 
                 index++;
             }
