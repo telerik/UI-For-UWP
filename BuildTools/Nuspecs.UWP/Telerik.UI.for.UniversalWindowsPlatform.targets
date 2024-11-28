@@ -5,12 +5,4 @@
      <PlatformPath>$(Platform)</PlatformPath>
      <PlatformPath Condition="$(Platform) == 'AnyCPU' or $(Platform) == ''">x86</PlatformPath>
      </PropertyGroup>
-     <ItemGroup>
-        <Reference Include="Telerik.UI.Xaml.Map.UWP">
-            <HintPath>$(MSBuildThisFileDirectory)..\..\lib\uap10.0\$(PlatformPath)\Telerik.UI.Xaml.Map.UWP.dll</HintPath>
-        </Reference>
-         <Reference Include="Telerik.UI.Drawing">
-            <HintPath>$(MSBuildThisFileDirectory)..\..\lib\uap10.0\$(PlatformPath)\Telerik.UI.Drawing.winmd</HintPath>
-        </Reference>
-    </ItemGroup>
 </Project>
